@@ -115,7 +115,7 @@ app.set("view engine", "ejs"); // Terminación de los archivos de vista
 	global.baseDatos = require("./funciones/BaseDatos");
 
 	// Variables que requieren 'require'
-	global.variables = require("./variables/Depends");
+	// global.variables = require("./variables/Depends");
 	global.comp = require("./funciones/Compartidas");
 
 	// Procesos que dependen de la variable 'global'
@@ -127,7 +127,7 @@ app.set("view engine", "ejs"); // Terminación de los archivos de vista
 	// Vistas - Con base definida
 
 	// Middlewares transversales
-	app.use(require(path.join(carpArchComp, "middlewares/transversales/urlDesconocida"))); // Si no se reconoce el url - se debe informar después de los urls anteriores
+	app.use(require("./middlewares/transversales/urlDesconocida")); // Si no se reconoce el url - se debe informar después de los urls anteriores
 
 	// Fin
 	return;
