@@ -19,11 +19,7 @@ const produccion = {
 	logging,
 	// host: "localhost",
 };
-const desarrollo = {
-	...produccion,
-	username: "root", // necesario para Sequelize
-	password: "",
-};
+const desarrollo = {...produccion, username: "root", password: ""};
 
 // Exportar
 module.exports = {
