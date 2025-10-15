@@ -12,5 +12,5 @@ module.exports = async (req, res, next) => {
 	};
 
 	// Fin
-	return res.status(404).render("CMP-0Estructura", {informacion});
+	return res.render("CMP-0Estructura", {informacion});
 };
