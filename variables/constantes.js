@@ -1,5 +1,5 @@
 "use strict";
 
 module.exports = {
-	imgInstitucional: "/imgsEstables/Varios/Institucional.jpg",
+	logoInstitucional: "/imgsEstables/Varios/Institucional.jpg",
 };
