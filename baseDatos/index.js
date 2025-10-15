@@ -2,17 +2,13 @@
 
 // Variables
 const nombreDeEsteArch = path.basename(__filename); // el nombre de este archivo
-const nombreDeEstaCarp = path.basename(__dirname);
 const tablas = {};
 
 // Obtiene las carpetas
-const obtieneCarps = (carpeta) => {
-	const carpetas = fs.readdirSync(carpeta);
-	for (let i = carpetas.length - 1; i >= 0; i--) if (carpetas[i].includes(".")) carpetas.splice(i, 1); // elimina los archivos
-	carpetas.push("/");
-	return carpetas.map((n) => path.join(carpeta, n));
-};
-const carpetas = obtieneCarps(__dirname);
+let carpetas = fs.readdirSync(__dirname);
+for (let i = carpetas.length - 1; i >= 0; i--) if (carpetas[i].includes(".")) carpetas.splice(i, 1); // elimina los archivos
+carpetas.push("/");
+carpetas = carpetas.map((n) => path.join(__dirname, n));
 
 // Agrega cada tabla a 'tablas'
 for (const carpeta of carpetas) {
