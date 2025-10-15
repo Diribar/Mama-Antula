@@ -1,3 +1,5 @@
 "use strict";
 
-module.exports = {};
+module.exports = {
+	imgInstitucional: "/imgsEstables/Varios/Institucional.jpg",
+};
