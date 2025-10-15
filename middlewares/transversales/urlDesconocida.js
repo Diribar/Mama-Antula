@@ -8,7 +8,7 @@ module.exports = async (req, res, next) => {
 	const anterior = req.session.usuario ? req.session.urlAnterior : req.session.urlSinLogin || "/";
 	const informacion = {
 		mensajes: ["No tenemos esa dirección en nuestro sistema"],
-		iconos: [variables.vistaAnterior(anterior), variables.vistaConsultas],
+		//iconos: [variables.vistaAnterior(anterior), variables.vistaConsultas],
 	};
 
 	// Fin
