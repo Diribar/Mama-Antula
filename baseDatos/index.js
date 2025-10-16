@@ -1,28 +1,34 @@
 "use strict";
 
+// Imports
+import {fileURLToPath, pathToFileURL} from "url";
+
 // Variables
-const nombreDeEsteArch = path.basename(__filename); // el nombre de este archivo
+const rutaActual = path.dirname(fileURLToPath(import.meta.url));
+const nombreArch = path.basename(fileURLToPath(import.meta.url)); // el nombre de este archivo
 const tablas = {};
 
 // Obtiene las carpetas
-let carpetas = fs.readdirSync(__dirname);
-for (let i = carpetas.length - 1; i >= 0; i--) if (carpetas[i].includes(".")) carpetas.splice(i, 1); // elimina los archivos
-carpetas.push("/");
-carpetas = carpetas.map((n) => path.join(__dirname, n));
+const carpetas = ["/", ...fs.readdirSync(rutaActual)].filter((n) => !n.includes(".")); // todas las carpetas y la raíz
+carpetas.forEach((n, i) => (carpetas[i] = path.join(rutaActual, n)));
 
 // Agrega cada tabla a 'tablas'
 for (const carpeta of carpetas) {
-	fs.readdirSync(carpeta)
-		.filter(
-			(archivo) =>
-				archivo !== nombreDeEsteArch && // archivo distinto a éste
-				archivo.indexOf(".") > 0 && // tiene '.' en el nombre y no está en el primer caracter
-				archivo.slice(-3) === ".js" // con terminación '.js'
-		)
-		.map((archivo) => {
-			const tabla = require(path.join(carpeta, archivo))(sequelize, Sequelize.DataTypes);
-			tablas[tabla.name] = tabla;
-		});
+	const archivos = fs.readdirSync(carpeta).filter((archivo) => archivo !== nombreArch && path.extname(archivo) === ".mjs"); // archivo distinto a éste y con terminación '.mjs'
+
+	for (const archivo of archivos) {
+		// 👇 Convertir ruta a URL para import dinámico
+		const rutaArchivo = pathToFileURL(path.join(carpeta, archivo)).href;
+		const modelo = await import(rutaArchivo).then((m) => m.default);
+
+		const tabla = modelo(sequelize, Sequelize.DataTypes);
+//		console.log(25, modelo, tabla);
+		tablas[tabla.name] = tabla;
+	}
+	// .map((archivo) => {
+	// 	const tabla = require(path.join(carpeta, archivo))(sequelize, Sequelize.DataTypes);
+	// 	tablas[tabla.name] = tabla;
+	// });
 }
 
 // Agrega las asociaciones
@@ -33,4 +39,4 @@ tablas.Sequelize = Sequelize;
 tablas.sequelize = sequelize;
 
 // Fin
-module.exports = tablas;
+export default tablas;
