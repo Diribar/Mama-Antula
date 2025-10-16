@@ -15,7 +15,7 @@ body {
 	--altoCuerpoPestañas: calc(var(--altoMain) - var(--altoTitulo) - var(--altoPestañas));
 
 	/* Otros */
-	color: var(--azul-oscuro);
+	color: var(--gris-mas-oscuro);
 	line-height: inherit;
 }
 body, * {margin: 0px; padding: 0; box-sizing: border-box;}
