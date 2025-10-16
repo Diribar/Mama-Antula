@@ -6,7 +6,7 @@ const unaSemana = unDia * 7;
 const unMes = unDia * 30;
 const unAno = unDia * 365;
 
-module.exports = {
+export default {
 	logoInstitucional: "/imgsEstables/Varios/Institucional.jpg",
 	...{unaHora, unDia, unaSemana, unMes, unAno},
 };
