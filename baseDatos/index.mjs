@@ -14,21 +14,18 @@ carpetas.forEach((n, i) => (carpetas[i] = path.join(rutaActual, n)));
 
 // Agrega cada tabla a 'tablas'
 for (const carpeta of carpetas) {
+	// Obtiene los archivos de la carpeta
 	const archivos = fs.readdirSync(carpeta).filter((archivo) => archivo !== nombreArch && path.extname(archivo) === ".mjs"); // archivo distinto a éste y con terminación '.mjs'
 
 	for (const archivo of archivos) {
-		// 👇 Convertir ruta a URL para import dinámico
+		// Obtiene la ruta del archivo en formato 'url' e importa el modelo
 		const rutaArchivo = pathToFileURL(path.join(carpeta, archivo)).href;
-		const modelo = await import(rutaArchivo).then((m) => m.default);
+		const {default: modelo} = await import(rutaArchivo);
 
+		// Obtiene la tabla y la agrega a 'tablas'
 		const tabla = modelo(sequelize, Sequelize.DataTypes);
-//		console.log(25, modelo, tabla);
 		tablas[tabla.name] = tabla;
 	}
-	// .map((archivo) => {
-	// 	const tabla = require(path.join(carpeta, archivo))(sequelize, Sequelize.DataTypes);
-	// 	tablas[tabla.name] = tabla;
-	// });
 }
 
 // Agrega las asociaciones
