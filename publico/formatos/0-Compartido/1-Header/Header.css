@@ -2,18 +2,19 @@
 header {
 	display: flex; flex-direction: row; align-items: center; flex-grow: 1;
 	width: 100vw; height: var(--altoHeader); position: relative;
-	background: var(--gris-oscuro); color: snow; font-weight: bold;
+	background: var(--gris-oscuro); color: snow;
 
 	#izquierda {
 		flex-grow: 1;
 		#titulo {
 			padding-inline: 50px;
-			font-family: "Monotype Corsiva", MTCORSVA; color: var(--gris-claro); font-size: 2.5rem;
+			font-family: "Monotype Corsiva", MTCORSVA;
+			color: var(--gris-claro); font-size: 3rem; font-weight: bold;
 			text-wrap: nowrap;
 		}
 		#secciones {
 			flex-grow: 1; justify-content: space-evenly;
-			font-size: 1.1rem;
+			font-size: 1.5rem;
 		}
 	}
 
