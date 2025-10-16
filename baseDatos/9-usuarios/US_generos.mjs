@@ -1,4 +1,4 @@
-module.exports = (sequelize, dt) => {
+export default (sequelize, dt) => {
 	const alias = "generos";
 	const columns = {
 		orden: {type: dt.INTEGER},

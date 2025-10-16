@@ -1,4 +1,4 @@
-module.exports = (sequelize, dt) => {
+export default (sequelize, dt) => {
 	const alias = "rolesUsuario";
 	const columns = {
 		orden: {type: dt.INTEGER},

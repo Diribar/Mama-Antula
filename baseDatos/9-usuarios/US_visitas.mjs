@@ -1,4 +1,4 @@
-module.exports = (sequelize, dt) => {
+export default (sequelize, dt) => {
 	const alias = "visitas";
 	const columns = {
 		// Datos compartidos con usuario - necesarios en 'session'

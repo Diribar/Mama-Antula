@@ -1,4 +1,4 @@
-module.exports = (sequelize, dt) => {
+export default (sequelize, dt) => {
 	const alias = "usuarios";
 	const columns = {
 		nombre: {type: dt.STRING(30)},
