@@ -51,4 +51,35 @@ export default {
 		{nombre: "Twitter", link: "https://twitter.com/beatificaciona1", clase: "fa-twitter"},
 		{nombre: "TikTok", link: "https://www.tiktok.com/@mamaantula.com", clase: "fa-tiktok"},
 	],
+	secciones: {
+		Inicio: {
+			link: "/",
+			subSecciones: [
+				{nombre: "Próximos eventos"},
+				{nombre: "Quién es Mama Antula"},
+				{nombre: "Quiénes somos"},
+				{nombre: "Suscribite a nuestro boletín"},
+			],
+		},
+		Experiencias: {
+			link: "/experiencias",
+			subSecciones: [],
+		},
+		["Cartas y Escritos"]: {
+			link: "/cartas-y-escritos",
+			subSecciones: [],
+		},
+		Libros: {
+			link: "/libros",
+			subSecciones: [],
+		},
+		Devoción: {
+			link: "/devocion",
+			subSecciones: [],
+		},
+		Institucionales: {
+			link: "/institucionales",
+			subSecciones: [],
+		},
+	},
 };
