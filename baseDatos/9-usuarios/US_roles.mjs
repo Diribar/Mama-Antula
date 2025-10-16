@@ -5,7 +5,9 @@ export default (sequelize, dt) => {
 		nombre: {type: dt.STRING(20)},
 		codigo: {type: dt.STRING(15)},
 
-		abmUsuarios: {type: dt.BOOLEAN},
+		edicion: {type: dt.BOOLEAN},
+		revisor: {type: dt.BOOLEAN},
+		abmUs: {type: dt.BOOLEAN},
 	};
 	const config = {
 		tableName: "us_roles",
