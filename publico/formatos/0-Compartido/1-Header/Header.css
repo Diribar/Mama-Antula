@@ -1,17 +1,25 @@
 /* Configuración general */
 header {
+	display: flex; flex-direction: row; align-items: center; flex-grow: 1;
 	width: 100vw; height: var(--altoHeader); position: relative;
-	background: var(--gris-oscuro);
-	section {margin: 0 15px;}
-	#tituloHeader {
-		position: absolute; left: 50%; top: 50%; translate: -50% -45%; text-wrap: nowrap;
-		p {
-			font-family: "Monotype Corsiva", MTCORSVA;
-			color: var(--amarillo-claro); font-size: 3rem;
+	background: var(--gris-oscuro); color: snow; font-weight: bold;
+
+	#izquierda {
+		flex-grow: 1;
+		#titulo {
+			padding-inline: 50px;
+			font-family: "Monotype Corsiva", MTCORSVA; color: var(--gris-claro); font-size: 2.5rem;
+			text-wrap: nowrap;
+		}
+		#secciones {
+			flex-grow: 1; justify-content: space-evenly;
+			font-size: 1.1rem;
 		}
 	}
+
+
+	img {max-height: 100%;}
 }
-header, header section {display: flex; flex-direction: row; align-items: center;}
 
 /* Fuente */
 @font-face {font-family: MTCORSVA; src: url('MTCORSVA.TTF') format('truetype');}
