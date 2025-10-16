@@ -1,8 +1,7 @@
 "use strict";
 
 // Definir variables
-const nodemailer = require("nodemailer");
+import nodemailer from "nodemailer";
 
 // Exportar
-module.exports = {
-};
+export default {};
