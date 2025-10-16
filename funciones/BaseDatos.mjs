@@ -1,6 +1,6 @@
 "use strict";
 
-module.exports = {
+export default {
 	// Obtiene todos
 	obtieneTodos: (entidad, include) => bd[entidad].findAll({include}).then((n) => n.map((m) => m.toJSON())),
 	obtieneTodosConOrden: (entidad, campoOrden, desc) =>
