@@ -6,4 +6,8 @@ footer {
 	border-top: 2px solid var(--gris-oscuro);
 	background-color: var(--gris-claro);
 	* {font-weight: bold;}
+	#iconosMarca {
+		display: flex; flex-direction: row; align-items: center; gap: 10px;
+		a {color: var(--gris-mas-oscuro); font-size: 1.5rem;}
+	}
 }

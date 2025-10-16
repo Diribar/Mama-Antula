@@ -56,6 +56,7 @@ if (entDesarr) {
 app.use("/formato", express.static(path.join(rutaActual, "publico/formatos")));
 app.use("/imgsEstables", express.static(path.join(rutaActual, "publico/imagenes")));
 app.use("/javascript", express.static(path.join(rutaActual, "publico/javascript")));
+app.use("/fa", express.static("node_modules/@fortawesome/fontawesome-free"));
 
 // Carpetas públicas - externas
 global.carpImgsEditables = path.join(rutaActual, "../9-Imagenes"); // este dominio
