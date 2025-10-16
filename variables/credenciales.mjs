@@ -22,7 +22,7 @@ const produccion = {
 const desarrollo = {...produccion, username: "root", password: ""};
 
 // Exportar
-module.exports = {
+export default {
 	bd: {produccion, desarrollo},
 	session: {
 		produccion: {database, user: username, password}, // anterior: elc_test - 0UfBnmM9eSJl
