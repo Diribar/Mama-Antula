@@ -66,25 +66,20 @@ import constantes from "./variables/constantes.mjs";
 for (const metodo in constantes) global[metodo] = constantes[metodo];
 
 // Base de datos
-const {default: credenciales} = await import("./variables/credenciales.mjs"); // es necesario el await para que traiga los valores de .env
+const credenciales = await import("./variables/credenciales.mjs").then((n) => n.default); // es necesario el await para que traiga los valores de .env
 const entornoBd = !entDesarr ? "produccion" : "desarrollo";
 const credencsBD = credenciales.bd[entornoBd];
 const {database, username, password} = credencsBD;
 global.sequelize = new Sequelize(database, username, password, credencsBD);
-const bd = await import("./baseDatos/index.mjs").default;
+const bd = await import("./baseDatos/index.mjs").then((n) => n.default);
 global.bd = bd;
 global.Op = Sequelize.Op;
 
 // Para usar la propiedad "session"
-const connection = mysql.createConnection(credenciales.session[entornoBd]);
 const MySQLStore = connectMySQL(session);
+const connection = mysql.createConnection(credenciales.session[entornoBd]);
 const sessionStore = new MySQLStore(
-	{
-		expiration: unDia / 1000,
-		clearExpired: true,
-		checkExpirationInterval: unaHora / 1000,
-		useUnixTimestamp: true, // importante para segundos
-	},
+	{expiration: unDia / 1000, clearExpired: true, checkExpirationInterval: unaHora / 1000, useUnixTimestamp: true}, // useUnixTimestamp: true es importante para segundos
 	connection
 ); // la sesión se borra automáticamente un día después de la última novedad del usuario
 app.use(
@@ -118,15 +113,13 @@ app.set("view engine", "ejs");
 
 // Funciones asíncronas de start-up
 (async () => {
-	global.baseDatos = await import("./funciones/BaseDatos.mjs").default;
-	// console.log(122, baseDatos);
+	global.baseDatos = await import("./funciones/BaseDatos.mjs").then((n) => n.default);
+	global.comp = await import("./funciones/Compartidas.mjs").then((n) => n.default);
+	const rutinas = await import("./rutinas/RT-Control.mjs").then((n) => n.default);
 
-	global.comp = (await import("./funciones/Compartidas.mjs")).default;
-	//const rutinas = await import("./rutinas/RT-Control.js");
-
-	//await rutinas.default.startupMasConfiguracion();
+	// await rutinas.startupMasConfiguracion();
 
 	// Middlewares transversales
-	const urlDesconocida = await import("./middlewares/transversales/urlDesconocida.mjs");
-	app.use(urlDesconocida.default ?? urlDesconocida);
+	const urlDesconocida = await import("./middlewares/transversales/urlDesconocida.mjs").then((n) => n.default);
+	app.use(urlDesconocida);
 })();
