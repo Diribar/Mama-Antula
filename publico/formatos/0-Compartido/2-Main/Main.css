@@ -23,12 +23,9 @@ main {
 			margin-right: 15px;
 			#icono {margin-block: 0;}
 			#listadoTemas {
-				position: absolute;
-				bottom: -5px;
-				translate: 0% 100%;
-				border: 1px solid var(--gris-oscuro); border-radius: 5px;
+				background-color: var(--amarillo-claro); border: 1px solid var(--gris-oscuro); border-radius: 5px;
+				position: absolute; bottom: -5px; translate: 0% 100%;
 				width: max-content; font-size: 1.5rem;
-				background-color: var(--amarillo-claro);
 				li {
 					padding: 7px 10px; cursor: pointer;
 					&:hover {background-color: var(--amarillo-oscuro);}
