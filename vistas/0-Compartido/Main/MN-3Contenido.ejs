@@ -1,0 +1,36 @@
+<div class="<% if (i) { %>ocultar<% } %>">
+
+	<% // Artículos estándar %>
+	<% if (!sonCartas) { %>
+		<!-- Obtiene los encabArtics -->
+		<%- const encabArticsFiltro = encabArtics.filter((n) => tema_id && n.tema_id == tema_id || pestana_id && n.pestana_id == pestana_id) %>
+		<% for (const encabArtic of encabArticsFiltro) { %>
+			<!-- Título del encabArtic -->
+			<% if (encabArtic.titulo) { %><h2><%= encabArtic.titulo %></h2><% } %>
+
+			<!-- Contenidos del encabArtic -->
+			<%- const contenidosFiltro = contenidos.filter((n) => n.encabArtic_id == encabArtic.id) %>
+			<% for (const contenido of contenidosFiltro) { %>
+				<% if (contenido.texto && contenido.imagen) { %>
+					<!-- Texto e Imagen -->
+					<div>
+						<p><%= contenido.texto %></p>
+						<div style="text-align: center;">
+							<img src="<%= contenido.imagen %>" alt="">
+							<p><%= contenido.textoImagenVideo %></p>
+						</div>
+					</div>
+				<% } %>
+				<% if (contenido.texto) { %><p><%= contenido.texto %></p><% } %>
+			<% } %>
+		<% } %>
+	<% } %>
+
+	<% // Cartas %>
+	<% else { %>
+		<% for (const encabezado of encabCartas) { %>
+			<h2><%= encabezado.titulo %></h2>
+		<% } %>
+	<% } %>
+
+</div>
