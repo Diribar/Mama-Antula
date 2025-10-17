@@ -19,6 +19,7 @@ export default (sequelize, dt) => {
 	const entidad = sequelize.define(alias, columns, config);
 	entidad.associate = (n) => {
 		entidad.belongsTo(n.secciones, {as: "seccion", foreignKey: "seccion_id"});
+		entidad.hasMany(n.pestanas, {as: "pestanas", foreignKey: "tema_id"});
 	};
 	return entidad;
 };
