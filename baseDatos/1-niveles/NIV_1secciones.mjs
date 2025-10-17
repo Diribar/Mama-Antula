@@ -4,7 +4,7 @@ export default (sequelize, dt) => {
 		// Referencias
 		orden: {type: dt.INTEGER},
 
-		// Nombres
+		// Otros
 		nombre: {type: dt.STRING(20)},
 		codigo: {type: dt.STRING(20)},
 		link: {type: dt.STRING(30)},

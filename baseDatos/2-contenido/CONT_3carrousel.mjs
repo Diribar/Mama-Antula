@@ -1,12 +1,12 @@
 export default (sequelize, dt) => {
-	const alias = "carrousel";
+	const alias = "carrouseles";
 	const columns = {
 		// Referencias
 		contenido_id: {type: dt.INTEGER},
 		usuario_id: {type: dt.INTEGER},
+		orden: {type: dt.INTEGER},
 
 		// Otros
-		orden: {type: dt.INTEGER},
 		imagen: {type: dt.STRING(17)},
 
 		// Control

@@ -5,6 +5,7 @@ export default (sequelize, dt) => {
 		articulo_id: {type: dt.INTEGER},
 		carta_id: {type: dt.INTEGER},
 		usuario_id: {type: dt.INTEGER},
+		orden: {type: dt.INTEGER},
 
 		// Otros
 		texto: {type: dt.TEXT("long")},
