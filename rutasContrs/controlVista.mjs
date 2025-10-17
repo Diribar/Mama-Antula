@@ -20,7 +20,7 @@ export default {
 
 		// Obtiene el encabezado de las cartas
 		const cartas =
-			seccionActual.codigo == "cartasEscritos" ? await obtieneTodosConOrden("cartas", "fechaEscrita") : [];
+			seccionActual.codigo == "cartasEscritos" ? await baseDatos.obtieneTodosConOrden("cartas", "fechaEscrita") : [];
 
 		// Obtiene el contenido de los artículos y cartas
 		const articulos_ids = articulos.map((n) => n.id);
