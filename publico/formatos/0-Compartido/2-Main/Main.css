@@ -33,18 +33,18 @@ main {
 			}
 		}
 	}
-	#pestanas {
-		display: flex; flex-direction: row; align-items: center;
-		li {
-			border: 1px solid var(--gris-oscuro); border-top-left-radius: 5px; border-top-right-radius: 5px;
-			padding: 2px 10px; cursor: pointer;
-			&.activo {background-color: var(--azul-oscuro); color: snow;}
-		}
-	}
-	.contenido {
+	#contenidoTemas {
 		border: 1px blue solid;
-		flex-grow: 1;
-		/* overflow-y: auto; border: 1px solid var(--gris-oscuro); border-top: none; */
-		padding: 15px; background-color: var(--blanco);
+		background-image: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5));
+		flex-grow: 1; padding: 15px;
+		/* overflow-y: auto; */
+		#pestanas {
+			display: flex; flex-direction: row; align-items: center;
+			li {
+				border: 1px solid var(--gris-oscuro); border-top-left-radius: 5px; border-top-right-radius: 5px;
+				padding: 2px 10px; cursor: pointer;
+				&.activo {background-color: var(--azul-oscuro); color: snow;}
+			}
+		}
 	}
 }
