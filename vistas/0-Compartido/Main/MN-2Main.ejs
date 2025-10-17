@@ -8,10 +8,6 @@
 <% if (!tema.pestanas.length) { %>
 	<div id="contenidoTema"><%- include("MN-Contenido") %></div>
 <% } else { %>
-	<ul type="none" id="pestanas" class="flexRow">
-		<% tema.pestanas.forEach((pestana, i) => { %>
-			<li data-pestana="<%= pestana.id %>" <% if (!i) { %>class="activo"<% } %>><%= pestana.titulo %></li>
-		<% }) %>
-	</ul>
+	<%- include("MN-Pestanas") %>
 	<div id="contenidoPestana"><%- include("MN-Contenido") %></div>
 <% } %>
