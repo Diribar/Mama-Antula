@@ -15,24 +15,24 @@ export default {
 		const temas_ids = temasSeccion.map((n) => n.id);
 		const pestanas_ids = temasSeccion.reduce((arr, n) => arr.concat(n.pestanas.map((m) => m.id)), []);
 		const articulos = await baseDatos
-			.obtieneTodosPorOrden("articulos", "fechaOcurrio", true)
+			.obtieneTodosConOrden("articulos", "fechaOcurrio", true)
 			.then((n) => n.filter((m) => temas_ids.includes(m.tema_id) || pestanas_ids.includes(m.pestana_id)));
 
 		// Obtiene el encabezado de las cartas
 		const cartas =
-			seccionActual.codigo == "cartasEscritos" ? await baseDatos.obtieneTodosPorOrden("cartas", "fechaEscrita") : [];
+			seccionActual.codigo == "cartasEscritos" ? await obtieneTodosConOrden("cartas", "fechaEscrita") : [];
 
 		// Obtiene el contenido de los artículos y cartas
 		const articulos_ids = articulos.map((n) => n.id);
 		const cartas_ids = cartas.map((n) => n.id);
 		const contenidos = await baseDatos
-			.obtieneTodosPorOrden("contenidos", "orden")
+			.obtieneTodosConOrden("contenidos", "orden")
 			.then((n) => n.filter((m) => articulos_ids.includes(m.articulo_id) || cartas_ids.includes(m.carta_id)));
 
 		// Obtiene los carrouseles
 		const contenidos_ids = contenidos.map((n) => n.id);
 		const carrouseles = await baseDatos
-			.obtieneTodosPorOrden("carrouseles", "orden")
+			.obtieneTodosConOrden("carrouseles", "orden")
 			.then((n) => n.filter((m) => contenidos_ids.includes(m.contenido_id)));
 
 		// Fin
