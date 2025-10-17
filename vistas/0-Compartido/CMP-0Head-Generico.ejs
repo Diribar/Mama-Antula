@@ -6,7 +6,7 @@
 <meta name="copyright" content="Familia Mama Antula">
 
 <!-- Otros -->
-<title>FMA | <%= locals.titulo || locals.informacion && informacion.titulo || "Error" %></title><!-- Título en la pestaña -->
+<title>FMA | <%= locals.informacion && informacion.titulo || locals.titulo || "Error" %></title><!-- Título en la pestaña -->
 <link rel="icon" href="<%- locals.imgDerPers || logoOficial %>"><!-- Logo en la pestaña -->
 <link rel="canonical" href="https://mamaantula.com"><!-- Canonical (evita contenido duplicado en buscadores) -->
 

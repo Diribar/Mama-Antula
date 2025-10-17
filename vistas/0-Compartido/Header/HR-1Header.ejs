@@ -1,0 +1,16 @@
+<section id="izquierda" class="flexRowAlign">
+
+	<a href="/" id="titulo">Familia Mama Antula</a>
+
+	<div id="secciones" class="flexRowAlign">
+		<% for (const seccion in secciones) { %>
+			<a href="<%= secciones[seccion].link %>" <% if (seccion == locals.titulo) { %> class="resaltar"<% } %>><%= seccion %></a>
+		<% } %>
+	</div>
+</section>
+
+<!-- Íconos de la derecha -->
+<section id="derecha">
+	<%- include("HR-2IconoUsuario") %>
+	<%- include("HR-3MenuUsuario") %>
+</section>

@@ -121,6 +121,6 @@ app.set("view engine", "ejs");
 	// await rutinas.startupMasConfiguracion();
 
 	// Middlewares transversales
-	const urlDesconocida = await import("./middlewares/transversales/urlDesconocida.mjs").then((n) => n.default);
-	app.use(urlDesconocida);
+	app.use((await import("./middlewares/transversales/tituloPagina.mjs")).default);
+	app.use((await import("./middlewares/transversales/urlDesconocida.mjs")).default);
 })();

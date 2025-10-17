@@ -7,7 +7,7 @@ header {
 	#izquierda {
 		flex-grow: 1;
 		#titulo {
-			padding-inline: 50px;
+			padding: 5px 50px 0;
 			font-family: "Monotype Corsiva", MTCORSVA;
 			color: var(--gris-claro); font-size: 3rem; font-weight: bold;
 			text-wrap: nowrap;
@@ -15,9 +15,16 @@ header {
 		#secciones {
 			flex-grow: 1; justify-content: space-evenly;
 			font-size: 1.5rem;
+			.resaltar {color: var(--amarillo-intermedio);}
 		}
 	}
 
+	#derecha {
+		#iconoUsuario {
+			margin-right: 20px;
+			i {font-size: 2rem; color: var(--gris-claro); cursor: pointer;}
+		}
+	}
 
 	img {max-height: 100%;}
 }

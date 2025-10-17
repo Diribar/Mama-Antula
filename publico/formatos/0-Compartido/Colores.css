@@ -1,17 +1,17 @@
 /* Colores */
 body {
 	--amarillo-claro:rgb(255,242,204);
-	--amarillo-intermedio: #fcff82;
-	--amarillo-oscuro: rgb(255, 230, 153);
 	--celeste-claro: rgb(220, 230, 242);
-	--celeste-oscuro: #C7D7EA;
 	--gris-claro: rgb(242,242,242);
 	--rojo-claro: #f8c4c4;
 	--verde-claro: rgb(217, 223, 205);
 
+	--amarillo-intermedio: #fcff82;
 	--gris-intermedio: rgb(200,200,200);
 	--verde-intermedio: rgb(188, 199, 167);
 
+	--amarillo-oscuro: rgb(255, 230, 153);
+	--celeste-oscuro: #C7D7EA;
 	--gris-oscuro: rgb(100, 100, 100);
 	--gris-mas-oscuro: rgb(80, 80, 80);
 	--azul-oscuro: rgb(37,64,97);
