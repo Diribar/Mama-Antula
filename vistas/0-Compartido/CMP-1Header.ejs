@@ -1,0 +1,12 @@
+<section id="izquierda" class="flexRowAlign">
+
+	<div id="titulo">Familia Mama Antula</div>
+
+	<div id="secciones" class="flexRowAlign">
+		<% for (const seccion in secciones) { %>
+			<a href="<%= secciones[seccion].link %>"><%= seccion %></a>
+		<% } %>
+	</div>
+</section>
+
+<img src="<%= logoOficial %>" alt="Mama Antula">

@@ -1,18 +1,26 @@
 /* Configuración general */
 header {
-	width: 100vw; height: var(--altoHeader); position: relative;
-	background: var(--gris-oscuro);
-	justify-content: space-between;
-	section {margin: 0 15px;}
-	#tituloHeader {
-		position: absolute; left: 50%; top: 50%; translate: -50% -45%; text-wrap: nowrap;
-		p {
+	display: flex; flex-direction: row; align-items: center; flex-grow: 1;
+	width: 100vw; height: var(--altoHeader);
+	background: var(--gris-oscuro); color: snow;
+
+	#izquierda {
+		flex-grow: 1;
+		#titulo {
+			padding-inline: 50px;
 			font-family: "Monotype Corsiva", MTCORSVA;
-			color: var(--amarillo-claro); font-size: 3rem;
+			color: var(--gris-claro); font-size: 3rem; font-weight: bold;
+			text-wrap: nowrap;
+		}
+		#secciones {
+			flex-grow: 1; justify-content: space-evenly;
+			font-size: 1.5rem;
 		}
 	}
+
+
+	img {max-height: 100%;}
 }
-header, header section {display: flex; flex-direction: row; align-items: center;}
 
 /* Fuente */
 @font-face {font-family: MTCORSVA; src: url('MTCORSVA.TTF') format('truetype');}
