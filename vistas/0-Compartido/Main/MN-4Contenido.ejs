@@ -1,7 +1,7 @@
 <% for (const contenido of contenidosFiltro) { %>
-	<% if (contenido.texto && contenido.imagen) { %><div><p><%= contenido.texto %></p><%- include("MN-ImgContenido") %></div>
+	<% if (contenido.texto && contenido.imagen) { %><div class="textoImagen"><p><%= contenido.texto %></p><%- include("MN-Imagen", {contenido}) %></div>
 	<% } else if (contenido.texto) { %><p><%= contenido.texto %></p>
-	<% } else if (contenido.imagen) { %><%- include("MN-ImgContenido") %>
+	<% } else if (contenido.imagen) { %><%- include("MN-Imagen", {contenido}) %>
 	<% } else if (contenido.link) { %><%- include("MN-VideoYT") %>
 	<% } else { %><%- include("MN-Carrousel") %>
 	<% } %>
