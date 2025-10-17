@@ -13,7 +13,7 @@ main {
 	overflow-y: hidden; position: relative;
 
 	/* Dimensiones */
-	height: var(--altoMain); margin-block: 10px; margin-inline: 30px;
+	height: var(--altoMain); padding-top: 10px; padding-bottom: 20px; padding-inline: 30px;
 }
 
 main {
@@ -24,8 +24,15 @@ main {
 	#pestanas {
 		display: flex; flex-direction: row; align-items: center;
 		li {
-			padding: 2px 10px; cursor: pointer;
 			border: 1px solid var(--gris-oscuro); border-top-left-radius: 5px; border-top-right-radius: 5px;
+			padding: 2px 10px; cursor: pointer;
+			&.activo {background-color: var(--azul-oscuro); color: snow;}
 		}
+	}
+	.contenido {
+		border: 1px blue solid;
+		flex-grow: 1;
+		/* overflow-y: auto; border: 1px solid var(--gris-oscuro); border-top: none; */
+		padding: 15px; background-color: var(--blanco);
 	}
 }
