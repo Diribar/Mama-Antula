@@ -1,0 +1,11 @@
+<% if (contenido.link) { %>
+	<a href="<%= contenido.link %>" target="_blank">
+		<img src="<%= contenido.imagen %>" alt="">
+		<p><%= contenido.textoImagenVideo %></p>
+	</a>
+<% } else { %>
+	<div style="text-align: center;">
+		<img src="<%= contenido.imagen %>" alt="">
+		<p><%= contenido.textoImagenVideo %></p>
+	</div>
+<% } %>

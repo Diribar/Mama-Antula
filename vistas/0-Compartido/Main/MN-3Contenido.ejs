@@ -1,35 +1,37 @@
 <div class="<% if (i) { %>ocultar<% } %>">
 
-	<% // Artículos estándar %>
 	<% if (!sonCartas) { %>
-		<!-- Obtiene los encabArtics -->
+		<!-- Artículos estándar -->
 		<%- const encabArticsFiltro = encabArtics.filter((n) => tema_id && n.tema_id == tema_id || pestana_id && n.pestana_id == pestana_id) %>
 		<% for (const encabArtic of encabArticsFiltro) { %>
-			<!-- Título del encabArtic -->
+			<!-- Título del Artículo -->
 			<% if (encabArtic.titulo) { %><h2><%= encabArtic.titulo %></h2><% } %>
 
-			<!-- Contenidos del encabArtic -->
-			<%- const contenidosFiltro = contenidos.filter((n) => n.encabArtic_id == encabArtic.id) %>
-			<% for (const contenido of contenidosFiltro) { %>
-				<% if (contenido.texto && contenido.imagen) { %>
-					<!-- Texto e Imagen -->
-					<div>
-						<p><%= contenido.texto %></p>
-						<div style="text-align: center;">
-							<img src="<%= contenido.imagen %>" alt="">
-							<p><%= contenido.textoImagenVideo %></p>
-						</div>
-					</div>
-				<% } %>
-				<% if (contenido.texto) { %><p><%= contenido.texto %></p><% } %>
-			<% } %>
+			<!-- Contenidos del Artículo -->
+			<% const contenidosFiltro = contenidos.filter((n) => n.encabArtic_id == encabArtic.id) %>
+			<%- include("MN-4Contenido", {contenidosFiltro}) %>
 		<% } %>
 	<% } %>
 
-	<% // Cartas %>
 	<% else { %>
-		<% for (const encabezado of encabCartas) { %>
-			<h2><%= encabezado.titulo %></h2>
+		<!-- Tema: Cartas  -->
+		<!-- Filtros -->
+		<div>
+
+		</div>
+
+		<!-- Cartas -->
+		<% for (const encabCarta of encabCartas) { %>
+			<!-- Título de la Carta -->
+			<label for="carta-<%= encabCarta.id %>">
+				<h2>Carta <%= encabCarta.id %>, de <%= encabCarta.nombreDesde.nombre %> hacia <%= encabCarta.nombreHacia.nombre %>, escrita el <%= encabCarta.fechaEscrita %> en <%= encabCarta.lugar.nombre %> (idioma <%= encabCarta.idioma.nombre %>).</h2>
+				<input type="checkbox" id="carta-<%= encabCarta.id %>" class="ocultar">
+			</label>
+			<div>
+				<!-- Contenidos del Artículo -->
+				<% const contenidosFiltro = contenidos.filter((n) => n.encabCarta_id == encabCarta.id) %>
+				<%- include("MN-4Contenido", {contenidosFiltro}) %>
+			</div>
 		<% } %>
 	<% } %>
 
