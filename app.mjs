@@ -121,6 +121,12 @@ app.set("view engine", "ejs");
 	// await rutinas.startupMasConfiguracion();
 
 	// Middlewares transversales
-	app.use((await import("./middlewares/transversales/tituloPagina.mjs")).default);
-	app.use((await import("./middlewares/transversales/urlDesconocida.mjs")).default);
+	app.use((await import("./middlewares/tituloPagina.mjs")).default);
+
+	// Rutas
+	app.use("/", (await import("./rutasContrs/rutas.mjs")).default);
+
+
+	// Error - página no encontrada
+	app.use((await import("./middlewares/urlDesconocida.mjs")).default);
 })();
