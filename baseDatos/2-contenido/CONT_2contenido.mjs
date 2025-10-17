@@ -1,29 +1,31 @@
 export default (sequelize, dt) => {
-	const alias = "articulos";
+	const alias = "contenidos";
 	const columns = {
 		// Referencias
-		tema_id: {type: dt.INTEGER},
-		pestana_id: {type: dt.INTEGER},
+		articulo_id: {type: dt.INTEGER},
+		carta_id: {type: dt.INTEGER},
 		usuario_id: {type: dt.INTEGER},
 
 		// Otros
-		titulo: {type: dt.STRING(100)},
-		subtitulo: {type: dt.STRING(100)},
-		donde: {type: dt.STRING(30)},
-		fechaOcurrio: {type: dt.DATE},
+		texto: {type: dt.TEXT("long")},
+		imagen: {type: dt.STRING(17)},
+		link: {type: dt.TEXT("medium")},
+		resaltado: {type: dt.BOOLEAN},
+		dots: {type: dt.BOOLEAN},
+		textoImagenVideo: {type: dt.TEXT("medium")},
 
 		// Control
 		creadoEn: {type: dt.DATE},
 		statusRegistro_id: {type: dt.INTEGER},
 	};
 	const config = {
-		tableName: "cont_1encab_articulos",
+		tableName: "cont_2contenidos",
 		timestamps: false,
 	};
 	const entidad = sequelize.define(alias, columns, config);
 	entidad.associate = (n) => {
-		entidad.belongsTo(n.temas, {as: "tema", foreignKey: "tema_id"});
-		entidad.belongsTo(n.pestanas, {as: "pestana", foreignKey: "pestana_id"});
+		entidad.belongsTo(n.articulos, {as: "articulo", foreignKey: "articulo_id"});
+		entidad.belongsTo(n.cartas, {as: "carta", foreignKey: "carta_id"});
 		entidad.belongsTo(n.usuarios, {as: "usuario", foreignKey: "usuario_id"});
 		entidad.belongsTo(n.statusRegistros, {as: "statusRegistro", foreignKey: "statusRegistro_id"});
 	};

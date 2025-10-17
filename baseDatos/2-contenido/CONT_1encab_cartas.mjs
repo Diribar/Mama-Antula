@@ -1,5 +1,5 @@
 export default (sequelize, dt) => {
-	const alias = "idiomas";
+	const alias = "cartas";
 	const columns = {
 		// Referencias
 		nombreDesde_id: {type: dt.INTEGER},
@@ -10,11 +10,13 @@ export default (sequelize, dt) => {
 
 		// Otros
 		fechaEscrita: {type: dt.DATE},
+
+		// Control
 		creadoEn: {type: dt.DATE},
 		statusRegistro_id: {type: dt.INTEGER},
 	};
 	const config = {
-		tableName: "cartas_idiomas",
+		tableName: "cont_1encab_cartas",
 		timestamps: false,
 	};
 	const entidad = sequelize.define(alias, columns, config);
@@ -24,7 +26,6 @@ export default (sequelize, dt) => {
 		entidad.belongsTo(n.lugares, {as: "lugar", foreignKey: "lugar_id"});
 		entidad.belongsTo(n.idiomas, {as: "idioma", foreignKey: "idioma_id"});
 		entidad.belongsTo(n.usuarios, {as: "usuario", foreignKey: "usuario_id"});
-
 		entidad.belongsTo(n.statusRegistros, {as: "statusRegistro", foreignKey: "statusRegistro_id"});
 	};
 	return entidad;
