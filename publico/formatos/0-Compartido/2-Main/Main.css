@@ -1,0 +1,14 @@
+/* General */
+main {
+	background-image:
+		linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)),
+		url("/imgsEstables/Varios/Imagen-de-fondo.jpg");
+	background-attachment: local;
+	background-size: auto 100%;
+	background-repeat: no-repeat;
+	background-position: center center;
+	height: var(--altoMain);
+	display: flex; flex-direction: column; flex-grow: 1;
+	overflow-y: hidden;
+	position: relative;
+}

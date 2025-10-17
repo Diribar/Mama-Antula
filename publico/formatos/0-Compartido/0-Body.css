@@ -1,0 +1,25 @@
+html {font-size: 14px;} /* debe estar en 'html', porque es de donde donde toma referencia el 'rem' */
+body {
+	/* Ancho */
+	width: 100vw;
+	--anchoCuerpo: 100vw;
+
+	/* Alto */
+	height: var(--alturaViewPort);
+	--altoHeader: clamp(52px, calc(var(--alturaViewPort) * 0.08), 60px);
+	--altoFooter: 25.4px;
+	--altoMain: calc(var(--alturaViewPort) - var(--altoHeader) - var(--altoFooter));
+	--altoTitulo: 36px;
+	--altoPestañas: 24px;
+	--altoCuerpoTitulo: calc(var(--altoMain) - var(--altoTitulo));
+	--altoCuerpoPestañas: calc(var(--altoMain) - var(--altoTitulo) - var(--altoPestañas));
+
+	/* Otros */
+	color: var(--gris-mas-oscuro);
+	line-height: inherit;
+}
+body, * {margin: 0px; padding: 0; box-sizing: border-box;}
+body * {
+	font-family: 'Calibri', 'Trebuchet MS', 'sans-serif'; color: inherit;
+	&:focus {outline-color: gray;}
+}
