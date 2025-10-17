@@ -1,14 +1,31 @@
 /* General */
 main {
+	/* Imagen del fondo */
 	background-image:
 		linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)),
 		url("/imgsEstables/Varios/logoOficial.jpg");
-	background-attachment: local;
-	background-size: auto 100%;
-	background-repeat: no-repeat;
-	background-position: center center;
-	height: var(--altoMain);
+	background-attachment: local; /* para que el fondo se mueva con el scroll */
+	background-size: auto 100%; /* ancho auto, alto 100% del contenedor */
+	background-repeat: no-repeat; background-position: center center;
+
+	/* Disposición */
 	display: flex; flex-direction: column; flex-grow: 1;
-	overflow-y: hidden;
-	position: relative;
+	overflow-y: hidden; position: relative;
+
+	/* Dimensiones */
+	height: var(--altoMain); margin-block: 10px; margin-inline: 30px;
+}
+
+main {
+	#tituloTema {
+		display: flex; flex-direction: row; align-items: center;
+		h1:has(i) {margin-right: 15px;}
+	}
+	#pestanas {
+		display: flex; flex-direction: row; align-items: center;
+		li {
+			padding: 2px 10px; cursor: pointer;
+			border: 1px solid var(--gris-oscuro); border-top-left-radius: 5px; border-top-right-radius: 5px;
+		}
+	}
 }
