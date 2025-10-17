@@ -1,0 +1,24 @@
+<section id="tituloTema" class="flexRowAlign">
+	<%- include("MN-Temas") %>
+
+	<% tema = temasSeccion[0] %>
+	<h1 id="titulo"><%= tema.titulo %></h1>
+</section>
+
+<section id="contenidoTemas" class="contenido">
+	<% for (const tema of temasSeccion) { %>
+		<!-- Sin pestañas -->
+		<% if (!tema.pestanas.length) { %>
+			<%- include("MN-Contenido", {tema_id: tema.id, sonCartas: tema.codigo == "cartas"}) %>
+		<% } else { %>
+			<% continue %>
+			<!-- Tiene pestañas -->
+			<%- include("MN-Pestanas") %>
+			<div id="contenidoPestanas" class="contenido">
+				<% for (const pestana of tema.pestanas) { %>
+					<%- include("MN-Contenido", {pestana_id: pestana.id}) %>
+				<% } %>
+			</div>
+		<% } %>
+	<% } %>
+</section>
