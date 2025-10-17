@@ -5,7 +5,9 @@
 	<h1 id="titulo"><%= tema.titulo %></h1>
 </section>
 
-<% if (tema.pestanas.length) { %>
+<% if (!tema.pestanas.length) { %>
+	<div id="contenidoTema"><%- include("") %></div>
+<% } else { %>
 	<ul type="none" id="pestanas" class="flexRow">
 		<% tema.pestanas.forEach((pestana, i) => { %>
 			<li data-pestana="<%= pestana.id %>" <% if (!i) { %>class="activo"<% } %>><%= pestana.titulo %></li>
