@@ -10,9 +10,9 @@ module.exports = {
 			pestanas: baseDatos.obtieneTodosConOrden("pestanas", "orden"),
 
 			// Cartas
-			// idiomas: baseDatos.obtieneTodosConOrden("idiomas", "orden"),
-			// lugares: baseDatos.obtieneTodosConOrden("lugares", "orden"),
-			// personajes: baseDatos.obtieneTodosConOrden("personajes", "orden"),
+			idiomas: baseDatos.obtieneTodosConOrden("idiomas", "orden"),
+			lugares: baseDatos.obtieneTodosConOrden("lugares", "orden"),
+			personajes: baseDatos.obtieneTodosConOrden("personajes", "orden"),
 
 			// Otros
 			//novedadesWeb: baseDatos.obtieneTodosConOrden("novedadesWeb", "fecha"),
