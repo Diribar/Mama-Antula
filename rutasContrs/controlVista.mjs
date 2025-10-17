@@ -27,7 +27,7 @@ export default {
 		const cartas_ids = encabCartas.map((n) => n.id);
 		const contenidos = await baseDatos
 			.obtieneTodosConOrden("contenidos", "orden")
-			.then((n) => n.filter((m) => articulos_ids.includes(m.articulo_id) || cartas_ids.includes(m.carta_id)));
+			.then((n) => n.filter((m) => articulos_ids.includes(m.encabArtic_id) || cartas_ids.includes(m.encabCarta_id)));
 
 		// Obtiene los carrouseles
 		const contenidos_ids = contenidos.map((n) => n.id);
