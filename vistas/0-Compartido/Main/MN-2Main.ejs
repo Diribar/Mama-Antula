@@ -1,9 +1,15 @@
-<% tema = temasSeccion[0] %>
-<h1><%= tema.titulo %></h1>
+<section id="tituloTema" class="flexRowAlign">
+	<h1><i class="fa-solid fa-bars"></i></h1>
+
+	<% tema = temasSeccion[0] %>
+	<h1 id="titulo"><%= tema.titulo %></h1>
+</section>
+
 <% if (tema.pestanas.length) { %>
-	<ul type="none">
-		<% for (const pestana of tema.pestanas) { %>
-			<li><%= pestana.titulo %></li>
-		<% } %>
+	<ul type="none" id="pestanas" class="flexRow">
+		<% tema.pestanas.forEach((pestana, i) => { %>
+			<li data-pestana="<%= pestana.id %>" <% if (!i) { %>class="activo"<% } %>><%= pestana.titulo %></li>
+		<% }) %>
 	</ul>
+	<div id="contenidoPestana"></div>
 <% } %>
