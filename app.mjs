@@ -114,13 +114,24 @@ app.set("view engine", "ejs");
 
 // Funciones asíncronas de start-up
 (async () => {
+	// Funciones
 	global.baseDatos = await import("./funciones/BaseDatos.mjs").then((n) => n.default);
 	global.comp = await import("./funciones/Compartidas.mjs").then((n) => n.default);
-	const rutinas = await import("./rutinas/RT-Control.mjs").then((n) => n.default);
 
+	const lecturasDeBd = await import("./variables/BaseDatos.js")
+		.then((n) => n.default)
+		.then(async (n) => await n.lecturasDeBd());
+	for (const campo in lecturasDeBd) global[campo] = lecturasDeBd[campo];
+
+	//const rutinas = await import("./rutinas/RT-Control.mjs").then((n) => n.default);
 	// await rutinas.startupMasConfiguracion();
 
 	// Middlewares transversales
-	app.use((await import("./middlewares/transversales/tituloPagina.mjs")).default);
-	app.use((await import("./middlewares/transversales/urlDesconocida.mjs")).default);
+	app.use((await import("./middlewares/tituloPagina.mjs")).default);
+
+	// Rutas
+	app.use("/", (await import("./rutasContrs/rutas.mjs")).default);
+
+	// Error - página no encontrada
+	app.use((await import("./middlewares/urlDesconocida.mjs")).default);
 })();

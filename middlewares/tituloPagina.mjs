@@ -3,8 +3,8 @@ export default async (req, res, next) => {
 	const url = req.originalUrl;
 
 	// Título de la página
-	const seccion = Object.keys(secciones).find((n) => secciones[n].link == url);
-	if (seccion) res.locals.titulo = seccion;
+	const seccion = secciones.find((n) => n.link == url);
+	if (seccion) res.locals.titulo = seccion.nombre;
 
 	// Fin
 	return next();
