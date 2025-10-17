@@ -9,14 +9,14 @@
 	<% for (const tema of temasSeccion) { %>
 		<!-- Sin pestañas -->
 		<% if (!tema.pestanas.length) { %>
-			<%- include("MN-3Contenido", {tema_id: tema.id, sonCartas: tema.codigo == "cartas"}) %>
+			<%- include("MN-3ArticCarta", {tema_id: tema.id, sonCartas: tema.codigo == "cartas"}) %>
 		<% } else { %>
 			<% continue %>
 			<!-- Tiene pestañas -->
 			<%- include("MN-2Pestanas") %>
 			<div id="contenidoPestanas" class="contenido">
 				<% for (const pestana of tema.pestanas) { %>
-					<%- include("MN-3Contenido", {pestana_id: pestana.id}) %>
+					<%- include("MN-3ArticCarta", {pestana_id: pestana.id}) %>
 				<% } %>
 			</div>
 		<% } %>
