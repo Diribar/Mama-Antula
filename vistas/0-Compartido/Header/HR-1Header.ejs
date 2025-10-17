@@ -1,6 +1,6 @@
 <section id="izquierda" class="flexRowAlign">
 
-	<div id="titulo">Familia Mama Antula</div>
+	<a href="/" id="titulo">Familia Mama Antula</a>
 
 	<div id="secciones" class="flexRowAlign">
 		<% for (const seccion in secciones) { %>
@@ -9,4 +9,8 @@
 	</div>
 </section>
 
-<img src="<%= logoOficial %>" alt="Mama Antula">
+<!-- Íconos de la derecha -->
+<section id="derecha">
+	<%- include("HR-2IconoUsuario") %>
+	<%- include("HR-3MenuUsuario") %>
+</section>
