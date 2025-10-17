@@ -121,8 +121,6 @@ app.set("view engine", "ejs");
 	const lecturasDeBd = await import("./variables/BaseDatos.js")
 		.then((n) => n.default)
 		.then(async (n) => await n.lecturasDeBd());
-	console.log(125, lecturasDeBd);
-
 	for (const campo in lecturasDeBd) global[campo] = lecturasDeBd[campo];
 
 	//const rutinas = await import("./rutinas/RT-Control.mjs").then((n) => n.default);
