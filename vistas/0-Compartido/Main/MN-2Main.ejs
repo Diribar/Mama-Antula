@@ -1,7 +1,7 @@
 <% tema = temasSeccion[0] %>
 <h1><%= tema.titulo %></h1>
 <% if (tema.pestanas.length) { %>
-	<ul>
+	<ul type="none">
 		<% for (const pestana of tema.pestanas) { %>
 			<li><%= pestana.titulo %></li>
 		<% } %>
