@@ -7,7 +7,7 @@ header {
 	#izquierda {
 		flex-grow: 1;
 		#titulo {
-			padding-inline: 50px;
+			padding: 5px 50px 0;
 			font-family: "Monotype Corsiva", MTCORSVA;
 			color: var(--gris-claro); font-size: 3rem; font-weight: bold;
 			text-wrap: nowrap;
