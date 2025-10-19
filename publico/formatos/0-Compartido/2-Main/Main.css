@@ -35,13 +35,13 @@ main {
 			}
 		}
 	}
-	#contenidoTemas {
+	#contenidosTema {
 		border: 1px blue solid;
 		background-image: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5));
 		flex-grow: 1;
 		display: flex; flex-direction: column;
 		/* overflow-y: auto; */
-		#pestanas {
+		.pestanas {
 			display: flex; flex-direction: row; align-items: center;
 			li {
 				border: 1px solid var(--gris-oscuro); border-top-left-radius: 5px; border-top-right-radius: 5px;
@@ -49,7 +49,7 @@ main {
 				&.activo {background-color: var(--azul-oscuro); color: snow;}
 			}
 		}
-		#contenidoPestanas {
+		.contenidoPestanas {
 			border: 1px solid var(--verde-oscuro);
 			overflow-y: auto;
 			flex-grow: 1;
