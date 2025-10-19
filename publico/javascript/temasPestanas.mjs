@@ -13,9 +13,6 @@ window.addEventListener("load", async () => {
 		listadosPestanas: document.querySelectorAll("#contenidoTemas .listadoPestanas"),
 		contenidoPestanas: document.querySelectorAll(".contenidoPestana"),
 	};
-	const v = {
-		...(await fetch("/api/temas-pestanas/?url=" + pathname).then((res) => res.json())),
-	};
 
 	// Eventos - temas
 	for (const tema of DOM.temas)
@@ -26,13 +23,13 @@ window.addEventListener("load", async () => {
 			// Actualiza el título del tema
 			DOM.tituloTema.textContent = tema.textContent;
 
-			// Muestra el contenido del tema activo, y oculta el de los demás
-			for (const contenidoTema of DOM.contenidosTema)
-				contenidoTema.classList[contenidoTema.getAttribute("data-tema_id") == tema_id ? "remove" : "add"]("ocultar");
-
-			// Muestra el listado de pestañas del tema, y oculta los demás
+			// Muestra el listado de pestañas del tema activo, y oculta el de los demás temas
 			for (const listadoPestanas of DOM.listadosPestanas)
 				listadoPestanas.classList[listadoPestanas.getAttribute("data-tema_id") == tema_id ? "remove" : "add"]("ocultar");
+
+			// Muestra el contenido del tema activo, y oculta el de los demás temas
+			for (const contenidoTema of DOM.contenidosTema)
+				contenidoTema.classList[contenidoTema.getAttribute("data-tema_id") == tema_id ? "remove" : "add"]("ocultar");
 
 			// Fin
 			return;
