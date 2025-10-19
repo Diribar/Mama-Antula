@@ -9,7 +9,7 @@ window.addEventListener("load", async () => {
 		tituloTema: document.querySelector("#menuTituloTema #tituloTema"),
 
 		// Contenido
-		contenidoTema: document.querySelectorAll("#contenidoTemas .contenidoTema"),
+		contenidosTema: document.querySelectorAll("#contenidoTemas .contenidoTema"),
 		listadosPestanas: document.querySelectorAll("#contenidoTemas .listadoPestanas"),
 		contenidoPestanas: document.querySelectorAll(".contenidoPestanas"),
 	};
@@ -23,14 +23,17 @@ window.addEventListener("load", async () => {
 	// Eventos - temas
 	for (const tema of DOM.temas)
 		tema.addEventListener("click", () => {
+			// Variables
+			const tema_id = tema.getAttribute("data-tema_id");
+
 			// Actualiza el título del tema
 			DOM.tituloTema.textContent = tema.textContent;
 
-			// Actualiza el contenido visible del tema
-			// for (const contenidoTema of DOM.contenidoTema)
+			// Muestra el contenido del tema activo, y oculta el de los demás
+			for (const contenidoTema of DOM.contenidosTema)
+				contenidoTema.classList[contenidoTema.getAttribute("data-tema_id") == tema_id ? "remove" : "add"]("ocultar");
 
 			// Muestra el listado de pestañas del tema, y oculta los demás
-			const tema_id = tema.getAttribute("data-tema");
 			for (const listadoPestanas of DOM.listadosPestanas)
 				listadoPestanas.classList[listadoPestanas.getAttribute("data-tema_id") == tema_id ? "remove" : "add"]("ocultar");
 
@@ -43,9 +46,10 @@ window.addEventListener("load", async () => {
 		const pestanas = listadoPestanas.querySelectorAll(".pestana");
 		for (const pestanaActiva of pestanas)
 			pestanaActiva.addEventListener("click", () => {
+				// Variables
 				const pestana_id = pestanaActiva.getAttribute("data-pestana_id");
 
-				// Muestra la pestaña activa, y desactiva las demás
+				// Activa la pestaña actual, y desactiva las demás
 				for (const pestana of pestanas)
 					pestana.classList[pestana.getAttribute("data-pestana_id") == pestana_id ? "add" : "remove"]("activo");
 			});
