@@ -13,7 +13,8 @@ main {
 	overflow-y: hidden; position: relative;
 
 	/* Dimensiones */
-	height: var(--altoMain); padding-top: 10px; padding-bottom: 20px; padding-inline: 30px;
+	height: var(--altoMain); max-height: var(--altoMain);
+	padding-top: 10px; padding-bottom: 20px; padding-inline: 30px;
 }
 
 main {
