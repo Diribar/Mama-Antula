@@ -1,7 +1,7 @@
 /* Configuración general */
 header {
 	display: flex; flex-direction: row; align-items: center; flex-grow: 1;
-	width: 100%; height: var(--altoHeader);
+	height: var(--altoHeader);
 	background: var(--gris-oscuro); color: snow;
 
 	#izquierda {
