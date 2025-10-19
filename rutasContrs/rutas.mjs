@@ -12,6 +12,8 @@ const router = express.Router();
 // 🖥️ Vistas
 router.get("/", vista.secciones);
 router.get("/:params", vista.secciones);
+// router.get("/:params1/:params2", vista.secciones);
+// router.get("/:params1/:params2/:params3", vista.secciones);
 
 // ✅ Export
 export default router;

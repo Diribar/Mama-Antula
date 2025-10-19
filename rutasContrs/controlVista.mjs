@@ -14,20 +14,20 @@ export default {
 		// Obtiene el encabezado de los artículos
 		const temas_ids = temasSeccion.map((n) => n.id);
 		const pestanas_ids = temasSeccion.reduce((arr, n) => arr.concat(n.pestanas.map((m) => m.id)), []);
-		const articulos = await baseDatos
-			.obtieneTodosConOrden("articulos", "fechaOcurrio", true)
+		const encabArtics = await baseDatos
+			.obtieneTodosConOrden("encabArtics", "fechaOcurrio", true)
 			.then((n) => n.filter((m) => temas_ids.includes(m.tema_id) || pestanas_ids.includes(m.pestana_id)));
 
 		// Obtiene el encabezado de las cartas
-		const cartas =
-			seccionActual.codigo == "cartasEscritos" ? await baseDatos.obtieneTodosConOrden("cartas", "fechaEscrita") : [];
+		const encabCartas =
+			seccionActual.codigo == "cartasEscritos" ? await baseDatos.obtieneTodosConOrden("encabCartas", "fechaEscrita") : [];
 
-		// Obtiene el contenido de los artículos y cartas
-		const articulos_ids = articulos.map((n) => n.id);
-		const cartas_ids = cartas.map((n) => n.id);
+		// Obtiene el contenido de los encabArtics y encabCartas
+		const articulos_ids = encabArtics.map((n) => n.id);
+		const cartas_ids = encabCartas.map((n) => n.id);
 		const contenidos = await baseDatos
 			.obtieneTodosConOrden("contenidos", "orden")
-			.then((n) => n.filter((m) => articulos_ids.includes(m.articulo_id) || cartas_ids.includes(m.carta_id)));
+			.then((n) => n.filter((m) => articulos_ids.includes(m.encabArtic_id) || cartas_ids.includes(m.encabCarta_id)));
 
 		// Obtiene los carrouseles
 		const contenidos_ids = contenidos.map((n) => n.id);
@@ -36,6 +36,6 @@ export default {
 			.then((n) => n.filter((m) => contenidos_ids.includes(m.contenido_id)));
 
 		// Fin
-		return res.render("CMP-0Estructura", {seccionActual, temasSeccion, articulos, cartas, contenidos, carrouseles});
+		return res.render("CMP-0Estructura", {seccionActual, temasSeccion, encabArtics, encabCartas, contenidos, carrouseles});
 	},
 };

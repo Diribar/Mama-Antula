@@ -2,8 +2,8 @@ export default (sequelize, dt) => {
 	const alias = "contenidos";
 	const columns = {
 		// Referencias
-		articulo_id: {type: dt.INTEGER},
-		carta_id: {type: dt.INTEGER},
+		encabArtic_id: {type: dt.INTEGER},
+		encabCarta_id: {type: dt.INTEGER},
 		usuario_id: {type: dt.INTEGER},
 		orden: {type: dt.INTEGER},
 
@@ -25,8 +25,8 @@ export default (sequelize, dt) => {
 	};
 	const entidad = sequelize.define(alias, columns, config);
 	entidad.associate = (n) => {
-		entidad.belongsTo(n.articulos, {as: "articulo", foreignKey: "articulo_id"});
-		entidad.belongsTo(n.cartas, {as: "carta", foreignKey: "carta_id"});
+		entidad.belongsTo(n.encabArtics, {as: "articulo", foreignKey: "encabArtic_id"});
+		entidad.belongsTo(n.encabCartas, {as: "carta", foreignKey: "encabCarta_id"});
 		entidad.belongsTo(n.usuarios, {as: "usuario", foreignKey: "usuario_id"});
 		entidad.belongsTo(n.statusRegistros, {as: "statusRegistro", foreignKey: "statusRegistro_id"});
 	};
