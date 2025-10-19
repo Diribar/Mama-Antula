@@ -15,7 +15,7 @@
 			<%- include("MN-2Pestanas", {tema_id: tema.id}) %>
 
 			<!-- Tiene pestañas - Contenido -->
-			<div class="contenidoPestanas contenido">
+			<div class="contenidoPestanas contenido ocultar">
 				<% for (const pestana of tema.pestanas) { %>
 					<%- include("MN-3ArticCarta", {pestana_id: pestana.id}) %>
 				<% } %>
