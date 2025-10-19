@@ -20,7 +20,7 @@ main {
 main {
 	#tituloTema {
 		display: flex; flex-direction: row; align-items: center;
-		h1 {margin-block: 15px 10px !important;}
+		h1 {margin-block: 20px 15px !important;}
 		#menuTemas {
 			margin-right: 15px;
 			#icono {margin-block: 0;}
