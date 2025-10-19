@@ -1,4 +1,4 @@
-html {font-size: 14px;} /* debe estar en 'html', porque es de donde donde toma referencia el 'rem' */
+html {font-size: 18px;} /* debe estar en 'html', porque es de donde donde toma referencia el 'rem' */
 body {
 	/* Ancho */
 	width: 100vw;

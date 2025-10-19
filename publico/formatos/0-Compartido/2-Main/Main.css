@@ -47,4 +47,16 @@ main {
 			}
 		}
 	}
+	.contenido {
+		overflow-y: auto;
+		.textoImagen {
+			display: flex; flex-direction: row; gap: 15px;
+			align-items: stretch;
+
+			img {
+				max-height: 50vh;
+				object-fit: contain; /* recorta la imagen si es necesario */
+			}
+		}
+	}
 }
