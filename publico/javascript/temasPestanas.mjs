@@ -11,7 +11,7 @@ window.addEventListener("load", async () => {
 		// Contenido
 		contenidosTema: document.querySelectorAll("#contenidoTemas .contenidoTema"),
 		listadosPestanas: document.querySelectorAll("#contenidoTemas .listadoPestanas"),
-		contenidoPestanas: document.querySelectorAll(".contenidoPestanas"),
+		contenidoPestanas: document.querySelectorAll(".contenidoPestana"),
 	};
 	const v = {
 		...(await fetch("/api/temas-pestanas/?url=" + pathname).then((res) => res.json())),
@@ -49,6 +49,12 @@ window.addEventListener("load", async () => {
 				// Activa la pestaña actual, y desactiva las demás
 				for (const pestana of pestanas)
 					pestana.classList[pestana.getAttribute("data-pestana_id") == pestana_id ? "add" : "remove"]("activo");
+
+				// Muestra el contenido de la pestaña activa, y oculta el de las demás
+				for (const contenidoPestana of DOM.contenidoPestanas)
+					contenidoPestana.classList[contenidoPestana.getAttribute("data-pestana_id") == pestana_id ? "remove" : "add"](
+						"ocultar"
+					);
 			});
 	}
 
