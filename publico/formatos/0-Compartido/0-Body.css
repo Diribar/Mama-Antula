@@ -1,11 +1,9 @@
-html {font-size: 18px;} /* debe estar en 'html', porque es de donde donde toma referencia el 'rem' */
-body {
-	/* Ancho */
-	width: 100vw;
-	--anchoCuerpo: 100vw;
+html {
+	font-size: 18px; /* debe estar en 'html', porque es de donde donde toma referencia el 'rem' */
 
-	/* Alto */
-	height: var(--alturaViewPort);
+}
+body {
+	/* Variables */
 	--altoHeader: clamp(52px, calc(var(--alturaViewPort) * 0.08), 60px);
 	--altoFooter: 25.4px;
 	--altoMain: calc(var(--alturaViewPort) - var(--altoHeader) - var(--altoFooter));
@@ -14,11 +12,16 @@ body {
 	--altoCuerpoTitulo: calc(var(--altoMain) - var(--altoTitulo));
 	--altoCuerpoPestañas: calc(var(--altoMain) - var(--altoTitulo) - var(--altoPestañas));
 
+	/* Ancho y alto */
+	width: 100vw;
+	height: var(--alturaViewPort);
+
 	/* Otros */
 	color: var(--gris-mas-oscuro);
 	line-height: inherit;
+	display: flex; flex-direction: column;
 }
-body, * {margin: 0px; padding: 0; box-sizing: border-box;}
+body, * {margin: 0px; padding: 0; box-sizing: border-box !important;}
 body * {
 	font-family: 'Calibri', 'Trebuchet MS', 'sans-serif'; color: inherit;
 	&:focus {outline-color: gray;}

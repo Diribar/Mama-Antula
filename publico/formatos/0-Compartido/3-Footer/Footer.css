@@ -1,11 +1,11 @@
 /* Footer */
 footer {
-	display: flex; flex-direction: row; justify-content: space-around;
+	display: flex; flex-direction: row; justify-content: space-around; align-items: center;
 	height: var(--altoFooter); padding: .25em 5px;
 	border-top: 2px solid var(--gris-oscuro); background-color: var(--gris-claro);
-	a {font-size: 1.1rem; font-weight: bold;}
+	a {font-weight: bold;}
 	#iconosMarca {
 		display: flex; flex-direction: row; align-items: center; gap: 20px;
-		a {color: var(--gris-mas-oscuro); font-size: 1.3rem;}
+		a {color: var(--gris-mas-oscuro);}
 	}
 }

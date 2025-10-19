@@ -1,5 +1,5 @@
 /* Títulos */
-h1 {font-size: 1.40rem;}
+h1 {font-size: 1.80rem;}
 h2 {font-size: 1.20rem;}
 h3 {font-size: 1.10rem;}
 h4 {font-size: 1.00rem;}
@@ -32,7 +32,7 @@ p, li {line-height: 1.2rem;}
 .bordeRojo {border: 1px solid red;}
 
 /* Anchor */
-a {text-decoration: none;}
+a {text-decoration: none; display: inline-flex; align-items: center;}
 a:has(img) {line-height: 0;}
 
 /* Cursor pointer */
