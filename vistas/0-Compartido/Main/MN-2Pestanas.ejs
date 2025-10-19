@@ -1,5 +1,5 @@
 <ul type="none" id="pestanas" class="flexRow">
 	<% tema.pestanas.forEach((pestana, i) => { %>
-		<li data-pestana="<%= pestana.id %>" <% if (!i) { %>class="activo"<% } %>><%= pestana.titulo %></li>
+		<li class="pestana<% if (!i) { %> activo<% } %>" data-pestana="<%= pestana.id %>"><%= pestana.titulo %></li>
 	<% }) %>
 </ul>
