@@ -11,15 +11,15 @@
 		<div class="contenidoTema contenido <% if (tema.id != temaActual.id) { %>ocultar<% } %>" data-tema_id="<%= tema.id %>">
 			<!-- Sin pestañas -->
 			<% if (!tema.pestanas.length) { %>
-				<%- include("MN-3ArticCarta", {tema_id: tema.id, sonCartas: tema.codigo == "cartas"}) %>
+				<%- include("MN-3ArticCarta", {tema, sonCartas: tema.codigo == "cartas"}) %>
 
 			<% } else { %>
 				<!-- Tiene pestañas - Pestañas -->
 				<%- include("MN-2Pestanas", {tema}) %>
 
 				<!-- Tiene pestañas - Contenido -->
+				<% const pestanaActual = tema.pestanas[0] %>
 				<% for (const pestana of tema.pestanas) { %>
-					<% console.log(21, pestana) %>
 					<div class="contenidoPestana contenido <% if (!pestanaActual || pestana.id != pestanaActual.id) { %>ocultar<% } %>" data-pestana_id="<%= pestana.id %>">
 						<%- include("MN-3ArticCarta", {pestana}) %>
 					</div>
