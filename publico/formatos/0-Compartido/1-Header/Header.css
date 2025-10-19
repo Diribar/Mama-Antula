@@ -6,7 +6,7 @@ header {
 
 	#izquierda {
 		flex-grow: 1;
-		#titulo {
+		#tituloTema {
 			padding-block: 5px 0; padding-inline: 30px;
 			font-family: "Monotype Corsiva", MTCORSVA;
 			color: var(--gris-claro); font-size: 2.3rem; font-weight: bold;

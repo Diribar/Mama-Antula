@@ -5,7 +5,7 @@
 	<!-- Menú de opciones -->
 	<ul type="none" id="listadoTemas" class="ocultar">
 		<% for (const tema of temasSeccion) { %>
-			<li><%= tema.titulo %></li>
+			<li class="tema" data-tema="<%= tema.id %>"><%= tema.titulo %></li>
 		<% } %>
 	</ul>
 </div>

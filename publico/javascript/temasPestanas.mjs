@@ -2,7 +2,10 @@
 
 window.addEventListener("load", async () => {
 	const DOM = {
-		iconoTemas: document.querySelector("#menuTemas #iconoTemas"),
+
+		iconoTema: document.querySelector("#menuTemas #iconoTemas"),
+		listadoTemas: document.querySelector("#menuTemas #listadoTemas"),
+		temas: document.querySelectorAll("#menuTemas #listadoTemas .tema"),
 		pestanas: document.querySelectorAll(".pestana"),
 	};
 	const v = {
@@ -10,11 +13,17 @@ window.addEventListener("load", async () => {
 	};
 	console.log(v);
 
-	// Eventos
+	// Eventos - iconoTema
+	DOM.iconoTema.addEventListener("click", () => DOM.listadoTemas.classList.toggle("ocultar"));
 
+	// Eventos - temas
+	for (const tema of DOM.temas)
+		tema.addEventListener("click", () => {
+			const tema_id = tema.getAttribute("data-tema");
+		});
 
 	// Fin
-	return
+	return;
 });
 
 // Variables
