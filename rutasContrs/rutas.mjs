@@ -1,13 +1,13 @@
 import express from "express";
 import {fileURLToPath, pathToFileURL} from "url";
-// import API from "./controlAPI.mjs";
+import API from "./controlAPI.mjs";
 import vista from "./controlVista.mjs";
 
 // 🧩 Router
 const router = express.Router();
 
 // 📡 APIs
-// router.get("/api/lk-valida", API.valida);
+router.get("/api/temas-pestanas", API.temasPestanas);
 
 // 🖥️ Vistas
 router.get("/", vista.secciones);

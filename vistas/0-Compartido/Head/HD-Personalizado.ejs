@@ -1,5 +1,6 @@
 <!-- Heads personalizados -->
 <% const {tema, informacion} = locals %>
-<% if (informacion) { %>
+<% if (secciones.map(n => n.codigo).includes(seccionActual.codigo)) { %>
+	<script src="/javascript/temasPestanas.mjs"></script>
 <% } else if (false) { %><%- include("") %>
 <% } %>
