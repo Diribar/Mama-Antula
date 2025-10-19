@@ -10,8 +10,7 @@ window.addEventListener("load", async () => {
 
 		// Contenido
 		contenidoTema: document.querySelectorAll("#contenidoTemas .contenidoTema"),
-		ulsPestanas: document.querySelectorAll("#contenidoTemas .pestanas"),
-		pestanas: document.querySelectorAll(".pestanas .pestana"),
+		listadosPestanas: document.querySelectorAll("#contenidoTemas .listadoPestanas"),
 		contenidoPestanas: document.querySelectorAll(".contenidoPestanas"),
 	};
 	const v = {
@@ -28,25 +27,29 @@ window.addEventListener("load", async () => {
 			DOM.tituloTema.textContent = tema.textContent;
 
 			// Actualiza el contenido visible del tema
-			// for ()
+			// for (const contenidoTema of DOM.contenidoTema)
 
-
-			// Actualiza las pestañas del tema
+			// Muestra el listado de pestañas del tema, y oculta los demás
 			const tema_id = tema.getAttribute("data-tema");
-			for (const ulPestanas of DOM.ulsPestanas)
-				ulPestanas.classList[ulPestanas.getAttribute("data-tema_id") == tema_id ? "remove" : "add"]("ocultar");
+			for (const listadoPestanas of DOM.listadosPestanas)
+				listadoPestanas.classList[listadoPestanas.getAttribute("data-tema_id") == tema_id ? "remove" : "add"]("ocultar");
 
 			// Fin
 			return;
 		});
 
 	// Eventos - pestañas
-	for (const revisarPestana of DOM.pestanas)
-		revisarPestana.addEventListener("click", () => {
-			const pestana_id = revisarPestana.getAttribute("data-pestana_id");
-			for (const actPestana of DOM.pestanas)
-				actPestana.classList[actPestana.getAttribute("data-pestana_id") == pestana_id ? "add" : "remove"]("activo");
-		});
+	for (const listadoPestanas of DOM.listadosPestanas) {
+		const pestanas = listadoPestanas.querySelectorAll(".pestana");
+		for (const pestanaActiva of pestanas)
+			pestanaActiva.addEventListener("click", () => {
+				const pestana_id = pestanaActiva.getAttribute("data-pestana_id");
+
+				// Muestra la pestaña activa, y desactiva las demás
+				for (const pestana of pestanas)
+					pestana.classList[pestana.getAttribute("data-pestana_id") == pestana_id ? "add" : "remove"]("activo");
+			});
+	}
 
 	// Fin
 	return;
