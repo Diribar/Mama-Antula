@@ -6,7 +6,7 @@ body {
 	/* Variables */
 	--altoHeader: clamp(52px, calc(var(--alturaViewPort) * 0.08), 60px);
 	--altoFooter: 25.4px;
-	--altoMain: calc(var(--alturaViewPort) - var(--altoHeader) - var(--altoFooter) - 2px);
+	--altoMain: calc(var(--alturaViewPort) - var(--altoHeader) - var(--altoFooter));
 	--altoTitulo: 36px;
 	--altoPestañas: 24px;
 	--altoCuerpoTitulo: calc(var(--altoMain) - var(--altoTitulo));
@@ -21,7 +21,7 @@ body {
 	line-height: inherit;
 	display: flex; flex-direction: column;
 }
-body, * {margin: 0px; padding: 0; box-sizing: border-box;}
+body, * {margin: 0px; padding: 0; box-sizing: border-box !important;}
 body * {
 	font-family: 'Calibri', 'Trebuchet MS', 'sans-serif'; color: inherit;
 	&:focus {outline-color: gray;}
