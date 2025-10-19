@@ -42,7 +42,7 @@ main {
 		overflow-y: hidden;
 
 		.contenidoTema {
-			.pestanas {
+			.listadoPestanas {
 				display: flex; flex-direction: row; align-items: center;
 				li {
 					border: 1px solid var(--gris-oscuro); border-top-left-radius: 5px; border-top-right-radius: 5px;
