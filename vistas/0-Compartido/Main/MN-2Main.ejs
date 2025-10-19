@@ -6,8 +6,8 @@
 </section>
 
 <% if (!tema.pestanas.length) { %>
-	<div id="contenidoTema"><%- include("MN-Contenido") %></div>
+	<div id="contenidoTema" class="contenido"><%- include("MN-Contenido") %></div>
 <% } else { %>
 	<%- include("MN-Pestanas") %>
-	<div id="contenidoPestana"><%- include("MN-Contenido") %></div>
+	<div id="contenidoPestana" class="contenido"><%- include("MN-Contenido") %></div>
 <% } %>

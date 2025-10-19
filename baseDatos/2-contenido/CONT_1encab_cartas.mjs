@@ -3,7 +3,7 @@ export default (sequelize, dt) => {
 	const columns = {
 		// Referencias
 		nombreDesde_id: {type: dt.INTEGER},
-		nombreHasta_id: {type: dt.INTEGER},
+		nombreHacia_id: {type: dt.INTEGER},
 		lugar_id: {type: dt.INTEGER},
 		idioma_id: {type: dt.INTEGER},
 		usuario_id: {type: dt.INTEGER},
@@ -22,7 +22,7 @@ export default (sequelize, dt) => {
 	const entidad = sequelize.define(alias, columns, config);
 	entidad.associate = (n) => {
 		entidad.belongsTo(n.personajes, {as: "nombreDesde", foreignKey: "nombreDesde_id"});
-		entidad.belongsTo(n.personajes, {as: "nombreHasta", foreignKey: "nombreHasta_id"});
+		entidad.belongsTo(n.personajes, {as: "nombreHacia", foreignKey: "nombreHacia_id"});
 		entidad.belongsTo(n.lugares, {as: "lugar", foreignKey: "lugar_id"});
 		entidad.belongsTo(n.idiomas, {as: "idioma", foreignKey: "idioma_id"});
 		entidad.belongsTo(n.usuarios, {as: "usuario", foreignKey: "usuario_id"});
