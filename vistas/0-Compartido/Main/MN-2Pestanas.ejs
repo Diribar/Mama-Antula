@@ -1,4 +1,4 @@
-<ul type="none" id="pestanas" class="flexRow">
+<ul type="none" class="pestanas" data-tema_id="<%= tema.id %>">
 	<% tema.pestanas.forEach((pestana, i) => { %>
 		<li class="pestana<% if (!i) { %> activo<% } %>" data-pestana="<%= pestana.id %>"><%= pestana.titulo %></li>
 	<% }) %>

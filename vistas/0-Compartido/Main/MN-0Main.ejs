@@ -11,9 +11,11 @@
 		<% if (!tema.pestanas.length) { %>
 			<%- include("MN-3ArticCarta", {tema_id: tema.id, sonCartas: tema.codigo == "cartas"}) %>
 		<% } else { %>
-			<!-- Tiene pestañas -->
-			<%- include("MN-2Pestanas") %>
-			<div id="contenidoPestanas" class="contenido">
+			<!-- Tiene pestañas - Pestañas -->
+			<%- include("MN-2Pestanas", {tema_id: tema.id}) %>
+
+			<!-- Tiene pestañas - Contenido -->
+			<div class="contenidoPestanas contenido">
 				<% for (const pestana of tema.pestanas) { %>
 					<%- include("MN-3ArticCarta", {pestana_id: pestana.id}) %>
 				<% } %>

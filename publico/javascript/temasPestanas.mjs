@@ -6,7 +6,7 @@ window.addEventListener("load", async () => {
 		iconoTema: document.querySelector("#menuTemas #iconoTemas"),
 		listadoTemas: document.querySelector("#menuTemas #listadoTemas"),
 		temas: document.querySelectorAll("#menuTemas #listadoTemas .tema"),
-		ulsPestanas: document.querySelectorAll("#contenidosTema .pestanas"),
+		ulsPestanas: document.querySelectorAll("#contenidoTemas .pestanas"),
 		pestanas: document.querySelectorAll(".pestanas .pestana"),
 	};
 	const v = {
