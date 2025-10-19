@@ -14,12 +14,13 @@ main {
 
 	/* Dimensiones */
 	height: var(--altoMain); max-height: var(--altoMain);
-	padding-top: 10px; padding-bottom: 20px; padding-inline: 30px;
+	padding-bottom: 20px; padding-inline: 30px;
 }
 
 main {
 	#tituloTema {
 		display: flex; flex-direction: row; align-items: center;
+		h1 {margin-block: 15px 10px !important;}
 		#menuTemas {
 			margin-right: 15px;
 			#icono {margin-block: 0;}
