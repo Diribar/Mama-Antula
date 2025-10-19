@@ -19,6 +19,7 @@
 
 				<!-- Tiene pestañas - Contenido -->
 				<% for (const pestana of tema.pestanas) { %>
+					<% console.log(21, pestana) %>
 					<div class="contenidoPestana contenido <% if (!pestanaActual || pestana.id != pestanaActual.id) { %>ocultar<% } %>" data-pestana_id="<%= pestana.id %>">
 						<%- include("MN-3ArticCarta", {pestana}) %>
 					</div>

@@ -51,10 +51,11 @@ window.addEventListener("load", async () => {
 					pestana.classList[pestana.getAttribute("data-pestana_id") == pestana_id ? "add" : "remove"]("activo");
 
 				// Muestra el contenido de la pestaña activa, y oculta el de las demás
-				for (const contenidoPestana of DOM.contenidoPestanas)
+				for (const contenidoPestana of DOM.contenidoPestanas) {
 					contenidoPestana.classList[contenidoPestana.getAttribute("data-pestana_id") == pestana_id ? "remove" : "add"](
 						"ocultar"
 					);
+				}
 			});
 	}
 
