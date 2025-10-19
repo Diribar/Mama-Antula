@@ -36,16 +36,12 @@ main {
 		}
 	}
 	#contenidoTemas {
-		border: 1px blue solid;
 		background-image: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5));
 		flex-grow: 1;
 		display: flex; flex-direction: column;
 		overflow-y: hidden;
 
 		.contenidoTema {
-			border: 1px solid var(--verde-oscuro);
-			flex-grow: 1; overflow-y: auto;
-
 			.pestanas {
 				display: flex; flex-direction: row; align-items: center;
 				li {
@@ -54,16 +50,13 @@ main {
 					&.activo {background-color: var(--azul-oscuro); color: snow;}
 				}
 			}
-
-			.contenidoPestanas {
-				border: 1px solid var(--verde-oscuro);
-				overflow-y: auto;
-				flex-grow: 1;
-			}
+			.contenidoPestana {}
 		}
 	}
 	.contenido {
-		overflow-y: auto;
+		border: 1px solid var(--verde-oscuro);
+		display: flex; flex-direction: column;
+		overflow-y: auto; flex-grow: 1;
 		.textoImagen {
 			display: flex; flex-direction: row; gap: 15px;
 			align-items: stretch;
