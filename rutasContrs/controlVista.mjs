@@ -11,6 +11,8 @@ export default {
 		// Obtiene los temas de la sección, con sus pestañas
 		const temasSeccion = temas.filter((n) => n.seccion_id == seccionActual.id);
 		for (const tema of temasSeccion) tema.pestanas = pestanas.filter((n) => n.tema_id == tema.id);
+		const temaActual = temasSeccion[0];
+		const pestanaActual = temaActual.pestanas && temaActual.pestanas[0];
 
 		// Obtiene el encabezado de los artículos
 		const temas_ids = temasSeccion.map((n) => n.id);
@@ -39,7 +41,8 @@ export default {
 		// Fin
 		return res.render("CMP-0Estructura", {
 			titulo,
-			...{seccionActual, temasSeccion, encabArtics, encabCartas, contenidos, carrouseles},
+			...{seccionActual, temaActual, pestanaActual},
+			...{temasSeccion, encabArtics, encabCartas, contenidos, carrouseles},
 		});
 	},
 };
