@@ -17,9 +17,6 @@ window.addEventListener("load", async () => {
 		...(await fetch("/api/temas-pestanas/?url=" + pathname).then((res) => res.json())),
 	};
 
-	// Eventos - iconoMenuTemas
-	DOM.iconoMenuTemas.addEventListener("click", () => DOM.menuTemas.classList.toggle("ocultar"));
-
 	// Eventos - temas
 	for (const tema of DOM.temas)
 		tema.addEventListener("click", () => {
