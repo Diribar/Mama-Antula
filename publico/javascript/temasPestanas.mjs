@@ -12,7 +12,6 @@ window.addEventListener("load", async () => {
 	const v = {
 		...(await fetch("/api/temas-pestanas/?url=" + pathname).then((res) => res.json())),
 	};
-	console.log(v);
 
 	// Eventos - iconoTema
 	DOM.iconoTema.addEventListener("click", () => DOM.listadoTemas.classList.toggle("ocultar"));
@@ -30,6 +29,14 @@ window.addEventListener("load", async () => {
 
 			// Fin
 			return;
+		});
+
+	// Eventos - pestañas
+	for (const revisarPestana of DOM.pestanas)
+		revisarPestana.addEventListener("click", () => {
+			const pestana_id = revisarPestana.getAttribute("data-pestana_id");
+			for (const actPestana of DOM.pestanas)
+				actPestana.classList[actPestana.getAttribute("data-pestana_id") == pestana_id ? "add" : "remove"]("activo");
 		});
 
 	// Fin
