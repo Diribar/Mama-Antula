@@ -1,5 +1,5 @@
 export default (sequelize, dt) => {
-	const alias = "temas";
+	const alias = "temasSecciones";
 	const columns = {
 		// Referencias
 		seccion_id: {type: dt.INTEGER},
@@ -19,7 +19,7 @@ export default (sequelize, dt) => {
 	const entidad = sequelize.define(alias, columns, config);
 	entidad.associate = (n) => {
 		entidad.belongsTo(n.secciones, {as: "seccion", foreignKey: "seccion_id"});
-		entidad.hasMany(n.pestanas, {as: "pestanas", foreignKey: "tema_id"});
+		entidad.hasMany(n.pestanasTemas, {as: "pestanas", foreignKey: "tema_id"});
 	};
 	return entidad;
 };

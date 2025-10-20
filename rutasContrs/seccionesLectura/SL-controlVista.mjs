@@ -9,8 +9,8 @@ export default {
 		const tituloPagina = seccionActual.nombre;
 
 		// Obtiene variables de temas y pestañas
-		const temasSeccion = temas.filter((n) => n.seccion_id == seccionActual.id);
-		for (const tema of temasSeccion) tema.pestanas = pestanas.filter((n) => n.tema_id == tema.id);
+		const temasSeccion = temasSecciones.filter((n) => n.seccion_id == seccionActual.id);
+		for (const tema of temasSeccion) tema.pestanas = pestanasTemas.filter((n) => n.tema_id == tema.id);
 		const {temaActual, pestanaActual} = procesos.temaPestanaActual({seccionActual, temasSeccion, req, res});
 
 		// Obtiene el encabezado, contenido y carrouseles de los artículos y cartas
