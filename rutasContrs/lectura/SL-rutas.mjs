@@ -1,5 +1,5 @@
 import express from "express";
-// import API from "./SL-controlAPI.mjs";
+// import API from "./SL-controlApi.mjs";
 import vista from "./SL-controlVista.mjs";
 
 // 🧩 Router
