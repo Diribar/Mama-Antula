@@ -130,7 +130,7 @@ app.set("view engine", "ejs");
 	app.use((await import("./middlewares/tituloPagina.mjs")).default);
 
 	// Rutas
-	app.use("/", (await import("./rutasContrs/seccionesLectura/SL-rutas.mjs")).default);
+	app.use("/", (await import("./rutasContrs/lectura/SL-rutas.mjs")).default);
 
 	// Error - página no encontrada
 	app.use((await import("./middlewares/urlDesconocida.mjs")).default);
