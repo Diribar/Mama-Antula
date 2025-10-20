@@ -6,8 +6,8 @@ module.exports = {
 		const lecturas = {
 			// Niveles
 			secciones: baseDatos.obtieneTodosConOrden("secciones", "orden"),
-			temas: baseDatos.obtieneTodosConOrden("temas", "orden"),
-			pestanas: baseDatos.obtieneTodosConOrden("pestanas", "orden"),
+			temasSecciones: baseDatos.obtieneTodosConOrden("temasSecciones", "orden"),
+			pestanasTemas: baseDatos.obtieneTodosConOrden("pestanasTemas", "orden"),
 
 			// Cartas
 			idiomas: baseDatos.obtieneTodosConOrden("idiomas", "orden"),

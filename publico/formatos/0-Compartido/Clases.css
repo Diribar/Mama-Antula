@@ -21,7 +21,7 @@
 .inactivo, .inactivo *, .inactivoVersion, button:has(.inactivo, .inactivoVersion) {cursor: not-allowed !important;}
 
 /* Maneras de Ocultar */
-.ocultar, .ocultaTipo, .ocultaOK_imagen, .ocultaAvatar, .ocultaFiltros, .ocultaFiltro {display: none !important}
+.ocultar {display: none !important}
 .invisible {visibility: hidden;}
 
 /* Otras */

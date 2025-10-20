@@ -4,7 +4,7 @@
 
 	<div id="secciones" class="flexRowAlign">
 		<% for (const seccion of secciones) { %>
-			<a href="<%= seccion.link %>" <% if (seccion.nombre == locals.titulo) { %> class="resaltar"<% } %>><%= seccion.nombre %></a>
+			<a href="<%= seccion.link %>" <% if (seccion.nombre == locals.tituloPagina) { %> class="resaltar"<% } %>><%= seccion.nombre %></a>
 		<% } %>
 	</div>
 </section>

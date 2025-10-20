@@ -1,5 +1,5 @@
 export default (sequelize, dt) => {
-	const alias = "pestanas";
+	const alias = "pestanasTemas";
 	const columns = {
 		// Referencias
 		tema_id: {type: dt.INTEGER},
@@ -19,7 +19,7 @@ export default (sequelize, dt) => {
 	};
 	const entidad = sequelize.define(alias, columns, config);
 	entidad.associate = (n) => {
-		entidad.belongsTo(n.temas, {as: "tema", foreignKey: "tema_id"});
+		entidad.belongsTo(n.temasSecciones, {as: "tema", foreignKey: "tema_id"});
 	};
 	return entidad;
 };
