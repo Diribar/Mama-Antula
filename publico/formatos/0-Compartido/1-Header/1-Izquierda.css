@@ -1,0 +1,14 @@
+#izquierda {
+	flex-grow: 1;
+	#tituloSitio {
+		padding-block: 5px 0; padding-inline: 30px;
+		font-family: "Monotype Corsiva", MTCORSVA;
+		color: var(--gris-claro); font-size: 2.3rem; font-weight: bold;
+		text-wrap: nowrap;
+	}
+	#secciones {
+		flex-grow: 1; justify-content: space-evenly;
+		font-size: 1.2rem;
+		.resaltar {color: var(--amarillo-intermedio);}
+	}
+}
