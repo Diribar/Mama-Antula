@@ -1,5 +1,5 @@
 "use strict";
-import procesos from "./SL-procesos.mjs";
+import procesos from "./LT-procesos.mjs";
 
 export default {
 	secciones: async (req, res) => {
@@ -19,8 +19,6 @@ export default {
 		const carrouseles = await procesos.carrouseles(contenidos);
 
 		// Fin
-		console.log(22, req.cookies);
-
 		return res.render("CMP-0Estructura", {
 			tituloPagina,
 			...{seccionActual, temaActual, pestanaActual},
