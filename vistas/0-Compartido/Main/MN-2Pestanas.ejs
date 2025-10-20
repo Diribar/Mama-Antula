@@ -1,5 +1,5 @@
-<ul type="none" class="listadoPestanas" data-tema_id="<%= tema.id %>">
+<ul type="none" class="listadoPestanas" data-tema_codigo="<%= tema.codigo %>">
 	<% tema.pestanas.forEach((pestana, i) => { %>
-		<li class="pestana<% if (!i) { %> activo<% } %>" data-pestana_id="<%= pestana.id %>"><%= pestana.titulo %></li>
+		<li class="pestana<% if (!i) { %> activo<% } %>" data-pestana_codigo="<%= pestana.codigo %>"><%= pestana.titulo %></li>
 	<% }) %>
 </ul>

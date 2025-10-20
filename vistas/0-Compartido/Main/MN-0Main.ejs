@@ -1,4 +1,4 @@
-<section id="menuTituloTema" class="flexRowAlign">
+<section id="menuTituloTema" class="flexRowAlign" data-seccionCodigo="<%= seccionActual.codigo %>">
 	<%- include("MN-1Temas") %>
 
 	<% tema = temasSeccion[0] %>
@@ -8,7 +8,7 @@
 <section id="contenidoTemas">
 	<% for (const tema of temasSeccion) { %>
 		<!-- Tema -->
-		<div class="contenidoTema contenido <% if (tema.id != temaActual.id) { %>ocultar<% } %>" data-tema_id="<%= tema.id %>">
+		<div class="contenidoTema contenido <% if (tema.id != temaActual.id) { %>ocultar<% } %>" data-tema_codigo="<%= tema.codigo %>">
 			<!-- Sin pestañas -->
 			<% if (!tema.pestanas.length) { %>
 				<%- include("MN-3ArticCarta", {tema, sonCartas: tema.codigo == "cartas"}) %>
@@ -20,7 +20,7 @@
 				<!-- Tiene pestañas - Contenido -->
 				<% const pestanaActual = tema.pestanas[0] %>
 				<% for (const pestana of tema.pestanas) { %>
-					<div class="contenidoPestana contenido <% if (!pestanaActual || pestana.id != pestanaActual.id) { %>ocultar<% } %>" data-pestana_id="<%= pestana.id %>">
+					<div class="contenidoPestana contenido <% if (!pestanaActual || pestana.id != pestanaActual.id) { %>ocultar<% } %>" data-pestana_codigo="<%= pestana.codigo %>">
 						<%- include("MN-3ArticCarta", {pestana}) %>
 					</div>
 				<% } %>
