@@ -6,7 +6,7 @@ export default {
 		// Obtiene la sección
 		const url = req.originalUrl;
 		const seccionActual = secciones.find((n) => n.link == url);
-		const titulo = seccionActual.nombre;
+		const tituloPagina = seccionActual.nombre;
 
 		// Obtiene variables de temas y pestañas
 		const temasSeccion = temas.filter((n) => n.seccion_id == seccionActual.id);
@@ -22,7 +22,7 @@ export default {
 		console.log(22, req.cookies);
 
 		return res.render("CMP-0Estructura", {
-			titulo,
+			tituloPagina,
 			...{seccionActual, temaActual, pestanaActual},
 			...{temasSeccion, encabArtics, encabCartas, contenidos, carrouseles},
 		});

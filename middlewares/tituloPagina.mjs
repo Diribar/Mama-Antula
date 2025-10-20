@@ -5,7 +5,7 @@ export default async (req, res, next) => {
 
 	// Título de la página
 	const seccion = secciones.find((n) => n.link == url);
-	if (seccion) res.locals.titulo = seccion.nombre;
+	if (seccion) res.locals.tituloPagina = seccion.nombre;
 
 	// Fin
 	return next();
