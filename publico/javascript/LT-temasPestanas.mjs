@@ -29,6 +29,10 @@ window.addEventListener("load", async () => {
 			document.cookie = v.seccionCodigo + "=" + v.temaCodigo;
 			DOM.tituloTema.textContent = tema.textContent;
 
+			// Activa la opción elegida del menú
+			for (const tema of DOM.temas)
+				tema.classList[tema.getAttribute("data-tema_codigo") == v.temaCodigo ? "add" : "remove"]("activo");
+
 			// Muestra el contenido del tema activo
 			for (const contenido of DOM.contenidosTema)
 				contenido.classList[contenido.getAttribute("data-tema_codigo") == v.temaCodigo ? "remove" : "add"]("ocultar");
