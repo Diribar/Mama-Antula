@@ -23,5 +23,5 @@ export default {
 		...{login: "fa-circle-user", altaUser: "fa-user-plus", revision: "fa-user-graduate", mantenim: "fa-tools"},
 	},
 
-	rutasUsuario: {abm: "/usuarios/abm", cambioRol: "/usuarios/cambioRol"},
+	rutasUsuario: {altaOlvido: "/alta-u-olvido-de-contrasena", edicion: "/edicion"},
 };
