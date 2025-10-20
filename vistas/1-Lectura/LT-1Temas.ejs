@@ -5,7 +5,7 @@
 	<!-- Menú de opciones -->
 	<ul type="none" id="menuTemas" class="mostrarToggle ocultar">
 		<% for (const tema of temasSeccion) { %>
-			<li class="tema" data-tema_codigo="<%= tema.codigo %>"><%= tema.titulo %></li>
+			<li class="tema <% if (tema.id == temaActual.id) { %>activo<% } %>" data-tema_codigo="<%= tema.codigo %>"><%= tema.titulo %></li>
 		<% } %>
 	</ul>
 </div>

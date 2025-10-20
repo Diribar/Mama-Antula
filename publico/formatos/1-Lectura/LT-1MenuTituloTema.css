@@ -1,0 +1,17 @@
+#menuTituloTema {
+	display: flex; flex-direction: row; align-items: center;
+	h1 {margin-block: 20px 15px !important;}
+	#menuTemas {
+		margin-right: 15px;
+		#icono {margin-block: 0;}
+		#menuTemas {
+			background-color: var(--amarillo-claro); border: 1px solid var(--gris-oscuro); border-radius: 5px;
+			position: absolute; bottom: 10px; translate: 0% 100%;
+			width: max-content;
+			li {
+				padding: 2px 10px; cursor: pointer;
+				&:hover {background-color: var(--amarillo-oscuro);}
+			}
+		}
+	}
+}
