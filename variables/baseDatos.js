@@ -15,6 +15,7 @@ module.exports = {
 			personajes: baseDatos.obtieneTodosConOrden("personajes", "orden"),
 
 			// Otros
+			iconosAgrupados: baseDatos.obtieneTodosConOrden("iconosAgrupados", "orden"),
 			//novedadesWeb: baseDatos.obtieneTodosConOrden("novedadesWeb", "fecha"),
 		};
 

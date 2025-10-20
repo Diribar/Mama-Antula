@@ -22,15 +22,6 @@ export default {
 		...{prod: "fa-video", rclv: "fa-child", link: "fa-link", instituc: "fa-building-columns", mail: "fa-envelope"},
 		...{login: "fa-circle-user", altaUser: "fa-user-plus", revision: "fa-user-graduate", mantenim: "fa-tools"},
 	},
-	iconosMarca: [
-		{
-			nombre: "Facebook",
-			link: "https://www.facebook.com/Beatificaci%C3%B3n-Mama-Antula-103876214815561",
-			clase: "fa-facebook",
-		},
-		{nombre: "Instagram", link: "https://www.instagram.com/beatificacionantula/", clase: "fa-instagram"},
-		{nombre: "Twitter", link: "https://twitter.com/beatificaciona1", clase: "fa-twitter"},
-		{nombre: "TikTok", link: "https://www.tiktok.com/@mamaantula.com", clase: "fa-tiktok"},
-	],
+
 	rutasUsuario: {abm: "/usuarios/abm", cambioRol: "/usuarios/cambioRol"},
 };

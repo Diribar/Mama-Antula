@@ -4,14 +4,14 @@
 export default {
 	abm: async (req, res) => {
 		// Variables
-		const tituloPagina = "ABM de Usuarios";
+		const tituloPagina = "ABM de Artículos";
 
 		// Fin
 		return res.render("CMP-0Estructura", {tituloPagina});
 	},
-	cambioRol: async (req, res) => {
+	revision: async (req, res) => {
 		// Variables
-		const tituloPagina = "Cambio de Rol en Usuarios";
+		const tituloPagina = "Revisión de ABM de Artículos";
 
 		// Fin
 		return res.render("CMP-0Estructura", {tituloPagina});

@@ -1,7 +1,14 @@
 <!-- Pie de página -->
 <a href="/contactanos" tabindex="-1">Contactanos</a>
-<div id="iconosMarca">
-	<% for (const icono of iconosMarca) { %>
+<div id="iconosFooterOtros" class="iconosFooter">
+	<% for (const icono of iconosAgrupados.filter(n => n.grupo == "footerOtros")) { %>
+		<a href="<%= icono.link %>" title="<%= icono.nombre %>">
+			<i class="fa-solid <%= icono.clase %> scaleHover"></i>
+		</a>
+	<% } %>
+</div>
+<div id="iconosFooterRedes" class="iconosFooter">
+	<% for (const icono of iconosAgrupados.filter(n => n.grupo == "footerRedes")) { %>
 		<a href="<%= icono.link %>" target="_blank" title="<%= icono.nombre %>" rel="noopener noreferrer">
 			<i class="fa-brands <%= icono.clase %> scaleHover"></i>
 		</a>
