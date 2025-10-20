@@ -17,8 +17,6 @@ window.addEventListener("load", async () => {
 	v.seccionCodigo = document.querySelector("#menuTituloTema").getAttribute("data-seccion_codigo");
 	v.temaCodigo = v[v.seccionCodigo];
 	v.pestanaCodigo = v[v.temaCodigo];
-	console.log(v);
-
 
 	// Eventos - temas
 	for (const tema of DOM.temas)
