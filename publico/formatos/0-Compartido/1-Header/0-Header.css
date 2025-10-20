@@ -3,6 +3,7 @@ header {
 	display: flex; flex-direction: row; align-items: center; flex-grow: 1;
 	height: var(--altoHeader); max-height: var(--altoHeader);
 	background: var(--gris-oscuro); color: snow;
+	z-index: 1;
 }
 
 /* Fuente */

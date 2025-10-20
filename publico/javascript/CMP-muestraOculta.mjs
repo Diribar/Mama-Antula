@@ -3,8 +3,8 @@ window.addEventListener("load", () => {
 	// DOM
 	const DOM = {
 		// Todos los lugares donde hacer click y qué mostrar
-		clicks: document.querySelectorAll(".clickIcono"),
-		menus: document.querySelectorAll(".toggleMenu"),
+		clicks: document.querySelectorAll(".mostrarClick"),
+		menus: document.querySelectorAll(".mostrarToggle"),
 	};
 
 	// Mensajes de ayuda

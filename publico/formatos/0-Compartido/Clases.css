@@ -12,7 +12,7 @@
 /* Íconos clave */
 .fa-solid {line-height: 1;}
 .fa-circle-check, .fa-circle-xmark, .fa-circle-left,
-.fa-circle-right {background: var(--backIcono); border-color: var(--backIcono);}
+.fa-circle-right {background: var(--backIcono); border-color: var(--backIcono); border-radius: 50%;}
 .fa-circle-check, .fa-solid.fa-heart, .fa-chart-simple.true {color: var(--verde-oscuro);}
 .fa-circle-xmark, .fa-trash-can, .fa-heart-circle-xmark {color: var(--rojo-oscuro);}
 
@@ -36,3 +36,4 @@
 .bordeConSombra {box-shadow: 0px 0px 10px rgb(100 100 100)}
 .girar90 {rotate: 90deg;}
 .imgOnTop {z-index: 1;}
+.scaleHover:hover {scale: 1.25;}
