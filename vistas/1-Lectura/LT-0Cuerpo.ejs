@@ -1,5 +1,5 @@
 <section id="menuTituloTema" class="flexRowAlign" data-seccion_codigo="<%= seccionActual.codigo %>">
-	<%- include("MN-1Temas") %>
+	<%- include("LT-1Temas") %>
 
 	<h1 id="tituloTema"><%= temaActual.titulo %></h1>
 </section>
@@ -10,16 +10,16 @@
 		<div class="contenidoTema contenido <% if (tema.id != temaActual.id) { %>ocultar<% } %>" data-tema_codigo="<%= tema.codigo %>">
 			<!-- Sin pestañas -->
 			<% if (!tema.pestanas.length) { %>
-				<%- include("MN-3ArticCarta", {tema, sonCartas: tema.codigo == "cartas"}) %>
+				<%- include("LT-3ArticCarta", {tema, sonCartas: tema.codigo == "cartas"}) %>
 
 			<% } else { %>
 				<!-- Tiene pestañas - Pestañas -->
-				<%- include("MN-2Pestanas", {tema}) %>
+				<%- include("LT-2Pestanas", {tema}) %>
 
 				<!-- Tiene pestañas - Contenido -->
 				<% tema.pestanas.forEach((pestana, i) => { %>
 					<div class="contenidoPestana contenido <% if (pestana.id != pestanaActual.id) { %>ocultar<% } %>" data-pestana_codigo="<%= pestana.codigo %>">
-						<%- include("MN-3ArticCarta", {pestana}) %>
+						<%- include("LT-3ArticCarta", {pestana}) %>
 					</div>
 				<% }) %>
 			<% } %>

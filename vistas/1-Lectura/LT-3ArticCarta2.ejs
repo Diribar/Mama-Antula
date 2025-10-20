@@ -7,7 +7,7 @@
 
 		<!-- Contenidos del Artículo -->
 		<% const contenidosFiltro = contenidos.filter((n) => n.encabArtic_id == encabArtic.id) %>
-		<%- include("MN-4Contenido", {contenidosFiltro}) %>
+		<%- include("LT-4Contenido", {contenidosFiltro}) %>
 	<% } %>
 <% } %>
 
@@ -28,7 +28,7 @@
 		<div>
 			<!-- Contenidos del Artículo -->
 			<% const contenidosFiltro = contenidos.filter((n) => n.encabCarta_id == encabCarta.id) %>
-			<%- include("MN-4Contenido", {contenidosFiltro}) %>
+			<%- include("LT-4Contenido", {contenidosFiltro}) %>
 		</div>
 	<% } %>
 <% } %>
