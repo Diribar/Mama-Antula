@@ -17,12 +17,11 @@
 				<%- include("MN-2Pestanas", {tema}) %>
 
 				<!-- Tiene pestañas - Contenido -->
-				<% const pestanaActual = tema.pestanas[0] %>
-				<% for (const pestana of tema.pestanas) { %>
-					<div class="contenidoPestana contenido <% if (!pestanaActual || pestana.id != pestanaActual.id) { %>ocultar<% } %>" data-pestana_codigo="<%= pestana.codigo %>">
+				<% tema.pestanas.forEach((pestana, i) => { %>
+					<div class="contenidoPestana contenido <% if (pestanaActual ? pestana.id != pestanaActual.id : i) { %>ocultar<% } %>" data-pestana_codigo="<%= pestana.codigo %>">
 						<%- include("MN-3ArticCarta", {pestana}) %>
 					</div>
-				<% } %>
+				<% }) %>
 			<% } %>
 		</div>
 	<% } %>
