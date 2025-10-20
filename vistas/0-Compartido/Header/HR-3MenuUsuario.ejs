@@ -1,0 +1,18 @@
+<form id="formLogin" class="mostrarToggle ocultar">
+	<!-- Inputs -->
+	<input type="email" name="email" placeholder="e-mail">
+	<div id="contContrasena" class="relative">
+		<input type="password" name="contrasena" placeholder="contraseña">
+		<i id="eye" class="<%= iconos.faSolid %> fa-eye-slash absolute"></i>
+	</div>
+
+
+	<!--Iconos-->
+	<div id="iconos">
+		<i id="confirmaLogin" class="<%= iconos.faSolid %> <%= iconos.check %> scaleHover" title="Login"></i>
+		<a href="<%= rutasUsuario.abm %>">
+			<i id="seccionUsuario" class="<%= iconos.faSolid %> <%= iconos.altaUser %> scaleHover" title="Ir a la sección de usuario"></i>
+		</a>
+	</div>
+
+</form>

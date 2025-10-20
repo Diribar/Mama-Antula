@@ -32,4 +32,5 @@ export default {
 		{nombre: "Twitter", link: "https://twitter.com/beatificaciona1", clase: "fa-twitter"},
 		{nombre: "TikTok", link: "https://www.tiktok.com/@mamaantula.com", clase: "fa-tiktok"},
 	],
+	rutasUsuario: {abm: "/usuarios/abm", cambioRol: "/usuarios/cambioRol"},
 };
