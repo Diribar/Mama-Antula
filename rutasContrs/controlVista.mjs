@@ -7,12 +7,21 @@ export default {
 		const url = req.originalUrl;
 		const seccionActual = secciones.find((n) => n.link == url);
 		const titulo = seccionActual.nombre;
+		console.log(10, req.cookies);
 
-		// Obtiene los temas de la sección, con sus pestañas
+		// Obtiene los temas de la sección
 		const temasSeccion = temas.filter((n) => n.seccion_id == seccionActual.id);
+		const temaActual =
+			req.cookies && req.cookies[seccionActual.codigo]
+				? temasSeccion.find((n) => n.codigo == req.cookies[seccionActual.codigo])
+				: temasSeccion[0];
+
+		// Obtiene las pestañas de los temas
 		for (const tema of temasSeccion) tema.pestanas = pestanas.filter((n) => n.tema_id == tema.id);
-		const temaActual = temasSeccion[0];
-		const pestanaActual = temaActual.pestanas && temaActual.pestanas[0];
+		const pestanaActual =
+			req.cookies && req.cookies[temaActual.codigo]
+				? temaActual.pestanas.find((n) => n.codigo == req.cookies[temaActual.codigo])
+				: temaActual.pestanas && temaActual.pestanas[0];
 
 		// Obtiene el encabezado de los artículos
 		const temas_ids = temasSeccion.map((n) => n.id);
@@ -39,6 +48,7 @@ export default {
 			.then((n) => n.filter((m) => contenidos_ids.includes(m.contenido_id)));
 
 		// Fin
+		// return res.send({seccionActual, temaActual, pestanaActual})
 		return res.render("CMP-0Estructura", {
 			titulo,
 			...{seccionActual, temaActual, pestanaActual},
