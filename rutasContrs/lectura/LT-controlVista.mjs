@@ -1,5 +1,5 @@
 "use strict";
-import procesos from "./SL-procesos.mjs";
+import procesos from "./LT-procesos.mjs";
 
 export default {
 	secciones: async (req, res) => {
