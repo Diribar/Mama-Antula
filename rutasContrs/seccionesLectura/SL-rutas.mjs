@@ -1,7 +1,7 @@
 import express from "express";
 import {fileURLToPath, pathToFileURL} from "url";
-import API from "./controlAPI.mjs";
-import vista from "./controlVista.mjs";
+import API from "./SL-controlAPI.mjs";
+import vista from "./SL-controlVista.mjs";
 
 // 🧩 Router
 const router = express.Router();
