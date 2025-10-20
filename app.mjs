@@ -131,7 +131,7 @@ app.set("view engine", "ejs");
 
 	// Rutas
 	app.use("/usuarios", (await import("./rutasContrs/usuarios/US-rutas.mjs")).default);
-	app.use("/", (await import("./rutasContrs/lectura/LT-rutas.mjs")).default);
+	app.use("/", (await import("./rutasContrs/1-Lectura/LT-rutas.mjs")).default);
 
 	// Error - página no encontrada
 	app.use((await import("./middlewares/urlDesconocida.mjs")).default);
