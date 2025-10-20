@@ -4,7 +4,7 @@
 export default {
 	abm: async (req, res) => {
 		// Variables
-		const tituloPagina = "ABM de Usuarios";
+		const tituloPagina = "Panel de Usuario";
 		const tema = "usuarios";
 		const codigo = "abmUsuarios";
 
