@@ -18,7 +18,7 @@
 
 				<!-- Tiene pestañas - Contenido -->
 				<% tema.pestanas.forEach((pestana, i) => { %>
-					<div class="contenidoPestana contenido <% if (pestanaActual ? pestana.id != pestanaActual.id : i) { %>ocultar<% } %>" data-pestana_codigo="<%= pestana.codigo %>">
+					<div class="contenidoPestana contenido <% if (pestana.id != pestanaActual.id) { %>ocultar<% } %>" data-pestana_codigo="<%= pestana.codigo %>">
 						<%- include("MN-3ArticCarta", {pestana}) %>
 					</div>
 				<% }) %>

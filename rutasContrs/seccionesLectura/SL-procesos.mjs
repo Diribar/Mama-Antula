@@ -3,7 +3,7 @@
 export default {
 	temaPestanaActual: ({seccionActual, temasSeccion, req, res}) => {
 		// Variables
-		let aux;
+		let aux, pestanaActual;
 
 		// Obtiene el tema actual y la guarda en la cookie
 		aux = temasSeccion[0];
@@ -14,11 +14,12 @@ export default {
 
 		// Obtiene la pestaña actual y la guarda en la cookie
 		aux = temaActual.pestanas && temaActual.pestanas[0];
-		const pestanaActual = req.cookies[temaActual.codigo]
-			? temaActual.pestanas.find((n) => n.codigo == req.cookies[temaActual.codigo]) || aux
-			: aux;
-		if (pestanaActual && !req.cookies[temaActual.codigo])
-			res.cookie(temaActual.codigo, pestanaActual.codigo, {maxAge: unDia});
+		if (aux) {
+			pestanaActual = req.cookies[temaActual.codigo]
+				? temaActual.pestanas.find((n) => n.codigo == req.cookies[temaActual.codigo]) || aux
+				: aux;
+			if (!req.cookies[temaActual.codigo]) res.cookie(temaActual.codigo, pestanaActual.codigo, {maxAge: unDia});
+		}
 
 		// Fin
 		return {temaActual, pestanaActual};
