@@ -2,9 +2,9 @@
 // import procesos from "./US-procesos.mjs";
 
 export default {
-	abm: async (req, res) => {
+	altaOlvido: async (req, res) => {
 		// Variables
-		const tituloPagina = "Panel de Usuario";
+		const tituloPagina = "Alta de Usuario / Olvido de Contraseña";
 		const tema = "usuarios";
 		const codigo = "abmUsuarios";
 
@@ -13,7 +13,10 @@ export default {
 			...{tituloPagina, tema, codigo},
 		});
 	},
-	cambioRol: async (req, res) => {
+	edicion: async (req, res) => {
+
+	},
+	cambioRoles: async (req, res) => {
 		// Variables
 		const tituloPagina = "Cambio de Rol en Usuarios";
 		const tema = "usuarios";
