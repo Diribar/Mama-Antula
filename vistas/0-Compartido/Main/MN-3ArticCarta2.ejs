@@ -1,38 +1,34 @@
-<div class="<% if (tema != temasSeccion[0]) { %>ocultar<% } %>">
+<% if (!sonCartas) { %>
+	<!-- Artículos estándar -->
+	<% const encabArticsFiltro = encabArtics.filter((n) => locals.tema_id && n.tema_id == tema_id || locals.pestana_id && n.pestana_id == pestana_id) %>
+	<% for (const encabArtic of encabArticsFiltro) { %>
+		<!-- Título del Artículo -->
+		<% if (encabArtic.titulo) { %><h2><%= encabArtic.titulo %></h2><% } %>
 
-	<% if (!sonCartas) { %>
-		<!-- Artículos estándar -->
-		<% const encabArticsFiltro = encabArtics.filter((n) => locals.tema_id && n.tema_id == tema_id || locals.pestana_id && n.pestana_id == pestana_id) %>
-		<% for (const encabArtic of encabArticsFiltro) { %>
-			<!-- Título del Artículo -->
-			<% if (encabArtic.titulo) { %><h2><%= encabArtic.titulo %></h2><% } %>
-
-			<!-- Contenidos del Artículo -->
-			<% const contenidosFiltro = contenidos.filter((n) => n.encabArtic_id == encabArtic.id) %>
-			<%- include("MN-4Contenido", {contenidosFiltro}) %>
-		<% } %>
+		<!-- Contenidos del Artículo -->
+		<% const contenidosFiltro = contenidos.filter((n) => n.encabArtic_id == encabArtic.id) %>
+		<%- include("MN-4Contenido", {contenidosFiltro}) %>
 	<% } %>
+<% } %>
 
-	<% if (sonCartas) { %>
-		<!-- Tema: Cartas  -->
-		<!-- Filtros -->
+<% if (sonCartas) { %>
+	<!-- Tema: Cartas  -->
+	<!-- Filtros -->
+	<div>
+
+	</div>
+
+	<!-- Cartas -->
+	<% for (const encabCarta of encabCartas) { %>
+		<!-- Título de la Carta -->
+		<label for="carta-<%= encabCarta.id %>">
+			<h2>Carta <%= encabCarta.id %>, de <%= encabCarta.nombreDesde.nombre %> hacia <%= encabCarta.nombreHacia.nombre %>, escrita el <%= encabCarta.fechaEscrita %> en <%= encabCarta.lugar.nombre %> (idioma <%= encabCarta.idioma.nombre %>).</h2>
+			<input type="checkbox" id="carta-<%= encabCarta.id %>" class="ocultar">
+		</label>
 		<div>
-
+			<!-- Contenidos del Artículo -->
+			<% const contenidosFiltro = contenidos.filter((n) => n.encabCarta_id == encabCarta.id) %>
+			<%- include("MN-4Contenido", {contenidosFiltro}) %>
 		</div>
-
-		<!-- Cartas -->
-		<% for (const encabCarta of encabCartas) { %>
-			<!-- Título de la Carta -->
-			<label for="carta-<%= encabCarta.id %>">
-				<h2>Carta <%= encabCarta.id %>, de <%= encabCarta.nombreDesde.nombre %> hacia <%= encabCarta.nombreHacia.nombre %>, escrita el <%= encabCarta.fechaEscrita %> en <%= encabCarta.lugar.nombre %> (idioma <%= encabCarta.idioma.nombre %>).</h2>
-				<input type="checkbox" id="carta-<%= encabCarta.id %>" class="ocultar">
-			</label>
-			<div>
-				<!-- Contenidos del Artículo -->
-				<% const contenidosFiltro = contenidos.filter((n) => n.encabCarta_id == encabCarta.id) %>
-				<%- include("MN-4Contenido", {contenidosFiltro}) %>
-			</div>
-		<% } %>
 	<% } %>
-
-</div>
+<% } %>

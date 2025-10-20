@@ -5,21 +5,25 @@
 	<h1 id="tituloTema"><%= tema.titulo %></h1>
 </section>
 
-<section id="contenidoTemas" class="contenido">
+<section id="contenidoTemas">
 	<% for (const tema of temasSeccion) { %>
-		<!-- Sin pestañas -->
-		<% if (!tema.pestanas.length) { %>
-			<%- include("MN-3ArticCarta", {tema_id: tema.id, sonCartas: tema.codigo == "cartas"}) %>
-		<% } else { %>
-			<!-- Tiene pestañas - Pestañas -->
-			<%- include("MN-2Pestanas", {tema_id: tema.id}) %>
+		<!-- Tema -->
+		<div class="contenidoTema contenido <% if (tema.id != temaActual.id) { %>ocultar<% } %>" data-tema_id="<%= tema.id %>">
+			<!-- Sin pestañas -->
+			<% if (!tema.pestanas.length) { %>
+				<%- include("MN-3ArticCarta", {tema_id: tema.id, sonCartas: tema.codigo == "cartas"}) %>
 
-			<!-- Tiene pestañas - Contenido -->
-			<div class="contenidoPestanas contenido">
+			<% } else { %>
+				<!-- Tiene pestañas - Pestañas -->
+				<%- include("MN-2Pestanas", {tema_id: tema.id}) %>
+
+				<!-- Tiene pestañas - Contenido -->
 				<% for (const pestana of tema.pestanas) { %>
-					<%- include("MN-3ArticCarta", {pestana_id: pestana.id}) %>
+					<div class="contenidoPestana contenido <% if (!pestanaActual ||pestana.id != pestanaActual.id) { %>ocultar<% } %>" data-pestana_id="<%= pestana.id %>">
+						<%- include("MN-3ArticCarta", {pestana_id: pestana.id}) %>
+					</div>
 				<% } %>
-			</div>
-		<% } %>
+			<% } %>
+		</div>
 	<% } %>
 </section>
