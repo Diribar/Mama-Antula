@@ -15,15 +15,17 @@ window.addEventListener("load", async () => {
 		contenidoPestanas: document.querySelectorAll(".contenidoPestana"),
 	};
 	v.seccionCodigo = document.querySelector("#menuTituloTema").getAttribute("data-seccion_codigo");
-	v.temaCodigo = v[seccionCodigo];
-	v.pestanaCodigo = v[temaCodigo];
+	v.temaCodigo = v[v.seccionCodigo];
+	v.pestanaCodigo = v[v.temaCodigo];
+	console.log(v);
+
 
 	// Eventos - temas
 	for (const tema of DOM.temas)
 		tema.addEventListener("click", () => {
 			// Variables
 			v.temaCodigo = tema.getAttribute("data-tema_codigo");
-			v.pestanaCodigo = v[temaCodigo];
+			v.pestanaCodigo = v[v.temaCodigo];
 
 			// Actualiza la cookie y el título del tema
 			document.cookie = v.seccionCodigo + "=" + v.temaCodigo;
