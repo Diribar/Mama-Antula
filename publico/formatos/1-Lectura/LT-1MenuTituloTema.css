@@ -10,7 +10,8 @@
 			width: max-content;
 			li {
 				padding: 2px 10px; cursor: pointer;
-				&:hover {background-color: var(--amarillo-oscuro);}
+				&.activo {background-color: var(--gris-oscuro); color: snow;}
+				&:hover {background-color: var(--amarillo-oscuro); color: inherit;}
 			}
 		}
 	}
