@@ -11,11 +11,11 @@ export default {
 		// Obtiene variables de temas y pestañas
 		const temasSeccion = temas.filter((n) => n.seccion_id == seccionActual.id);
 		for (const tema of temasSeccion) tema.pestanas = pestanas.filter((n) => n.tema_id == tema.id);
-		const {temaActual, pestanaActual} = procesos.temaPestanaActual(req, temasSeccion);
+		const {temaActual, pestanaActual} = procesos.temaPestanaActual({seccionActual, temasSeccion, req});
 
 		// Obtiene el encabezado, contenido y carrouseles de los artículos y cartas
-		const {encabArtics, encabCartas} = await procesos.encabezados(seccionActual, temasSeccion);
-		const contenidos = await procesos.contenido(encabArtics, encabCartas);
+		const {encabArtics, encabCartas} = await procesos.encabezados({seccionActual, temasSeccion});
+		const contenidos = await procesos.contenido({encabArtics, encabCartas});
 		const carrouseles = await procesos.carrouseles(contenidos);
 
 		// Fin
