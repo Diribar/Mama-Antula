@@ -6,7 +6,7 @@ export default {
 		// Variables
 		const tituloPagina = "Alta de Usuario / Olvido de Contraseña";
 		const tema = "usuarios";
-		const codigo = "abmUsuarios";
+		const codigo = "altaOlvido";
 
 		// Fin
 		return res.render("CMP-0Estructura", {
@@ -14,7 +14,15 @@ export default {
 		});
 	},
 	edicion: async (req, res) => {
+		// Variables
+		const tituloPagina = "Edición de Usuario";
+		const tema = "usuarios";
+		const codigo = "edicion";
 
+		// Fin
+		return res.render("CMP-0Estructura", {
+			...{tituloPagina, tema, codigo},
+		});
 	},
 	cambioRoles: async (req, res) => {
 		// Variables
