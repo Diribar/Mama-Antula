@@ -1,5 +1,5 @@
 <!-- Heads personalizados -->
-<% if (secciones.map(n => n.codigo).includes(seccionActual.codigo)) { %>
+<% if (locals.seccionActual && secciones.map(n => n.codigo).includes(seccionActual.codigo)) { %>
 	<script src="/javascript/LT-temasPestanas.mjs"></script>
 
 <% } else if (false) { %><%- include("") %>
