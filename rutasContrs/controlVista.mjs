@@ -48,7 +48,7 @@ export default {
 			.then((n) => n.filter((m) => contenidos_ids.includes(m.contenido_id)));
 
 		// Fin
-		// return res.send({seccionActual, temaActual, pestanaActual})
+		console.log({seccionActual, temaActual, pestanaActual})
 		return res.render("CMP-0Estructura", {
 			titulo,
 			...{seccionActual, temaActual, pestanaActual},
