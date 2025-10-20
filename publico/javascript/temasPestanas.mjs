@@ -15,28 +15,29 @@ window.addEventListener("load", async () => {
 		contenidoPestanas: document.querySelectorAll(".contenidoPestana"),
 	};
 	v.seccionCodigo = document.querySelector("#menuTituloTema").getAttribute("data-seccion_codigo");
+	v.temaCodigo = v[seccionCodigo];
+	v.pestanaCodigo = v[temaCodigo];
 
 	// Eventos - temas
 	for (const tema of DOM.temas)
 		tema.addEventListener("click", () => {
 			// Variables
 			v.temaCodigo = tema.getAttribute("data-tema_codigo");
+			v.pestanaCodigo = v[temaCodigo];
 
-			// Actualiza la cookie de tema
+			// Actualiza la cookie y el título del tema
 			document.cookie = v.seccionCodigo + "=" + v.temaCodigo;
-
-			// Actualiza el título del tema
 			DOM.tituloTema.textContent = tema.textContent;
 
-			// Muestra el listado de pestañas del tema activo, y oculta el listado de los demás temas
-			for (const listado of DOM.listadosPestanas)
-				listado.classList[listado.getAttribute("data-tema_codigo") == v.temaCodigo ? "remove" : "add"]("ocultar");
-
-			// Muestra el contenido del tema activo, y oculta el de los demás temas
+			// Muestra el contenido del tema activo
 			for (const contenido of DOM.contenidosTema)
 				contenido.classList[contenido.getAttribute("data-tema_codigo") == v.temaCodigo ? "remove" : "add"]("ocultar");
 
-			// Muestra el contenido de la pestana activa, y oculta el de las demás
+			// Muestra el listado de pestañas del tema activo
+			for (const listado of DOM.listadosPestanas)
+				listado.classList[listado.getAttribute("data-tema_codigo") == v.temaCodigo ? "remove" : "add"]("ocultar");
+
+			// Muestra el contenido de la pestana activa
 			for (const cont of DOM.contenidoPestanas)
 				cont.classList[cont.getAttribute("data-pestana_codigo") == v.pestanaCodigo ? "remove" : "add"]("ocultar");
 
@@ -52,17 +53,15 @@ window.addEventListener("load", async () => {
 		// Acciones cuando se cambia de pestaña
 		for (const pestanaActiva of pestanas)
 			pestanaActiva.addEventListener("click", () => {
-				// Variables
-				v.pestanaCodigo = pestanaActiva.getAttribute("data-pestana_codigo");
-
 				// Actualiza la cookie de pestana
+				v.pestanaCodigo = pestanaActiva.getAttribute("data-pestana_codigo");
 				document.cookie = v.temaCodigo + "=" + v.pestanaCodigo;
 
-				// Activa la pestaña actual, y desactiva las demás
+				// Activa la pestaña actual
 				for (const pest of pestanas)
 					pest.classList[pest.getAttribute("data-pestana_codigo") == v.pestanaCodigo ? "add" : "remove"]("activo");
 
-				// Muestra el contenido de la pestaña activa, y oculta el de las demás
+				// Muestra el contenido de la pestaña activa
 				for (const cont of DOM.contenidoPestanas)
 					cont.classList[cont.getAttribute("data-pestana_codigo") == v.pestanaCodigo ? "remove" : "add"]("ocultar");
 			});

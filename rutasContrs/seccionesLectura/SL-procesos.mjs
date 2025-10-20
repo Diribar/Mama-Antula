@@ -7,18 +7,16 @@ export default {
 
 		// Obtiene el tema actual y la guarda en la cookie
 		aux = temasSeccion[0];
-		const temaActual =
-			req.cookies && req.cookies[seccionActual.codigo]
-				? temasSeccion.find((n) => n.codigo == req.cookies[seccionActual.codigo]) || aux
-				: aux;
+		const temaActual = req.cookies[seccionActual.codigo]
+			? temasSeccion.find((n) => n.codigo == req.cookies[seccionActual.codigo]) || aux
+			: aux;
 		if (!req.cookies[seccionActual.codigo]) req.cookies[seccionActual.codigo] = temaActual.codigo;
 
 		// Obtiene la pestaña actual y la guarda en la cookie
 		aux = temaActual.pestanas && temaActual.pestanas[0];
-		const pestanaActual =
-			req.cookies && req.cookies[temaActual.codigo]
-				? temaActual.pestanas.find((n) => n.codigo == req.cookies[temaActual.codigo]) || aux
-				: aux;
+		const pestanaActual = req.cookies[temaActual.codigo]
+			? temaActual.pestanas.find((n) => n.codigo == req.cookies[temaActual.codigo]) || aux
+			: aux;
 		if (pestanaActual && !req.cookies[temaActual.codigo]) req.cookies[temaActual.codigo] = pestanaActual.codigo;
 
 		// Fin
