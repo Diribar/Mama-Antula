@@ -6,7 +6,7 @@ export default (sequelize, dt) => {
 		codigo: {type: dt.STRING(15)},
 
 		edicion: {type: dt.BOOLEAN},
-		revisor: {type: dt.BOOLEAN},
+		revision: {type: dt.BOOLEAN},
 		abmUs: {type: dt.BOOLEAN},
 	};
 	const config = {

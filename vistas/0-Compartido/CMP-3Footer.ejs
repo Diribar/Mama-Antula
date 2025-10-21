@@ -1,12 +1,20 @@
-<!-- Pie de página -->
+<!-- Contactanos -->
 <a href="/contactanos" tabindex="-1">Contactanos</a>
-<div id="iconosFooterOtros" class="iconosFooter">
-	<% for (const icono of iconosAgrupados.filter(n => n.grupo == "footerOtros")) { %>
-		<a href="<%= icono.link %>" title="<%= icono.nombre %>">
-			<i class="fa-solid <%= icono.clase %> scaleHover"></i>
-		</a>
-	<% } %>
-</div>
+
+<!-- Otros -->
+<% if (locals.usuario && usuario.rol.edicion) { %>
+	<div id="iconosFooterOtros" class="iconosFooter">
+		<% for (const icono of iconosAgrupados.filter(n => n.grupo == "footerOtros")) { %>
+			<% if (icono.edicion || icono.revision && usuario.rol.revision || icono.abmUs && usuario.rol.abmUs) { %>
+				<a href="<%= icono.link %>" title="<%= icono.nombre %>">
+					<i class="fa-solid <%= icono.clase %> scaleHover"></i>
+				</a>
+			<% } %>
+		<% } %>
+	</div>
+<% } %>
+
+<!-- Redes -->
 <div id="iconosFooterRedes" class="iconosFooter">
 	<% for (const icono of iconosAgrupados.filter(n => n.grupo == "footerRedes")) { %>
 		<a href="<%= icono.link %>" target="_blank" title="<%= icono.nombre %>" rel="noopener noreferrer">
