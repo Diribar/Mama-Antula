@@ -12,8 +12,11 @@
 	/* Login */
 	i#iconoUsuario {font-size: 1.5rem; color: var(--gris-claro);}
 	#menuLogin {
-		&.rojo {background-color: var(--rojo-claro);}
 		align-items: center; gap: 10px;
+		&:has(#mensajeError:not(:empty)) {
+			background-color: var(--rojo-claro);
+			#mensajeError {color: var(--gris-claro);}
+		}
 
 		input {
 			text-align: center; color: var(--azul-oscuro);

@@ -6,9 +6,8 @@ import vista from "./US-controlVista.mjs";
 const router = express.Router();
 
 // 📡 APIs
-router.get("/api/login", API.login);
-router.get("/api/logout", API.logout);
-
+router.get("/api/us-login", API.login);
+router.get("/api/us-logout", API.logout);
 
 // 🖥️ Vistas
 router.get(rutasUsuario.altaOlvido, vista.altaOlvido);

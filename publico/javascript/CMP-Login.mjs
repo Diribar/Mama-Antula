@@ -44,4 +44,4 @@ window.addEventListener("load", async () => {
 });
 
 // Variables
-const rutaApi = "/usuarios/api/us-valida-login/?";
+const rutaApi = "/usuarios/api/us-login/?";
