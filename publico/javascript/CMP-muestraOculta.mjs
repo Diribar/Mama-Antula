@@ -11,6 +11,9 @@ window.addEventListener("load", () => {
 	window.addEventListener("click", (e) => {
 		// Rutina por cada dupla
 		for (let i = 0; i < DOM.clicks.length; i++) {
+			// Si el 'click' fue dentro del mostrarToggle, saltea la rutina
+			if (DOM.menus[i].contains(e.target)) continue;
+
 
 			// Se fija si el 'click' fue en el ícono y si está activo
 			e.target == DOM.clicks[i] && !DOM.clicks[i].className.includes("inactivo")
