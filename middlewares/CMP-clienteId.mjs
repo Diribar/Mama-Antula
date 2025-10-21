@@ -19,15 +19,12 @@ export default async (req, res, next) => {
 		// Obtiene el usuario
 		const {email, cliente_id} = req.cookies;
 		usuario = await comp.obtieneUsuarioPorMail(email);
-		if (usuario.cliente_id != cliente_id) usuario = null;// si el cliente_id de la BD y de la cookie difieren, anula el valor del usuario
 
-		// Si existe el usuario, lleva a cero el campo 'diasSinCartelBenefs'
-		if (usuario) {
-			baseDatos.actualizaPorId("usuarios", usuario.id, {diasSinCartelBenefs: 0});
-			usuario.diasSinCartelBenefs = 0;
+		// Acciones si el cliente_id de la BD y de la cookie difieren
+		if (usuario.cliente_id != cliente_id) {
+			usuario = null; // anula el valor del usuario
+			res.clearCookie("email", {...global.dominio}); // borra esa cookie
 		}
-		// De lo contrario, borra esa cookie
-		else res.clearCookie("email", {...global.dominio});
 	}
 
 	// Cliente: 1. Lo obtiene del usuario
@@ -38,37 +35,34 @@ export default async (req, res, next) => {
 		// Si corresponde, actualiza la cookie
 		const {cliente_id} = cliente;
 		if (!req.cookies.cliente_id || req.cookies.cliente_id != cliente_id)
-			res.cookie("cliente_id", cliente_id, {maxAge: unAno, ...global.dominio});
+			res.cookie("cliente_id", cliente_id, {maxAge: unAno});
 	}
 
 	// Cliente: 2. Lo obtiene de la cookie
 	if (!cliente && req.cookies && req.cookies.cliente_id) {
 		// Variables
-		cliente_id = req.cookies.cliente_id;
+		({cliente_id} = req.cookies);
 		const esUsuario = cliente_id.startsWith("U");
 
 		// Obtiene el cliente
 		const tabla = esUsuario ? "usuarios" : "visitas";
-		cliente = await baseDatos
-			.obtienePorCondicion(tabla, {cliente_id}, "rol")
-			.then((n) => (n ? obtieneCamposNecesarios(n) : null));
+		cliente = await baseDatos.obtienePorCondicion(tabla, {cliente_id}, "rol").then((n) => n && obtieneCamposNecesarios(n));
 	}
 
-	// Cliente: 3. No existe: lo crea
+	// Cliente: 3. Como no existe, lo crea
 	if (!cliente) {
 		// Variables
-		const datos = {[campoVersion]: version};
-		if (cliente_id) datos.diasNaveg = 1; // si existe el cliente_id, es que alguna vez hizo una navegación
+		const datos = {versionWeb};
+		if (cliente_id) datos.diasNaveg = 1;
 
 		// Crea el cliente
 		cliente = await baseDatos.agregaRegistroIdCorrel("visitas", datos);
-		req.session.recienCreado = true;
 
 		// Crea un nuevo 'cliente_id'
 		cliente_id = "V" + String(cliente.id).padStart(10, "0");
 
 		// Actualiza o crea la cookie
-		res.cookie("cliente_id", cliente_id, {maxAge: unAno, ...global.dominio});
+		res.cookie("cliente_id", cliente_id, {maxAge: unAno});
 
 		// Actualiza el 'cliente_id' en la BD
 		await baseDatos.actualizaPorId("visitas", cliente.id, {cliente_id}); // es crítico el 'await'
@@ -94,8 +88,7 @@ const obtieneCamposNecesarios = (usuario) => {
 		...["id", "cliente_id"], // identificación
 		"fechaUltNaveg", // para el 'contador de navegaciones'
 		...["diasNaveg", "visitaCreadaEn"], // para la tabla 'persWebDiaAcum'
-		...[campoVersion, "diasSinCartelBenefs"], // para mostrar carteles
-		"rol", // para mostrar carteles
+		...["versionWeb", "rol"], // para mostrar carteles
 	];
 
 	// Obtiene los datos para la variable cliente
