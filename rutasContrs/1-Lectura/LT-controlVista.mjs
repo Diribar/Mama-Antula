@@ -1,11 +1,9 @@
 "use strict";
 import procesos from "./LT-procesos.mjs";
+const temaVista = "secciones";
 
 export default {
 	secciones: async (req, res) => {
-		// Variables
-		const temaVista = "secciones";
-
 		// Obtiene la sección
 		const url = req.originalUrl;
 		const seccionActual = secciones.find((n) => n.link == url);
