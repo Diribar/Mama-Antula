@@ -15,6 +15,7 @@ export default {
 		const {cliente} = req.session;
 		const {cliente_id} = cliente;
 		const esVisita = !cliente_id.startsWith("U");
+		const datosUs = {};
 		const espera = [];
 
 		// Actualiza cookies - no se actualiza 'session'', para que se ejecute el middleware 'clientesSession'
@@ -53,11 +54,12 @@ export default {
 			visitaCreadaEn: comp.fechaHora.anoMesDia(usuario.visitaCreadaEn),
 			diasNaveg: usuario.diasNaveg,
 		};
-		espera.push(
-			baseDatos
-				.actualizaPorCondicion("persWebDia", {cliente_id, fecha: hoy}, datosND) // la variable 'cliente_id' puede diferir del 'usuario.cliente_id'
-				.then(() => procesos.eliminaDuplicados(usuario.id))
-		);
+		// const hoy = new Date().toISOString().slice(0, 10);
+		// espera.push(
+		// 	baseDatos
+		// 		.actualizaPorCondicion("persWebDia", {cliente_id, fecha: hoy}, datosND) // la variable 'cliente_id' puede diferir del 'usuario.cliente_id'
+		// 		.then(() => procesos.eliminaDuplicados(usuario.id))
+		// );
 
 		// Acciones si el cliente estaba como visita
 		if (esVisita) {
