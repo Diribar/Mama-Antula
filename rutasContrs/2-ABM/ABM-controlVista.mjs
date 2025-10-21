@@ -4,7 +4,7 @@
 export default {
 	abm: async (req, res) => {
 		// Variables
-		const tituloPagina = "ABM de Artículos";
+		const tituloPagina = "ABM de Contenido";
 		const tema = "abmArticulos";
 		const codigo = "abmArticulos";
 
@@ -15,7 +15,7 @@ export default {
 	},
 	revision: async (req, res) => {
 		// Variables
-		const tituloPagina = "Revisión de ABM de Artículos";
+		const tituloPagina = "Revisión de ABMs de Contenido";
 		const tema = "abmArticulos";
 		const codigo = "revisionAbm";
 
