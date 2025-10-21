@@ -9,42 +9,82 @@ export default {
 		// En uso
 		anoMesDia: (fecha) => new Date(fecha).toISOString().slice(0, 10),
 		ahora: () => new Date(new Date().toUTCString()), // <-- para convertir en horario 'UTC'
+	},
+	gestionArchivos: {
+		existe: (rutaNombre) => rutaNombre && fs.existsSync(rutaNombre),
+		elimina: (ruta, archivo, output) => FN.elimina(ruta, archivo, output),
+		descarga: async function (url, rutaYnombre, output) {
+			// Carpeta donde descargar
+			const ruta = rutaYnombre.slice(0, rutaYnombre.lastIndexOf("/"));
+			if (!this.existe(ruta)) fs.mkdirSync(ruta);
 
-		// Sin uso
-		// nuevoHorario: (delay, horario) => FN.nuevoHorario(delay, horario),
-		// diaMesUTC: (fecha) => FN.diaMesUTC(fecha),
-		// diaSemUTC: (fecha) => {
-		// 	const numDiaSem = new Date(fecha).getUTCDay();
-		// 	const diaSem = diasSem[numDiaSem];
-		// 	return diaSem;
-		// },
-		// diaMesAnoUTC: function (fecha) {
-		// 	// Variables
-		// 	fecha = new Date(fecha);
-		// 	const diaMes = this.diaMesUTC(fecha);
-		// 	const ano = fecha.getUTCFullYear().toString().slice(-2);
-		// 	const diaMesAno = diaMes + "/" + ano;
+			// Realiza la descarga
+			let writer = fs.createWriteStream(rutaYnombre);
+			let response = await axios({method: "GET", url, responseType: "stream"});
+			response.data.pipe(writer);
 
-		// 	// Fin
-		// 	return diaMesAno;
-		// },
-		// horarioUTC: function (fecha) {
-		// 	const horario = fecha ? new Date(fecha) : this.ahora();
-		// 	const hora = horario.getUTCHours();
-		// 	const minutos = String(horario.getUTCMinutes()).padStart(2, "0");
-		// 	const horaResp = hora + ":" + minutos + "hs (UTC)";
-		// 	return horaResp;
-		// },
-		// fechaDelAno: (fecha) => {
-		// 	let datos = {};
-		// 	if (fecha.fechaDelAno_id && fecha.fechaDelAno_id <= 366) {
-		// 		let fechaDelAno = fechasDelAno.find((n) => n.id == fecha.fechaDelAno_id);
-		// 		datos.dia = fechaDelAno.dia;
-		// 		datos.mes_id = fechaDelAno.mes_id;
-		// 	}
-		// 	// Fin
-		// 	return datos;
-		// },
+			// Obtiene el resultado de la descarga
+			let resultado = await new Promise((resolve, reject) => {
+				writer.on("finish", () => {
+					const nombre = rutaYnombre.slice(rutaYnombre.lastIndexOf("/") + 1);
+					if (output) console.log("Imagen '" + nombre + "' descargada");
+					resolve("OK");
+				});
+				writer.on("error", (error) => {
+					console.log("Error en la descarga", error);
+					reject("Error");
+				});
+			});
+			// Fin
+			return resultado;
+		},
+		mueveImagen: function (nombre, carpOrigen, carpDestino) {
+			// Variables
+			const rutaNombreOrigen = path.join(carpOrigen, nombre);
+			const rutaNombreDestino = path.join(carpDestino, nombre);
+
+			// Si no existe la carpeta de destino, la crea
+			if (!this.existe(carpDestino)) fs.mkdirSync(carpDestino);
+
+			// Si no encuentra el archivo de origen, lo avisa
+			if (!this.existe(rutaNombreOrigen)) console.log("No se encuentra el archivo " + rutaNombreOrigen + " para moverlo");
+			// Mueve el archivo
+			else
+				fs.renameSync(rutaNombreOrigen, rutaNombreDestino, (error) => {
+					if (error) throw error;
+				});
+
+			// Fin
+			return;
+		},
+		copiaImagen: function (rutaNombreOrigen, rutaNombreDestino, carpDestino) {
+			// Si no existe la carpeta de destino, la crea
+			if (carpDestino && !this.existe(carpDestino)) fs.mkdirSync(carpDestino);
+
+			// Si no existe el archivo de origen, lo avisa
+			if (!this.existe(rutaNombreOrigen)) console.log("No se encuentra el archivo " + rutaNombreOrigen + " para copiarlo");
+			// Si existe, lo copia o avisa el error
+			else
+				fs.copyFile(rutaNombreOrigen, rutaNombreDestino, (error) => {
+					if (error) throw error;
+				});
+
+			// Fin
+			return;
+		},
+		imagenAlAzar: (carpeta) => {
+			// Obtiene el listado de archivos
+			const archivos = fs.readdirSync(carpeta);
+
+			// Elije al azar el n° de imagen
+			const indice = parseInt(Math.random() * archivos.length);
+
+			// Obtiene el nombre del archivo
+			const imagenAlAzar = archivos[indice];
+
+			// Fin
+			return imagenAlAzar;
+		},
 	},
 	obtieneUsuarioPorMail: (email) => {
 		const include = ["rol", "statusRegistro", "genero"];

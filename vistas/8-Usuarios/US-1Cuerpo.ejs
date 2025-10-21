@@ -6,7 +6,8 @@
 		<button type="text">Envío de nueva contraseña</button>
 	</form>
 	<div id="imagenes" class="flexRowAlign">
-		<img src="" alt="">
-		<img src="" alt="">
+		<% for (const imagen of imagenes) { %>
+			<img src="<%= imagen %>">
+		<% } %>
 	</div>
 </section>

@@ -1,5 +1,5 @@
 "use strict";
-// import procesos from "./US-procesos.mjs";
+import procesos from "./US-Procesos.mjs";
 const temaVista = "usuarios";
 
 export default {
@@ -9,11 +9,12 @@ export default {
 		const codigo = "altaOlvido";
 
 		// Obtiene imágenes
-
+		const imagenes = procesos.altaOlvido.obtieneImagenesAlAzar();
 
 		// Fin
 		return res.render("CMP-0Estructura", {
 			...{tituloPagina, temaVista, codigo},
+			imagenes
 		});
 	},
 	edicion: async (req, res) => {

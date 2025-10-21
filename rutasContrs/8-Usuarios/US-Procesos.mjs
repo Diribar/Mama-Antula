@@ -3,6 +3,29 @@
 import bcryptjs from "bcryptjs";
 
 export default {
+	altaOlvido: {
+		obtieneImagenesAlAzar: () => {
+			// Variables
+			const carpeta = path.join(carpImgsEstables, "Mama-Antula");
+			let archivos;
+
+			// Obtiene el nombre de los archivos
+			archivos = fs.readdirSync(carpeta);
+			archivos = archivos.filter((archivo) => path.basename(archivo).startsWith("Alta"));
+
+			// Obtiene dos al azar
+			const i = Math.floor(Math.random() * archivos.length);
+			let j = i;
+			while (j === i) j = Math.floor(Math.random() * archivos.length);
+			archivos = [archivos[i], archivos[j]];
+
+			// Les agrega la ruta
+			archivos = archivos.map((archivo) => path.join( "/imgsEstables", "Mama-Antula", archivo));
+
+			// Fin
+			return archivos;
+		},
+	},
 	creaElUsuario: async ({cliente, email, contrasena}) => {
 		// Variables
 		const {diasNaveg, visitaCreadaEn, versionWeb: versionWebCliente} = cliente;
