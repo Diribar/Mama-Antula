@@ -9,6 +9,11 @@ export default (sequelize, dt) => {
 		clase: {type: dt.STRING(20)},
 		link: {type: dt.STRING(100)},
 		grupo: {type: dt.STRING(20)},
+
+		// Permisos
+		edicion: {type: dt.BOOLEAN},
+		revision: {type: dt.BOOLEAN},
+		abmUs: {type: dt.BOOLEAN},
 	};
 	const config = {
 		tableName: "aux_iconos_agrups",

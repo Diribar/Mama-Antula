@@ -3,6 +3,9 @@ import procesos from "./LT-procesos.mjs";
 
 export default {
 	secciones: async (req, res) => {
+		// Variables
+		const tema = "secciones";
+
 		// Obtiene la sección
 		const url = req.originalUrl;
 		const seccionActual = secciones.find((n) => n.link == url);
@@ -20,7 +23,7 @@ export default {
 
 		// Fin
 		return res.render("CMP-0Estructura", {
-			tituloPagina,
+			...{tituloPagina, tema},
 			...{seccionActual, temaActual, pestanaActual},
 			...{temasSeccion, encabArtics, encabCartas, contenidos, carrouseles},
 		});
