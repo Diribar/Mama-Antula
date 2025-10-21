@@ -1,6 +1,6 @@
 "use strict";
 import valida from "./US-FN-Valida.mjs";
-import procesos from "./US-pprocesos.mjs";
+import procesos from "./US-procesos.mjs";
 
 export default {
 	login: async (req, res) => {
