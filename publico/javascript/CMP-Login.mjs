@@ -41,13 +41,13 @@ window.addEventListener("load", async () => {
 	// Eventos - Click en el ícono de usuario ⟶ foco en el input de email
 	DOM.iconoUsuario.addEventListener("click", () => setTimeout(() => DOM.email.focus(), 200));
 	// Eventos - Input
-	DOM.menuLogin.addEventListener("input", (e) => {
+	DOM.menuLogin.addEventListener("input", () => {
 		DOM.mensajeError.innerText = ""; // Borra el mensaje de error
 		DOM.confirma.classList.remove("inactivo"); // Se activa el botón 'Confirma'
 		return;
 	});
 	// Eventos - Change
-	DOM.menuLogin.addEventListener("change", () => e.target.name == "email" && (e.target.value = e.target.value.toLowerCase()));
+	DOM.menuLogin.addEventListener("change", (e) => e.target.name == "email" && (e.target.value = e.target.value.toLowerCase()));
 	// Eventos - Submit
 	DOM.menuLogin.addEventListener("keydown", async (e) => e.key == "Enter" && submit());
 	DOM.confirma.addEventListener("click", async () => submit());
