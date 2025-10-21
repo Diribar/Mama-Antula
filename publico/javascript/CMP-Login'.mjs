@@ -67,7 +67,7 @@ window.addEventListener("load", () => {
 				.every((n) => n.includes("ocultar"));
 
 			// Fin
-			OK && error ? DOM.button.classList.remove("inactivo") : DOM.button.classList.add("inactivo");
+			DOM.button.classList[OK && error?"remove":"add"]("inactivo")
 		},
 	};
 
