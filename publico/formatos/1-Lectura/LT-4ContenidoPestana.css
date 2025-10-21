@@ -1,0 +1,13 @@
+.contenidoTema {
+	.listadoPestanas {
+		display: flex; flex-direction: row; align-items: center;
+		li {
+			border: 1px solid var(--gris-oscuro); border-top-left-radius: 5px; border-top-right-radius: 5px;
+			padding: 2px 10px; cursor: pointer;
+			&.activo {background-color: var(--azul-oscuro); color: snow;}
+		}
+	}
+	.contenidoPestana {
+		border: 1px solid var(--verde-oscuro);
+	}
+}

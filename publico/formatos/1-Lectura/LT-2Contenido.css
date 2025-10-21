@@ -1,5 +1,4 @@
 .contenido {
-	border: 1px solid var(--verde-oscuro);
 	display: flex; flex-direction: column;
 	overflow-y: auto; flex-grow: 1;
 	.textoImagen {
