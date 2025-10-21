@@ -5,11 +5,8 @@ import nodemailer from "nodemailer";
 
 // Exportar
 export default {
-	obtieneUsuarioPorMail: async (email) => {
+	obtieneUsuarioPorMail: (email) => {
 		const include = ["rol", "statusRegistro", "genero"];
-		console.log(10, email);
-
-		const usuario = await baseDatos.obtienePorCondicion("usuarios", {email}, include);
-		return usuario;
+		return baseDatos.obtienePorCondicion("usuarios", {email}, include);
 	},
 };

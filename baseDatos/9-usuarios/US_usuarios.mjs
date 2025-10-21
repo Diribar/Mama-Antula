@@ -6,10 +6,11 @@ export default (sequelize, dt) => {
 		genero_id: {type: dt.STRING(1)},
 
 		apodo: {type: dt.STRING(30)},
+		cliente_id: {type: dt.STRING(11)},
 		contrasena: {type: dt.STRING(50)},
 		avatar: {type: dt.STRING(100)},
+		newsletter: {type: dt.BOOLEAN},
 
-		cliente_id: {type: dt.STRING(11)},
 		visitaCreadaEn: {type: dt.DATE},
 		fechaUltNaveg: {type: dt.DATE},
 		diasNaveg: {type: dt.INTEGER},
@@ -17,7 +18,6 @@ export default (sequelize, dt) => {
 
 		creadoEn: {type: dt.DATE},
 		fechaContrasena: {type: dt.DATE},
-		intentosLogin: {type: dt.INTEGER},
 
 		rolUsuario_id: {type: dt.INTEGER},
 		statusRegistro_id: {type: dt.INTEGER},
