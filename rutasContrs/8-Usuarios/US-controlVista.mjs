@@ -8,6 +8,8 @@ export default {
 		const tituloPagina = "Alta de Usuario / Olvido de Contraseña";
 		const codigo = "altaOlvido";
 
+		// Obtiene imágenes
+
 		// Fin
 		return res.render("CMP-0Estructura", {
 			...{tituloPagina, temaVista, codigo},
