@@ -32,7 +32,7 @@ window.addEventListener("load", async () => {
 		DOM.mensajeError.innerText = errorEmail || errorContrasena || credenciales || "";
 
 		// Si no hubieron errores, se recarga la página
-		if (errores && !errores.hay) location.reload();
+		if (!errores.hay) location.reload();
 
 		// Fin
 		return;
