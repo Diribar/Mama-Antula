@@ -90,14 +90,14 @@ export default {
 	},
 	creaElUsuario: async ({cliente, email, contrasena}) => {
 		// Variables
-		const {diasNaveg, visitaCreadaEn} = cliente;
+		const {diasNaveg, visitaCreadaEn, versionWeb: versionWebCliente} = cliente;
 
 		// Crea el usuario
 		const usuario = await baseDatos.agregaRegistroIdCorrel("usuarios", {
 			...{email, contrasena},
 			...{diasNaveg, visitaCreadaEn},
 			statusRegistro_id: mailPendValidar_id,
-			[campoVersion]: version,
+			versionWeb: versionWebCliente,
 		});
 
 		// Actualiza 'cliente_id' en la BD 'usuarios' y en la cookie 'cliente_id'

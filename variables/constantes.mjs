@@ -23,5 +23,7 @@ export default {
 		...{login: "fa-circle-user", altaUser: "fa-user-plus", revision: "fa-user-graduate", mantenim: "fa-tools"},
 	},
 
+	requestsTriviales: ["WhatsApp", "Postman", "TelegramBot", "TwitterBot", "Zabbix"], // evita que se cuenten como visitas
+
 	rutasUsuario: {altaOlvido: "/alta-u-olvido-de-contrasena", edicion: "/edicion"},
 };
