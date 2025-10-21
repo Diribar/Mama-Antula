@@ -26,13 +26,13 @@ export default {
 	agregaRegistroIdCorrel: async (entidad, datos) => {
 		// Variables
 		const regsId = await bd[entidad]
-			.findAll({where: {id: {[Op.gt]: idsReserv}}}) // mayores que los idsReserv
+			.findAll()
 			.then((n) => n.map((m) => m.toJSON()))
 			.then((n) => n.map((m) => m.id));
 		let nuevoRegistro;
 
 		// Guarda el registro usando el primer 'id' disponible
-		let contador = idsReserv + 1;
+		let contador = 1;
 		for (const regId of regsId) {
 			if (
 				regId != contador && // id sin registro creado
@@ -63,8 +63,7 @@ export default {
 	actualizaPorId: (entidad, id, datos) => bd[entidad].update(datos, {where: {id}}),
 	eliminaPorId: (entidad, id) => bd[entidad].destroy({where: {id}}),
 	eliminaPorCondicion: (entidad, condicion) => bd[entidad].destroy({where: condicion}),
-	variaElValorDeUnCampo: (entidad, id, campo, variacion) =>
-		bd[entidad].increment(campo, {where: {id}, by: variacion || 1}),
+	variaElValorDeUnCampo: (entidad, id, campo, variacion) => bd[entidad].increment(campo, {where: {id}, by: variacion || 1}),
 
 	// Lectura
 	contarCasos: (entidad, condicion) => bd[entidad].count({where: condicion}),
