@@ -42,7 +42,7 @@ export default {
 		let usuario;
 
 		// Verifica errores
-		let errores = formatoMail(email);
+		const errores = formatoMail(email);
 		errores.contrasena = !contrasena ? contrasenaVacia : largoContr(contrasena) ? largoContr(contrasena) : "";
 		errores.hay = Object.values(errores).some((n) => !!n);
 
