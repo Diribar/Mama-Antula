@@ -39,26 +39,23 @@ export default {
 	login: async (datos) => {
 		// Variables
 		const {email, contrasena} = datos;
-		let usuario;
+		let errores, usuario;
 
-		// Verifica errores
-		let errores = formatoMail(email);
+		// Verifica el formato del mail
+		errores = formatoMail(email);
+		if (errores.hay) return {errores};
+
+		// Verifica la contraseña
 		errores.contrasena = !contrasena ? contrasenaVacia : largoContr(contrasena) ? largoContr(contrasena) : "";
 		errores.hay = Object.values(errores).some((n) => !!n);
+		if (errores.hay) return {errores};
 
-		// Sólo si no hay algún error previo, revisa las credenciales
-		if (!errores.hay) {
-			// Obtiene el usuario
-			usuario = await comp.obtieneUsuarioPorMail(email);
-
-			// Valida el mail y la contraseña
-			errores.email_BD = !usuario;
-			errores.contr_BD = usuario && !bcryptjs.compareSync(datos.contrasena, usuario.contrasena);
-
-			// Valida las credenciales
-			errores.credenciales = errores.email_BD || errores.contr_BD;
-			errores.hay = errores.credenciales;
-		}
+		// Revisa las credenciales
+		usuario = await comp.obtieneUsuarioPorMail(email);
+		const email_BD = !usuario;
+		const contr_BD = usuario && !bcryptjs.compareSync(datos.contrasena, usuario.contrasena);
+		errores.credenciales = email_BD || contr_BD;
+		errores.hay = !!errores.credenciales;
 
 		// Fin
 		return {errores, usuario};

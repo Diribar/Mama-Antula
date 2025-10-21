@@ -119,7 +119,7 @@ app.set("view engine", "ejs");
 	global.comp = await import("./funciones/Compartidas.mjs").then((n) => n.default);
 
 	// Variables globales de la base de datos
-	const varsBD = await import("./variables/BaseDatos.js").then((n) => n.default);
+	const varsBD = await import("./variables/baseDatos.mjs").then((n) => n.default);
 	const lecturasDeBd = await varsBD.lecturasDeBd();
 	for (const campo in lecturasDeBd) global[campo] = lecturasDeBd[campo];
 	const datosPartics = varsBD.datosPartics();

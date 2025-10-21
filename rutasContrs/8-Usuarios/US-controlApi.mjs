@@ -8,8 +8,8 @@ export default {
 		const {email, contrasena} = req.query;
 
 		// Valida
-		const errores = await valida.login(req.query);
-		if (errores.hay) return res.json({errores});
+		const {errores, usuario} = await valida.login(req.query);
+		if (errores.hay) return res.json(errores);
 
 		// Variables
 		const {cliente} = req.session;
@@ -21,7 +21,6 @@ export default {
 		res.cookie("email", email, {maxAge: unAno});
 
 		// Obtiene el usuario
-		const usuario = await comp.obtieneUsuarioPorMail(email);
 		const {id: usuario_id} = usuario;
 
 		// Si corresponde, le cambia el status a 'mailValidado'
