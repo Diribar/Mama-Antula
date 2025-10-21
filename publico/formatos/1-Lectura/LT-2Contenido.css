@@ -1,13 +1,16 @@
-#contenidoTemas .contenido {
-	display: flex; flex-direction: column;
-	overflow-y: auto; flex-grow: 1;
-	.textoImagen {
-		display: flex; flex-direction: row; gap: 15px;
-		align-items: stretch;
+#contenidoTemas {
+	background-image: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5));
+	.contenido {
+		display: flex; flex-direction: column;
+		overflow-y: auto; flex-grow: 1;
+		.textoImagen {
+			display: flex; flex-direction: row; gap: 15px;
+			align-items: stretch;
 
-		img {
-			max-height: 50vh;
-			object-fit: contain; /* recorta la imagen si es necesario */
+			img {
+				max-height: 50vh;
+				object-fit: contain; /* recorta la imagen si es necesario */
+			}
 		}
 	}
 }

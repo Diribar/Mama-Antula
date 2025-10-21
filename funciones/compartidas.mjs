@@ -87,7 +87,7 @@ export default {
 		},
 	},
 	obtieneUsuarioPorMail: (email) => {
-		const include = ["rol", "statusRegistro", "genero"];
+		const include = ["rol", "statusRegistro"];
 		return baseDatos.obtienePorCondicion("usuarios", {email}, include);
 	},
 	omitirMiddlewsTransv: (req) => {
