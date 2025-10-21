@@ -3,21 +3,19 @@
 export default {
 	temaPestanaActual: ({seccionActual, temasSeccion, req, res}) => {
 		// Variables
-		let aux, pestanaActual;
+		const seccionActualCodigo = req.cookies[seccionActual.codigo];
+		let pestanaActual;
 
 		// Obtiene el tema actual y la guarda en la cookie
-		aux = temasSeccion[0];
-		const temaActual = req.cookies[seccionActual.codigo]
-			? temasSeccion.find((n) => n.codigo == req.cookies[seccionActual.codigo]) || aux
-			: aux;
-		if (!req.cookies[seccionActual.codigo]) res.cookie(seccionActual.codigo, temaActual.codigo, {maxAge: unDia});
+		const temaActual = (seccionActualCodigo && temasSeccion.find((n) => n.codigo == seccionActualCodigo)) || temasSeccion[0];
+		if (!seccionActualCodigo) res.cookie(seccionActual.codigo, temaActual.codigo, {maxAge: unDia});
 
 		// Obtiene la pestaña actual y la guarda en la cookie
-		aux = temaActual.pestanas && temaActual.pestanas[0];
+		const aux = temaActual.pestanas.length && temaActual.pestanas[0];
 		if (aux) {
-			pestanaActual = req.cookies[temaActual.codigo]
-				? temaActual.pestanas.find((n) => n.codigo == req.cookies[temaActual.codigo]) || aux
-				: aux;
+			pestanaActual =
+				(req.cookies[temaActual.codigo] && temaActual.pestanas.find((n) => n.codigo == req.cookies[temaActual.codigo])) ||
+				aux;
 			if (!req.cookies[temaActual.codigo]) res.cookie(temaActual.codigo, pestanaActual.codigo, {maxAge: unDia});
 		}
 
