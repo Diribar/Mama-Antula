@@ -11,6 +11,7 @@
 
 <!-- Íconos de la derecha -->
 <section id="derecha">
-	<%- include("HR-2IconoUsuario") %>
-	<%- include("HR-3MenuUsuario") %>
+	<% if (!locals.usuario) { %><%- include("HR-1Login") %>
+	<% } else { %><%- include("HR-2Logout") %>
+	<% } %>
 </section>

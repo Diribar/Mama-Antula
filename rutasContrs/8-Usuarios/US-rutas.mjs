@@ -9,8 +9,9 @@ const router = express.Router();
 router.get("/api/login", API.login);
 
 // 🖥️ Vistas
-router.get("/abm", vista.abm);
-router.get("/cambioRol", vista.cambioRol);
+router.get(rutasUsuario.altaOlvido, vista.altaOlvido);
+router.get(rutasUsuario.edicion, vista.edicion);
+router.get("/cambio-de-roles", vista.cambioRoles);
 
 // ✅ Export
 export default router;

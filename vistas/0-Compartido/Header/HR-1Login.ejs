@@ -1,3 +1,6 @@
+<div id="iconoUsuario" class="pointer">
+	<i class="fa-regular <%= iconos.login %> iconoHeader mostrarClick" title="Login/Registrarse"></i>
+</div>
 <form id="formLogin" class="mostrarToggle ocultar">
 	<!-- Inputs -->
 	<input type="email" name="email" placeholder="e-mail">
@@ -10,8 +13,8 @@
 	<!--Iconos-->
 	<div id="iconos">
 		<i id="confirmaLogin" class="<%= iconos.faSolid %> <%= iconos.check %> scaleHover" title="Login"></i>
-		<a href="<%= rutasUsuario.abm %>">
-			<i id="seccionUsuario" class="<%= iconos.faSolid %> <%= iconos.altaUser %> scaleHover" title="Ir a la sección de usuario"></i>
+		<a href="/usuarios<%= rutasUsuario.altaOlvido %>">
+			<i id="altaOlvido" class="<%= iconos.faSolid %> <%= iconos.altaUser %> scaleHover" title="Alta de usuario / Olvido de contraseña"></i>
 		</a>
 	</div>
 
