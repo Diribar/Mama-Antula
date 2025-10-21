@@ -1,11 +1,9 @@
 "use strict";
 import procesos from "./LT-procesos.mjs";
+const temaVista = "secciones";
 
 export default {
 	secciones: async (req, res) => {
-		// Variables
-		const tema = "secciones";
-
 		// Obtiene la sección
 		const url = req.originalUrl;
 		const seccionActual = secciones.find((n) => n.link == url);
@@ -23,7 +21,7 @@ export default {
 
 		// Fin
 		return res.render("CMP-0Estructura", {
-			...{tituloPagina, tema},
+			...{tituloPagina, temaVista},
 			...{seccionActual, temaActual, pestanaActual},
 			...{temasSeccion, encabArtics, encabCartas, contenidos, carrouseles},
 		});
