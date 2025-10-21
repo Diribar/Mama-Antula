@@ -40,7 +40,7 @@ global.urlHost =
 	(entProd && "https://mamaantula.com") || (entPrueba && "https://prueba.mamaantula.com") || "https://mamaantula:3006";
 
 // Servidor
-const puerto = entProd ? "?" : entPrueba ? "?" : 3008;
+const puerto = entProd ? 4216 : entPrueba ? "?" : 3008;
 const leyenda = "\nMama Antula - Servidor funcionando...";
 if (entDesarr) {
 	// Variables
