@@ -1,6 +1,6 @@
 "use strict";
 
-module.exports = {
+export default {
 	lecturasDeBd: async () => {
 		// Obtiene las lecturas de BD
 		const lecturas = {

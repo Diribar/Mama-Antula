@@ -14,14 +14,15 @@
 	#menuLogin {
 		align-items: center; gap: 10px;
 		&:has(#mensajeError:not(:empty)) {
-			background-color: var(--rojo-claro);
-			#mensajeError {color: var(--gris-claro);}
+			background-color: var(--rojo-oscuro);
+			#mensajeError {color: var(--gris-claro); text-align: center;font-style: italic; line-height: 1;}
+			#iconos {display: none;}
 		}
 
 		input {
+			width: 150px; padding-inline: 2px;
 			text-align: center; color: var(--azul-oscuro);
 			border-radius: 5px; border-width: 1px;
-			width: 150px;
 			&::placeholder {color: var(--gris-intermedio);}
 		}
 		#eye {

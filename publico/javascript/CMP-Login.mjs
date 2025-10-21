@@ -3,11 +3,16 @@
 window.addEventListener("load", async () => {
 	// Variables
 	const DOM = {
+		// Form
 		menuLogin: document.querySelector("#menuLogin"),
+
+		// Inputs
 		email: document.querySelector("#menuLogin input[name='email']"),
 		contrasena: document.querySelector("#menuLogin input[name='contrasena']"),
+
+		// Mensaje y confirma
+		mensajeError: document.querySelector("#menuLogin #mensajeError"),
 		confirma: document.querySelector("#menuLogin #confirmaLogin"),
-		mensajeError: document.querySelectorAll("#menuLogin #mensajeError"),
 	};
 
 	// Eventos - Input
