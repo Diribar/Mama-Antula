@@ -1,7 +1,8 @@
-<div id="iconoUsuario" class="pointer">
-	<i class="fa-regular <%= iconos.login %> iconoHeader mostrarClick" title="Login/Registrarse"></i>
-</div>
-<form id="formLogin" class="mostrarToggle ocultar">
+<!-- Ícono -->
+<i id="iconoUsuario" class="fa-regular <%= iconos.login %> mostrarClick pointer" title="Login/Registrarse"></i>
+
+<!-- Form login -->
+<form id="menuLogin" class="mostrarToggle ocultar">
 	<!-- Inputs -->
 	<input type="email" name="email" placeholder="e-mail">
 	<div id="contContrasena" class="relative">
@@ -17,5 +18,4 @@
 			<i id="altaOlvido" class="<%= iconos.faSolid %> <%= iconos.altaUser %> scaleHover" title="Alta de usuario / Olvido de contraseña"></i>
 		</a>
 	</div>
-
 </form>
