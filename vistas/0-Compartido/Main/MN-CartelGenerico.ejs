@@ -1,0 +1,28 @@
+<section id="todoElMain" class="<%- !locals.informacion ? 'ocultar' : '' %>">
+	<!-- Tapar el fondo -->
+	<div id="tapaElFondo" class="<%- !locals.informacion ? 'ocultar' : '' %>"></div>
+
+	<!-- Cartel -->
+	<div id="cartelGenerico" class="cartelCentro absoluteCentro flexColAlign <%- !locals.informacion ? 'ocultar' : informacion.check ? 'check' : informacion.trabajando ? 'trabajando' : '' %>">
+		<div id="encab" class="flexColAlign">
+			<!-- Íconos -->
+			<i id="alerta" class="<%= iconos.faSolid %> fa-triangle-exclamation inicio<%- locals.informacion && (locals.informacion.check || locals.informacion.trabajando) ? ' ocultar' : '' %>"></i>
+
+			<!-- Título -->
+			<h1 id="titulo"><%= locals.informacion ? informacion.titulo : '' %></h1>
+		</div>
+
+		<div id="contenedorMensajes">
+			<% if (informacion.ol) { %><ol id="mensajes" type="<%- informacion.mensajes.length > 1 ? '1' : 'none' %>">
+			<% } else { %><ul id="mensajes" type="<%- informacion.mensajes.length > 1 ? 'disc' : 'none' %>">
+			<% } %>
+				<% for (mensaje of informacion.mensajes) { %>
+					<li>
+						<% if (mensaje.startsWith("/")) { %><a href="<%= mensaje.slice(0, -1) %>">Si querés ver un ejemplo podés hacer click <u>acá</u>.</a>
+						<% } else { %><%- mensaje %><% } %>
+					</li>
+				<% } %>
+			<% if (informacion.ol) { %></ol><% } else { %></ul><% } %>
+		</div>
+	</div>
+</section>
