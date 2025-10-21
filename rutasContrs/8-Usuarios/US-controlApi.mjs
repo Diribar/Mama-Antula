@@ -75,5 +75,13 @@ export default {
 		await Promise.all(espera);
 		return res.json({ok: true});
 	},
-	logout: async (req, res) => {},
+	logout: async (req, res) => {
+		// Desloguea al usuario
+		delete req.session.usuario;
+		res.clearCookie("email");
+		if (res.locals && res.locals.usuario) delete res.locals.usuario;
+
+		// Fin
+		return res.json();
+	},
 };
