@@ -1,5 +1,5 @@
 export default (sequelize, dt) => {
-	const alias = "rolesUsuario";
+	const alias = "rolesUs";
 	const columns = {
 		orden: {type: dt.INTEGER},
 		nombre: {type: dt.STRING(20)},

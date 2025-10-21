@@ -17,7 +17,7 @@ export default (sequelize, dt) => {
 	};
 	const entidad = sequelize.define(alias, columns, config);
 	entidad.associate = (n) => {
-		entidad.belongsTo(n.rolesUsuario, {as: "rol", foreignKey: "rolUsuario_id"});
+		entidad.belongsTo(n.rolesUs, {as: "rol", foreignKey: "rolUsuario_id"});
 	};
 	return entidad;
 };
