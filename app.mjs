@@ -127,14 +127,10 @@ app.set("view engine", "ejs");
 	// await rutinas.startupMasConfiguracion();
 
 	// Middlewares transversales
-	app.use((await import("./middlewares/tituloPagina.mjs")).default);
 
 	// Rutas
 	app.use("/contenido", (await import("./rutasContrs/2-ABM/ABM-rutas.mjs")).default);
 	app.use("/usuarios", (await import("./rutasContrs/8-Usuarios/US-rutas.mjs")).default);
 	app.use("/", (await import("./rutasContrs/9-Miscelaneas/MS-rutas.mjs")).default);
 	app.use("/", (await import("./rutasContrs/1-Lectura/LT-rutas.mjs")).default);
-
-	// Error - página no encontrada
-	app.use((await import("./middlewares/urlDesconocida.mjs")).default);
 })();
