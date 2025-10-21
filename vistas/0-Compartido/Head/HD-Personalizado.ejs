@@ -1,4 +1,11 @@
 <!-- Heads personalizados -->
+<% if (!locals.usuario) { %>
+	<script src="/javascript/CMP-Login.mjs"></script>
+	<script src="/javascript/CMP-OjitoContrasena.mjs"></script>
+<% } else { %>
+	<script src="/javascript/CMP-Logout.mjs"></script>
+<% } %>
+
 <% if (locals.seccionActual) { %>
 	<link rel="stylesheet" href="/formato/1-Lectura/LT-1MenuTituloTema.css">
 	<link rel="stylesheet" href="/formato/1-Lectura/LT-2ContenidoTema.css">

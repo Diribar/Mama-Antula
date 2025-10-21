@@ -3,7 +3,7 @@
 	<h1 id="iconoMenuTemas"><i class="fa-solid fa-bars mostrarClick scaleHover pointer"></i></h1>
 
 	<!-- Menú de opciones -->
-	<ul type="none" id="menuTemas" class="mostrarToggle ocultar">
+	<ul type="none" id="listadoTemas" class="mostrarToggle ocultar">
 		<% for (const tema of temasSeccion) { %>
 			<li class="tema <% if (tema.id == temaActual.id) { %>activo<% } %>" data-tema_codigo="<%= tema.codigo %>"><%= tema.titulo %></li>
 		<% } %>

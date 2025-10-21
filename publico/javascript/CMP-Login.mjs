@@ -51,6 +51,9 @@ window.addEventListener("load", async () => {
 	// Eventos - Submit
 	DOM.menuLogin.addEventListener("keydown", async (e) => e.key == "Enter" && submit());
 	DOM.confirma.addEventListener("click", async () => submit());
+
+	// Fin
+	return;
 });
 
 // Variables

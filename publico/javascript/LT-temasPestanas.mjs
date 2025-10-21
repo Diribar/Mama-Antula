@@ -5,8 +5,8 @@ window.addEventListener("load", async () => {
 	const DOM = {
 		// Menú de temas
 		iconoMenuTemas: document.querySelector("#menuTemas #iconoMenuTemas"),
-		menuTemas: document.querySelector("#menuTemas #menuTemas"),
-		temas: document.querySelectorAll("#menuTemas #menuTemas .tema"),
+		menuTemas: document.querySelector("#menuTemas #listadoTemas"),
+		temas: document.querySelectorAll("#menuTemas #listadoTemas .tema"),
 		tituloTema: document.querySelector("#menuTituloTema #tituloTema"),
 
 		// Contenido
