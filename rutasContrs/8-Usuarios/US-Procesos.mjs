@@ -3,67 +3,29 @@
 import bcryptjs from "bcryptjs";
 
 export default {
-	// Middleware
-	infoNoPerenne: (req) => {
+	creaElUsuario: async ({cliente, email, contrasena}) => {
 		// Variables
-		const entidad = comp.obtieneEntidadDesdeUrl(req);
-		const {id, origen} = req.query;
-		const linkVolver =
-			entidad && id
-				? "/" + entidad + "/inactivar-captura/?id=" + id + "&origen=" + (origen || "DT")
-				: req.session.urlSinLogin;
+		const {diasNaveg, visitaCreadaEn, versionWeb: versionWebCliente} = cliente;
 
-		// Información
-		const informacion = {
-			mensajes: [
-				"Nos agrada que nuestros usuarios nos aporten información.",
-				"Ese permiso requiere responsabilidad.",
-				"Necesitamos algunos datos tuyos, para asignarte ese rol.",
-				"Para avanzar, elegí el ícono de la flecha hacia la derecha.",
-			],
-			iconos: [
-				variables.vistaAnterior(linkVolver),
-				{
-					clase: iconos.derecha,
-					link: "/usuarios/perennes",
-					titulo: "Obtener el rol 'Apto Input'",
-					autofocus: true,
-				},
-			],
-			titulo: "Rol Apto Input",
-			trabajando: true,
-		};
+		// Crea el usuario
+		const usuario = await baseDatos.agregaRegistroIdCorrel("usuarios", {
+			...{email, contrasena},
+			...{diasNaveg, visitaCreadaEn},
+			statusRegistro_id: mailPendValidar_id,
+			versionWeb: versionWebCliente,
+		});
+
+		// Actualiza 'cliente_id' en la BD 'usuarios' y en la cookie 'cliente_id'
+		const cliente_id = "U" + String(usuario.id).padStart(10, "0");
+		await baseDatos.actualizaPorId("usuarios", usuario.id, {cliente_id}); // es necesario el 'await' para session
 
 		// Fin
-		return informacion;
+		return cliente_id;
 	},
-
-	// ControlVista: loginGuardar, altaPerennesGuardar, altaEditablesGuardar
-	eliminaDuplicados: async (usuario_id) => {
-		// Obtiene los registros
-		const registros = await baseDatos.obtieneTodosPorCondicion("persWebDia", {usuario_id});
-
-		// Elimina los duplicados
-		for (let i = registros.length - 1; i > 0; i--)
-			if (registros[i].fecha == registros[i - 1].fecha) baseDatos.eliminaPorId("persWebDia", registros[i].id);
-
-		// Fin
-		return;
-	},
-	logout: (req, res) => {
-		// Borra los datos de session y cookie
-		delete req.session.usuario;
-		res.clearCookie("email", {...global.dominio});
-
-		// Fin
-		return;
-	},
-
-	// ControlAPI
 	envioDeMailConContrasena: async ({email, altaMail}) => {
 		// Variables
-		const nombre = "ELC - Alta de contraseña";
-		const asunto = "Contraseña para ELC";
+		const nombre = "Familia Mama Antula";
+		const asunto = "Nueva contraseña";
 
 		// Contraseña
 		const contrasena = Math.round(Math.random() * Math.pow(10, 6))
@@ -87,25 +49,6 @@ export default {
 		// Fin
 		console.log("Contraseña: " + contrasena);
 		return {contrasena: contrEncriptada, mailEnviado};
-	},
-	creaElUsuario: async ({cliente, email, contrasena}) => {
-		// Variables
-		const {diasNaveg, visitaCreadaEn, versionWeb: versionWebCliente} = cliente;
-
-		// Crea el usuario
-		const usuario = await baseDatos.agregaRegistroIdCorrel("usuarios", {
-			...{email, contrasena},
-			...{diasNaveg, visitaCreadaEn},
-			statusRegistro_id: mailPendValidar_id,
-			versionWeb: versionWebCliente,
-		});
-
-		// Actualiza 'cliente_id' en la BD 'usuarios' y en la cookie 'cliente_id'
-		const cliente_id = "U" + String(usuario.id).padStart(10, "0");
-		await baseDatos.actualizaPorId("usuarios", usuario.id, {cliente_id}); // es necesario el 'await' para session
-
-		// Fin
-		return cliente_id;
 	},
 
 	// Ambos
