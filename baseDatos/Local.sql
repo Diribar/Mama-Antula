@@ -18,6 +18,9 @@
 --
 -- Table structure for table `aux_iconos_agrups`
 --
+DROP DATABASE IF EXISTS `ma_bd`;
+CREATE DATABASE `ma_bd`;
+USE `ma_bd`;
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
