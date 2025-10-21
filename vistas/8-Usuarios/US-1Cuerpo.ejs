@@ -1,13 +1,13 @@
 <h1 id="tituloTema"><%= tituloPagina %></h1>
 
-<section id="contenidoTemas" class="flexRowAlign">
+<section id="contenidoTemas">
+
+	<img src="<%= imagenes[0] %>">
+
 	<form id="formMail" class="flexColAlign">
-		<input type="email">
+		<input type="email" placeholder="Escribí tu mail">
 		<button type="text">Envío de nueva contraseña</button>
 	</form>
-	<div id="imagenes" class="flexRowAlign">
-		<% for (const imagen of imagenes) { %>
-			<img src="<%= imagen %>">
-		<% } %>
-	</div>
+
+	<img src="<%= imagenes[1] %>">
 </section>
