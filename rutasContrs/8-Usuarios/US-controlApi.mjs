@@ -65,7 +65,7 @@ export default {
 		if (esVisita) {
 			baseDatos.eliminaPorCondicion("visitas", {cliente_id}); // elimina el registro de la tabla
 			res.cookie("cliente_id", usuario.cliente_id, {maxAge: unAno}); // actualiza la cookie
-			procesos.cambiaVisitaEnNavegsDia({cliente_id: usuario.cliente_id, cliente_idViejo: cliente_id}); // cambia el cliente_id en la tabla de navegsDia
+			// procesos.cambiaVisitaEnNavegsDia({cliente_id: usuario.cliente_id, cliente_idViejo: cliente_id}); // cambia el cliente_id en la tabla de navegsDia
 		}
 
 		// Limpia la información obsoleta
