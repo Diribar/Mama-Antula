@@ -29,36 +29,15 @@ module.exports = {
 	datosPartics: () => {
 		// Variables
 		const respuesta = {
-			// 2. Tipos de actuación
-			anime_id: tiposActuacion.find((n) => n.codigo == "anime").id,
-			documental_id: tiposActuacion.find((n) => n.codigo == "documental").id,
-			actuada_id: tiposActuacion.find((n) => n.codigo == "actuada").id,
+			// 1. Roles de usuario
+			rolLectura_id: rolesUs.find((n) => n.codigo == "lectura").id,
+			rolesEdicion_ids: rolesUs.filter((n) => n.edicion).map((n) => n.id),
+			rolesRevision_ids: rolesUs.filter((n) => n.revision).map((n) => n.id),
+			rolesAdmin_ids: rolesUs.filter((n) => n.abmUs).map((n) => n.id),
 
-			// 4. Públicos
-			mayores_ids: publicos.filter((n) => n.mayores).map((n) => n.id),
-			familia_ids: publicos.filter((n) => n.familia).map((n) => n.id),
-			menores_ids: publicos.filter((n) => n.menores).map((n) => n.id),
-
-			// Otros - Productos
-			atributosCalific: {feValores, entretiene, calidadTecnica},
-			pppOpcsSimples: pppOpcsArray.filter((n) => !n.combo),
-			hablaHispana: paises.filter((n) => n.idioma_id == "ES"),
-			hablaNoHispana: paises.filter((n) => n.idioma_id != "ES"),
-			cnLayouts_ids: cnLayouts.map((n) => n.id),
-
-			// Links
-			linkPelicula_id: linksTipos.find((n) => n.pelicula).id,
-			linkTrailer_id: linksTipos.find((n) => n.trailer).id,
-			provsEmbeded: linksProvs.filter((n) => n.embededAgregar),
-			provsValidacAutom_ids: linksProvs.filter((n) => n.validacAutom).map((n) => n.id),
-
-			// Otros
-			cnCabeceraDefault: cnRegsCabecera.find((n) => n.id == cnCabeceraDefault_id),
-			epocaVarias: epocasOcurrencia.find((n) => n.id == "var"),
-			epocasSinVarias: epocasOcurrencia.filter((n) => n.id != "var"),
-			motivoInfoErronea: edicsMotivos.find((n) => n.codigo == "infoErronea"),
-			motivoVersionActual: edicsMotivos.find((n) => n.codigo == "versionActual"),
-			motivoDupl_id: statusMotivos.find((n) => n.codigo == "duplicado").id,
+			// 2. Status de usuario
+			mailPendValidar_id: statusRegistrosUs.find((n) => n.codigo == "mailPendValidar").id,
+			mailValidado_id: statusRegistrosUs.find((n) => n.codigo == "mailValidado").id,
 		};
 
 		// Preferencias por producto
