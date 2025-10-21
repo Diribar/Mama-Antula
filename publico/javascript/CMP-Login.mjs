@@ -39,7 +39,7 @@ window.addEventListener("load", async () => {
 	};
 
 	// Eventos - Click en el ícono de usuario ⟶ foco en el input de email
-	DOM.iconoUsuario.addEventListener("click", () => DOM.email.focus());
+	DOM.iconoUsuario.addEventListener("click", () => setTimeout(() => DOM.email.focus(), 200));
 	// Eventos - Input
 	DOM.menuLogin.addEventListener("input", (e) => {
 		DOM.mensajeError.innerText = ""; // Borra el mensaje de error
@@ -49,7 +49,7 @@ window.addEventListener("load", async () => {
 	// Eventos - Change
 	DOM.menuLogin.addEventListener("change", () => e.target.name == "email" && (e.target.value = e.target.value.toLowerCase()));
 	// Eventos - Submit
-	DOM.menuLogin.addEventListener("keydown", async (e) => submit());
+	DOM.menuLogin.addEventListener("keydown", async (e) => e.key == "Enter" && submit());
 	DOM.confirma.addEventListener("click", async () => submit());
 });
 
