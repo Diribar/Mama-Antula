@@ -13,4 +13,15 @@ export default {
 			...{tituloPagina, tema, codigo},
 		});
 	},
+	estadisticas: async (req, res) => {
+		// Variables
+		const tituloPagina = "Estadísticas";
+		const tema = "miscelaneas";
+		const codigo = "estadisticas";
+
+		// Fin
+		return res.render("CMP-0Estructura", {
+			...{tituloPagina, tema, codigo},
+		});
+	},
 };
