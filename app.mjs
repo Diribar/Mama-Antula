@@ -114,14 +114,16 @@ app.set("view engine", "ejs");
 
 // Funciones asíncronas de start-up
 (async () => {
-	// Funciones
+	// Funciones globales
 	global.baseDatos = await import("./funciones/BaseDatos.mjs").then((n) => n.default);
 	global.comp = await import("./funciones/Compartidas.mjs").then((n) => n.default);
 
-	const lecturasDeBd = await import("./variables/BaseDatos.js")
-		.then((n) => n.default)
-		.then(async (n) => await n.lecturasDeBd());
+	// Variables globales de la base de datos
+	const varsBD = await import("./variables/BaseDatos.js").then((n) => n.default);
+	const lecturasDeBd = await varsBD.lecturasDeBd();
 	for (const campo in lecturasDeBd) global[campo] = lecturasDeBd[campo];
+	const datosPartics = varsBD.datosPartics();
+	for (const campo in datosPartics) global[campo] = datosPartics[campo]; // asigna una variable a valores específicos
 
 	//const rutinas = await import("./rutinas/RT-Control.mjs").then((n) => n.default);
 	// await rutinas.startupMasConfiguracion();
