@@ -1,11 +1,11 @@
 <% if (false) { %>
 <% } else if (locals.informacion) { %><%- include("MN-CartelGenerico") %>
-<% } else if (locals.tema) { %>
+<% } else if (locals.temaVista) { %>
 	<% if (false) { %>
-	<% } else if (tema == "secciones") { %><%- include("LT-1Cuerpo") %>
-	<% } else if (tema == "usuarios") { %><%- include("US-1Cuerpo") %>
-	<% } else if (tema == "abmArticulos") { %><%- include("ABM-1Cuerpo") %>
-	<% } else if (tema == "miscelaneas") { %><%- include("MS-1Cuerpo") %>
+	<% } else if (temaVista == "secciones") { %><%- include("LT-1Cuerpo") %>
+	<% } else if (temaVista == "usuarios") { %><%- include("US-1Cuerpo") %>
+	<% } else if (temaVista == "abmArticulos") { %><%- include("ABM-1Cuerpo") %>
+	<% } else if (temaVista == "miscelaneas") { %><%- include("MS-1Cuerpo") %>
 	<% } %>
 
 <% } %>
