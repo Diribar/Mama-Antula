@@ -115,8 +115,8 @@ app.set("view engine", "ejs");
 // Funciones asíncronas de start-up
 (async () => {
 	// Funciones globales
-	global.baseDatos = await import("./funciones/BaseDatos.mjs").then((n) => n.default);
-	global.comp = await import("./funciones/Compartidas.mjs").then((n) => n.default);
+	global.baseDatos = await import("./funciones/cbaseDatos.mjs").then((n) => n.default);
+	global.comp = await import("./funciones/ccompartidas.mjs").then((n) => n.default);
 
 	// Variables globales de la base de datos
 	const varsBD = await import("./variables/baseDatos.mjs").then((n) => n.default);
