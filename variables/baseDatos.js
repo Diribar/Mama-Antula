@@ -16,6 +16,8 @@ module.exports = {
 
 			// Otros
 			iconosAgrupados: baseDatos.obtieneTodosConOrden("iconosAgrupados", "orden"),
+			rolesUs: baseDatos.obtieneTodosConOrden("rolesUs", "orden"),
+			statusRegistrosUs: baseDatos.obtieneTodosConOrden("statusRegistrosUs", "orden"),
 			//novedadesWeb: baseDatos.obtieneTodosConOrden("novedadesWeb", "fecha"),
 		};
 
@@ -39,11 +41,6 @@ module.exports = {
 			mailPendValidar_id: statusRegistrosUs.find((n) => n.codigo == "mailPendValidar").id,
 			mailValidado_id: statusRegistrosUs.find((n) => n.codigo == "mailValidado").id,
 		};
-
-		// Preferencias por producto
-		respuesta.pppOpcsObj = {};
-		for (const pppOcion of pppOpcsArray)
-			respuesta.pppOpcsObj[pppOcion.codigo] = pppOpcsArray.find((n) => n.codigo == pppOcion.codigo);
 
 		// Fin
 		return respuesta;
