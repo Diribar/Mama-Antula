@@ -1,4 +1,4 @@
-export default async (req, res, next) => {
+export default (req, res, next) => {
 	// Variables
 	const url = req.originalUrl;
 
