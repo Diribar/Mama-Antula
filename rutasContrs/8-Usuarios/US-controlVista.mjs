@@ -10,6 +10,7 @@ export default {
 
 		// Obtiene imágenes
 
+
 		// Fin
 		return res.render("CMP-0Estructura", {
 			...{tituloPagina, temaVista, codigo},
