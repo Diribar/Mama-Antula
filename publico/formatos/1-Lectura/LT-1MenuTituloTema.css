@@ -4,7 +4,7 @@
 	#menuTemas {
 		margin-right: 15px;
 		#icono {margin-block: 0;}
-		#menuTemas {
+		#listadoTemas {
 			background-color: var(--amarillo-claro); border: 1px solid var(--gris-oscuro); border-radius: 5px;
 			position: absolute; bottom: 10px; translate: 0% 100%;
 			width: max-content;
