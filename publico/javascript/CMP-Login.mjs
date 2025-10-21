@@ -4,6 +4,7 @@ window.addEventListener("load", async () => {
 	// Variables
 	const DOM = {
 		// Form
+		iconoUsuario: document.querySelector("#iconoUsuario"),
 		menuLogin: document.querySelector("#menuLogin"),
 
 		// Inputs
@@ -15,18 +16,8 @@ window.addEventListener("load", async () => {
 		confirma: document.querySelector("#menuLogin #confirmaLogin"),
 	};
 
-	// Eventos - Input
-	DOM.menuLogin.addEventListener("input", (e) => {
-		DOM.mensajeError.innerText = ""; // Borra el mensaje de error
-		DOM.confirma.classList.remove("inactivo"); // Se activa el botón 'Confirma'
-		return;
-	});
-
-	// Eventos - Change
-	DOM.menuLogin.addEventListener("change", () => e.target.name == "email" && (e.target.value = e.target.value.toLowerCase()));
-
-	// Eventos - Submit
-	DOM.confirma.addEventListener("click", async () => {
+	// Funciones
+	const submit = async () => {
 		// Si confirma está inactivo, interrumpe la función
 		if (DOM.confirma.className.includes("inactivo")) return;
 		else DOM.confirma.classList.add("inactivo"); // Se inactiva el botón 'Confirma'
@@ -41,11 +32,25 @@ window.addEventListener("load", async () => {
 		DOM.mensajeError.innerText = errorEmail || errorContrasena || credenciales || "";
 
 		// Si no hubieron errores, se recarga la página
-		if (!errores.hay) location.reload();
+		if (errores && !errores.hay) location.reload();
 
 		// Fin
 		return;
+	};
+
+	// Eventos - Click en el ícono de usuario ⟶ foco en el input de email
+	DOM.iconoUsuario.addEventListener("click", () => DOM.email.focus());
+	// Eventos - Input
+	DOM.menuLogin.addEventListener("input", (e) => {
+		DOM.mensajeError.innerText = ""; // Borra el mensaje de error
+		DOM.confirma.classList.remove("inactivo"); // Se activa el botón 'Confirma'
+		return;
 	});
+	// Eventos - Change
+	DOM.menuLogin.addEventListener("change", () => e.target.name == "email" && (e.target.value = e.target.value.toLowerCase()));
+	// Eventos - Submit
+	DOM.menuLogin.addEventListener("keydown", async (e) => submit());
+	DOM.confirma.addEventListener("click", async () => submit());
 });
 
 // Variables
