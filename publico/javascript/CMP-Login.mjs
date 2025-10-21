@@ -3,9 +3,9 @@
 window.addEventListener("load", async () => {
 	// Variables
 	const DOM = {
-		formLogin: document.querySelector("#formLogin"),
-		email: document.querySelector("#formLogin input[name='email']"),
-		contrasena: document.querySelector("#formLogin input[name='contrasena']"),
+		menuLogin: document.querySelector("#menuLogin"),
+		email: document.querySelector("#menuLogin input[name='email']"),
+		contrasena: document.querySelector("#menuLogin input[name='contrasena']"),
 		confirmaLogin:document.querySelector("#confirmaLogin"),
 	};
 

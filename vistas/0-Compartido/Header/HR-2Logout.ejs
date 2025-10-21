@@ -1,6 +1,16 @@
-<div id="iconoUsuario" class="pointer">
-	<div id="imagenUsuario" title="Hola <%= usuario.apodo %>">
-		<% const avatarUsuario = usuario.avatar ? ("/imgsEditables/9-Usuarios/" + usuario.avatar) : "/imgsComp/9-Varios/usuarioGenerico.jpg" %>
-		<img src="<%= avatarUsuario %>">
+<!-- Ícono -->
+<% const usuario = {apodo: "Diego"} %>
+<% const avatarUsuario = usuario.avatar ? ("/imgsEditables/9-Usuarios/" + usuario.avatar) : "/imgsEstables/Varios/usuarioGenerico.jpg" %>
+<img id="imagenUsuario" title="Hola <%= usuario.apodo %>" src="<%= avatarUsuario %>" class="mostrarClick pointer">
+
+<!-- Menu de usuario -->
+<div id="menuLogout" class="mostrarToggle ocultar">
+	<a href="/usuarios/edicion" class="menuOpcion">
+		<i class="<%= iconos.faSolid %> <%= iconos.edicion %> icono"></i>
+		<span>Edición</span>
+	</a>
+	<div class="menuOpcion">
+		<i class="<%= iconos.faSolid %> fa-right-from-bracket icono"></i>
+		<span>Logout</span>
 	</div>
 </div>

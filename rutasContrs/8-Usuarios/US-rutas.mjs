@@ -7,6 +7,8 @@ const router = express.Router();
 
 // 📡 APIs
 router.get("/api/login", API.login);
+router.get("/api/logout", API.logout);
+
 
 // 🖥️ Vistas
 router.get(rutasUsuario.altaOlvido, vista.altaOlvido);
