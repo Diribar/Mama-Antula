@@ -54,7 +54,7 @@ export default {
 		usuario = await comp.obtieneUsuarioPorMail(email);
 		const email_BD = !usuario;
 		const contr_BD = usuario && !bcryptjs.compareSync(datos.contrasena, usuario.contrasena);
-		errores.credenciales = email_BD || contr_BD;
+		errores.credenciales = (email_BD || contr_BD) && "Credenciales erróneas";
 		errores.hay = !!errores.credenciales;
 
 		// Fin
