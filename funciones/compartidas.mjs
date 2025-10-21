@@ -5,6 +5,47 @@ import nodemailer from "nodemailer";
 
 // Exportar
 export default {
+	fechaHora: {
+		// En uso
+		anoMesDia: (fecha) => new Date(fecha).toISOString().slice(0, 10),
+
+		// Sin uso
+		ahora: () => FN.ahora(),
+		nuevoHorario: (delay, horario) => FN.nuevoHorario(delay, horario),
+		diaMesUTC: (fecha) => FN.diaMesUTC(fecha),
+		diaSemUTC: (fecha) => {
+			const numDiaSem = new Date(fecha).getUTCDay();
+			const diaSem = diasSem[numDiaSem];
+			return diaSem;
+		},
+		diaMesAnoUTC: function (fecha) {
+			// Variables
+			fecha = new Date(fecha);
+			const diaMes = this.diaMesUTC(fecha);
+			const ano = fecha.getUTCFullYear().toString().slice(-2);
+			const diaMesAno = diaMes + "/" + ano;
+
+			// Fin
+			return diaMesAno;
+		},
+		horarioUTC: (fecha) => {
+			const horario = fecha ? new Date(fecha) : FN.ahora();
+			const hora = horario.getUTCHours();
+			const minutos = String(horario.getUTCMinutes()).padStart(2, "0");
+			const horaResp = hora + ":" + minutos + "hs (UTC)";
+			return horaResp;
+		},
+		fechaDelAno: (fecha) => {
+			let datos = {};
+			if (fecha.fechaDelAno_id && fecha.fechaDelAno_id <= 366) {
+				let fechaDelAno = fechasDelAno.find((n) => n.id == fecha.fechaDelAno_id);
+				datos.dia = fechaDelAno.dia;
+				datos.mes_id = fechaDelAno.mes_id;
+			}
+			// Fin
+			return datos;
+		},
+	},
 	obtieneUsuarioPorMail: (email) => {
 		const include = ["rol", "statusRegistro", "genero"];
 		return baseDatos.obtienePorCondicion("usuarios", {email}, include);
