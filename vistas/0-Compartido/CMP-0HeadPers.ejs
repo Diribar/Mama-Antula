@@ -1,0 +1,12 @@
+<!-- Heads personalizados -->
+<% if (!locals.usuario) { %>
+	<script src="/javascript/CMP-Login.mjs"></script>
+	<script src="/javascript/CMP-OjitoContrasena.mjs"></script>
+<% } else { %>
+	<script src="/javascript/CMP-Logout.mjs"></script>
+<% } %>
+
+<% if (false) { %>
+<% } else if (locals.tema == "secciones") { %><%- include("LT-0Head") %>
+<% } else if (locals.tema == "usuarios") { %>
+<% } %>
