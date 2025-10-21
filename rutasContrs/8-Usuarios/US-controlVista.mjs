@@ -6,35 +6,35 @@ export default {
 	altaOlvido: async (req, res) => {
 		// Variables
 		const tituloPagina = "Alta de Usuario / Olvido de Contraseña";
-		const codigo = "altaOlvido";
+		const codigoVista = "altaOlvido";
 
 		// Obtiene imágenes
 		const imagenes = procesos.altaOlvido.obtieneImagenesAlAzar();
 
 		// Fin
 		return res.render("CMP-0Estructura", {
-			...{tituloPagina, temaVista, codigo},
+			...{tituloPagina, temaVista, codigoVista},
 			imagenes
 		});
 	},
 	edicion: async (req, res) => {
 		// Variables
 		const tituloPagina = "Edición de Usuario";
-		const codigo = "edicion";
+		const codigoVista = "edicion";
 
 		// Fin
 		return res.render("CMP-0Estructura", {
-			...{tituloPagina, temaVista, codigo},
+			...{tituloPagina, temaVista, codigoVista},
 		});
 	},
 	cambioRoles: async (req, res) => {
 		// Variables
 		const tituloPagina = "Cambio de Roles";
-		const codigo = "cambioRolUsuarios";
+		const codigoVista = "cambioRolUsuarios";
 
 		// Fin
 		return res.render("CMP-0Estructura", {
-			...{tituloPagina, temaVista, codigo},
+			...{tituloPagina, temaVista, codigoVista},
 		});
 	},
 };

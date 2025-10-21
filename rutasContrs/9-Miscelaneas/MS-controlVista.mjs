@@ -6,21 +6,21 @@ export default {
 	contactanos: async (req, res) => {
 		// Variables
 		const tituloPagina = "Contactanos";
-		const codigo = "contactanos";
+		const codigoVista = "contactanos";
 
 		// Fin
 		return res.render("CMP-0Estructura", {
-			...{tituloPagina, temaVista, codigo},
+			...{tituloPagina, temaVista, codigoVista},
 		});
 	},
 	estadisticas: async (req, res) => {
 		// Variables
 		const tituloPagina = "Estadísticas";
-		const codigo = "estadisticas";
+		const codigoVista = "estadisticas";
 
 		// Fin
 		return res.render("CMP-0Estructura", {
-			...{tituloPagina, temaVista, codigo},
+			...{tituloPagina, temaVista, codigoVista},
 		});
 	},
 };
