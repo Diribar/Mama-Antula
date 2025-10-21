@@ -44,7 +44,7 @@ const puerto = entProd ? 4216 : entPrueba ? "?" : 3008;
 const leyenda = "\nMama Antula - Servidor funcionando...";
 if (entDesarr) {
 	// Variables
-	const rutaArchivo = "./mamaantula";
+	const rutaArchivo = "./variables/mamaantula";
 	const ext = ".pem";
 	const opciones = {cert: fs.readFileSync(rutaArchivo + ext), key: fs.readFileSync(rutaArchivo + "-key" + ext)};
 

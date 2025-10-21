@@ -26,7 +26,7 @@ export default {
 	},
 	cambioRoles: async (req, res) => {
 		// Variables
-		const tituloPagina = "Cambio de Rol en Usuarios";
+		const tituloPagina = "Cambio de Roles";
 		const tema = "usuarios";
 		const codigo = "cambioRolUsuarios";
 
