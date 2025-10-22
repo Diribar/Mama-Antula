@@ -8,6 +8,7 @@ const router = express.Router();
 // 📡 APIs
 router.get("/api/us-login", API.login);
 router.get("/api/us-logout", API.logout);
+router.get("/api/us-alta-de-mail-u-olvido-de-contrasena", API.altaOlvido);
 
 // 🖥️ Vistas
 router.get(rutasUsuario.altaOlvido, vista.altaOlvido);
