@@ -1,6 +1,7 @@
 "use strict";
 // Definir variables
 import bcryptjs from "bcryptjs";
+import {imageSize} from "image-size"; // si usás ESM
 
 export default {
 	altaOlvido: {
@@ -11,7 +12,15 @@ export default {
 
 			// Obtiene el nombre de los archivos
 			archivos = fs.readdirSync(carpeta);
-			archivos = archivos.filter((archivo) => path.basename(archivo).startsWith("Alta"));
+			archivos = archivos.filter((archivo) => {
+				// Obtiene la ruta y nombre del archivo en formato que imageSize lo pueda entender
+				const rutaArchivo = path.join(carpeta, archivo);
+				const buffer = fs.readFileSync(rutaArchivo);
+
+				// Averigua si la imagen es vertical
+				const {width, height, type} = imageSize(buffer);
+				return height > width;
+			});
 
 			// Obtiene dos al azar
 			const i = Math.floor(Math.random() * archivos.length);
@@ -20,7 +29,7 @@ export default {
 			archivos = [archivos[i], archivos[j]];
 
 			// Les agrega la ruta
-			archivos = archivos.map((archivo) => path.join( "/imgsEstables", "Mama-Antula", archivo));
+			archivos = archivos.map((archivo) => path.join("/imgsEstables", "Mama-Antula", archivo));
 
 			// Fin
 			return archivos;
