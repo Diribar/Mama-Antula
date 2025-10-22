@@ -38,15 +38,16 @@ window.addEventListener("load", async () => {
 	DOM.form.addEventListener("submit", async (e) => {
 		// Si existe un error, interrumpe la función
 		e.preventDefault();
-		DOM.confirma.classList.add("inactivo");
 		if (errorMail) return;
+		if (DOM.confirma.className.includes("inactivo")) return;
+		DOM.confirma.classList.add("inactivo");
 
 		// Envía el mail al backend
 		const respuesta = await fetch(rutaApi + DOM.email.value).then((n) => n.json());
 
 		// Acciones en función de la respuesta recibida
-		DOM.confirma.classList[respuesta.hay ? "add" : "remove"]("error");
-		DOM.confirma.classList[!respuesta.hay ? "add" : "remove"]("exito");
+		DOM.mensajeError.classList[!respuesta.hay ? "add" : "remove"]("exito");
+		DOM.mensajeError.classList[respuesta.hay ? "add" : "remove"]("error");
 		DOM.mensajeError.innerHTML = respuesta.email || respuesta.mensaje;
 
 		// Fin

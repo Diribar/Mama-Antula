@@ -11,7 +11,7 @@
 			text-align: center;
 			&::placeholder {text-align: center;}
 		}
-		p {
+		#mensaje {
 			text-align: center; text-wrap: balance;
 			&.exito {background-color: var(--verde-claro); color: var(--verde-oscuro);}
 			&.error {background-color: var(--rojo-claro); color: var(--rojo-oscuro);}
