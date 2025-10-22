@@ -30,7 +30,7 @@ export default {
 	},
 	mail: {
 		// Para conexión
-		host: process.env.HOST_ENVIOS,
+		host: process.env.HOST_MAIL,
 		puerto: 465,
 		seguro: true, // secure: true for 465, false for other ports
 
