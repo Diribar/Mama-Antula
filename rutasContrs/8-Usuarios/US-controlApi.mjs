@@ -102,7 +102,7 @@ export default {
 		const {mensajeFe, mailEnviado} = await procesos.altaOlvido.enviaMailContrasena({usuario, email, contrasena});
 
 		// Si corresponde, crea el usuario
-		if (!usuario) await procesos.altaOlvido.creaElUsuario({email, contrasena});
+		if (!usuario && mailEnviado) await procesos.altaOlvido.creaElUsuario({email, contrasena});
 
 		// Fin
 		return res.json({mensaje: mensajeFe, hay: !mailEnviado});
