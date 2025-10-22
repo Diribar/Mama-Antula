@@ -68,9 +68,9 @@ import constantes from "./variables/constantes.mjs";
 for (const metodo in constantes) global[metodo] = constantes[metodo];
 
 // Base de datos
-const credenciales = await import("./variables/credenciales.mjs").then((n) => n.default); // es necesario el await para que traiga los valores de .env
+global.credencsSitio = await import("./variables/credenciales.mjs").then((n) => n.default); // es necesario el await para que traiga los valores de .env
 const entornoBd = !entDesarr ? "produccion" : "desarrollo";
-const credencsBD = credenciales.bd[entornoBd];
+const credencsBD = credencsSitio.bd[entornoBd];
 const {database, username, password} = credencsBD;
 global.sequelize = new Sequelize(database, username, password, credencsBD);
 const bd = await import("./baseDatos/index.mjs").then((n) => n.default);
@@ -79,7 +79,7 @@ global.Op = Sequelize.Op;
 
 // Para usar la propiedad "session"
 const MySQLStore = connectMySQL(session);
-const connection = mysql.createConnection(credenciales.session[entornoBd]);
+const connection = mysql.createConnection(credencsSitio.session[entornoBd]);
 const sessionStore = new MySQLStore(
 	{expiration: unDia / 1000, clearExpired: true, checkExpirationInterval: unaHora / 1000, useUnixTimestamp: true}, // useUnixTimestamp: true es importante para segundos
 	connection
