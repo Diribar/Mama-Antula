@@ -33,8 +33,8 @@ export default {
 	},
 	enviaMail: async ({nombre, email, asunto, comentario}) => {
 		// Variables
-		const {host, puerto, direccion: user, contrasena: pass} = credenciales.mail;
-		const datosTransporte = {host, port: Number(puerto), auth: {user, pass}, secure: true}; // secure: true for 465, false for other ports
+		const {host, puerto: port, mailEnvios: user, contrEnvios: pass, seguro: secure} = credencsSitio.mail;
+		const datosTransporte = {host, port, auth: {user, pass}, secure};
 		const transporte = nodemailer.createTransport(datosTransporte);
 		const datos = {
 			from: nombre + " <" + user + ">",
