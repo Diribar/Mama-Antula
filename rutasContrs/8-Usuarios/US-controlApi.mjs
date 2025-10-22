@@ -98,11 +98,11 @@ export default {
 			.padStart(6, "0");
 		console.log("Contraseña: " + contrasena);
 
-		// Si corresponde, crea el usuario
-		if (!usuario) await procesos.altaOlvido.creaElUsuario({email, contrasena});
-
 		// Envia el mail con la contraseña
 		const {mensajeFe, mailEnviado} = await procesos.altaOlvido.enviaMailContrasena({usuario, email, contrasena});
+
+		// Si corresponde, crea el usuario
+		if (!usuario) await procesos.altaOlvido.creaElUsuario({email, contrasena});
 
 		// Fin
 		return res.json({mensaje: mensajeFe, hay: !mailEnviado});
