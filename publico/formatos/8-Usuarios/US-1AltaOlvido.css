@@ -13,7 +13,11 @@
 		}
 		#mensaje {
 			text-align: center; text-wrap: balance;
-			&.exito {background-color: var(--verde-claro); color: var(--verde-oscuro);}
+			&.exito {
+				background-color: var(--verde-claro); color: var(--verde-oscuro);
+				border: 2px var(--verde-oscuro) solid; border-radius: 15px;
+				padding-block: 8px;
+			}
 			&.error {background-color: var(--rojo-claro); color: var(--rojo-oscuro);}
 		}
 	}

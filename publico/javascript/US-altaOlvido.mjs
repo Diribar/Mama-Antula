@@ -5,7 +5,7 @@ window.addEventListener("load", async () => {
 		form: document.querySelector("#contenidoTemas #formAltaOlvido"),
 		email: document.querySelector("#formAltaOlvido input[name='email']"),
 		mensaje: document.querySelector("#formAltaOlvido #mensaje"),
-		confirma: document.querySelector("#formAltaOlvido button"),
+		confirma: document.querySelector("#formAltaOlvido #confirma"),
 	};
 	const rutaApi = "/usuarios/api/us-alta-de-mail-u-olvido-de-contrasena/?email=";
 
