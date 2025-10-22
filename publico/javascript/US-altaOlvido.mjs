@@ -4,15 +4,15 @@ window.addEventListener("load", async () => {
 	const DOM = {
 		form: document.querySelector("#contenidoTemas #formAltaOlvido"),
 		email: document.querySelector("#formAltaOlvido input[name='email']"),
-		mensajeError: document.querySelector("#formAltaOlvido #mensajeError"),
+		mensaje: document.querySelector("#formAltaOlvido #mensaje"),
 		confirma: document.querySelector("#formAltaOlvido button"),
 	};
 	const rutaApi = "/usuarios/api/us-alta-de-mail-u-olvido-de-contrasena/?email=";
 
 	// Eventos - input
 	DOM.form.addEventListener("input", () => {
-		DOM.mensajeError.innerHTML = "";
-		DOM.mensajeError.classList.remove("error");
+		DOM.mensaje.innerHTML = "";
+		DOM.mensaje.classList.remove("error");
 		DOM.confirma.classList.remove("inactivo");
 	});
 	// Eventos - change
@@ -26,8 +26,8 @@ window.addEventListener("load", async () => {
 
 		// Acciones si hay un error
 		if (errorMail) {
-			DOM.mensajeError.innerHTML = errorMail;
-			DOM.mensajeError.classList.add("error");
+			DOM.mensaje.innerHTML = errorMail;
+			DOM.mensaje.classList.add("error");
 			DOM.confirma.classList.add("inactivo");
 		}
 
@@ -46,9 +46,9 @@ window.addEventListener("load", async () => {
 		const respuesta = await fetch(rutaApi + DOM.email.value).then((n) => n.json());
 
 		// Acciones en función de la respuesta recibida
-		DOM.mensajeError.classList[!respuesta.hay ? "add" : "remove"]("exito");
-		DOM.mensajeError.classList[respuesta.hay ? "add" : "remove"]("error");
-		DOM.mensajeError.innerHTML = respuesta.email || respuesta.mensaje;
+		DOM.mensaje.classList[!respuesta.hay ? "add" : "remove"]("exito");
+		DOM.mensaje.classList[respuesta.hay ? "add" : "remove"]("error");
+		DOM.mensaje.innerHTML = respuesta.email || respuesta.mensaje;
 
 		// Fin
 		return;
