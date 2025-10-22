@@ -2,12 +2,9 @@
 
 window.addEventListener("load", async () => {
 	const DOM = {
-		// Form
-		form: document.querySelector("#formAltaOlvido"),
-		// Inputs
+		form: document.querySelector("#contenidoTemas #formAltaOlvido"),
 		email: document.querySelector("#formAltaOlvido input[name='email']"),
-		// Mensajes de ayuda
 		mensajeError: document.querySelector("#formAltaOlvido #mensajeError"),
-		confirma: document.querySelector("#formAltaOlvido #confirma"),
+		confirma: document.querySelector("#formAltaOlvido button"),
 	};
 });
