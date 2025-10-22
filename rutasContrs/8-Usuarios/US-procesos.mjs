@@ -37,18 +37,6 @@ export default {
 		},
 
 		// API- Guardar
-		creaElUsuario: async ({email, contrasena}) => {
-			// Crea el usuario
-			const contrEncriptada = bcryptjs.hashSync(contrasena, 10);
-			const usuario = await baseDatos.agregaRegistroIdCorrel("usuarios", {email, contrasena: contrEncriptada, versionWeb});
-
-			// Agrega 'cliente_id' en 'usuarios'
-			const cliente_id = "U" + String(usuario.id).padStart(10, "0");
-			await baseDatos.actualizaPorId("usuarios", usuario.id, {cliente_id}); // es necesario el 'await' para session
-
-			// Fin
-			return;
-		},
 		enviaMailContrasena: async ({usuario, email, contrasena}) => {
 			// Variables
 			const nombre = "Familia Mama Antula";
@@ -65,6 +53,18 @@ export default {
 
 			// Fin
 			return {mensajeFe, mailEnviado};
+		},
+		creaElUsuario: async ({email, contrasena}) => {
+			// Crea el usuario
+			const contrEncriptada = bcryptjs.hashSync(contrasena, 10);
+			const usuario = await baseDatos.agregaRegistroIdCorrel("usuarios", {email, contrasena: contrEncriptada, versionWeb});
+
+			// Agrega 'cliente_id' en 'usuarios'
+			const cliente_id = "U" + String(usuario.id).padStart(10, "0");
+			await baseDatos.actualizaPorId("usuarios", usuario.id, {cliente_id}); // es necesario el 'await' para session
+
+			// Fin
+			return;
 		},
 	},
 };
