@@ -47,6 +47,9 @@ window.addEventListener("load", async () => {
 		DOM.confirma.classList[respuesta.hay ? "add" : "remove"]("error");
 		DOM.confirma.classList[!respuesta.hay ? "add" : "remove"]("OK");
 		DOM.mensajeError.innerHTML = respuesta.mensaje;
+
+		// Fin
+		return;
 	});
 });
 
