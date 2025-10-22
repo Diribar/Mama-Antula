@@ -5,10 +5,10 @@ import procesos from "./US-procesos.mjs";
 export default {
 	login: async (req, res) => {
 		// Variables
-		const {email, contraseña} = req.query;
+		const {email, contrasena} = req.query;
 
 		// Valida
-		const {errores, usuario} = await valida.login({email, contraseña});
+		const {errores, usuario} = await valida.login({email, contrasena});
 		if (errores.hay) return res.json(errores);
 
 		// Variables
