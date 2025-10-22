@@ -46,7 +46,7 @@ window.addEventListener("load", async () => {
 
 		// Acciones en función de la respuesta recibida
 		DOM.confirma.classList[respuesta.hay ? "add" : "remove"]("error");
-		DOM.confirma.classList[!respuesta.hay ? "add" : "remove"]("OK");
+		DOM.confirma.classList[!respuesta.hay ? "add" : "remove"]("exito");
 		DOM.mensajeError.innerHTML = respuesta.email || respuesta.mensaje;
 
 		// Fin
