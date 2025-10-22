@@ -5,20 +5,22 @@
 
 	#formAltaOlvido {
 		display: flex; flex-direction: column; align-items: center; justify-content: space-between;
-		gap: 10px; max-width: 400px;
+		gap: 20px; max-width: 410px;
 		input {
-			text-align: center;
+			text-align: center; padding: 5px 10px; border-radius: 5px;
 			&::placeholder {text-align: center;}
 		}
 		#mensaje {
 			text-align: center; text-wrap: balance;
-			&.exito {
-				background-color: var(--verde-claro); color: var(--verde-oscuro);
-				border-radius: 15px; padding-block: 8px;
-			}
+			border-radius: 5px; padding: 8px 10px;
+			&:empty {visibility: hidden;}
+			&.exito {background-color: var(--verde-claro); color: var(--verde-oscuro);}
 			&.error {background-color: var(--rojo-claro); color: var(--rojo-oscuro);}
 		}
-		#confirma {border-radius: 10px; padding: 5px 10px; cursor: pointer;}
+		#fondoConfirma {
+			background-color: snow;
+			#confirma {border-radius: 5px; padding: 5px 10px; cursor: pointer;}
+		}
 	}
 	.contenedorImagen {
 		display: flex; flex-direction: row; align-items: center;

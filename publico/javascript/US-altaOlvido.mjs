@@ -9,20 +9,14 @@ window.addEventListener("load", async () => {
 	};
 	const rutaApi = "/usuarios/api/us-alta-de-mail-u-olvido-de-contrasena/?email=";
 
-	// Eventos - input
-	DOM.form.addEventListener("input", () => {
-		DOM.mensaje.innerHTML = "";
-		DOM.mensaje.classList.remove("error");
-		DOM.confirma.classList.remove("inactivo");
-	});
-	// Eventos - change
-	DOM.form.addEventListener("change", async (e) => {
+	const fnErrorMail = () => {
 		// Garantiza que el mail esté en minúsculas
-		const valor = e.target.value.toLowerCase();
-		e.target.value = valor;
+		const valor = DOM.email.value.toLowerCase();
+		DOM.email.value = valor;
 
 		// Averigua si hay un error simple
 		errorMail = !valor ? cartelMailVacio : !formatoMail.test(valor) ? cartelMailFormato : "";
+		console.log(errorMail, valor);
 
 		// Acciones si hay un error
 		if (errorMail) {
@@ -30,14 +24,25 @@ window.addEventListener("load", async () => {
 			DOM.mensaje.classList.add("error");
 			DOM.confirma.classList.add("inactivo");
 		}
+	};
 
-		// Fin
-		return;
+	// Eventos - input
+	DOM.form.addEventListener("input", () => {
+		DOM.mensaje.innerHTML = "";
+		DOM.mensaje.classList.remove("error");
+		DOM.confirma.classList.remove("inactivo");
 	});
+	// Eventos - change
+	DOM.form.addEventListener("change", async () => fnErrorMail());
 	// Eventos - submit
 	DOM.form.addEventListener("submit", async (e) => {
-		// Si existe un error, interrumpe la función
+		// Evita el confirm
 		e.preventDefault();
+
+		// Si no se revisaron los errores, los revisa
+		if (errorMail === undefined) fnErrorMail();
+
+		// Si existe un error, interrumpe la función
 		if (errorMail) return;
 		if (DOM.confirma.className.includes("inactivo")) return;
 		DOM.confirma.classList.add("inactivo");

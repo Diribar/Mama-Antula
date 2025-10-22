@@ -57,7 +57,7 @@ export default {
 const mensMailVacio = "Necesitamos que escribas un correo electrónico";
 const mensMailFormato = "Necesitamos que escribas un formato de correo válido";
 const contrasenaVacia = "Necesitamos que escribas una contraseña";
-const mailYaEnviado = "Ya enviamos un mail con la contraseña. Para evitar <em>spam</em>, esperamos 24hs antes de enviar una nueva.";
+const mailYaEnviado = "Ya te enviamos un mail con la contraseña. Para evitar <em>spam</em>, esperamos 24hs antes de enviarte una nueva.";
 
 // Funciones
 const FN = {
