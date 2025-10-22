@@ -7,6 +7,7 @@ window.addEventListener("load", async () => {
 		mensajeError: document.querySelector("#formAltaOlvido #mensajeError"),
 		confirma: document.querySelector("#formAltaOlvido button"),
 	};
+	const rutaApi = "/usuarios/api/us-alta-de-mail-u-olvido-de-contrasena/?email=";
 
 	// Eventos - input
 	DOM.form.addEventListener("input", () => {
@@ -57,5 +58,4 @@ window.addEventListener("load", async () => {
 const cartelMailVacio = "Necesitamos que escribas un correo electrónico";
 const cartelMailFormato = "Debes escribir un formato de correo válido";
 const formatoMail = /^\w+([\.-_]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-const rutaApi = "/usuarios/api/us-alta-de-mail-u-olvido-de-contrasena/?email=";
 let errorMail;
