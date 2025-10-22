@@ -25,14 +25,20 @@ const desarrollo = {...produccion, username: "root", password: ""};
 export default {
 	bd: {produccion, desarrollo},
 	session: {
-		produccion: {database, user: username, password}, // anterior: elc_test - 0UfBnmM9eSJl
+		produccion: {database, user: username, password},
 		desarrollo: {database, user: "root", password: ""},
 	},
-	// mail: {
-	// 	host: "mail.evangelicemoslacultura.com",
-	// 	puerto: "465",
-	// 	direccion: "solo-envios@evangelicemoslacultura.com",
-	// 	contrasena: "gppePwXGCaRq",
-	// 	ateUsuario: "atencion-al-usuario@evangelicemoslacultura.com", // 35Ysn6NfNjlt
-	// },
+	mail: {
+		// Para conexión
+		host: process.env.HOST_ENVIOS,
+		puerto: 465,
+		seguro: true, // secure: true for 465, false for other ports
+
+		// Para envíos
+		mailEnvios: process.env.MAIL_ENVIOS,
+		contrEnvios: process.env.CONTR_ENVIOS,
+
+		// Para atención al usuario
+		ateUsuario: process.env.MAIL_ATE_USUARIO,
+	},
 };
