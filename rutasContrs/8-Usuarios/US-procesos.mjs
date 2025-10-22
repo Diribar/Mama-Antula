@@ -70,4 +70,4 @@ export default {
 };
 
 // Variables
-const mensajeContrasena = "Podés hacer el login con tu mail y esta contraseña: "
+const mensajeContrasena = "Podés hacer el login con tu mail y esta contraseña: ";
