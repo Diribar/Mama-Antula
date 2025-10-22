@@ -4,19 +4,25 @@ import bcryptjs from "bcryptjs";
 // const procesos = require("./US-FN-Procesos");
 
 export default {
-	formatoMail: (email) => FN.formatoMail(email),
-	altaMail: async function (email) {
-		// Variables
-		let errores = FN.formatoMail(email);
+	contrasenaYaEnviada: async (email) => {
+		// Verifica el formato del mail
+		errores = FN.formatoMail(email);
+		if (errores.hay) return {errores};
 
-		// Se fija si el mail ya existe
-		if (!errores.email && (await baseDatos.obtienePorCondicion("usuarios", {email}))) {
-			errores.credenciales = "Esta dirección de email ya figura en nuestra base de datos";
-			errores.hay = !!errores.credenciales;
-		}
+		// Obtiene la fecha de contraseña del usuario
+		const usuario = await baseDatos.obtienePorCondicion("usuarios", {email});
+		const {fechaContrasena} = usuario;
+
+		// Detecta si ya se le envió una contraseña en las últimas 24hs
+		const ahora = comp.fechaHora.ahora();
+		const diferencia = fechaContrasena && (ahora.getTime() - fechaContrasena.getTime()) / unaHora;
+		const envioReciente = diferencia && diferencia < 24;
+
+		// Mensaje de error
+		const errores = envioReciente ? {email: mailYaEnviado, hay: true} : {};
 
 		// Fin
-		return errores;
+		return {usuario, errores};
 	},
 	login: async (datos) => {
 		// Variables
@@ -48,6 +54,7 @@ export default {
 const mensMailVacio = "Necesitamos que escribas un correo electrónico";
 const mensMailFormato = "Necesitamos que escribas un formato de correo válido";
 const contrasenaVacia = "Necesitamos que escribas una contraseña";
+const mailYaEnviado = "Ya enviamos un mail con la contraseña. Para evitar 'spam', esperamos 24hs antes de enviar una nueva.";
 
 // Funciones
 const FN = {
