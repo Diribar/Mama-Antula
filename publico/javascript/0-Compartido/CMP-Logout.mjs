@@ -3,6 +3,7 @@
 window.addEventListener("load", async () => {
 	// Variables
 	const DOM = {logout: document.querySelector("#menuLogout #logout")};
+	const rutaApi = "/usuarios/api/us-logout";
 
 	// Evento logout
 	DOM.logout.addEventListener("click", async () => {
@@ -10,6 +11,3 @@ window.addEventListener("load", async () => {
 		location.reload();
 	});
 });
-
-// Variables
-const rutaApi = "/usuarios/api/us-logout";

@@ -5,13 +5,16 @@ import bcryptjs from "bcryptjs";
 
 export default {
 	contrasenaYaEnviada: async (email) => {
+		// Variables
+		let errores;
+
 		// Verifica el formato del mail
 		errores = FN.formatoMail(email);
 		if (errores.hay) return {errores};
 
 		// Obtiene la fecha de contraseña del usuario
 		const usuario = await baseDatos.obtienePorCondicion("usuarios", {email});
-		const {fechaContrasena} = usuario;
+		const {fechaContrasena} = usuario || {};
 
 		// Detecta si ya se le envió una contraseña en las últimas 24hs
 		const ahora = comp.fechaHora.ahora();
@@ -19,7 +22,7 @@ export default {
 		const envioReciente = diferencia && diferencia < 24;
 
 		// Mensaje de error
-		const errores = envioReciente ? {email: mailYaEnviado, hay: true} : {};
+		errores = envioReciente ? {email: mailYaEnviado, hay: true} : {};
 
 		// Fin
 		return {usuario, errores};
@@ -54,7 +57,7 @@ export default {
 const mensMailVacio = "Necesitamos que escribas un correo electrónico";
 const mensMailFormato = "Necesitamos que escribas un formato de correo válido";
 const contrasenaVacia = "Necesitamos que escribas una contraseña";
-const mailYaEnviado = "Ya enviamos un mail con la contraseña. Para evitar 'spam', esperamos 24hs antes de enviar una nueva.";
+const mailYaEnviado = "Ya te enviamos un mail con la contraseña. Para evitar <em>spam</em>, esperamos 24hs antes de enviarte una nueva.";
 
 // Funciones
 const FN = {

@@ -44,7 +44,10 @@ export default {
 		}
 
 		// Si no se guardó, lo guarda
-		if (!nuevoRegistro) nuevoRegistro = await bd[entidad].create(datos).then((n) => n.toJSON()); // crea
+		if (!nuevoRegistro) {
+			datos.id = contador;
+			nuevoRegistro = await bd[entidad].create(datos).then((n) => n.toJSON()); // crea
+		}
 
 		// Fin
 		return nuevoRegistro;

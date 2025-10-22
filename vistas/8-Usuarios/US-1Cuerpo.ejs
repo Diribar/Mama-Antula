@@ -7,10 +7,12 @@
 	</div>
 
 	<!-- Formulario -->
-	<form id="formAltaOlvido" class="flexColAlign">
-		<input type="email" name="email" placeholder="Escribí tu mail">
-		<p id="mensajeError"></p>
-		<button type="text">Envío de nueva contraseña</button>
+	<form id="formAltaOlvido">
+		<input type="email" name="email" placeholder="Escribí tu mail" autofocus>
+		<button type="button" id="mensaje"></button>
+		<div id="fondoConfirma">
+			<button type="submit" id="confirma">Envío de nueva contraseña</button>
+		</div>
 	</form>
 
 	<!-- Imagen derecha -->
