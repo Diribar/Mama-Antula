@@ -4,9 +4,10 @@ import bcryptjs from "bcryptjs";
 // const procesos = require("./US-FN-Procesos");
 
 export default {
+	formatoMail: (email) => FN.formatoMail(email),
 	altaMail: async function (email) {
 		// Variables
-		let errores = formatoMail(email);
+		let errores = FN.formatoMail(email);
 
 		// Se fija si el mail ya existe
 		if (!errores.email && (await baseDatos.obtienePorCondicion("usuarios", {email}))) {
@@ -23,11 +24,11 @@ export default {
 		let errores, usuario;
 
 		// Verifica el formato del mail
-		errores = formatoMail(email);
+		errores = FN.formatoMail(email);
 		if (errores.hay) return {errores};
 
 		// Verifica la contraseña
-		errores.contrasena = !contrasena ? contrasenaVacia : largoContr(contrasena) ? largoContr(contrasena) : "";
+		errores.contrasena = (!contrasena && contrasenaVacia) || FN.largoContr(contrasena) || "";
 		errores.hay = Object.values(errores).some((n) => !!n);
 		if (errores.hay) return {errores};
 
@@ -47,23 +48,24 @@ export default {
 const mensMailVacio = "Necesitamos que escribas un correo electrónico";
 const mensMailFormato = "Necesitamos que escribas un formato de correo válido";
 const contrasenaVacia = "Necesitamos que escribas una contraseña";
-const camposPerennes = ["nombre", "apellido", "fechaNacim", "paisNacim_id"];
 
 // Funciones
-const formatoMail = (email) => {
-	// Variables
-	const formato = /^\w+([\.-_]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-	const errorMail = !email ? mensMailVacio : !formato.test(email) ? mensMailFormato : "";
+const FN = {
+	formatoMail: (email) => {
+		// Variables
+		const formato = /^\w+([\.-_]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+		const errorMail = !email ? mensMailVacio : !formato.test(email) ? mensMailFormato : "";
 
-	// Variable error
-	let errores = {email: errorMail};
-	errores.hay = !!errores.email;
+		// Variable error
+		const errores = {email: errorMail};
+		errores.hay = !!errores.email;
 
-	// Fin
-	return errores;
-};
-const largoContr = (contrasena) => {
-	return contrasena && (contrasena.length < 6 || contrasena.length > 12)
-		? "La contraseña debe tener entre 6 y 12 caracteres"
-		: "";
+		// Fin
+		return errores;
+	},
+	largoContr: (contrasena) => {
+		return contrasena && (contrasena.length < 6 || contrasena.length > 12)
+			? "La contraseña debe tener entre 6 y 12 caracteres"
+			: "";
+	},
 };
