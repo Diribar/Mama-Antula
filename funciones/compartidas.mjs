@@ -31,4 +31,26 @@ export default {
 		// Fin
 		return false;
 	},
+	enviaMail: async ({nombre, email, asunto, comentario}) => {
+		// Variables
+		const {host, puerto, direccion: user, contrasena: pass} = credenciales.mail;
+		const datosTransporte = {host, port: Number(puerto), auth: {user, pass}, secure: true}; // secure: true for 465, false for other ports
+		const transporte = nodemailer.createTransport(datosTransporte);
+		const datos = {
+			from: nombre + " <" + user + ">",
+			to: email,
+			subject: asunto,
+			html: comentario,
+		};
+		let mailEnviado = false;
+
+		// Envío del mail
+		await transporte
+			.sendMail(datos)
+			.then(() => (mailEnviado = true))
+			.catch((error) => console.log("Mail no enviado. ", error));
+
+		// Fin
+		return mailEnviado;
+	},
 };
