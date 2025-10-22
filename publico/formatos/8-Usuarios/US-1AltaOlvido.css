@@ -4,9 +4,8 @@
 	width: 100%; max-width: 100%; max-height: 100%;
 
 	#formAltaOlvido {
-		border: 1px solid blue;
 		display: flex; flex-direction: column; align-items: center; justify-content: space-between;
-		height: 120px; max-width: 400px;
+		gap: 10px; max-width: 400px;
 		input {
 			text-align: center;
 			&::placeholder {text-align: center;}
@@ -15,11 +14,11 @@
 			text-align: center; text-wrap: balance;
 			&.exito {
 				background-color: var(--verde-claro); color: var(--verde-oscuro);
-				border: 2px var(--verde-oscuro) solid; border-radius: 15px;
-				padding-block: 8px;
+				border-radius: 15px; padding-block: 8px;
 			}
 			&.error {background-color: var(--rojo-claro); color: var(--rojo-oscuro);}
 		}
+		#confirma {border-radius: 10px; padding: 5px 10px; cursor: pointer;}
 	}
 	.contenedorImagen {
 		display: flex; flex-direction: row; align-items: center;
