@@ -1,12 +1,17 @@
 <h1 id="tituloTema"><%= tituloPagina %></h1>
 
-<section id="contenidoTemas" class="flexRowAlign">
+<section id="contenidoTemas">
+
+	<div id="izquierda" class="contenedorImagen">
+		<img src="<%= imagenes[0] %>">
+	</div>
+
 	<form id="formMail" class="flexColAlign">
-		<input type="email">
+		<input type="email" placeholder="Escribí tu mail">
 		<button type="text">Envío de nueva contraseña</button>
 	</form>
-	<div id="imagenes" class="flexRowAlign">
-		<img src="" alt="">
-		<img src="" alt="">
+
+	<div id="derecha" class="contenedorImagen">
+		<img src="<%= imagenes[1] %>">
 	</div>
 </section>

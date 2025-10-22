@@ -34,4 +34,10 @@
 <link rel="stylesheet" href="/formatos/0-Compartido/Includes2/Tags.css">
 
 <!-- Scripts -->
-<script src="/javascript/CMP-muestraOculta.mjs"></script>
+<script src="/javascript/0-Compartido/CMP-muestraOculta.mjs"></script>
+<% if (!locals.usuario) { %>
+	<script src="/javascript/0-Compartido/CMP-Login.mjs"></script>
+	<script src="/javascript/0-Compartido/CMP-OjitoContrasena.mjs"></script>
+<% } else { %>
+	<script src="/javascript/0-Compartido/CMP-Logout.mjs"></script>
+<% } %>

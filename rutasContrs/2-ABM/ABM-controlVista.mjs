@@ -6,21 +6,21 @@ export default {
 	abm: async (req, res) => {
 		// Variables
 		const tituloPagina = "ABM de Contenido";
-		const codigo = "abmArticulos";
+		const codigoVista = "abmArticulos";
 
 		// Fin
 		return res.render("CMP-0Estructura", {
-			...{tituloPagina, temaVista, codigo},
+			...{tituloPagina, temaVista, codigoVista},
 		});
 	},
 	revision: async (req, res) => {
 		// Variables
 		const tituloPagina = "Revisión de ABMs de Contenido";
-		const codigo = "revisionAbm";
+		const codigoVista = "revisionAbm";
 
 		// Fin
 		return res.render("CMP-0Estructura", {
-			...{tituloPagina, temaVista, codigo},
+			...{tituloPagina, temaVista, codigoVista},
 		});
 	},
 };

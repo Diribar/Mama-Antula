@@ -52,15 +52,16 @@ if (entDesarr) {
 	https.createServer(opciones, app).listen(puerto, () => console.log(leyenda)); // Para conectarse con el servidor
 } else app.listen(puerto, () => console.log(leyenda)); // Para conectarse con el servidor
 
-// Carpetas públicas - internas
-app.use("/formatos", express.static(path.join(rutaActual, "publico/formatos")));
-app.use("/imgsEstables", express.static(path.join(rutaActual, "publico/imagenes")));
-app.use("/javascript", express.static(path.join(rutaActual, "publico/javascript")));
-app.use("/fa", express.static("node_modules/@fortawesome/fontawesome-free"));
-
-// Carpetas públicas - externas
+// Carpetas públicas - imágenes
+global.carpImgsEstables = path.join(rutaActual, "/publico/imagenes");
+app.use("/imgsEstables", express.static(carpImgsEstables));
 global.carpImgsEditables = path.join(rutaActual, "../9-Imagenes"); // este dominio
 app.use("/imgsEditables", express.static(carpImgsEditables));
+
+// Carpetas públicas - otras
+app.use("/formatos", express.static(path.join(rutaActual, "/publico/formatos")));
+app.use("/javascript", express.static(path.join(rutaActual, "/publico/javascript")));
+app.use("/fa", express.static("node_modules/@fortawesome/fontawesome-free"));
 
 // Variables globales
 import constantes from "./variables/constantes.mjs";
