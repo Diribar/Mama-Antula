@@ -89,7 +89,7 @@ export default {
 		const {email} = req.query;
 
 		// Obtiene el usuario y valida si ya se le envió una contraseña
-		const {usuario, errores} = await valida.contrasenaYaEnviada(req.query);
+		const {usuario, errores} = await valida.contrasenaYaEnviada(email);
 		if (errores.hay) return res.json(errores);
 
 		// Nueva contraseña
