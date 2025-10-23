@@ -6,7 +6,9 @@
 	form {
 		display: flex; flex-direction: column; align-items: center; justify-content: space-between;
 		gap: 20px; max-width: 415px;
+
 		input {text-align: center; padding: 5px 10px; border-radius: 5px;}
+
 		#mensaje {
 			text-align: center; text-wrap: balance; padding: 8px 10px;
 			border-radius: 10px; border: 2.5px solid currentColor;
@@ -14,11 +16,13 @@
 			&.exito {background-color: var(--verde-claro); color: var(--verde-oscuro);}
 			&.error {background-color: var(--rojo-claro); color: var(--rojo-oscuro);}
 		}
+
 		#fondoConfirma {
 			background-color: snow;
 			#confirma {border-radius: 5px; padding: 5px 10px; cursor: pointer;}
 		}
 	}
+
 	.contenedorImagen {
 		display: flex; flex-direction: row; align-items: center;
 		--ancho: 22%;
