@@ -1,35 +1,33 @@
-form {
-	#areaSoltar {
-		--ladoCuadrado: 150px; width: var(--ladoCuadrado); height: var(--ladoCuadrado); /* Medidas de lado */
-		border-radius: 5px;
+#areaSoltar {
+	--ladoCuadrado: 150px; width: var(--ladoCuadrado); height: var(--ladoCuadrado); /* Medidas de lado */
+	border-radius: 5px;
 
-		/* Dinámica */
-		&.encima {background-color: var(--grisClaro); border-color: var(--grisOscuro);}
-		&:has(img[src=""]) {
-			display: flex; flex-direction: column; align-items: center; justify-content: space-evenly;
-			background-color: var(--celesteClaro); border: 2px dashed var(--grisOscuro);
-			padding-inline: 5px;
-			img {display: none;}
-		}
-		&:not(:has(img[src=""])) {
-			:where(#cartelImagen, button) {display: none;}
-		}
-
-		/* Cartel y botón */
-		#cartelImagen, button {font-weight: bold;}
-		#cartelImagen {margin: 0; text-align: center;}
-		button {
-			background-color: var(--grisOscuro); color: var(--grisClaro);
-			padding: 2px 5px; border-radius: 5px; font-size: 1.1rem; cursor: pointer;
-		}
-
-		/* Imagen */
-		img {object-fit: cover; width: 100%; height: 100%; border-radius: 50%; border: 2px solid var(--grisOscuro);
-		}
+	/* Dinámica */
+	&.encima {background-color: var(--grisClaro); border-color: var(--grisOscuro);}
+	&:has(img[src=""]) {
+		display: flex; flex-direction: column; align-items: center; justify-content: space-evenly;
+		background-color: var(--celesteClaro); border: 2px dashed var(--grisOscuro);
+		padding-inline: 5px;
+		img {display: none;}
+	}
+	&:not(:has(img[src=""])) {
+		:where(#cartelImagen, button) {display: none;}
 	}
 
-	#contenedorNovedades {
-		background-color: snow; line-height: 1; display: flex;
-		input[type="checkbox"] {margin-right: 5px;}
+	/* Cartel y botón */
+	#cartelImagen, button {font-weight: bold;}
+	#cartelImagen {margin: 0; text-align: center;}
+	button {
+		background-color: var(--grisOscuro); color: var(--grisClaro);
+		padding: 2px 5px; border-radius: 5px; font-size: 1.1rem; cursor: pointer;
 	}
+
+	/* Imagen */
+	img {object-fit: cover; width: 100%; height: 100%; border-radius: 50%; border: 2px solid var(--grisOscuro);
+	}
+}
+
+#contenedorNovedades {
+	background-color: snow; line-height: 1; display: flex;
+	input[type="checkbox"] {margin-right: 5px;}
 }
