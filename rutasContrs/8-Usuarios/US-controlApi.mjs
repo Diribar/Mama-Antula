@@ -20,8 +20,11 @@ export default {
 		// Envia el mail con la contraseña
 		const {mensajeFe, mailEnviado} = await procesos.altaOlvido.enviaMailContrasena({usuario, email, contrasena});
 
-		// Si corresponde, crea el usuario
-		if (!usuario && mailEnviado) await procesos.altaOlvido.creaElUsuario({email, contrasena});
+		// Actualiza o crea el usuario
+		if (mailEnviado)
+			usuario
+				? await baseDatos.actualizaPorId("usuarios", usuario.id, {contrasena})
+				: await procesos.altaOlvido.creaElUsuario({email, contrasena});
 
 		// Fin
 		return res.json({mensaje: mensajeFe, hay: !mailEnviado});

@@ -13,7 +13,7 @@ export default (sequelize, dt) => {
 		// Permisos
 		edicion: {type: dt.BOOLEAN},
 		revision: {type: dt.BOOLEAN},
-		abmUs: {type: dt.BOOLEAN},
+		admin: {type: dt.BOOLEAN},
 	};
 	const config = {
 		tableName: "aux_iconos_agrups",

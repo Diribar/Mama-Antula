@@ -1,25 +1,37 @@
 <!-- Formulario -->
 <form id="formEdicion">
-	<input type="text" name="apodo" placeholder="Escribí tu apodo" autocomplete="off" value="<%= usuario.apodo %>">
-	<input type="password" name="contrasena" placeholder="Nueva contrasena (opcional)" autofocus autocomplete="new-password">
-	<select name="paisResidencia">
+	<!-- Área donde soltar el archivo de imagen -->
+	<div id="areaSoltar">
+		<div>Ingresá un archivo con tu imagen (opcional)</div>
+		<button type="button" onclick="document.getElementById('imagenUsuario').click()">Buscá tu archivo</button>
+		<input class="input" id="imagenUsuario" type="file" accept="image/*" hidden>
+	</div>
+
+	<!-- Inputs y select -->
+	<input class="input" type="text" name="apodo" placeholder="Escribí tu apodo" autocomplete="off" value="<%= usuario.apodo %>">
+	<input class="input" type="password" name="contrasena" placeholder="Nueva contrasena (opcional)" autofocus autocomplete="new-password">
+	<select class="input" name="paisResidencia">
 		<option value=''>País de residencia</option>
 		<option value="AR">Argentina</option>
 		</optgroup>
 		<% for (const continente of continentes) { %>
 			<optgroup label="<%= continente %>">
 				<% for (const pais of paises.filter(n => n.continente == continente)) { %>
-					<option value="<%= pais.id %>"><%= pais.nombre %></option>
+					<option value="<%= pais.id %>" <% if (pais.id == usuario.pais_id) { %>selected<% } %>><%= pais.nombre %></option>
 				<% } %>
 			</optgroup>
 		<% } %>
 
 	</select>
 	<label id="contenedorNovedades" for="novedades">
-		<input type="checkbox" id="novedades">
+		<input class="input" type="checkbox" id="novedades">
 		Deseo recibir las novedades por mail
 	</label>
+
+	<!-- Resultado -->
 	<p id="mensaje"></p>
+
+	<!-- Confirma -->
 	<div id="fondoConfirma">
 		<button type="submit" id="confirma">Guardá los cambios</button>
 	</div>
