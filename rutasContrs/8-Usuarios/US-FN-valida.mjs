@@ -45,7 +45,7 @@ export default {
 		usuario = await comp.obtieneUsuarioPorMail(email);
 		const email_BD = !usuario;
 		const contr_BD = usuario && !bcryptjs.compareSync(datos.contrasena, usuario.contrasena);
-		errores.credenciales = (email_BD || contr_BD) && "Credenciales erróneas";
+		errores.credenciales = ((email_BD || contr_BD) && "Credenciales erróneas") || "";
 		errores.hay = !!errores.credenciales;
 
 		// Fin
@@ -57,7 +57,8 @@ export default {
 const mensMailVacio = "Necesitamos que escribas un correo electrónico";
 const mensMailFormato = "Necesitamos que escribas un formato de correo válido";
 const contrasenaVacia = "Necesitamos que escribas una contraseña";
-const mailYaEnviado = "Ya te enviamos un mail con la contraseña. Para evitar <em>spam</em>, esperamos 24hs antes de enviarte una nueva.";
+const mailYaEnviado =
+	"Ya te enviamos un mail con la contraseña. Para evitar <em>spam</em>, esperamos 24hs antes de enviarte una nueva.";
 
 // Funciones
 const FN = {
