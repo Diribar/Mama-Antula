@@ -25,7 +25,7 @@ body {
 	--usuarios: #757575;
 
 	/* Colores por Tema */
-	--colorPrincipal: var(--terracota);
+	--colorHeader: var(--terracota);
 	--colorEscritura: var(--azulOscuro);
 	--colorAyuda: white;
 	--backAyuda: var(--grisOscuro);
