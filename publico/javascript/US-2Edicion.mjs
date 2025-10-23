@@ -9,38 +9,23 @@ window.addEventListener("load", async () => {
 		confirma: document.querySelector("#formEdicion #confirma"),
 
 	};
-	return;
 	const rutaApi = "/usuarios/api/us-alta-de-mail-u-olvido-de-contrasena/?email=";
 
-	const fnErrorMail = () => {
-		// Garantiza que el mail esté en minúsculas
-		const valor = DOM.email.value.toLowerCase();
-		DOM.email.value = valor;
-
-		// Averigua si hay un error simple
-		errorMail = !valor ? cartelMailVacio : !formatoMail.test(valor) ? cartelMailFormato : "";
-		console.log(errorMail, valor);
-
-		// Acciones si hay un error
-		if (errorMail) {
-			DOM.mensaje.innerHTML = errorMail;
-			DOM.mensaje.classList.add("error");
-			DOM.confirma.classList.add("inactivo");
-		}
-	};
-
 	// Eventos - input
-	DOM.form.addEventListener("input", () => {
+	DOM.form.addEventListener("input", (e) => {
+		console.log(e.target.name);
+
 		DOM.mensaje.innerHTML = "";
 		DOM.mensaje.classList.remove("error");
 		DOM.confirma.classList.remove("inactivo");
 	});
 	// Eventos - change
-	DOM.form.addEventListener("change", async () => fnErrorMail());
+	// DOM.form.addEventListener("change", async () => fnErrorMail());
 	// Eventos - submit
 	DOM.form.addEventListener("submit", async (e) => {
 		// Evita el confirm
 		e.preventDefault();
+		return
 
 		// Si no se revisaron los errores, los revisa
 		if (errorMail === undefined) fnErrorMail();
