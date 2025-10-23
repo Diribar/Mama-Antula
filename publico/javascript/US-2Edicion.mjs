@@ -2,7 +2,7 @@
 
 window.addEventListener("load", async () => {
 	const DOM = {
-		form: document.querySelector("#contenidoTemas #formAltaOlvido"),
+		form: document.querySelector("#contenidoTemas #formEdicion"),
 		email: document.querySelector("#formAltaOlvido input[name='email']"),
 		mensaje: document.querySelector("#formAltaOlvido #mensaje"),
 		confirma: document.querySelector("#formAltaOlvido #confirma"),
