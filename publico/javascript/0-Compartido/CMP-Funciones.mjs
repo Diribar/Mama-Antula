@@ -2,7 +2,7 @@
 
 const revisaAvatar = async ({DOM, v, FN, version, indice}) => {
 	// 1. Acciones si se omitió ingresar un archivo
-	if (!DOM.inputAvatar.value) {
+	if (!DOM.inputImagen.value) {
 		// Vuelve a la imagen original
 		DOM.imgAvatar.src = v.avatarInicial;
 
@@ -19,7 +19,7 @@ const revisaAvatar = async ({DOM, v, FN, version, indice}) => {
 
 	// 2. De lo contrario, actualiza los errores y el avatar
 	let reader = new FileReader();
-	reader.readAsDataURL(DOM.inputAvatar.files[0]);
+	reader.readAsDataURL(DOM.inputImagen.files[0]);
 	reader.onload = () => {
 		let image = new Image();
 		image.src = reader.result;
@@ -56,7 +56,7 @@ const revisaAvatar = async ({DOM, v, FN, version, indice}) => {
 			await FN.actualizaVarios(indice);
 
 			// Limpia el input
-			DOM.inputAvatar.value = ""; // va después de 'actualiza los errores' para poner en evidencia que el error es el tipo de archivo
+			DOM.inputImagen.value = ""; // va después de 'actualiza los errores' para poner en evidencia que el error es el tipo de archivo
 
 			// Fin
 			return;
