@@ -44,6 +44,7 @@ export default async (req, res, next) => {
 		// Obtiene el cliente
 		const tabla = esUsuario ? "usuarios" : "visitas";
 		cliente = await baseDatos.obtienePorCondicion(tabla, {cliente_id}, "rol").then((n) => n && obtieneCamposNecesarios(n));
+		// no se obtiene el usuario por medida de seguridad, ya que no existe la cookie del mail
 	}
 
 	// Cliente: 3. Como no existe, lo crea
