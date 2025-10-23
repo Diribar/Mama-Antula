@@ -8,13 +8,7 @@ window.addEventListener("load", async () => {
 		mensaje: document.querySelector("#formEdicion #mensaje"),
 		confirma: document.querySelector("#formEdicion #confirma"),
 
-		// Imagen del usuario
-		areaSoltar: document.querySelector("#formEdicion #areaSoltar"),
-		botonImagen: document.querySelector("#formEdicion #areaSoltar button"),
-		inputImagen: document.querySelector("#formEdicion #areaSoltar input"),
-		vistaImagen: document.querySelector("#formEdicion #areaSoltar img"),
 	};
-	DOM.botonImagen.addEventListener("click", () => DOM.inputImagen.click());
 	return;
 	const rutaApi = "/usuarios/api/us-alta-de-mail-u-olvido-de-contrasena/?email=";
 
