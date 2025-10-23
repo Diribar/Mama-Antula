@@ -4,6 +4,15 @@
 	<input type="password" name="contrasena" placeholder="Nueva contrasena (opcional)" autofocus autocomplete="new-password">
 	<select name="paisResidencia">
 		<option value=''>País de residencia</option>
+		<option value="AR">Argentina</option>
+		</optgroup>
+		<% for (const continente of continentes) { %>
+			<optgroup label="<%= continente %>">
+				<% for (const pais of paises.filter(n => n.continente == continente)) { %>
+					<option value="<%= pais.id %>"><%= pais.nombre %></option>
+				<% } %>
+			</optgroup>
+		<% } %>
 
 	</select>
 	<label id="contenedorNovedades" for="novedades">
