@@ -1,6 +1,6 @@
 #areaSoltar {
 	--ladoCuadrado: 150px; width: var(--ladoCuadrado); height: var(--ladoCuadrado); /* Medidas de lado */
-	border-radius: 5px;
+	border-radius: 5px; cursor: pointer;
 
 	/* Dinámica */
 	&.encima {background-color: var(--grisClaro); border-color: var(--grisOscuro);}
@@ -19,7 +19,7 @@
 	#cartelImagen {margin: 0; text-align: center;}
 	button {
 		background-color: var(--grisOscuro); color: var(--grisClaro);
-		padding: 2px 5px; border-radius: 5px; font-size: 1.1rem; cursor: pointer;
+		padding: 2px 5px; border-radius: 5px; font-size: 1.1rem;
 	}
 
 	/* Imagen */

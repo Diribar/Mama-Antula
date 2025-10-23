@@ -17,7 +17,7 @@ body {
 	height: var(--alturaViewPort);
 
 	/* Otros */
-	color: var(--grisMasOscuro);
+	color: var(--colorEscritura);
 	line-height: inherit;
 	display: flex; flex-direction: column;
 }
