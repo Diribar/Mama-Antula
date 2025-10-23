@@ -41,6 +41,7 @@ export default {
 			// Variables
 			const nombre = "Familia Mama Antula";
 			const asunto = "Contraseña para login";
+			const mensajeContrasena = "Podés hacer el login con tu mail y esta contraseña: ";
 			const comentario = (!usuario ? "Hemos creado tu usuario. " : "") + mensajeContrasena + contrasena;
 
 			// Envía el mail
@@ -67,7 +68,57 @@ export default {
 			return;
 		},
 	},
-};
+	login: {
+		actualizaUsuario: async ({usuario, cliente, esVisita}) => {
+			// Variables
+			const datosUs = {};
 
-// Variables
-const mensajeContrasena = "Podés hacer el login con tu mail y esta contraseña: ";
+			if (esVisita) {
+				// Actualiza datos
+				datosUs.fechaUltNaveg = cliente.fechaUltNaveg;
+				if (usuario.fechaUltNaveg < cliente.fechaUltNaveg) {
+					const diaInicial = new Date(usuario.fechaUltNaveg).getTime();
+					const diaFinal = new Date(cliente.fechaUltNaveg).getTime();
+					const diasTransc = (diaFinal - diaInicial) / unDia;
+					datosUs.diasNaveg = usuario.diasNaveg + Math.min(cliente.diasNaveg, diasTransc);
+				}
+
+				// Elimina el registro de la tabla visitas
+				baseDatos.eliminaPorCondicion("visitas", {cliente_id});
+			}
+			if (!usuario.visitaCreadaEn) datosUs.visitaCreadaEn = cliente.visitaCreadaEn; // si existe la del usuario, se conserva
+			if (usuario.statusRegistro_id == mailPendValidar_id) datosUs.statusRegistro_id = mailValidado_id; // si corresponde, le cambia el status a 'mailValidado'
+
+			// Guarda la info en usuario
+			await baseDatos.actualizaPorId("usuarios", usuario.id, datosUs);
+			for (const dato in datosUs) usuario[dato] = datosUs[dato];
+
+			// Fin
+			return;
+		},
+		actualizaTablaPersWebDia: async (usuario) => {
+			const {id: usuario_id} = usuario;
+			const datosND = {
+				cliente_id: usuario.cliente_id,
+				usuario_id,
+				visitaCreadaEn: comp.fechaHora.anoMesDia(usuario.visitaCreadaEn),
+				diasNaveg: usuario.diasNaveg,
+			};
+			const hoy = new Date().toISOString().slice(0, 10);
+			await baseDatos
+				.actualizaPorCondicion("persWebDia", {cliente_id, fecha: hoy}, datosND) // la variable 'cliente_id' puede diferir del 'usuario.cliente_id'
+				.then(() => procesos.eliminaDuplicados(usuario.id));
+		},
+		cambiaVisitaEnNavegsDia: async ({cliente_id, cliente_idViejo}) => {
+			// Varables
+			const fechaHoy = comp.fechaHora.ahora().setHours(0, 0, 0);
+			const condicion = {cliente_id: cliente_idViejo, fecha: {[Op.gte]: fechaHoy}};
+
+			// Reemplaza el campo cliente_id por el del usuario
+			await baseDatos.actualizaPorCondicion("navegsDia", condicion, {cliente_id});
+
+			// Fin
+			return;
+		},
+	},
+};
