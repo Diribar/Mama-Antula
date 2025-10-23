@@ -21,11 +21,29 @@ window.addEventListener("load", async () => {
 		if (!file.type.startsWith("image/")) return alert("Solo se permiten imágenes.");
 
 		const reader = new FileReader();
-		reader.onload = (e) => {
-			DOM.vistaImagen.src = e.target.result;
-			DOM.vistaImagen.style.display = "block";
-		};
 		reader.readAsDataURL(file);
+		reader.onload = (e) => {
+			const image = new Image();
+			image.src = reader.result;
+
+			// Acciones si es realmente una imagen
+			image.onload = async () => {
+				// Actualiza la imagen del avatar en la vista
+				DOM.vistaImagen.src = reader.result;
+				// DOM.vistaImagen.src = e.target.result;
+				// DOM.vistaImagen.style.display = "block";
+
+				// Actualiza la variable 'avatar' en el input
+				DOM.inputImagen.value = DOM.inputImagen.files[0].name;
+
+				// Actualiza los errores
+				v.esImagen = true;
+
+				// Fin
+				return;
+			};
+
+		};
 	};
 
 	// Muestra la imagen
