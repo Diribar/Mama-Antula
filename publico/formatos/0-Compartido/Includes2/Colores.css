@@ -24,9 +24,11 @@ body {
 	--terracota: rgb(181, 73, 52);
 	--usuarios: #757575;
 
-	/* Colores por Tema */
+	/* Colores principales */
 	--colorHeader: var(--terracota);
 	--colorEscritura: var(--azulOscuro);
+
+	/* Colores por Tema */
 	--colorAyuda: white;
 	--backAyuda: var(--grisOscuro);
 	--bordeAyuda: var(--amarilloClaro);
