@@ -15,16 +15,13 @@ export default async (req, res, next) => {
 	}
 
 	// Obtiene el usuario de su cookie 'mail'
-	if (!usuario && req.cookies && req.cookies.email && req.cookies.cliente_id) {
+	if (!usuario && req.cookies && req.cookies.email) {
 		// Obtiene el usuario
 		const {email, cliente_id} = req.cookies;
 		usuario = await comp.obtieneUsuarioPorMail(email);
 
-		// Acciones si el cliente_id de la BD y de la cookie difieren
-		if (usuario.cliente_id != cliente_id) {
-			usuario = null; // anula el valor del usuario
-			res.clearCookie("email", {...global.dominio}); // borra esa cookie
-		}
+		// Si el cliente_id de la BD y de la cookie difieren, actualiza el último
+		if (usuario.cliente_id != cliente_id) res.cookie("cliente_id", usuario.cliente_id, {maxAge: unAno});
 	}
 
 	// Cliente: 1. Lo obtiene del usuario
@@ -33,7 +30,7 @@ export default async (req, res, next) => {
 		cliente = obtieneCamposNecesarios(usuario);
 
 		// Si corresponde, actualiza la cookie
-		const {cliente_id} = cliente;
+		const {cliente_id} = cliente; // es el cliente_id del usuario
 		if (!req.cookies.cliente_id || req.cookies.cliente_id != cliente_id)
 			res.cookie("cliente_id", cliente_id, {maxAge: unAno});
 	}
