@@ -35,7 +35,7 @@ export default {
 		if (errores.hay) return res.json(errores);
 
 		// Actualiza el usuario
-		const {cliente} = req.session.cliente;
+		const {cliente} = req.session;
 		const {cliente_id} = cliente;
 		const esVisita = !cliente_id.startsWith("U");
 		await procesos.login.actualizaUsuario({usuario, cliente, esVisita});
