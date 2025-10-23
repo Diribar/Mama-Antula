@@ -20,31 +20,30 @@ window.addEventListener("load", async () => {
 		const file = files[0];
 		if (!file.type.startsWith("image/")) return alert("Solo se permiten imágenes.");
 
-		const maxBytes = 2 * 1024 * 1024;
-		if (file.size > maxBytes) alert("El archivo supera el tamaño máximo permitido (" + MAX_SIZE_MB + ")");
-
 		// Lee el archivo
 		const reader = new FileReader();
 		reader.readAsDataURL(file);
 
-		reader.onload = () => {
+		reader.onload = (e) => {
 			const image = new Image();
 			image.src = reader.result; // valida que el contenido sea una imagen (renderizable)
 
-			// Acciones si realmente es una imagen
+			// Acciones si es realmente una imagen
 			image.onload = async () => {
-				// Actualiza la imagen visible
+				// Actualiza la imagen del avatar en la vista
 				DOM.vistaImagen.src = reader.result;
+				// DOM.vistaImagen.src = e.target.result;
+				// DOM.vistaImagen.style.display = "block";
 
-				// Actualiza el valor en el input
+				// Actualiza la variable 'avatar' en el input
 				DOM.inputImagen.value = DOM.inputImagen.files[0].name;
+
+				// Actualiza los errores
+				v.esImagen = true;
 
 				// Fin
 				return;
 			};
-
-			// Acciones si no es una imagen
-			image.onerror = async () => alert("Solo se permiten imágenes.");
 		};
 	};
 
