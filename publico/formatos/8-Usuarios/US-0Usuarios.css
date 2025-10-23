@@ -6,10 +6,7 @@
 	#formAltaOlvido {
 		display: flex; flex-direction: column; align-items: center; justify-content: space-between;
 		gap: 20px; max-width: 415px;
-		input {
-			text-align: center; padding: 5px 10px; border-radius: 5px;
-			&::placeholder {text-align: center;}
-		}
+		input {text-align: center; padding: 5px 10px; border-radius: 5px;}
 		#mensaje {
 			text-align: center; text-wrap: balance; padding: 8px 10px;
 			border-radius: 10px; border: 2.5px solid currentColor;
@@ -24,7 +21,6 @@
 	}
 	.contenedorImagen {
 		display: flex; flex-direction: row; align-items: center;
-		/* justify-content: center; */
 		--ancho: 22%;
 		height: 100%; width: var(--ancho); max-width: var(--ancho);
 		&#izquierda {justify-content: flex-end;}
