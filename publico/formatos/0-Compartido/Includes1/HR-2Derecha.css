@@ -27,7 +27,7 @@ header #derecha {
 		}
 		#eye {
 			top: 50%; right: 2px; translate: 0 -50%;
-			color: var(--gris-oscuro);
+			color: var(--grisOscuro);
 			cursor: pointer;
 		}
 		#iconos {

@@ -1,6 +1,6 @@
 /* Colores */
 body {
-	--amarillo-claro:rgb(255,242,204);
+	--amarilloClaro:rgb(255,242,204);
 	--celeste-claro: rgb(220, 230, 242);
 	--gris-claro: rgb(242,242,242);
 	--rojo-claro: #f8c4c4;
@@ -12,8 +12,8 @@ body {
 
 	--amarillo-oscuro: rgb(255, 230, 153);
 	--celeste-oscuro: #C7D7EA;
-	--gris-oscuro: rgb(100, 100, 100);
-	--gris-mas-oscuro: rgb(80, 80, 80);
+	--grisOscuro: rgb(100, 100, 100);
+	--grisMasOscuro: rgb(80, 80, 80);
 	--azul-oscuro: rgb(37,64,97);
 	--azul-frances: rgb(31,73,125);
 	--naranja-oscuro: #F57C00;
@@ -27,13 +27,13 @@ body {
 	/* Colores por Tema */
 	--colorPrincipal: var(--terracota);
 	--colorAyuda: white;
-	--backAyuda: var(--gris-oscuro);
-	--bordeAyuda: var(--amarillo-claro);
-	--colorTitulo: var(--gris-oscuro);
-	--backTitulo: var(--amarillo-claro);
+	--backAyuda: var(--grisOscuro);
+	--bordeAyuda: var(--amarilloClaro);
+	--colorTitulo: var(--grisOscuro);
+	--backTitulo: var(--amarilloClaro);
 	--bordeTitulo: var(--naranja-oscuro);
 	--colorMensajeError: var(--rojo-oscuro);
-	--backMensajeError: var(--amarillo-claro);
+	--backMensajeError: var(--amarilloClaro);
 	--backIcono: white;
 	--backFlechas: var(--celeste-oscuro);
 	--bordeFlechas: var(--azul-oscuro);
