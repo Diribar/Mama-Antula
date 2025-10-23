@@ -1,6 +1,7 @@
 "use strict";
 
 window.addEventListener("load", async () => {
+	return;
 	const DOM = {
 		form: document.querySelector("#contenidoTemas #formEdicion"),
 		// email: document.querySelector("#formEdicion input[name='email']"),

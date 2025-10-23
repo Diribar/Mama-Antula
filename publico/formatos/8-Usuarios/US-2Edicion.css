@@ -1,0 +1,4 @@
+form {
+	select {optgroup, option:not(:checked) {text-align: left;}}
+	#contenedorNovedades {background-color: snow; line-height: 1;}
+}
