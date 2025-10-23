@@ -1,6 +1,5 @@
 "use strict";
 import procesos from "./US-procesos.mjs";
-const imagenes = procesos.altaOlvido.obtieneImagenesAlAzar();
 const temaVista = "usuarios";
 
 export default {
@@ -8,6 +7,7 @@ export default {
 		// Variables
 		const tituloPagina = "Alta de Usuario / Olvido de Contraseña";
 		const codigoVista = "altaOlvido";
+		const imagenes = procesos.obtieneImagenesAlAzar();
 
 		// Fin
 		return res.render("CMP-0Estructura", {tituloPagina, temaVista, codigoVista, imagenes});
@@ -16,6 +16,7 @@ export default {
 		// Variables
 		const tituloPagina = "Edición de Usuario";
 		const codigoVista = "edicion";
+		const imagenes = procesos.obtieneImagenesAlAzar();
 
 		// Fin
 		return res.render("CMP-0Estructura", {tituloPagina, temaVista, codigoVista, imagenes});
@@ -24,6 +25,7 @@ export default {
 		// Variables
 		const tituloPagina = "Cambio de Roles";
 		const codigoVista = "cambioRolUsuarios";
+		const imagenes = procesos.obtieneImagenesAlAzar();
 
 		// Fin
 		return res.render("CMP-0Estructura", {tituloPagina, temaVista, codigoVista, imagenes});
