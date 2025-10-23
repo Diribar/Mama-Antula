@@ -8,28 +8,17 @@ window.addEventListener("load", async () => {
 		inputImagen: document.querySelector("#formEdicion #areaSoltar input"),
 		vistaImagen: document.querySelector("#formEdicion #areaSoltar img"),
 	};
-	DOM.botonImagen.addEventListener("click", () => DOM.inputImagen.click());
 	const entrada = ["dragenter", "dragover"];
 	const salida = ["dragleave", "drop"];
 
-	// Manejar el drop
-	DOM.areaSoltar.addEventListener("drop", (e) => {
-		const files = e.dataTransfer.files;
-		handleFiles(files);
-	});
-
-	// Abrir selector al hacer clic
-	DOM.areaSoltar.addEventListener("click", () => DOM.inputImagen.click());
-	DOM.inputImagen.addEventListener("change", (e) => handleFiles(DOM.inputImagen.files));
-
 	// Función para mostrar la imagen
-	function handleFiles(files) {
-		if (files.length === 0) return;
+	const handleFiles = (files) => {
+		// Si no había una imagen, interrumpe la función
+		if (!files.length) return;
+
+		// Si no es una imagen, interrumpe la función
 		const file = files[0];
-		if (!file.type.startsWith("image/")) {
-			alert("Solo se permiten imágenes.");
-			return;
-		}
+		if (!file.type.startsWith("image/")) return alert("Solo se permiten imágenes.");
 
 		const reader = new FileReader();
 		reader.onload = (e) => {
@@ -37,11 +26,18 @@ window.addEventListener("load", async () => {
 			DOM.vistaImagen.style.display = "block";
 		};
 		reader.readAsDataURL(file);
-	}
+	};
+
+	// Muestra la imagen
+	DOM.areaSoltar.addEventListener("drop", (e) => handleFiles(e.dataTransfer.files));
+	DOM.inputImagen.addEventListener("change", (e) => handleFiles(DOM.inputImagen.files));
 
 	// Eventos - Efectos visuales
-	[...entrada, ...salida].forEach((evento) => DOM.areaSoltar.addEventListener(evento, (e) => e.preventDefault()));// Prevenir comportamiento por defecto para drag & drop
-	entrada.forEach((evento) => DOM.areaSoltar.addEventListener(evento, () => DOM.areaSoltar.classList.add("encima")));// Efectos visuales de entrada
-	salida.forEach((evento) => DOM.areaSoltar.addEventListener(evento, () => DOM.areaSoltar.classList.remove("encima")));// Efectos visuales de salida
+	[...entrada, ...salida].forEach((evento) => DOM.areaSoltar.addEventListener(evento, (e) => e.preventDefault())); // Prevenir comportamiento por defecto para drag & drop
+	entrada.forEach((evento) => DOM.areaSoltar.addEventListener(evento, () => DOM.areaSoltar.classList.add("encima"))); // Efectos visuales de entrada
+	salida.forEach((evento) => DOM.areaSoltar.addEventListener(evento, () => DOM.areaSoltar.classList.remove("encima"))); // Efectos visuales de salida
 
+	// Eventos - Busca el archivo
+	DOM.botonImagen.addEventListener("click", () => DOM.inputImagen.click());
+	DOM.areaSoltar.addEventListener("click", () => DOM.inputImagen.click());
 });
