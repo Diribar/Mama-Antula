@@ -9,7 +9,7 @@
 		<% for (const continente of continentes) { %>
 			<optgroup label="<%= continente %>">
 				<% for (const pais of paises.filter(n => n.continente == continente)) { %>
-					<option value="<%= pais.id %>"><%= pais.nombre %></option>
+					<option value="<%= pais.id %>" <% if (pais.id == usuario.pais_id) { %>selected<% } %>><%= pais.nombre %></option>
 				<% } %>
 			</optgroup>
 		<% } %>
