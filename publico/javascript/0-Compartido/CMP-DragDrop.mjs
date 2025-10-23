@@ -38,6 +38,5 @@ window.addEventListener("load", async () => {
 	salida.forEach((evento) => DOM.areaSoltar.addEventListener(evento, () => DOM.areaSoltar.classList.remove("encima"))); // Efectos visuales de salida
 
 	// Eventos - Busca el archivo
-	DOM.botonImagen.addEventListener("click", () => DOM.inputImagen.click());
 	DOM.areaSoltar.addEventListener("click", () => DOM.inputImagen.click());
 });
