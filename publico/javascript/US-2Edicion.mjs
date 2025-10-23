@@ -9,6 +9,7 @@ window.addEventListener("load", async () => {
 		confirma: document.querySelector("#formEdicion #confirma"),
 
 		// Imagen del usuario
+		areaSoltar: document.querySelector("#formEdicion #areaSoltar"),
 		botonImagen: document.querySelector("#formEdicion #areaSoltar button"),
 		inputImagen: document.querySelector("#formEdicion #areaSoltar input"),
 		vistaImagen: document.querySelector("#formEdicion #areaSoltar img"),

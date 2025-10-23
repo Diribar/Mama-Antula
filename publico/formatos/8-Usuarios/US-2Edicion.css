@@ -4,6 +4,10 @@ form {
 		border: 2px dashed var(--grisOscuro); border-radius: 5px;
 		width: 200px; height: 150px; padding-inline: 5px;
 		background-color: var(--celesteClaro);
+		&.encima {
+			border-color: #333;
+			background-color: #f0f0f0;
+		}
 		* {font-weight: bold;}
 		#cartelImagen {margin: 0; text-align: center;}
 		button {
