@@ -25,6 +25,8 @@ window.addEventListener("load", async () => {
 	DOM.form.addEventListener("submit", async (e) => {
 		// Evita el confirm
 		e.preventDefault();
+		console.log(archivoCargado);
+
 		return
 
 		// Si no se revisaron los errores, los revisa
