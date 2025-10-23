@@ -71,6 +71,7 @@ export default {
 	login: {
 		actualizaUsuario: async ({usuario, cliente, esVisita}) => {
 			// Variables
+			const {cliente_id} = cliente;
 			const datosUs = {};
 
 			if (esVisita) {

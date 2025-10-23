@@ -17,9 +17,10 @@ export default {
 		const tituloPagina = "Edición de Usuario";
 		const codigoVista = "edicion";
 		const imagenes = procesos.obtieneImagenesAlAzar();
+		const {apodo} = req.session.usuario;
 
 		// Fin
-		return res.render("CMP-0Estructura", {tituloPagina, temaVista, codigoVista, imagenes});
+		return res.render("CMP-0Estructura", {tituloPagina, temaVista, codigoVista, imagenes, apodo});
 	},
 	cambioRoles: async (req, res) => {
 		// Variables

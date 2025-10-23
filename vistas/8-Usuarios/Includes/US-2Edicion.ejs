@@ -1,0 +1,17 @@
+<!-- Formulario -->
+<form id="formEdicion">
+	<input type="text" name="apodo" placeholder="Escribí tu apodo" autocomplete="off" value="<%= usuario.apodo %>">
+	<input type="password" name="contrasena" placeholder="Nueva contrasena (opcional)" autofocus autocomplete="new-password">
+	<select name="paisResidencia">
+		<option value=''>País de residencia</option>
+
+	</select>
+	<label id="contenedorNovedades" for="novedades">
+		<input type="checkbox" id="novedades">
+		Deseo recibir las novedades por mail
+	</label>
+	<p id="mensaje"></p>
+	<div id="fondoConfirma">
+		<button type="submit" id="confirma">Guardá los cambios</button>
+	</div>
+</form>

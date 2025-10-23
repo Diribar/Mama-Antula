@@ -33,7 +33,7 @@ export default async (req, res, next) => {
 		cliente = obtieneCamposNecesarios(usuario);
 
 		// Si corresponde, actualiza la cookie
-		const {cliente_id} = cliente;
+		const {cliente_id} = cliente; // es el cliente_id del usuario
 		if (!req.cookies.cliente_id || req.cookies.cliente_id != cliente_id)
 			res.cookie("cliente_id", cliente_id, {maxAge: unAno});
 	}
@@ -47,6 +47,7 @@ export default async (req, res, next) => {
 		// Obtiene el cliente
 		const tabla = esUsuario ? "usuarios" : "visitas";
 		cliente = await baseDatos.obtienePorCondicion(tabla, {cliente_id}, "rol").then((n) => n && obtieneCamposNecesarios(n));
+		// no se obtiene el usuario por medida de seguridad, ya que no existe la cookie del mail
 	}
 
 	// Cliente: 3. Como no existe, lo crea
