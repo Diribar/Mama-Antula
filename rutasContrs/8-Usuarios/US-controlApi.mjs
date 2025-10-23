@@ -42,14 +42,14 @@ export default {
 
 		// Actualiza el usuario y la cookie - no se actualiza 'session'', para que se ejecute el middleware 'clientesSession'
 		res.cookie("email", email, {maxAge: unAno});
-		if (esVisita) res.cookie("cliente_id", usuario.cliente_id, {maxAge: unAno});
+		delete req.session.cliente; // es crítico para que lo obtenga del usuario
 
 		// Actualiza datos en las estadísticas
 		// procesos.login.actualizaPersWebDia(usuario)
 		// if (esVisita) procesos.cambiaVisitaEnNavegsDia({cliente_id: usuario.cliente_id, cliente_idViejo: cliente_id});
 
 		// Fin
-		return res.json({ok: true});
+		return res.json({hay: false});
 	},
 	logout: async (req, res) => {
 		// Desloguea al usuario
