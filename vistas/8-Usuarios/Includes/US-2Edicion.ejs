@@ -2,9 +2,10 @@
 <form id="formEdicion">
 	<!-- Área donde soltar el archivo de imagen -->
 	<div id="areaSoltar">
-		<div>Ingresá un archivo con tu imagen (opcional)</div>
+		<p id="cartelImagen">Ingresá un archivo con tu imagen (opcional)</p>
 		<button type="button">Buscá tu archivo</button>
 		<input class="input" id="imagenUsuario" type="file" accept="image/*" hidden>
+		<img id="vistaImagen" src="<%= avatar %>" alt="Vista previa" style="display:none; max-width: 300px; margin-top: 10px;">
 	</div>
 
 	<!-- Inputs y select -->
