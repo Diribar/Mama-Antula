@@ -3,6 +3,29 @@ import valida from "./US-FN-Valida.mjs";
 import procesos from "./US-procesos.mjs";
 
 export default {
+	altaOlvido: async (req, res) => {
+		// Variables
+		const {email} = req.query;
+
+		// Obtiene el usuario y valida si ya se le envió una contraseña
+		const {usuario, errores} = await valida.contrasenaYaEnviada(email);
+		if (errores.hay) return res.json(errores);
+
+		// Nueva contraseña
+		const contrasena = Math.round(Math.random() * Math.pow(10, 6))
+			.toString()
+			.padStart(6, "0");
+		console.log("Contraseña: " + contrasena);
+
+		// Envia el mail con la contraseña
+		const {mensajeFe, mailEnviado} = await procesos.altaOlvido.enviaMailContrasena({usuario, email, contrasena});
+
+		// Si corresponde, crea el usuario
+		if (!usuario && mailEnviado) await procesos.altaOlvido.creaElUsuario({email, contrasena});
+
+		// Fin
+		return res.json({mensaje: mensajeFe, hay: !mailEnviado});
+	},
 	login: async (req, res) => {
 		// Variables
 		const {email, contrasena} = req.query;
@@ -83,28 +106,5 @@ export default {
 
 		// Fin
 		return res.json();
-	},
-	altaOlvido: async (req, res) => {
-		// Variables
-		const {email} = req.query;
-
-		// Obtiene el usuario y valida si ya se le envió una contraseña
-		const {usuario, errores} = await valida.contrasenaYaEnviada(email);
-		if (errores.hay) return res.json(errores);
-
-		// Nueva contraseña
-		const contrasena = Math.round(Math.random() * Math.pow(10, 6))
-			.toString()
-			.padStart(6, "0");
-		console.log("Contraseña: " + contrasena);
-
-		// Envia el mail con la contraseña
-		const {mensajeFe, mailEnviado} = await procesos.altaOlvido.enviaMailContrasena({usuario, email, contrasena});
-
-		// Si corresponde, crea el usuario
-		if (!usuario && mailEnviado) await procesos.altaOlvido.creaElUsuario({email, contrasena});
-
-		// Fin
-		return res.json({mensaje: mensajeFe, hay: !mailEnviado});
 	},
 };
