@@ -25,5 +25,5 @@ export default {
 
 	requestsTriviales: ["WhatsApp", "Postman", "TelegramBot", "TwitterBot", "Zabbix"], // evita que se cuenten como visitas
 
-	rutasUsuario: {altaOlvido: "/alta-u-olvido-de-contrasena", edicion: "/edicion"},
+	rutasUsuario: {altaOlvido: "/alta-u-olvido-de-contrasena", edicion: "/edicion", cambioRoles: "/cambio-de-roles"},
 };
