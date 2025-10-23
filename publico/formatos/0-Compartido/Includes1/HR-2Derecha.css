@@ -1,6 +1,6 @@
 header #derecha {
 	position: relative; margin-right: 20px; line-height: 0;
-	color: var(--azulOscuro);
+	color: var(--colorEscritura);
 
 	#menuLogin, #menuLogout {
 		position: absolute; right: 0; bottom: 0; translate: 0 100%;
@@ -21,7 +21,7 @@ header #derecha {
 
 		input {
 			width: 150px; padding-inline: 2px;
-			text-align: center; color: var(--azulOscuro);
+			text-align: center; color: var(--colorEscritura);
 			border-radius: 5px; border-width: 1px;
 		}
 		#eye {
@@ -34,7 +34,7 @@ header #derecha {
 			display: flex; flex-direction: row; justify-content: space-between;
 			i {
 				font-size: 1rem; width: 1rem; cursor: pointer;
-				&#altaOlvido {color: var(--azulOscuro);}
+				&#altaOlvido {color: var(--colorEscritura);}
 			}
 		}
 	}
