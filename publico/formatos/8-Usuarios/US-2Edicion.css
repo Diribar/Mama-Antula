@@ -1,6 +1,12 @@
 form {
-	#contenedorNovedades {
-		background-color: snow; line-height: 1; display: flex;
-		input[type="checkbox"] {margin-right: 5px;}
+	#areaSoltar {
+		/* Medidas de lado */
+		--ladoCuadrado: 150px; width: var(--ladoCuadrado); height: var(--ladoCuadrado);
+		border-radius: 5px;
+
+		#contenedorNovedades {
+			background-color: snow; line-height: 1; display: flex;
+			input[type="checkbox"] {margin-right: 5px;}
+		}
 	}
 }

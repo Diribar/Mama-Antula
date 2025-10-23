@@ -1,6 +1,5 @@
 #areaSoltar {
-	--ladoCuadrado: 150px; width: var(--ladoCuadrado); height: var(--ladoCuadrado); /* Medidas de lado */
-	border-radius: 5px; cursor: pointer;
+	cursor: pointer;
 
 	/* Dinámica */
 	&.encima {background-color: var(--grisClaro); border-color: var(--grisOscuro);}
