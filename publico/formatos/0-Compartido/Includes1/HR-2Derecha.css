@@ -10,12 +10,12 @@ header #derecha {
 	}
 
 	/* Login */
-	i#iconoUsuario {font-size: 1.5rem; color: var(--gris-claro);}
+	i#iconoUsuario {font-size: 1.5rem; color: var(--grisClaro);}
 	#menuLogin {
 		padding: 10px; align-items: center; gap: 10px;
 		&:has(#mensajeError:not(:empty)) {
 			background-color: var(--rojo-oscuro);
-			#mensajeError {color: var(--gris-claro); text-align: center;font-style: italic; line-height: 1;}
+			#mensajeError {color: var(--grisClaro); text-align: center;font-style: italic; line-height: 1;}
 			#iconos {display: none;}
 		}
 
@@ -23,7 +23,7 @@ header #derecha {
 			width: 150px; padding-inline: 2px;
 			text-align: center; color: var(--azul-oscuro);
 			border-radius: 5px; border-width: 1px;
-			&::placeholder {color: var(--gris-intermedio);}
+			&::placeholder {color: var(--grisInterm);}
 		}
 		#eye {
 			top: 50%; right: 2px; translate: 0 -50%;

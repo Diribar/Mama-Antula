@@ -1,13 +1,19 @@
 "use strict";
 
 window.addEventListener("load", async () => {
-	return;
 	const DOM = {
+		// Formulario
 		form: document.querySelector("#contenidoTemas #formEdicion"),
-		// email: document.querySelector("#formEdicion input[name='email']"),
+		inputs: document.querySelectorAll("#formEdicion .input"),
 		mensaje: document.querySelector("#formEdicion #mensaje"),
 		confirma: document.querySelector("#formEdicion #confirma"),
+
+		// Imagen del usuario
+		botonImgUsuario: document.querySelector("#formEdicion #areaSoltar button"),
+		inputImgUsuario: document.querySelector("#formEdicion #areaSoltar input"),
 	};
+	DOM.botonImgUsuario.addEventListener("click", () => DOM.inputImgUsuario.click());
+	return;
 	const rutaApi = "/usuarios/api/us-alta-de-mail-u-olvido-de-contrasena/?email=";
 
 	const fnErrorMail = () => {

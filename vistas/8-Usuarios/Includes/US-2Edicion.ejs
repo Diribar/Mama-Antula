@@ -3,16 +3,14 @@
 	<!-- Área donde soltar el archivo de imagen -->
 	<div id="areaSoltar">
 		<div>Ingresá un archivo con tu imagen (opcional)</div>
-		<label>
-			<button>Buscá tu archivo</button>
-			<input type="file" hidden>
-		</label>
+		<button type="button" onclick="document.getElementById('imagenUsuario').click()">Buscá tu archivo</button>
+		<input class="input" id="imagenUsuario" type="file" accept="image/*" hidden>
 	</div>
 
 	<!-- Inputs y select -->
-	<input type="text" name="apodo" placeholder="Escribí tu apodo" autocomplete="off" value="<%= usuario.apodo %>">
-	<input type="password" name="contrasena" placeholder="Nueva contrasena (opcional)" autofocus autocomplete="new-password">
-	<select name="paisResidencia">
+	<input class="input" type="text" name="apodo" placeholder="Escribí tu apodo" autocomplete="off" value="<%= usuario.apodo %>">
+	<input class="input" type="password" name="contrasena" placeholder="Nueva contrasena (opcional)" autofocus autocomplete="new-password">
+	<select class="input" name="paisResidencia">
 		<option value=''>País de residencia</option>
 		<option value="AR">Argentina</option>
 		</optgroup>
@@ -26,7 +24,7 @@
 
 	</select>
 	<label id="contenedorNovedades" for="novedades">
-		<input type="checkbox" id="novedades">
+		<input class="input" type="checkbox" id="novedades">
 		Deseo recibir las novedades por mail
 	</label>
 

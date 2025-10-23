@@ -1,13 +1,13 @@
 /* Colores */
 body {
 	--amarilloClaro:rgb(255,242,204);
-	--celeste-claro: rgb(220, 230, 242);
-	--gris-claro: rgb(242,242,242);
+	--celesteClaro: rgb(220, 230, 242);
+	--grisClaro: rgb(242,242,242);
 	--rojo-claro: #f8c4c4;
 	--verde-claro: rgb(217, 223, 205);
 
 	--amarillo-intermedio: #fcff82;
-	--gris-intermedio: rgb(200,200,200);
+	--grisInterm: rgb(200,200,200);
 	--verde-intermedio: rgb(188, 199, 167);
 
 	--amarillo-oscuro: rgb(255, 230, 153);
