@@ -6,9 +6,8 @@
 		<img src="<%= imagenes[0] %>">
 	</div>
 
-	<% if (codigoVista == "altaOlvido") { %>
-		<%- include("US-1AltaOlvido") %>
-	<% } %>
+	<% if (codigoVista == "altaOlvido") { %><%- include("US-1AltaOlvido") %><% } %>
+	<% if (codigoVista == "edicion") { %><%- include("US-2Edicion") %><% } %>
 
 	<!-- Imagen derecha -->
 	<div id="derecha" class="contenedorImagen">
