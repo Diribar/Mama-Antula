@@ -72,7 +72,6 @@ export default {
 		actualizaUsuario: async ({usuario, cliente, esVisita}) => {
 			// Variables
 			const datosUs = {};
-			const espera = [];
 
 			if (esVisita) {
 				// Actualiza datos
@@ -91,7 +90,7 @@ export default {
 			if (usuario.statusRegistro_id == mailPendValidar_id) datosUs.statusRegistro_id = mailValidado_id; // si corresponde, le cambia el status a 'mailValidado'
 
 			// Guarda la info en usuario
-			espera.push(baseDatos.actualizaPorId("usuarios", usuario.id, datosUs));
+			await baseDatos.actualizaPorId("usuarios", usuario.id, datosUs);
 			for (const dato in datosUs) usuario[dato] = datosUs[dato];
 
 			// Fin
