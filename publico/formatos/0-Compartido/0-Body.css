@@ -17,7 +17,7 @@ body {
 	height: var(--alturaViewPort);
 
 	/* Otros */
-	color: var(--gris-mas-oscuro);
+	color: var(--grisMasOscuro);
 	line-height: inherit;
 	display: flex; flex-direction: column;
 }

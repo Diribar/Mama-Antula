@@ -6,12 +6,12 @@
 		#icono {margin-block: 0;}
 		#listadoTemas {
 			background-color: var(--amarillo-intermedio);
-			border: 1px solid var(--gris-oscuro); border-radius: 5px;
+			border: 1px solid var(--grisOscuro); border-radius: 5px;
 			position: absolute; bottom: 10px; translate: 0% 100%;
 			width: max-content;
 			li {
 				padding: 2px 10px; cursor: pointer;
-				&.activo {background-color: var(--gris-oscuro); color: snow;}
+				&.activo {background-color: var(--grisOscuro); color: snow;}
 				&:hover {background-color: var(--amarillo-oscuro); color: inherit;}
 			}
 		}
