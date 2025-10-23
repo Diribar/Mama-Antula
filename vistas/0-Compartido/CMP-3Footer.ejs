@@ -5,7 +5,7 @@
 <% if (locals.usuario && usuario.rol.edicion) { %>
 	<div id="iconosFooterOtros" class="iconosFooter">
 		<% for (const icono of iconosAgrupados.filter(n => n.grupo == "footerOtros")) { %>
-			<% if (icono.edicion || icono.revision && usuario.rol.revision || icono.abmUs && usuario.rol.abmUs) { %>
+			<% if (icono.edicion || icono.revision && usuario.rol.revision || icono.admin && usuario.rol.admin) { %>
 				<a href="<%= icono.link %>" title="<%= icono.nombre %>">
 					<i class="fa-solid <%= icono.clase %> scaleHover"></i>
 				</a>
