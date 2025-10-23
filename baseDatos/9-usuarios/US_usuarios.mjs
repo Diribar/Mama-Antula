@@ -1,8 +1,8 @@
 export default (sequelize, dt) => {
 	const alias = "usuarios";
 	const columns = {
-		nombre: {type: dt.STRING(30)},
-		email: {type: dt.STRING(100)},
+		nombreCompleto: {type: dt.STRING(50)},
+		email: {type: dt.STRING(50)},
 
 		apodo: {type: dt.STRING(30)},
 		cliente_id: {type: dt.STRING(11)},
