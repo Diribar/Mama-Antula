@@ -12,7 +12,7 @@ window.addEventListener("load", async () => {
 	const salida = ["dragleave", "drop"];
 
 	// Función para mostrar la imagen
-	const handleFiles = (files) => {
+	const procesaArchImg = (files) => {
 		// Si no hay una imagen, interrumpe la función
 		if (!files.length) return;
 
@@ -28,19 +28,14 @@ window.addEventListener("load", async () => {
 		reader.readAsDataURL(file);
 
 		reader.onload = () => {
+			// Valida que el contenido sea una imagen (renderizable)
 			const image = new Image();
-			image.src = reader.result; // valida que el contenido sea una imagen (renderizable)
+			image.src = reader.result;
 
 			// Acciones si realmente es una imagen
 			image.onload = async () => {
-				// Actualiza la imagen visible
-				DOM.vistaImagen.src = reader.result;
-
-				// Actualiza el valor en el input
-				DOM.inputImagen.value = DOM.inputImagen.files[0].name;
-
-				// Fin
-				return;
+				DOM.vistaImagen.src = reader.result; // hace visible la imagen
+				archivoCargado = file; // guardamos el archivo en memoria
 			};
 
 			// Acciones si no es una imagen
@@ -49,8 +44,8 @@ window.addEventListener("load", async () => {
 	};
 
 	// Muestra la imagen
-	DOM.areaSoltar.addEventListener("drop", (e) => handleFiles(e.dataTransfer.files));
-	DOM.inputImagen.addEventListener("change", (e) => handleFiles(DOM.inputImagen.files));
+	DOM.areaSoltar.addEventListener("drop", (e) => procesaArchImg(e.dataTransfer.files));
+	DOM.inputImagen.addEventListener("change", () => procesaArchImg(DOM.inputImagen.files));
 
 	// Eventos - Efectos visuales
 	[...entrada, ...salida].forEach((evento) => DOM.areaSoltar.addEventListener(evento, (e) => e.preventDefault())); // Prevenir comportamiento por defecto para drag & drop
@@ -60,3 +55,6 @@ window.addEventListener("load", async () => {
 	// Eventos - Busca el archivo
 	DOM.areaSoltar.addEventListener("click", () => DOM.inputImagen.click());
 });
+
+let archivoCargado;
+
