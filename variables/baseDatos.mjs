@@ -18,6 +18,7 @@ export default {
 			iconosAgrupados: baseDatos.obtieneTodosConOrden("iconosAgrupados", "orden"),
 			rolesUs: baseDatos.obtieneTodosConOrden("rolesUs", "orden"),
 			statusRegistrosUs: baseDatos.obtieneTodosConOrden("statusRegistrosUs", "orden"),
+			paises: baseDatos.obtieneTodos("paises"),
 			versionWeb: baseDatos.obtieneTodosConOrden("novsDelSitio", "fecha").then((n) => n.at(-1).version),
 		};
 
