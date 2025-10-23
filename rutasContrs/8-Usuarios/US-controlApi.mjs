@@ -1,5 +1,5 @@
 "use strict";
-import valida from "./US-FN-Valida.mjs";
+import valida from "./US-FN-valida.mjs";
 import procesos from "./US-procesos.mjs";
 
 export default {
