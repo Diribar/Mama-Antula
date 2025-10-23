@@ -1,8 +1,13 @@
 <!-- Formulario -->
 <form id="formEdicion">
-	<input type="email" name="email" placeholder="Escribí tu mail" autofocus>
+	<input type="text" name="apodo" placeholder="Escribí tu apodo" autocomplete="off">
+	<input type="password" name="contrasena" placeholder="Nueva contrasena (opcional)" autofocus autocomplete="new-password">
+	<label id="contNovs" for="novedades">
+		<input type="checkbox" id="novedades">
+		Deseo recibir las novedades por mail
+	</label>
 	<p id="mensaje"></p>
 	<div id="fondoConfirma">
-		<button type="submit" id="confirma">Envío de nueva contraseña</button>
+		<button type="submit" id="confirma">Guardá los cambios</button>
 	</div>
 </form>
