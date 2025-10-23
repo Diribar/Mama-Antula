@@ -6,14 +6,9 @@
 		<img src="<%= imagenes[0] %>">
 	</div>
 
-	<!-- Formulario -->
-	<form id="formAltaOlvido">
-		<input type="email" name="email" placeholder="Escribí tu mail" autofocus>
-		<p id="mensaje"></p>
-		<div id="fondoConfirma">
-			<button type="submit" id="confirma">Envío de nueva contraseña</button>
-		</div>
-	</form>
+	<% if (codigoVista == "altaOlvido") { %>
+		<%- include("US-1AltaOlvido") %>
+	<% } %>
 
 	<!-- Imagen derecha -->
 	<div id="derecha" class="contenedorImagen">
