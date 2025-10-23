@@ -9,6 +9,7 @@
 
 		input:not([type="checkbox"]), select {width: 250px; border-radius: 5px; padding: 5px 10px;}
 		select {}
+		#contenedorNovedades {background-color: snow;}
 
 		#mensaje {
 			text-align: center; text-wrap: balance; padding: 8px 10px;
