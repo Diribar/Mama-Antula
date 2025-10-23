@@ -1,5 +1,16 @@
 <!-- Formulario -->
 <form id="formEdicion">
+	<div id="zonaImagen">
+		<div id="areaDondeSoltar">
+			<h4>Ingresá un archivo con tu imagen (opcional)</h4>
+			<label>
+				<button>Buscá tu archivo</button>
+				<input type="file" hidden>
+			</label>
+		</div>
+		<div id="statusArchivo"></div>
+	</div>
+
 	<input type="text" name="apodo" placeholder="Escribí tu apodo" autocomplete="off" value="<%= usuario.apodo %>">
 	<input type="password" name="contrasena" placeholder="Nueva contrasena (opcional)" autofocus autocomplete="new-password">
 	<select name="paisResidencia">
