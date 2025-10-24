@@ -21,10 +21,13 @@ window.addEventListener("load", async () => {
 
 	// Funciones
 	const FN = {
-		respuestas: () => {
+		colorMensaje: () => {
+			// Cambia el color en la respuesta
 			DOM.mensaje.classList[!v.errores.hay ? "add" : "remove"]("exito");
 			DOM.mensaje.classList[v.errores.hay ? "add" : "remove"]("error");
-			DOM.confirma.classList[v.errores.hay ? "add" : "remove"]("inactivo");
+			DOM.mensaje.classList.remove("invisible");
+
+			// Fin
 			return;
 		},
 		metodoPost: (datos) => ({
@@ -36,8 +39,7 @@ window.addEventListener("load", async () => {
 
 	// Eventos - input
 	DOM.form.addEventListener("input", () => {
-		DOM.mensaje.innerHTML = "";
-		DOM.mensaje.classList.remove("error");
+		DOM.mensaje.classList.add("invisible");
 		DOM.confirma.classList.remove("inactivo");
 	});
 	// Eventos - change
@@ -54,7 +56,7 @@ window.addEventListener("load", async () => {
 
 		// Respuestas
 		DOM.mensaje.innerHTML = v.errores[campo];
-		FN.respuestas();
+		FN.colorMensaje();
 
 		// Acciones si no hay errores
 		if (!v.errores.hay) {
@@ -71,14 +73,14 @@ window.addEventListener("load", async () => {
 		// Si confirmar está inactivo, interrumpe la función
 		e.preventDefault();
 		if (DOM.confirma.className.includes("inactivo")) return;
-		DOM.confirma.classList.add("inactivo");
+		DOM.confirma.classList.add("inactivo"); // se deja inactivo hasta que se vuelve a hacer un input en el formulario
 
 		// Si no se hicieron cambios, interrumpe la función
 		const hayAlgoParaguardar = archivoImgSubido || v.unInputCambio;
 		if (!hayAlgoParaguardar) {
 			DOM.mensaje.innerHTML = "No se hicieron cambios a guardar";
 			v.errores = {hay: true};
-			return FN.respuestas();
+			return FN.colorMensaje();
 		}
 
 		// Crea el FormData y agrega los campos
@@ -102,7 +104,7 @@ window.addEventListener("load", async () => {
 					.filter((n) => !!n && n !== true && n !== false)
 					.join(". ") // quita los 'no errores' y el 'hay'
 			: "Los cambios fueron guardados";
-		FN.respuestas();
+		FN.colorMensaje();
 
 		// Fin
 		return;
