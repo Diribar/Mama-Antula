@@ -53,7 +53,7 @@ export default {
 	},
 	edicion: (datos) => {
 		// Variables
-		const {campo, imagen, apodo, contrasena} = datos; // datos tiene más métodos (tamano, tipo, notificacs)
+		const {campo, imagen, apodo, contrasena} = datos; // datos tiene más métodos
 		const errores = {};
 
 		// Apodo - campo obligatorio
