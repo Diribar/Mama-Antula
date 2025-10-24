@@ -27,7 +27,11 @@ window.addEventListener("load", async () => {
 			DOM.confirma.classList[v.errores.hay ? "add" : "remove"]("inactivo");
 			return;
 		},
-		metodoPost: (formData) => ({method: "POST", body: formData}),
+		metodoPost: (datos) => ({
+			method: "POST",
+			headers: {"Content-Type": "application/json"},
+			body: JSON.stringify(datos),
+		}),
 	};
 
 	// Eventos - input
@@ -41,17 +45,16 @@ window.addEventListener("load", async () => {
 		// Inactiva confirmar
 		DOM.confirma.classList.add("inactivo");
 
-		// Variables
+		// Crea los datos a enviar
 		const campo = e.target.name;
-
-		// Crea el formulario
-		const formData = new FormData();
-		formData.append("campo", campo);
-		formData.append(campo, e.target.value);
+		const datos = {campo, [campo]: e.target.value};
 
 		// Averigua si hay un error
-		v.errores = await fetch(v.rutaValidaCampo , FN.metodoPost(formData)).then((n) => n.json());
+		v.errores = await fetch(v.rutaValidaCampo, FN.metodoPost(datos)).then((n) => n.json());
+
+		// Respuestas
 		DOM.mensaje.innerHTML = v.errores[campo];
+		FN.respuestas();
 
 		// Acciones si no hay errores
 		if (!v.errores.hay) {

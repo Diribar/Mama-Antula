@@ -15,7 +15,7 @@
 		}
 
 		#mensaje {
-			text-align: center; text-wrap: balance; padding: 8px 10px;
+			text-align: center; text-wrap: balance; padding: 4px 10px;
 			border-radius: 10px; border: 2.5px solid currentColor;
 			&:empty {visibility: hidden;}
 			&.exito {background-color: var(--verde-claro); color: var(--verde-oscuro);}

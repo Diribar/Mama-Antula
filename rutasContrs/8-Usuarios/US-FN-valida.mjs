@@ -60,9 +60,9 @@ export default {
 		if (!campo || campo == "apodo")
 			errores.apodo =
 				(!apodo && inputVacio) ||
-				comp.validacs.castellano.basico(dato) ||
-				comp.validacs.inicial.basico(dato) ||
-				comp.validacs.longitud(dato, 2, 30) ||
+				comp.validacs.castellano.basico(apodo) ||
+				comp.validacs.inicial.basico(apodo) ||
+				comp.validacs.longitud(apodo, 2, 30) ||
 				"";
 
 		// Campos opcionales
