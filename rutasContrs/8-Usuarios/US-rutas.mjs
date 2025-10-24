@@ -15,6 +15,8 @@ const router = express.Router();
 router.get("/api/us-login", API.login);
 router.get("/api/us-logout", API.logout);
 router.get("/api/us-alta-de-mail-u-olvido-de-contrasena", API.altaOlvido);
+router.get("/api/us-edicion", API.edicion);
+router.get("/api/us-cambio-roles", API.cambioRoles);
 
 // 🖥️ Vistas
 router.get(rutasUsuario.altaOlvido, soloVisitas, vista.altaOlvido);
