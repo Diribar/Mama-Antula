@@ -54,13 +54,6 @@ export default {
 		return mailEnviado;
 	},
 	validacs: {
-		longitud: (dato, corto, largo) => {
-			return dato.length < corto
-				? "El contenido debe ser más largo"
-				: dato.length > largo
-				? "El contenido debe ser más corto"
-				: "";
-		},
 		castellano: {
 			basico: (dato) => {
 				let formato = /^[a-záéíóúüñ ,.'\-]+$/i;
@@ -84,6 +77,13 @@ export default {
 				let formato = /^[A-ZÁÉÍÓÚÜÑ¡¿"\d]/;
 				return !formato.test(dato) ? "La primera letra debe ser en mayúscula" : "";
 			},
+		},
+		longitud: (dato, corto, largo) => {
+			return dato.length < corto
+				? "El contenido debe ser más largo"
+				: dato.length > largo
+				? "El contenido debe ser más corto"
+				: "";
 		},
 		imagen: (datos) => {
 			// Variables
