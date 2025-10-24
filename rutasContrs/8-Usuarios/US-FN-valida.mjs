@@ -51,9 +51,32 @@ export default {
 		// Fin
 		return {errores, usuario};
 	},
+	edicion: async (datos) => {
+		// Variables
+		const {campo, imagen, apodo, contrasena} = datos; // datos tiene más métodos (tamano, tipo, notificacs)
+		const errores = {};
+
+		// Apodo - campo obligatorio
+		if (!campo || campo == "apodo")
+			errores.apodo =
+				(!apodo && inputVacio) ||
+				comp.validacs.castellano.basico(dato) ||
+				comp.validacs.inicial.basico(dato) ||
+				comp.validacs.longitud(dato, 2, 30) ||
+				"";
+
+		// Campos opcionales
+		if (imagen) errores.imagen = comp.validacs.imagen(datos);
+		if (contrasena) errores.contrasena = FN.largoContr(contrasena) || "";
+
+		// Fin
+		errores.hay = Object.values(errores).some((n) => !!n);
+		return errores;
+	},
 };
 
 // Variables y Funciones
+const inputVacio = "Necesitamos que completes este campo";
 const mensMailVacio = "Necesitamos que escribas un correo electrónico";
 const mensMailFormato = "Necesitamos que escribas un formato de correo válido";
 const contrasenaVacia = "Necesitamos que escribas una contraseña";
@@ -74,9 +97,5 @@ const FN = {
 		// Fin
 		return errores;
 	},
-	largoContr: (contrasena) => {
-		return contrasena && (contrasena.length < 6 || contrasena.length > 12)
-			? "La contraseña debe tener entre 6 y 12 caracteres"
-			: "";
-	},
+	largoContr: (pw) => (pw && (pw.length < 6 || pw.length > 12) ? "La contraseña debe tener entre 6 y 12 caracteres" : ""),
 };
