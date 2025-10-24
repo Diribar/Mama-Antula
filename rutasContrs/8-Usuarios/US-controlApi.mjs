@@ -6,7 +6,7 @@ import procesos from "./US-procesos.mjs";
 export default {
 	altaOlvido: async (req, res) => {
 		// Variables
-		const {email} = req.query;
+		const {email} = req.body;
 
 		// Obtiene el usuario y valida si ya se le envió una contraseña
 		const {usuario, errores} = await valida.contrasenaYaEnviada(email);
@@ -34,7 +34,7 @@ export default {
 	},
 	login: async (req, res) => {
 		// Variables
-		const {email, contrasena} = req.query;
+		const {email, contrasena} = req.body;
 
 		// Valida
 		const {errores, usuario} = await valida.login({email, contrasena});
@@ -69,12 +69,12 @@ export default {
 	},
 	edicion: {
 		validaCampo: (req, res) => {
-			const errores = valida.edicion(req.query);
+			const errores = valida.edicion(req.body);
 			return res.json(errores);
 		},
 		revisaGuarda: async (req, res) => {
 			// Variables
-			const datos = req.query;
+			const datos = req.body;
 			const {usuario} = req.session;
 
 			// Valida
