@@ -59,7 +59,7 @@ export default {
 		// Apodo - campo obligatorio
 		if (!campo || campo == "apodo")
 			errores.apodo =
-				(!apodo && inputVacio) ||
+				(!apodo && FN.inputVacio("apodo")) ||
 				comp.validacs.castellano.basico(apodo) ||
 				comp.validacs.inicial.basico(apodo) ||
 				comp.validacs.longitud(apodo, 2, 30) ||
@@ -76,7 +76,6 @@ export default {
 };
 
 // Variables y Funciones
-const inputVacio = "Necesitamos que completes este campo";
 const mensMailVacio = "Necesitamos que escribas un correo electrónico";
 const mensMailFormato = "Necesitamos que escribas un formato de correo válido";
 const contrasenaVacia = "Necesitamos que escribas una contraseña";
@@ -98,4 +97,5 @@ const FN = {
 		return errores;
 	},
 	largoContr: (pw) => (pw && (pw.length < 6 || pw.length > 12) ? "La contraseña debe tener entre 6 y 12 caracteres" : ""),
+	inputVacio: (campo) => "Necesitamos que completes el campo <em>" + campo + "</em>",
 };

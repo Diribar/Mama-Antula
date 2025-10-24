@@ -9,7 +9,7 @@
 	</div>
 
 	<!-- Inputs y select -->
-	<input class="input" type="text" name="apodo" placeholder="Escribí tu apodo" autocomplete="off" value="<%= usuario.apodo %>" autofocus required>
+	<input class="input" type="text" name="apodo" placeholder="Escribí tu apodo" autocomplete="off" value="<%= usuario.apodo %>" autofocus>
 	<input class="input" type="password" name="contrasena" placeholder="Nueva contrasena (opcional)" autocomplete="new-password">
 	<select class="input ocultar" name="paisResidencia">
 		<option value="">País de residencia</option>
@@ -31,7 +31,7 @@
 	<input class="input ocultar" type="text" name="nombreCompleto" placeholder="Nombre completo" autocomplete="off" value="<%= usuario.apodo %>">
 
 	<!-- Resultado -->
-	<p id="mensaje"></p>
+	<p id="mensaje" class="invisible"></p>
 
 	<!-- Confirma -->
 	<div id="fondoConfirma">
