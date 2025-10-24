@@ -75,9 +75,10 @@ export default {
 		revisaGuarda: async (req, res) => {
 			// Variables
 			const datos = req.query;
+			const {usuario} = req.session;
 
 			// Valida
-			const {errores, usuario} = await valida.edicion({datos});
+			const errores = valida.edicion(datos);
 			if (errores.hay) return res.json(errores);
 
 			// Actualiza el usuario
