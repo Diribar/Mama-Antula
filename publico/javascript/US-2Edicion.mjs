@@ -11,7 +11,7 @@ window.addEventListener("load", async () => {
 		inputs: document.querySelectorAll("#formEdicion .input"),
 		apodo: document.querySelector("#formEdicion #apodo"),
 		contrasena: document.querySelector("#formEdicion #contrasena"),
-		novedades: document.querySelector("#formEdicion #novedades"),
+		notificacs: document.querySelector("#formEdicion #notificacs"),
 	};
 	const v = {
 		rutaApi: "/usuarios/api/us-alta-de-mail-u-olvido-de-contrasena/?email=",
@@ -64,20 +64,24 @@ window.addEventListener("load", async () => {
 		// Si no se hicieron cambios, interrumpe la función
 		const hayAlgoParaguardar = archivoImgSubido || v.unInputCambio;
 		if (!hayAlgoParaguardar) {
-			DOM.mensaje.innerHTML = "No se hicieron cambios para guardar";
+			DOM.mensaje.innerHTML = "No se hicieron cambios a guardar";
 			v.errores = {hay: true};
 			return FN.respuestas();
 		}
 
 		// Crea el FormData y agrega los campos
 		const formData = new FormData();
-		if (archivoImgSubido) formData.append("imagen", archivoImgSubido);
+		if (archivoImgSubido) {
+			formData.append("imagen", archivoImgSubido.name);
+			formData.append("tamano", archivoImgSubido.size);
+			formData.append("tipo", archivoImgSubido.type);
+		}
 		if (DOM.apodo.value) formData.append("apodo", input.value);
 		if (DOM.contrasena.value) formData.append("contrasena", input.value);
-		formData.append("novedades", input.checked);
+		formData.append("notificacs", input.checked);
 
 		// Averigua si hay errores
-		const errores = await fetch("/usuarios/api/us-edicion/", {
+		const errores = await fetch("/usuarios/api/us-guarda-edicion/", {
 			method: "POST",
 			body: formData,
 		}).then((n) => n.json());
