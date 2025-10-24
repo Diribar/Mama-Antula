@@ -13,8 +13,8 @@ window.addEventListener("load", async () => {
 		notificacs: document.querySelector("#formEdicion #notificacs"),
 	};
 	const v = {
-		rutaValidaCampo: "/usuarios/api/us-valida-campo-edicion/?",
-		rutaGuardarPost: "/usuarios/api/us-guarda-edicion-en-usuario",
+		rutaValidaCampo: "/usuarios/api/us-valida-campo-edicion",
+		rutaGuardar: "/usuarios/api/us-guarda-edicion-en-usuario",
 		unInputCambio: false,
 		errores: {},
 	};
@@ -27,6 +27,7 @@ window.addEventListener("load", async () => {
 			DOM.confirma.classList[v.errores.hay ? "add" : "remove"]("inactivo");
 			return;
 		},
+		metodoPost: (formData) => ({method: "POST", body: formData}),
 	};
 
 	// Eventos - input
@@ -42,10 +43,14 @@ window.addEventListener("load", async () => {
 
 		// Variables
 		const campo = e.target.name;
-		const string = "campo=" + campo + "&" + campo + "=" + e.target.value;
+
+		// Crea el formulario
+		const formData = new FormData();
+		formData.append("campo", campo);
+		formData.append(campo, e.target.value);
 
 		// Averigua si hay un error
-		v.errores = await fetch(v.rutaValidaCampo + string).then((n) => n.json());
+		v.errores = await fetch(v.rutaValidaCampo , FN.metodoPost(formData)).then((n) => n.json());
 		DOM.mensaje.innerHTML = v.errores[campo];
 
 		// Acciones si no hay errores
@@ -85,7 +90,7 @@ window.addEventListener("load", async () => {
 		formData.append("notificacs", input.checked);
 
 		// Valida y guarda los cambios del form
-		const errores = await fetch(rutaGuardarPost, {method: "POST", body: formData}).then((n) => n.json());
+		const errores = await fetch(rutaGuardar, FN.metodoPost(formData)).then((n) => n.json());
 
 		// Acciones en función de la respuesta recibida
 		v.unInputCambio = false;
