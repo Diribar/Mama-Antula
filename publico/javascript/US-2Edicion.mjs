@@ -8,9 +8,9 @@ window.addEventListener("load", async () => {
 		confirma: document.querySelector("#formEdicion #confirma"),
 
 		// Inputs
-		apodo: document.querySelector("#formEdicion #apodo"),
-		contrasena: document.querySelector("#formEdicion #contrasena"),
-		notificacs: document.querySelector("#formEdicion #notificacs"),
+		apodo: document.querySelector("#formEdicion [name='apodo']"),
+		contrasena: document.querySelector("#formEdicion [name='contrasena']"),
+		notificacs: document.querySelector("#formEdicion [name='notificacs']"),
 	};
 	const v = {
 		rutaValidaCampo: "/usuarios/api/us-valida-campo-edicion",
@@ -90,12 +90,12 @@ window.addEventListener("load", async () => {
 			formData.append("tamano", archivoImgSubido.size);
 			formData.append("tipo", archivoImgSubido.type);
 		}
-		if (DOM.apodo.value) formData.append("apodo", input.value);
-		if (DOM.contrasena.value) formData.append("contrasena", input.value);
-		formData.append("notificacs", input.checked);
+		if (DOM.apodo.value) formData.append("apodo", DOM.apodo.value);
+		if (DOM.contrasena.value) formData.append("contrasena", DOM.contrasena.value);
+		formData.append("notificacs", DOM.notificacs.checked);
 
 		// Valida y guarda los cambios del form
-		const errores = await fetch(rutaGuardar, FN.metodoPost(formData)).then((n) => n.json());
+		const errores = await fetch(v.rutaGuardar, FN.metodoPost(formData)).then((n) => n.json());
 
 		// Acciones en función de la respuesta recibida
 		v.unInputCambio = false;
