@@ -49,6 +49,7 @@ window.addEventListener("load", async () => {
 		if (!v.errores.hay) {
 			v.unInputCambio = true;
 			DOM.confirma.classList.remove("inactivo");
+			DOM.mensaje.innerHTML = "El valor del campo " + campo + " se puede guardar";
 		}
 
 		// Fin
