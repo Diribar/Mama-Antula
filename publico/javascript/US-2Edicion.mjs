@@ -4,29 +4,29 @@ window.addEventListener("load", async () => {
 	const DOM = {
 		// Formulario
 		form: document.querySelector("#contenidoTemas #formEdicion"),
-		inputs: document.querySelectorAll("#formEdicion .input"),
 		mensaje: document.querySelector("#formEdicion #mensaje"),
 		confirma: document.querySelector("#formEdicion #confirma"),
 
+		// Inputs
+		inputs: document.querySelectorAll("#formEdicion .input"),
+		apodo: document.querySelector("#formEdicion #apodo"),
+		contrasena: document.querySelector("#formEdicion #contrasena"),
+		novedades: document.querySelector("#formEdicion #novedades"),
 	};
-	return;
-	const rutaApi = "/usuarios/api/us-alta-de-mail-u-olvido-de-contrasena/?email=";
+	const v = {
+		rutaApi: "/usuarios/api/us-alta-de-mail-u-olvido-de-contrasena/?email=",
+		unInputCambio: false,
+		errores: {},
+	};
 
-	const fnErrorMail = () => {
-		// Garantiza que el mail esté en minúsculas
-		const valor = DOM.email.value.toLowerCase();
-		DOM.email.value = valor;
-
-		// Averigua si hay un error simple
-		errorMail = !valor ? cartelMailVacio : !formatoMail.test(valor) ? cartelMailFormato : "";
-		console.log(errorMail, valor);
-
-		// Acciones si hay un error
-		if (errorMail) {
-			DOM.mensaje.innerHTML = errorMail;
-			DOM.mensaje.classList.add("error");
-			DOM.confirma.classList.add("inactivo");
-		}
+	// Funciones
+	const FN = {
+		respuestas: () => {
+			DOM.mensaje.classList[!v.errores.hay ? "add" : "remove"]("exito");
+			DOM.mensaje.classList[v.errores.hay ? "add" : "remove"]("error");
+			DOM.confirma.classList[v.errores.hay ? "add" : "remove"]("inactivo");
+			return;
+		},
 	};
 
 	// Eventos - input
@@ -36,35 +36,62 @@ window.addEventListener("load", async () => {
 		DOM.confirma.classList.remove("inactivo");
 	});
 	// Eventos - change
-	DOM.form.addEventListener("change", async () => fnErrorMail());
+	DOM.form.addEventListener("change", async (e) => {
+		// Variables
+		const campo = e.target.name;
+		DOM.confirma.classList.add("inactivo");
+
+		// Averigua si hay un error
+		v.errores = await fetch(v.rutaApi + campo + "=" + e.target.value).then((n) => n.json());
+		DOM.mensaje.innerHTML = v.errores[campo];
+
+		// Acciones si no hay errores
+		if (!v.errores.hay) {
+			v.unInputCambio = true;
+			DOM.confirma.classList.remove("inactivo");
+		}
+
+		// Fin
+		return;
+	});
 	// Eventos - submit
 	DOM.form.addEventListener("submit", async (e) => {
-		// Evita el confirm
+		// Si confirmar está inactivo, interrumpe la función
 		e.preventDefault();
-
-		// Si no se revisaron los errores, los revisa
-		if (errorMail === undefined) fnErrorMail();
-
-		// Si existe un error, interrumpe la función
-		if (errorMail) return;
 		if (DOM.confirma.className.includes("inactivo")) return;
 		DOM.confirma.classList.add("inactivo");
 
-		// Envía el mail al backend
-		const respuesta = await fetch(rutaApi + DOM.email.value).then((n) => n.json());
+		// Si no se hicieron cambios, interrumpe la función
+		const hayAlgoParaguardar = archivoImgSubido || v.unInputCambio;
+		if (!hayAlgoParaguardar) {
+			DOM.mensaje.innerHTML = "No se hicieron cambios para guardar";
+			v.errores = {hay: true};
+			return FN.respuestas();
+		}
+
+		// Crea el FormData y agrega los campos
+		const formData = new FormData();
+		if (archivoImgSubido) formData.append("imagen", archivoImgSubido);
+		if (DOM.apodo.value) formData.append("apodo", input.value);
+		if (DOM.contrasena.value) formData.append("contrasena", input.value);
+		formData.append("novedades", input.checked);
+
+		// Averigua si hay errores
+		const errores = await fetch("/usuarios/api/us-edicion/", {
+			method: "POST",
+			body: formData,
+		}).then((n) => n.json());
 
 		// Acciones en función de la respuesta recibida
-		DOM.mensaje.classList[!respuesta.hay ? "add" : "remove"]("exito");
-		DOM.mensaje.classList[respuesta.hay ? "add" : "remove"]("error");
-		DOM.mensaje.innerHTML = respuesta.email || respuesta.mensaje;
+		v.unInputCambio = false;
+		DOM.mensaje.innerHTML = errores.hay
+			? Object.values(errores)
+					.filter((n) => !!n && n !== true && n !== false)
+					.join(". ") // quita los 'no errores' y el 'hay'
+			: "Los cambios fueron guardados";
+		FN.respuestas();
 
 		// Fin
 		return;
 	});
 });
-
-// Variables
-const cartelMailVacio = "Necesitamos que escribas un correo electrónico";
-const cartelMailFormato = "Debes escribir un formato de correo válido";
-const formatoMail = /^\w+([\.-_]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-let errorMail;

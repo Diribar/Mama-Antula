@@ -1,4 +1,5 @@
 "use strict";
+import bcryptjs from "bcryptjs";
 import valida from "./US-FN-valida.mjs";
 import procesos from "./US-procesos.mjs";
 
@@ -21,10 +22,12 @@ export default {
 		const {mensajeFe, mailEnviado} = await procesos.altaOlvido.enviaMailContrasena({usuario, email, contrasena});
 
 		// Actualiza o crea el usuario
-		if (mailEnviado)
+		if (mailEnviado) {
+			const contrEncriptada = bcryptjs.hashSync(contrasena, 10);
 			usuario
-				? await baseDatos.actualizaPorId("usuarios", usuario.id, {contrasena})
-				: await procesos.altaOlvido.creaElUsuario({email, contrasena});
+				? await baseDatos.actualizaPorId("usuarios", usuario.id, {contrasena: contrEncriptada})
+				: await procesos.altaOlvido.creaElUsuario({email, contrEncriptada});
+		}
 
 		// Fin
 		return res.json({mensaje: mensajeFe, hay: !mailEnviado});
@@ -64,4 +67,5 @@ export default {
 		// Fin
 		return res.json();
 	},
+	edicion: async (req, res) => {},
 };

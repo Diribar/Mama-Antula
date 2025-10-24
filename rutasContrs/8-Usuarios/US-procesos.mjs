@@ -1,6 +1,5 @@
 "use strict";
 // Definir variables
-import bcryptjs from "bcryptjs";
 import {imageSize} from "image-size"; // si usás ESM
 
 export default {
@@ -55,14 +54,13 @@ export default {
 			// Fin
 			return {mensajeFe, mailEnviado};
 		},
-		creaElUsuario: async ({email, contrasena}) => {
+		creaElUsuario: async ({email, contrEncriptada}) => {
 			// Crea el usuario
-			const contrEncriptada = bcryptjs.hashSync(contrasena, 10);
 			const usuario = await baseDatos.agregaRegistroIdCorrel("usuarios", {email, contrasena: contrEncriptada, versionWeb});
 
 			// Agrega 'cliente_id' en 'usuarios'
 			const cliente_id = "U" + String(usuario.id).padStart(10, "0");
-			await baseDatos.actualizaPorId("usuarios", usuario.id, {cliente_id}); // es necesario el 'await' para session
+			await baseDatos.actualizaPorId("usuarios", usuario.id, {cliente_id}); // es necesario el 'await' que lo lea al crear session
 
 			// Fin
 			return;
