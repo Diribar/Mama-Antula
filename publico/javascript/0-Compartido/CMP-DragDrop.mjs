@@ -35,7 +35,7 @@ window.addEventListener("load", async () => {
 			// Acciones si realmente es una imagen
 			image.onload = async () => {
 				DOM.vistaImagen.src = reader.result; // hace visible la imagen
-				archivoCargado = file; // guardamos el archivo en memoria
+				archivoImgSubido = file; // guardamos el archivo en memoria
 			};
 
 			// Acciones si no es una imagen
@@ -56,5 +56,5 @@ window.addEventListener("load", async () => {
 	DOM.areaSoltar.addEventListener("click", () => DOM.inputImagen.click());
 });
 
-let archivoCargado;
+let archivoImgSubido;
 

@@ -4,8 +4,8 @@ window.addEventListener("load", async () => {
 	const DOM = {
 		// Formulario
 		form: document.querySelector("#contenidoTemas #formEdicion"),
-		confirma: document.querySelector("#formEdicion #confirma"),
 		mensaje: document.querySelector("#formEdicion #mensaje"),
+		confirma: document.querySelector("#formEdicion #confirma"),
 
 		// Inputs
 		inputs: document.querySelectorAll("#formEdicion .input"),
@@ -16,6 +16,7 @@ window.addEventListener("load", async () => {
 	const v = {
 		rutaApi: "/usuarios/api/us-alta-de-mail-u-olvido-de-contrasena/?email=",
 		unInputCambio: false,
+		errores: {},
 	};
 
 	// Funciones
@@ -42,10 +43,13 @@ window.addEventListener("load", async () => {
 
 		// Averigua si hay un error
 		v.errores = await fetch(v.rutaApi + campo + "=" + e.target.value).then((n) => n.json());
-
-		// Acciones en función de la respuesta recibida
 		DOM.mensaje.innerHTML = v.errores[campo];
-		if (!v.errores.hay) v.unInputCambio = true;
+
+		// Acciones si no hay errores
+		if (!v.errores.hay) {
+			v.unInputCambio = true;
+			DOM.confirma.classList.remove("inactivo");
+		}
 
 		// Fin
 		return;
@@ -58,29 +62,34 @@ window.addEventListener("load", async () => {
 		DOM.confirma.classList.add("inactivo");
 
 		// Si no se hicieron cambios, interrumpe la función
-		const hayAlgoParaguardar = archivoCargado || v.unInputCambio;
+		const hayAlgoParaguardar = archivoImgSubido || v.unInputCambio;
 		if (!hayAlgoParaguardar) {
-			alert("No se hicieron cambios para guardar");
-			return;
+			DOM.mensaje.innerHTML = "No se hicieron cambios para guardar";
+			v.errores = {hay: true};
+			return FN.respuestas();
 		}
 
 		// Crea el FormData y agrega los campos
 		const formData = new FormData();
-		if (archivoCargado) formData.append("imagen", archivoCargado);
+		if (archivoImgSubido) formData.append("imagen", archivoImgSubido);
 		if (DOM.apodo.value) formData.append("apodo", input.value);
 		if (DOM.contrasena.value) formData.append("contrasena", input.value);
 		formData.append("novedades", input.checked);
 
 		// Averigua si hay errores
-		const respuesta = await fetch("/usuarios/api/us-edicion-de-usuario/", {
+		const errores = await fetch("/usuarios/api/us-edicion/", {
 			method: "POST",
 			body: formData,
 		}).then((n) => n.json());
 
 		// Acciones en función de la respuesta recibida
-		DOM.mensaje.innerHTML = respuesta.email || respuesta.mensaje;
-		FN.respuestas();
 		v.unInputCambio = false;
+		DOM.mensaje.innerHTML = errores.hay
+			? Object.values(errores)
+					.filter((n) => !!n && n !== true && n !== false)
+					.join(". ") // quita los 'no errores' y el 'hay'
+			: "Los cambios fueron guardados";
+		FN.respuestas();
 
 		// Fin
 		return;
