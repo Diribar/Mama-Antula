@@ -67,5 +67,32 @@ export default {
 		// Fin
 		return res.json();
 	},
-	edicion: async (req, res) => {},
+	edicion:{
+		validaCampo: async (req, res) => {
+			// Variables
+			const {id} = req.query;
+
+			// Valida
+			const {errores, usuario} = await valida.edicion({id});
+			if (errores.hay) return res.json(errores);
+
+			// Fin
+			return res.json({hay: false});
+		},
+		revisaGuarda: async (req, res) => {
+			// Variables
+			const datos = req.query;
+
+			// Valida
+			const {errores, usuario} = await valida.edicion({datos});
+			if (errores.hay) return res.json(errores);
+
+			// Actualiza el usuario
+			baseDatos.actualizaPorId("usuarios", usuario.id, datos);
+
+			// Fin
+			return res.json({hay: false});
+		},
+	},
+	cambioRoles: async (req, res) => {},
 };
