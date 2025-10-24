@@ -14,7 +14,8 @@ window.addEventListener("load", async () => {
 		notificacs: document.querySelector("#formEdicion #notificacs"),
 	};
 	const v = {
-		rutaApi: "/usuarios/api/us-alta-de-mail-u-olvido-de-contrasena/?email=",
+		rutaValidaCampo: "/usuarios/api/us-valida-campo-edicion/?",
+		rutaGuardarPost: "/usuarios/api/us-revisa-edicion-y-actualiza-usuario",
 		unInputCambio: false,
 		errores: {},
 	};
@@ -42,7 +43,7 @@ window.addEventListener("load", async () => {
 		DOM.confirma.classList.add("inactivo");
 
 		// Averigua si hay un error
-		v.errores = await fetch(v.rutaApi + campo + "=" + e.target.value).then((n) => n.json());
+		v.errores = await fetch(v.rutaValidaCampo + campo + "=" + e.target.value).then((n) => n.json());
 		DOM.mensaje.innerHTML = v.errores[campo];
 
 		// Acciones si no hay errores
@@ -80,11 +81,8 @@ window.addEventListener("load", async () => {
 		if (DOM.contrasena.value) formData.append("contrasena", input.value);
 		formData.append("notificacs", input.checked);
 
-		// Averigua si hay errores
-		const errores = await fetch("/usuarios/api/us-guarda-edicion/", {
-			method: "POST",
-			body: formData,
-		}).then((n) => n.json());
+		// Valida y guarda los cambios del form
+		const errores = await fetch(rutaGuardarPost, {method: "POST", body: formData}).then((n) => n.json());
 
 		// Acciones en función de la respuesta recibida
 		v.unInputCambio = false;
