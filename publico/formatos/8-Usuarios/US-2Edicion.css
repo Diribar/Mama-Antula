@@ -5,7 +5,7 @@ form {
 		--ladoCuadrado: 150px; width: var(--ladoCuadrado); height: var(--ladoCuadrado);
 		border-radius: 5px;
 
-		#contenedorNovedades {
+		#contNovs {
 			background-color: snow; line-height: 1; display: flex;
 			input[type="checkbox"] {margin-right: 5px;}
 		}
