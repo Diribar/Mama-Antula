@@ -51,7 +51,7 @@ export default {
 		// Fin
 		return {errores, usuario};
 	},
-	edicion: async (datos) => {
+	edicion: (datos) => {
 		// Variables
 		const {campo, imagen, apodo, contrasena} = datos; // datos tiene más métodos (tamano, tipo, notificacs)
 		const errores = {};
