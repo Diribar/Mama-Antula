@@ -64,4 +64,5 @@ export default {
 		// Fin
 		return res.json();
 	},
+	edicion: async (req, res) => {},
 };
