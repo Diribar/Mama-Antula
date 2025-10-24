@@ -15,7 +15,7 @@ window.addEventListener("load", async () => {
 		mensajeError: document.querySelector("#menuLogin #mensajeError"),
 		confirma: document.querySelector("#menuLogin #confirmaLogin"),
 	};
-	const rutaApi = "/usuarios/api/us-login/?";
+	const rutaApi = "/usuarios/api/us-realiza-login/?";
 
 	// Funciones
 	const submit = async () => {
