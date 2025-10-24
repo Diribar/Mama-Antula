@@ -15,7 +15,7 @@ window.addEventListener("load", async () => {
 	};
 	const v = {
 		rutaValidaCampo: "/usuarios/api/us-valida-campo-edicion/?",
-		rutaGuardarPost: "/usuarios/api/us-revisa-edicion-y-actualiza-usuario",
+		rutaGuardarPost: "/usuarios/api/us-guarda-edicion-en-usuario",
 		unInputCambio: false,
 		errores: {},
 	};
