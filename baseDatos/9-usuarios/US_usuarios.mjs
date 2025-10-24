@@ -9,7 +9,7 @@ export default (sequelize, dt) => {
 		contrasena: {type: dt.STRING(50)},
 		pais_id: {type: dt.STRING(2)},
 		avatar: {type: dt.STRING(100)},
-		newsletter: {type: dt.BOOLEAN},
+		notificacs: {type: dt.BOOLEAN},
 
 		visitaCreadaEn: {type: dt.DATE},
 		fechaUltNaveg: {type: dt.DATE},
