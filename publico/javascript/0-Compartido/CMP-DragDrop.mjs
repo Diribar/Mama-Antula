@@ -7,6 +7,7 @@ window.addEventListener("load", async () => {
 		botonImagen: document.querySelector("#formEdicion #areaSoltar button"),
 		inputImagen: document.querySelector("#formEdicion #areaSoltar input"),
 		vistaImagen: document.querySelector("#formEdicion #areaSoltar img"),
+		mensaje: document.querySelector("#formEdicion #mensaje"),
 	};
 	const entrada = ["dragenter", "dragover"];
 	const salida = ["dragleave", "drop"];
@@ -18,10 +19,16 @@ window.addEventListener("load", async () => {
 
 		// Si no tiene extensión de imagen, interrumpe la función
 		const file = files[0];
-		if (!file.type.startsWith("image/")) return alert("Solo se permiten imágenes.");
+		if (!file.type.startsWith("image/")) {
+			DOM.mensaje.innerHTML = "Solo se permiten imágenes.";
+			return;
+		}
 
-		const maxBytes = 2 * 1024 * 1024;
-		if (file.size > maxBytes) alert("El archivo supera el tamaño máximo permitido (" + MAX_SIZE_MB + ")");
+		const maxBytes = 1024000; // 1 MB
+		if (file.size > maxBytes) {
+			DOM.mensaje.innerHTML = "El archivo supera el tamaño máximo permitido (1MB)";
+			return;
+		}
 
 		// Lee el archivo
 		const reader = new FileReader();
@@ -36,10 +43,15 @@ window.addEventListener("load", async () => {
 			image.onload = async () => {
 				DOM.vistaImagen.src = reader.result; // hace visible la imagen
 				archivoImgSubido = file; // guardamos el archivo en memoria
+				DOM.mensaje.innerHTML = "La imagen se puede guardar";
+				return;
 			};
 
 			// Acciones si no es una imagen
-			image.onerror = async () => alert("Solo se permiten imágenes.");
+			image.onerror = async () => {
+				DOM.mensaje.innerHTML = "Solo se permiten imágenes.";
+				return;
+			};
 		};
 	};
 
@@ -57,4 +69,3 @@ window.addEventListener("load", async () => {
 });
 
 let archivoImgSubido;
-
