@@ -37,12 +37,15 @@ window.addEventListener("load", async () => {
 	});
 	// Eventos - change
 	DOM.form.addEventListener("change", async (e) => {
-		// Variables
-		const campo = e.target.name;
+		// Inactiva confirmar
 		DOM.confirma.classList.add("inactivo");
 
+		// Variables
+		const campo = e.target.name;
+		const string = "campo=" + campo + "&" + campo + "=" + e.target.value;
+
 		// Averigua si hay un error
-		v.errores = await fetch(v.rutaValidaCampo + campo + "=" + e.target.value).then((n) => n.json());
+		v.errores = await fetch(v.rutaValidaCampo + string).then((n) => n.json());
 		DOM.mensaje.innerHTML = v.errores[campo];
 
 		// Acciones si no hay errores

@@ -67,17 +67,10 @@ export default {
 		// Fin
 		return res.json();
 	},
-	edicion:{
-		validaCampo: async (req, res) => {
-			// Variables
-			const {id} = req.query;
-
-			// Valida
-			const {errores, usuario} = await valida.edicion({id});
-			if (errores.hay) return res.json(errores);
-
-			// Fin
-			return res.json({hay: false});
+	edicion: {
+		validaCampo: (req, res) => {
+			const errores = valida.edicion(req.query);
+			return res.json(errores);
 		},
 		revisaGuarda: async (req, res) => {
 			// Variables
