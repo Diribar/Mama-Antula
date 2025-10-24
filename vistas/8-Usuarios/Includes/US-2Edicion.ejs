@@ -9,9 +9,9 @@
 	</div>
 
 	<!-- Inputs y select -->
-	<input class="input" type="text" name="apodo" placeholder="Escribí tu apodo" autocomplete="off" value="<%= usuario.apodo %>" autofocus>
-	<input class="input" type="password" name="contrasena" placeholder="Nueva contrasena (opcional)" autocomplete="new-password">
-	<select class="input ocultar" name="paisResidencia">
+	<input type="text" name="apodo" placeholder="Escribí tu apodo" autocomplete="off" value="<%= usuario.apodo %>" autofocus>
+	<input type="password" name="contrasena" placeholder="Nueva contrasena (opcional)" autocomplete="new-password">
+	<select name="paisResidencia" class="ocultar">
 		<option value="">País de residencia</option>
 		<option value="AR">Argentina</option>
 		</optgroup>
@@ -25,7 +25,7 @@
 
 	</select>
 	<label id="contNovs">
-		<input class="input" type="checkbox" name="notificacs">
+		<input type="checkbox" name="notificacs">
 		Deseo recibir las novedades por mail
 	</label>
 	<input class="input ocultar" type="text" name="nombreCompleto" placeholder="Nombre completo" autocomplete="off" value="<%= usuario.apodo %>">
