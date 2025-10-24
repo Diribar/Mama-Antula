@@ -18,6 +18,16 @@ window.addEventListener("load", async () => {
 		unInputCambio: false,
 	};
 
+	// Funciones
+	const FN = {
+		respuestas: () => {
+			DOM.mensaje.classList[!v.errores.hay ? "add" : "remove"]("exito");
+			DOM.mensaje.classList[v.errores.hay ? "add" : "remove"]("error");
+			DOM.confirma.classList[v.errores.hay ? "add" : "remove"]("inactivo");
+			return;
+		},
+	};
+
 	// Eventos - input
 	DOM.form.addEventListener("input", () => {
 		DOM.mensaje.innerHTML = "";
@@ -32,14 +42,10 @@ window.addEventListener("load", async () => {
 
 		// Averigua si hay un error
 		v.errores = await fetch(v.rutaApi + campo + "=" + e.target.value).then((n) => n.json());
-		const hay = v.errores;
 
 		// Acciones en función de la respuesta recibida
-		DOM.mensaje.classList[hay ? "add" : "remove"]("error");
-		DOM.mensaje.classList[!hay ? "add" : "remove"]("exito");
-		DOM.mensaje.innerHTML = hay ? v.errores.mensaje : "El campo " + campo + " fue actualizado.";
-		DOM.confirma.classList[hay ? "add" : "remove"]("inactivo");
-		if (!hay) v.unInputCambio = true;
+		DOM.mensaje.innerHTML = v.errores[campo];
+		if (!v.errores.hay) v.unInputCambio = true;
 
 		// Fin
 		return;
@@ -65,15 +71,16 @@ window.addEventListener("load", async () => {
 		if (DOM.contrasena.value) formData.append("contrasena", input.value);
 		formData.append("novedades", input.checked);
 
-		// Evita el confirm
-		const respuesta = await fetch("/usuarios/api/us-alta-de-mail-u-olvido-de-contrasena/", {
+		// Averigua si hay errores
+		const respuesta = await fetch("/usuarios/api/us-edicion-de-usuario/", {
 			method: "POST",
 			body: formData,
 		}).then((n) => n.json());
-		DOM.mensaje.classList[!respuesta.hay ? "add" : "remove"]("exito");
-		DOM.mensaje.classList[respuesta.hay ? "add" : "remove"]("error");
+
+		// Acciones en función de la respuesta recibida
 		DOM.mensaje.innerHTML = respuesta.email || respuesta.mensaje;
-		DOM.confirma.classList[hay ? "add" : "remove"]("inactivo");
+		FN.respuestas();
+		v.unInputCambio = false;
 
 		// Fin
 		return;
