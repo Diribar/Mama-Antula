@@ -7,14 +7,14 @@ body {
 	--verde-claro: rgb(217, 223, 205);
 
 	--amarillo-intermedio: #fcff82;
-	--grisInterm: rgb(200,200,200);
+	--grisInterm: rgb(160,160,160);
 	--verde-intermedio: rgb(188, 199, 167);
 
 	--amarillo-oscuro: rgb(255, 230, 153);
 	--celeste-oscuro: #C7D7EA;
 	--grisOscuro: rgb(100, 100, 100);
 	--grisMasOscuro: rgb(80, 80, 80);
-	--azul-oscuro: rgb(37,64,97);
+	--azulOscuro: rgb(37,64,97);
 	--azul-frances: rgb(31,73,125);
 	--naranja-oscuro: #F57C00;
 	--rojo-oscuro: firebrick;
@@ -24,8 +24,11 @@ body {
 	--terracota: rgb(181, 73, 52);
 	--usuarios: #757575;
 
+	/* Colores principales */
+	--colorHeader: var(--terracota);
+	--colorEscritura: var(--azulOscuro);
+
 	/* Colores por Tema */
-	--colorPrincipal: var(--terracota);
 	--colorAyuda: white;
 	--backAyuda: var(--grisOscuro);
 	--bordeAyuda: var(--amarilloClaro);
@@ -36,6 +39,6 @@ body {
 	--backMensajeError: var(--amarilloClaro);
 	--backIcono: white;
 	--backFlechas: var(--celeste-oscuro);
-	--bordeFlechas: var(--azul-oscuro);
+	--bordeFlechas: var(--azulOscuro);
 	--backComandos: var(--verde-oscuro);
 }

@@ -1,22 +1,12 @@
 form {
 	#areaSoltar {
-		display: flex; flex-direction: column; align-items: center; justify-content: space-evenly;
-		border: 2px dashed var(--grisOscuro); border-radius: 5px;
-		width: 200px; height: 150px; padding-inline: 5px;
-		background-color: var(--celesteClaro);
-		* {font-weight: bold;}
-		div {margin: 0; text-align: center;}
-		button {
-			background-color: var(--grisOscuro); color: var(--grisClaro);
-			padding: 2px 5px; border-radius: 5px;
-			font-size: 1.1rem;
-			cursor: pointer;
-		}
-		&.activo {background-color: var(--grisInterm);}
-	}
+		/* Medidas de lado */
+		--ladoCuadrado: 150px; width: var(--ladoCuadrado); height: var(--ladoCuadrado);
+		border-radius: 5px;
 
-	#contenedorNovedades {
-		background-color: snow; line-height: 1; display: flex;
-		input[type="checkbox"] {margin-right: 5px;}
+		#contenedorNovedades {
+			background-color: snow; line-height: 1; display: flex;
+			input[type="checkbox"] {margin-right: 5px;}
+		}
 	}
 }

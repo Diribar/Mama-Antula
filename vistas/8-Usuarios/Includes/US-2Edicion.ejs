@@ -2,16 +2,17 @@
 <form id="formEdicion">
 	<!-- Área donde soltar el archivo de imagen -->
 	<div id="areaSoltar">
-		<div>Ingresá un archivo con tu imagen (opcional)</div>
-		<button type="button">Buscá tu archivo</button>
+		<p id="cartelImagen">Arrastrá tu imagen (opcional)</p>
+		<button type="button">Buscala</button>
 		<input class="input" id="imagenUsuario" type="file" accept="image/*" hidden>
+		<img id="vistaImagen" src="<%= avatar %>">
 	</div>
 
 	<!-- Inputs y select -->
 	<input class="input" type="text" name="apodo" placeholder="Escribí tu apodo" autocomplete="off" value="<%= usuario.apodo %>">
 	<input class="input" type="password" name="contrasena" placeholder="Nueva contrasena (opcional)" autofocus autocomplete="new-password">
 	<select class="input" name="paisResidencia">
-		<option value=''>País de residencia</option>
+		<option value="">País de residencia</option>
 		<option value="AR">Argentina</option>
 		</optgroup>
 		<% for (const continente of continentes) { %>
