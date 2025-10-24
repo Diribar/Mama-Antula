@@ -2,11 +2,15 @@
 	cursor: pointer;
 
 	/* Dinámica */
-	&.encima {background-color: var(--grisClaro); border-color: var(--grisOscuro);}
 	&:has(img[src=""]) {
 		display: flex; flex-direction: column; align-items: center; justify-content: space-evenly;
-		background-color: var(--celesteClaro); border: 2px dashed var(--grisOscuro);
 		padding-inline: 5px;
+
+		/* Fondo y borde */
+		background-color: var(--celesteClaro); border: 2px dashed var(--grisOscuro);
+		&.encima {background-color: var(--grisClaro); border-color: var(--grisOscuro);}
+
+		/* Imagen */
 		img {display: none;}
 	}
 	&:not(:has(img[src=""])) {
