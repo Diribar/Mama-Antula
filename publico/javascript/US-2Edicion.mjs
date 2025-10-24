@@ -8,7 +8,6 @@ window.addEventListener("load", async () => {
 		confirma: document.querySelector("#formEdicion #confirma"),
 
 		// Inputs
-		inputs: document.querySelectorAll("#formEdicion .input"),
 		apodo: document.querySelector("#formEdicion #apodo"),
 		contrasena: document.querySelector("#formEdicion #contrasena"),
 		notificacs: document.querySelector("#formEdicion #notificacs"),
