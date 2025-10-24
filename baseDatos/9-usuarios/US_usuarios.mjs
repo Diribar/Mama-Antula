@@ -8,7 +8,7 @@ export default (sequelize, dt) => {
 		cliente_id: {type: dt.STRING(11)},
 		contrasena: {type: dt.STRING(50)},
 		pais_id: {type: dt.STRING(2)},
-		avatar: {type: dt.STRING(100)},
+		imagen: {type: dt.STRING(100)},
 		notificacs: {type: dt.BOOLEAN},
 
 		visitaCreadaEn: {type: dt.DATE},
