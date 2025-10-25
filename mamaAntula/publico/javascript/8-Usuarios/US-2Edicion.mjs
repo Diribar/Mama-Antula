@@ -70,6 +70,49 @@ window.addEventListener("load", async () => {
 			// Fin
 			return;
 		},
+		accionesSubmit: {
+			hayAlgoParaGuardar: () => {
+				// Averigua si hay algo para guardar
+				const hayAlgoParaGuardar = v.archivoImgSubido || v.unInputCambio;
+
+				// Acciones si no hay nada para guardar
+				if (!hayAlgoParaGuardar) {
+					v.errores = {mensaje: "No se hicieron cambios a guardar", hay: true};
+					fnUsuariosComp.colorMensaje(DOM, v.errores.hay, v.errores.mensaje);
+				}
+
+				// Fin
+				return hayAlgoParaGuardar;
+			},
+			formData: () => {
+				// Crea el formulario
+				const formData = new FormData();
+
+				// Le agrega los valores
+				if (v.archivoImgSubido) formData.append("imagen", v.archivoImgSubido);
+				if (DOM.contrasena.value) formData.append("contrasena", DOM.contrasena.value);
+				formData.append("apodo", DOM.apodo.value);
+				formData.append("notificacs", DOM.notificacs.checked ? 1 : 0);
+
+				// Fin
+				return formData;
+			},
+			finSubmit: () => {
+				// Resetea variables
+				v.archivoImgSubido = null;
+				v.unInputCambio = false;
+
+				// Actualiza el mensaje
+				const mensaje = v.errores.hay
+					? Object.values(v.errores)
+							.filter((n) => !!n && n !== true && n !== false)
+							.join(". ") // quita los 'no errores' y el 'hay'
+					: "Los cambios fueron guardados";
+				fnUsuariosComp.colorMensaje(DOM, v.errores.hay, mensaje);
+
+				// Actualiza la imagen en el header
+			},
+		},
 	};
 
 	// Eventos - input
@@ -131,34 +174,17 @@ window.addEventListener("load", async () => {
 		if (DOM.confirma.className.includes("inactivo")) return;
 		DOM.confirma.classList.add("inactivo"); // se deja inactivo hasta que se vuelve a hacer un input en el formulario
 
-		// Si no se hicieron cambios, interrumpe la función
-		const hayAlgoParaguardar = v.archivoImgSubido || v.unInputCambio;
-		if (!hayAlgoParaguardar) {
-			v.errores = {mensaje: "No se hicieron cambios a guardar", hay: true};
-			fnUsuariosComp.colorMensaje(DOM, v.errores.hay, v.errores.mensaje);
-			return;
-		}
+		// Si no hay algo para guardar, interrumpe la función
+		if (!accionesSubmit.hayAlgoParaGuardar()) return ;
 
 		// Crea el FormData y agrega los datos
-		const formData = new FormData();
-		// Datos opcionales
-		if (v.archivoImgSubido) formData.append("imagen", v.archivoImgSubido);
-		if (DOM.contrasena.value) formData.append("contrasena", DOM.contrasena.value);
-		// Datos que siempre se toman en cuenta
-		formData.append("apodo", DOM.apodo.value);
-		formData.append("notificacs", DOM.notificacs.checked ? 1 : 0);
+		const formData = accionesSubmit.formData();
 
 		// Valida y guarda los cambios del form
 		v.errores = await fetch(v.rutaGuardar, fnUsuariosComp.postForm(formData)).then((n) => n.json());
 
-		// Acciones en función de la respuesta recibida
-		v.unInputCambio = false;
-		const mensaje = v.errores.hay
-			? Object.values(v.errores)
-					.filter((n) => !!n && n !== true && n !== false)
-					.join(". ") // quita los 'no errores' y el 'hay'
-			: "Los cambios fueron guardados";
-		fnUsuariosComp.colorMensaje(DOM, v.errores.hay, mensaje);
+		// Acciones finales
+		FN.accionesSubmit.finSubmit();
 
 		// Fin
 		return;
