@@ -85,8 +85,9 @@ window.addEventListener("load", async () => {
 			);
 		})
 	);
-	DOM.areaSoltar.addEventListener("drop", (e) => {
-		procesaArchImg(e.dataTransfer.files, DOM.vistaImagen);
+	DOM.areaSoltar.addEventListener("drop", async (e) => {
+		await FN.nuevaImagen(e.dataTransfer.files, DOM.vistaImagen);
+		if (v.errores.hay) return;
 	});
 	// Eventos - change
 	DOM.form.addEventListener("change", async (e) => {
