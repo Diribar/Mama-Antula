@@ -18,7 +18,6 @@ window.addEventListener("load", async () => {
 
 		// Drag & Drop
 		areaSoltar: document.querySelector("#formEdicion #areaSoltar"),
-		botonImagen: document.querySelector("#formEdicion #areaSoltar button"),
 		vistaImagen: document.querySelector("#formEdicion #areaSoltar img"),
 	};
 	const v = {
