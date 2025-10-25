@@ -6,7 +6,6 @@ export default async (req, res, next) => {
 
 	// Variables
 	const {usuario} = req.session;
-	let redireccionEdicionUsuario;
 
 	// Si el usuario está en status mailValidado, debe pasar al status conApodo
 	if (
