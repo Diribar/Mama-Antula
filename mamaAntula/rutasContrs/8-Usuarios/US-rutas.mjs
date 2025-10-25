@@ -7,17 +7,18 @@ import vista from "./US-controlVista.mjs";
 import soloVisitas from "../../middlewares/permisosUsuario/US-1SoloVisitas.mjs";
 import soloUsuarios from "../../middlewares/permisosUsuario/US-2SoloUsuarios.mjs";
 import soloAdmin from "../../middlewares/permisosUsuario/US-3SoloAdmin.mjs";
+import descarga from "../../middlewares/CMP-descargaArch.mjs";
 
 // 🧩 Router
 const router = express.Router();
 
 // 📡 APIs
-router.get("/api/us-login", API.login);
-router.get("/api/us-logout", API.logout);
-router.get("/api/us-alta-de-mail-u-olvido-de-contrasena", API.altaOlvido);
-router.put("/api/us-valida-campo-edicion", API.validaCampoEdicion);
-router.put("/api/us-revisa-edicion-y-actualiza-usuario", API.revisaGuardaEdicion);
-router.get("/api/us-cambio-roles", API.cambioRoles);
+router.post("/api/us-envia-contrasena-por-mail", API.altaOlvido);
+router.post("/api/us-realiza-login", API.login);
+router.post("/api/us-realiza-logout", API.logout);
+router.post("/api/us-valida-campo-edicion", API.edicion.validaCampo);
+router.post("/api/us-guarda-edicion-en-usuario", descarga.single("imagen"), API.edicion.revisaGuarda);
+router.post("/api/us-cambio-roles", API.cambioRoles);
 
 // 🖥️ Vistas
 router.get(rutasUsuario.altaOlvido, soloVisitas, vista.altaOlvido);

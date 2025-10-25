@@ -1,4 +1,6 @@
 .env
 *.pem
-/node_modules
 *.zip
+/mamaAntula/node_modules
+/PPT
+/Varios
