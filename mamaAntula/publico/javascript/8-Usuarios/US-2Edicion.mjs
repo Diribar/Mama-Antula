@@ -175,10 +175,10 @@ window.addEventListener("load", async () => {
 		DOM.confirma.classList.add("inactivo"); // se deja inactivo hasta que se vuelve a hacer un input en el formulario
 
 		// Si no hay algo para guardar, interrumpe la función
-		if (!accionesSubmit.hayAlgoParaGuardar()) return ;
+		if (!FN.accionesSubmit.hayAlgoParaGuardar()) return ;
 
 		// Crea el FormData y agrega los datos
-		const formData = accionesSubmit.formData();
+		const formData = FN.accionesSubmit.formData();
 
 		// Valida y guarda los cambios del form
 		v.errores = await fetch(v.rutaGuardar, fnUsuariosComp.postForm(formData)).then((n) => n.json());
