@@ -128,11 +128,12 @@ export default {
 		}
 
 		// Actualiza la tabla usuarios
+		datos.statusRegistro_id = conApodo_id;
 		await baseDatos.actualizaPorId("usuarios", usuario.id, datos);
 
 		// Obtiene los datos de session
-		const {imagen, apodo, anotacs} = datos;
-		const datosSession = {apodo, anotacs};
+		const {imagen, apodo, anotacs, statusRegistro_id} = datos;
+		const datosSession = {apodo, anotacs, statusRegistro_id};
 		if (imagen) datosSession.imagen = imagen;
 
 		// Fin
