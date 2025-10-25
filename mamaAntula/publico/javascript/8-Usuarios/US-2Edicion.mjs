@@ -2,6 +2,9 @@
 
 window.addEventListener("load", async () => {
 	const DOM = {
+		// Avatar del encabezado
+		imagenHeader: document.querySelector("header #imagenUsuario"),
+
 		// Formulario
 		form: document.querySelector("#contenidoTemas #formEdicion"),
 		mensaje: document.querySelector("#formEdicion #mensaje"),
@@ -98,10 +101,6 @@ window.addEventListener("load", async () => {
 				return formData;
 			},
 			finSubmit: () => {
-				// Resetea variables
-				v.archivoImgSubido = null;
-				v.unInputCambio = false;
-
 				// Actualiza el mensaje
 				const mensaje = v.errores.hay
 					? Object.values(v.errores)
@@ -111,6 +110,16 @@ window.addEventListener("load", async () => {
 				fnUsuariosComp.colorMensaje(DOM, v.errores.hay, mensaje);
 
 				// Actualiza la imagen en el header
+				if (v.archivoImgSubido && !v.errores.imagen) {
+					DOM.imagenHeader.src = URL.createObjectURL(v.archivoImgSubido);
+				}
+
+				// Resetea variables
+				v.archivoImgSubido = null;
+				v.unInputCambio = false;
+
+				// Fin
+				return;
 			},
 		},
 	};
@@ -175,7 +184,7 @@ window.addEventListener("load", async () => {
 		DOM.confirma.classList.add("inactivo"); // se deja inactivo hasta que se vuelve a hacer un input en el formulario
 
 		// Si no hay algo para guardar, interrumpe la función
-		if (!FN.accionesSubmit.hayAlgoParaGuardar()) return ;
+		if (!FN.accionesSubmit.hayAlgoParaGuardar()) return;
 
 		// Crea el FormData y agrega los datos
 		const formData = FN.accionesSubmit.formData();
