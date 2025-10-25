@@ -10,6 +10,7 @@ export default multer({
 	}),
 	fileFilter: (req, file, cb) => {
 		const tamArchivo = Number(req.headers["content-length"]);
+		console.log(13,tamArchivo <= tamMaxArch);
 		return cb(null, tamArchivo <= tamMaxArch);
 	},
 });

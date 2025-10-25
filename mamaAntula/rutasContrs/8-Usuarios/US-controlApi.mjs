@@ -73,6 +73,9 @@ export default {
 			return res.json(errores);
 		},
 		revisaGuarda: async (req, res) => {
+			console.log(req.body, req.file);
+			return res.json({...req.body, ...req.file});
+
 			// Variables
 			const datos = req.body;
 			const {usuario} = req.session;
