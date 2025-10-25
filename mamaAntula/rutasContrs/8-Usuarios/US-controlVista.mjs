@@ -18,7 +18,7 @@ export default {
 		const codigoVista = "edicion";
 		const imagenes = procesos.obtieneImagenesAlAzar();
 		const {apodo} = req.session.usuario;
-		const imagen = req.session.usuario.imagen && "/imgsEditables/9-Usuarios/" + req.session.usuario.imagen;
+		const imagen = req.session.usuario.imagen && "/imgsEditables/8-Usuarios/" + req.session.usuario.imagen;
 
 		// Fin
 		return res.render("CMP-0Estructura", {tituloPagina, temaVista, codigoVista, imagenes, apodo, imagen});
