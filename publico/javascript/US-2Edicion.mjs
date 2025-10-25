@@ -8,9 +8,9 @@ window.addEventListener("load", async () => {
 		confirma: document.querySelector("#formEdicion #confirma"),
 
 		// Inputs
-		apodo: document.querySelector("#formEdicion #apodo"),
-		contrasena: document.querySelector("#formEdicion #contrasena"),
-		notificacs: document.querySelector("#formEdicion #notificacs"),
+		apodo: document.querySelector("#formEdicion [name='apodo']"),
+		contrasena: document.querySelector("#formEdicion [name='contrasena']"),
+		notificacs: document.querySelector("#formEdicion [name='notificacs']"),
 	};
 	const v = {
 		rutaValidaCampo: "/usuarios/api/us-valida-campo-edicion",
@@ -30,11 +30,8 @@ window.addEventListener("load", async () => {
 			// Fin
 			return;
 		},
-		metodoPost: (datos) => ({
-			method: "POST",
-			headers: {"Content-Type": "application/json"},
-			body: JSON.stringify(datos),
-		}),
+		postJson: (datos) => ({method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(datos)}),
+		postForm: (formData) => ({method: "POST", body: formData}),
 	};
 
 	// Eventos - input
@@ -52,7 +49,7 @@ window.addEventListener("load", async () => {
 		const datos = {campo, [campo]: e.target.value};
 
 		// Averigua si hay un error
-		v.errores = await fetch(v.rutaValidaCampo, FN.metodoPost(datos)).then((n) => n.json());
+		v.errores = await fetch(v.rutaValidaCampo, FN.postJson(datos)).then((n) => n.json());
 
 		// Respuestas
 		DOM.mensaje.innerHTML = v.errores[campo];
@@ -83,19 +80,23 @@ window.addEventListener("load", async () => {
 			return FN.colorMensaje();
 		}
 
-		// Crea el FormData y agrega los campos
+		// Crea el FormData y agrega los datos del archivo de imagen
 		const formData = new FormData();
 		if (archivoImgSubido) {
 			formData.append("imagen", archivoImgSubido.name);
 			formData.append("tamano", archivoImgSubido.size);
 			formData.append("tipo", archivoImgSubido.type);
 		}
-		if (DOM.apodo.value) formData.append("apodo", input.value);
-		if (DOM.contrasena.value) formData.append("contrasena", input.value);
-		formData.append("notificacs", input.checked);
+
+		// Agrega los demás campos
+		if (DOM.apodo.value) formData.append("apodo", DOM.apodo.value);
+		if (DOM.contrasena.value) formData.append("contrasena", DOM.contrasena.value);
+		formData.append("notificacs", DOM.notificacs.checked);
 
 		// Valida y guarda los cambios del form
-		const errores = await fetch(rutaGuardar, FN.metodoPost(formData)).then((n) => n.json());
+		const errores = await fetch(v.rutaGuardar, FN.postForm(formData)).then((n) => n.json());
+		console.log(errores);
+
 
 		// Acciones en función de la respuesta recibida
 		v.unInputCambio = false;

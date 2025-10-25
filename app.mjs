@@ -2,7 +2,7 @@
 
 // Start-up - última carpeta git subida: 1.39
 console.clear();
-global.horarioStartUp = Date.now();
+globalThis.horarioStartUp = Date.now();
 
 // Imports
 import dotenv from "dotenv";
@@ -18,9 +18,9 @@ import session from "express-session";
 import connectMySQL from "express-mysql-session";
 
 // Variables globales
-global.path = path;
-global.fs = fs;
-global.Sequelize = Sequelize;
+globalThis.path = path;
+globalThis.fs = fs;
+globalThis.Sequelize = Sequelize;
 
 // Carga variables confidenciales
 dotenv.config({quiet: true});
@@ -32,11 +32,11 @@ app.use(express.json()); // Para convertir el json recibido por POST en req.body
 app.use(cookieParser());
 
 // Variables de entorno
-const rutaActual = path.dirname(fileURLToPath(import.meta.url));
-global.entProd = path.basename(rutaActual) == "1-Actual";
-global.entPrueba = path.basename(rutaActual) == "2-Prueba";
-global.entDesarr = !entProd && !entPrueba;
-global.urlHost =
+globalThis.rutaHome = path.dirname(fileURLToPath(import.meta.url));
+globalThis.entProd = path.basename(rutaHome) == "1-Actual";
+globalThis.entPrueba = path.basename(rutaHome) == "2-Prueba";
+globalThis.entDesarr = !entProd && !entPrueba;
+globalThis.urlHost =
 	(entProd && "https://mamaantula.com") || (entPrueba && "https://prueba.mamaantula.com") || "https://mamaantula:3006";
 
 // Servidor
@@ -53,29 +53,29 @@ if (entDesarr) {
 } else app.listen(puerto, () => console.log(leyenda)); // Para conectarse con el servidor
 
 // Carpetas públicas - imágenes
-global.carpImgsEstables = path.join(rutaActual, "/publico/imagenes");
+globalThis.carpImgsEstables = path.join(rutaHome, "/publico/imagenes");
 app.use("/imgsEstables", express.static(carpImgsEstables));
-global.carpImgsEditables = path.join(rutaActual, "../9-Imagenes"); // este dominio
+globalThis.carpImgsEditables = path.join(rutaHome, "../9-Imagenes"); // este dominio
 app.use("/imgsEditables", express.static(carpImgsEditables));
 
 // Carpetas públicas - otras
-app.use("/formatos", express.static(path.join(rutaActual, "/publico/formatos")));
-app.use("/javascript", express.static(path.join(rutaActual, "/publico/javascript")));
+app.use("/formatos", express.static(path.join(rutaHome, "/publico/formatos")));
+app.use("/javascript", express.static(path.join(rutaHome, "/publico/javascript")));
 app.use("/fa", express.static("node_modules/@fortawesome/fontawesome-free"));
 
-// Variables globales
-import constantes from "./variables/constantes.mjs";
-for (const metodo in constantes) global[metodo] = constantes[metodo];
+// Variables globales - debe ser con await, para que primero se carguen las variables globales de más arriba
+const constantes = await import("./variables/constantes.mjs");
+for (const metodo in constantes.default) globalThis[metodo] = constantes.default[metodo];
 
 // Base de datos
-global.credencsSitio = await import("./variables/credenciales.mjs").then((n) => n.default); // es necesario el await para que traiga los valores de .env
+globalThis.credencsSitio = await import("./variables/credenciales.mjs").then((n) => n.default); // es necesario el await para que traiga los valores de .env
 const entornoBd = !entDesarr ? "produccion" : "desarrollo";
 const credencsBD = credencsSitio.bd[entornoBd];
 const {database, username, password} = credencsBD;
-global.sequelize = new Sequelize(database, username, password, credencsBD);
+globalThis.sequelize = new Sequelize(database, username, password, credencsBD);
 const bd = await import("./baseDatos/index.mjs").then((n) => n.default);
-global.bd = bd;
-global.Op = Sequelize.Op;
+globalThis.bd = bd;
+globalThis.Op = Sequelize.Op;
 
 // Para usar la propiedad "session"
 const MySQLStore = connectMySQL(session);
@@ -116,15 +116,15 @@ app.set("view engine", "ejs");
 // Funciones asíncronas de start-up
 (async () => {
 	// Funciones globales
-	global.baseDatos = await import("./funciones/baseDatos.mjs").then((n) => n.default);
-	global.comp = await import("./funciones/compartidas.mjs").then((n) => n.default);
+	globalThis.baseDatos = await import("./funciones/baseDatos.mjs").then((n) => n.default);
+	globalThis.comp = await import("./funciones/compartidas.mjs").then((n) => n.default);
 
 	// Variables globales de la base de datos
 	const varsBD = await import("./variables/baseDatos.mjs").then((n) => n.default);
 	const lecturasDeBd = await varsBD.lecturasDeBd();
-	for (const campo in lecturasDeBd) global[campo] = lecturasDeBd[campo];
+	for (const campo in lecturasDeBd) globalThis[campo] = lecturasDeBd[campo];
 	const datosPartics = varsBD.datosPartics();
-	for (const campo in datosPartics) global[campo] = datosPartics[campo]; // asigna una variable a valores específicos
+	for (const campo in datosPartics) globalThis[campo] = datosPartics[campo]; // asigna una variable a valores específicos
 
 	//const rutinas = await import("./rutinas/RT-Control.mjs").then((n) => n.default);
 	// await rutinas.startupMasConfiguracion();

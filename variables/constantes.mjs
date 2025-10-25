@@ -23,10 +23,16 @@ export default {
 		...{login: "fa-circle-user", altaUser: "fa-user-plus", revision: "fa-user-graduate", mantenim: "fa-tools"},
 	},
 
+	// Carpetas de imágenes
+	carpFinal: path.join(rutaHome, "..", "9-Imagenes", "1-Final"),
+	carpRevisar: path.join(rutaHome, "..", "9-Imagenes", "2-Revisar"),
+	carpUsuarios: path.join(rutaHome, "..", "9-Imagenes", "8-Usuarios"),
+	carpProvisorio: path.join(rutaHome, "..", "9-Imagenes", "9-Provisorio"), // carpeta donde se guardan las imágenes inicialmente
+
 	// Otras
 	requestsTriviales: ["WhatsApp", "Postman", "TelegramBot", "TwitterBot", "Zabbix"], // evita que se cuenten como visitas
 	continentes: ["América", "Europa", "Africa", "Asia", "Oceanía"],
 	rutasUsuario: {altaOlvido: "/alta-u-olvido-de-contrasena", edicion: "/edicion", cambioRoles: "/cambio-de-roles"},
-	tamMaxImagen: 1024000, // 1Mb
+	tamMaxArch: 1024000, // 1Mb
 	Mb1: 1024000,
 };

@@ -98,7 +98,7 @@ export default {
 				? "Usaste un archivo con la extensión " + ext + ". Las extensiones válidas son " + extValidas.join(", ")
 				: !tipo.startsWith("image/")
 				? "El archivo debe ser de tipo imagen"
-				: tamano && tamano > tamMaxImagen // Valida el tamaño
+				: tamano && tamano > tamMaxArch // Valida el tamaño
 				? "El archivo tiene " + Math.ceil((tamano / Mb1) * 100) / 100 + " MB. Necesitamos que no supere 1 MB"
 				: "";
 
