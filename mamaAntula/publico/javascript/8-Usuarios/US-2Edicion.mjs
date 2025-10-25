@@ -70,8 +70,6 @@ window.addEventListener("load", async () => {
 			// Fin
 			return;
 		},
-		postJson: () => ({method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(v.datos)}),
-		postForm: (formData) => ({method: "POST", body: formData}),
 	};
 
 	// Eventos - input
@@ -118,7 +116,7 @@ window.addEventListener("load", async () => {
 		}
 
 		// Averigua si hay un error
-		v.errores = await fetch(v.rutaValidaCampo, FN.postJson()).then((n) => n.json());
+		v.errores = await fetch(v.rutaValidaCampo, fnUsuariosComp.postJson(v.datos)).then((n) => n.json());
 
 		// Respuestas
 		FN.respuestas(campo);
@@ -151,7 +149,7 @@ window.addEventListener("load", async () => {
 		formData.append("notificacs", DOM.notificacs.checked ? 1 : 0);
 
 		// Valida y guarda los cambios del form
-		v.errores = await fetch(v.rutaGuardar, FN.postForm(formData)).then((n) => n.json());
+		v.errores = await fetch(v.rutaGuardar, fnUsuariosComp.postForm(formData)).then((n) => n.json());
 
 		// Acciones en función de la respuesta recibida
 		v.unInputCambio = false;

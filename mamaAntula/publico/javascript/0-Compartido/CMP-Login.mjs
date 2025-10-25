@@ -24,11 +24,10 @@ window.addEventListener("load", async () => {
 		else DOM.confirma.classList.add("inactivo"); // Se inactiva el botón 'Confirma'
 
 		// Variables
-		const email = DOM.email.value;
-		const contrasena = DOM.contrasena.value;
+		const datos = {email: DOM.email.value, contrasena: DOM.contrasena.value};
 
 		// Valida los valores
-		const errores = await fetch(rutaApi + "email=" + email + "&contrasena=" + contrasena).then((n) => n.json());
+		const errores = await fetch(rutaApi, fnUsuariosComp.postJson(datos)).then((n) => n.json());
 		const {email: errorEmail, contrasena: errorContrasena, credenciales} = errores;
 		DOM.mensajeError.innerText = errorEmail || errorContrasena || credenciales || "";
 

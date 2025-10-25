@@ -11,4 +11,6 @@ const fnUsuariosComp = {
 		// Fin
 		return;
 	},
+	postJson: (datos) => ({method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(datos)}),
+	postForm: (formData) => ({method: "POST", body: formData}),
 };
