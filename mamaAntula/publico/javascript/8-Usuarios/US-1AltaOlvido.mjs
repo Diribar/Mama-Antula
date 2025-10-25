@@ -27,7 +27,6 @@ window.addEventListener("load", async () => {
 	// Eventos - input
 	DOM.form.addEventListener("input", () => {
 		DOM.mensaje.classList.add("invisible");
-		DOM.mensaje.innerHTML = "";
 		DOM.confirma.classList.remove("inactivo");
 	});
 	// Eventos - change
@@ -46,6 +45,7 @@ window.addEventListener("load", async () => {
 		DOM.confirma.classList.add("inactivo");
 
 		// Envía el mail
+		fnUsuariosComp.colorMensaje(DOM, false, "Estamos enviándote un mail con la contraseña...");
 		const respuesta = await fetch(rutaApi + DOM.email.value).then((n) => n.json());
 
 		// Acciones en función de la respuesta recibida

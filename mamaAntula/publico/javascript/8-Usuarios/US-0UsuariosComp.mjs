@@ -1,14 +1,16 @@
 const fnUsuariosComp = {
 	colorMensaje: (DOM, hay, mensaje) => {
 		// Cambia el color en la respuesta
-		DOM.mensaje.classList.remove("invisible");
 		DOM.mensaje.classList[!hay ? "add" : "remove"]("exito");
 		DOM.mensaje.classList[hay ? "add" : "remove"]("error");
+		DOM.mensaje.classList.remove("invisible");
 
 		// Mensaje
-		if (mensaje) setTimeout(() => (DOM.mensaje.innerHTML = mensaje), 500);
+		DOM.mensaje.innerHTML = mensaje;
 
 		// Fin
 		return;
 	},
+	postJson: (datos) => ({method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(datos)}),
+	postForm: (formData) => ({method: "POST", body: formData}),
 };
