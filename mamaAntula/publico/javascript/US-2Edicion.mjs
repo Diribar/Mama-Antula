@@ -150,17 +150,13 @@ window.addEventListener("load", async () => {
 			return FN.colorMensaje();
 		}
 
-		// Crea el FormData y agrega los datos del archivo de imagen
+		// Crea el FormData y agrega los datos
 		const formData = new FormData();
-		if (v.archivoImgSubido) {
-			formData.append("imagen", v.archivoImgSubido.name);
-			formData.append("tamano", v.archivoImgSubido.size);
-			formData.append("tipo", v.archivoImgSubido.type);
-		}
-
-		// Agrega los demás campos
-		if (DOM.apodo.value) formData.append("apodo", DOM.apodo.value);
+		// Datos opcionales
+		if (v.archivoImgSubido) formData.append("imagen", v.archivoImgSubido);
 		if (DOM.contrasena.value) formData.append("contrasena", DOM.contrasena.value);
+		// Datos que siempre se toman en cuenta
+		formData.append("apodo", DOM.apodo.value);
 		formData.append("notificacs", DOM.notificacs.checked);
 
 		// Valida y guarda los cambios del form
