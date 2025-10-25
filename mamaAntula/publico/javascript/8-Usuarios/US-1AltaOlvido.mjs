@@ -19,16 +19,15 @@ window.addEventListener("load", async () => {
 
 		// Acciones si hay un error
 		if (errorMail) {
-			DOM.mensaje.innerHTML = errorMail;
-			DOM.mensaje.classList.add("error");
+			fnUsuariosComp.colorMensaje(DOM, true, errorMail);
 			DOM.confirma.classList.add("inactivo");
 		}
 	};
 
 	// Eventos - input
 	DOM.form.addEventListener("input", () => {
+		DOM.mensaje.classList.add("invisible");
 		DOM.mensaje.innerHTML = "";
-		DOM.mensaje.classList.remove("error");
 		DOM.confirma.classList.remove("inactivo");
 	});
 	// Eventos - change
@@ -50,9 +49,7 @@ window.addEventListener("load", async () => {
 		const respuesta = await fetch(rutaApi + DOM.email.value).then((n) => n.json());
 
 		// Acciones en función de la respuesta recibida
-		DOM.mensaje.classList[!respuesta.hay ? "add" : "remove"]("exito");
-		DOM.mensaje.classList[respuesta.hay ? "add" : "remove"]("error");
-		DOM.mensaje.innerHTML = respuesta.email || respuesta.mensaje;
+		fnUsuariosComp.colorMensaje(DOM, respuesta.hay, respuesta.email || respuesta.mensaje);
 
 		// Fin
 		return;

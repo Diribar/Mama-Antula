@@ -56,10 +56,10 @@ window.addEventListener("load", async () => {
 		},
 		respuestas: (campo) => {
 			// Respuestas
-			DOM.mensaje.innerHTML = v.errores.hay
+			const mensaje = v.errores.hay
 				? v.errores[campo]
 				: (campo == "imagen" ? "La imagen" : "El valor del campo " + campo) + " se puede guardar";
-			fnUsuariosComp.colorMensaje();
+			fnUsuariosComp.colorMensaje(DOM, v.errores.hay, mensaje);
 
 			// Acciones si no hay errores
 			if (!v.errores.hay) {
@@ -136,10 +136,9 @@ window.addEventListener("load", async () => {
 		// Si no se hicieron cambios, interrumpe la función
 		const hayAlgoParaguardar = v.archivoImgSubido || v.unInputCambio;
 		if (!hayAlgoParaguardar) {
-			DOM.mensaje.innerHTML = "No se hicieron cambios a guardar";
-			v.errores = {hay: true};
-			fnUsuariosComp.colorMensaje();
-			return
+			v.errores = {mensaje: "No se hicieron cambios a guardar", hay: true};
+			fnUsuariosComp.colorMensaje(DOM, v.errores.hay, v.errores.mensaje);
+			return;
 		}
 
 		// Crea el FormData y agrega los datos
@@ -152,17 +151,16 @@ window.addEventListener("load", async () => {
 		formData.append("notificacs", DOM.notificacs.checked ? 1 : 0);
 
 		// Valida y guarda los cambios del form
-		const errores = await fetch(v.rutaGuardar, FN.postForm(formData)).then((n) => n.json());
-		console.log(errores);
+		v.errores = await fetch(v.rutaGuardar, FN.postForm(formData)).then((n) => n.json());
 
 		// Acciones en función de la respuesta recibida
 		v.unInputCambio = false;
-		DOM.mensaje.innerHTML = errores.hay
-			? Object.values(errores)
+		mensaje = v.errores.hay
+			? Object.values(v.errores)
 					.filter((n) => !!n && n !== true && n !== false)
 					.join(". ") // quita los 'no errores' y el 'hay'
 			: "Los cambios fueron guardados";
-		fnUsuariosComp.colorMensaje();
+		fnUsuariosComp.colorMensaje(DOM, v.errores.hay, mensaje);
 
 		// Fin
 		return;
