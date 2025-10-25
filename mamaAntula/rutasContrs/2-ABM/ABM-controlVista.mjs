@@ -3,7 +3,7 @@
 const temaVista = "abmArticulos";
 
 export default {
-	abm: async (req, res) => {
+	edicion: async (req, res) => {
 		// Variables
 		const tituloPagina = "ABM de Contenido";
 		const codigoVista = "abmArticulos";
