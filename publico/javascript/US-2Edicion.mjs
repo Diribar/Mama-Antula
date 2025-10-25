@@ -40,7 +40,29 @@ window.addEventListener("load", async () => {
 			// Fin
 			return;
 		},
-		postJson: (datos) => ({method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(datos)}),
+		nuevaImagen: async (archImagen, vistaImagen) => {
+			// Procesa el archivo
+			const nuevaImagen = await procesaArchImg(archImagen, vistaImagen);
+
+			if (nuevaImagen) v.archivoImgSubido = nuevaImagen;
+			else {
+				// Averigua si hay un error
+				v.errores = {imagen: "El archivo no pudo ser leído como imagen", hay: true};
+
+				// Respuestas
+				DOM.mensaje.innerHTML = v.errores[campo];
+				FN.colorMensaje();
+				return;
+			}
+
+			// Crea los datos a enviar
+			const {name: imagen, size: tamano, type: tipo} = v.archivoImgSubido;
+			v.datos = {...v.datos, imagen, tamano, tipo};
+
+			// Fin
+			return;
+		},
+		postJson: () => ({method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(v.datos)}),
 		postForm: (formData) => ({method: "POST", body: formData}),
 	};
 
@@ -63,7 +85,9 @@ window.addEventListener("load", async () => {
 			);
 		})
 	);
-	DOM.areaSoltar.addEventListener("drop", (e) => procesaArchImg(e.dataTransfer.files, DOM.vistaImagen));
+	DOM.areaSoltar.addEventListener("drop", (e) => {
+		procesaArchImg(e.dataTransfer.files, DOM.vistaImagen);
+	});
 	// Eventos - change
 	DOM.form.addEventListener("change", async (e) => {
 		// Inactiva confirmar
@@ -71,30 +95,15 @@ window.addEventListener("load", async () => {
 
 		// Crea los datos a enviar
 		const campo = e.target.name;
-		let datos = {campo, [campo]: e.target.value};
+		v.datos = {campo, [campo]: e.target.value};
 
 		if (campo == "imagen") {
-			// Procesa el archivo
-			const nuevaImagen = await procesaArchImg(DOM.inputImagen.files, DOM.vistaImagen);
-
-			if (nuevaImagen) v.archivoImgSubido = nuevaImagen;
-			else {
-				// Averigua si hay un error
-				v.errores = {imagen: "El archivo no pudo ser leído como imagen", hay: true};
-
-				// Respuestas
-				DOM.mensaje.innerHTML = v.errores[campo];
-				FN.colorMensaje();
-				return;
-			}
-
-			// Crea los datos a enviar
-			const {name: imagen, size: tamano, type: tipo} = v.archivoImgSubido;
-			datos = {...datos, imagen, tamano, tipo};
+			await FN.nuevaImagen(DOM.inputImagen.files, DOM.vistaImagen);
+			if (v.errores.hay) return;
 		}
 
 		// Averigua si hay un error
-		v.errores = await fetch(v.rutaValidaCampo, FN.postJson(datos)).then((n) => n.json());
+		v.errores = await fetch(v.rutaValidaCampo, FN.postJson()).then((n) => n.json());
 
 		// Respuestas
 		DOM.mensaje.innerHTML = v.errores.hay
