@@ -75,10 +75,7 @@ export default {
 		revisaGuarda: async (req, res) => {
 			// Variables
 			const {filename: imagen, size: tamano, mimetype: tipo} = req.file || {};
-			const datos = {...req.body, imagen, tamano, tipo};
-			console.log(datos);
-			return res.json({hay: false});
-
+			const datos = req.file ? {...req.body, imagen, tamano, tipo} : req.body;
 			const {usuario} = req.session;
 
 			// Valida
