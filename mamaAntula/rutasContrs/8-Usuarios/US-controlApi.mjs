@@ -83,7 +83,7 @@ export default {
 			if (errores.hay) return res.json(errores);
 
 			// Actualizaciones varias
-			await procesos.actualizacsEdicion(datos,usuario);
+			await procesos.actualizacsEdicion(datos, usuario);
 
 			// Fin
 			return res.json({hay: false});
