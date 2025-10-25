@@ -31,15 +31,6 @@ window.addEventListener("load", async () => {
 
 	// Funciones
 	const FN = {
-		colorMensaje: () => {
-			// Cambia el color en la respuesta
-			DOM.mensaje.classList[!v.errores.hay ? "add" : "remove"]("exito");
-			DOM.mensaje.classList[v.errores.hay ? "add" : "remove"]("error");
-			DOM.mensaje.classList.remove("invisible");
-
-			// Fin
-			return;
-		},
 		nuevaImagen: async function (archImagen, vistaImagen) {
 			// Procesa el archivo
 			const nuevaImagen = await procesaArchImg(archImagen, vistaImagen);
@@ -75,6 +66,15 @@ window.addEventListener("load", async () => {
 				DOM.confirma.classList.remove("inactivo");
 				v.unInputCambio = true;
 			}
+
+			// Fin
+			return;
+		},
+		colorMensaje: () => {
+			// Cambia el color en la respuesta
+			DOM.mensaje.classList[!v.errores.hay ? "add" : "remove"]("exito");
+			DOM.mensaje.classList[v.errores.hay ? "add" : "remove"]("error");
+			DOM.mensaje.classList.remove("invisible");
 
 			// Fin
 			return;
