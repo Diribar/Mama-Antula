@@ -1,6 +1,6 @@
 "use strict";
 // Definir variables
-import {imageSize} from "image-size"; // si usás ESM
+import imageSize from "image-size";
 
 export default {
 	// De uso general - Vista Form
@@ -123,14 +123,19 @@ export default {
 	actualizacsEdicion: async (datos, usuario) => {
 		// Acciones si hay una imagen
 		if (datos.imagen) {
-			if (usuario.imagen) comp.gestionArchivos.elimina(carpProvisorio, usuario.imagen); // Elimina el archivo anterior, si lo hubiera
+			if (usuario.imagen) comp.gestionArchivos.elimina(carpUsuarios, usuario.imagen); // Elimina el archivo anterior, si lo hubiera
 			comp.gestionArchivos.mueve(datos.imagen, carpProvisorio, carpUsuarios); // Mueve el archivo de provisorio a usuarios
 		}
 
 		// Actualiza la tabla usuarios
 		await baseDatos.actualizaPorId("usuarios", usuario.id, datos);
 
+		// Obtiene los datos de session
+		const {imagen, apodo, anotacs} = datos;
+		const datosSession = {apodo, anotacs};
+		if (imagen) datosSession.imagen = imagen;
+
 		// Fin
-		return;
+		return datosSession;
 	},
 };
