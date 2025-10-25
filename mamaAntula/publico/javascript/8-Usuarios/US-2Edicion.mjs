@@ -153,7 +153,7 @@ window.addEventListener("load", async () => {
 
 		// Acciones en función de la respuesta recibida
 		v.unInputCambio = false;
-		mensaje = v.errores.hay
+		const mensaje = v.errores.hay
 			? Object.values(v.errores)
 					.filter((n) => !!n && n !== true && n !== false)
 					.join(". ") // quita los 'no errores' y el 'hay'
