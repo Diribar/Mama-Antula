@@ -26,7 +26,7 @@ window.addEventListener("load", async () => {
 		rutaGuardar: "/usuarios/api/us-guarda-edicion-en-usuario",
 		unInputCambio: false,
 		errores: {},
-		archivoImgSubido: false,
+		archivoImgSubido: null,
 	};
 
 	// Funciones
