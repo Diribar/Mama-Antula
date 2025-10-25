@@ -82,8 +82,8 @@ export default {
 			const errores = valida.edicion(datos);
 			if (errores.hay) return res.json(errores);
 
-			// Actualiza el usuario
-			baseDatos.actualizaPorId("usuarios", usuario.id, datos);
+			// Actualizaciones varias
+			await procesos.actualizacsEdicion(datos,usuario);
 
 			// Fin
 			return res.json({hay: false});

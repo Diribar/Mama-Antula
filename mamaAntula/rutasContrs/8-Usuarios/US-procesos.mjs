@@ -120,4 +120,17 @@ export default {
 			return;
 		},
 	},
+	actualizacsEdicion: async (datos, usuario) => {
+		// Acciones si hay una imagen
+		if (datos.imagen) {
+			if (usuario.imagen) comp.gestionArchivos.elimina(carpProvisorio, usuario.imagen); // Elimina el archivo anterior, si lo hubiera
+			comp.gestionArchivos.mueve(datos.imagen, carpProvisorio, carpUsuarios); // Mueve el archivo de provisorio a usuarios
+		}
+
+		// Actualiza la tabla usuarios
+		await baseDatos.actualizaPorId("usuarios", usuario.id, datos);
+
+		// Fin
+		return;
+	},
 };
