@@ -54,27 +54,18 @@ window.addEventListener("load", async () => {
 			// Fin
 			return;
 		},
-		respuestas: function (campo) {
+		respuestas: (campo) => {
 			// Respuestas
 			DOM.mensaje.innerHTML = v.errores.hay
 				? v.errores[campo]
 				: (campo == "imagen" ? "La imagen" : "El valor del campo " + campo) + " se puede guardar";
-			this.colorMensaje();
+			fnUsuariosComp.colorMensaje();
 
 			// Acciones si no hay errores
 			if (!v.errores.hay) {
 				DOM.confirma.classList.remove("inactivo");
 				v.unInputCambio = true;
 			}
-
-			// Fin
-			return;
-		},
-		colorMensaje: () => {
-			// Cambia el color en la respuesta
-			DOM.mensaje.classList[!v.errores.hay ? "add" : "remove"]("exito");
-			DOM.mensaje.classList[v.errores.hay ? "add" : "remove"]("error");
-			DOM.mensaje.classList.remove("invisible");
 
 			// Fin
 			return;
@@ -147,7 +138,8 @@ window.addEventListener("load", async () => {
 		if (!hayAlgoParaguardar) {
 			DOM.mensaje.innerHTML = "No se hicieron cambios a guardar";
 			v.errores = {hay: true};
-			return FN.colorMensaje();
+			fnUsuariosComp.colorMensaje();
+			return
 		}
 
 		// Crea el FormData y agrega los datos
@@ -170,7 +162,7 @@ window.addEventListener("load", async () => {
 					.filter((n) => !!n && n !== true && n !== false)
 					.join(". ") // quita los 'no errores' y el 'hay'
 			: "Los cambios fueron guardados";
-		FN.colorMensaje();
+		fnUsuariosComp.colorMensaje();
 
 		// Fin
 		return;

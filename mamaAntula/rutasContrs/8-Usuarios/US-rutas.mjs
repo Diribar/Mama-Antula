@@ -13,7 +13,7 @@ import descarga from "../../middlewares/CMP-descargaArch.mjs";
 const router = express.Router();
 
 // 📡 APIs
-router.post("/api/us-envia-contrasena-por-mail", API.altaOlvido);
+router.get("/api/us-envia-contrasena-por-mail", API.altaOlvido);
 router.post("/api/us-realiza-login", API.login);
 router.get("/api/us-realiza-logout", API.logout);
 router.post("/api/us-valida-campo-edicion", API.edicion.validaCampo);

@@ -6,7 +6,7 @@ import procesos from "./US-procesos.mjs";
 export default {
 	altaOlvido: async (req, res) => {
 		// Variables
-		const {email} = req.body;
+		const {email} = req.query;
 
 		// Obtiene el usuario y valida si ya se le envió una contraseña
 		const {usuario, errores} = await valida.contrasenaYaEnviada(email);

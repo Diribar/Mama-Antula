@@ -16,7 +16,6 @@ window.addEventListener("load", async () => {
 
 		// Averigua si hay un error simple
 		errorMail = !valor ? cartelMailVacio : !formatoMail.test(valor) ? cartelMailFormato : "";
-		console.log(errorMail, valor);
 
 		// Acciones si hay un error
 		if (errorMail) {
