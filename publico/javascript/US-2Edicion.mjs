@@ -44,20 +44,37 @@ window.addEventListener("load", async () => {
 			// Procesa el archivo
 			const nuevaImagen = await procesaArchImg(archImagen, vistaImagen);
 
-			if (nuevaImagen) v.archivoImgSubido = nuevaImagen;
-			else {
+			if (nuevaImagen) {
+				v.archivoImgSubido = nuevaImagen;
+				v.errores = {};
+			} else {
 				// Averigua si hay un error
 				v.errores = {imagen: "El archivo no pudo ser leído como imagen", hay: true};
 
 				// Respuestas
-				DOM.mensaje.innerHTML = v.errores[campo];
-				FN.colorMensaje();
+				FN.respuestas("imagen");
 				return;
 			}
 
-			// Crea los datos a enviar
+			// Crea los datos a enviar al backend
 			const {name: imagen, size: tamano, type: tipo} = v.archivoImgSubido;
 			v.datos = {...v.datos, imagen, tamano, tipo};
+
+			// Fin
+			return;
+		},
+		respuestas: (campo) => {
+			// Respuestas
+			DOM.mensaje.innerHTML = v.errores.hay
+				? v.errores[campo]
+				: (campo == "imagen" ? "La imagen" : "El valor del campo " + campo) + " se puede guardar";
+			FN.colorMensaje();
+
+			// Acciones si no hay errores
+			if (!v.errores.hay) {
+				DOM.confirma.classList.remove("inactivo");
+				v.unInputCambio = true;
+			}
 
 			// Fin
 			return;
@@ -88,6 +105,12 @@ window.addEventListener("load", async () => {
 	DOM.areaSoltar.addEventListener("drop", async (e) => {
 		await FN.nuevaImagen(e.dataTransfer.files, DOM.vistaImagen);
 		if (v.errores.hay) return;
+
+		// Respuestas
+		FN.respuestas(campo);
+
+		// Fin
+		return;
 	});
 	// Eventos - change
 	DOM.form.addEventListener("change", async (e) => {
@@ -107,16 +130,7 @@ window.addEventListener("load", async () => {
 		v.errores = await fetch(v.rutaValidaCampo, FN.postJson()).then((n) => n.json());
 
 		// Respuestas
-		DOM.mensaje.innerHTML = v.errores.hay
-			? v.errores[campo]
-			: (campo == "imagen" ? "La imagen" : "El valor del campo " + campo) + " se puede guardar";
-		FN.colorMensaje();
-
-		// Acciones si no hay errores
-		if (!v.errores.hay) {
-			DOM.confirma.classList.remove("inactivo");
-			v.unInputCambio = true;
-		}
+		FN.respuestas(campo);
 
 		// Fin
 		return;
