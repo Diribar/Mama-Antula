@@ -17,8 +17,8 @@
 		#mensaje {
 			text-align: center; text-wrap: balance; padding: 4px 10px;
 			border-radius: 10px; border: 2.5px solid currentColor;
-			&.exito {background-color: var(--verde-claro); color: var(--verde-oscuro);}
-			&.error {background-color: var(--rojo-claro); color: var(--rojo-oscuro);}
+			&.exito {background-color: var(--verdeClaro); color: var(--verde-oscuro);}
+			&.error {background-color: var(--rojoClaro); color: var(--rojo-oscuro);}
 		}
 
 		#fondoConfirma {

@@ -1,6 +1,7 @@
 header #derecha {
 	position: relative; margin-right: 20px; line-height: 0;
-	color: var(--colorEscritura);
+	width: calc(0.7 * var(--altoHeader)); height: calc(0.7 * var(--altoHeader));
+	color: var(--colorEscritura); display: grid; place-items: center;
 
 	#menuLogin, #menuLogout {
 		position: absolute; right: 0; bottom: 0; translate: 0 100%;
@@ -40,7 +41,7 @@ header #derecha {
 	}
 
 	/* Logout */
-	img#imagenUsuario {max-height: calc(0.7 * var(--altoHeader)); border-radius: 50%;}
+	img#imagenUsuario {width: 100%; height: 100%; object-fit: cover; border-radius: 50%;}
 	#menuLogout {
 		width: max-content;
 		.menuOpcion {

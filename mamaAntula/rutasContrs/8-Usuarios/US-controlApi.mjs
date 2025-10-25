@@ -83,7 +83,8 @@ export default {
 			if (errores.hay) return res.json(errores);
 
 			// Actualizaciones varias
-			await procesos.actualizacsEdicion(datos, usuario);
+			const datosSession = await procesos.actualizacsEdicion(datos, usuario);
+			req.session.usuario = {...req.session.usuario, ...datosSession};
 
 			// Fin
 			return res.json({hay: false});

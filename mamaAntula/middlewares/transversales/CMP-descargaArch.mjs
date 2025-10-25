@@ -6,7 +6,7 @@ import multer from "multer";
 export default multer({
 	storage: multer.diskStorage({
 		destination: (req, file, cb) => cb(null, carpProvisorio),
-		filename: (req, file, cb) => cb(null, path.basename(file.originalname)), // Date.now() + path.extname(file.originalname)
+		filename: (req, file, cb) => cb(null, Date.now() + path.extname(file.originalname)),
 	}),
 	fileFilter: (req, file, cb) => {
 		const tamArchivo = Number(req.headers["content-length"]);

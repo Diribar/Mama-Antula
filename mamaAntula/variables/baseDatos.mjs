@@ -41,6 +41,7 @@ export default {
 			// 2. Status de usuario
 			mailPendValidar_id: statusRegistrosUs.find((n) => n.codigo == "mailPendValidar").id,
 			mailValidado_id: statusRegistrosUs.find((n) => n.codigo == "mailValidado").id,
+			conApodo_id: statusRegistrosUs.find((n) => n.codigo == "conApodo").id,
 		};
 
 		// Fin
