@@ -1,1 +1,4 @@
-form {gap: 20px; max-width: 415px;}
+form {
+	gap: 20px; max-width: 415px;
+	input {padding: 5px 10px;}
+}
