@@ -1,6 +1,9 @@
 "use strict"; // Obtiene 'usuario' y 'cliente'
 
 export default async (req, res, next) => {
+	// Si es una de las aplicaciones triviales, avanza
+	if (comp.omitirMiddlewsTransv(req)) return next();
+
 	// Variables
 	const {usuario} = req.session;
 	let redireccionEdicionUsuario;
