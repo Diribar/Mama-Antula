@@ -6,7 +6,7 @@ import procesos from "./US-procesos.mjs";
 export default {
 	altaOlvido: async (req, res) => {
 		// Variables
-		const {email} = req.body;
+		const {email} = req.query;
 
 		// Obtiene el usuario y valida si ya se le envió una contraseña
 		const {usuario, errores} = await valida.contrasenaYaEnviada(email);
@@ -73,11 +73,9 @@ export default {
 			return res.json(errores);
 		},
 		revisaGuarda: async (req, res) => {
-			console.log(req.body, req.file);
-			return res.json({...req.body, ...req.file});
-
 			// Variables
-			const datos = req.body;
+			const {filename: imagen, size: tamano, mimetype: tipo} = req.file || {};
+			const datos = req.file ? {...req.body, imagen, tamano, tipo} : req.body;
 			const {usuario} = req.session;
 
 			// Valida

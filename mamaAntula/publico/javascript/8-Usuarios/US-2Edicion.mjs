@@ -54,27 +54,18 @@ window.addEventListener("load", async () => {
 			// Fin
 			return;
 		},
-		respuestas: function (campo) {
+		respuestas: (campo) => {
 			// Respuestas
-			DOM.mensaje.innerHTML = v.errores.hay
+			const mensaje = v.errores.hay
 				? v.errores[campo]
 				: (campo == "imagen" ? "La imagen" : "El valor del campo " + campo) + " se puede guardar";
-			this.colorMensaje();
+			fnUsuariosComp.colorMensaje(DOM, v.errores.hay, mensaje);
 
 			// Acciones si no hay errores
 			if (!v.errores.hay) {
 				DOM.confirma.classList.remove("inactivo");
 				v.unInputCambio = true;
 			}
-
-			// Fin
-			return;
-		},
-		colorMensaje: () => {
-			// Cambia el color en la respuesta
-			DOM.mensaje.classList[!v.errores.hay ? "add" : "remove"]("exito");
-			DOM.mensaje.classList[v.errores.hay ? "add" : "remove"]("error");
-			DOM.mensaje.classList.remove("invisible");
 
 			// Fin
 			return;
@@ -143,38 +134,33 @@ window.addEventListener("load", async () => {
 		DOM.confirma.classList.add("inactivo"); // se deja inactivo hasta que se vuelve a hacer un input en el formulario
 
 		// Si no se hicieron cambios, interrumpe la función
-		const hayAlgoParaguardar = archivoImgSubido || v.unInputCambio;
+		const hayAlgoParaguardar = v.archivoImgSubido || v.unInputCambio;
 		if (!hayAlgoParaguardar) {
-			DOM.mensaje.innerHTML = "No se hicieron cambios a guardar";
-			v.errores = {hay: true};
-			return FN.colorMensaje();
+			v.errores = {mensaje: "No se hicieron cambios a guardar", hay: true};
+			fnUsuariosComp.colorMensaje(DOM, v.errores.hay, v.errores.mensaje);
+			return;
 		}
 
-		// Crea el FormData y agrega los datos del archivo de imagen
+		// Crea el FormData y agrega los datos
 		const formData = new FormData();
-		if (archivoImgSubido) {
-			formData.append("imagen", archivoImgSubido.name);
-			formData.append("tamano", archivoImgSubido.size);
-			formData.append("tipo", archivoImgSubido.type);
-		}
-
-		// Agrega los demás campos
-		if (DOM.apodo.value) formData.append("apodo", DOM.apodo.value);
+		// Datos opcionales
+		if (v.archivoImgSubido) formData.append("imagen", v.archivoImgSubido);
 		if (DOM.contrasena.value) formData.append("contrasena", DOM.contrasena.value);
-		formData.append("notificacs", DOM.notificacs.checked);
+		// Datos que siempre se toman en cuenta
+		formData.append("apodo", DOM.apodo.value);
+		formData.append("notificacs", DOM.notificacs.checked ? 1 : 0);
 
 		// Valida y guarda los cambios del form
-		const errores = await fetch(v.rutaGuardar, FN.postForm(formData)).then((n) => n.json());
-		console.log(errores);
+		v.errores = await fetch(v.rutaGuardar, FN.postForm(formData)).then((n) => n.json());
 
 		// Acciones en función de la respuesta recibida
 		v.unInputCambio = false;
-		DOM.mensaje.innerHTML = errores.hay
-			? Object.values(errores)
+		mensaje = v.errores.hay
+			? Object.values(v.errores)
 					.filter((n) => !!n && n !== true && n !== false)
 					.join(". ") // quita los 'no errores' y el 'hay'
 			: "Los cambios fueron guardados";
-		FN.colorMensaje();
+		fnUsuariosComp.colorMensaje(DOM, v.errores.hay, mensaje);
 
 		// Fin
 		return;

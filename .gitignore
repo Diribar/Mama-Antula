@@ -1,6 +1,7 @@
+/PPT
+/Varios
 .env
 *.pem
 *.zip
-/mamaAntula/node_modules
-/PPT
-/Varios
+# se escribe así porque es una sub-carpeta
+node_modules/

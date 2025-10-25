@@ -13,9 +13,9 @@ import descarga from "../../middlewares/CMP-descargaArch.mjs";
 const router = express.Router();
 
 // 📡 APIs
-router.post("/api/us-envia-contrasena-por-mail", API.altaOlvido);
+router.get("/api/us-envia-contrasena-por-mail", API.altaOlvido);
 router.post("/api/us-realiza-login", API.login);
-router.post("/api/us-realiza-logout", API.logout);
+router.get("/api/us-realiza-logout", API.logout);
 router.post("/api/us-valida-campo-edicion", API.edicion.validaCampo);
 router.post("/api/us-guarda-edicion-en-usuario", descarga.single("imagen"), API.edicion.revisaGuarda);
 router.post("/api/us-cambio-roles", API.cambioRoles);
