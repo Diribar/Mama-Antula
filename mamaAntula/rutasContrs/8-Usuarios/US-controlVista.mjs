@@ -28,8 +28,9 @@ export default {
 		const tituloPagina = "Cambio de Roles";
 		const codigoVista = "cambioRoles";
 		const imagenes = procesos.obtieneImagenesAlAzar();
+		const usuarios = await baseDatos.obtieneTodos("usuarios");
 
 		// Fin
-		return res.render("CMP-0Estructura", {tituloPagina, temaVista, codigoVista, imagenes});
+		return res.render("CMP-0Estructura", {tituloPagina, temaVista, codigoVista, imagenes, usuarios});
 	},
 };
