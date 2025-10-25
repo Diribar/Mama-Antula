@@ -1,5 +1,5 @@
-const procesaArchImg = (files, vistaImagen) => {
-	return new Promise((resolve, reject) => {
+const procesaArchImg = (files, vistaImagen) =>
+	new Promise((resolve, reject) => {
 		// Si no hay una imagen, interrumpe la función
 		if (!files.length) return resolve(null);
 
@@ -29,4 +29,3 @@ const procesaArchImg = (files, vistaImagen) => {
 		// Si no se pudo leer el archivo, resuelve con null
 		reader.onerror = () => resolve(null);
 	});
-};
