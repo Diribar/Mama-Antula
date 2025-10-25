@@ -107,7 +107,7 @@ window.addEventListener("load", async () => {
 		if (v.errores.hay) return;
 
 		// Respuestas
-		FN.respuestas(campo);
+		FN.respuestas("imagen");
 
 		// Fin
 		return;
