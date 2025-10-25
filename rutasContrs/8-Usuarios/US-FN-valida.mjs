@@ -51,6 +51,28 @@ export default {
 		// Fin
 		return {errores, usuario};
 	},
+	edicion: (datos) => {
+		// Variables
+		const {campo, imagen, apodo, contrasena} = datos; // datos tiene más métodos
+		const errores = {};
+
+		// Apodo - campo obligatorio
+		if (!campo || campo == "apodo")
+			errores.apodo =
+				(!apodo && FN.inputVacio("apodo")) ||
+				comp.validacs.castellano.basico(apodo) ||
+				comp.validacs.inicial.basico(apodo) ||
+				comp.validacs.longitud(apodo, 2, 30) ||
+				"";
+
+		// Campos opcionales
+		if (imagen) errores.imagen = comp.validacs.imagen(datos);
+		if (contrasena) errores.contrasena = FN.largoContr(contrasena) || "";
+
+		// Fin
+		errores.hay = Object.values(errores).some((n) => !!n);
+		return errores;
+	},
 };
 
 // Variables y Funciones
@@ -74,9 +96,6 @@ const FN = {
 		// Fin
 		return errores;
 	},
-	largoContr: (contrasena) => {
-		return contrasena && (contrasena.length < 6 || contrasena.length > 12)
-			? "La contraseña debe tener entre 6 y 12 caracteres"
-			: "";
-	},
+	largoContr: (pw) => (pw && (pw.length < 6 || pw.length > 12) ? "La contraseña debe tener entre 6 y 12 caracteres" : ""),
+	inputVacio: (campo) => "Necesitamos que completes el campo <em>" + campo + "</em>",
 };

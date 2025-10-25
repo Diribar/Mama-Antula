@@ -5,11 +5,11 @@
 		<p id="cartelImagen">Arrastrá tu imagen (opcional)</p>
 		<button type="button">Buscala</button>
 		<input id="imagenUsuario" type="file" accept="image/*" hidden><!-- el input no lleva class 'input', porque tiene un tratamiento diferente -->
-		<img id="vistaImagen" src="<%= avatar %>">
+		<img id="vistaImagen" src="<%= imagen %>">
 	</div>
 
 	<!-- Inputs y select -->
-	<input class="input" type="text" name="apodo" placeholder="Escribí tu apodo" autocomplete="off" value="<%= usuario.apodo %>" autofocus required>
+	<input class="input" type="text" name="apodo" placeholder="Escribí tu apodo" autocomplete="off" value="<%= usuario.apodo %>" autofocus>
 	<input class="input" type="password" name="contrasena" placeholder="Nueva contrasena (opcional)" autocomplete="new-password">
 	<select class="input ocultar" name="paisResidencia">
 		<option value="">País de residencia</option>
@@ -24,17 +24,17 @@
 		<% } %>
 
 	</select>
-	<label id="contenedorNovedades" for="novedades">
-		<input class="input" type="checkbox" id="novedades">
+	<label id="contNovs">
+		<input class="input" type="checkbox" name="notificacs">
 		Deseo recibir las novedades por mail
 	</label>
-	<input class="input ocultar" type="text" name="nombreCompleto" placeholder="Nombre completo" autocomplete="off" value="<%= usuario.apodo %>" autofocus>
+	<input class="input ocultar" type="text" name="nombreCompleto" placeholder="Nombre completo" autocomplete="off" value="<%= usuario.apodo %>">
 
 	<!-- Resultado -->
-	<p id="mensaje"></p>
+	<p id="mensaje" class="invisible"></p>
 
 	<!-- Confirma -->
 	<div id="fondoConfirma">
-		<button type="submit" id="confirma inactivo">Guardá los cambios</button>
+		<button type="submit" id="confirma" class="inactivo">Guardá los cambios</button>
 	</div>
 </form>

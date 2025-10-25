@@ -7,7 +7,7 @@ window.addEventListener("load", async () => {
 		mensaje: document.querySelector("#formAltaOlvido #mensaje"),
 		confirma: document.querySelector("#formAltaOlvido #confirma"),
 	};
-	const rutaApi = "/usuarios/api/us-alta-de-mail-u-olvido-de-contrasena/?email=";
+	const rutaApi = "/usuarios/api/us-envia-contrasena-por-mail/?email=";
 
 	const fnErrorMail = () => {
 		// Garantiza que el mail esté en minúsculas
@@ -47,7 +47,7 @@ window.addEventListener("load", async () => {
 		if (DOM.confirma.className.includes("inactivo")) return;
 		DOM.confirma.classList.add("inactivo");
 
-		// Envía el mail al backend
+		// Envía el mail
 		const respuesta = await fetch(rutaApi + DOM.email.value).then((n) => n.json());
 
 		// Acciones en función de la respuesta recibida

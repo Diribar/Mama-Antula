@@ -8,47 +8,61 @@ window.addEventListener("load", async () => {
 		confirma: document.querySelector("#formEdicion #confirma"),
 
 		// Inputs
-		inputs: document.querySelectorAll("#formEdicion .input"),
 		apodo: document.querySelector("#formEdicion #apodo"),
 		contrasena: document.querySelector("#formEdicion #contrasena"),
-		novedades: document.querySelector("#formEdicion #novedades"),
+		notificacs: document.querySelector("#formEdicion #notificacs"),
 	};
 	const v = {
-		rutaApi: "/usuarios/api/us-alta-de-mail-u-olvido-de-contrasena/?email=",
+		rutaValidaCampo: "/usuarios/api/us-valida-campo-edicion",
+		rutaGuardar: "/usuarios/api/us-guarda-edicion-en-usuario",
 		unInputCambio: false,
 		errores: {},
 	};
 
 	// Funciones
 	const FN = {
-		respuestas: () => {
+		colorMensaje: () => {
+			// Cambia el color en la respuesta
 			DOM.mensaje.classList[!v.errores.hay ? "add" : "remove"]("exito");
 			DOM.mensaje.classList[v.errores.hay ? "add" : "remove"]("error");
-			DOM.confirma.classList[v.errores.hay ? "add" : "remove"]("inactivo");
+			DOM.mensaje.classList.remove("invisible");
+
+			// Fin
 			return;
 		},
+		metodoPost: (datos) => ({
+			method: "POST",
+			headers: {"Content-Type": "application/json"},
+			body: JSON.stringify(datos),
+		}),
 	};
 
 	// Eventos - input
 	DOM.form.addEventListener("input", () => {
-		DOM.mensaje.innerHTML = "";
-		DOM.mensaje.classList.remove("error");
+		DOM.mensaje.classList.add("invisible");
 		DOM.confirma.classList.remove("inactivo");
 	});
 	// Eventos - change
 	DOM.form.addEventListener("change", async (e) => {
-		// Variables
-		const campo = e.target.name;
+		// Inactiva confirmar
 		DOM.confirma.classList.add("inactivo");
 
+		// Crea los datos a enviar
+		const campo = e.target.name;
+		const datos = {campo, [campo]: e.target.value};
+
 		// Averigua si hay un error
-		v.errores = await fetch(v.rutaApi + campo + "=" + e.target.value).then((n) => n.json());
+		v.errores = await fetch(v.rutaValidaCampo, FN.metodoPost(datos)).then((n) => n.json());
+
+		// Respuestas
 		DOM.mensaje.innerHTML = v.errores[campo];
+		FN.colorMensaje();
 
 		// Acciones si no hay errores
 		if (!v.errores.hay) {
 			v.unInputCambio = true;
 			DOM.confirma.classList.remove("inactivo");
+			DOM.mensaje.innerHTML = "El valor del campo " + campo + " se puede guardar";
 		}
 
 		// Fin
@@ -59,28 +73,29 @@ window.addEventListener("load", async () => {
 		// Si confirmar está inactivo, interrumpe la función
 		e.preventDefault();
 		if (DOM.confirma.className.includes("inactivo")) return;
-		DOM.confirma.classList.add("inactivo");
+		DOM.confirma.classList.add("inactivo"); // se deja inactivo hasta que se vuelve a hacer un input en el formulario
 
 		// Si no se hicieron cambios, interrumpe la función
 		const hayAlgoParaguardar = archivoImgSubido || v.unInputCambio;
 		if (!hayAlgoParaguardar) {
-			DOM.mensaje.innerHTML = "No se hicieron cambios para guardar";
+			DOM.mensaje.innerHTML = "No se hicieron cambios a guardar";
 			v.errores = {hay: true};
-			return FN.respuestas();
+			return FN.colorMensaje();
 		}
 
 		// Crea el FormData y agrega los campos
 		const formData = new FormData();
-		if (archivoImgSubido) formData.append("imagen", archivoImgSubido);
+		if (archivoImgSubido) {
+			formData.append("imagen", archivoImgSubido.name);
+			formData.append("tamano", archivoImgSubido.size);
+			formData.append("tipo", archivoImgSubido.type);
+		}
 		if (DOM.apodo.value) formData.append("apodo", input.value);
 		if (DOM.contrasena.value) formData.append("contrasena", input.value);
-		formData.append("novedades", input.checked);
+		formData.append("notificacs", input.checked);
 
-		// Averigua si hay errores
-		const errores = await fetch("/usuarios/api/us-edicion/", {
-			method: "POST",
-			body: formData,
-		}).then((n) => n.json());
+		// Valida y guarda los cambios del form
+		const errores = await fetch(rutaGuardar, FN.metodoPost(formData)).then((n) => n.json());
 
 		// Acciones en función de la respuesta recibida
 		v.unInputCambio = false;
@@ -89,7 +104,7 @@ window.addEventListener("load", async () => {
 					.filter((n) => !!n && n !== true && n !== false)
 					.join(". ") // quita los 'no errores' y el 'hay'
 			: "Los cambios fueron guardados";
-		FN.respuestas();
+		FN.colorMensaje();
 
 		// Fin
 		return;
