@@ -143,7 +143,7 @@ window.addEventListener("load", async () => {
 		DOM.confirma.classList.add("inactivo"); // se deja inactivo hasta que se vuelve a hacer un input en el formulario
 
 		// Si no se hicieron cambios, interrumpe la función
-		const hayAlgoParaguardar = archivoImgSubido || v.unInputCambio;
+		const hayAlgoParaguardar = v.archivoImgSubido || v.unInputCambio;
 		if (!hayAlgoParaguardar) {
 			DOM.mensaje.innerHTML = "No se hicieron cambios a guardar";
 			v.errores = {hay: true};
@@ -152,10 +152,10 @@ window.addEventListener("load", async () => {
 
 		// Crea el FormData y agrega los datos del archivo de imagen
 		const formData = new FormData();
-		if (archivoImgSubido) {
-			formData.append("imagen", archivoImgSubido.name);
-			formData.append("tamano", archivoImgSubido.size);
-			formData.append("tipo", archivoImgSubido.type);
+		if (v.archivoImgSubido) {
+			formData.append("imagen", v.archivoImgSubido.name);
+			formData.append("tamano", v.archivoImgSubido.size);
+			formData.append("tipo", v.archivoImgSubido.type);
 		}
 
 		// Agrega los demás campos
