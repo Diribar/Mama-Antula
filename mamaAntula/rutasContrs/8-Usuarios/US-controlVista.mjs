@@ -26,7 +26,7 @@ export default {
 	cambioRoles: async (req, res) => {
 		// Variables
 		const tituloPagina = "Cambio de Roles";
-		const codigoVista = "cambioRolUsuarios";
+		const codigoVista = "cambioRoles";
 		const imagenes = procesos.obtieneImagenesAlAzar();
 
 		// Fin
