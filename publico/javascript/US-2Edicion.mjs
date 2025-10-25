@@ -8,19 +8,68 @@ window.addEventListener("load", async () => {
 		confirma: document.querySelector("#formEdicion #confirma"),
 
 		// Inputs
+		inputImagen: document.querySelector("#formEdicion #areaSoltar [name='imagen']"),
 		apodo: document.querySelector("#formEdicion [name='apodo']"),
 		contrasena: document.querySelector("#formEdicion [name='contrasena']"),
 		notificacs: document.querySelector("#formEdicion [name='notificacs']"),
+
+		// Drag & Drop
+		areaSoltar: document.querySelector("#formEdicion #areaSoltar"),
+		botonImagen: document.querySelector("#formEdicion #areaSoltar button"),
+		vistaImagen: document.querySelector("#formEdicion #areaSoltar img"),
 	};
 	const v = {
+		entrada: ["dragenter", "dragover"],
+		salida: ["dragleave", "drop"],
+
 		rutaValidaCampo: "/usuarios/api/us-valida-campo-edicion",
 		rutaGuardar: "/usuarios/api/us-guarda-edicion-en-usuario",
 		unInputCambio: false,
 		errores: {},
+		archivoImgSubido: null,
 	};
 
 	// Funciones
 	const FN = {
+		nuevaImagen: async function (archImagen, vistaImagen) {
+			// Procesa el archivo
+			const nuevaImagen = await procesaArchImg(archImagen, vistaImagen);
+
+			if (nuevaImagen) {
+				v.archivoImgSubido = nuevaImagen;
+				v.errores = {};
+			} else {
+				// Averigua si hay un error
+				v.errores = {imagen: "El archivo no pudo ser leído como imagen", hay: true};
+
+				// Respuestas
+				this.respuestas("imagen");
+				return;
+			}
+
+			// Crea los datos a enviar al backend
+			const {name: imagen, size: tamano, type: tipo} = v.archivoImgSubido;
+			v.datos = {...v.datos, imagen, tamano, tipo};
+
+			// Fin
+			return;
+		},
+		respuestas: function (campo) {
+			// Respuestas
+			DOM.mensaje.innerHTML = v.errores.hay
+				? v.errores[campo]
+				: (campo == "imagen" ? "La imagen" : "El valor del campo " + campo) + " se puede guardar";
+			this.colorMensaje();
+
+			// Acciones si no hay errores
+			if (!v.errores.hay) {
+				DOM.confirma.classList.remove("inactivo");
+				v.unInputCambio = true;
+			}
+
+			// Fin
+			return;
+		},
 		colorMensaje: () => {
 			// Cambia el color en la respuesta
 			DOM.mensaje.classList[!v.errores.hay ? "add" : "remove"]("exito");
@@ -30,7 +79,7 @@ window.addEventListener("load", async () => {
 			// Fin
 			return;
 		},
-		postJson: (datos) => ({method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(datos)}),
+		postJson: () => ({method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(v.datos)}),
 		postForm: (formData) => ({method: "POST", body: formData}),
 	};
 
@@ -39,6 +88,30 @@ window.addEventListener("load", async () => {
 		DOM.mensaje.classList.add("invisible");
 		DOM.confirma.classList.remove("inactivo");
 	});
+	// Eventos - Busca un archivo de imagen
+	DOM.areaSoltar.addEventListener("click", () => DOM.inputImagen.click());
+	// Eventos - Drag & Drop
+	[...v.entrada, ...v.salida].forEach((evento) =>
+		DOM.areaSoltar.addEventListener(evento, (e) => {
+			e.preventDefault();
+
+			// Eventos - Efectos visuales
+			v.entrada.forEach((evento) => DOM.areaSoltar.addEventListener(evento, () => DOM.areaSoltar.classList.add("encima")));
+			v.salida.forEach((evento) =>
+				DOM.areaSoltar.addEventListener(evento, () => DOM.areaSoltar.classList.remove("encima"))
+			);
+		})
+	);
+	DOM.areaSoltar.addEventListener("drop", async (e) => {
+		await FN.nuevaImagen(e.dataTransfer.files, DOM.vistaImagen);
+		if (v.errores.hay) return;
+
+		// Respuestas
+		FN.respuestas("imagen");
+
+		// Fin
+		return;
+	});
 	// Eventos - change
 	DOM.form.addEventListener("change", async (e) => {
 		// Inactiva confirmar
@@ -46,21 +119,18 @@ window.addEventListener("load", async () => {
 
 		// Crea los datos a enviar
 		const campo = e.target.name;
-		const datos = {campo, [campo]: e.target.value};
+		v.datos = {campo, [campo]: e.target.value};
+
+		if (campo == "imagen") {
+			await FN.nuevaImagen(DOM.inputImagen.files, DOM.vistaImagen);
+			if (v.errores.hay) return;
+		}
 
 		// Averigua si hay un error
-		v.errores = await fetch(v.rutaValidaCampo, FN.postJson(datos)).then((n) => n.json());
+		v.errores = await fetch(v.rutaValidaCampo, FN.postJson()).then((n) => n.json());
 
 		// Respuestas
-		DOM.mensaje.innerHTML = v.errores[campo];
-		FN.colorMensaje();
-
-		// Acciones si no hay errores
-		if (!v.errores.hay) {
-			v.unInputCambio = true;
-			DOM.confirma.classList.remove("inactivo");
-			DOM.mensaje.innerHTML = "El valor del campo " + campo + " se puede guardar";
-		}
+		FN.respuestas(campo);
 
 		// Fin
 		return;
@@ -96,7 +166,6 @@ window.addEventListener("load", async () => {
 		// Valida y guarda los cambios del form
 		const errores = await fetch(v.rutaGuardar, FN.postForm(formData)).then((n) => n.json());
 		console.log(errores);
-
 
 		// Acciones en función de la respuesta recibida
 		v.unInputCambio = false;

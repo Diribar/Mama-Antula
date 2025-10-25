@@ -1,60 +1,31 @@
-"use strict";
-
-window.addEventListener("load", async () => {
-	// Variables
-	const DOM = {
-		areaSoltar: document.querySelector("#formEdicion #areaSoltar"),
-		botonImagen: document.querySelector("#formEdicion #areaSoltar button"),
-		inputImagen: document.querySelector("#formEdicion #areaSoltar input"),
-		vistaImagen: document.querySelector("#formEdicion #areaSoltar img"),
-	};
-	const entrada = ["dragenter", "dragover"];
-	const salida = ["dragleave", "drop"];
-
-	// Función para mostrar la imagen
-	const procesaArchImg = (files) => {
+const procesaArchImg = (files, vistaImagen) =>
+	new Promise((resolve, reject) => {
 		// Si no hay una imagen, interrumpe la función
-		if (!files.length) return;
+		if (!files.length) return resolve(null);
 
-		// Si no tiene extensión de imagen, interrumpe la función
+		// Si no tiene extensión de imagen o supera el tamaño maximo permitido, interrumpe la función
 		const file = files[0];
-		if (!file.type.startsWith("image/")) return alert("Solo se permiten imágenes.");
-
-		const maxBytes = 2 * 1024 * 1024;
-		if (file.size > maxBytes) alert("El archivo supera el tamaño máximo permitido (" + MAX_SIZE_MB + ")");
+		const maxBytes = 1024000; // 1 MB
+		if (!file.type.startsWith("image/") || file.size > maxBytes) return resolve(file);
 
 		// Lee el archivo
 		const reader = new FileReader();
 		reader.readAsDataURL(file);
-
 		reader.onload = () => {
 			// Valida que el contenido sea una imagen (renderizable)
 			const image = new Image();
 			image.src = reader.result;
 
 			// Acciones si realmente es una imagen
-			image.onload = async () => {
-				DOM.vistaImagen.src = reader.result; // hace visible la imagen
-				archivoImgSubido = file; // guardamos el archivo en memoria
+			image.onload = () => {
+				vistaImagen.src = reader.result; // hace visible la imagen
+				return resolve(file); // Resuelve la promesa con el archivo
 			};
 
-			// Acciones si no es una imagen
-			image.onerror = async () => alert("Solo se permiten imágenes.");
+			// Si no es imagen, resuelve con null
+			image.onerror = () => resolve(null);
 		};
-	};
 
-	// Muestra la imagen
-	DOM.areaSoltar.addEventListener("drop", (e) => procesaArchImg(e.dataTransfer.files));
-	DOM.inputImagen.addEventListener("change", () => procesaArchImg(DOM.inputImagen.files));
-
-	// Eventos - Efectos visuales
-	[...entrada, ...salida].forEach((evento) => DOM.areaSoltar.addEventListener(evento, (e) => e.preventDefault())); // Prevenir comportamiento por defecto para drag & drop
-	entrada.forEach((evento) => DOM.areaSoltar.addEventListener(evento, () => DOM.areaSoltar.classList.add("encima"))); // Efectos visuales de entrada
-	salida.forEach((evento) => DOM.areaSoltar.addEventListener(evento, () => DOM.areaSoltar.classList.remove("encima"))); // Efectos visuales de salida
-
-	// Eventos - Busca el archivo
-	DOM.areaSoltar.addEventListener("click", () => DOM.inputImagen.click());
-});
-
-let archivoImgSubido;
-
+		// Si no se pudo leer el archivo, resuelve con null
+		reader.onerror = () => resolve(null);
+	});
