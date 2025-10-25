@@ -73,11 +73,12 @@ export default {
 			return res.json(errores);
 		},
 		revisaGuarda: async (req, res) => {
-			console.log(req.body, req.file);
-			return res.json({...req.body, ...req.file});
-
 			// Variables
-			const datos = req.body;
+			const {filename: imagen, size: tamano, mimetype: tipo} = req.file || {};
+			const datos = {...req.body, imagen, tamano, tipo};
+			console.log(datos);
+			return res.json({hay: false});
+
 			const {usuario} = req.session;
 
 			// Valida

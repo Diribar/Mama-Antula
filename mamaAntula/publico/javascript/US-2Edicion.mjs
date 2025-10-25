@@ -157,7 +157,7 @@ window.addEventListener("load", async () => {
 		if (DOM.contrasena.value) formData.append("contrasena", DOM.contrasena.value);
 		// Datos que siempre se toman en cuenta
 		formData.append("apodo", DOM.apodo.value);
-		formData.append("notificacs", DOM.notificacs.checked);
+		formData.append("notificacs", DOM.notificacs.checked ? 1 : 0);
 
 		// Valida y guarda los cambios del form
 		const errores = await fetch(v.rutaGuardar, FN.postForm(formData)).then((n) => n.json());
