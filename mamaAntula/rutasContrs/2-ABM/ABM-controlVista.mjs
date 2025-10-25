@@ -5,8 +5,8 @@ const temaVista = "abmArticulos";
 export default {
 	edicion: async (req, res) => {
 		// Variables
-		const tituloPagina = "ABM de Contenido";
-		const codigoVista = "abmArticulos";
+		const codigoVista = "edicionContenido";
+		const tituloPagina = iconosAgrupados.find((n) => n.codigo == codigoVista).nombre;
 
 		// Fin
 		return res.render("CMP-0Estructura", {
@@ -15,8 +15,8 @@ export default {
 	},
 	revision: async (req, res) => {
 		// Variables
-		const tituloPagina = "Revisión de ABMs de Contenido";
-		const codigoVista = "revisionAbm";
+		const codigoVista = "revisionEdiciones";
+		const tituloPagina = iconosAgrupados.find((n) => n.codigo == codigoVista).nombre;
 
 		// Fin
 		return res.render("CMP-0Estructura", {

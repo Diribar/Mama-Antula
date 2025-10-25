@@ -113,6 +113,9 @@ window.addEventListener("load", async () => {
 					DOM.imagenHeader.src = URL.createObjectURL(v.archivoImgSubido);
 				}
 
+				// Cambia el nombre en el encabezado
+				DOM.imagenHeader.setAttribute("title", "Hola " + DOM.apodo.value);
+
 				// Resetea variables
 				v.archivoImgSubido = null;
 				v.unInputCambio = false;
