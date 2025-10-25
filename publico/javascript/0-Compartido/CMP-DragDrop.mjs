@@ -1,4 +1,4 @@
-const procesaArchImg = (files) => {
+const procesaArchImg = (files, vistaImagen) => {
 	return new Promise((resolve, reject) => {
 		// Si no hay una imagen, interrumpe la función
 		if (!files.length) return resolve(null);
@@ -12,13 +12,13 @@ const procesaArchImg = (files) => {
 		const reader = new FileReader();
 		reader.readAsDataURL(file);
 		reader.onload = () => {
-		// Valida que el contenido sea una imagen (renderizable)
+			// Valida que el contenido sea una imagen (renderizable)
 			const image = new Image();
 			image.src = reader.result;
 
 			// Acciones si realmente es una imagen
 			image.onload = () => {
-				DOM.vistaImagen.src = reader.result; // hace visible la imagen
+				vistaImagen.src = reader.result; // hace visible la imagen
 				return resolve(file); // Resuelve la promesa con el archivo
 			};
 
