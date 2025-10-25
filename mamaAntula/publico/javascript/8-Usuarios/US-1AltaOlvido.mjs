@@ -45,6 +45,7 @@ window.addEventListener("load", async () => {
 		DOM.confirma.classList.add("inactivo");
 
 		// Envía el mail
+		fnUsuariosComp.colorMensaje(DOM, false, "Estamos enviándote un mail con la contraseña...");
 		const respuesta = await fetch(rutaApi + DOM.email.value).then((n) => n.json());
 
 		// Acciones en función de la respuesta recibida
