@@ -27,7 +27,6 @@ window.addEventListener("load", async () => {
 	// Eventos - input
 	DOM.form.addEventListener("input", () => {
 		DOM.mensaje.classList.add("invisible");
-		DOM.mensaje.innerHTML = "";
 		DOM.confirma.classList.remove("inactivo");
 	});
 	// Eventos - change
