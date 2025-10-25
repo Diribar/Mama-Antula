@@ -57,15 +57,13 @@ window.addEventListener("load", async () => {
 			e.preventDefault();
 
 			// Eventos - Efectos visuales
-			v.entrada.forEach((evento) => DOM.areaSoltar.addEventListener(evento, () => DOM.areaSoltar.classList.add("encima"))); // Efectos visuales de entrada
+			v.entrada.forEach((evento) => DOM.areaSoltar.addEventListener(evento, () => DOM.areaSoltar.classList.add("encima")));
 			v.salida.forEach((evento) =>
 				DOM.areaSoltar.addEventListener(evento, () => DOM.areaSoltar.classList.remove("encima"))
-			); // Efectos visuales de salida
-
-			// Se ingresa un archivo
-			DOM.areaSoltar.addEventListener("drop", (e) => procesaArchImg(e.dataTransfer.files));
+			);
 		})
 	);
+	DOM.areaSoltar.addEventListener("drop", (e) => procesaArchImg(e.dataTransfer.files, DOM.vistaImagen));
 	// Eventos - change
 	DOM.form.addEventListener("change", async (e) => {
 		// Inactiva confirmar
