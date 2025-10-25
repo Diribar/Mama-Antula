@@ -40,7 +40,7 @@ window.addEventListener("load", async () => {
 			// Fin
 			return;
 		},
-		nuevaImagen: async (archImagen, vistaImagen) => {
+		nuevaImagen: async function (archImagen, vistaImagen) {
 			// Procesa el archivo
 			const nuevaImagen = await procesaArchImg(archImagen, vistaImagen);
 
@@ -52,7 +52,7 @@ window.addEventListener("load", async () => {
 				v.errores = {imagen: "El archivo no pudo ser leído como imagen", hay: true};
 
 				// Respuestas
-				FN.respuestas("imagen");
+				this.respuestas("imagen");
 				return;
 			}
 
@@ -63,12 +63,12 @@ window.addEventListener("load", async () => {
 			// Fin
 			return;
 		},
-		respuestas: (campo) => {
+		respuestas: function (campo) {
 			// Respuestas
 			DOM.mensaje.innerHTML = v.errores.hay
 				? v.errores[campo]
 				: (campo == "imagen" ? "La imagen" : "El valor del campo " + campo) + " se puede guardar";
-			FN.colorMensaje();
+			this.colorMensaje();
 
 			// Acciones si no hay errores
 			if (!v.errores.hay) {
