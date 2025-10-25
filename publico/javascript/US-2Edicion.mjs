@@ -8,15 +8,25 @@ window.addEventListener("load", async () => {
 		confirma: document.querySelector("#formEdicion #confirma"),
 
 		// Inputs
+		inputImagen: document.querySelector("#formEdicion #areaSoltar [name='imagen']"),
 		apodo: document.querySelector("#formEdicion [name='apodo']"),
 		contrasena: document.querySelector("#formEdicion [name='contrasena']"),
 		notificacs: document.querySelector("#formEdicion [name='notificacs']"),
+
+		// Drag & Drop
+		areaSoltar: document.querySelector("#formEdicion #areaSoltar"),
+		botonImagen: document.querySelector("#formEdicion #areaSoltar button"),
+		vistaImagen: document.querySelector("#formEdicion #areaSoltar img"),
 	};
 	const v = {
+		entrada: ["dragenter", "dragover"],
+		salida: ["dragleave", "drop"],
+
 		rutaValidaCampo: "/usuarios/api/us-valida-campo-edicion",
 		rutaGuardar: "/usuarios/api/us-guarda-edicion-en-usuario",
 		unInputCambio: false,
 		errores: {},
+		archivoImgSubido: false,
 	};
 
 	// Funciones
@@ -39,6 +49,23 @@ window.addEventListener("load", async () => {
 		DOM.mensaje.classList.add("invisible");
 		DOM.confirma.classList.remove("inactivo");
 	});
+	// Eventos - Busca un archivo de imagen
+	DOM.areaSoltar.addEventListener("click", () => DOM.inputImagen.click());
+	// Eventos - Drag & Drop
+	[...v.entrada, ...v.salida].forEach((evento) =>
+		DOM.areaSoltar.addEventListener(evento, (e) => {
+			e.preventDefault();
+
+			// Eventos - Efectos visuales
+			v.entrada.forEach((evento) => DOM.areaSoltar.addEventListener(evento, () => DOM.areaSoltar.classList.add("encima"))); // Efectos visuales de entrada
+			v.salida.forEach((evento) =>
+				DOM.areaSoltar.addEventListener(evento, () => DOM.areaSoltar.classList.remove("encima"))
+			); // Efectos visuales de salida
+
+			// Se ingresa un archivo
+			DOM.areaSoltar.addEventListener("drop", (e) => procesaArchImg(e.dataTransfer.files));
+		})
+	);
 	// Eventos - change
 	DOM.form.addEventListener("change", async (e) => {
 		// Inactiva confirmar
@@ -46,20 +73,41 @@ window.addEventListener("load", async () => {
 
 		// Crea los datos a enviar
 		const campo = e.target.name;
-		const datos = {campo, [campo]: e.target.value};
+		let datos = {campo, [campo]: e.target.value};
+
+		if (campo == "imagen") {
+			// Procesa el archivo
+			const nuevaImagen = await procesaArchImg(DOM.inputImagen.files, DOM.vistaImagen);
+
+			if (nuevaImagen) v.archivoImgSubido = nuevaImagen;
+			else {
+				// Averigua si hay un error
+				v.errores = {imagen: "El archivo no pudo ser leído como imagen", hay: true};
+
+				// Respuestas
+				DOM.mensaje.innerHTML = v.errores[campo];
+				FN.colorMensaje();
+				return;
+			}
+
+			// Crea los datos a enviar
+			const {name: imagen, size: tamano, type: tipo} = v.archivoImgSubido;
+			datos = {...datos, imagen, tamano, tipo};
+		}
 
 		// Averigua si hay un error
 		v.errores = await fetch(v.rutaValidaCampo, FN.postJson(datos)).then((n) => n.json());
 
 		// Respuestas
-		DOM.mensaje.innerHTML = v.errores[campo];
+		DOM.mensaje.innerHTML = v.errores.hay
+			? v.errores[campo]
+			: (campo == "imagen" ? "La imagen" : "El valor del campo " + campo) + " se puede guardar";
 		FN.colorMensaje();
 
 		// Acciones si no hay errores
 		if (!v.errores.hay) {
-			v.unInputCambio = true;
 			DOM.confirma.classList.remove("inactivo");
-			DOM.mensaje.innerHTML = "El valor del campo " + campo + " se puede guardar";
+			v.unInputCambio = true;
 		}
 
 		// Fin
@@ -96,7 +144,6 @@ window.addEventListener("load", async () => {
 		// Valida y guarda los cambios del form
 		const errores = await fetch(v.rutaGuardar, FN.postForm(formData)).then((n) => n.json());
 		console.log(errores);
-
 
 		// Acciones en función de la respuesta recibida
 		v.unInputCambio = false;
