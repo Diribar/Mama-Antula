@@ -68,22 +68,27 @@ export default {
 		return res.json();
 	},
 	edicion: {
-		validaCampo: (req, res) => {
-			const errores = valida.edicion(req.body);
-			return res.json(errores);
-		},
+		validaCampo: (req, res) => res.json({}),
 		revisaGuarda: async (req, res) => {
 			// Variables
 			const {filename: imagen, size: tamano, mimetype: tipo} = req.file || {};
 			const datos = req.file ? {...req.body, imagen, tamano, tipo} : req.body;
 			const {usuario} = req.session;
 
-			// Valida
-			const errores = valida.edicion(datos);
-			if (errores.hay) return res.json(errores);
+			// Acciones si hay una imagen
+			if (datos.imagen) {
+				if (usuario.imagen) comp.gestionArchivos.elimina(carpUsuarios, usuario.imagen); // Elimina el archivo anterior, si lo hubiera
+				comp.gestionArchivos.mueve(datos.imagen, carpProvisorio, carpUsuarios); // Mueve el archivo de provisorio a usuarios
+			}
 
-			// Actualizaciones varias
-			const datosSession = await procesos.actualizacsEdicion(datos, usuario);
+			// Actualiza la tabla usuarios
+			datos.statusRegistro_id = conApodo_id;
+			await baseDatos.actualizaPorId("usuarios", usuario.id, datos);
+
+			// Actualiza session
+			const {apodo, anotacs, statusRegistro_id} = datos;
+			const datosSession = {apodo, anotacs, statusRegistro_id};
+			if (imagen) datosSession.imagen = imagen;
 			req.session.usuario = {...req.session.usuario, ...datosSession};
 
 			// Fin
