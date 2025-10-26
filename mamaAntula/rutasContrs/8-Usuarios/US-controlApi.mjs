@@ -75,7 +75,7 @@ export default {
 		revisaGuarda: (req, res) => {
 			// Variables
 			const datos = {...req.body};
-			if (req.file) datos.imagen = comp.nombreArchDesc(req.file);
+			if (req.file) datos.imagen = comp.gestionArchs.nombreArchDesc(req.file);
 
 			// Valida
 			const errores = valida.edicion(datos);
@@ -85,7 +85,7 @@ export default {
 			const {usuario} = req.session;
 			const datosSession = procesos.actualizacsEdicion(datos, usuario);
 			req.session.usuario = {...req.session.usuario, ...datosSession};
-			if (req.file) comp.descarga(carpUsuarios, datos.imagen, req.file.buffer); // sin 'await', porque en el FE se actualiza con el url
+			if (req.file) comp.gestionArchs.descarga(carpUsuarios, datos.imagen, req.file.buffer); // sin 'await', porque en el FE se actualiza con el url
 
 			// Fin
 			return res.json({hay: false});
