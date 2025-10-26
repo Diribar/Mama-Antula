@@ -4,9 +4,9 @@ import API from "./US-controlApi.mjs";
 import vista from "./US-controlVista.mjs";
 
 // Middlewares
-import soloVisitas from "../../middlewares/permisosUsuario/US-1SoloVisitas.mjs";
-import soloUsuarios from "../../middlewares/permisosUsuario/US-2SoloUsuarios.mjs";
-import soloAdmin from "../../middlewares/permisosUsuario/US-3SoloAdmin.mjs";
+import soloVisitas from "../../middlewares/usuario/US-1SoloVisitas.mjs";
+import soloUsuarios from "../../middlewares/usuario/US-2SoloUsuarios.mjs";
+import soloAdmin from "../../middlewares/usuario/US-3SoloAdmin.mjs";
 import descarga from "../../middlewares/transversales/CMP-descargaArch.mjs";
 
 // 🧩 Router
