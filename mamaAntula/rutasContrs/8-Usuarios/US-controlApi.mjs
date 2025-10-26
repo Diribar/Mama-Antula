@@ -71,14 +71,15 @@ export default {
 		validaCampo: (req, res) => res.json({}),
 		revisaGuarda: async (req, res) => {
 			// Variables
-			const {filename: imagen, size: tamano, mimetype: tipo} = req.file || {};
-			const datos = req.file ? {...req.body, imagen, tamano, tipo} : req.body;
+			const imagen = req.file && req.file.filename;
+			const datos = {...req.body};
+			if (imagen) datos.imagen = imagen;
 			const {usuario} = req.session;
 
 			// Acciones si hay una imagen
 			if (imagen) {
 				if (usuario.imagen) comp.gestionArchivos.elimina(carpUsuarios, usuario.imagen); // Elimina el archivo anterior, si lo hubiera
-				comp.gestionArchivos.mueve(datos.imagen, carpProvisorio, carpUsuarios); // Mueve el archivo de provisorio a usuarios
+				comp.gestionArchivos.mueve(imagen, carpProvisorio, carpUsuarios); // Mueve el archivo de provisorio a usuarios
 			}
 
 			// Actualiza la tabla usuarios
