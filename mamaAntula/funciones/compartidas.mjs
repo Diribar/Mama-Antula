@@ -64,38 +64,13 @@ export default {
 			return respuesta;
 		},
 	},
-	gestionArchivos: {
+	gestionArchs: {
 		existe: (rutaNombre) => rutaNombre && fs.existsSync(rutaNombre),
-		elimina: (ruta, archivo, output) => FN.elimina(ruta, archivo, output),
-		descarga: async function (url, rutaYnombre, output) {
-			// Carpeta donde descargar
-			const ruta = rutaYnombre.slice(0, rutaYnombre.lastIndexOf("/"));
-			if (!this.existe(ruta)) fs.mkdirSync(ruta);
-
-			// Realiza la descarga
-			let writer = fs.createWriteStream(rutaYnombre);
-			let response = await axios({method: "GET", url, responseType: "stream"});
-			response.data.pipe(writer);
-
-			// Obtiene el resultado de la descarga
-			let resultado = await new Promise((resolve, reject) => {
-				writer.on("finish", () => {
-					const nombre = rutaYnombre.slice(rutaYnombre.lastIndexOf("/") + 1);
-					if (output) console.log("Imagen '" + nombre + "' descargada");
-					resolve("OK");
-				});
-				writer.on("error", (error) => {
-					console.log("Error en la descarga", error);
-					reject("Error");
-				});
-			});
-			// Fin
-			return resultado;
-		},
-		mueve: function (nombre, carpOrigen, carpDestino) {
+		elimina: (ruta, nombreArch, output) => FN.elimina(ruta, nombreArch, output),
+		mueve: function (nombreArch, carpOrigen, carpDestino) {
 			// Variables
-			const rutaNombreOrigen = path.join(carpOrigen, nombre);
-			const rutaNombreDestino = path.join(carpDestino, nombre);
+			const rutaNombreOrigen = path.join(carpOrigen, nombreArch);
+			const rutaNombreDestino = path.join(carpDestino, nombreArch);
 
 			// Si no existe la carpeta de destino, la crea
 			if (!this.existe(carpDestino)) fs.mkdirSync(carpDestino);
@@ -139,6 +114,8 @@ export default {
 			// Fin
 			return imagenAlAzar;
 		},
+		nombreArchDesc: (reqFile) => Date.now() + path.extname(reqFile.originalname),
+		descarga: (ruta, nombreArch, reqFile) => fs.promises.writeFile(path.join(ruta, nombreArch), reqFile.buffer), // descarga el archivo puesto en memoria por multer
 	},
 
 	// Funciones puntuales

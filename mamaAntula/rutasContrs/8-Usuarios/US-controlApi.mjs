@@ -74,23 +74,18 @@ export default {
 		},
 		revisaGuarda: (req, res) => {
 			// Variables
-			const {datos} = req.body;
-			if (req.file) datos.imagen = req.file.filename;
+			const datos = {...req.body};
+			if (req.file) datos.imagen = comp.nombreArchDesc(req.file);
 
 			// Valida
 			const errores = valida.edicion(datos);
 			if (errores.hay) return res.json(errores);
 
-			// Guarda el archivo de imagen
-			if (req.file) {
-				const destino = path.join(carpUsuarios, datos.imagen);
-				fs.promises.writeFile(destino, req.file.buffer); // descarga el archivo sin 'await', porque en el FE se actualiza con el url
-			}
-
 			// Actualizaciones varias
 			const {usuario} = req.session;
 			const datosSession = procesos.actualizacsEdicion(datos, usuario);
 			req.session.usuario = {...req.session.usuario, ...datosSession};
+			if (req.file) comp.descarga(carpUsuarios, datos.imagen, req.file.buffer); // sin 'await', porque en el FE se actualiza con el url
 
 			// Fin
 			return res.json({hay: false});

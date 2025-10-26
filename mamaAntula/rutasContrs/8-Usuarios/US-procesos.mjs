@@ -122,7 +122,7 @@ export default {
 	},
 	actualizacsEdicion: (datos, usuario) => {
 		// Elimina el archivo anterior, si lo hubiera
-		if (datos.imagen && usuario.imagen) comp.gestionArchivos.elimina(carpUsuarios, usuario.imagen);
+		if (datos.imagen && usuario.imagen) comp.gestionArchs.elimina(carpUsuarios, usuario.imagen);
 
 		// Actualiza la tabla usuarios
 		datos.statusRegistro_id = conApodo_id;
