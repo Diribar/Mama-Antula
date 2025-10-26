@@ -3,13 +3,4 @@
 import multer from "multer";
 
 // Guarda la imagen
-export default multer({
-	storage: multer.diskStorage({
-		destination: (req, file, cb) => cb(null, carpProvisorio),
-		filename: (req, file, cb) => cb(null, Date.now() + path.extname(file.originalname)),
-	}),
-	fileFilter: (req, file, cb) => {
-		const tamArchivo = Number(req.headers["content-length"]);
-		return cb(null, tamArchivo <= tamMaxArch);
-	},
-});
+export default multer({storage: multer.memoryStorage()});
