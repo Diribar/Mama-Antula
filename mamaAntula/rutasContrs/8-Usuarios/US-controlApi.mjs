@@ -69,7 +69,7 @@ export default {
 	},
 	edicion: {
 		validaCampo: (req, res) => res.json({}),
-		revisaGuarda: async (req, res) => {
+		revisaGuarda: (req, res) => {
 			// Variables
 			const imagen = req.file && req.file.filename;
 			const datos = {...req.body};
@@ -84,7 +84,7 @@ export default {
 
 			// Actualiza la tabla usuarios
 			datos.statusRegistro_id = conApodo_id;
-			await baseDatos.actualizaPorId("usuarios", usuario.id, datos);
+			baseDatos.actualizaPorId("usuarios", usuario.id, datos);
 
 			// Actualiza session
 			const {apodo, anotacs, statusRegistro_id} = datos;
