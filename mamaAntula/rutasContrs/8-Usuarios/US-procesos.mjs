@@ -120,23 +120,4 @@ export default {
 			return;
 		},
 	},
-	actualizacsEdicion: async (datos, usuario) => {
-		// Acciones si hay una imagen
-		if (datos.imagen) {
-			if (usuario.imagen) comp.gestionArchivos.elimina(carpUsuarios, usuario.imagen); // Elimina el archivo anterior, si lo hubiera
-			comp.gestionArchivos.mueve(datos.imagen, carpProvisorio, carpUsuarios); // Mueve el archivo de provisorio a usuarios
-		}
-
-		// Actualiza la tabla usuarios
-		datos.statusRegistro_id = conApodo_id;
-		await baseDatos.actualizaPorId("usuarios", usuario.id, datos);
-
-		// Obtiene los datos de session
-		const {imagen, apodo, anotacs, statusRegistro_id} = datos;
-		const datosSession = {apodo, anotacs, statusRegistro_id};
-		if (imagen) datosSession.imagen = imagen;
-
-		// Fin
-		return datosSession;
-	},
 };

@@ -25,11 +25,12 @@ export default {
 	},
 	cambioRoles: async (req, res) => {
 		// Variables
-		const tituloPagina = "Cambio de Roles";
-		const codigoVista = "cambioRolUsuarios";
+		const codigoVista = "cambioRoles";
+		const tituloPagina = iconosAgrupados.find((n) => n.codigo == codigoVista).nombre;
 		const imagenes = procesos.obtieneImagenesAlAzar();
+		const usuarios = await baseDatos.obtieneTodos("usuarios");
 
 		// Fin
-		return res.render("CMP-0Estructura", {tituloPagina, temaVista, codigoVista, imagenes});
+		return res.render("CMP-0Estructura", {tituloPagina, temaVista, codigoVista, imagenes, usuarios});
 	},
 };
