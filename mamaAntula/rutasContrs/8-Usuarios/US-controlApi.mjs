@@ -68,13 +68,20 @@ export default {
 		return res.json();
 	},
 	edicion: {
-		validaCampo: (req, res) => res.json({}),
+		validaCampo: (req, res) => {
+			const errores = valida.edicion(req.body);
+			return res.json(errores);
+		},
 		revisaGuarda: (req, res) => {
 			// Variables
 			const imagen = req.file && req.file.filename;
 			const datos = {...req.body};
 			if (imagen) datos.imagen = imagen;
 			const {usuario} = req.session;
+
+			// Valida
+			const errores = valida.edicion(datos);
+			if (errores.hay) return res.json(errores);
 
 			// Acciones si hay una imagen
 			if (imagen) {
