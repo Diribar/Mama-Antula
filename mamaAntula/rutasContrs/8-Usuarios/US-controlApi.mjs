@@ -76,7 +76,7 @@ export default {
 			const {usuario} = req.session;
 
 			// Acciones si hay una imagen
-			if (datos.imagen) {
+			if (imagen) {
 				if (usuario.imagen) comp.gestionArchivos.elimina(carpUsuarios, usuario.imagen); // Elimina el archivo anterior, si lo hubiera
 				comp.gestionArchivos.mueve(datos.imagen, carpProvisorio, carpUsuarios); // Mueve el archivo de provisorio a usuarios
 			}
