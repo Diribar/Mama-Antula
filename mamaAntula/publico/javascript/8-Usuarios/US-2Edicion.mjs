@@ -36,7 +36,6 @@ window.addEventListener("load", async () => {
 		nuevaImagen: async function (archImagen, vistaImagen) {
 			// Procesa el archivo
 			const nuevaImagen = await procesaArchImg(archImagen, vistaImagen);
-
 			if (nuevaImagen) {
 				v.archivoImgSubido = nuevaImagen;
 				v.errores = {};
@@ -91,7 +90,12 @@ window.addEventListener("load", async () => {
 				const formData = new FormData();
 
 				// Le agrega los valores
-				if (v.archivoImgSubido) formData.append("imagen", v.archivoImgSubido);
+				if (v.archivoImgSubido) {
+					formData.append("archivo", v.archivoImgSubido);
+					formData.append("imagen", v.archivoImgSubido.name);
+					formData.append("tamano", v.archivoImgSubido.size);
+					formData.append("tipo", v.archivoImgSubido.type);
+				}
 				if (DOM.contrasena.value) formData.append("contrasena", DOM.contrasena.value);
 				formData.append("apodo", DOM.apodo.value);
 				formData.append("notificacs", DOM.notificacs.checked ? 1 : 0);
