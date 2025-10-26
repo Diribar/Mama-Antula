@@ -131,7 +131,7 @@ app.set("view engine", "ejs");
 
 	// Middlewares transversales
 	app.use((await import("./middlewares/transversales/TR-clienteId.mjs")).default);
-	app.use((await import("./middlewares/transversales/TR-statusMailValidado.mjs")).default);
+	app.use((await import("./middlewares/transversales/TR-haciaEdicUs.mjs")).default);
 
 	// Rutas
 	app.use("/contenido", (await import("./rutasContrs/2-Edicion/ED-rutas.mjs")).default);
