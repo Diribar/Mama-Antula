@@ -130,7 +130,8 @@ app.set("view engine", "ejs");
 	// await rutinas.startupMasConfiguracion();
 
 	// Middlewares transversales
-	app.use((await import("./middlewares/CMP-clienteId.mjs")).default);
+	app.use((await import("./middlewares/transversales/CMP-clienteId.mjs")).default);
+	app.use((await import("./middlewares/transversales/CMP-statusMailValidado.mjs")).default);
 
 	// Rutas
 	app.use("/contenido", (await import("./rutasContrs/2-ABM/ABM-rutas.mjs")).default);
