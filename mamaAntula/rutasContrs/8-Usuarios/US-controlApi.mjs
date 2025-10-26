@@ -68,10 +68,7 @@ export default {
 		return res.json();
 	},
 	edicion: {
-		validaCampo: (req, res) => {
-			const errores = valida.edicion(req.body);
-			return res.json(errores);
-		},
+		validaCampo: (req, res) => res.json(valida.edicion(req.body)),
 		revisaGuarda: (req, res) => {
 			// Variables
 			const datos = {...req.body};
