@@ -1,6 +1,6 @@
 import express from "express";
 // import API from "./LT-controlApi.mjs";
-import vista from "./ABM-controlVista.mjs";
+import vista from "./ED-controlVista.mjs";
 
 // 🧩 Router
 const router = express.Router();
