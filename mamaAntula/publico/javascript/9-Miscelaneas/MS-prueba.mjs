@@ -14,7 +14,7 @@ window.addEventListener("load", async () => {
 		const html = quill.root.innerHTML
 			.replace(/&nbsp;/g, " ") // reemplaza por espacios normales;
 			.replace(/\s+/g, " ") // reemplaza espacios duplicados
-			.replace(" </", "</") // reemplaza espacios al inicio
+			.replace(" </", "</") // reemplaza espacios mal puestos
 			.trim(); // reemplaza espacios al final
 		document.getElementById("contenidoText").value = html;
 	}
