@@ -6,7 +6,7 @@ window.addEventListener("load", async () => {
 		theme: "snow",
 		placeholder: "Escribí acá tu contenido...",
 		modules: {toolbar: "#toolbar"},
-		formats: ["bold", "italic", "list", "list", "blockquote", "link", "image", "video"],
+		formats: ["bold", "italic", "color", "list", "blockquote", "link", "image", "video"],
 	});
 
 	// Función para sincronizar textarea y previsualización
@@ -22,8 +22,11 @@ window.addEventListener("load", async () => {
 	// Escuchamos cambios en Quill
 	quill.on("text-change", actualizarContenido);
 
-	// Inicializamos previsualización
-	actualizarContenido();
+	// Evitar que se peguen estilos de color al pegar
+	quill.clipboard.addMatcher(Node.ELEMENT_NODE, (node, delta) => {
+		delta.ops.forEach((op) => op.attributes && delete op.attributes.color);
+		return delta;
+	});
 
 	// Capturamos submit
 	document.getElementById("miForm").addEventListener("submit", function (e) {
