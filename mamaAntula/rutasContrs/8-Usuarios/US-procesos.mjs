@@ -120,4 +120,20 @@ export default {
 			return;
 		},
 	},
+	actualizacsEdicion: (datos, usuario) => {
+		// Elimina el archivo anterior, si lo hubiera
+		if (datos.imagen && usuario.imagen) comp.gestionArchs.elimina(carpUsuarios, usuario.imagen);
+
+		// Actualiza la tabla usuarios
+		datos.statusRegistro_id = conApodo_id;
+		baseDatos.actualizaPorId("usuarios", usuario.id, datos);
+
+		// Actualiza session
+		const {apodo, anotacs, statusRegistro_id} = datos;
+		const datosSession = {apodo, anotacs, statusRegistro_id};
+		if (datos.imagen) datosSession.imagen = datos.imagen;
+
+		// Fin
+		return datosSession;
+	},
 };

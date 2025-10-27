@@ -34,23 +34,19 @@ window.addEventListener("load", async () => {
 	// Funciones
 	const FN = {
 		nuevaImagen: async function (archImagen, vistaImagen) {
-			// Procesa el archivo
+			// Acciones si no se cargó una imagen
 			const nuevaImagen = await procesaArchImg(archImagen, vistaImagen);
-			if (nuevaImagen) {
-				v.archivoImgSubido = nuevaImagen;
-				v.errores = {};
-			} else {
-				// Averigua si hay un error
+			if (!nuevaImagen) {
 				v.errores = {imagen: "El archivo no pudo ser leído como imagen", hay: true};
-
-				// Respuestas
 				this.respuestas("imagen");
 				return;
 			}
 
-			// Crea los datos a enviar al backend
+			// Actualiza variables
+			v.archivoImgSubido = nuevaImagen;
 			const {name: imagen, size: tamano, type: tipo} = v.archivoImgSubido;
 			v.datos = {...v.datos, imagen, tamano, tipo};
+			v.errores = {};
 
 			// Fin
 			return;
@@ -150,8 +146,13 @@ window.addEventListener("load", async () => {
 		})
 	);
 	DOM.areaSoltar.addEventListener("drop", async (e) => {
+		// Variables
+		v.datos = {campo: "imagen"};
 		await FN.nuevaImagen(e.dataTransfer.files, DOM.vistaImagen);
 		if (v.errores.hay) return;
+
+		// Averigua si hay un error
+		v.errores = await fetch(v.rutaValidaCampo, fnUsuariosComp.postJson(v.datos)).then((n) => n.json());
 
 		// Respuestas
 		FN.respuestas("imagen");

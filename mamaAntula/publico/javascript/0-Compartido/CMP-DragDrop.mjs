@@ -5,8 +5,8 @@ const procesaArchImg = (files, vistaImagen) =>
 
 		// Si no tiene extensión de imagen o supera el tamaño maximo permitido, interrumpe la función
 		const file = files[0];
-		const maxBytes = 1024000; // 1 MB
-		if (!file.type.startsWith("image/") || file.size > maxBytes) return resolve(file);
+		const tamMaxArch = 1024 * 1024; // 1 MB
+		if (!file.type.startsWith("image/") || file.size > tamMaxArch) return resolve(file);
 
 		// Lee el archivo
 		const reader = new FileReader();

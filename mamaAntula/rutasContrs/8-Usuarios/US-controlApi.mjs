@@ -68,29 +68,21 @@ export default {
 		return res.json();
 	},
 	edicion: {
-		validaCampo: (req, res) => res.json({}),
-		revisaGuarda: async (req, res) => {
+		validaCampo: (req, res) => res.json(valida.edicion(req.body)),
+		revisaGuarda: (req, res) => {
 			// Variables
-			const imagen = req.file && req.file.filename;
 			const datos = {...req.body};
-			if (imagen) datos.imagen = imagen;
+			if (req.file) datos.imagen = comp.gestionArchs.nombreArchDesc(req.file);
+
+			// Valida
+			const errores = valida.edicion(datos);
+			if (errores.hay) return res.json(errores);
+
+			// Actualizaciones varias
 			const {usuario} = req.session;
-
-			// Acciones si hay una imagen
-			if (imagen) {
-				if (usuario.imagen) comp.gestionArchivos.elimina(carpUsuarios, usuario.imagen); // Elimina el archivo anterior, si lo hubiera
-				comp.gestionArchivos.mueve(imagen, carpProvisorio, carpUsuarios); // Mueve el archivo de provisorio a usuarios
-			}
-
-			// Actualiza la tabla usuarios
-			datos.statusRegistro_id = conApodo_id;
-			await baseDatos.actualizaPorId("usuarios", usuario.id, datos);
-
-			// Actualiza session
-			const {apodo, anotacs, statusRegistro_id} = datos;
-			const datosSession = {apodo, anotacs, statusRegistro_id};
-			if (imagen) datosSession.imagen = imagen;
+			const datosSession = procesos.actualizacsEdicion(datos, usuario);
 			req.session.usuario = {...req.session.usuario, ...datosSession};
+			if (req.file) comp.gestionArchs.descarga(carpUsuarios, datos.imagen, req.file); // sin 'await', porque en el FE se actualiza con el url
 
 			// Fin
 			return res.json({hay: false});
