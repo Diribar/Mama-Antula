@@ -1,46 +1,38 @@
-<h2>Formulario con Editor y Previsualización</h2>
-
 <form id="miForm">
-	<label for="titulo">Título:</label><br>
+	<!-- Título -->
+	<label for="titulo">Título</label><br>
 	<input type="text" name="titulo" id="titulo" required style="width:100%; margin-bottom: 10px;"><br>
 
-	<label for="contenido">Contenido:</label>
-	<div id="toolbar">
-		<button class="ql-bold" title="Negrita"></button>
-		<button class="ql-italic" title="Cursiva"></button>
-		<button class="ql-underline" title="Subrayado"></button>
-		<button class="ql-strike" title="Tachado"></button>
-		<button class="ql-blockquote" title="Cita"></button>
-		<button class="ql-code-block" title="Bloque de código"></button>
-
-		<!-- Separador -->
-		<span class="ql-separator"></span>
-
-		<button class="ql-list" value="ordered" title="Lista numerada"></button>
-		<button class="ql-list" value="bullet" title="Lista con viñetas"></button>
-
-		<button class="ql-indent" value="-1" title="Disminuir sangría"></button>
-		<button class="ql-indent" value="+1" title="Aumentar sangría"></button>
-
-		<select class="ql-color" title="Color del texto"></select>
-		<select class="ql-background" title="Color de fondo"></select>
-
-		<button class="ql-link" title="Insertar enlace"></button>
-		<button class="ql-image" title="Insertar imagen"></button>
-		<button class="ql-video" title="Insertar video"></button>
-
-		<button class="ql-clean" title="Quitar formato"></button>
-	</div>
-
 	<!-- Contenedor del editor (donde se escribe) -->
+	<label for="editor-container">Contenido</label>
+	<div id="toolbar">
+		<span class="ql-formats">
+			<button class="ql-bold" title="Negrita"></button>
+			<button class="ql-italic" title="Cursiva"></button>
+			<select class="ql-color" title="Color del texto"></select>
+		</span>
+
+		<span class="ql-formats">
+			<button class="ql-list" value="ordered" title="Lista numerada"></button>
+			<button class="ql-list" value="bullet" title="Lista con viñetas"></button>
+			<button class="ql-blockquote" title="Cita"></button>
+		</span>
+
+		<span class="ql-formats">
+			<button class="ql-link" title="Insertar enlace"></button>
+			<button class="ql-image" title="Insertar imagen"></button>
+			<button class="ql-video" title="Insertar video"></button>
+		</span>
+
+		<span class="ql-formats">
+			<button class="ql-clean" title="Quitar formato"></button>
+		</span>
+	</div>
 	<div id="editor-container"></div>
 
-	<label for="contenidoText">Textarea (HTML para enviar al backend):</label>
+	<!-- Donde se muestra lo que se va a enviar al html -->
 	<textarea id="contenidoText" name="contenido"></textarea>
 
-	<label for="preview">Vista previa:</label>
-	<div id="preview"></div>
-
-	<br><br>
+	<!-- Enviar -->
 	<button type="submit">Enviar</button>
 </form>

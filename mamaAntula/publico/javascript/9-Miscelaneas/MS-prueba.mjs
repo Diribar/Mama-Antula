@@ -4,15 +4,19 @@ window.addEventListener("load", async () => {
 	// Inicializamos Quill
 	const quill = new Quill("#editor-container", {
 		theme: "snow",
-		placeholder: "Escribe aquí tu contenido...",
+		placeholder: "Escribí acá tu contenido...",
 		modules: {toolbar: "#toolbar"},
+		formats: ["bold", "italic", "list", "list", "blockquote", "link", "image", "video"],
 	});
 
 	// Función para sincronizar textarea y previsualización
 	function actualizarContenido() {
-		const html = quill.root.innerHTML;
+		const html = quill.root.innerHTML
+			.replace(/&nbsp;/g, " ") // reemplaza por espacios normales;
+			.replace(/\s+/g, " ") // reemplaza espacios duplicados
+			.replace(" </", "</") // reemplaza espacios al inicio
+			.trim(); // reemplaza espacios al final
 		document.getElementById("contenidoText").value = html;
-		document.getElementById("preview").innerHTML = html;
 	}
 
 	// Escuchamos cambios en Quill

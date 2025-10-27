@@ -4,20 +4,18 @@ const temaVista = "abmArticulos";
 
 export default {
 	barraHerramsEdicion: [
-		{grupo: 1, tipo: "button", clase: "ql-bold fa-bold", title: "Negrita"},
-		{grupo: 1, tipo: "button", clase: "ql-italic fa-italic", title: "Cursiva"},
-		{grupo: 1, tipo: "select", clase: "ql-color", title: "Color del texto"},
-		{grupo: 1, tipo: "select", clase: "ql-background", title: "Color de fondo"},
+		{grupo: 1, tipo: "button", clase: "ql-bold", title: "Negrita", permitir: "bold"},
+		{grupo: 1, tipo: "button", clase: "ql-italic", title: "Cursiva", permitir: "italic"},
+		{grupo: 1, tipo: "select", clase: "ql-color", title: "Color del texto", permitir: "color"},
 
-		{grupo: 2, tipo: "button", clase: "ql-list fa-list-ol", value: "ordered", title: "Lista numerada"},
-		{grupo: 2, tipo: "button", clase: "ql-list fa-list-ul", value: "bullet", title: "Lista con viñetas"},
-		{grupo: 2, tipo: "button", clase: "ql-blockquote fa-quote-right", title: "Cita"},
-		{grupo: 2, tipo: "button", clase: "ql-code-block fa-code", title: "Bloque de código"},
+		{grupo: 2, tipo: "button", clase: "ql-list", value: "ordered", title: "Lista numerada", permitir: "list"},
+		{grupo: 2, tipo: "button", clase: "ql-list", value: "bullet", title: "Lista con viñetas", permitir: "list"},
+		{grupo: 2, tipo: "button", clase: "ql-blockquote", title: "Cita", permitir: "blockquote"},
 
-		{grupo: 3, tipo: "button", clase: "ql-link fa-link", title: "Insertar enlace"},
-		{grupo: 3, tipo: "button", clase: "ql-image fa-image", title: "Insertar imagen"},
-		{grupo: 3, tipo: "button", clase: "ql-video fa-video", title: "Insertar video"},
+		{grupo: 3, tipo: "button", clase: "ql-link", title: "Insertar enlace", permitir: "link"},
+		{grupo: 3, tipo: "button", clase: "ql-image", title: "Insertar imagen", permitir: "image"},
+		{grupo: 3, tipo: "button", clase: "ql-video", title: "Insertar video", permitir: "video"},
 
-		{grupo: 4, tipo: "button", clase: "ql-clean fa-eraser", title: "Quitar formato"},
+		{grupo: 4, tipo: "button", clase: "ql-clean", title: "Quitar formato"},
 	],
 };
