@@ -3,7 +3,7 @@ form {
 	label {font-weight: bold;}
 
 	input[type="text"], #editor-container, textarea {border-radius: 6px; border: 1px solid #ccc; }
-	input[type="text"], #editor-container {background-color: snow; margin-bottom: 15px;}
+	input[type="text"], #editor-container {background-color: snow; margin-bottom: 30px;}
 
 	#toolbar {
 		border: 1px solid #ccc; border-bottom: none; border-radius: 6px 6px 0 0; background: #f8f8f8; padding: 5px;
@@ -12,15 +12,16 @@ form {
 			&:not(:last-child) {border-right: 1px solid #aaa; margin-inline: 2px !important; padding-right: 5px !important;}
 			button {
 				cursor: pointer;
-				&:hover {background: #e3e3e3; scale: 1.3;}
+				&:hover {background-color: #e3e3e3; scale: 1.3;}
 			}
 		}
 	}
 
-	#editor-container, textarea {
-		height: 100px; border-radius: 0 0 6px 6px;
+	#editor-container, textarea {height: 100px;}
+	#editor-container {
+		border-radius: 0 0 6px 6px;
+		.ql-editor {font-size: 1rem !important;}
 	}
-	#editor-container .ql-editor {font-size: 1rem !important;}
 
 	textarea {display: non; padding: 12px 15px;}
 	button[type="submit"] {align-self: center;}
