@@ -15,17 +15,17 @@ export default {
 		// Guarda cookies
 		res.cookie(seccionActual.codigo, temaActual.codigo, {maxAge: unAno});
 
-		// Obtiene el encabezado, contenido y carrouseles de los artículos y cartas
+		// Obtiene el encabezado, contenido y imgsCarrousel de los artículos y cartas
 		// const {encSinIndice, encConIndice} = await procesos.encabezados({seccionActual, temasSeccion});
 		// const contenidos = await procesos.contenido({encSinIndice, encConIndice});
-		// const carrouseles = await procesos.carrouseles(contenidos);
+		// const imgsCarrousel = await procesos.imgsCarrousel(contenidos);
 
 		// Fin
 		return res.render("CMP-0Estructura", {
 			...{tituloPagina, temaVista},
 			...{temasSeccion},
 			...{seccionActual, temaActual},
-			// ...{encSinIndice, encConIndice, contenidos, carrouseles},
+			// ...{encSinIndice, encConIndice, contenidos, imgsCarrousel},
 		});
 	},
 	redirige: (req, res) => {},
@@ -44,17 +44,15 @@ export default {
 		// Guarda cookies
 		res.cookie(seccionActual.codigo, temaActual.codigo, {maxAge: unAno});
 
-		// Obtiene el encabezado, contenido y carrouseles de los artículos
-		const {encSinIndice, encConIndice} = await procesos.encabezados({temaActual});
-		// const contenidos = await procesos.contenido({encSinIndice, encConIndice});
-		// const carrouseles = await procesos.carrouseles(contenidos);
+		// Obtiene el encabezado y contenido de los artículos
+		const {encabezados, contenidos} = await procesos.contenido({temaActual});
 
 		// Fin
 		return res.render("CMP-0Estructura", {
 			...{tituloPagina, temaVista},
 			...{temasSeccion},
 			...{seccionActual, temaActual},
-			// ...{encSinIndice, encConIndice, contenidos, carrouseles},
+			...{esConIndice, encabezados, contenidos},
 		});
 	},
 	pestanas: async (req, res) => {
@@ -73,17 +71,15 @@ export default {
 		const pestanasTema = pestanasTemas.filter((n) => n.tema_id == temaActual.id);
 		const pestanaActual = pestanasTema.find((n) => n.url == urlPestana);
 
-		// Obtiene el encabezado, contenido y carrouseles del artículo
-		const {encSinIndice, encConIndice} = await procesos.encabezado({temaActual, pestanaActual});
-		const contenidos = await procesos.contenido({encSinIndice, encConIndice});
-		// const carrouseles = await procesos.carrouseles(contenidos);
+		// Obtiene el encabezado, contenido y imgsCarrousel del artículo
+		const {esConIndice, encabezados, contenidos} = await procesos.encabezado({pestanaActual});
 
 		// Fin
 		return res.render("CMP-0Estructura", {
 			...{tituloPagina, temaVista},
 			...{temasSeccion, pestanasTema},
 			...{seccionActual, temaActual, pestanaActual},
-			// ...{encSinIndice, encConIndice, contenidos, carrouseles},
+			...{esConIndice, encabezados, contenidos},
 		});
 	},
 };

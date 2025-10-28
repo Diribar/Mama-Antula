@@ -1,36 +1,31 @@
 "use strict";
 
 export default {
-	encabezado: async ({temaActual, pestanaActual}) => {
+	contenido: async ({temaActual, pestanaActual}) => {
 		// Variables
 		const condicion = pestanaActual ? {pestana_id: pestanaActual.id} : {tema_id: temaActual.id};
+		let encabezados;
 
-		// Obtiene los encabezados
-		const encSinIndice = await baseDatos.obtieneTodosPorCondicion("encSinIndice", condicion);
-		const encConIndice = await baseDatos.obtieneTodosPorCondicion("encConIndice", condicion);
+		// Obtiene el encabezado sin indice
+		encabezados = await baseDatos.obtienePorCondicion("encSinIndice", condicion);
+		const esConIndice = !encabezados.length;
+		if (esConIndice) encabezados = await baseDatos.obtieneTodosPorCondicion("encConIndice", condicion);
+		const encabezados_ids = esConIndice ? encabezados.map((n) => n.id) : [encabezados.id];
 
-		// Fin
-		return {encSinIndice, encConIndice};
-	},
-	contenido: async ({encSinIndice, encConIndice}) => {
-		// Obtiene el contenido de los encSinIndice y encConIndice
-		const sinIndice_ids = encSinIndice.map((n) => n.id);
-		const conIndice_ids = encConIndice.map((n) => n.id);
+		// Obtiene los contenidos
+		const campo_id = esConIndice ? "encConIndice_id" : "encSinIndice_id";
 		const contenidos = await baseDatos
-			.obtieneTodosConOrden("contenidos", "orden")
-			.then((n) => n.filter((m) => sinIndice_ids.includes(m.encabArtic_id) || conIndice_ids.includes(m.encabCarta_id)));
+			.obtieneTodosPorCondicion("contenidos", {[campo_id]: encabezados_ids})
+			.then((n) => n.sort((a, b) => a.orden - b.orden));
 
-		// Fin
-		return contenidos;
-	},
-	carrouseles: async (contenidos) => {
-		// Obtiene los carrouseles
+		// Obtiene las imgsCarrousel y las  vincula a su contenido
 		const contenidos_ids = contenidos.map((n) => n.id);
-		const carrouseles = await baseDatos
-			.obtieneTodosConOrden("carrouseles", "orden")
+		const imgsCarrousel = await baseDatos
+			.obtieneTodosPorCondicion("imgsCarrousel", contenidos_ids)
 			.then((n) => n.filter((m) => contenidos_ids.includes(m.contenido_id)));
+		contenidos.forEach((n) => (n.imgsCarrousel = imgsCarrousel.filter((m) => m.contenido_id == n.id)));
 
 		// Fin
-		return carrouseles;
+		return {esConIndice, encabezados, contenidos};
 	},
 };

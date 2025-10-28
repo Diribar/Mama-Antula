@@ -9,9 +9,7 @@ export default (sequelize, dt) => {
 		titulo: {type: dt.STRING(20)},
 		codigo: {type: dt.STRING(20)},
 		url: {type: dt.STRING(30)},
-
-		// Otros
-		ordenPorFecha: {type: dt.BOOLEAN},
+		conIndice: {type: dt.BOOLEAN},
 	};
 	const config = {
 		tableName: "nivel2_temas",

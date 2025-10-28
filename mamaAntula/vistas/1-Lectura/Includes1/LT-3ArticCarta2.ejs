@@ -6,7 +6,7 @@
 		<% if (encabArtic.titulo) { %><h2><%= encabArtic.titulo %></h2><% } %>
 
 		<!-- Contenidos del Artículo -->
-		<% const contenidosFiltro = contenidos.filter((n) => n.encabArtic_id == encabArtic.id) %>
+		<% const contenidosFiltro = contenidos.filter((n) => n.encSinIndice_id == encabArtic.id) %>
 		<%- include("LT-4Contenido", {contenidosFiltro}) %>
 	<% } %>
 <% } %>
@@ -27,7 +27,7 @@
 		</label>
 		<div>
 			<!-- Contenidos del Artículo -->
-			<% const contenidosFiltro = contenidos.filter((n) => n.encabCarta_id == encabCarta.id) %>
+			<% const contenidosFiltro = contenidos.filter((n) => n.encConIndice_id == encabCarta.id) %>
 			<%- include("LT-4Contenido", {contenidosFiltro}) %>
 		</div>
 	<% } %>
