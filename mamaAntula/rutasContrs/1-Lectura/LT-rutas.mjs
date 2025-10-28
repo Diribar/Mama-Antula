@@ -13,7 +13,9 @@ const router = express.Router();
 
 // 🖥️ Vistas
 router.get("/", validaRuta, vista.secciones);
-router.get("/:params", validaRuta, vista.secciones);
+router.get("/:seccion", validaRuta, vista.secciones);
+router.get("/:seccion/:tema", validaRuta, vista.secciones);
+router.get("/:seccion/:tema/:pestana", validaRuta, vista.secciones);
 
 // ✅ Export
 export default router;

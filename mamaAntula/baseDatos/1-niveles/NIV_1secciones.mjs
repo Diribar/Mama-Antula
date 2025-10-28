@@ -7,7 +7,7 @@ export default (sequelize, dt) => {
 		// Otros
 		nombre: {type: dt.STRING(20)},
 		codigo: {type: dt.STRING(20)},
-		link: {type: dt.STRING(30)},
+		url: {type: dt.STRING(30)},
 	};
 	const config = {
 		tableName: "nivel1_secciones",
