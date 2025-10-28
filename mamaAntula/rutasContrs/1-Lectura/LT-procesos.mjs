@@ -1,27 +1,6 @@
 "use strict";
 
 export default {
-	temaPestanaActual: ({seccionActual, temasSeccion, req, res}) => {
-		// Variables
-		const seccionActualCodigo = req.cookies[seccionActual.codigo];
-		let pestanaActual;
-
-		// Obtiene el tema actual y la guarda en la cookie
-		const temaActual = (seccionActualCodigo && temasSeccion.find((n) => n.codigo == seccionActualCodigo)) || temasSeccion[0];
-		if (!seccionActualCodigo) res.cookie(seccionActual.codigo, temaActual.codigo, {maxAge: unDia});
-
-		// Obtiene la pestaña actual y la guarda en la cookie
-		const aux = temaActual.pestanas.length && temaActual.pestanas[0];
-		if (aux) {
-			pestanaActual =
-				(req.cookies[temaActual.codigo] && temaActual.pestanas.find((n) => n.codigo == req.cookies[temaActual.codigo])) ||
-				aux;
-			if (!req.cookies[temaActual.codigo]) res.cookie(temaActual.codigo, pestanaActual.codigo, {maxAge: unDia});
-		}
-
-		// Fin
-		return {temaActual, pestanaActual};
-	},
 	encabezados: async ({seccionActual, temasSeccion}) => {
 		// Obtiene el encabezado de los artículos
 		const temas_ids = temasSeccion.map((n) => n.id);
