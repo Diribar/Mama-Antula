@@ -1,6 +1,6 @@
 <% if (!sonCartas) { %>
 	<!-- Artículos estándar -->
-	<% const encabArticsFiltro = encabArtics.filter((n) => locals.tema_id && n.tema_id == tema_id || locals.pestana_id && n.pestana_id == pestana_id) %>
+	<% const encabArticsFiltro = encSinIndice.filter((n) => locals.tema_id && n.tema_id == tema_id || locals.pestana_id && n.pestana_id == pestana_id) %>
 	<% for (const encabArtic of encabArticsFiltro) { %>
 		<!-- Título del Artículo -->
 		<% if (encabArtic.titulo) { %><h2><%= encabArtic.titulo %></h2><% } %>
@@ -19,7 +19,7 @@
 	</div>
 
 	<!-- Cartas -->
-	<% for (const encabCarta of encabCartas) { %>
+	<% for (const encabCarta of encConIndice) { %>
 		<!-- Título de la Carta -->
 		<label for="carta-<%= encabCarta.id %>">
 			<h2>Carta <%= encabCarta.id %>, de <%= encabCarta.nombreDesde.nombre %> hacia <%= encabCarta.nombreHacia.nombre %>, escrita el <%= encabCarta.fechaEscrita %> en <%= encabCarta.lugar.nombre %> (idioma <%= encabCarta.idioma.nombre %>).</h2>

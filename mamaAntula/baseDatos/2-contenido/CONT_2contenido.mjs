@@ -25,8 +25,8 @@ export default (sequelize, dt) => {
 	};
 	const entidad = sequelize.define(alias, columns, config);
 	entidad.associate = (n) => {
-		entidad.belongsTo(n.encabArtics, {as: "articulo", foreignKey: "encabArtic_id"});
-		entidad.belongsTo(n.encabCartas, {as: "carta", foreignKey: "encabCarta_id"});
+		entidad.belongsTo(n.encSinIndice, {as: "articulo", foreignKey: "encabArtic_id"});
+		entidad.belongsTo(n.encConIndice, {as: "carta", foreignKey: "encabCarta_id"});
 		entidad.belongsTo(n.usuarios, {as: "usuario", foreignKey: "usuario_id"});
 		entidad.belongsTo(n.statusRegistros, {as: "statusRegistro", foreignKey: "statusRegistro_id"});
 	};

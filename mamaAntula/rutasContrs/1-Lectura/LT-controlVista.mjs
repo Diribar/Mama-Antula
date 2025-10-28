@@ -16,8 +16,8 @@ export default {
 		res.cookie(seccionActual.codigo, temaActual.codigo, {maxAge: unAno});
 
 		// Obtiene el encabezado, contenido y carrouseles de los artículos y cartas
-		// const {encabArtics, encabCartas} = await procesos.encabezados({seccionActual, temasSeccion});
-		// const contenidos = await procesos.contenido({encabArtics, encabCartas});
+		// const {encSinIndice, encConIndice} = await procesos.encabezados({seccionActual, temasSeccion});
+		// const contenidos = await procesos.contenido({encSinIndice, encConIndice});
 		// const carrouseles = await procesos.carrouseles(contenidos);
 
 		// Fin
@@ -25,7 +25,7 @@ export default {
 			...{tituloPagina, temaVista},
 			...{temasSeccion},
 			...{seccionActual, temaActual},
-			// ...{encabArtics, encabCartas, contenidos, carrouseles},
+			// ...{encSinIndice, encConIndice, contenidos, carrouseles},
 		});
 	},
 	redirige: (req, res) => {},
@@ -45,8 +45,8 @@ export default {
 		res.cookie(seccionActual.codigo, temaActual.codigo, {maxAge: unAno});
 
 		// Obtiene el encabezado, contenido y carrouseles de los artículos y cartas
-		// const {encabArtics, encabCartas} = await procesos.encabezados({seccionActual, temasSeccion});
-		// const contenidos = await procesos.contenido({encabArtics, encabCartas});
+		// const {encSinIndice, encConIndice} = await procesos.encabezados({seccionActual, temasSeccion});
+		// const contenidos = await procesos.contenido({encSinIndice, encConIndice});
 		// const carrouseles = await procesos.carrouseles(contenidos);
 
 		// Fin
@@ -54,7 +54,7 @@ export default {
 			...{tituloPagina, temaVista},
 			...{temasSeccion},
 			...{seccionActual, temaActual},
-			// ...{encabArtics, encabCartas, contenidos, carrouseles},
+			// ...{encSinIndice, encConIndice, contenidos, carrouseles},
 		});
 	},
 	pestanas: async (req, res) => {
@@ -74,8 +74,8 @@ export default {
 		const pestanaActual = pestanasTema.find((n) => n.url == urlPestana);
 
 		// Obtiene el encabezado, contenido y carrouseles de los artículos y cartas
-		// const {encabArtics, encabCartas} = await procesos.encabezados({seccionActual, temasSeccion});
-		// const contenidos = await procesos.contenido({encabArtics, encabCartas});
+		// const {encSinIndice, encConIndice} = await procesos.encabezados({seccionActual, temasSeccion});
+		// const contenidos = await procesos.contenido({encSinIndice, encConIndice});
 		// const carrouseles = await procesos.carrouseles(contenidos);
 
 		// Fin
@@ -83,7 +83,7 @@ export default {
 			...{tituloPagina, temaVista},
 			...{temasSeccion, pestanasTema},
 			...{seccionActual, temaActual, pestanaActual},
-			// ...{encabArtics, encabCartas, contenidos, carrouseles},
+			// ...{encSinIndice, encConIndice, contenidos, carrouseles},
 		});
 	},
 };

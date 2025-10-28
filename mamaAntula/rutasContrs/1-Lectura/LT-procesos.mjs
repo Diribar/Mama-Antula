@@ -5,21 +5,21 @@ export default {
 		// Obtiene el encabezado de los artículos
 		const temas_ids = temasSeccion.map((n) => n.id);
 		const pestanas_ids = temasSeccion.reduce((arr, n) => arr.concat(n.pestanas.map((m) => m.id)), []);
-		const encabArtics = await baseDatos
-			.obtieneTodosConOrden("encabArtics", "fechaOcurrio", true)
+		const encSinIndice = await baseDatos
+			.obtieneTodosConOrden("encSinIndice", "fechaOcurrio", true)
 			.then((n) => n.filter((m) => temas_ids.includes(m.tema_id) || pestanas_ids.includes(m.pestana_id)));
 
 		// Obtiene el encabezado de las cartas
-		const encabCartas =
-			seccionActual.codigo == "cartasEscritos" ? await baseDatos.obtieneTodosConOrden("encabCartas", "fechaEscrita") : [];
+		const encConIndice =
+			seccionActual.codigo == "cartasEscritos" ? await baseDatos.obtieneTodosConOrden("encConIndice", "fechaEscrita") : [];
 
 		// Fin
-		return {encabArtics, encabCartas};
+		return {encSinIndice, encConIndice};
 	},
-	contenido: async ({encabArtics, encabCartas}) => {
-		// Obtiene el contenido de los encabArtics y encabCartas
-		const articulos_ids = encabArtics.map((n) => n.id);
-		const cartas_ids = encabCartas.map((n) => n.id);
+	contenido: async ({encSinIndice, encConIndice}) => {
+		// Obtiene el contenido de los encSinIndice y encConIndice
+		const articulos_ids = encSinIndice.map((n) => n.id);
+		const cartas_ids = encConIndice.map((n) => n.id);
 		const contenidos = await baseDatos
 			.obtieneTodosConOrden("contenidos", "orden")
 			.then((n) => n.filter((m) => articulos_ids.includes(m.encabArtic_id) || cartas_ids.includes(m.encabCarta_id)));

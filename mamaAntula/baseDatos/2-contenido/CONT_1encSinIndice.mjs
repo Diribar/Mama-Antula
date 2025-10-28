@@ -1,12 +1,12 @@
 export default (sequelize, dt) => {
-	const alias = "encabArtics";
+	const alias = "encSinIndice";
 	const columns = {
 		// Referencias
 		tema_id: {type: dt.INTEGER},
 		pestana_id: {type: dt.INTEGER},
 
 		// Otros
-		titulo: {type: dt.STRING(100)},
+		titulo: {type: dt.STRING(100)},// se necesita sobre todo para los articulos de pestañas
 		subtitulo: {type: dt.STRING(100)},
 
 		// Control
@@ -15,7 +15,7 @@ export default (sequelize, dt) => {
 		statusRegistro_id: {type: dt.INTEGER},
 	};
 	const config = {
-		tableName: "cont_1encab_articulos",
+		tableName: "cont_1enc_sin_indice",
 		timestamps: false,
 	};
 	const entidad = sequelize.define(alias, columns, config);

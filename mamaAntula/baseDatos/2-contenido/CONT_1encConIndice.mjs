@@ -1,5 +1,5 @@
 export default (sequelize, dt) => {
-	const alias = "encabCartas";
+	const alias = "encConIndice";
 	const columns = {
 		// Referencias
 		nombreDesde_id: {type: dt.INTEGER},
@@ -16,7 +16,7 @@ export default (sequelize, dt) => {
 		statusRegistro_id: {type: dt.INTEGER},
 	};
 	const config = {
-		tableName: "cont_1encab_cartas",
+		tableName: "cont_1enc_con_indice",
 		timestamps: false,
 	};
 	const entidad = sequelize.define(alias, columns, config);
