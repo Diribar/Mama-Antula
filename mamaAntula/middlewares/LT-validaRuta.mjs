@@ -17,7 +17,7 @@ export default (req, res, next) => {
 	// TEMA - Si el urlTema no existe, redirige
 	const temasPosibles = temasSecciones.filter((n) => n.seccion_id == seccionActual.id);
 	if (!urlTema) {
-		const urlActual = temasPosibles.find((n) => n.codigo === req.cookies.temaActual)?.url || temasPosibles[0].url;
+		const urlActual = (temasPosibles.find((n) => n.codigo == req.cookies[seccionActual.codigo]) || temasPosibles[0]).url;
 		return res.redirect("/" + seccionActual.url + "/" + urlActual);
 	}
 
@@ -26,16 +26,16 @@ export default (req, res, next) => {
 	if (!temaActual) return res.render("CMP-0Estructura", {informacion});
 
 	// PESTAÑA - Averigua si el tema tiene pestañas
-	const pestanasPosibles = pestanasTemas.filter((n) => n.tema_id == temaActual.id);
-	if (pestanasPosibles.length) {
+	const pestsPosibles = pestanasTemas.filter((n) => n.tema_id == temaActual.id);
+	if (pestsPosibles.length) {
 		// Si el urlPestana no existe redirige
 		if (!urlPestana) {
-			const urlActual = pestanasPosibles.find((n) => n.codigo == req.cookies.pestanaActual)?.url || pestanasPosibles[0].url;
+			const urlActual = (pestsPosibles.find((n) => n.codigo == req.cookies[temaActual.codigo]) || pestsPosibles[0]).url;
 			return res.redirect("/" + seccionActual.url + "/" + temaActual.url + "/" + urlActual);
 		}
 
 		// Si la pestanaActual no corresponde, muestra la vista de error
-		const pestanaActual = pestanasPosibles.find((n) => n.url == urlPestana);
+		const pestanaActual = pestsPosibles.find((n) => n.url == urlPestana);
 		if (!pestanaActual) return res.render("CMP-0Estructura", {informacion});
 	}
 
