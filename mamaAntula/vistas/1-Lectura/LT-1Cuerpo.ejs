@@ -5,24 +5,22 @@
 </section>
 
 <section id="contenidoTemas">
-	<% for (const tema of temasSeccion) { %>
-		<!-- Tema -->
-		<div class="contenidoTema contenido <% if (tema.id != temaActual.id) { %>ocultar<% } %>" data-tema_codigo="<%= tema.codigo %>">
-			<!-- Sin pestañas -->
-			<% if (!locals.pestanas) { %>
-				<%- include("LT-3ArticCarta", {tema, sonCartas: tema.codigo == "cartas"}) %>
+	<!-- Tema -->
+	<div class="contenidoTema contenido" data-tema_codigo="<%= temaActual.codigo %>">
+		<!-- Sin pestañas -->
+		<% if (!locals.pestanasTema) { %>
+			<%- include("LT-3ArticCarta") %>
 
-			<% } else { %>
-				<!-- Tiene pestañas - Pestañas -->
-				<%- include("LT-2Pestanas", {tema}) %>
+		<% } else { %>
+			<!-- Tiene pestañas - Pestañas -->
+			<%- include("LT-2Pestanas") %>
 
-				<!-- Tiene pestañas - Contenido -->
-				<% tema.pestanas.forEach((pestana, i) => { %>
-					<div class="contenidoPestana contenido <% if (pestanaActual && pestana.id != pestanaActual.id) { %>ocultar<% } %>" data-pestana_codigo="<%= pestana.codigo %>">
-						<%- include("LT-3ArticCarta", {pestana}) %>
-					</div>
-				<% }) %>
-			<% } %>
-		</div>
-	<% } %>
+			<!-- Tiene pestañas - Contenido -->
+			<% pestanasTema.forEach((pestana, i) => { %>
+				<div class="contenidoPestana contenido <% if (pestanaActual && pestana.id != pestanaActual.id) { %>ocultar<% } %>" data-pestana_codigo="<%= pestana.codigo %>">
+					<%- include("LT-3ArticCarta") %>
+				</div>
+			<% }) %>
+		<% } %>
+	</div>
 </section>
