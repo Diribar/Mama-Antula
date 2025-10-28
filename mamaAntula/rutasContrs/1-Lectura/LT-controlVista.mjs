@@ -65,7 +65,7 @@ export default {
 		const pestanaActual = pestanasTema.find((n) => n.url == urlPestana);
 
 		// Obtiene el encabezado, contenido y imgsCarrousel del artículo
-		const {esConIndice, encabezados, contenidos} = await procesos.encabezado({pestanaActual});
+		const {esConIndice, encabezados, contenidos} = await procesos.encabezado({seccionActual, temaActual, pestanaActual});
 
 		// Fin
 		return res.render("CMP-0Estructura", {
