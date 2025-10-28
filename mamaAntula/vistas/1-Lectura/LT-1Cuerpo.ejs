@@ -9,7 +9,7 @@
 		<!-- Tema -->
 		<div class="contenidoTema contenido <% if (tema.id != temaActual.id) { %>ocultar<% } %>" data-tema_codigo="<%= tema.codigo %>">
 			<!-- Sin pestañas -->
-			<% if (!tema.pestanas.length) { %>
+			<% if (!locals.pestanas) { %>
 				<%- include("LT-3ArticCarta", {tema, sonCartas: tema.codigo == "cartas"}) %>
 
 			<% } else { %>

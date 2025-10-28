@@ -21,9 +21,9 @@ export default {
 		res.cookie(seccionActual.codigo, temaActual.codigo, {maxAge: unAno});
 
 		// Obtiene el encabezado, contenido y carrouseles de los artículos y cartas
-		const {encabArtics, encabCartas} = await procesos.encabezados({seccionActual, temasSeccion});
-		const contenidos = await procesos.contenido({encabArtics, encabCartas});
-		const carrouseles = await procesos.carrouseles(contenidos);
+		// const {encabArtics, encabCartas} = await procesos.encabezados({seccionActual, temasSeccion});
+		// const contenidos = await procesos.contenido({encabArtics, encabCartas});
+		// const carrouseles = await procesos.carrouseles(contenidos);
 
 		// Fin
 		return res.render("CMP-0Estructura", {
