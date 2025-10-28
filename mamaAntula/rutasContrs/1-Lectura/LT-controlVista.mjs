@@ -60,7 +60,6 @@ export default {
 	pestanas: async (req, res) => {
 		// Variables
 		const {urlSeccion, urlTema, urlPestana} = req.params;
-		console.log(38, req.params);
 
 		// Sección
 		const seccionActual = secciones.find((n) => n.url == urlSeccion);
