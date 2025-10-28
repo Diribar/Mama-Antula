@@ -4,22 +4,29 @@ window.addEventListener("load", async () => {
 	// Inicializamos Quill
 	const quill = new Quill("#editor-container", {
 		theme: "snow",
-		placeholder: "Escribe aquí tu contenido...",
+		placeholder: "Escribí acá tu contenido...",
 		modules: {toolbar: "#toolbar"},
+		formats: ["bold", "italic", "color", "list", "blockquote", "link", "image", "video"],
 	});
 
 	// Función para sincronizar textarea y previsualización
 	function actualizarContenido() {
-		const html = quill.root.innerHTML;
+		const html = quill.root.innerHTML
+			.replace(/&nbsp;/g, " ") // reemplaza por espacios normales;
+			.replace(/\s+/g, " ") // reemplaza espacios duplicados
+			.replace(" </", "</") // reemplaza espacios mal puestos
+			.trim(); // reemplaza espacios al final
 		document.getElementById("contenidoText").value = html;
-		document.getElementById("preview").innerHTML = html;
 	}
 
 	// Escuchamos cambios en Quill
 	quill.on("text-change", actualizarContenido);
 
-	// Inicializamos previsualización
-	actualizarContenido();
+	// Evitar que se peguen estilos de color al pegar
+	quill.clipboard.addMatcher(Node.ELEMENT_NODE, (node, delta) => {
+		delta.ops.forEach((op) => op.attributes && delete op.attributes.color);
+		return delta;
+	});
 
 	// Capturamos submit
 	document.getElementById("miForm").addEventListener("submit", function (e) {
