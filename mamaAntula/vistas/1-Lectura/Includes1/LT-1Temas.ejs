@@ -3,13 +3,15 @@
 	<h1 id="iconoMenuTemas"><i class="fa-solid fa-bars mostrarClick scaleHover pointer"></i></h1>
 
 	<!-- Menú de opciones -->
-	<ul type="none" id="listadoTemas" class="mostrarToggle ocultar">
+	<nav id="listadoTemas" class="mostrarToggle ocultar">
 		<% for (const tema of temasSeccion) { %>
-			<li class="tema <% if (tema.id == temaActual.id) { %>activo<% } %>" data-tema_codigo="<%= tema.codigo %>">
-				<a href="/<%= seccionActual.url %>/<%= tema.url %>">
-					<%= tema.titulo %>
-				</a>
-			</li>
+			<a
+				href="/<%= seccionActual.url %>/<%= tema.url %>"
+				class="tema <% if (tema.id == temaActual.id) { %>activo<% } %>"
+				data-tema_codigo="<%= tema.codigo %>"
+			>
+				<%= tema.titulo %>
+			</a>
 		<% } %>
-	</ul>
+	</nav>
 </div>
