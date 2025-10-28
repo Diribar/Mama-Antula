@@ -23,4 +23,14 @@ export default {
 			...{tituloPagina, temaVista, codigoVista},
 		});
 	},
+	prueba: (req, res) => {
+		// Variables
+		const tituloPagina = "Prueba";
+		const codigoVista = "prueba";
+
+		// Fin
+		return res.render("CMP-0Estructura", {
+			...{tituloPagina, temaVista, codigoVista},
+		});
+	},
 };
