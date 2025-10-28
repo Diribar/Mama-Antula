@@ -6,8 +6,9 @@ export default (sequelize, dt) => {
 		pestana_id: {type: dt.INTEGER},
 
 		// Otros
-		titulo: {type: dt.STRING(100)},// se necesita sobre todo para los articulos de pestañas
+		titulo: {type: dt.STRING(100)}, // se necesita sobre todo para los articulos de pestañas
 		subtitulo: {type: dt.STRING(100)},
+		orden: {type: dt.INTEGER},
 
 		// Control
 		creadoEn: {type: dt.DATE},
