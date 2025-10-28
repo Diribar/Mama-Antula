@@ -3,7 +3,7 @@ import procesos from "./LT-procesos.mjs";
 const temaVista = "secciones";
 
 export default {
-	landingPage: (req, res) => {
+	landingPage: async (req, res) => {
 		// Sección
 		const seccionActual = secciones.find((n) => n.codigo == "inicio");
 		const tituloPagina = seccionActual.nombre;
@@ -12,20 +12,16 @@ export default {
 		const temasSeccion = temasSecciones.filter((n) => n.seccion_id == seccionActual.id);
 		const temaActual = temasSeccion[0];
 
-		// Guarda cookies
-		res.cookie(seccionActual.codigo, temaActual.codigo, {maxAge: unAno});
-
-		// Obtiene el encabezado, contenido y imgsCarrousel de los artículos y cartas
-		// const {encSinIndice, encConIndice} = await procesos.encabezados({seccionActual, temasSeccion});
-		// const contenidos = await procesos.contenido({encSinIndice, encConIndice});
-		// const imgsCarrousel = await procesos.imgsCarrousel(contenidos);
+		// Obtiene el encabezado y contenido de los artículos
+		const {encabezados, contenidos} = await procesos.contenido({temaActual});
+		const esConIndice = false;
 
 		// Fin
 		return res.render("CMP-0Estructura", {
 			...{tituloPagina, temaVista},
 			...{temasSeccion},
 			...{seccionActual, temaActual},
-			// ...{encSinIndice, encConIndice, contenidos, imgsCarrousel},
+			...{esConIndice, encabezados, contenidos},
 		});
 	},
 	redirige: (req, res) => {},
@@ -40,9 +36,6 @@ export default {
 		// Tema
 		const temasSeccion = temasSecciones.filter((n) => n.seccion_id == seccionActual.id);
 		const temaActual = temasSeccion.find((n) => n.url == urlTema);
-
-		// Guarda cookies
-		res.cookie(seccionActual.codigo, temaActual.codigo, {maxAge: unAno});
 
 		// Obtiene el encabezado y contenido de los artículos
 		const {encabezados, contenidos} = await procesos.contenido({temaActual});
