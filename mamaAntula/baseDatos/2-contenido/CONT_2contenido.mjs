@@ -11,8 +11,6 @@ export default (sequelize, dt) => {
 		texto: {type: dt.TEXT("long")},
 		imagen: {type: dt.STRING(17)},
 		link: {type: dt.TEXT("medium")},
-		resaltado: {type: dt.BOOLEAN},
-		dots: {type: dt.BOOLEAN},
 		textoImagenVideo: {type: dt.TEXT("medium")},
 
 		// Control
