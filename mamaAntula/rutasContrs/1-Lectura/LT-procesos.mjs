@@ -1,29 +1,24 @@
 "use strict";
 
 export default {
-	encabezado: async ({seccionActual, temaActual, pestanaActual}) => {
+	encabezado: async ({temaActual, pestanaActual}) => {
 		// Variables
 		const condicion = pestanaActual ? {pestana_id: pestanaActual.id} : {tema_id: temaActual.id};
 
-		// Obtiene el encabezado de los artículos
-		const encSinIndice = await baseDatos
-			.obtieneTodosConOrden("encSinIndice", "orden")
-			.then((n) => n.filter((m) => temas_ids.includes(m.tema_id) || pestanas_ids.includes(m.pestana_id)));
-
-		// Obtiene el encabezado de las cartas
-		const encConIndice =
-			seccionActual.codigo == "cartasEscritos" ? await baseDatos.obtieneTodosConOrden("encConIndice", "fechaEscrita") : [];
+		// Obtiene los encabezados
+		const encSinIndice = await baseDatos.obtieneTodosPorCondicion("encSinIndice", condicion);
+		const encConIndice = await baseDatos.obtieneTodosPorCondicion("encConIndice", condicion);
 
 		// Fin
 		return {encSinIndice, encConIndice};
 	},
 	contenido: async ({encSinIndice, encConIndice}) => {
 		// Obtiene el contenido de los encSinIndice y encConIndice
-		const articulos_ids = encSinIndice.map((n) => n.id);
-		const cartas_ids = encConIndice.map((n) => n.id);
+		const sinIndice_ids = encSinIndice.map((n) => n.id);
+		const conIndice_ids = encConIndice.map((n) => n.id);
 		const contenidos = await baseDatos
 			.obtieneTodosConOrden("contenidos", "orden")
-			.then((n) => n.filter((m) => articulos_ids.includes(m.encabArtic_id) || cartas_ids.includes(m.encabCarta_id)));
+			.then((n) => n.filter((m) => sinIndice_ids.includes(m.encabArtic_id) || conIndice_ids.includes(m.encabCarta_id)));
 
 		// Fin
 		return contenidos;

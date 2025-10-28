@@ -45,7 +45,7 @@ export default {
 		res.cookie(seccionActual.codigo, temaActual.codigo, {maxAge: unAno});
 
 		// Obtiene el encabezado, contenido y carrouseles de los artículos
-		const {encSinIndice, encConIndice} = await procesos.encabezados({seccionActual, temaActual});
+		const {encSinIndice, encConIndice} = await procesos.encabezados({temaActual});
 		// const contenidos = await procesos.contenido({encSinIndice, encConIndice});
 		// const carrouseles = await procesos.carrouseles(contenidos);
 
@@ -74,8 +74,8 @@ export default {
 		const pestanaActual = pestanasTema.find((n) => n.url == urlPestana);
 
 		// Obtiene el encabezado, contenido y carrouseles del artículo
-		const {encSinIndice, encConIndice} = await procesos.encabezado({seccionActual, temaActual, pestanaActual});
-		// const contenidos = await procesos.contenido({encSinIndice, encConIndice});
+		const {encSinIndice, encConIndice} = await procesos.encabezado({temaActual, pestanaActual});
+		const contenidos = await procesos.contenido({encSinIndice, encConIndice});
 		// const carrouseles = await procesos.carrouseles(contenidos);
 
 		// Fin

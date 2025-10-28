@@ -11,8 +11,8 @@ export default (sequelize, dt) => {
 		orden: {type: dt.INTEGER},
 
 		// Control
+		creadoPor_id: {type: dt.INTEGER},
 		creadoEn: {type: dt.DATE},
-		usuario_id: {type: dt.INTEGER},
 		statusRegistro_id: {type: dt.INTEGER},
 	};
 	const config = {
@@ -23,7 +23,7 @@ export default (sequelize, dt) => {
 	entidad.associate = (n) => {
 		entidad.belongsTo(n.temasSecciones, {as: "tema", foreignKey: "tema_id"});
 		entidad.belongsTo(n.pestanasTemas, {as: "pestana", foreignKey: "pestana_id"});
-		entidad.belongsTo(n.usuarios, {as: "usuario", foreignKey: "usuario_id"});
+		entidad.belongsTo(n.usuarios, {as: "usuario", foreignKey: "creadoPor_id"});
 		entidad.belongsTo(n.statusRegistros, {as: "statusRegistro", foreignKey: "statusRegistro_id"});
 	};
 	return entidad;
