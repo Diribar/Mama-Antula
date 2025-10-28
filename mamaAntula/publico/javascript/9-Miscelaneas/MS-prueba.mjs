@@ -10,14 +10,15 @@ window.addEventListener("load", async () => {
 	});
 
 	// Función para sincronizar textarea y previsualización
-	function actualizarContenido() {
+	const actualizarContenido = () => {
 		const html = quill.root.innerHTML
 			.replace(/&nbsp;/g, " ") // reemplaza por espacios normales;
 			.replace(/\s+/g, " ") // reemplaza espacios duplicados
 			.replace(" </", "</") // reemplaza espacios mal puestos
 			.trim(); // reemplaza espacios al final
 		document.getElementById("contenidoText").value = html;
-	}
+		return;
+	};
 
 	// Escuchamos cambios en Quill
 	quill.on("text-change", actualizarContenido);
