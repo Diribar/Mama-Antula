@@ -50,10 +50,6 @@ export default {
 		const pestanasTema = pestanasTemas.filter((n) => n.tema_id == temaActual.id);
 		const pestanaActual = pestanasTema.find((n) => n.url == urlPestana);
 
-		// Guarda cookies
-		res.cookie(seccionActual.codigo, temaActual.codigo, {maxAge: unAno});
-		res.cookie(temaActual.codigo, pestanaActual.codigo, {maxAge: unAno});
-
 		// Obtiene el encabezado, contenido y carrouseles de los artículos y cartas
 		// const {encabArtics, encabCartas} = await procesos.encabezados({seccionActual, temasSeccion});
 		// const contenidos = await procesos.contenido({encabArtics, encabCartas});

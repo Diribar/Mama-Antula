@@ -24,6 +24,7 @@ export default (req, res, next) => {
 	// TEMA - Si el temaActual no corresponde, muestra la vista de error
 	const temaActual = temasPosibles.find((n) => n.url == urlTema);
 	if (!temaActual) return res.render("CMP-0Estructura", {informacion});
+	res.cookie(seccionActual.codigo, temaActual.codigo, {maxAge: unAno});
 
 	// PESTAÑA - Averigua si el tema tiene pestañas
 	const pestsPosibles = pestanasTemas.filter((n) => n.tema_id == temaActual.id);
@@ -37,6 +38,9 @@ export default (req, res, next) => {
 		// Si la pestanaActual no corresponde, muestra la vista de error
 		const pestanaActual = pestsPosibles.find((n) => n.url == urlPestana);
 		if (!pestanaActual) return res.render("CMP-0Estructura", {informacion});
+
+		// Guarda cookies
+		res.cookie(temaActual.codigo, pestanaActual.codigo, {maxAge: unAno});
 	}
 
 	// Fin
