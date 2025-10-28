@@ -1,12 +1,13 @@
 "use strict";
 
 export default {
-	encabezados: async ({seccionActual, temasSeccion}) => {
+	encabezado: async ({seccionActual, temaActual, pestanaActual}) => {
+		// Variables
+		const condicion = pestanaActual ? {pestana_id: pestanaActual.id} : {tema_id: temaActual.id};
+
 		// Obtiene el encabezado de los artículos
-		const temas_ids = temasSeccion.map((n) => n.id);
-		const pestanas_ids = temasSeccion.reduce((arr, n) => arr.concat(n.pestanas.map((m) => m.id)), []);
 		const encSinIndice = await baseDatos
-			.obtieneTodosConOrden("encSinIndice", "fechaOcurrio", true)
+			.obtieneTodosConOrden("encSinIndice", "orden")
 			.then((n) => n.filter((m) => temas_ids.includes(m.tema_id) || pestanas_ids.includes(m.pestana_id)));
 
 		// Obtiene el encabezado de las cartas
