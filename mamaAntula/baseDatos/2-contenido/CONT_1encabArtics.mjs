@@ -4,16 +4,14 @@ export default (sequelize, dt) => {
 		// Referencias
 		tema_id: {type: dt.INTEGER},
 		pestana_id: {type: dt.INTEGER},
-		usuario_id: {type: dt.INTEGER},
 
 		// Otros
 		titulo: {type: dt.STRING(100)},
 		subtitulo: {type: dt.STRING(100)},
-		donde: {type: dt.STRING(30)},
-		fechaOcurrio: {type: dt.DATE},
 
 		// Control
 		creadoEn: {type: dt.DATE},
+		usuario_id: {type: dt.INTEGER},
 		statusRegistro_id: {type: dt.INTEGER},
 	};
 	const config = {

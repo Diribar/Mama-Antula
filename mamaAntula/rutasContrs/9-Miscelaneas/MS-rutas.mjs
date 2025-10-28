@@ -13,7 +13,9 @@ const router = express.Router();
 // 🖥️ Vistas
 router.get("/contactanos", vista.contactanos);
 router.get("/estadisticas", vista.estadisticas);
-router.get("/prueba", vista.prueba);
+router.get("/prueba1", vista.prueba1);
+router.get("/prueba2", vista.prueba2);
+
 
 // ✅ Export
 export default router;
