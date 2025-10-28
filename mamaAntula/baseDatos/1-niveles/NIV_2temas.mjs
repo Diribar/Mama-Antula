@@ -8,6 +8,7 @@ export default (sequelize, dt) => {
 		// Nombres
 		titulo: {type: dt.STRING(20)},
 		codigo: {type: dt.STRING(20)},
+		url: {type: dt.STRING(30)},
 
 		// Otros
 		ordenPorFecha: {type: dt.BOOLEAN},
