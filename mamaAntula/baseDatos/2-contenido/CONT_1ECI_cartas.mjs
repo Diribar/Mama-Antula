@@ -7,7 +7,7 @@ export default (sequelize, dt) => {
 		nombreHacia_id: {type: dt.INTEGER},
 		lugar_id: {type: dt.INTEGER},
 		idioma_id: {type: dt.INTEGER},
-		fechaEscrita: {type: dt.DATE},
+		fechaEvento: {type: dt.DATE},
 
 		// Control
 		creadoPor_id: {type: dt.INTEGER},

@@ -4,7 +4,7 @@ export default (sequelize, dt) => {
 		// Otros
 		titulo: {type: dt.STRING(100)},
 		subtitulo: {type: dt.STRING(100)},
-		fechaEscrita: {type: dt.DATE},
+		fechaEvento: {type: dt.DATE},
 
 		// Control
 		creadoPor_id: {type: dt.INTEGER},
