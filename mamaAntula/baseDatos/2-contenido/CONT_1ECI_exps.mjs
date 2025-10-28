@@ -1,6 +1,10 @@
 export default (sequelize, dt) => {
 	const alias = "encabExps";
 	const columns = {
+		// Referencias
+		tema_id: {type: dt.INTEGER},
+		pestana_id: {type: dt.INTEGER},
+
 		// Otros
 		titulo: {type: dt.STRING(100)},
 		subtitulo: {type: dt.STRING(100)},

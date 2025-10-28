@@ -7,7 +7,7 @@ export default {
 		let encabezados;
 
 		// Obtiene el encabezado sin indice
-		encabezados = await baseDatos.obtienePorCondicion("encSinIndice", condicion);
+		encabezados = await baseDatos.obtienePorCondicion("encabSinIndice", condicion);
 		const esConIndice = !encabezados.length;
 		if (esConIndice) encabezados = await baseDatos.obtieneTodosPorCondicion("encConIndice", condicion);
 		const encabezados_ids = esConIndice ? encabezados.map((n) => n.id) : [encabezados.id];

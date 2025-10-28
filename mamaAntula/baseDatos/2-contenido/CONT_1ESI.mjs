@@ -1,5 +1,5 @@
 export default (sequelize, dt) => {
-	const alias = "encSinIndice";
+	const alias = "encabSinIndice";
 	const columns = {
 		// Referencias
 		tema_id: {type: dt.INTEGER},
