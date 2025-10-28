@@ -4,9 +4,11 @@ const temaVista = "secciones";
 
 export default {
 	secciones: async (req, res) => {
+		console.log(7,req.params);
+
 		// Obtiene la sección
 		const url = req.originalUrl;
-		const seccionActual = secciones.find((n) => n.link == url);
+		const seccionActual = secciones.find((n) => n.url == url);
 		const tituloPagina = seccionActual.nombre;
 
 		// Obtiene variables de temas y pestañas
