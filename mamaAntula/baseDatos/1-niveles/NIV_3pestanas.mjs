@@ -10,7 +10,6 @@ export default (sequelize, dt) => {
 		subtitulo: {type: dt.TEXT('medium')},
 		codigo: {type: dt.STRING(20)},
 		url: {type: dt.STRING(30)},
-		conIndice: {type: dt.BOOLEAN},
 	};
 	const config = {
 		tableName: "nivel3_pestanas",
