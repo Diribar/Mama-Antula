@@ -1,9 +1,11 @@
-<ul type="none" class="listadoPestanas" data-tema_codigo="<%= temaActual.codigo %>">
+<nav class="listadoPestanas" data-tema_codigo="<%= temaActual.codigo %>">
 	<% pestanasTema.forEach((pestana, i) => { %>
-		<li class="pestana<% if (pestana.id == pestanaActual.id) { %> activo<% } %>" data-pestana_codigo="<%= pestana.codigo %>">
-			<a href="/<%= seccionActual.url %>/<%= temaActual.url %>/<%= pestana.url %>">
-				<%= pestana.titulo %>
-			</a>
-		</li>
+		<a
+			href="/<%= seccionActual.url %>/<%= temaActual.url %>/<%= pestana.url %>"
+			class="pestana<% if (pestana.id == pestanaActual.id) { %> activo<% } %>"
+			data-pestana_codigo="<%= pestana.codigo %>"
+		>
+			<%= pestana.titulo %>
+		</a>
 	<% }) %>
-</ul>
+</nav>
