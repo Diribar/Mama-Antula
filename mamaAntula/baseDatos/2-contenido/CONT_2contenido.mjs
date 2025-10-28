@@ -29,7 +29,7 @@ export default (sequelize, dt) => {
 		entidad.belongsTo(n.encSinIndice, {as: "articulo", foreignKey: "sinIndice_id"});
 		entidad.belongsTo(n.encabExps, {as: "experiencia", foreignKey: "experiencia_id"});
 		entidad.belongsTo(n.encabCartas, {as: "carta", foreignKey: "carta_id"});
-		entidad.belongsTo(n.usuarios, {as: "usuario", foreignKey: "creadoPor_id"});
+		entidad.belongsTo(n.usuarios, {as: "creadoPor", foreignKey: "creadoPor_id"});
 		entidad.belongsTo(n.statusRegistros, {as: "statusRegistro", foreignKey: "statusRegistro_id"});
 		entidad.hasMany(n.imgsCarrousel, {as: "imgsCarrousel", foreignKey: "contenido_id"});
 	};
