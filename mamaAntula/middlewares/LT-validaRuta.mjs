@@ -14,7 +14,6 @@ export default (req, res, next) => {
 	const seccionActual = secciones.find((n) => n.url == urlSeccion);
 	if (!seccionActual) return res.render("CMP-0Estructura", {informacion});
 
-
 	// TEMA - Si el urlTema no existe, redirige
 	const temasPosibles = temasSecciones.filter((n) => n.seccion_id == seccionActual.id);
 	if (!urlTema) {
