@@ -1,5 +1,5 @@
 export default (sequelize, dt) => {
-	const alias = "encExps";
+	const alias = "encabExps";
 	const columns = {
 		// Otros
 		titulo: {type: dt.STRING(100)},
