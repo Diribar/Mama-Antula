@@ -1,13 +1,9 @@
 export default (sequelize, dt) => {
-	const alias = "encConIndice";
+	const alias = "encExps";
 	const columns = {
-		// Referencias
-		nombreDesde_id: {type: dt.INTEGER},
-		nombreHacia_id: {type: dt.INTEGER},
-		lugar_id: {type: dt.INTEGER},
-		idioma_id: {type: dt.INTEGER},
-
 		// Otros
+		titulo: {type: dt.STRING(100)},
+		subtitulo: {type: dt.STRING(100)},
 		fechaEscrita: {type: dt.DATE},
 
 		// Control
@@ -16,7 +12,7 @@ export default (sequelize, dt) => {
 		statusRegistro_id: {type: dt.INTEGER},
 	};
 	const config = {
-		tableName: "cont_1enc_con_indice",
+		tableName: "cont_1enc_ci_exps",
 		timestamps: false,
 	};
 	const entidad = sequelize.define(alias, columns, config);
