@@ -3,18 +3,22 @@ import procesos from "./LT-procesos.mjs";
 const temaVista = "secciones";
 
 export default {
-	secciones: async (req, res) => {
-		console.log(7,req.params);
+	landingPage: (req, res) => {},
+	redirige: (req, res) => {},
+	temas: async (req, res) => {
+		// Variables
+		const {urlSeccion, urlTema} = req.params;
 
-		// Obtiene la sección
-		const url = req.originalUrl;
-		const seccionActual = secciones.find((n) => n.url == url);
+		// Sección
+		const seccionActual = secciones.find((n) => n.url == urlSeccion);
 		const tituloPagina = seccionActual.nombre;
 
-		// Obtiene variables de temas y pestañas
+		// Tema
 		const temasSeccion = temasSecciones.filter((n) => n.seccion_id == seccionActual.id);
-		for (const tema of temasSeccion) tema.pestanas = pestanasTemas.filter((n) => n.tema_id == tema.id);
-		const {temaActual, pestanaActual} = procesos.temaPestanaActual({seccionActual, temasSeccion, req, res});
+		const temaActual = temasSeccion.find((n) => n.url == urlTema);
+
+		// Guarda cookies
+		res.cookie(seccionActual.codigo, temaActual.codigo, {maxAge: unAno});
 
 		// Obtiene el encabezado, contenido y carrouseles de los artículos y cartas
 		const {encabArtics, encabCartas} = await procesos.encabezados({seccionActual, temasSeccion});
@@ -24,8 +28,43 @@ export default {
 		// Fin
 		return res.render("CMP-0Estructura", {
 			...{tituloPagina, temaVista},
+			...{temasSeccion},
+			...{seccionActual, temaActual},
+			// ...{encabArtics, encabCartas, contenidos, carrouseles},
+		});
+	},
+	pestanas: async (req, res) => {
+		// Variables
+		const {urlSeccion, urlTema, urlPestana} = req.params;
+		console.log(38, req.params);
+
+		// Sección
+		const seccionActual = secciones.find((n) => n.url == urlSeccion);
+		const tituloPagina = seccionActual.nombre;
+
+		// Tema
+		const temasSeccion = temasSecciones.filter((n) => n.seccion_id == seccionActual.id);
+		const temaActual = temasSeccion.find((n) => n.url == urlTema);
+
+		// Pestaña
+		const pestanasTema = pestanasTemas.filter((n) => n.tema_id == temaActual.id);
+		const pestanaActual = pestanasTema.find((n) => n.url == urlPestana);
+
+		// Guarda cookies
+		res.cookie(seccionActual.codigo, temaActual.codigo, {maxAge: unAno});
+		res.cookie(temaActual.codigo, pestanaActual.codigo, {maxAge: unAno});
+
+		// Obtiene el encabezado, contenido y carrouseles de los artículos y cartas
+		// const {encabArtics, encabCartas} = await procesos.encabezados({seccionActual, temasSeccion});
+		// const contenidos = await procesos.contenido({encabArtics, encabCartas});
+		// const carrouseles = await procesos.carrouseles(contenidos);
+
+		// Fin
+		return res.render("CMP-0Estructura", {
+			...{tituloPagina, temaVista},
+			...{temasSeccion, pestanasTema},
 			...{seccionActual, temaActual, pestanaActual},
-			...{temasSeccion, encabArtics, encabCartas, contenidos, carrouseles},
+			// ...{encabArtics, encabCartas, contenidos, carrouseles},
 		});
 	},
 };
