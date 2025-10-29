@@ -86,7 +86,6 @@ window.addEventListener("load", async () => {
 
 			// Obtiene los contenidos actuales
 			v.contenidos = v.encabezado_id != "nuevo" ? await fetch(ruta).then((n) => n && n.json()) : [];
-			console.log(v.contenidos);
 
 			// Actualiza el DOM
 			FN.creaContenedorContenidoIconos();
@@ -247,17 +246,21 @@ window.addEventListener("load", async () => {
 
 		// PESTANA - Si las tiene, las actualiza
 		const tema_id = DOM.filtros.tema.value;
-		const pestanasTemas = v.pestanasTemas.filter((n) => n.tema_id == tema_id);
-		if (pestanasTemas.length) {
+		const pestanasTema = v.pestanasTemas.filter((n) => n.tema_id == tema_id);
+		if (pestanasTema.length) {
 			// PESTANA - Crea las opciones
-			FN.agregaOpciones(pestanasTemas, DOM.filtros.pestana, "titulo");
+			FN.agregaOpciones(pestanasTema, DOM.filtros.pestana, "titulo");
 
 			// PESTANA - Las muestra y dispara el evento
 			DOM.filtros.pestana.classList.remove("ocultar");
 			DOM.filtros.pestana.dispatchEvent(new Event("change"));
 		}
 		// ENCABEZADO - Si no tiene pestañas, obtiene los encabezados
-		else FN.actualizaFiltroEncabezado();
+		else {
+			DOM.filtros.pestana.value = "";
+			DOM.filtros.pestana.classList.add("ocultar");
+			FN.actualizaFiltroEncabezado();
+		}
 
 		// Fin
 		return;
