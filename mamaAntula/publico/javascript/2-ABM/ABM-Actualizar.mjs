@@ -118,56 +118,99 @@ window.addEventListener("load", async () => {
 			// Agrega los contenidos
 			for (const contenido of v.contenidos) {
 				// Crea el DOM contenedor
-				const domContActualIconos = document.createElement("div");
-				domContActualIconos.classList.add("contActualIconos");
+				const domBloque = document.createElement("div");
+				domBloque.classList.add("bloque");
 
 				// Crea el DOM contenido
-				const domContenido = FN.creaElContenido(contenido);
-				domContActualIconos.appendChild(domContenido);
+				FN.creaElContenido.consolidado(contenido); // puede ser: div (para texto, texto-imagen, carrousel), img, video
+				v.domContenido.classList.add("contenido");
+				domBloque.appendChild(v.domContenido);
 
 				// Crea el DOM íconos
 				const domIconos = DOM.iconosActual.cloneNode(true);
-				domContActualIconos.appendChild(domIconos);
+				domBloque.appendChild(domIconos);
 
 				// Agrega el DOM contenedor al DOM sector
-				DOM.sectorContActual.appendChild(domContActualIconos);
+				DOM.sectorContActual.appendChild(domBloque);
 			}
 		},
-		creaElContenido: (contenido) => {
-			if (false) {
-			}
-			// Sólo texto o imagen
-			else if (contenido.texto || contenido.imagen) {
-				// Crea el DOM contenido
-				const domContenido = document.createElement("div");
+		creaElContenido: {
+			consolidado: function (contenido) {
+				// Crea el DOM
+				v.domContenido = document.createElement("div");
+
+				if (false) null;
+				// Sólo texto
+				else if (contenido.texto && !contenido.imagen) v.domContenido = this.texto(contenido).cloneNode(true);
+				// Sólo una imagen
+				else if (contenido.imagen && !contenido.texto) v.domContenido = this.imagen(contenido).cloneNode(true);
+				// Texto e imagen
+				else if (contenido.texto && contenido.imagen) {
+					v.domContenido.appendChild(this.texto(contenido));
+					v.domContenido.appendChild(this.imagen(contenido));
+				}
+				// Video
+				else if (contenido.video) v.domContenido = this.video(contenido).cloneNode(true);
+				// Carrousel
+				else if (contenido.carrousel.length) null;
+
+				// Fin
+				return;
+			},
+			texto: (contenido) => {
+				// Crea el contenedor
 				const domTexto = document.createElement("div");
-				const domImagen = document.createElement("img");
-
-				// Les agrega el formato
 				domTexto.classList.add("texto");
+				domTexto.innerHTML = contenido.texto;
+
+				// Fin
+				return domTexto;
+			},
+			imagen: function (contenido) {
+				// Crea el contenedor
+				const contenedor = document.createElement("div");
+				contenedor.classList.add("contImagenLeyenda");
+
+				// Crea la imagen
+				const domImagen = document.createElement("img");
+				domImagen.src = "/imgsEditables/1-Final/" + contenido.imagen;
 				domImagen.classList.add("imagen");
+				contenedor.appendChild(domImagen);
 
-				// Les agrega la info de la BD
-				domTexto.textContent = contenido.texto;
-				domImagen.src = contenido.imagen;
+				// Crea la leyenda
+				const domLeyenda = this.leyenda(contenido);
+				contenedor.appendChild(domLeyenda);
 
-				// Los agrega al DOM
-				domContenido.appendChild(domTexto);
-				domContenido.appendChild(domImagen);
-			}
+				// Fin
+				return contenedor;
+			},
+			video: function (contenido) {
+				// Crea el contenedor
+				const contenedor = document.createElement("div");
+				contenedor.classList.add("contVideoLeyenda");
 
-			// Video
-			else if (contenido.video) {
-				// Crea el DOM contenido
-				const domContenido = document.createElement("video");
-				domContenido.src = contenido.video;
-			}
+				// Crea la imagen
+				const domVideo = document.createElement("video");
+				domVideo.src = contenido.video;
+				domVideo.classList.add("video");
+				contenedor.appendChild(domVideo);
 
-			// Carrousel
+				// Crea la leyenda
+				const domLeyenda = this.leyenda(contenido);
+				contenedor.appendChild(domLeyenda);
 
-			// Fin
-			domContenido.classList.add("contenido");
-			return domContenido;
+				// Fin
+				return contenedor;
+			},
+			leyenda: (contenido) => {
+				// Crea el contenedor
+				const domLeyenda = document.createElement("div");
+				domLeyenda.innerHTML = contenido.leyenda;
+				domLeyenda.classList.add("leyenda");
+
+				// Fin
+				return domLeyenda;
+			},
 		},
 	};
 
