@@ -152,7 +152,7 @@ export default {
 		},
 		encabExpers: (encabs) => {
 			for (const encab of encabs)
-				encab.tituloCons = encab.titulo + " - " + encab.lugar.nombre + " - " + FN.fechaDiaMesAno(encab.fechaEvento);
+				encab.tituloCons = FN.fechaDiaMesAno(encab.fechaEvento) + " - " + encab.titulo + " - " + encab.lugar.nombre;
 
 			// Fin
 			return encabs;

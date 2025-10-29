@@ -29,27 +29,31 @@ window.addEventListener("load", async () => {
 	// Funciones
 	const FN = {
 		obtieneEncabs: async () => {
+			// Limpieza inicial
+			DOM.encabezado.innerHTML = "";
+
 			// Variables
 			const datos = "seccion_id=" + DOM.seccion.value + "&tema_id=" + DOM.tema.value + "&pestana_id=" + DOM.pestana.value;
 			const encabezados = await fetch(rutas.obtieneEncabs + datos).then((n) => n.json());
 			console.log(encabezados);
-			return
-			DOM.encabezado.innerHTML = "";
 
 			// Crea las opciones
 			for (const encabezado of encabezados) {
 				const option = document.createElement("option");
 				option.value = encabezado.id;
-				option.textContent = encabezado.titulo;
+				option.textContent = encabezado.tituloCons;
 				DOM.encabezado.appendChild(option);
 			}
+
+			// Muestra las pestañas
+			DOM.encabezado.classList.remove("ocultar");
 
 			// Fin
 			return;
 		},
 	};
 
-	// Eventos
+	// Eventos de filtros
 	DOM.seccion.addEventListener("change", async () => {
 		// Limpieza inicial
 		DOM.tema.innerHTML = "";

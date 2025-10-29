@@ -25,7 +25,7 @@ export default {
 				: entidad == "encabExpers"
 				? await baseDatos
 						.obtieneTodosPorCondicion(entidad, condicion, includes)
-						.then((n) => n.sort((a, b) => b[orden] - a[orden]))
+						.then((n) => n.sort((a, b) => new Date(b[orden]) - new Date(a[orden])))
 				: await baseDatos.obtieneTodosPorCondicion(entidad, condicion).then((n) => n.sort((a, b) => a.orden - b.orden));
 
 		// Les agrega el 'tituloCons'
