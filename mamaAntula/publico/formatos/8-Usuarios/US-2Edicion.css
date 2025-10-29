@@ -6,7 +6,7 @@ form {
 		border-radius: 5px;
 	}
 	#contNovs {
-		background-color: snow; line-height: 1; display: flex;
+		background-color: snow; display: flex;
 		input[type="checkbox"] {margin-right: 5px;}
 	}
 	input {
