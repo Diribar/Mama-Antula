@@ -89,23 +89,7 @@ window.addEventListener("load", async () => {
 			console.log(v.contenidos);
 
 			// Actualiza el DOM
-			DOM.sectorContActual.innerHTML = "";
-			for (const contenido of v.contenidos) {
-				// Crea el DOM contenedor
-				const domContActualIconos = document.createElement("div");
-				domContActualIconos.classList.add("contActualIconos");
-
-				// Crea el DOM contenido
-				const domContenido = FN.creaElContenido(contenido);
-				domContActualIconos.appendChild(domContenido);
-
-				// Crea el DOM íconos
-				const domIconos = DOM.iconosActual.cloneNode(true);
-				domContActualIconos.appendChild(domIconos);
-
-				// Agrega el DOM contenedor al DOM sector
-				DOM.sectorContActual.appendChild(domContActualIconos);
-			}
+			FN.creaContenedorContenidoIconos();
 
 			// Fin
 			return;
@@ -126,6 +110,64 @@ window.addEventListener("load", async () => {
 
 			// Fin
 			return;
+		},
+		creaContenedorContenidoIconos: () => {
+			// Limpia el DOM
+			DOM.sectorContActual.innerHTML = "";
+
+			// Agrega los contenidos
+			for (const contenido of v.contenidos) {
+				// Crea el DOM contenedor
+				const domContActualIconos = document.createElement("div");
+				domContActualIconos.classList.add("contActualIconos");
+
+				// Crea el DOM contenido
+				const domContenido = FN.creaElContenido(contenido);
+				domContActualIconos.appendChild(domContenido);
+
+				// Crea el DOM íconos
+				const domIconos = DOM.iconosActual.cloneNode(true);
+				domContActualIconos.appendChild(domIconos);
+
+				// Agrega el DOM contenedor al DOM sector
+				DOM.sectorContActual.appendChild(domContActualIconos);
+			}
+		},
+		creaElContenido: (contenido) => {
+			if (false) {
+			}
+			// Sólo texto o imagen
+			else if (contenido.texto || contenido.imagen) {
+				// Crea el DOM contenido
+				const domContenido = document.createElement("div");
+				const domTexto = document.createElement("div");
+				const domImagen = document.createElement("img");
+
+				// Les agrega el formato
+				domTexto.classList.add("texto");
+				domImagen.classList.add("imagen");
+
+				// Les agrega la info de la BD
+				domTexto.textContent = contenido.texto;
+				domImagen.src = contenido.imagen;
+
+				// Los agrega al DOM
+				domContenido.appendChild(domTexto);
+				domContenido.appendChild(domImagen);
+			}
+
+			// Video
+			else if (contenido.video) {
+				// Crea el DOM contenido
+				const domContenido = document.createElement("video");
+				domContenido.src = contenido.video;
+			}
+
+			// Carrousel
+
+			// Fin
+			domContenido.classList.add("contenido");
+			return domContenido;
 		},
 	};
 

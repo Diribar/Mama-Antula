@@ -1,11 +1,11 @@
 <% if (contenido.link) { %>
 	<a href="<%= contenido.link %>" target="_blank">
 		<img src="/imgsEditables/3-Final/<%= contenido.imagen %>" alt="">
-		<p><%= contenido.textoImagenVideo %></p>
+		<p><%= contenido.leyenda %></p>
 	</a>
 <% } else { %>
 	<div style="text-align: center;">
 		<img src="/imgsEditables/3-Final/<%= contenido.imagen %>" alt="">
-		<p><%= contenido.textoImagenVideo %></p>
+		<p><%= contenido.leyenda %></p>
 	</div>
 <% } %>

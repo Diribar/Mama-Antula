@@ -10,8 +10,8 @@ export default (sequelize, dt) => {
 		// Otros
 		texto: {type: dt.TEXT("long")},
 		imagen: {type: dt.STRING(17)},
-		linkVideo: {type: dt.TEXT("medium")},
-		textoImagenVideo: {type: dt.TEXT("medium")},
+		video: {type: dt.TEXT("medium")},
+		leyenda: {type: dt.TEXT("medium")},
 
 		// Control
 		creadoPor_id: {type: dt.INTEGER},
