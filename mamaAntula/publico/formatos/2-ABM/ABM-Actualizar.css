@@ -1,6 +1,5 @@
 #contenidoTemas {
 	font-size: 16px;
-	input, select {border-radius: 6px; border: 1px solid var(--grisOscuro); background-color: snow;}
 
 	/* General */
 	.sector {
@@ -8,7 +7,9 @@
 		padding: 15px 20px; margin-bottom: 20px; width: fit-content;
 		&#sectorFiltros, &#sectorFiltros #filtros,
 		&#sectorEncabezados, &#sectorEncabezados .encabezado
-		{display: flex; flex-direction: row; align-items: center; justify-content: flex-start; gap: 30px;}
+			{display: flex; flex-direction: row; align-items: center; justify-content: flex-start; gap: 30px;}
+		input, select {border-radius: 6px; border: 1px solid var(--grisOscuro); background-color: snow; height: 23px;}
+		input {padding-inline: 4px;}
 	}
 
 	/* Sector filtros */
@@ -33,7 +34,7 @@
 
 	}
 
-	input[type="text"], textarea {padding: 3px 15px;}
+	/* input[type="text"], textarea {padding: 3px 5px;} */
 
 	#toolbar {
 		border: 1px solid #ccc; border-bottom: none; border-radius: 6px 6px 0 0; background: #f8f8f8; padding: 5px;
