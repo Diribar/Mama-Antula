@@ -75,9 +75,9 @@ window.addEventListener("load", async () => {
 			for (const input of DOM.inputs) {
 				// Agrega las opciones
 				const {tabla} = input.dataset;
-				if (input.type == "select-one" && input.dataset.tabla) FN.agregaOpciones(v[input.dataset.tabla], input, "nombre");
+				if (input.type == "select-one" && tabla) FN.agregaOpciones(v[tabla], input, "nombre");
 
-				// Actualiza el valor elegido
+				// Actualiza el valor elegido de todos los inputs
 				const campo = input.name;
 				input.value = (v.encabezado && v.encabezado[campo]) || "";
 			}
