@@ -4,7 +4,7 @@ window.addEventListener("load", async () => {
 	// Variables
 	const DOM = {
 		// Filtros
-		filtros:{
+		filtros: {
 			seccion: document.querySelector("#filtros select[name='seccion_id']"),
 			tema: document.querySelector("#filtros select[name='tema_id']"),
 			pestana: document.querySelector("#filtros select[name='pestana_id']"),
@@ -36,7 +36,13 @@ window.addEventListener("load", async () => {
 			DOM.filtros.encabezado.innerHTML = "";
 
 			// Variables
-			const datos = "seccion_id=" + DOM.filtros.seccion.value + "&tema_id=" + DOM.filtros.tema.value + "&pestana_id=" + DOM.filtros.pestana.value;
+			const datos =
+				"seccion_id=" +
+				DOM.filtros.seccion.value +
+				"&tema_id=" +
+				DOM.filtros.tema.value +
+				"&pestana_id=" +
+				DOM.filtros.pestana.value;
 			const encabezados = await fetch(rutas.obtieneEncabs + datos).then((n) => n && n.json());
 
 			// Crea las opciones
@@ -66,7 +72,9 @@ window.addEventListener("load", async () => {
 	DOM.filtros.seccion.addEventListener("change", () => {
 		// Averigua si la sección es 'Experiencias'
 		v.tipoEncab =
-			DOM.filtros.seccion.value == v.secciones.find((n) => n.codigo == "experiencias")?.id ? "encabExpers" : "encabSinIndice";
+			DOM.filtros.seccion.value == v.secciones.find((n) => n.codigo == "experiencias")?.id
+				? "encabExpers"
+				: "encabSinIndice";
 
 		// TEMA - Limpieza inicial
 		DOM.filtros.tema.innerHTML = "";
@@ -94,7 +102,9 @@ window.addEventListener("load", async () => {
 		// Averigua si el tema es 'Cartas'
 		if (v.tipoEncab != "encabExpers")
 			v.tipoEncab =
-				DOM.filtros.tema.value == v.temasSecciones.find((n) => n.codigo == "cartas")?.id ? "encabCartas" : "encabSinIndice";
+				DOM.filtros.tema.value == v.temasSecciones.find((n) => n.codigo == "cartas")?.id
+					? "encabCartas"
+					: "encabSinIndice";
 
 		// PESTANA - Limpieza inicial
 		DOM.filtros.pestana.innerHTML = "";
@@ -124,6 +134,7 @@ window.addEventListener("load", async () => {
 	});
 	DOM.filtros.pestana.addEventListener("change", () => FN.obtieneEncabs()); // ENCABEZADO - Los obtiene y genera el evento 'change'
 	DOM.filtros.encabezado.addEventListener("change", async () => {
+		return
 		// Variables
 		const seccion_id = DOM.filtros.seccion.value;
 		const tema_id = DOM.filtros.tema.value;
@@ -133,7 +144,8 @@ window.addEventListener("load", async () => {
 			encabezado.classList[encabezado.id == v.tipoEncab ? "remove" : "add"]("ocultar");
 
 		// Actualiza el contenido del encabezado
-		DOM.encab
+		DOM.encabezado = document.querySelector("#encabezados .encabezado:not(.ocultar)");
+		console.log(DOM.encabezado);
 
 		// Fin
 		return;
