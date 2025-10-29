@@ -98,10 +98,11 @@ window.addEventListener("load", async () => {
 				const domContenido = FN.creaElContenido(contenido);
 				domContActualIconos.appendChild(domContenido);
 
-				// Obtiene los íconos
+				// Crea el DOM íconos
 				const domIconos = DOM.iconosActual.cloneNode(true);
 				domContActualIconos.appendChild(domIconos);
 
+				// Agrega todo al DOM sector
 				DOM.sectorContActual.appendChild(domContActualIconos);
 			}
 
