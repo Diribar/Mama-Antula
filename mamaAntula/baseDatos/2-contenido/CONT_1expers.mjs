@@ -17,7 +17,7 @@ export default (sequelize, dt) => {
 		statusRegistro_id: {type: dt.INTEGER},
 	};
 	const config = {
-		tableName: "cont_1encab_ci_exps",
+		tableName: "encab_expers",
 		timestamps: false,
 	};
 	const entidad = sequelize.define(alias, columns, config);
