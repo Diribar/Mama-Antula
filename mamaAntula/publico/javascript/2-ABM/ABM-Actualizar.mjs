@@ -28,10 +28,7 @@ window.addEventListener("load", async () => {
 
 	// Funciones
 	const FN = {
-		actualizaFiltroEncab: async () => {
-			// Limpieza inicial
-			DOM.filtros.encabezado.innerHTML = "";
-
+		actualizaFiltroEncabezado: async () => {
 			// Variables
 			const datos =
 				"seccion_id=" +
@@ -44,12 +41,6 @@ window.addEventListener("load", async () => {
 
 			// Crea las opciones
 			FN.agregaOpciones(v.encabezados, DOM.filtros.encabezado, "tituloCons");
-			for (const encabezado of v.encabezados) {
-				const option = document.createElement("option");
-				option.value = encabezado.id;
-				option.textContent = encabezado.tituloCons || "Sin título";
-				DOM.filtros.encabezado.appendChild(option);
-			}
 
 			// Crea una opción más para un título nuevo
 			const option = document.createElement("option");
@@ -85,15 +76,24 @@ window.addEventListener("load", async () => {
 			// Fin
 			return;
 		},
+		actualizaContenidoActual: () => {
+
+		},
 
 		// Auxiliares
 		agregaOpciones: (opciones, domSelect, campoNombre) => {
+			// Limpia las opciones del select
+			domSelect.innerHTML = "";
+
+			// Agrega las opciones
 			for (const opcion of opciones) {
 				const domOpcion = document.createElement("option");
 				domOpcion.value = opcion.id;
 				domOpcion.textContent = opcion[campoNombre] || "Sin título";
 				domSelect.appendChild(domOpcion);
 			}
+
+			// Fin
 			return;
 		},
 	};
@@ -107,19 +107,12 @@ window.addEventListener("load", async () => {
 				: "encabSinIndice";
 
 		// TEMA - Limpieza inicial
-		DOM.filtros.tema.innerHTML = "";
 		DOM.filtros.pestana.classList.add("ocultar");
 
 		// TEMA - Crea las opciones
 		const seccion_id = DOM.filtros.seccion.value;
 		const temasSecciones = v.temasSecciones.filter((n) => n.seccion_id == seccion_id);
-		for (const tema of temasSecciones) {
-			// Crea la opción
-			const option = document.createElement("option");
-			option.value = tema.id;
-			option.textContent = tema.titulo;
-			DOM.filtros.tema.appendChild(option);
-		}
+		FN.agregaOpciones(temasSecciones, DOM.filtros.tema, "titulo");
 
 		// TEMA - Los muestra y dispara el evento
 		DOM.filtros.tema.classList.remove("ocultar");
@@ -136,33 +129,24 @@ window.addEventListener("load", async () => {
 					? "encabCartas"
 					: "encabSinIndice";
 
-		// PESTANA - Limpieza inicial
-		DOM.filtros.pestana.innerHTML = "";
-
 		// PESTANA - Si las tiene, las actualiza
 		const tema_id = DOM.filtros.tema.value;
 		const pestanasTemas = v.pestanasTemas.filter((n) => n.tema_id == tema_id);
 		if (pestanasTemas.length) {
 			// PESTANA - Crea las opciones
-			for (const pestana of pestanasTemas) {
-				// Crea la opción
-				const option = document.createElement("option");
-				option.value = pestana.id;
-				option.textContent = pestana.titulo;
-				DOM.filtros.pestana.appendChild(option);
-			}
+			FN.agregaOpciones(pestanasTemas, DOM.filtros.pestana, "titulo");
 
 			// PESTANA - Las muestra y dispara el evento
 			DOM.filtros.pestana.classList.remove("ocultar");
 			DOM.filtros.pestana.dispatchEvent(new Event("change"));
 		}
 		// ENCABEZADO - Si no tiene pestañas, obtiene los encabezados
-		else FN.actualizaFiltroEncab();
+		else FN.actualizaFiltroEncabezado();
 
 		// Fin
 		return;
 	});
-	DOM.filtros.pestana.addEventListener("change", () => FN.actualizaFiltroEncab()); // ENCABEZADO - Los obtiene y genera el evento 'change'
+	DOM.filtros.pestana.addEventListener("change", () => FN.actualizaFiltroEncabezado()); // ENCABEZADO - Los obtiene y genera el evento 'change'
 	DOM.filtros.encabezado.addEventListener("change", async () => {
 		// Muestra el encabezado que corresponde, y oculta los demás
 		for (const encabezado of DOM.encabezados)
@@ -170,6 +154,9 @@ window.addEventListener("load", async () => {
 
 		// Actualiza el encabezado
 		FN.actualizaEncabezado();
+
+		// Actualiza el contenido actual
+		FN.actualizaContenidoActual();
 
 		// Fin
 		return;
