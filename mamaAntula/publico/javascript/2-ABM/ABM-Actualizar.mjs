@@ -116,7 +116,7 @@ window.addEventListener("load", async () => {
 		// Fin
 		return;
 	});
-	DOM.pestana.addEventListener("change", () => FN.obtieneEncabs());
+	DOM.pestana.addEventListener("change", () => FN.obtieneEncabs());// ENCABEZADO - Los obtiene y genera el evento 'change'
 	DOM.encabezado.addEventListener("change", async () => {
 		// Variables
 		const seccion_id = DOM.seccion.value;
