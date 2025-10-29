@@ -50,8 +50,9 @@ window.addEventListener("load", async () => {
 			option.textContent = "Título nuevo";
 			DOM.encabezado.appendChild(option);
 
-			// Muestra las pestañas
+			// Muestra los encabezados y dispara el evento
 			DOM.encabezado.classList.remove("ocultar");
+			DOM.pestana.dispatchEvent(new Event("change"));
 
 			// Fin
 			return;
@@ -75,7 +76,7 @@ window.addEventListener("load", async () => {
 			DOM.tema.appendChild(option);
 		}
 
-		// Muestra los temas y dispara el evento en temas
+		// Muestra los temas y dispara el evento
 		DOM.tema.classList.remove("ocultar");
 		DOM.tema.dispatchEvent(new Event("change"));
 
@@ -99,7 +100,7 @@ window.addEventListener("load", async () => {
 				DOM.pestana.appendChild(option);
 			}
 
-			// Muestra las pestañas y dispara el evento en temas
+			// Muestra las pestañas y dispara el evento
 			DOM.pestana.classList.remove("ocultar");
 			DOM.pestana.dispatchEvent(new Event("change"));
 		} else FN.obtieneEncabs();
