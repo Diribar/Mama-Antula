@@ -134,7 +134,6 @@ window.addEventListener("load", async () => {
 	});
 	DOM.filtros.pestana.addEventListener("change", () => FN.obtieneEncabs()); // ENCABEZADO - Los obtiene y genera el evento 'change'
 	DOM.filtros.encabezado.addEventListener("change", async () => {
-		return
 		// Variables
 		const seccion_id = DOM.filtros.seccion.value;
 		const tema_id = DOM.filtros.tema.value;
