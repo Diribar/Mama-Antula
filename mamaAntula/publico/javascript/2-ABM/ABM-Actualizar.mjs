@@ -7,7 +7,7 @@ window.addEventListener("load", async () => {
 		seccion: document.querySelector("#filtros select[name='seccion_id']"),
 		tema: document.querySelector("#filtros select[name='tema_id']"),
 		pestana: document.querySelector("#filtros select[name='pestana_id']"),
-		titulo: document.querySelector("#filtros select[name='titulo']"),
+		encabezado: document.querySelector("#filtros select[name='encabezado']"),
 
 		// Inputs del encabezado
 		encabSinIndice: document.querySelector("#encabezado #encabSinIndice"),
@@ -18,30 +18,35 @@ window.addEventListener("load", async () => {
 		contenidoActual: document.querySelector("#contenidoActual"),
 		contenidoNuevo: document.querySelector("#contenidoNuevo"),
 	};
-	const rutas={
+	const rutas = {
 		datosIniciales: "/contenido/api/abm-datos-inciales",
-		obtieneTitulos: "/contenido/api/abm-obtiene-titulos",
-	}
+		obtieneEncabs: "/contenido/api/abm-obtiene-encabezados/?",
+	};
 	const v = {
 		...(await fetch(rutas.datosIniciales).then((n) => n.json())),
 	};
 
 	// Funciones
-	const FN={
-		obtieneTitulos: async () => {
+	const FN = {
+		obtieneEncabs: async () => {
 			// Variables
-			const titulos = await fetch(rutas.obtieneTitulos).then((n) => n.json());
-			DOM.titulo.innerHTML = "";
+			const datos = "seccion_id=" + DOM.seccion.value + "&tema_id=" + DOM.tema.value + "&pestana_id=" + DOM.pestana.value;
+			const encabezados = await fetch(rutas.obtieneEncabs + datos).then((n) => n.json());
+			console.log(encabezados);
+			DOM.encabezado.innerHTML = "";
 
 			// Crea las opciones
-			for (const titulo of titulos) {
+			for (const encabezado of encabezados) {
 				const option = document.createElement("option");
-				option.value = titulo.titulo;
-				option.textContent = titulo.titulo;
-				DOM.titulo.appendChild(option);
+				option.value = encabezado.id;
+				option.textContent = encabezado.titulo;
+				DOM.encabezado.appendChild(option);
 			}
-		}
-	}
+
+			// Fin
+			return;
+		},
+	};
 
 	// Eventos
 	DOM.seccion.addEventListener("change", async () => {
@@ -86,25 +91,11 @@ window.addEventListener("load", async () => {
 
 			// Muestra las pestañas
 			DOM.pestana.classList.remove("ocultar");
-		}else {
-			// Obtiene los títulos
-			// Crea las opciones de títulos
-			for (const pestana of pestanasTemas) {
-				// Crea la opción
-				const option = document.createElement("option");
-				option.value = pestana.id;
-				option.textContent = pestana.titulo;
-				DOM.pestana.appendChild(option);
-			}
-
-			// Muestra las pestañas
-			DOM.pestana.classList.remove("ocultar");
-
-		}
+		} else FN.obtieneEncabs();
 
 		// Fin
 		return;
 	});
 	DOM.pestana.addEventListener("change", async () => {});
-	DOM.titulos.addEventListener("change", async () => {});
+	DOM.encabezado.addEventListener("change", async () => {});
 });

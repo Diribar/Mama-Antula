@@ -162,6 +162,18 @@ export default {
 		// Fin
 		return mailEnviado;
 	},
+	obtieneDatosTabla: ({seccionActual, temaActual}) => {
+		// Obtiene los datos
+		const [entidad, campo_id, orden] =
+			seccionActual.codigo == "experiencias"
+				? ["encabExps", "experiencia_id", null]
+				: temaActual.codigo == "cartas"
+				? ["encabCartas", "carta_id", null]
+				: ["encabSinIndice", "sinIndice_id", "orden"];
+
+		// Fin
+		return {entidad, campo_id, orden};
+	},
 };
 
 // Funciones
