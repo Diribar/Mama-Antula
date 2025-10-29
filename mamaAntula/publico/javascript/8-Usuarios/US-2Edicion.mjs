@@ -56,7 +56,7 @@ window.addEventListener("load", async () => {
 			const mensaje = v.errores.hay
 				? v.errores[campo]
 				: (campo == "imagen" ? "La imagen" : "El valor del campo " + campo) + " se puede guardar";
-			fnUsuariosComp.colorMensaje(DOM, v.errores.hay, mensaje);
+			colorMensaje(DOM, v.errores.hay, mensaje);
 
 			// Acciones si no hay errores
 			if (!v.errores.hay) {
@@ -75,7 +75,7 @@ window.addEventListener("load", async () => {
 				// Acciones si no hay nada para guardar
 				if (!hayAlgoParaGuardar) {
 					v.errores = {mensaje: "No se hicieron cambios a guardar", hay: true};
-					fnUsuariosComp.colorMensaje(DOM, v.errores.hay, v.errores.mensaje);
+					colorMensaje(DOM, v.errores.hay, v.errores.mensaje);
 				}
 
 				// Fin
@@ -106,7 +106,7 @@ window.addEventListener("load", async () => {
 							.filter((n) => !!n && n !== true && n !== false)
 							.join(". ") // quita los 'no errores' y el 'hay'
 					: "Los cambios fueron guardados";
-				fnUsuariosComp.colorMensaje(DOM, v.errores.hay, mensaje);
+				colorMensaje(DOM, v.errores.hay, mensaje);
 
 				// Actualiza la imagen en el header
 				if (v.archivoImgSubido && !v.errores.imagen) {
@@ -152,7 +152,7 @@ window.addEventListener("load", async () => {
 		if (v.errores.hay) return;
 
 		// Averigua si hay un error
-		v.errores = await fetch(v.rutaValidaCampo, fnUsuariosComp.postJson(v.datos)).then((n) => n.json());
+		v.errores = await fetch(v.rutaValidaCampo, postJson(v.datos)).then((n) => n.json());
 
 		// Respuestas
 		FN.respuestas("imagen");
@@ -175,7 +175,7 @@ window.addEventListener("load", async () => {
 		}
 
 		// Averigua si hay un error
-		v.errores = await fetch(v.rutaValidaCampo, fnUsuariosComp.postJson(v.datos)).then((n) => n.json());
+		v.errores = await fetch(v.rutaValidaCampo, postJson(v.datos)).then((n) => n.json());
 
 		// Respuestas
 		FN.respuestas(campo);
@@ -197,7 +197,7 @@ window.addEventListener("load", async () => {
 		const formData = FN.accionesSubmit.formData();
 
 		// Valida y guarda los cambios del form
-		v.errores = await fetch(v.rutaGuardar, fnUsuariosComp.postForm(formData)).then((n) => n.json());
+		v.errores = await fetch(v.rutaGuardar, postForm(formData)).then((n) => n.json());
 
 		// Acciones finales
 		FN.accionesSubmit.finSubmit();
