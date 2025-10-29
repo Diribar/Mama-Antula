@@ -18,11 +18,10 @@
 
 	/* Sector encabezados */
 	#sectorEncabezados {
-		background-color: var(--celesteClaro);}
+		background-color: var(--celesteClaro);
 		.encabezado {
 			select[name="orden"], select[name="numero"] {width: 70px;}
-			&#encabCartas {
-			}
+			/* &#encabCartas {} */
 			&#encabSinIndice input {width: 300px;}
 		}
 
@@ -52,4 +51,5 @@
 		height: 200px;
 	}
 	button[type="submit"] {align-self: center; padding: 2px 3px; border-radius: 5px;}
+
 }
