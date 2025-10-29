@@ -6,6 +6,8 @@
 				<option value="<%= seccion.id %>"><%= seccion.nombre %></option>
 			<% } %>
 		</select>
+		<select name="tema_id"></select>
+		<select name="pestana_id"></select>
 	</div>
 	<div id="encabSinIndice" class="ocultar">
 		<input type="text" name="titulo">
@@ -43,8 +45,5 @@
 <!-- Contenido -->
  <section>
 	<div id="contenidoActual">
-		<% for (const contenido of contenidos) { %>
-
-		<% } %>
 	</div>
  </section>
