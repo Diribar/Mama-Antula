@@ -13,9 +13,6 @@ window.addEventListener("load", async () => {
 
 		// Inputs del encabezado
 		encabezados: document.querySelectorAll("#sectorEncabezados .encabezado"),
-		// encabCartas: document.querySelector("#sectorEncabezados #encabCartas"),
-		// encabExpers: document.querySelector("#sectorEncabezados #encabExpers"),
-		// encabSinIndice: document.querySelector("#sectorEncabezados #encabSinIndice"),
 
 		// Inputs del contenido
 		contenidoActual: document.querySelector("#contenidoActual"),
@@ -31,7 +28,7 @@ window.addEventListener("load", async () => {
 
 	// Funciones
 	const FN = {
-		obtieneEncabs: async () => {
+		actualizaFiltroEncab: async () => {
 			// Limpieza inicial
 			DOM.filtros.encabezado.innerHTML = "";
 
@@ -43,10 +40,11 @@ window.addEventListener("load", async () => {
 				DOM.filtros.tema.value +
 				"&pestana_id=" +
 				DOM.filtros.pestana.value;
-			const encabezados = await fetch(rutas.obtieneEncabs + datos).then((n) => n && n.json());
+			v.encabezados = await fetch(rutas.obtieneEncabs + datos).then((n) => n && n.json());
 
 			// Crea las opciones
-			for (const encabezado of encabezados) {
+			FN.agregaOpciones(v.encabezados, DOM.filtros.encabezado, "tituloCons");
+			for (const encabezado of v.encabezados) {
 				const option = document.createElement("option");
 				option.value = encabezado.id;
 				option.textContent = encabezado.tituloCons || "Sin título";
@@ -56,7 +54,7 @@ window.addEventListener("load", async () => {
 			// Crea una opción más para un título nuevo
 			const option = document.createElement("option");
 			option.value = "nuevo";
-			option.textContent = "Título nuevo";
+			option.textContent = "Encabezado nuevo";
 			DOM.filtros.encabezado.appendChild(option);
 
 			// Muestra los encabezados y dispara el evento
@@ -64,6 +62,38 @@ window.addEventListener("load", async () => {
 			DOM.filtros.encabezado.dispatchEvent(new Event("change"));
 
 			// Fin
+			return;
+		},
+		actualizaEncabezado: () => {
+			// Obtiene el DOM de los inputs
+			DOM.encabezado = document.querySelector("#sectorEncabezados .encabezado:not(.ocultar)");
+			DOM.inputs = DOM.encabezado.querySelectorAll(".input");
+
+			// Actualiza los inputs
+			v.encabezado_id = DOM.filtros.encabezado.value;
+			v.encabezado = v.encabezados.find((n) => n.id == v.encabezado_id);
+			for (const input of DOM.inputs) {
+				// Agrega las opciones
+				const {tabla} = input.dataset;
+				if (input.type == "select-one" && input.dataset.tabla) FN.agregaOpciones(v[input.dataset.tabla], input, "nombre");
+
+				// Actualiza el valor elegido
+				const campo = input.name;
+				input.value = (v.encabezado && v.encabezado[campo]) || "";
+			}
+
+			// Fin
+			return;
+		},
+
+		// Auxiliares
+		agregaOpciones: (opciones, domSelect, campoNombre) => {
+			for (const opcion of opciones) {
+				const domOpcion = document.createElement("option");
+				domOpcion.value = opcion.id;
+				domOpcion.textContent = opcion[campoNombre] || "Sin título";
+				domSelect.appendChild(domOpcion);
+			}
 			return;
 		},
 	};
@@ -127,24 +157,19 @@ window.addEventListener("load", async () => {
 			DOM.filtros.pestana.dispatchEvent(new Event("change"));
 		}
 		// ENCABEZADO - Si no tiene pestañas, obtiene los encabezados
-		else FN.obtieneEncabs();
+		else FN.actualizaFiltroEncab();
 
 		// Fin
 		return;
 	});
-	DOM.filtros.pestana.addEventListener("change", () => FN.obtieneEncabs()); // ENCABEZADO - Los obtiene y genera el evento 'change'
+	DOM.filtros.pestana.addEventListener("change", () => FN.actualizaFiltroEncab()); // ENCABEZADO - Los obtiene y genera el evento 'change'
 	DOM.filtros.encabezado.addEventListener("change", async () => {
-		// Variables
-		const seccion_id = DOM.filtros.seccion.value;
-		const tema_id = DOM.filtros.tema.value;
-
-		// Averigua qué encabezado mostrar, y oculta los demás
+		// Muestra el encabezado que corresponde, y oculta los demás
 		for (const encabezado of DOM.encabezados)
 			encabezado.classList[encabezado.id == v.tipoEncab ? "remove" : "add"]("ocultar");
 
-		// Actualiza el contenido del encabezado
-		DOM.encabezado = document.querySelector("#encabezados .encabezado:not(.ocultar)");
-		console.log(DOM.encabezado);
+		// Actualiza el encabezado
+		FN.actualizaEncabezado();
 
 		// Fin
 		return;
