@@ -18,9 +18,30 @@ window.addEventListener("load", async () => {
 		contenidoActual: document.querySelector("#contenidoActual"),
 		contenidoNuevo: document.querySelector("#contenidoNuevo"),
 	};
+	const rutas={
+		datosIniciales: "/contenido/api/abm-datos-inciales",
+		obtieneTitulos: "/contenido/api/abm-obtiene-titulos",
+	}
 	const v = {
-		...(await fetch("/contenido/api/abm-datos-inciales").then((n) => n.json())),
+		...(await fetch(rutas.datosIniciales).then((n) => n.json())),
 	};
+
+	// Funciones
+	const FN={
+		obtieneTitulos: async () => {
+			// Variables
+			const titulos = await fetch(rutas.obtieneTitulos).then((n) => n.json());
+			DOM.titulo.innerHTML = "";
+
+			// Crea las opciones
+			for (const titulo of titulos) {
+				const option = document.createElement("option");
+				option.value = titulo.titulo;
+				option.textContent = titulo.titulo;
+				DOM.titulo.appendChild(option);
+			}
+		}
+	}
 
 	// Eventos
 	DOM.seccion.addEventListener("change", async () => {
@@ -34,21 +55,56 @@ window.addEventListener("load", async () => {
 		for (const tema of temasSecciones) {
 			// Crea la opción
 			const option = document.createElement("option");
-			option.value = tema.tema_id;
+			option.value = tema.id;
 			option.textContent = tema.titulo;
 			DOM.tema.appendChild(option);
 		}
 
-		// Muestra los temas
+		// Muestra los temas y dispara el evento en temas
 		DOM.tema.classList.remove("ocultar");
+		DOM.tema.dispatchEvent(new Event("change"));
 
 		// Fin
 		return;
 	});
 	DOM.tema.addEventListener("change", async () => {
-		await actualizarPestanas();
+		// Limpieza inicial
+		DOM.pestana.innerHTML = "";
+
+		// Averigua si tiene pestañas
+		const tema_id = DOM.tema.value;
+		const pestanasTemas = v.pestanasTemas.filter((n) => n.tema_id == tema_id);
+		if (pestanasTemas.length) {
+			// Crea las opciones de pestanas
+			for (const pestana of pestanasTemas) {
+				// Crea la opción
+				const option = document.createElement("option");
+				option.value = pestana.id;
+				option.textContent = pestana.titulo;
+				DOM.pestana.appendChild(option);
+			}
+
+			// Muestra las pestañas
+			DOM.pestana.classList.remove("ocultar");
+		}else {
+			// Obtiene los títulos
+			// Crea las opciones de títulos
+			for (const pestana of pestanasTemas) {
+				// Crea la opción
+				const option = document.createElement("option");
+				option.value = pestana.id;
+				option.textContent = pestana.titulo;
+				DOM.pestana.appendChild(option);
+			}
+
+			// Muestra las pestañas
+			DOM.pestana.classList.remove("ocultar");
+
+		}
+
+		// Fin
+		return;
 	});
-	DOM.pestana.addEventListener("change", async () => {
-		await actualizarTitulos();
-	});
+	DOM.pestana.addEventListener("change", async () => {});
+	DOM.titulos.addEventListener("change", async () => {});
 });
