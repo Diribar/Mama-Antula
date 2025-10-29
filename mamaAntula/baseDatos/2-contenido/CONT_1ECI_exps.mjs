@@ -7,7 +7,7 @@ export default (sequelize, dt) => {
 
 		// Otros
 		titulo: {type: dt.STRING(100)},
-		subtitulo: {type: dt.STRING(100)},
+		subTitulo: {type: dt.STRING(100)},
 		lugar_id: {type: dt.INTEGER},
 		fechaEvento: {type: dt.DATE},
 
