@@ -1,12 +1,11 @@
 export default (sequelize, dt) => {
-	const alias = "imgsCarrousel";
+	const alias = "encabExps";
 	const columns = {
-		// Referencias
-		contenido_id: {type: dt.INTEGER},
-		orden: {type: dt.INTEGER},
-
 		// Otros
-		imagen: {type: dt.STRING(17)},
+		titulo: {type: dt.STRING(100)},
+		subtitulo: {type: dt.STRING(100)},
+		lugar_id: {type: dt.INTEGER},
+		fechaEvento: {type: dt.DATE},
 
 		// Control
 		creadoPor_id: {type: dt.INTEGER},
@@ -14,13 +13,13 @@ export default (sequelize, dt) => {
 		statusRegistro_id: {type: dt.INTEGER},
 	};
 	const config = {
-		tableName: "cont_3carrousel",
+		tableName: "cont_1enc_ci_exps",
 		timestamps: false,
 	};
 	const entidad = sequelize.define(alias, columns, config);
 	entidad.associate = (n) => {
-		entidad.belongsTo(n.contenidos, {as: "contenido", foreignKey: "contenido_id"});
-		entidad.belongsTo(n.usuarios, {as: "usuario", foreignKey: "creadoPor_id"});
+		entidad.belongsTo(n.lugares, {as: "lugar", foreignKey: "lugar_id"});
+		entidad.belongsTo(n.usuarios, {as: "creadoPor", foreignKey: "creadoPor_id"});
 		entidad.belongsTo(n.statusRegistros, {as: "statusRegistro", foreignKey: "statusRegistro_id"});
 	};
 	return entidad;
