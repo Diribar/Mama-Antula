@@ -29,6 +29,7 @@ window.addEventListener("load", async () => {
 
 	// Funciones
 	const FN = {
+		// Operaciones
 		actualizaFiltroEncabezado: async () => {
 			// Variables
 			const datos =
