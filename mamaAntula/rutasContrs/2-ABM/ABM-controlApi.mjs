@@ -36,4 +36,16 @@ export default {
 		// Fin
 		return res.json(encabezados);
 	},
+	obtieneContenidos: async (req, res) => {
+		// Variables
+		const {encab_id, campo_id} = req.query;
+
+		// Obtiene los contenidos
+		const contenidos = await baseDatos
+			.obtieneTodosPorCondicion("contenidos", {[campo_id]: encab_id})
+			.then((n) => n.sort((a, b) => a.orden - b.orden));
+
+		// Fin
+		return res.json(contenidos);
+	},
 };

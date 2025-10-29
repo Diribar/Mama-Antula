@@ -14,13 +14,14 @@ window.addEventListener("load", async () => {
 		// Inputs del encabezado
 		encabezados: document.querySelectorAll("#sectorEncabezados .encabezado"),
 
-		// Inputs del contenido
-		contenidoActual: document.querySelector("#contenidoActual"),
-		contenidoNuevo: document.querySelector("#contenidoNuevo"),
+		// Contenido actual
+		sectorContActual: document.querySelector("#sectorContActual"),
+		iconosActual: document.querySelector("#sectorContActual .iconos"),
 	};
 	const rutas = {
 		datosIniciales: "/contenido/api/abm-datos-inciales",
 		obtieneEncabs: "/contenido/api/abm-obtiene-encabezados/?",
+		obtieneContenidos: "/contenido/api/abm-obtiene-contenidos/?",
 	};
 	const v = {
 		...(await fetch(rutas.datosIniciales).then((n) => n && n.json())),
@@ -56,11 +57,11 @@ window.addEventListener("load", async () => {
 			return;
 		},
 		actualizaEncabezado: () => {
-			// Obtiene el DOM de los inputs
+			// Obtiene los inputs del DOM
 			DOM.encabezado = document.querySelector("#sectorEncabezados .encabezado:not(.ocultar)");
 			DOM.inputs = DOM.encabezado.querySelectorAll(".input");
 
-			// Actualiza los inputs
+			// Actualiza el DOM
 			v.encabezado_id = DOM.filtros.encabezado.value;
 			v.encabezado = v.encabezados.find((n) => n.id == v.encabezado_id);
 			for (const input of DOM.inputs) {
@@ -76,8 +77,37 @@ window.addEventListener("load", async () => {
 			// Fin
 			return;
 		},
-		actualizaContenidoActual: () => {
+		actualizaContenidoActual: async () => {
+			// Variables
+			const campo_id =
+				v.tipoEncab == "encabCartas" ? "carta_id" : v.tipoEncab == "encabExpers" ? "experiencia_id" : "sinIndice_id";
+			const ruta = rutas.obtieneContenidos + "encab_id=" + v.encabezado_id + "&campo_id=" + campo_id;
 
+			// Obtiene los contenidos actuales
+			v.contenidos = v.encabezado_id != "nuevo" ? await fetch(ruta).then((n) => n && n.json()) : [];
+			console.log(v.contenidos);
+
+			// Actualiza el DOM
+			DOM.sectorContActual.innerHTML = "";
+			for (const contenido of v.contenidos) {
+				// Crea el DOM contenedor
+				const domContActualIconos = document.createElement("div");
+				domContActualIconos.classList.add("contActualIconos");
+
+				// Crea el DOM contenido
+				const domContenido = FN.creaElContenido(contenido);
+				domContActualIconos.appendChild(domContenido);
+
+				// Crea el DOM íconos
+				const domIconos = DOM.iconosActual.cloneNode(true);
+				domContActualIconos.appendChild(domIconos);
+
+				// Agrega el DOM contenedor al DOM sector
+				DOM.sectorContActual.appendChild(domContActualIconos);
+			}
+
+			// Fin
+			return;
 		},
 
 		// Auxiliares
