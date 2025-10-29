@@ -16,7 +16,7 @@ window.addEventListener("load", async () => {
 
 		// Contenido actual
 		sectorContActual: document.querySelector("#sectorContActual"),
-		contActualIconos: document.querySelector("#sectorContActual .contActualIconos"),
+		iconosActual: document.querySelector("#sectorContActual .iconos"),
 	};
 	const rutas = {
 		datosIniciales: "/contenido/api/abm-datos-inciales",
@@ -88,7 +88,22 @@ window.addEventListener("load", async () => {
 			console.log(v.contenidos);
 
 			// Actualiza el DOM
+			DOM.sectorContActual.innerHTML = "";
+			for (const contenido of v.contenidos) {
+				// Crea el DOM contenedor
+				const domContActualIconos = document.createElement("div");
+				domContActualIconos.classList.add("contActualIconos");
 
+				// Crea el DOM contenido
+				const domContenido = FN.creaElContenido(contenido);
+				domContActualIconos.appendChild(domContenido);
+
+				// Obtiene los íconos
+				const domIconos = DOM.iconosActual.cloneNode(true);
+				domContActualIconos.appendChild(domIconos);
+
+				DOM.sectorContActual.appendChild(domContActualIconos);
+			}
 
 			// Fin
 			return;
