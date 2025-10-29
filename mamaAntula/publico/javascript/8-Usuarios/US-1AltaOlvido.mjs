@@ -19,7 +19,7 @@ window.addEventListener("load", async () => {
 
 		// Acciones si hay un error
 		if (errorMail) {
-			fnUsuariosComp.colorMensaje(DOM, true, errorMail);
+			colorMensaje(DOM, true, errorMail);
 			DOM.confirma.classList.add("inactivo");
 		}
 	};
@@ -45,11 +45,11 @@ window.addEventListener("load", async () => {
 		DOM.confirma.classList.add("inactivo");
 
 		// Envía el mail
-		fnUsuariosComp.colorMensaje(DOM, false, "Estamos enviándote un mail con la contraseña...");
+		colorMensaje(DOM, false, "Estamos enviándote un mail con la contraseña...");
 		const respuesta = await fetch(rutaApi + DOM.email.value).then((n) => n.json());
 
 		// Acciones en función de la respuesta recibida
-		fnUsuariosComp.colorMensaje(DOM, respuesta.hay, respuesta.email || respuesta.mensaje);
+		colorMensaje(DOM, respuesta.hay, respuesta.email || respuesta.mensaje);
 
 		// Fin
 		return;

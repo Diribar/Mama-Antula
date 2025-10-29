@@ -1,73 +1,78 @@
 <!-- Encabezado -->
-<section id="filtros" class="flexRowAlign">
-	<select name="seccion_id">
-		<% for (const seccion of secciones) { %>
-			<option value="<%= seccion.id %>"><%= seccion.nombre %></option>
-		<% } %>
-	</select>
-	<select name="tema_id" class="ocultar"></select>
-	<select name="pestana_id" class="ocultar"></select>
-	<select name="encabezado" class="ocultar"></select>
-</section>
-<section id="encabezado">
-	<div id="encabSinIndice" class="ocultar">
-		<input type="text" name="titulo">
-		<input type="text" name="subTitulo">
-		<select name="orden">
-
+<section id="sectorFiltros" class="sector">
+	<h2>Filtros</h2>
+	<div id="filtros">
+		<select name="seccion_id">
+			<% for (const seccion of secciones) { %>
+				<option value="<%= seccion.id %>"><%= seccion.nombre %></option>
+			<% } %>
 		</select>
+		<select name="tema_id" class="ocultar"></select>
+		<select name="pestana_id" class="ocultar"></select>
+		<select name="encabezado" class="ocultar"></select>
 	</div>
-	<div id="encabCartas" class="ocultar">
-		<input type="number" name="numero">
-		<select name="nombreDesde_id">
+</section>
+<form>
+	<section id="sectorEncabezados" class="sector">
+		<h2>Encabezado</h2>
+		<div id="encabCartas" class="encabezado ocultar">
+			<select name="numero" class="input">
 
-		</select>
-		<select name="nombreHacia_id">
-
-		</select>
-		<select name="lugar_id">
-
-		</select>
-		<select name="idioma_id">
-
-		</select>
-
-		<div id="areaSoltar">
-			<p id="cartelImagen">Arrastrá o buscá tu imagen (opcional)</p>
-			<input name="imagen" type="file" accept="image/*" hidden><!-- el input no lleva class 'input', porque tiene un tratamiento diferente -->
-			<img id="vistaImagen" src="">
+			</select>
+			<select name="nombreDesde_id" class="input">
+				<option value="">Remitente</option>
+			</select>
+			<select name="nombreHacia_id" class="input">
+				<option value="">Destinatario</option>
+			</select>
+			<select name="lugar_id" class="input">
+				<option value="">Dónde se escribió</option>
+			</select>
+			<select name="idioma_id" class="input">
+				<option value="">Idioma</option>
+			</select>
+			<div id="areaSoltar">
+				<p id="cartelImagen">Imagen (opcional)</p>
+				<input name="imagen" type="file" accept="image/*" hidden><!-- el input no lleva class 'input', porque tiene un tratamiento diferente -->
+				<img id="vistaImagen" src="">
+			</div>
+			<input type="date" name="fechaEvento">
 		</div>
-
-		<input type="date" name="fechaEvento">
-	</div>
-	<div id="encabExpers" class="ocultar">
-		<input type="text" name="titulo">
-		<input type="text" name="subTitulo">
-		<select name="lugar_id">
-
-		</select>
-		<input type="date" name="fechaEvento">
-	</div>
-	<div id="iconosEncab">
-		<!-- guardar -->
-		<!-- eliminar -->
-	</div>
-</section>
-
-<!-- Contenido -->
-<section id="contenidoActual" class="ocultar">
-	<div class="bloque">
-		<div></div>
-		<div id="iconosContActual">
+		<div id="encabExpers" class="encabezado ocultar">
+			<input type="text" name="titulo" class="input" placeholder="Título">
+			<input type="text" name="subTitulo" class="input" placeholder="Sub-título">
+			<select name="lugar_id" class="input">
+				<option value="">Lugar donde ocurrió</option>
+			</select>
+			<input type="date" name="fechaEvento" class="input">
+		</div>
+		<div id="encabSinIndice" class="encabezado ocultar">
+			<input type="text" name="titulo" class="input" placeholder="Título">
+			<input type="text" name="subTitulo" class="input" placeholder="Sub-título">
+			<select name="orden" class="input">
+			</select>
+		</div>
+		<div id="iconosEncab" class="ocultar">
 			<!-- guardar -->
 			<!-- eliminar -->
-			<!-- subir -->
-			<!-- bajar -->
 		</div>
-	</div>
-</section>
-<section id="contenidoNuevo" class="ocultar">
-	<div>
-	</div>
-	<!-- guardar -->
-</section>
+	</section>
+
+	<!-- Contenido -->
+	<section id="contenidoActual" class="ocultar sector">
+		<div class="bloque">
+			<div></div>
+			<div id="iconosContActual">
+				<!-- guardar -->
+				<!-- eliminar -->
+				<!-- subir -->
+				<!-- bajar -->
+			</div>
+		</div>
+	</section>
+	<section id="contenidoNuevo" class="ocultar sector">
+		<div>
+		</div>
+		<!-- guardar -->
+	</section>
+</form>

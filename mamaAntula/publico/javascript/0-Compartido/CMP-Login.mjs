@@ -27,7 +27,7 @@ window.addEventListener("load", async () => {
 		const datos = {email: DOM.email.value, contrasena: DOM.contrasena.value};
 
 		// Valida los valores
-		const errores = await fetch(rutaApi, fnUsuariosComp.postJson(datos)).then((n) => n.json());
+		const errores = await fetch(rutaApi, postJson(datos)).then((n) => n.json());
 		const {email: errorEmail, contrasena: errorContrasena, credenciales} = errores;
 		DOM.mensajeError.innerText = errorEmail || errorContrasena || credenciales || "";
 

@@ -1,0 +1,56 @@
+#contenidoTemas {
+	input, select {border-radius: 6px; border: 1px solid var(--grisOscuro); background-color: snow;}
+
+	/* General */
+	.sector {
+		border: 1px solid black; border-radius: 10px;
+		padding: 15px 20px; margin-bottom: 30px; width: fit-content;
+		&#sectorFiltros, &#sectorFiltros #filtros,
+		&#sectorEncabezados, &#sectorEncabezados .encabezado
+		{display: flex; flex-direction: row; align-items: center; justify-content: flex-start; gap: 30px;}
+	}
+
+	/* Sector filtros */
+	#sectorFiltros {
+		background-color: var(--celesteClaro);
+		#filtros {select {width: 210px;}}
+	}
+
+	/* Sector encabezados */
+	#sectorEncabezados {
+		background-color: var(--grisClaro);
+		.encabezado {
+			input[type="text"] {width: 300px;}
+			input[type="date"] {width: 130px;}
+			select[name="orden"], select[name="numero"] {width: 70px;}
+			&#encabCartas #areaSoltar {--ladoCuadrado: 100px; width: var(--ladoCuadrado); border-radius: 5px;}
+		}
+
+	}
+
+	input[type="text"], textarea {padding: 3px 15px;}
+
+	#toolbar {
+		border: 1px solid #ccc; border-bottom: none; border-radius: 6px 6px 0 0; background: #f8f8f8; padding: 5px;
+		/* Agregar una barra entre grupos */
+		.ql-formats {
+			&:not(:last-child) {border-right: 1px solid #aaa; margin-inline: 2px !important; padding-right: 5px !important;}
+			button {
+				cursor: pointer;
+				&:hover {background-color: #e3e3e3; scale: 1.3;}
+			}
+		}
+	}
+
+	#editor-container {
+		height: 100px; border-radius: 0 0 6px 6px;
+		.ql-editor {font-size: 1rem !important;}
+	}
+
+	textarea {
+		/* display: none; */
+		height: 200px;
+	}
+	button[type="submit"] {align-self: center; padding: 2px 3px; border-radius: 5px;}
+
+}

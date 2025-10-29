@@ -4,15 +4,18 @@ window.addEventListener("load", async () => {
 	// Variables
 	const DOM = {
 		// Filtros
-		seccion: document.querySelector("#filtros select[name='seccion_id']"),
-		tema: document.querySelector("#filtros select[name='tema_id']"),
-		pestana: document.querySelector("#filtros select[name='pestana_id']"),
-		encabezado: document.querySelector("#filtros select[name='encabezado']"),
+		filtros: {
+			seccion: document.querySelector("#filtros select[name='seccion_id']"),
+			tema: document.querySelector("#filtros select[name='tema_id']"),
+			pestana: document.querySelector("#filtros select[name='pestana_id']"),
+			encabezado: document.querySelector("#filtros select[name='encabezado']"),
+		},
 
 		// Inputs del encabezado
-		encabCartas: document.querySelector("#encabezado #encabCartas"),
-		encabExpers: document.querySelector("#encabezado #encabExpers"),
-		encabSinIndice: document.querySelector("#encabezado #encabSinIndice"),
+		encabezados: document.querySelectorAll("#sectorEncabezados .encabezado"),
+		// encabCartas: document.querySelector("#sectorEncabezados #encabCartas"),
+		// encabExpers: document.querySelector("#sectorEncabezados #encabExpers"),
+		// encabSinIndice: document.querySelector("#sectorEncabezados #encabSinIndice"),
 
 		// Inputs del contenido
 		contenidoActual: document.querySelector("#contenidoActual"),
@@ -23,35 +26,42 @@ window.addEventListener("load", async () => {
 		obtieneEncabs: "/contenido/api/abm-obtiene-encabezados/?",
 	};
 	const v = {
-		...(await fetch(rutas.datosIniciales).then((n) => n.json())),
+		...(await fetch(rutas.datosIniciales).then((n) => n && n.json())),
 	};
 
 	// Funciones
 	const FN = {
 		obtieneEncabs: async () => {
 			// Limpieza inicial
-			DOM.encabezado.innerHTML = "";
+			DOM.filtros.encabezado.innerHTML = "";
 
 			// Variables
-			const datos = "seccion_id=" + DOM.seccion.value + "&tema_id=" + DOM.tema.value + "&pestana_id=" + DOM.pestana.value;
-			const encabezados = await fetch(rutas.obtieneEncabs + datos).then((n) => n.json());
+			const datos =
+				"seccion_id=" +
+				DOM.filtros.seccion.value +
+				"&tema_id=" +
+				DOM.filtros.tema.value +
+				"&pestana_id=" +
+				DOM.filtros.pestana.value;
+			const encabezados = await fetch(rutas.obtieneEncabs + datos).then((n) => n && n.json());
 
 			// Crea las opciones
 			for (const encabezado of encabezados) {
 				const option = document.createElement("option");
 				option.value = encabezado.id;
 				option.textContent = encabezado.tituloCons || "Sin título";
-				DOM.encabezado.appendChild(option);
+				DOM.filtros.encabezado.appendChild(option);
 			}
 
 			// Crea una opción más para un título nuevo
 			const option = document.createElement("option");
 			option.value = "nuevo";
 			option.textContent = "Título nuevo";
-			DOM.encabezado.appendChild(option);
+			DOM.filtros.encabezado.appendChild(option);
 
-			// Muestra las pestañas
-			DOM.encabezado.classList.remove("ocultar");
+			// Muestra los encabezados y dispara el evento
+			DOM.filtros.encabezado.classList.remove("ocultar");
+			DOM.filtros.encabezado.dispatchEvent(new Event("change"));
 
 			// Fin
 			return;
@@ -59,54 +69,87 @@ window.addEventListener("load", async () => {
 	};
 
 	// Eventos de filtros
-	DOM.seccion.addEventListener("change", () => {
-		// Limpieza inicial
-		DOM.tema.innerHTML = "";
-		DOM.pestana.classList.add("ocultar");
+	DOM.filtros.seccion.addEventListener("change", () => {
+		// Averigua si la sección es 'Experiencias'
+		v.tipoEncab =
+			DOM.filtros.seccion.value == v.secciones.find((n) => n.codigo == "experiencias")?.id
+				? "encabExpers"
+				: "encabSinIndice";
 
-		// Crea las opciones de temas
-		const seccion_id = DOM.seccion.value;
+		// TEMA - Limpieza inicial
+		DOM.filtros.tema.innerHTML = "";
+		DOM.filtros.pestana.classList.add("ocultar");
+
+		// TEMA - Crea las opciones
+		const seccion_id = DOM.filtros.seccion.value;
 		const temasSecciones = v.temasSecciones.filter((n) => n.seccion_id == seccion_id);
 		for (const tema of temasSecciones) {
 			// Crea la opción
 			const option = document.createElement("option");
 			option.value = tema.id;
 			option.textContent = tema.titulo;
-			DOM.tema.appendChild(option);
+			DOM.filtros.tema.appendChild(option);
 		}
 
-		// Muestra los temas y dispara el evento en temas
-		DOM.tema.classList.remove("ocultar");
-		DOM.tema.dispatchEvent(new Event("change"));
+		// TEMA - Los muestra y dispara el evento
+		DOM.filtros.tema.classList.remove("ocultar");
+		DOM.filtros.tema.dispatchEvent(new Event("change"));
 
 		// Fin
 		return;
 	});
-	DOM.tema.addEventListener("change", () => {
-		// Limpieza inicial
-		DOM.pestana.innerHTML = "";
+	DOM.filtros.tema.addEventListener("change", () => {
+		// Averigua si el tema es 'Cartas'
+		if (v.tipoEncab != "encabExpers")
+			v.tipoEncab =
+				DOM.filtros.tema.value == v.temasSecciones.find((n) => n.codigo == "cartas")?.id
+					? "encabCartas"
+					: "encabSinIndice";
 
-		// Averigua si tiene pestañas
-		const tema_id = DOM.tema.value;
+		// PESTANA - Limpieza inicial
+		DOM.filtros.pestana.innerHTML = "";
+
+		// PESTANA - Si las tiene, las actualiza
+		const tema_id = DOM.filtros.tema.value;
 		const pestanasTemas = v.pestanasTemas.filter((n) => n.tema_id == tema_id);
 		if (pestanasTemas.length) {
-			// Crea las opciones de pestanas
+			// PESTANA - Crea las opciones
 			for (const pestana of pestanasTemas) {
 				// Crea la opción
 				const option = document.createElement("option");
 				option.value = pestana.id;
 				option.textContent = pestana.titulo;
-				DOM.pestana.appendChild(option);
+				DOM.filtros.pestana.appendChild(option);
 			}
 
-			// Muestra las pestañas y dispara el evento en temas
-			DOM.pestana.classList.remove("ocultar");
-			DOM.pestana.dispatchEvent(new Event("change"));
-		} else FN.obtieneEncabs();
+			// PESTANA - Las muestra y dispara el evento
+			DOM.filtros.pestana.classList.remove("ocultar");
+			DOM.filtros.pestana.dispatchEvent(new Event("change"));
+		}
+		// ENCABEZADO - Si no tiene pestañas, obtiene los encabezados
+		else FN.obtieneEncabs();
 
 		// Fin
 		return;
 	});
-	DOM.pestana.addEventListener("change", () => FN.obtieneEncabs());
-	DOM.encabezado.addEventListener("change", async () => {});
+	DOM.filtros.pestana.addEventListener("change", () => FN.obtieneEncabs()); // ENCABEZADO - Los obtiene y genera el evento 'change'
+	DOM.filtros.encabezado.addEventListener("change", async () => {
+		// Variables
+		const seccion_id = DOM.filtros.seccion.value;
+		const tema_id = DOM.filtros.tema.value;
+
+		// Averigua qué encabezado mostrar, y oculta los demás
+		for (const encabezado of DOM.encabezados)
+			encabezado.classList[encabezado.id == v.tipoEncab ? "remove" : "add"]("ocultar");
+
+		// Actualiza el contenido del encabezado
+		DOM.encabezado = document.querySelector("#encabezados .encabezado:not(.ocultar)");
+		console.log(DOM.encabezado);
+
+		// Fin
+		return;
+	});
+
+	// Startup
+	DOM.filtros.seccion.dispatchEvent(new Event("change"));
 });
