@@ -1,6 +1,6 @@
 <% if (!sonCartas) { %>
 	<!-- Artículos estándar -->
-	<% const encabArticsFiltro = encSinIndice.filter((n) => locals.tema_id && n.tema_id == tema_id || locals.pestana_id && n.pestana_id == pestana_id) %>
+	<% const encabArticsFiltro = encabSinIndice.filter((n) => locals.tema_id && n.tema_id == tema_id || locals.pestana_id && n.pestana_id == pestana_id) %>
 	<% for (const encabArtic of encabArticsFiltro) { %>
 		<!-- Título del Artículo -->
 		<% if (encabArtic.titulo) { %><h2><%= encabArtic.titulo %></h2><% } %>

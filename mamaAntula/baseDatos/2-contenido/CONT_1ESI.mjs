@@ -1,5 +1,5 @@
 export default (sequelize, dt) => {
-	const alias = "encSinIndice";
+	const alias = "encabSinIndice";
 	const columns = {
 		// Referencias
 		tema_id: {type: dt.INTEGER},
@@ -16,14 +16,14 @@ export default (sequelize, dt) => {
 		statusRegistro_id: {type: dt.INTEGER},
 	};
 	const config = {
-		tableName: "cont_1enc_si",
+		tableName: "cont_1encab_si",
 		timestamps: false,
 	};
 	const entidad = sequelize.define(alias, columns, config);
 	entidad.associate = (n) => {
 		entidad.belongsTo(n.temasSecciones, {as: "tema", foreignKey: "tema_id"});
 		entidad.belongsTo(n.pestanasTemas, {as: "pestana", foreignKey: "pestana_id"});
-		entidad.belongsTo(n.usuarios, {as: "usuario", foreignKey: "creadoPor_id"});
+		entidad.belongsTo(n.usuarios, {as: "creadoPor", foreignKey: "creadoPor_id"});
 		entidad.belongsTo(n.statusRegistros, {as: "statusRegistro", foreignKey: "statusRegistro_id"});
 	};
 	return entidad;

@@ -1,19 +1,23 @@
 "use strict";
 
 export default {
-	contenido: async ({temaActual, pestanaActual}) => {
+	contenido: async ({seccionActual, temaActual, pestanaActual}) => {
 		// Variables
 		const condicion = pestanaActual ? {pestana_id: pestanaActual.id} : {tema_id: temaActual.id};
-		let encabezados;
+		const [entidad, campo_id, orden] =
+			seccionActual.codigo == "experiencias"
+				? ["encabExps", "experiencia_id", null]
+				: temaActual.codigo == "cartas"
+				? ["encabCartas", "carta_id", null]
+				: ["encabSinIndice", "sinIndice_id", "orden"];
 
-		// Obtiene el encabezado sin indice
-		encabezados = await baseDatos.obtienePorCondicion("encSinIndice", condicion);
-		const esConIndice = !encabezados.length;
-		if (esConIndice) encabezados = await baseDatos.obtieneTodosPorCondicion("encConIndice", condicion);
-		const encabezados_ids = esConIndice ? encabezados.map((n) => n.id) : [encabezados.id];
+		// Obtiene los encabezados
+		const encabezados = await baseDatos
+			.obtieneTodosPorCondicion(entidad, condicion)
+			.then((n) => (orden ? n.sort((a, b) => a[orden] - b[orden]) : n));
+		const encabezados_ids = encabezados.map((n) => n.id);
 
 		// Obtiene los contenidos
-		const campo_id = esConIndice ? "encConIndice_id" : "encSinIndice_id";
 		const contenidos = await baseDatos
 			.obtieneTodosPorCondicion("contenidos", {[campo_id]: encabezados_ids})
 			.then((n) => n.sort((a, b) => a.orden - b.orden));

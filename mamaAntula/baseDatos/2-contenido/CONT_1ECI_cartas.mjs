@@ -15,7 +15,7 @@ export default (sequelize, dt) => {
 		statusRegistro_id: {type: dt.INTEGER},
 	};
 	const config = {
-		tableName: "cont_1enc_ci_cartas",
+		tableName: "cont_1encab_ci_cartas",
 		timestamps: false,
 	};
 	const entidad = sequelize.define(alias, columns, config);
@@ -24,7 +24,7 @@ export default (sequelize, dt) => {
 		entidad.belongsTo(n.personajes, {as: "nombreHacia", foreignKey: "nombreHacia_id"});
 		entidad.belongsTo(n.lugares, {as: "lugar", foreignKey: "lugar_id"});
 		entidad.belongsTo(n.idiomas, {as: "idioma", foreignKey: "idioma_id"});
-		entidad.belongsTo(n.usuarios, {as: "usuario", foreignKey: "creadoPor_id"});
+		entidad.belongsTo(n.usuarios, {as: "creadoPor", foreignKey: "creadoPor_id"});
 		entidad.belongsTo(n.statusRegistros, {as: "statusRegistro", foreignKey: "statusRegistro_id"});
 	};
 	return entidad;

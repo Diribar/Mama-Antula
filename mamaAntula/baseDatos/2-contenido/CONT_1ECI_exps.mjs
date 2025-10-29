@@ -1,6 +1,10 @@
 export default (sequelize, dt) => {
 	const alias = "encabExps";
 	const columns = {
+		// Referencias
+		tema_id: {type: dt.INTEGER},
+		pestana_id: {type: dt.INTEGER},
+
 		// Otros
 		titulo: {type: dt.STRING(100)},
 		subtitulo: {type: dt.STRING(100)},
@@ -13,7 +17,7 @@ export default (sequelize, dt) => {
 		statusRegistro_id: {type: dt.INTEGER},
 	};
 	const config = {
-		tableName: "cont_1enc_ci_exps",
+		tableName: "cont_1encab_ci_exps",
 		timestamps: false,
 	};
 	const entidad = sequelize.define(alias, columns, config);
