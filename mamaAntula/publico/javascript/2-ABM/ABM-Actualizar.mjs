@@ -14,9 +14,9 @@ window.addEventListener("load", async () => {
 		// Inputs del encabezado
 		encabezados: document.querySelectorAll("#sectorEncabezados .encabezado"),
 
-		// Inputs del contenido
-		contenidoActual: document.querySelector("#contenidoActual"),
-		contenidoNuevo: document.querySelector("#contenidoNuevo"),
+		// Contenido actual
+		sectorContActual: document.querySelector("#sectorContActual"),
+		contActualIconos: document.querySelector("#sectorContActual .contActualIconos"),
 	};
 	const rutas = {
 		datosIniciales: "/contenido/api/abm-datos-inciales",
@@ -57,11 +57,11 @@ window.addEventListener("load", async () => {
 			return;
 		},
 		actualizaEncabezado: () => {
-			// Obtiene el DOM de los inputs
+			// Obtiene los inputs del DOM
 			DOM.encabezado = document.querySelector("#sectorEncabezados .encabezado:not(.ocultar)");
 			DOM.inputs = DOM.encabezado.querySelectorAll(".input");
 
-			// Actualiza los inputs
+			// Actualiza el DOM
 			v.encabezado_id = DOM.filtros.encabezado.value;
 			v.encabezado = v.encabezados.find((n) => n.id == v.encabezado_id);
 			for (const input of DOM.inputs) {
@@ -86,6 +86,9 @@ window.addEventListener("load", async () => {
 			// Obtiene los contenidos actuales
 			v.contenidos = v.encabezado_id != "nuevo" ? await fetch(ruta).then((n) => n && n.json()) : [];
 			console.log(v.contenidos);
+
+			// Actualiza el DOM
+
 
 			// Fin
 			return;
