@@ -21,7 +21,9 @@ export default {
 		// Obtiene los encabezados
 		let encabezados =
 			entidad == "encabCartas"
-				? await baseDatos.obtieneTodos(entidad, includes).then((n) => n.sort((a, b) => a[orden] - b[orden]))
+				? await baseDatos
+						.obtieneTodos(entidad, includes)
+						.then((n) => n.sort((a, b) => new Date(a[orden]) - new Date(b[orden])))
 				: entidad == "encabExpers"
 				? await baseDatos
 						.obtieneTodosPorCondicion(entidad, condicion, includes)

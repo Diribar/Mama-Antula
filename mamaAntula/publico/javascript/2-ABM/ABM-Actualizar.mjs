@@ -10,9 +10,9 @@ window.addEventListener("load", async () => {
 		encabezado: document.querySelector("#filtros select[name='encabezado']"),
 
 		// Inputs del encabezado
-		encabSinIndice: document.querySelector("#encabezado #encabSinIndice"),
 		encabCartas: document.querySelector("#encabezado #encabCartas"),
 		encabExpers: document.querySelector("#encabezado #encabExpers"),
+		encabSinIndice: document.querySelector("#encabezado #encabSinIndice"),
 
 		// Inputs del contenido
 		contenidoActual: document.querySelector("#contenidoActual"),
