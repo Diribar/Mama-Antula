@@ -137,15 +137,15 @@ export default {
 			for (const encabezado of encabezados)
 				encabezado.tituloCons =
 					"Carta " +
-					titulo.numero +
+					encabezado.numero +
 					" - De " +
-					titulo.nombreDesde.nombre +
+					encabezado.nombreDesde.nombre +
 					" a " +
-					titulo.nombreHacia.nombre +
+					encabezado.nombreHacia.nombre +
 					" - " +
-					titulo.lugar.nombre +
+					encabezado.lugar.nombre +
 					" - " +
-					FN.fechaDiaMesAno(titulo.fechaEvento);
+					FN.fechaDiaMesAno(encabezado.fechaEvento);
 
 			// Fin
 			return encabezados;

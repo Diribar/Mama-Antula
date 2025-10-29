@@ -35,15 +35,20 @@ window.addEventListener("load", async () => {
 			// Variables
 			const datos = "seccion_id=" + DOM.seccion.value + "&tema_id=" + DOM.tema.value + "&pestana_id=" + DOM.pestana.value;
 			const encabezados = await fetch(rutas.obtieneEncabs + datos).then((n) => n.json());
-			console.log(encabezados);
 
 			// Crea las opciones
 			for (const encabezado of encabezados) {
 				const option = document.createElement("option");
 				option.value = encabezado.id;
-				option.textContent = encabezado.tituloCons;
+				option.textContent = encabezado.tituloCons || "Sin título";
 				DOM.encabezado.appendChild(option);
 			}
+
+			// Crea una opción más para un título nuevo
+			const option = document.createElement("option");
+			option.value = "nuevo";
+			option.textContent = "Título nuevo";
+			DOM.encabezado.appendChild(option);
 
 			// Muestra las pestañas
 			DOM.encabezado.classList.remove("ocultar");
@@ -54,7 +59,7 @@ window.addEventListener("load", async () => {
 	};
 
 	// Eventos de filtros
-	DOM.seccion.addEventListener("change", async () => {
+	DOM.seccion.addEventListener("change", () => {
 		// Limpieza inicial
 		DOM.tema.innerHTML = "";
 		DOM.pestana.classList.add("ocultar");
@@ -77,7 +82,7 @@ window.addEventListener("load", async () => {
 		// Fin
 		return;
 	});
-	DOM.tema.addEventListener("change", async () => {
+	DOM.tema.addEventListener("change", () => {
 		// Limpieza inicial
 		DOM.pestana.innerHTML = "";
 
@@ -94,13 +99,14 @@ window.addEventListener("load", async () => {
 				DOM.pestana.appendChild(option);
 			}
 
-			// Muestra las pestañas
+			// Muestra las pestañas y dispara el evento en temas
 			DOM.pestana.classList.remove("ocultar");
+			DOM.pestana.dispatchEvent(new Event("change"));
 		} else FN.obtieneEncabs();
 
 		// Fin
 		return;
 	});
-	DOM.pestana.addEventListener("change", async () => {});
+	DOM.pestana.addEventListener("change", () => FN.obtieneEncabs());
 	DOM.encabezado.addEventListener("change", async () => {});
 });
