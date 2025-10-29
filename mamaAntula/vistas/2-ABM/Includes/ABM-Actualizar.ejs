@@ -19,30 +19,30 @@
 			<select name="numero" class="input">
 
 			</select>
-			<select name="nombreDesde_id" class="input">
+			<select name="nombreDesde_id" class="input" data-tabla="personajes">
 				<option value="">Remitente</option>
 			</select>
-			<select name="nombreHacia_id" class="input">
+			<select name="nombreHacia_id" class="input" data-tabla="personajes">
 				<option value="">Destinatario</option>
 			</select>
-			<select name="lugar_id" class="input">
+			<select name="lugar_id" class="input" data-tabla="lugares">
 				<option value="">Dónde se escribió</option>
 			</select>
-			<select name="idioma_id" class="input">
+			<select name="idioma_id" class="input" data-tabla="idiomas">
 				<option value="">Idioma</option>
 			</select>
 			<div id="areaSoltar">
-				<p id="cartelImagen">Imagen (opcional)</p>
+				<p id="cartelImagen">Imagen</p>
 				<input name="imagen" type="file" accept="image/*" hidden><!-- el input no lleva class 'input', porque tiene un tratamiento diferente -->
 				<img id="vistaImagen" src="">
 			</div>
-			<input type="date" name="fechaEvento">
+			<input type="date" name="fechaEvento" class="input">
 		</div>
 		<div id="encabExpers" class="encabezado ocultar">
 			<input type="text" name="titulo" class="input" placeholder="Título">
 			<input type="text" name="subTitulo" class="input" placeholder="Sub-título">
-			<select name="lugar_id" class="input">
-				<option value="">Lugar donde ocurrió</option>
+			<select name="lugar_id" class="input" data-tabla="lugares">
+				<option value="">Dónde ocurrió</option>
 			</select>
 			<input type="date" name="fechaEvento" class="input">
 		</div>
@@ -59,11 +59,13 @@
 	</section>
 
 	<!-- Contenido -->
-	<section id="contenidoActual" class="ocultar sector">
+	<h2>Contenido actual</h2>
+	<section id="sectorContActual" class="sector">
+		<!-- Bloque (texto, imagen, video, carrousel) -->
 		<div class="bloque">
 			<div></div>
 			<div id="iconosContActual">
-				<!-- guardar -->
+				<!-- editar -->
 				<!-- eliminar -->
 				<!-- subir -->
 				<!-- bajar -->
@@ -71,8 +73,10 @@
 		</div>
 	</section>
 	<section id="contenidoNuevo" class="ocultar sector">
-		<div>
+		<div></div>
+		<div id="iconosContNuevo">
+			<!-- guardar -->
+			<!-- cancelar -->
 		</div>
-		<!-- guardar -->
 	</section>
 </form>

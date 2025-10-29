@@ -1,13 +1,15 @@
 #contenidoTemas {
-	input, select {border-radius: 6px; border: 1px solid var(--grisOscuro); background-color: snow;}
+	font-size: 16px;
 
 	/* General */
 	.sector {
 		border: 1px solid black; border-radius: 10px;
-		padding: 15px 20px; margin-bottom: 30px; width: fit-content;
+		padding: 15px 20px; margin-bottom: 20px; width: fit-content;
 		&#sectorFiltros, &#sectorFiltros #filtros,
 		&#sectorEncabezados, &#sectorEncabezados .encabezado
-		{display: flex; flex-direction: row; align-items: center; justify-content: flex-start; gap: 30px;}
+			{display: flex; flex-direction: row; align-items: center; justify-content: flex-start; gap: 30px;}
+		input, select {border-radius: 6px; border: 1px solid var(--grisOscuro); background-color: snow; height: 23px;}
+		input {padding-inline: 4px;}
 	}
 
 	/* Sector filtros */
@@ -16,19 +18,23 @@
 		#filtros {select {width: 210px;}}
 	}
 
-	/* Sector encabezados */
-	#sectorEncabezados {
+	form .sector {
 		background-color: var(--grisClaro);
-		.encabezado {
+
+		/* Sector encabezados */
+		&#sectorEncabezados .encabezado {
 			input[type="text"] {width: 300px;}
 			input[type="date"] {width: 130px;}
 			select[name="orden"], select[name="numero"] {width: 70px;}
 			&#encabCartas #areaSoltar {--ladoCuadrado: 100px; width: var(--ladoCuadrado); border-radius: 5px;}
 		}
 
+		/* Sector contenido actual */
+		&#sectorContActual {}
+
 	}
 
-	input[type="text"], textarea {padding: 3px 15px;}
+	/* input[type="text"], textarea {padding: 3px 5px;} */
 
 	#toolbar {
 		border: 1px solid #ccc; border-bottom: none; border-radius: 6px 6px 0 0; background: #f8f8f8; padding: 5px;
