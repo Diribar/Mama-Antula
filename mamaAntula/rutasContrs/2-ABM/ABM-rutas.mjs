@@ -8,6 +8,7 @@ const router = express.Router();
 // 📡 APIs
 router.get("/api/abm-datos-inciales", API.datosIniciales);
 router.get("/api/abm-obtiene-encabezados", API.obtieneEncabs);
+router.get("/api/abm-obtiene-contenidos", API.obtieneContenidos);
 
 // 🖥️ Vistas
 router.get("/actualizar", vista.actualizar);

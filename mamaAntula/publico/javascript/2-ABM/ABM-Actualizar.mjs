@@ -21,6 +21,7 @@ window.addEventListener("load", async () => {
 	const rutas = {
 		datosIniciales: "/contenido/api/abm-datos-inciales",
 		obtieneEncabs: "/contenido/api/abm-obtiene-encabezados/?",
+		obtieneContenidos: "/contenido/api/abm-obtiene-contenidos/?",
 	};
 	const v = {
 		...(await fetch(rutas.datosIniciales).then((n) => n && n.json())),
@@ -76,8 +77,18 @@ window.addEventListener("load", async () => {
 			// Fin
 			return;
 		},
-		actualizaContenidoActual: () => {
+		actualizaContenidoActual: async () => {
+			// Variables
+			const campo_id =
+				v.tipoEncab == "encabCartas" ? "carta_id" : v.tipoEncab == "encabExpers" ? "experiencia_id" : "sinIndice_id";
+			const ruta = rutas.obtieneContenidos + "encab_id=" + v.encabezado_id + "&campo_id=" + campo_id;
 
+			// Obtiene los contenidos actuales
+			v.contenidos = v.encabezado_id != "nuevo" ? await fetch(ruta).then((n) => n && n.json()) : [];
+			console.log(v.contenidos);
+
+			// Fin
+			return;
 		},
 
 		// Auxiliares
