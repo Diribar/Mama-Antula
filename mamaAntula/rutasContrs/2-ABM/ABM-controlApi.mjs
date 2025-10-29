@@ -18,19 +18,18 @@ export default {
 		const temaActual = temasSecciones.find((n) => n.id == tema_id);
 		const {entidad, orden, includes} = comp.obtieneDatosTabla({seccionActual, temaActual});
 
-		// Obtiene los titulos
+		// Obtiene los encabezados
 		let encabezados =
 			entidad == "encabCartas"
 				? await baseDatos.obtieneTodos(entidad, includes).then((n) => n.sort((a, b) => a[orden] - b[orden]))
-				: entidad == "encabExps"
+				: entidad == "encabExpers"
 				? await baseDatos
 						.obtieneTodosPorCondicion(entidad, condicion, includes)
 						.then((n) => n.sort((a, b) => b[orden] - a[orden]))
 				: await baseDatos.obtieneTodosPorCondicion(entidad, condicion).then((n) => n.sort((a, b) => a.orden - b.orden));
 
-		// Crea los encabezados para las cartas
-		if (entidad == "encabCartas") encabezados = comp.armaTitulos.cartas(encabezados);
-		if (entidad == "encabExps") encabezados = comp.armaTitulos.expers(encabezados);
+		// Les agrega el 'tituloCons'
+		encabezados = comp.tituloCons[entidad](encabezados);
 
 		// Fin
 		return res.json(encabezados);

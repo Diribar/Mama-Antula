@@ -12,7 +12,7 @@ window.addEventListener("load", async () => {
 		// Inputs del encabezado
 		encabSinIndice: document.querySelector("#encabezado #encabSinIndice"),
 		encabCartas: document.querySelector("#encabezado #encabCartas"),
-		encabExps: document.querySelector("#encabezado #encabExps"),
+		encabExpers: document.querySelector("#encabezado #encabExpers"),
 
 		// Inputs del contenido
 		contenidoActual: document.querySelector("#contenidoActual"),

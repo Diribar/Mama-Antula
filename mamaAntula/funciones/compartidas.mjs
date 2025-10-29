@@ -126,16 +126,16 @@ export default {
 			: temaActual.codigo == "cartas"
 			? ["encabCartas", "carta_id", "fechaEvento", ["nombreDesde", "nombreHacia", "lugar", "idioma"]]
 			: seccionActual.codigo == "experiencias"
-			? ["encabExps", "experiencia_id", "fechaEvento", ["lugar"]]
+			? ["encabExpers", "experiencia_id", "fechaEvento", ["lugar"]]
 			: ["encabSinIndice", "sinIndice_id", "orden"];
 
 		// Fin
 		return {entidad, campo_id, orden, includes};
 	},
-	armaTitulos: {
-		cartas: (encabezados) => {
+	tituloCons: {
+		encabCartas: (encabezados) => {
 			for (const encabezado of encabezados)
-				encabezado.titulo =
+				encabezado.tituloCons =
 					"Carta " +
 					titulo.numero +
 					" - De " +
@@ -144,19 +144,20 @@ export default {
 					titulo.nombreHacia.nombre +
 					" - " +
 					titulo.lugar.nombre +
-					", " +
+					" - " +
 					FN.fechaDiaMesAno(titulo.fechaEvento);
 
 			// Fin
 			return encabezados;
 		},
-		expers: (encabs) => {
+		encabExpers: (encabs) => {
 			for (const encab of encabs)
-				encab.titulo = encab.titulo + " - " + encab.lugar.nombre + ", " + FN.fechaDiaMesAno(encab.fechaEvento);
+				encab.tituloCons = encab.titulo + " - " + encab.lugar.nombre + " - " + FN.fechaDiaMesAno(encab.fechaEvento);
 
 			// Fin
 			return encabs;
 		},
+		encabSinIndice: (encabs) => encabs.map((encab) => ({...encab, tituloCons: encab.titulo})),
 	},
 
 	// Funciones puntuales
@@ -228,9 +229,14 @@ const FN = {
 		// Fin
 		return;
 	},
-	fechaDiaMesAno: (fecha) =>
-		new Date(fecha)
-			.toLocaleDateString("es-AR", {day: "numeric", month: "short", year: "2-digit"})
-			.replace(".", "")
-			.replace(/ /g, "/"),
+	fechaDiaMesAno: (fecha) => {
+		// Variables
+		fecha = new Date(fecha);
+		const dia = fecha.getDate();
+		const mes = meses[fecha.getMonth()];
+		const año = fecha.getFullYear().toString().slice(-2);
+
+		// Fin
+		return dia + "/" + mes + "/" + año;
+	},
 };
