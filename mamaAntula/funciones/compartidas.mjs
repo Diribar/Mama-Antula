@@ -118,6 +118,47 @@ export default {
 		descarga: (ruta, nombreArch, reqFile) => fs.promises.writeFile(path.join(ruta, nombreArch), reqFile.buffer), // descarga el archivo puesto en memoria por multer
 	},
 
+	// Tablas
+	obtieneDatosTabla: ({seccionActual, temaActual}) => {
+		// Obtiene los datos
+		const [entidad, campo_id, orden] =
+			seccionActual.codigo == "experiencias"
+				? ["encabExps", "experiencia_id", "fechaEvento"]
+				: temaActual.codigo == "cartas"
+				? ["encabCartas", "carta_id", "fechaEvento"]
+				: ["encabSinIndice", "sinIndice_id", "orden"];
+
+		// Fin
+		return {entidad, campo_id, orden};
+	},
+	armaTitulos: {
+		cartas: (encabezados) => {
+			for (const encabezado of encabezados)
+				encabezado.titulo =
+					"Carta " +
+					titulo.numero +
+					" - De " +
+					titulo.nombreDesde.nombre +
+					" a " +
+					titulo.nombreHacia.nombre +
+					" - " +
+					titulo.lugar.nombre +
+					", " +
+					FN.fechaDiaMesAno(titulo.fechaEvento);
+
+			// Fin
+			return encabezados;
+		},
+		expers: (encabezados) => {
+			for (const encabezado of encabezados)
+				encabezado.titulo =
+					encabezado.titulo + " - " + titulo.lugar.nombre + ", " + FN.fechaDiaMesAno(titulo.fechaEvento);
+
+			// Fin
+			return encabezados;
+		},
+	},
+
 	// Funciones puntuales
 	obtieneUsuarioPorMail: (email) => {
 		const include = ["rol", "statusRegistro"];
@@ -162,18 +203,6 @@ export default {
 		// Fin
 		return mailEnviado;
 	},
-	obtieneDatosTabla: ({seccionActual, temaActual}) => {
-		// Obtiene los datos
-		const [entidad, campo_id, orden] =
-			seccionActual.codigo == "experiencias"
-				? ["encabExps", "experiencia_id", null]
-				: temaActual.codigo == "cartas"
-				? ["encabCartas", "carta_id", null]
-				: ["encabSinIndice", "sinIndice_id", "orden"];
-
-		// Fin
-		return {entidad, campo_id, orden};
-	},
 };
 
 // Funciones
@@ -199,4 +228,9 @@ const FN = {
 		// Fin
 		return;
 	},
+	fechaDiaMesAno: (fecha) =>
+		new Date(fecha)
+			.toLocaleDateString("es-AR", {day: "numeric", month: "short", year: "2-digit"})
+			.replace(".", "")
+			.replace(/ /g, "/"),
 };

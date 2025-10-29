@@ -19,14 +19,18 @@ export default {
 		const {entidad, orden} = comp.obtieneDatosTabla({seccionActual, temaActual});
 
 		// Obtiene los titulos
-		const titulos =
+		let encabezados =
 			entidad == "encabCartas"
 				? await baseDatos.obtieneTodos(entidad)
 				: await baseDatos
 						.obtieneTodosPorCondicion(entidad, condicion)
-						.then((n) => (orden ? n.sort((a, b) => a[orden] - b[orden]) : n));
+						.then((n) => n.sort((a, b) => (orden == "orden" ? a.orden - b.orden : b.fechaEvento - a.fechaEvento)));
+
+		// Crea los encabezados para las cartas
+		if (entidad == "encabCartas") encabezados = comp.armaTitulos.cartas(encabezados);
+		if (entidad == "encabExps") encabezados = comp.armaTitulos.expers(encabezados);
 
 		// Fin
-		return res.json(titulos);
+		return res.json(encabezados);
 	},
 };
