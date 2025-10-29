@@ -1,10 +1,18 @@
 #contenidoTemas {
-	input, select {border-radius: 6px; border: 1px solid #ccc; }
+	input, select {border-radius: 6px; border: 1px solid var(--grisOscuro);}
+	.sector {
+		border: 1px solid black; border-radius: 10px;
+		padding: 15px 20px; margin-bottom: 30px; width: fit-content;
+	}
 
-	#filtros {
-		display: flex; flex-direction: row; align-items: center; justify-content: flex-start; gap: 50px;
-		margin-bottom: 50px;
-		select {width: 210px;}
+
+	#sectorFiltros {
+		background-color: var(--grisClaro);
+		display: flex; flex-direction: row; align-items: center; justify-content: flex-start; gap: 30px;
+		#filtros {
+			display: flex; flex-direction: row; align-items: center; justify-content: flex-start; gap: 30px;
+			select {width: 210px;}
+		}
 	}
 
 	form {

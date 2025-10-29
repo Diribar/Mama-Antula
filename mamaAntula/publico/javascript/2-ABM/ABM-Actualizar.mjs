@@ -12,10 +12,10 @@ window.addEventListener("load", async () => {
 		},
 
 		// Inputs del encabezado
-		encabezados: document.querySelectorAll("#encabezados .encabezado"),
-		// encabCartas: document.querySelector("#encabezados #encabCartas"),
-		// encabExpers: document.querySelector("#encabezados #encabExpers"),
-		// encabSinIndice: document.querySelector("#encabezados #encabSinIndice"),
+		encabezados: document.querySelectorAll("#sectorEncabezados .encabezado"),
+		// encabCartas: document.querySelector("#sectorEncabezados #encabCartas"),
+		// encabExpers: document.querySelector("#sectorEncabezados #encabExpers"),
+		// encabSinIndice: document.querySelector("#sectorEncabezados #encabSinIndice"),
 
 		// Inputs del contenido
 		contenidoActual: document.querySelector("#contenidoActual"),
