@@ -33,6 +33,7 @@ window.addEventListener("load", async () => {
 			const datos = "seccion_id=" + DOM.seccion.value + "&tema_id=" + DOM.tema.value + "&pestana_id=" + DOM.pestana.value;
 			const encabezados = await fetch(rutas.obtieneEncabs + datos).then((n) => n.json());
 			console.log(encabezados);
+			return
 			DOM.encabezado.innerHTML = "";
 
 			// Crea las opciones

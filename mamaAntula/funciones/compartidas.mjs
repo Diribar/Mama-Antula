@@ -121,15 +121,16 @@ export default {
 	// Tablas
 	obtieneDatosTabla: ({seccionActual, temaActual}) => {
 		// Obtiene los datos
-		const [entidad, campo_id, orden] =
-			seccionActual.codigo == "experiencias"
-				? ["encabExps", "experiencia_id", "fechaEvento"]
-				: temaActual.codigo == "cartas"
-				? ["encabCartas", "carta_id", "fechaEvento"]
-				: ["encabSinIndice", "sinIndice_id", "orden"];
+		const [entidad, campo_id, orden, includes] = false
+			? false
+			: temaActual.codigo == "cartas"
+			? ["encabCartas", "carta_id", "fechaEvento", ["nombreDesde", "nombreHacia", "lugar", "idioma"]]
+			: seccionActual.codigo == "experiencias"
+			? ["encabExps", "experiencia_id", "fechaEvento", ["lugar"]]
+			: ["encabSinIndice", "sinIndice_id", "orden"];
 
 		// Fin
-		return {entidad, campo_id, orden};
+		return {entidad, campo_id, orden, includes};
 	},
 	armaTitulos: {
 		cartas: (encabezados) => {
@@ -149,13 +150,12 @@ export default {
 			// Fin
 			return encabezados;
 		},
-		expers: (encabezados) => {
-			for (const encabezado of encabezados)
-				encabezado.titulo =
-					encabezado.titulo + " - " + titulo.lugar.nombre + ", " + FN.fechaDiaMesAno(titulo.fechaEvento);
+		expers: (encabs) => {
+			for (const encab of encabs)
+				encab.titulo = encab.titulo + " - " + encab.lugar.nombre + ", " + FN.fechaDiaMesAno(encab.fechaEvento);
 
 			// Fin
-			return encabezados;
+			return encabs;
 		},
 	},
 

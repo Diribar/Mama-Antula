@@ -16,15 +16,17 @@ export default {
 		// Obtiene la entidad
 		const seccionActual = secciones.find((n) => n.id == seccion_id);
 		const temaActual = temasSecciones.find((n) => n.id == tema_id);
-		const {entidad, orden} = comp.obtieneDatosTabla({seccionActual, temaActual});
+		const {entidad, orden, includes} = comp.obtieneDatosTabla({seccionActual, temaActual});
 
 		// Obtiene los titulos
 		let encabezados =
 			entidad == "encabCartas"
-				? await baseDatos.obtieneTodos(entidad)
-				: await baseDatos
-						.obtieneTodosPorCondicion(entidad, condicion)
-						.then((n) => n.sort((a, b) => (orden == "orden" ? a.orden - b.orden : b.fechaEvento - a.fechaEvento)));
+				? await baseDatos.obtieneTodos(entidad, includes).then((n) => n.sort((a, b) => a[orden] - b[orden]))
+				: entidad == "encabExps"
+				? await baseDatos
+						.obtieneTodosPorCondicion(entidad, condicion, includes)
+						.then((n) => n.sort((a, b) => b[orden] - a[orden]))
+				: await baseDatos.obtieneTodosPorCondicion(entidad, condicion).then((n) => n.sort((a, b) => a.orden - b.orden));
 
 		// Crea los encabezados para las cartas
 		if (entidad == "encabCartas") encabezados = comp.armaTitulos.cartas(encabezados);
