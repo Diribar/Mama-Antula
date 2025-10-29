@@ -1,14 +1,15 @@
 export default (sequelize, dt) => {
-	const alias = "encabSinIndice";
+	const alias = "encabExpers";
 	const columns = {
 		// Referencias
 		tema_id: {type: dt.INTEGER},
 		pestana_id: {type: dt.INTEGER},
 
 		// Otros
-		titulo: {type: dt.STRING(100)}, // se necesita sobre todo para los articulos de pestañas
+		titulo: {type: dt.STRING(100)},
 		subTitulo: {type: dt.STRING(100)},
-		orden: {type: dt.INTEGER},
+		lugar_id: {type: dt.INTEGER},
+		fechaEvento: {type: dt.DATE},
 
 		// Control
 		creadoPor_id: {type: dt.INTEGER},
@@ -16,13 +17,12 @@ export default (sequelize, dt) => {
 		statusRegistro_id: {type: dt.INTEGER},
 	};
 	const config = {
-		tableName: "cont_1encab_si",
+		tableName: "encab_expers",
 		timestamps: false,
 	};
 	const entidad = sequelize.define(alias, columns, config);
 	entidad.associate = (n) => {
-		entidad.belongsTo(n.temasSecciones, {as: "tema", foreignKey: "tema_id"});
-		entidad.belongsTo(n.pestanasTemas, {as: "pestana", foreignKey: "pestana_id"});
+		entidad.belongsTo(n.lugares, {as: "lugar", foreignKey: "lugar_id"});
 		entidad.belongsTo(n.usuarios, {as: "creadoPor", foreignKey: "creadoPor_id"});
 		entidad.belongsTo(n.statusRegistros, {as: "statusRegistro", foreignKey: "statusRegistro_id"});
 	};
