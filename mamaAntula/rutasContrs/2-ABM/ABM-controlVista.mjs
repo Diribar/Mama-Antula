@@ -1,6 +1,6 @@
 "use strict";
 // import procesos from "./US-procesos.mjs";
-const temaVista = "abmArticulos";
+const temaVista = "abmContenido";
 
 export default {
 	actualizar: async (req, res) => {
