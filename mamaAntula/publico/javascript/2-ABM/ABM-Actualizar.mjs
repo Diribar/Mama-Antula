@@ -93,7 +93,7 @@ window.addEventListener("load", async () => {
 		// PESTANA - Limpieza inicial
 		DOM.pestana.innerHTML = "";
 
-		// PESTANA - Averigua si las tiene
+		// PESTANA - Si las tiene, las actualiza
 		const tema_id = DOM.tema.value;
 		const pestanasTemas = v.pestanasTemas.filter((n) => n.tema_id == tema_id);
 		if (pestanasTemas.length) {
@@ -109,7 +109,9 @@ window.addEventListener("load", async () => {
 			// PESTANA - Las muestra y dispara el evento
 			DOM.pestana.classList.remove("ocultar");
 			DOM.pestana.dispatchEvent(new Event("change"));
-		} else FN.obtieneEncabs();
+		}
+		// ENCABEZADO - Si no tiene pestañas, obtiene los encabezados
+		else FN.obtieneEncabs();
 
 		// Fin
 		return;
