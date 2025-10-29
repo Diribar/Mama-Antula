@@ -13,17 +13,10 @@
 		/* Imagen */
 		img {display: none;}
 	}
-	&:not(:has(img[src=""])) {
-		:where(#cartelImagen, button) {display: none;}
-	}
+	&:not(:has(img[src=""])) #cartelImagen {display: none;}
 
-	/* Cartel y botón */
-	#cartelImagen, button {font-weight: bold;}
-	#cartelImagen {margin: 0; text-align: center;}
-	button {
-		background-color: var(--grisOscuro); color: var(--grisClaro);
-		padding: 2px 5px; border-radius: 5px; font-size: 1.1rem;
-	}
+	/* Cartel */
+	#cartelImagen {text-align: center;}
 
 	/* Imagen */
 	img {object-fit: cover; width: 100%; height: 100%; border-radius: 50%; border: 2px solid var(--grisOscuro);

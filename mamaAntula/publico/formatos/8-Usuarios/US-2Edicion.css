@@ -4,11 +4,11 @@ form {
 		/* Medidas de lado */
 		--ladoCuadrado: 150px; width: var(--ladoCuadrado); height: var(--ladoCuadrado);
 		border-radius: 5px;
-
-		#contNovs {
-			background-color: snow; line-height: 1; display: flex;
-			input[type="checkbox"] {margin-right: 5px;}
-		}
+		#cartelImagen {font-weight: bold; margin: 0;}
+	}
+	#contNovs {
+		background-color: snow; line-height: 1; display: flex;
+		input[type="checkbox"] {margin-right: 5px;}
 	}
 	input {
 		&:not([type="checkbox"]) {padding: 2px 10px;}
