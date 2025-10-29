@@ -25,11 +25,25 @@ export default {
 		// Obtiene las imgsCarrousel y las  vincula a su contenido
 		const contenidos_ids = contenidos.map((n) => n.id);
 		const imgsCarrousel = await baseDatos
-			.obtieneTodosPorCondicion("imgsCarrousel", contenidos_ids)
+			.obtieneTodosPorCondicion("imgsCarrousel", {contenido_id: contenidos_ids})
 			.then((n) => n.filter((m) => contenidos_ids.includes(m.contenido_id)));
 		contenidos.forEach((n) => (n.imgsCarrousel = imgsCarrousel.filter((m) => m.contenido_id == n.id)));
 
 		// Fin
-		return {esConIndice, encabezados, contenidos};
+		return {encabezados, contenidos};
+	},
+	indice: (encabezados) => {
+		// Variables
+		const fechas = [...new Set(encabezados.map((n) => n.fechaEvento))];
+		console.log(38, encabezados[0]);
+
+		// Averigua la cantidad de fechas distintas
+
+		// Si se superan las 8, resume por año
+
+		// Si se siguen superando las 8, resume por lustro
+
+		// Fin
+		return fechas;
 	},
 };

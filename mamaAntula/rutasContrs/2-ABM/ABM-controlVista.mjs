@@ -1,11 +1,11 @@
 "use strict";
 // import procesos from "./US-procesos.mjs";
-const temaVista = "abmArticulos";
+const temaVista = "abmContenido";
 
 export default {
-	edicion: async (req, res) => {
+	actualizar: async (req, res) => {
 		// Variables
-		const codigoVista = "edicionContenido";
+		const codigoVista = "actualizar";
 		const tituloPagina = iconosAgrupados.find((n) => n.codigo == codigoVista).nombre;
 
 		// Fin
@@ -13,9 +13,9 @@ export default {
 			...{tituloPagina, temaVista, codigoVista},
 		});
 	},
-	revision: async (req, res) => {
+	revisar: async (req, res) => {
 		// Variables
-		const codigoVista = "revisionEdiciones";
+		const codigoVista = "revisar";
 		const tituloPagina = iconosAgrupados.find((n) => n.codigo == codigoVista).nombre;
 
 		// Fin

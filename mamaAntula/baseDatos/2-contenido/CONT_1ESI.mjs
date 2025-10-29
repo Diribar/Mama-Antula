@@ -7,7 +7,7 @@ export default (sequelize, dt) => {
 
 		// Otros
 		titulo: {type: dt.STRING(100)}, // se necesita sobre todo para los articulos de pestañas
-		subtitulo: {type: dt.STRING(100)},
+		subTitulo: {type: dt.STRING(100)},
 		orden: {type: dt.INTEGER},
 
 		// Control

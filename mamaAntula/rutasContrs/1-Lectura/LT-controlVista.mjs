@@ -13,7 +13,7 @@ export default {
 		const temaActual = temasSeccion[0];
 
 		// Obtiene el encabezado y contenido de los artículos
-		const {encabezados, contenidos} = await procesos.contenido({temaActual});
+		const {encabezados, contenidos} = await procesos.contenido({seccionActual, temaActual});
 		const esConIndice = false;
 
 		// Fin
@@ -38,14 +38,20 @@ export default {
 		const temaActual = temasSeccion.find((n) => n.url == urlTema);
 
 		// Obtiene el encabezado y contenido de los artículos
-		const {encabezados, contenidos} = await procesos.contenido({temaActual});
+		const {encabezados, contenidos} = await procesos.contenido({seccionActual, temaActual});
+
+		// Variables para la vista
+		const esCartas = temaActual.codigo == "cartas";
+		const esExperiencias = seccionActual.codigo == "experiencias";
+		const indice = procesos.indice(encabezados);
+		if (esCartas || esExperiencias) return res.send(indice);
 
 		// Fin
 		return res.render("CMP-0Estructura", {
 			...{tituloPagina, temaVista},
 			...{temasSeccion},
-			...{seccionActual, temaActual},
-			...{esConIndice, encabezados, contenidos},
+			...{seccionActual, temaActual, esCartas, esExperiencias},
+			...{encabezados, contenidos},
 		});
 	},
 	pestanas: async (req, res) => {
@@ -65,14 +71,19 @@ export default {
 		const pestanaActual = pestanasTema.find((n) => n.url == urlPestana);
 
 		// Obtiene el encabezado, contenido y imgsCarrousel del artículo
-		const {esConIndice, encabezados, contenidos} = await procesos.encabezado({seccionActual, temaActual, pestanaActual});
+		const {encabezados, contenidos} = await procesos.contenido({seccionActual, temaActual, pestanaActual});
+
+		// Variables para la vista
+		const esExperiencias = seccionActual.codigo == "experiencias";
+		const indice = procesos.indice(encabezados);
+		if (esExperiencias) return res.send(indice);
 
 		// Fin
 		return res.render("CMP-0Estructura", {
 			...{tituloPagina, temaVista},
 			...{temasSeccion, pestanasTema},
-			...{seccionActual, temaActual, pestanaActual},
-			...{esConIndice, encabezados, contenidos},
+			...{seccionActual, temaActual, pestanaActual, esExperiencias},
+			...{encabezados, contenidos},
 		});
 	},
 };
