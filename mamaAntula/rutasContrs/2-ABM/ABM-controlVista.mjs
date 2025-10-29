@@ -3,9 +3,9 @@
 const temaVista = "abmArticulos";
 
 export default {
-	edicion: async (req, res) => {
+	actualizar: async (req, res) => {
 		// Variables
-		const codigoVista = "actualizarContenido";
+		const codigoVista = "actualizar";
 		const tituloPagina = iconosAgrupados.find((n) => n.codigo == codigoVista).nombre;
 
 		// Fin
@@ -13,9 +13,9 @@ export default {
 			...{tituloPagina, temaVista, codigoVista},
 		});
 	},
-	revision: async (req, res) => {
+	revisar: async (req, res) => {
 		// Variables
-		const codigoVista = "revisarActualizacs";
+		const codigoVista = "revisar";
 		const tituloPagina = iconosAgrupados.find((n) => n.codigo == codigoVista).nombre;
 
 		// Fin

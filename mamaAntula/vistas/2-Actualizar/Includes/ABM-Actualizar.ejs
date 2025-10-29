@@ -1,22 +1,23 @@
 <!-- Encabezado -->
-<section>
-	<div id="filtros" class="flexRowAlign">
-		<select name="seccion_id">
-			<% for (const seccion of secciones) { %>
-				<option value="<%= seccion.id %>"><%= seccion.nombre %></option>
-			<% } %>
-		</select>
-		<select name="tema_id"></select>
-		<select name="pestana_id"></select>
-	</div>
+<section id="filtros" class="flexRowAlign">
+	<select name="seccion_id">
+		<% for (const seccion of secciones) { %>
+			<option value="<%= seccion.id %>"><%= seccion.nombre %></option>
+		<% } %>
+	</select>
+	<select name="tema_id" class="ocultar"></select>
+	<select name="pestana_id" class="ocultar"></select>
+	<select name="titulo" class="ocultar"></select>
+</section>
+<section id="encabezado">
 	<div id="encabSinIndice" class="ocultar">
 		<input type="text" name="titulo">
 		<input type="text" name="subTitulo">
-		<select name="orden" id="">
+		<select name="orden">
 
 		</select>
 	</div>
-	<div id="encabCartas">
+	<div id="encabCartas" class="ocultar">
 		<input type="number" name="numero">
 		<select name="nombreDesde_id">
 
@@ -30,9 +31,16 @@
 		<select name="idioma_id">
 
 		</select>
+
+		<div id="areaSoltar">
+			<p id="cartelImagen">Arrastrá o buscá tu imagen (opcional)</p>
+			<input name="imagen" type="file" accept="image/*" hidden><!-- el input no lleva class 'input', porque tiene un tratamiento diferente -->
+			<img id="vistaImagen" src="">
+		</div>
+
 		<input type="date" name="fechaEvento">
 	</div>
-	<div id="encabExps">
+	<div id="encabExps" class="ocultar">
 		<input type="text" name="titulo">
 		<input type="text" name="subTitulo">
 		<select name="lugar_id">
@@ -40,10 +48,26 @@
 		</select>
 		<input type="date" name="fechaEvento">
 	</div>
+	<div id="iconosEncab">
+		<!-- guardar -->
+		<!-- eliminar -->
+	</div>
 </section>
 
 <!-- Contenido -->
- <section>
-	<div id="contenidoActual">
+<section id="contenidoActual" class="ocultar">
+	<div class="bloque">
+		<div></div>
+		<div id="iconosContActual">
+			<!-- guardar -->
+			<!-- eliminar -->
+			<!-- subir -->
+			<!-- bajar -->
+		</div>
 	</div>
- </section>
+</section>
+<section id="contenidoNuevo" class="ocultar">
+	<div>
+	</div>
+	<!-- guardar -->
+</section>

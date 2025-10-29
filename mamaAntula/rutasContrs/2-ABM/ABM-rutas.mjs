@@ -9,8 +9,8 @@ const router = express.Router();
 // router.get("/api/temas-pestanas", API.temasPestanas);
 
 // 🖥️ Vistas
-router.get("/edicion", vista.edicion);
-router.get("/revision", vista.revision);
+router.get("/actualizar", vista.actualizar);
+router.get("/revisar", vista.revisar);
 
 // ✅ Export
 export default router;
