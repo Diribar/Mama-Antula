@@ -32,7 +32,7 @@
 				<option value="">Idioma</option>
 			</select>
 			<div id="areaSoltar">
-				<p id="cartelImagen">Imagen (opcional)</p>
+				<p id="cartelImagen">Imagen</p>
 				<input name="imagen" type="file" accept="image/*" hidden><!-- el input no lleva class 'input', porque tiene un tratamiento diferente -->
 				<img id="vistaImagen" src="">
 			</div>
@@ -59,11 +59,13 @@
 	</section>
 
 	<!-- Contenido -->
-	<section id="contenidoActual" class="ocultar sector">
+	<h2>Contenido actual</h2>
+	<section id="sectorContActual" class="sector">
+		<!-- Bloque (texto, imagen, video, carrousel) -->
 		<div class="bloque">
 			<div></div>
 			<div id="iconosContActual">
-				<!-- guardar -->
+				<!-- editar -->
 				<!-- eliminar -->
 				<!-- subir -->
 				<!-- bajar -->
@@ -71,8 +73,10 @@
 		</div>
 	</section>
 	<section id="contenidoNuevo" class="ocultar sector">
-		<div>
+		<div></div>
+		<div id="iconosContNuevo">
+			<!-- guardar -->
+			<!-- cancelar -->
 		</div>
-		<!-- guardar -->
 	</section>
 </form>
