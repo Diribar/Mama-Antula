@@ -60,7 +60,7 @@ window.addEventListener("load", async () => {
 			return;
 		},
 		actualizaEncabezado: () => {
-			// Si corresponde, interrumpe la función
+			// Si corresponde, oculta el sector encabezados e interrumpe la función
 			DOM.encabezado = document.querySelector("#sectorEncabezados .encabezado:not(.ocultar)");
 			if (v.tipoEncab == "encabSinIndice" && !DOM.filtros.pestana.value) {
 				DOM.sectorEncabezados.classList.add("ocultar");
