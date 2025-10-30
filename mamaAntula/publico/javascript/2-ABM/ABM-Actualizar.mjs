@@ -84,15 +84,22 @@ window.addEventListener("load", async () => {
 			return;
 		},
 		actualizaContenidoActual: async () => {
-			console.log(123);
-
 			// Variables
 			const campo_id =
 				v.tipoEncab == "encabCartas" ? "carta_id" : v.tipoEncab == "encabExpers" ? "experiencia_id" : "sinIndice_id";
 			const ruta = rutas.obtieneContenidos + "encab_id=" + v.encabezado_id + "&campo_id=" + campo_id;
 
-			// Obtiene los contenidos actuales
+			// Limpia el DOM
+			DOM.sectorContActual.innerHTML = "";
+
+			// Si corresponde, interrumpe la función
 			v.contenidos = v.encabezado_id != "nuevo" ? await fetch(ruta).then((n) => n && n.json()) : [];
+			if (!v.contenidos.length) {
+				DOM.sectorContActual.classList.add("ocultar");
+				return;
+			}
+			// Muestra el sector contenidos
+			else DOM.sectorContActual.classList.remove("ocultar");
 
 			// Actualiza el DOM
 			FN.creaContenedorContenidoIconos();
@@ -118,9 +125,6 @@ window.addEventListener("load", async () => {
 			return;
 		},
 		creaContenedorContenidoIconos: () => {
-			// Limpia el DOM
-			DOM.sectorContActual.innerHTML = "";
-
 			// Agrega los contenidos
 			for (const contenido of v.contenidos) {
 				// Crea el DOM contenedor
