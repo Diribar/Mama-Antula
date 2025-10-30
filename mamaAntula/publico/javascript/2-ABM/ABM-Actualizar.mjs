@@ -10,7 +10,7 @@ window.addEventListener("load", async () => {
 			pestana: document.querySelector("#filtros select[name='pestana_id']"),
 			encabezado: document.querySelector("#filtros select[name='encabezado']"),
 		},
-		linkLectura: document.querySelector("#linkLectura"),
+		anchorLectura: document.querySelector("a#linkLectura"),
 
 		// Inputs del encabezado
 		sectorEncabezados: document.querySelector("#sectorEncabezados"),
@@ -35,17 +35,16 @@ window.addEventListener("load", async () => {
 		// Operaciones
 		actualizaFiltroEncabezado: async () => {
 			// Variables
-			const datos =
-				"seccion_id=" +
-				DOM.filtros.seccion.value +
-				"&tema_id=" +
-				DOM.filtros.tema.value +
-				"&pestana_id=" +
-				DOM.filtros.pestana.value;
+			v.seccion_id = DOM.filtros.seccion.value;
+			v.tema_id = DOM.filtros.tema.value;
+			v.pestana_id = DOM.filtros.pestana.value;
+
+			// Obtiene los encabezados
+			const datos = "seccion_id=" + v.seccion_id + "&tema_id=" + v.tema_id + "&pestana_id=" + v.pestana_id;
 			v.encabezados = await fetch(rutas.obtieneEncabs + datos).then((n) => n && n.json());
 
 			// Crea las opciones
-			FN.agregaOpciones(v.encabezados, DOM.filtros.encabezado, "tituloCons");
+			FN.agregaOpciones(v.encabezados, DOM.filtros.encabezado, "tituloCons", "Sin encabezado");
 
 			// Crea una opción más para un título nuevo
 			const option = document.createElement("option");
@@ -114,9 +113,18 @@ window.addEventListener("load", async () => {
 			// Fin
 			return;
 		},
+		actualizaHref: () => {
+			// Variables
+			const urlSeccion = "/" + v.secciones.find((n) => n.id == v.seccion_id).url;
+			const urlTema = "/" + v.temasSecciones.find((n) => n.id == v.tema_id).url;
+			const urlPestana = (v.pestana_id && "/" + v.pestanasTemas.find((n) => n.id == v.pestana_id).url) || "";
+
+			// Actualiza el DOM
+			DOM.anchorLectura.href = urlSeccion + urlTema + urlPestana + "/" + v.encabezado_id;
+		},
 
 		// Auxiliares
-		agregaOpciones: (opciones, domSelect, campoNombre) => {
+		agregaOpciones: (opciones, domSelect, campoNombre, sinQue) => {
 			// Limpia las opciones del select
 			domSelect.innerHTML = "";
 
@@ -124,7 +132,7 @@ window.addEventListener("load", async () => {
 			for (const opcion of opciones) {
 				const domOpcion = document.createElement("option");
 				domOpcion.value = opcion.id;
-				domOpcion.textContent = opcion[campoNombre] || "Sin título";
+				domOpcion.textContent = opcion[campoNombre] || sinQue || "Sin título";
 				domSelect.appendChild(domOpcion);
 			}
 
@@ -246,7 +254,7 @@ window.addEventListener("load", async () => {
 		// TEMA - Crea las opciones
 		const seccion_id = DOM.filtros.seccion.value;
 		const temasSecciones = v.temasSecciones.filter((n) => n.seccion_id == seccion_id);
-		FN.agregaOpciones(temasSecciones, DOM.filtros.tema, "titulo");
+		FN.agregaOpciones(temasSecciones, DOM.filtros.tema, "titulo", "Sin pestaña");
 
 		// TEMA - Los muestra y dispara el evento
 		DOM.filtros.tema.classList.remove("ocultar");
@@ -268,7 +276,7 @@ window.addEventListener("load", async () => {
 		const pestanasTema = v.pestanasTemas.filter((n) => n.tema_id == tema_id);
 		if (pestanasTema.length) {
 			// PESTANA - Crea las opciones
-			FN.agregaOpciones(pestanasTema, DOM.filtros.pestana, "titulo");
+			FN.agregaOpciones(pestanasTema, DOM.filtros.pestana, "titulo", "Sin pestaña");
 
 			// PESTANA - Las muestra y dispara el evento
 			DOM.filtros.pestana.classList.remove("ocultar");
@@ -286,6 +294,9 @@ window.addEventListener("load", async () => {
 	});
 	DOM.filtros.pestana.addEventListener("change", () => FN.actualizaFiltroEncabezado()); // ENCABEZADO - Los obtiene y genera el evento 'change'
 	DOM.filtros.encabezado.addEventListener("change", async () => {
+		// Actualiza el anchor de flitros
+		FN.actualizaHref();
+
 		// Muestra el encabezado que corresponde, y oculta los demás
 		for (const encabezado of DOM.encabezados)
 			encabezado.classList[encabezado.id == v.tipoEncab ? "remove" : "add"]("ocultar");
