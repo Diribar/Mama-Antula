@@ -29,6 +29,7 @@ window.addEventListener("load", async () => {
 
 	// Funciones
 	const FN = {
+		// Operaciones
 		actualizaFiltroEncabezado: async () => {
 			// Variables
 			const datos =
@@ -85,26 +86,9 @@ window.addEventListener("load", async () => {
 
 			// Obtiene los contenidos actuales
 			v.contenidos = v.encabezado_id != "nuevo" ? await fetch(ruta).then((n) => n && n.json()) : [];
-			console.log(v.contenidos);
 
 			// Actualiza el DOM
-			DOM.sectorContActual.innerHTML = "";
-			for (const contenido of v.contenidos) {
-				// Crea el DOM contenedor
-				const domContActualIconos = document.createElement("div");
-				domContActualIconos.classList.add("contActualIconos");
-
-				// Crea el DOM contenido
-				const domContenido = FN.creaElContenido(contenido);
-				domContActualIconos.appendChild(domContenido);
-
-				// Crea el DOM íconos
-				const domIconos = DOM.iconosActual.cloneNode(true);
-				domContActualIconos.appendChild(domIconos);
-
-				// Agrega el DOM contenedor al DOM sector
-				DOM.sectorContActual.appendChild(domContActualIconos);
-			}
+			FN.creaContenedorContenidoIconos();
 
 			// Fin
 			return;
@@ -125,6 +109,107 @@ window.addEventListener("load", async () => {
 
 			// Fin
 			return;
+		},
+		creaContenedorContenidoIconos: () => {
+			// Limpia el DOM
+			DOM.sectorContActual.innerHTML = "";
+
+			// Agrega los contenidos
+			for (const contenido of v.contenidos) {
+				// Crea el DOM contenedor
+				const domBloque = document.createElement("div");
+				domBloque.classList.add("bloque");
+
+				// Crea el DOM contenido
+				FN.creaElContenido.consolidado(contenido); // puede ser: div (para texto, texto-imagen, carrousel), img, video
+				v.domContenido.classList.add("contenido");
+				domBloque.appendChild(v.domContenido);
+
+				// Crea el DOM íconos
+				const domIconos = DOM.iconosActual.cloneNode(true);
+				domBloque.appendChild(domIconos);
+
+				// Agrega el DOM contenedor al DOM sector
+				DOM.sectorContActual.appendChild(domBloque);
+			}
+		},
+		creaElContenido: {
+			consolidado: function (contenido) {
+				// Crea el DOM
+				v.domContenido = document.createElement("div");
+
+				if (false) null;
+				// Sólo texto
+				else if (contenido.texto && !contenido.imagen) v.domContenido = this.texto(contenido).cloneNode(true);
+				// Sólo una imagen
+				else if (contenido.imagen && !contenido.texto) v.domContenido = this.imagen(contenido).cloneNode(true);
+				// Texto e imagen
+				else if (contenido.texto && contenido.imagen) {
+					v.domContenido.appendChild(this.texto(contenido));
+					v.domContenido.appendChild(this.imagen(contenido));
+				}
+				// Video
+				else if (contenido.video) v.domContenido = this.video(contenido).cloneNode(true);
+				// Carrousel
+				else if (contenido.carrousel.length) null;
+
+				// Fin
+				return;
+			},
+			texto: (contenido) => {
+				// Crea el contenedor
+				const domTexto = document.createElement("div");
+				domTexto.classList.add("texto");
+				domTexto.innerHTML = contenido.texto;
+
+				// Fin
+				return domTexto;
+			},
+			imagen: function (contenido) {
+				// Crea el contenedor
+				const contenedor = document.createElement("div");
+				contenedor.classList.add("contImagenLeyenda");
+
+				// Crea la imagen
+				const domImagen = document.createElement("img");
+				domImagen.src = "/imgsEditables/1-Final/" + contenido.imagen;
+				domImagen.classList.add("imagen");
+				contenedor.appendChild(domImagen);
+
+				// Crea la leyenda
+				const domLeyenda = this.leyenda(contenido);
+				contenedor.appendChild(domLeyenda);
+
+				// Fin
+				return contenedor;
+			},
+			video: function (contenido) {
+				// Crea el contenedor
+				const contenedor = document.createElement("div");
+				contenedor.classList.add("contVideoLeyenda");
+
+				// Crea la imagen
+				const domVideo = document.createElement("video");
+				domVideo.src = contenido.video;
+				domVideo.classList.add("video");
+				contenedor.appendChild(domVideo);
+
+				// Crea la leyenda
+				const domLeyenda = this.leyenda(contenido);
+				contenedor.appendChild(domLeyenda);
+
+				// Fin
+				return contenedor;
+			},
+			leyenda: (contenido) => {
+				// Crea el contenedor
+				const domLeyenda = document.createElement("div");
+				domLeyenda.innerHTML = contenido.leyenda;
+				domLeyenda.classList.add("leyenda");
+
+				// Fin
+				return domLeyenda;
+			},
 		},
 	};
 
@@ -161,17 +246,21 @@ window.addEventListener("load", async () => {
 
 		// PESTANA - Si las tiene, las actualiza
 		const tema_id = DOM.filtros.tema.value;
-		const pestanasTemas = v.pestanasTemas.filter((n) => n.tema_id == tema_id);
-		if (pestanasTemas.length) {
+		const pestanasTema = v.pestanasTemas.filter((n) => n.tema_id == tema_id);
+		if (pestanasTema.length) {
 			// PESTANA - Crea las opciones
-			FN.agregaOpciones(pestanasTemas, DOM.filtros.pestana, "titulo");
+			FN.agregaOpciones(pestanasTema, DOM.filtros.pestana, "titulo");
 
 			// PESTANA - Las muestra y dispara el evento
 			DOM.filtros.pestana.classList.remove("ocultar");
 			DOM.filtros.pestana.dispatchEvent(new Event("change"));
 		}
 		// ENCABEZADO - Si no tiene pestañas, obtiene los encabezados
-		else FN.actualizaFiltroEncabezado();
+		else {
+			DOM.filtros.pestana.value = "";
+			DOM.filtros.pestana.classList.add("ocultar");
+			FN.actualizaFiltroEncabezado();
+		}
 
 		// Fin
 		return;
