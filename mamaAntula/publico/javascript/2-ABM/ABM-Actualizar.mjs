@@ -10,6 +10,7 @@ window.addEventListener("load", async () => {
 			pestana: document.querySelector("#filtros select[name='pestana_id']"),
 			encabezado: document.querySelector("#filtros select[name='encabezado']"),
 		},
+		linkLectura: document.querySelector("#linkLectura"),
 
 		// Inputs del encabezado
 		sectorEncabezados: document.querySelector("#sectorEncabezados"),
@@ -70,6 +71,7 @@ window.addEventListener("load", async () => {
 			else DOM.sectorEncabezados.classList.remove("ocultar");
 
 			// Actualiza el DOM
+			const encabezado = v.encabezados.find((n) => n.id == v.encabezado_id);
 			DOM.inputs = DOM.encabezado.querySelectorAll(".input");
 			for (const input of DOM.inputs) {
 				// Agrega las opciones
@@ -78,12 +80,12 @@ window.addEventListener("load", async () => {
 
 				// Actualiza el valor elegido de todos los inputs
 				const campo = input.name;
-				input.value = (v.encabezado && v.encabezado[campo]) || "";
+				input.value = (encabezado && encabezado[campo]) || "";
 			}
 
 			// Actualiza el icono
-			DOM.encabIconos.querySelector("#guardar").classList[v.encabezado_id == "nuevo"? "remove" : "add"]("ocultar")
-			DOM.encabIconos.querySelector("#eliminar").classList[v.encabezado_id == "nuevo"? "add" : "remove"]("ocultar")
+			DOM.encabIconos.querySelector("#guardar").classList[v.encabezado_id == "nuevo" ? "remove" : "add"]("ocultar");
+			DOM.encabIconos.querySelector("#eliminar").classList[v.encabezado_id == "nuevo" ? "add" : "remove"]("ocultar");
 
 			// Fin
 			return;
@@ -290,7 +292,6 @@ window.addEventListener("load", async () => {
 
 		// Actualiza el encabezado
 		v.encabezado_id = DOM.filtros.encabezado.value;
-		v.encabezado = v.encabezados.find((n) => n.id == v.encabezado_id);
 		FN.actualizaEncabezado();
 
 		// Actualiza el contenido actual
