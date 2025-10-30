@@ -1,4 +1,5 @@
 // Imports
+import express from "express";
 import API from "./ABM-controlApi.mjs";
 import vista from "./ABM-controlVista.mjs";
 import soloEdicion from "../../middlewares/usuarios/US-3SoloEdicion.mjs";
