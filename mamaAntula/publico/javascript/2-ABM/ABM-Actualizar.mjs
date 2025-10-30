@@ -14,6 +14,7 @@ window.addEventListener("load", async () => {
 		// Inputs del encabezado
 		sectorEncabezados: document.querySelector("#sectorEncabezados"),
 		encabezados: document.querySelectorAll("#sectorEncabezados .encabezado"),
+		encabIconos: document.querySelector("#sectorEncabezados .iconos"),
 
 		// Contenido actual
 		sectorContActual: document.querySelector("#sectorContActual"),
@@ -79,6 +80,10 @@ window.addEventListener("load", async () => {
 				const campo = input.name;
 				input.value = (v.encabezado && v.encabezado[campo]) || "";
 			}
+
+			// Actualiza el icono
+			DOM.encabIconos.querySelector("#guardar").classList[v.encabezado_id == "nuevo"? "remove" : "add"]("ocultar")
+			DOM.encabIconos.querySelector("#eliminar").classList[v.encabezado_id == "nuevo"? "add" : "remove"]("ocultar")
 
 			// Fin
 			return;
