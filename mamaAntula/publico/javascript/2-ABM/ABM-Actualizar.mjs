@@ -147,6 +147,7 @@ window.addEventListener("load", async () => {
 				else if (contenido.texto && contenido.imagen) {
 					v.domContenido.appendChild(this.texto(contenido));
 					v.domContenido.appendChild(this.imagen(contenido));
+					v.domContenido.classList.add("textoImagen");
 				}
 				// Video
 				else if (contenido.video) v.domContenido = this.video(contenido).cloneNode(true);
