@@ -267,7 +267,7 @@ window.addEventListener("load", async () => {
 
 		// SECCIÓN - Guarda la cookie
 		const seccion_id = DOM.filtros.seccion.value;
-		document.cookie = "actualizaSeccion_id=" + seccion_id;
+		if (!v.startUp) document.cookie = "actualizaSeccion_id=" + seccion_id;
 
 		// TEMA - Crea las opciones
 		const temasSecciones = v.temasSecciones.filter((n) => n.seccion_id == seccion_id);
@@ -293,7 +293,7 @@ window.addEventListener("load", async () => {
 
 		// TEMA -  Guarda la cookie
 		const tema_id = DOM.filtros.tema.value;
-		document.cookie = "actualizaTema_id=" + tema_id;
+		if (!v.startUp) document.cookie = "actualizaTema_id=" + tema_id;
 
 		// PESTAÑA - Crea las opciones
 		const pestanasTema = v.pestanasTemas.filter((n) => n.tema_id == tema_id);
@@ -321,7 +321,7 @@ window.addEventListener("load", async () => {
 
 		// PESTAÑA -  Guarda la cookie
 		const pestana_id = DOM.filtros.pestana.value;
-		document.cookie = "actualizaPestana_id=" + pestana_id;
+		if (!v.startUp) document.cookie = "actualizaPestana_id=" + pestana_id;
 
 		// ENCABEZADO - Los obtiene y genera el evento 'change'
 		FN.actualizaFiltroEncabezado();
@@ -336,11 +336,11 @@ window.addEventListener("load", async () => {
 
 		// ENCABEZADO - Si es start-up, elige la opción de la cookie
 		if (v.startUp && cookie("actualizaEncabezado_id")) DOM.filtros.encabezado.value = cookie("actualizaEncabezado_id");
-		delete v.startUp;
 
 		// ENCABEZADO - Guarda la cookie
 		v.encabezado_id = DOM.filtros.encabezado.value;
-		document.cookie = "actualizaEncabezado_id=" + v.encabezado_id;
+		if (!v.startUp) document.cookie = "actualizaEncabezado_id=" + v.encabezado_id;
+		delete v.startUp;
 
 		// Actualiza el encabezado
 		FN.actualizaEncabezado();
