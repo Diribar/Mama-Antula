@@ -144,7 +144,7 @@ window.addEventListener("load", async () => {
 			for (const contenido of v.contenidos) {
 				// Crea el DOM contenedor
 				const domBloque = document.createElement("div");
-				domBloque.classList.add("bloque");
+				domBloque.classList.add("bloque", "sector");
 
 				// Crea el DOM contenido
 				FN.creaElContenido.consolidado(contenido); // puede ser: div (para texto, texto-imagen, carrousel), img, video
