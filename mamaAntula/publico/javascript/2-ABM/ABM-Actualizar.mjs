@@ -213,7 +213,7 @@ window.addEventListener("load", async () => {
 
 				// Crea la imagen
 				const domImagen = document.createElement("img");
-				domImagen.src = "/imgsEditables/1-Final/" + contenido.imagen;
+				domImagen.src = "/imgsEditables/1-Contenido/" + contenido.imagen;
 				domImagen.classList.add("imagen");
 				contenedor.appendChild(domImagen);
 
