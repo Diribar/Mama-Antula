@@ -12,6 +12,7 @@ window.addEventListener("load", async () => {
 		},
 
 		// Inputs del encabezado
+		sectorEncabezados: document.querySelector("#sectorEncabezados"),
 		encabezados: document.querySelectorAll("#sectorEncabezados .encabezado"),
 
 		// Contenido actual
@@ -58,13 +59,17 @@ window.addEventListener("load", async () => {
 			return;
 		},
 		actualizaEncabezado: () => {
-			// Obtiene los inputs del DOM
+			// Si corresponde, interrumpe la función
 			DOM.encabezado = document.querySelector("#sectorEncabezados .encabezado:not(.ocultar)");
-			DOM.inputs = DOM.encabezado.querySelectorAll(".input");
+			if (v.tipoEncab == "encabSinIndice" && !DOM.filtros.pestana.value) {
+				DOM.sectorEncabezados.classList.add("ocultar");
+				return;
+			}
+			// Muestra el sector encabezados
+			else DOM.sectorEncabezados.classList.remove("ocultar");
 
 			// Actualiza el DOM
-			v.encabezado_id = DOM.filtros.encabezado.value;
-			v.encabezado = v.encabezados.find((n) => n.id == v.encabezado_id);
+			DOM.inputs = DOM.encabezado.querySelectorAll(".input");
 			for (const input of DOM.inputs) {
 				// Agrega las opciones
 				const {tabla} = input.dataset;
@@ -79,6 +84,8 @@ window.addEventListener("load", async () => {
 			return;
 		},
 		actualizaContenidoActual: async () => {
+			console.log(123);
+
 			// Variables
 			const campo_id =
 				v.tipoEncab == "encabCartas" ? "carta_id" : v.tipoEncab == "encabExpers" ? "experiencia_id" : "sinIndice_id";
@@ -273,6 +280,8 @@ window.addEventListener("load", async () => {
 			encabezado.classList[encabezado.id == v.tipoEncab ? "remove" : "add"]("ocultar");
 
 		// Actualiza el encabezado
+		v.encabezado_id = DOM.filtros.encabezado.value;
+		v.encabezado = v.encabezados.find((n) => n.id == v.encabezado_id);
 		FN.actualizaEncabezado();
 
 		// Actualiza el contenido actual

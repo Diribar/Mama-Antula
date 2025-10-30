@@ -39,17 +39,25 @@
 
 			/* Sector contenido actual */
 			#sectorContActual {
+				padding-block: 15px; width: 100%;
 				.bloque {
-					.contenido {
-						&.textoImagen {display: flex; flex-direction: row; gap: 15px;}
+					display: flex; flex-direction: row; gap: 15px;
+					.contenido {}
+					.iconos {
+						display: flex; flex-direction: row; align-items: center; gap: 5px;
+						i {
+							cursor: pointer;
+							&:hover:not(:active) {scale: 1.5;}
+						}
 					}
+					.textoImagen {display: flex; flex-direction: row; gap: 15px;}
+					.texto p {margin-bottom: 10px;}
+
 					.contImagenLeyenda {
 						display: flex; flex-direction: column; align-items: center;
-						max-height: 50vh;
 						.imagen {max-height: 350px;}
-						.leyenda {max-width: fit-content;}
+						.leyenda {max-width: fit-content; text-align: center;}
 					}
-					.iconos {}
 				}
 			}
 
