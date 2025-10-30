@@ -35,8 +35,8 @@ window.addEventListener("load", async () => {
 		// Operaciones
 		actualizaFiltroEncabezado: async () => {
 			// Si corresponde, oculta el sector encabezados
-			const ocultarEncabezado = v.tipoEncab == "encabSinIndice" && !DOM.filtros.pestana.value;
-			if (ocultarEncabezado) DOM.filtros.encabezado.classList.add("ocultar");
+			v.ocultarEncabezado = v.tipoEncab == "encabSinIndice" && !DOM.filtros.pestana.value;
+			if (v.ocultarEncabezado) DOM.filtros.encabezado.classList.add("ocultar");
 
 			// Variables
 			v.seccion_id = DOM.filtros.seccion.value;
@@ -57,7 +57,7 @@ window.addEventListener("load", async () => {
 			DOM.filtros.encabezado.appendChild(option);
 
 			// Muestra los encabezados y dispara el evento
-			if (!ocultarEncabezado) DOM.filtros.encabezado.classList.remove("ocultar");
+			if (!v.ocultarEncabezado) DOM.filtros.encabezado.classList.remove("ocultar");
 			DOM.filtros.encabezado.dispatchEvent(new Event("change"));
 
 			// Fin
@@ -66,7 +66,7 @@ window.addEventListener("load", async () => {
 		actualizaEncabezado: () => {
 			// Si corresponde, oculta el sector encabezados e interrumpe la función
 			DOM.encabezado = document.querySelector("#sectorEncabezados .encabezado:not(.ocultar)");
-			if (v.tipoEncab == "encabSinIndice" && !DOM.filtros.pestana.value) {
+			if (v.ocultarEncabezado) {
 				DOM.sectorEncabezados.classList.add("ocultar");
 				return;
 			}
