@@ -69,7 +69,7 @@ window.addEventListener("load", async () => {
 			// Variables
 			DOM.encabezado = document.querySelector("#sectorEncabezados .encabezado:not(.ocultar)");
 
-			// Si corresponde, oculta el sector encabezados e interrumpe la función - si 'encabSinIndice' es tema (no pestaña), no se lo muestra porque su contenido es trivial
+			// Si corresponde, oculta el sector encabezados - si 'encabSinIndice' es tema (no pestaña), no se lo muestra porque su contenido es trivial
 			if (v.tipoEncab == "encabSinIndice" && !DOM.filtros.pestana.value) DOM.sectorEncabezados.classList.add("ocultar");
 			// Muestra el sector encabezados
 			else DOM.sectorEncabezados.classList.remove("ocultar");
