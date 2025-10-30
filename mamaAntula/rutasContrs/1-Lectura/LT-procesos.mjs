@@ -30,7 +30,6 @@ export default {
 	indice: (encabezados) => {
 		// Variables
 		const fechas = [...new Set(encabezados.map((n) => n.fechaEvento))];
-		console.log(38, encabezados[0]);
 
 		// Averigua la cantidad de fechas distintas
 

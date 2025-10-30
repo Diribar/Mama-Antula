@@ -4,7 +4,9 @@
 	/* General */
 	.sector {
 		border: 1px solid black; border-radius: 10px;
-		padding: 15px 20px; margin-bottom: 20px; width: fit-content;
+		padding-inline: 20px;
+		/* padding: 15px 20px;  */
+		margin-bottom: 20px; width: fit-content;
 		&#sectorFiltros, &#sectorFiltros #filtros,
 		&#sectorEncabezados, &#sectorEncabezados .encabezado
 			{display: flex; flex-direction: row; align-items: center; justify-content: flex-start; gap: 30px;}
@@ -12,27 +14,60 @@
 		input {padding-inline: 4px;}
 	}
 
+	#sectorFiltros, #sectorEncabezados {min-height: 50px;}
+
 	/* Sector filtros */
 	#sectorFiltros {
 		background-color: var(--celesteClaro);
 		#filtros {select {width: 210px;}}
 	}
 
-	form .sector {
-		background-color: var(--grisClaro);
+	form {
+		max-height: calc(100% - 70px); overflow-y: auto;
+		.sector {
+			background-color: var(--grisClaro);
+			.iconos {
+				display: flex; flex-direction: row; align-items: center; gap: 5px;
+				i {
+					cursor: pointer;
+					&:hover:not(:active) {scale: 1.5;}
+				}
+			}
+		}
 
 		/* Sector encabezados */
-		&#sectorEncabezados .encabezado {
+		#sectorEncabezados .encabezado {
 			input[type="text"] {width: 300px;}
 			input[type="date"] {width: 130px;}
 			select[name="orden"], select[name="numero"] {width: 70px;}
 			&#encabCartas #areaSoltar {--ladoCuadrado: 100px; width: var(--ladoCuadrado); border-radius: 5px;}
 		}
 
-		/* Sector contenido actual */
-		/* &#sectorContActual {} */
+		#sectorContenido {
+			/* Sector contenido actual */
+			#sectorContActual {
+				width: 100%;
+				.bloque {
+					display: flex; flex-direction: row; justify-content: center; gap: 15px;
+					padding-block: 15px;
+					.contenido {}
+					.textoImagen {display: flex; flex-direction: row; gap: 15px;}
+					.texto p {margin-bottom: 10px;}
 
+					.contImagenLeyenda {
+						display: flex; flex-direction: column; align-items: center;
+						width: min-content;
+						.imagen {max-height: 350px;}
+						.leyenda {max-width: fit-content; text-align: center;}
+					}
+				}
+			}
+
+		}
 	}
+
+
+
 
 	/* input[type="text"], textarea {padding: 3px 5px;} */
 
