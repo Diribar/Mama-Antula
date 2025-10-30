@@ -69,10 +69,7 @@ window.addEventListener("load", async () => {
 			DOM.encabezado = document.querySelector("#sectorEncabezados .encabezado:not(.ocultar)");
 
 			// Si corresponde, oculta el sector encabezados e interrumpe la función - si 'encabSinIndice' es tema (no pestaña), no se lo muestra porque su contenido es trivial
-			if (v.tipoEncab == "encabSinIndice" && !DOM.filtros.pestana.value) {
-				DOM.sectorEncabezados.classList.add("ocultar");
-				return;
-			}
+			if (v.tipoEncab == "encabSinIndice" && !DOM.filtros.pestana.value) DOM.sectorEncabezados.classList.add("ocultar");
 			// Muestra el sector encabezados
 			else DOM.sectorEncabezados.classList.remove("ocultar");
 
@@ -89,7 +86,7 @@ window.addEventListener("load", async () => {
 				input.value = (encabezado && encabezado[campo]) || "";
 			}
 
-			// Actualiza el icono
+			// Actualiza los íconos
 			DOM.encabIconos.querySelector("#guardar").classList[v.encabezado_id == "nuevo" ? "remove" : "add"]("ocultar");
 			DOM.encabIconos.querySelector("#eliminar").classList[v.encabezado_id == "nuevo" ? "add" : "remove"]("ocultar");
 
@@ -147,6 +144,10 @@ window.addEventListener("load", async () => {
 			return;
 		},
 		creaContenedorContenidoIconos: () => {
+			// Variables
+			const inicial_id= v.contenidos[0]?.id;
+			const final_id=v.contenidos.at(-1)?.id;
+
 			// Agrega los contenidos
 			for (const contenido of v.contenidos) {
 				// Crea el DOM contenedor
@@ -160,11 +161,16 @@ window.addEventListener("load", async () => {
 
 				// Crea el DOM íconos
 				const domIconos = DOM.iconosActual.cloneNode(true);
+				if (inicial_id == contenido.id) domIconos.querySelector(".subir").classList.add("ocultar");
+				if (final_id == contenido.id) domIconos.querySelector(".bajar").classList.add("ocultar");
 				domBloque.appendChild(domIconos);
 
 				// Agrega el DOM contenedor al DOM sector
 				DOM.sectorContActual.appendChild(domBloque);
 			}
+
+			// Fin
+			return;
 		},
 		creaElContenido: {
 			consolidado: function (contenido) {

@@ -18,6 +18,7 @@ export default {
 			iconosAgrupados: baseDatos.obtieneTodosConOrden("iconosAgrupados", "orden"),
 			rolesUs: baseDatos.obtieneTodosConOrden("rolesUs", "orden"),
 			statusRegistrosUs: baseDatos.obtieneTodosConOrden("statusRegistrosUs", "orden"),
+			statusRegistros: baseDatos.obtieneTodosConOrden("statusRegistros", "orden"),
 			paises: baseDatos.obtieneTodos("paises"),
 			versionWeb: baseDatos.obtieneTodosConOrden("novsDelSitio", "fecha").then((n) => n.at(-1).version),
 		};
@@ -42,6 +43,13 @@ export default {
 			mailPendValidar_id: statusRegistrosUs.find((n) => n.codigo == "mailPendValidar").id,
 			mailValidado_id: statusRegistrosUs.find((n) => n.codigo == "mailValidado").id,
 			conApodo_id: statusRegistrosUs.find((n) => n.codigo == "conApodo").id,
+
+			// 3. Status de contenido
+			creado_id: statusRegistros.find((n) => n.codigo == "creado").id,
+			aprobado_id: statusRegistros.find((n) => n.codigo == "aprobado").id,
+			inactivar_id: statusRegistros.find((n) => n.codigo == "inactivar").id,
+			inactivo_id: statusRegistros.find((n) => n.codigo == "inactivo").id,
+
 		};
 
 		// Fin
