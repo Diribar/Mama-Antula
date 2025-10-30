@@ -1,6 +1,7 @@
-import express from "express";
+// Imports
 import API from "./ABM-controlApi.mjs";
 import vista from "./ABM-controlVista.mjs";
+import soloEdicion from "../../middlewares/usuarios/US-3SoloEdicion.mjs";
 
 // 🧩 Router
 const router = express.Router();
@@ -11,7 +12,7 @@ router.get("/api/abm-obtiene-encabezados", API.obtieneEncabs);
 router.get("/api/abm-obtiene-contenidos", API.obtieneContenidos);
 
 // 🖥️ Vistas
-router.get("/actualizar", vista.actualizar);
+router.get("/actualizar", soloEdicion, vista.actualizar);
 router.get("/revisar", vista.revisar);
 
 // ✅ Export

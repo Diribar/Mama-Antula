@@ -6,7 +6,7 @@ import vista from "./US-controlVista.mjs";
 // Middlewares
 import soloVisitas from "../../middlewares/usuarios/US-1SoloVisitas.mjs";
 import soloUsuarios from "../../middlewares/usuarios/US-2SoloUsuarios.mjs";
-import soloAdmin from "../../middlewares/usuarios/US-3SoloAdmin.mjs";
+import soloAdmin from "../../middlewares/usuarios/US-4SoloAdmin.mjs";
 import descargaArch from "../../middlewares/CMP-descargaArch.mjs";
 
 // 🧩 Router
