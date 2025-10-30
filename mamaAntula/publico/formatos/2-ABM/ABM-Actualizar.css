@@ -24,7 +24,16 @@
 
 	form {
 		max-height: calc(100% - 70px); overflow-y: auto;
-		.sector {background-color: var(--grisClaro);}
+		.sector {
+			background-color: var(--grisClaro);
+			.iconos {
+				display: flex; flex-direction: row; align-items: center; gap: 5px;
+				i {
+					cursor: pointer;
+					&:hover:not(:active) {scale: 1.5;}
+				}
+			}
+		}
 
 		/* Sector encabezados */
 		#sectorEncabezados .encabezado {
@@ -35,21 +44,12 @@
 		}
 
 		#sectorContenido {
-
-
 			/* Sector contenido actual */
 			#sectorContActual {
 				padding-block: 15px; width: 100%;
 				.bloque {
 					display: flex; flex-direction: row; gap: 15px;
 					.contenido {}
-					.iconos {
-						display: flex; flex-direction: row; align-items: center; gap: 5px;
-						i {
-							cursor: pointer;
-							&:hover:not(:active) {scale: 1.5;}
-						}
-					}
 					.textoImagen {display: flex; flex-direction: row; gap: 15px;}
 					.texto p {margin-bottom: 10px;}
 

@@ -13,6 +13,8 @@
 	</div>
 	<a href="" target="_blank" title="Link a solo lectura"><i class="fa-solid <%= iconos.link %>"></i></a>
 </section>
+
+<!-- Form -->
 <form>
 	<!-- Encabezado -->
 	<section id="sectorEncabezados" class="sector">
@@ -50,12 +52,12 @@
 		<div id="encabSinIndice" class="encabezado ocultar">
 			<input type="text" name="titulo" class="input" placeholder="Título">
 			<input type="text" name="subTitulo" class="input" placeholder="Sub-título">
-			<select name="orden" class="input">
-			</select>
+			<!-- <select name="orden" class="input">
+			</select> -->
 		</div>
-		<div id="iconosEncab" class="ocultar">
-			<!-- guardar -->
-			<!-- eliminar -->
+		<div class="iconos">
+			<i class="fa-solid fa-save"></i><!-- guardar -->
+			<i class="fa-solid <%= iconos.eliminar %>"></i><!-- eliminar -->
 		</div>
 	</section>
 
@@ -68,9 +70,9 @@
 				<!-- Íconos -->
 				<div class="iconos">
 					<i class="fa-solid <%= iconos.edicion %>"></i><!-- editar -->
-					<i class="fa-solid <%= iconos.eliminar %>"></i><!-- eliminar -->
 					<i class="fa-solid fa-up-long"></i><!-- subir -->
 					<i class="fa-solid fa-down-long"></i><!-- bajar -->
+					<i class="fa-solid <%= iconos.eliminar %>"></i><!-- eliminar -->
 				</div>
 			</div>
 		</div>
