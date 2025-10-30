@@ -28,6 +28,7 @@ window.addEventListener("load", async () => {
 	};
 	const v = {
 		...(await fetch(rutas.datosIniciales).then((n) => n && n.json())),
+		startUp: true,
 	};
 
 	// Funciones
@@ -145,8 +146,8 @@ window.addEventListener("load", async () => {
 		},
 		creaContenedorContenidoIconos: () => {
 			// Variables
-			const inicial_id= v.contenidos[0]?.id;
-			const final_id=v.contenidos.at(-1)?.id;
+			const inicial_id = v.contenidos[0]?.id;
+			const final_id = v.contenidos.at(-1)?.id;
 
 			// Agrega los contenidos
 			for (const contenido of v.contenidos) {
@@ -255,17 +256,23 @@ window.addEventListener("load", async () => {
 
 	// Eventos de filtros
 	DOM.filtros.seccion.addEventListener("change", () => {
+		// PESTANA - Limpieza inicial
+		DOM.filtros.pestana.classList.add("ocultar");
+
 		// Averigua si la sección es 'Experiencias'
 		v.tipoEncab =
 			DOM.filtros.seccion.value == v.secciones.find((n) => n.codigo == "experiencias")?.id
 				? "encabExpers"
 				: "encabSinIndice";
 
-		// TEMA - Limpieza inicial
-		DOM.filtros.pestana.classList.add("ocultar");
+		// SECCION - Si es start-up, elige la opción de la cookie
+		if (v.startUp && cookie("actualizaSeccion_id")) DOM.filtros.seccion.value = cookie("actualizaSeccion_id");
+
+		// SECCIÓN - Guarda la cookie
+		const seccion_id = DOM.filtros.seccion.value;
+		document.cookie = "actualizaSeccion_id=" + seccion_id;
 
 		// TEMA - Crea las opciones
-		const seccion_id = DOM.filtros.seccion.value;
 		const temasSecciones = v.temasSecciones.filter((n) => n.seccion_id == seccion_id);
 		FN.agregaOpciones(temasSecciones, DOM.filtros.tema, "titulo");
 
@@ -284,8 +291,14 @@ window.addEventListener("load", async () => {
 					? "encabCartas"
 					: "encabSinIndice";
 
-		// PESTANA - Si las tiene, las actualiza
+		// TEMA - Si es start-up, elige la opción de la cookie
+		if (v.startUp && cookie("actualizaTema_id")) DOM.filtros.tema.value = cookie("actualizaTema_id");
+
+		// TEMA -  Guarda la cookie
 		const tema_id = DOM.filtros.tema.value;
+		document.cookie = "actualizaTema_id=" + tema_id;
+
+		// PESTAÑA - Crea las opciones
 		const pestanasTema = v.pestanasTemas.filter((n) => n.tema_id == tema_id);
 		if (pestanasTema.length) {
 			// PESTANA - Crea las opciones
@@ -305,7 +318,17 @@ window.addEventListener("load", async () => {
 		// Fin
 		return;
 	});
-	DOM.filtros.pestana.addEventListener("change", () => FN.actualizaFiltroEncabezado()); // ENCABEZADO - Los obtiene y genera el evento 'change'
+	DOM.filtros.pestana.addEventListener("change", () => {
+		// PESTAÑA - Si es start-up, elige la opción de la cookie
+		if (v.startUp && cookie("actualizaPestana_id")) DOM.filtros.pestana.value = cookie("actualizaPestana_id");
+
+		// PESTAÑA -  Guarda la cookie
+		const pestana_id = DOM.filtros.pestana.value;
+		document.cookie = "actualizaPestana_id=" + pestana_id;
+
+		// ENCABEZADO - Los obtiene y genera el evento 'change'
+		FN.actualizaFiltroEncabezado();
+	});
 	DOM.filtros.encabezado.addEventListener("change", async () => {
 		// Actualiza el anchor de flitros
 		FN.actualizaHref();
@@ -314,8 +337,15 @@ window.addEventListener("load", async () => {
 		for (const encabezado of DOM.encabezados)
 			encabezado.classList[encabezado.id == v.tipoEncab ? "remove" : "add"]("ocultar");
 
-		// Actualiza el encabezado
+		// ENCABEZADO - Si es start-up, elige la opción de la cookie
+		if (v.startUp && cookie("actualizaEncabezado_id")) DOM.filtros.encabezado.value = cookie("actualizaEncabezado_id");
+		delete v.startUp;
+
+		// ENCABEZADO - Guarda la cookie
 		v.encabezado_id = DOM.filtros.encabezado.value;
+		document.cookie = "actualizaEncabezado_id=" + v.encabezado_id;
+
+		// Actualiza el encabezado
 		FN.actualizaEncabezado();
 
 		// Actualiza el contenido actual

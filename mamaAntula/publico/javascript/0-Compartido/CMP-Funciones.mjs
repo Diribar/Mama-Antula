@@ -12,3 +12,17 @@ const colorMensaje = (DOM, hay, mensaje) => {
 };
 const postJson = (datos) => ({method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(datos)});
 const postForm = (formData) => ({method: "POST", body: formData});
+const cookie = (metodo) => {
+	// Variables
+	const cookies = document.cookie.split("; "); // separa las cookies individuales
+	const respuesta = {};
+
+	// Recorre las cookies
+	for (const cookie of cookies) {
+		const [key, value] = cookie.split("="); // separa nombre y valor
+		respuesta[key] = value;
+	}
+
+	// Fin
+	return respuesta[metodo];
+};
