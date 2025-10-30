@@ -56,7 +56,7 @@ window.addEventListener("load", async () => {
 			option.textContent = "Encabezado nuevo";
 			DOM.filtros.encabezado.appendChild(option);
 
-			// Dispara el evento
+			// Muestra los encabezados y dispara el evento
 			if (!ocultarEncabezado) DOM.filtros.encabezado.classList.remove("ocultar");
 			DOM.filtros.encabezado.dispatchEvent(new Event("change"));
 
