@@ -43,27 +43,26 @@
 			&#encabCartas #areaSoltar {--ladoCuadrado: 100px; width: var(--ladoCuadrado); border-radius: 5px;}
 		}
 
-		#sectorContenido {
-			/* Sector contenido actual */
-			#sectorContActual {
-				width: 100%;
-				.bloque {
-					display: flex; flex-direction: row; justify-content: center; gap: 15px;
-					padding-block: 15px;
-					.contenido {}
-					.textoImagen {display: flex; flex-direction: row; gap: 15px;}
-					.texto p {margin-bottom: 10px;}
+		/* Sector contenido actual */
+		#sectorContActual {
+			width: 100%;
+			.bloque {
+				display: flex; flex-direction: row; justify-content: center; gap: 15px;
+				padding-block: 15px;
+				.contenido {}
+				.textoImagen {display: flex; flex-direction: row; gap: 15px;}
+				.texto p {margin-bottom: 10px;}
 
-					.contImagenLeyenda {
-						display: flex; flex-direction: column; align-items: center;
-						width: min-content;
-						.imagen {max-height: 350px;}
-						.leyenda {max-width: fit-content; text-align: center;}
-					}
+				.contImagenLeyenda {
+					display: flex; flex-direction: column; align-items: center;
+					width: min-content;
+					.imagen {max-height: 350px;}
+					.leyenda {max-width: fit-content; text-align: center;}
 				}
 			}
-
 		}
+
+
 	}
 
 
