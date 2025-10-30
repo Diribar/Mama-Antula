@@ -256,9 +256,6 @@ window.addEventListener("load", async () => {
 
 	// Eventos de filtros
 	DOM.filtros.seccion.addEventListener("change", () => {
-		// PESTANA - Limpieza inicial
-		DOM.filtros.pestana.classList.add("ocultar");
-
 		// Averigua si la sección es 'Experiencias'
 		v.tipoEncab =
 			DOM.filtros.seccion.value == v.secciones.find((n) => n.codigo == "experiencias")?.id
