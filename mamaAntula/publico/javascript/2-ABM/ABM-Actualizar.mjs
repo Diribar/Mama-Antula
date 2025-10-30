@@ -34,6 +34,10 @@ window.addEventListener("load", async () => {
 	const FN = {
 		// Operaciones
 		actualizaFiltroEncabezado: async () => {
+			// Si corresponde, oculta el sector encabezados
+			const ocultarEncabezado = v.tipoEncab == "encabSinIndice" && !DOM.filtros.pestana.value;
+			if (ocultarEncabezado) DOM.filtros.encabezado.classList.add("ocultar");
+
 			// Variables
 			v.seccion_id = DOM.filtros.seccion.value;
 			v.tema_id = DOM.filtros.tema.value;
@@ -44,7 +48,7 @@ window.addEventListener("load", async () => {
 			v.encabezados = await fetch(rutas.obtieneEncabs + datos).then((n) => n && n.json());
 
 			// Crea las opciones
-			FN.agregaOpciones(v.encabezados, DOM.filtros.encabezado, "tituloCons", "Sin encabezado");
+			FN.agregaOpciones(v.encabezados, DOM.filtros.encabezado, "tituloCons");
 
 			// Crea una opción más para un título nuevo
 			const option = document.createElement("option");
@@ -52,8 +56,8 @@ window.addEventListener("load", async () => {
 			option.textContent = "Encabezado nuevo";
 			DOM.filtros.encabezado.appendChild(option);
 
-			// Muestra los encabezados y dispara el evento
-			DOM.filtros.encabezado.classList.remove("ocultar");
+			// Dispara el evento
+			if (!ocultarEncabezado) DOM.filtros.encabezado.classList.remove("ocultar");
 			DOM.filtros.encabezado.dispatchEvent(new Event("change"));
 
 			// Fin
@@ -124,7 +128,7 @@ window.addEventListener("load", async () => {
 		},
 
 		// Auxiliares
-		agregaOpciones: (opciones, domSelect, campoNombre, sinQue) => {
+		agregaOpciones: (opciones, domSelect, campoNombre) => {
 			// Limpia las opciones del select
 			domSelect.innerHTML = "";
 
@@ -132,7 +136,7 @@ window.addEventListener("load", async () => {
 			for (const opcion of opciones) {
 				const domOpcion = document.createElement("option");
 				domOpcion.value = opcion.id;
-				domOpcion.textContent = opcion[campoNombre] || sinQue || "Sin título";
+				domOpcion.textContent = opcion[campoNombre] || "Sin título";
 				domSelect.appendChild(domOpcion);
 			}
 
@@ -254,7 +258,7 @@ window.addEventListener("load", async () => {
 		// TEMA - Crea las opciones
 		const seccion_id = DOM.filtros.seccion.value;
 		const temasSecciones = v.temasSecciones.filter((n) => n.seccion_id == seccion_id);
-		FN.agregaOpciones(temasSecciones, DOM.filtros.tema, "titulo", "Sin pestaña");
+		FN.agregaOpciones(temasSecciones, DOM.filtros.tema, "titulo");
 
 		// TEMA - Los muestra y dispara el evento
 		DOM.filtros.tema.classList.remove("ocultar");
@@ -276,7 +280,7 @@ window.addEventListener("load", async () => {
 		const pestanasTema = v.pestanasTemas.filter((n) => n.tema_id == tema_id);
 		if (pestanasTema.length) {
 			// PESTANA - Crea las opciones
-			FN.agregaOpciones(pestanasTema, DOM.filtros.pestana, "titulo", "Sin pestaña");
+			FN.agregaOpciones(pestanasTema, DOM.filtros.pestana, "titulo");
 
 			// PESTANA - Las muestra y dispara el evento
 			DOM.filtros.pestana.classList.remove("ocultar");
