@@ -256,18 +256,18 @@ window.addEventListener("load", async () => {
 
 	// Eventos de filtros
 	DOM.filtros.seccion.addEventListener("change", () => {
-		// Averigua si la sección es 'Experiencias'
-		v.tipoEncab =
-			DOM.filtros.seccion.value == v.secciones.find((n) => n.codigo == "experiencias")?.id
-				? "encabExpers"
-				: "encabSinIndice";
-
 		// SECCION - Si es start-up, elige la opción de la cookie
 		if (v.startUp && cookie("actualizaSeccion_id")) DOM.filtros.seccion.value = cookie("actualizaSeccion_id");
 
 		// SECCIÓN - Guarda la cookie
 		const seccion_id = DOM.filtros.seccion.value;
 		if (!v.startUp) document.cookie = "actualizaSeccion_id=" + seccion_id;
+
+		// Averigua si la sección es 'Experiencias'
+		v.tipoEncab =
+			DOM.filtros.seccion.value == v.secciones.find((n) => n.codigo == "experiencias")?.id
+				? "encabExpers"
+				: "encabSinIndice";
 
 		// TEMA - Crea las opciones
 		const temasSecciones = v.temasSecciones.filter((n) => n.seccion_id == seccion_id);
@@ -281,19 +281,16 @@ window.addEventListener("load", async () => {
 		return;
 	});
 	DOM.filtros.tema.addEventListener("change", () => {
-		// Averigua si el tema es 'Cartas'
-		if (v.tipoEncab != "encabExpers")
-			v.tipoEncab =
-				DOM.filtros.tema.value == v.temasSecciones.find((n) => n.codigo == "cartas")?.id
-					? "encabCartas"
-					: "encabSinIndice";
-
 		// TEMA - Si es start-up, elige la opción de la cookie
 		if (v.startUp && cookie("actualizaTema_id")) DOM.filtros.tema.value = cookie("actualizaTema_id");
 
 		// TEMA -  Guarda la cookie
 		const tema_id = DOM.filtros.tema.value;
 		if (!v.startUp) document.cookie = "actualizaTema_id=" + tema_id;
+
+		// Averigua si el tema es 'Cartas'
+		if (v.tipoEncab != "encabExpers")
+			v.tipoEncab = tema_id == v.temasSecciones.find((n) => n.codigo == "cartas")?.id ? "encabCartas" : "encabSinIndice";
 
 		// PESTAÑA - Crea las opciones
 		const pestanasTema = v.pestanasTemas.filter((n) => n.tema_id == tema_id);
@@ -327,13 +324,6 @@ window.addEventListener("load", async () => {
 		FN.actualizaFiltroEncabezado();
 	});
 	DOM.filtros.encabezado.addEventListener("change", async () => {
-		// Actualiza el anchor de flitros
-		FN.actualizaHref();
-
-		// Muestra el encabezado que corresponde, y oculta los demás
-		for (const encabezado of DOM.encabezados)
-			encabezado.classList[encabezado.id == v.tipoEncab ? "remove" : "add"]("ocultar");
-
 		// ENCABEZADO - Si es start-up, elige la opción de la cookie
 		if (v.startUp && cookie("actualizaEncabezado_id")) DOM.filtros.encabezado.value = cookie("actualizaEncabezado_id");
 
@@ -341,6 +331,13 @@ window.addEventListener("load", async () => {
 		v.encabezado_id = DOM.filtros.encabezado.value;
 		if (!v.startUp) document.cookie = "actualizaEncabezado_id=" + v.encabezado_id;
 		delete v.startUp;
+
+		// Actualiza el anchor de flitros
+		FN.actualizaHref();
+
+		// Muestra el encabezado que corresponde, y oculta los demás
+		for (const encabezado of DOM.encabezados)
+			encabezado.classList[encabezado.id == v.tipoEncab ? "remove" : "add"]("ocultar");
 
 		// Actualiza el encabezado
 		FN.actualizaEncabezado();
