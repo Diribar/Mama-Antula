@@ -1,0 +1,17 @@
+<!-- Filtros -->
+<section id="sectorFiltros" class="sector">
+	<h2>Filtros</h2>
+	<div id="filtros">
+		<select name="seccion_id">
+			<% for (const seccion of secciones) { %>
+				<option value="<%= seccion.id %>"><%= seccion.nombre %></option>
+			<% } %>
+		</select>
+		<select name="tema_id" class="ocultar"></select>
+		<select name="pestana_id" class="ocultar"></select>
+		<select name="encabezado" class="ocultar"></select>
+	</div>
+	<a id="linkLectura" href="" target="_blank" title="Link a solo lectura">
+		<i class="fa-solid <%= iconos.link %>"></i>
+	</a>
+</section>

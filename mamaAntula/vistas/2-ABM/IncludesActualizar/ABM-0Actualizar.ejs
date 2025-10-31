@@ -1,30 +1,15 @@
 <!-- Filtros -->
-<section id="sectorFiltros" class="sector">
-	<h2>Filtros</h2>
-	<div id="filtros">
-		<select name="seccion_id">
-			<% for (const seccion of secciones) { %>
-				<option value="<%= seccion.id %>"><%= seccion.nombre %></option>
-			<% } %>
-		</select>
-		<select name="tema_id" class="ocultar"></select>
-		<select name="pestana_id" class="ocultar"></select>
-		<select name="encabezado" class="ocultar"></select>
-	</div>
-	<a id="linkLectura" href="" target="_blank" title="Link a solo lectura">
-		<i class="fa-solid <%= iconos.link %>"></i>
-	</a>
-</section>
+<%- include("ABM-1Filtros") %>
 
 <!-- Form -->
 <form>
 	<!-- Encabezado -->
-	<%- include("ABM-1Encabezado") %>
+	<%- include("ABM-2Encabezado") %>
 
 	<!-- Contenido actual -->
-	<%- include("ABM-2ContenidoActual") %>
+	<%- include("ABM-3ContenidoActual") %>
 
 	<!-- Contenido nuevo -->
-	<%- include("ABM-3ContenidoNuevo") %>
+	<%- include("ABM-4ContenidoNuevo") %>
 
 </form>

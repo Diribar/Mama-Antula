@@ -10,8 +10,15 @@ window.addEventListener("load", async () => {
 		guardarContenido: document.querySelector("#sectorContNuevo #iconoGuardar"),
 	};
 
-	// Eventos
-	DOM.confirma.addEventListener("click", () => location.reload());
+	// Evento - Guardado de títulos
+	// Evento - Edición de títulos
+	// Evento - Eliminar títulos
+
+	// Eventos - Eliminar actual
+	// Eventos - Editar actual
+	// Eventos - Eliminar edición
+
+	// Evento - Guardar nuevo
 
 	// Fin
 	return;
