@@ -4,7 +4,7 @@ export default {
 	contenido: async ({seccionActual, temaActual, pestanaActual}) => {
 		// Variables
 		const condicion = pestanaActual ? {pestana_id: pestanaActual.id} : {tema_id: temaActual.id};
-		const {entidad, campo_id, orden} = comp.obtieneDatosTabla({seccionActual, temaActual});
+		const {entidad, campo_id, orden} = comp.contenido.obtieneDatosDeTabla({seccionActual, temaActual});
 
 		// Obtiene los encabezados
 		const encabezados = await baseDatos

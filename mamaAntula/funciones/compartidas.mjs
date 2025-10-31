@@ -117,47 +117,47 @@ export default {
 		nombreArchDesc: (reqFile) => Date.now() + path.extname(reqFile.originalname),
 		descarga: (ruta, nombreArch, reqFile) => fs.promises.writeFile(path.join(ruta, nombreArch), reqFile.buffer), // descarga el archivo puesto en memoria por multer
 	},
-
-	// Tablas
-	obtieneDatosTabla: ({seccionActual, temaActual}) => {
-		// Obtiene los datos
-		const [entidad, campo_id, orden, includes] = false
-			? false
-			: temaActual.codigo == "cartas"
-			? ["encabCartas", "carta_id", "fechaEvento", ["nombreDesde", "nombreHacia", "lugar", "idioma"]]
-			: seccionActual.codigo == "experiencias"
-			? ["encabExpers", "experiencia_id", "fechaEvento", ["lugar"]]
-			: ["encabSinIndice", "sinIndice_id", "orden"];
-
-		// Fin
-		return {entidad, campo_id, orden, includes};
-	},
-	tituloCons: {
-		encabCartas: (encabezados) => {
-			for (const encabezado of encabezados)
-				encabezado.tituloCons =
-					"Carta " +
-					encabezado.numero +
-					" - De " +
-					encabezado.nombreDesde.nombre +
-					" a " +
-					encabezado.nombreHacia.nombre +
-					" - " +
-					encabezado.lugar.nombre +
-					" - " +
-					FN.fechaDiaMesAno(encabezado.fechaEvento);
+	contenido:{
+		obtieneDatosDeTabla: ({seccionActual, temaActual}) => {
+			// Obtiene los datos
+			const [entidad, campo_id, orden, includes] = false
+				? false
+				: temaActual.codigo == "cartas"
+				? ["encabCartas", "carta_id", "fechaEvento", ["nombreDesde", "nombreHacia", "lugar", "idioma"]]
+				: seccionActual.codigo == "experiencias"
+				? ["encabExpers", "experiencia_id", "fechaEvento", ["lugar"]]
+				: ["encabSinIndice", "sinIndice_id", "orden"];
 
 			// Fin
-			return encabezados;
+			return {entidad, campo_id, orden, includes};
 		},
-		encabExpers: (encabs) => {
-			for (const encab of encabs)
-				encab.tituloCons = FN.fechaDiaMesAno(encab.fechaEvento) + " - " + encab.titulo + " - " + encab.lugar.nombre;
+		titulo: {
+			encabCartas: (encabezados) => {
+				for (const encabezado of encabezados)
+					encabezado.tituloCons =
+						"Carta " +
+						encabezado.numero +
+						" - De " +
+						encabezado.nombreDesde.nombre +
+						" a " +
+						encabezado.nombreHacia.nombre +
+						" - " +
+						encabezado.lugar.nombre +
+						" - " +
+						FN.fechaDiaMesAno(encabezado.fechaEvento);
 
-			// Fin
-			return encabs;
+				// Fin
+				return encabezados;
+			},
+			encabExpers: (encabs) => {
+				for (const encab of encabs)
+					encab.tituloCons = FN.fechaDiaMesAno(encab.fechaEvento) + " - " + encab.titulo + " - " + encab.lugar.nombre;
+
+				// Fin
+				return encabs;
+			},
+			encabSinIndice: (encabs) => encabs.map((encab) => ({...encab, tituloCons: encab.titulo})),
 		},
-		encabSinIndice: (encabs) => encabs.map((encab) => ({...encab, tituloCons: encab.titulo})),
 	},
 
 	// Funciones puntuales
@@ -204,6 +204,7 @@ export default {
 		// Fin
 		return mailEnviado;
 	},
+	inicialMayus: (texto) => texto.slice(0, 1).toUpperCase() + texto.slice(1),
 };
 
 // Funciones
