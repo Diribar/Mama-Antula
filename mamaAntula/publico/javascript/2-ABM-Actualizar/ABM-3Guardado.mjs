@@ -4,7 +4,7 @@ window.addEventListener("load", async () => {
 	// Variables
 	const DOM = {
 		// Guardado de títulos
-		guardarEncabezado: document.querySelector("#sectorEncNuevo #iconoGuardar"),
+		guardarEncabezado: document.querySelector("#sectorEncabezado #iconoGuardar"),
 
 		// Guardado de contenido
 		guardarContenido: document.querySelector("#sectorContNuevo #iconoGuardar"),
