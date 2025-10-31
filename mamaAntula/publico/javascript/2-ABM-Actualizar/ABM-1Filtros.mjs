@@ -22,7 +22,7 @@ window.addEventListener("load", async () => {
 	const FN = {
 		actualizaFiltroEncabezado: async () => {
 			// Si corresponde, oculta el sector encabezados - encabSinIndice solo puede tener un encabezado
-			if (v.tipoEncab == "encabSinIndice") DOM.encabezado.classList.add("ocultar");
+			if (cac.tipoEncab == "encabSinIndice") DOM.encabezado.classList.add("ocultar");
 
 			// Variables
 			cac.seccion_id = DOM.seccion.value;
@@ -37,7 +37,7 @@ window.addEventListener("load", async () => {
 			FN.agregaOpciones(cac.encabezados, DOM.encabezado, "tituloCons");
 
 			// Si corresponde, crea la opción NUEVO - encabSinIndice siempre tiene un encabezado creado y no puede tener más de uno
-			if (v.tipoEncab != "encabSinIndice") {
+			if (cac.tipoEncab != "encabSinIndice") {
 				const option = document.createElement("option");
 				option.value = "nuevo";
 				option.textContent = "Encabezado nuevo";
@@ -45,7 +45,7 @@ window.addEventListener("load", async () => {
 			}
 
 			// Muestra los encabezados y dispara el evento
-			if (v.tipoEncab != "encabSinIndice") DOM.encabezado.classList.remove("ocultar");
+			if (cac.tipoEncab != "encabSinIndice") DOM.encabezado.classList.remove("ocultar");
 			DOM.encabezado.dispatchEvent(new Event("change"));
 
 			// Fin
@@ -78,7 +78,7 @@ window.addEventListener("load", async () => {
 		if (!cac.startUp) document.cookie = "actualizaSeccion_id=" + seccion_id;
 
 		// Averigua si la sección es 'Experiencias'
-		v.tipoEncab =
+		cac.tipoEncab =
 			DOM.seccion.value == v.secciones.find((n) => n.codigo == "experiencias")?.id ? "encabExpers" : "encabSinIndice";
 
 		// TEMA - Crea las opciones
@@ -101,8 +101,8 @@ window.addEventListener("load", async () => {
 		if (!cac.startUp) document.cookie = "actualizaTema_id=" + tema_id;
 
 		// Averigua si el tema es 'Cartas'
-		if (v.tipoEncab != "encabExpers")
-			v.tipoEncab = tema_id == v.temasSecciones.find((n) => n.codigo == "cartas")?.id ? "encabCartas" : "encabSinIndice";
+		if (cac.tipoEncab != "encabExpers")
+			cac.tipoEncab = tema_id == v.temasSecciones.find((n) => n.codigo == "cartas")?.id ? "encabCartas" : "encabSinIndice";
 
 		// PESTAÑA - Crea las opciones
 		const pestanasTema = v.pestanasTemas.filter((n) => n.tema_id == tema_id);
