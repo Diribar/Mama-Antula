@@ -1,16 +1,15 @@
 <section id="sectorContNuevo" class="sector">
 	<div id="pestanas">
 		<div id="textoImagen" class="pestana activo">Texto + Imagen</div>
-		<div id="texto" class="pestana">Texto</div>
-		<div id="imagen" class="pestana">Imagen</div>
-		<div id="carrousel" class="pestana">Carrousel</div>
-		<div id="video" class="pestana">Video</div>
+		<% for (const layout of layouts) { %>
+			<div id="<%= layout %>" class="pestana"><%= comp.inicialMayus(layout) %></div>
+		<% } %>
+		<i id="iconoguardar" class="fa-solid fa-floppy-disk"></i><!-- guardar -->
 
 	</div>
-	<div id="layoutsGuardar">
-		<% ["texto", "imagen", "carrousel", "video"].forEach((id, i) => { %>
-			<div id="<%= id %>" class="layout"><%- include("ABM-4Nuevo-" + (i + 1) + comp.inicialMayus(id), {id}) %></div>
+	<div id="layouts">
+		<% layouts.forEach((layout, i) => { %>
+			<div id="<%= layout %>" class="layout"><%- include("ABM-4Nuevo-" + (i + 1) + comp.inicialMayus(layout)) %></div>
 		<% }) %>
-		<i id="iconoguardar" class="fa-solid fa-floppy-disk"></i><!-- guardar -->
 	</div>
 </section>

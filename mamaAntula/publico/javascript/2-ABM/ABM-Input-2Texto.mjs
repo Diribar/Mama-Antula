@@ -3,9 +3,9 @@
 window.addEventListener("load", async () => {
 	// Variables
 	const DOM = {
-		barraHerrams: document.querySelector("#barraHerrams-texto"),
-		input: document.querySelector("#input-texto"),
-		output: document.querySelector("#output-texto"),
+		barraHerrams: document.querySelector("#barraHerrams"),
+		input: document.querySelector("#input"),
+		output: document.querySelector("#output"),
 	};
 	const v = {
 		barraHerrams: {
