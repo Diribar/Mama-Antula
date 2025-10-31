@@ -13,9 +13,9 @@ window.addEventListener("load", async () => {
 		anchorLectura: document.querySelector("a#linkLectura"),
 
 		// Inputs del encabezado
-		sectorEncabezados: document.querySelector("#sectorEncabezados"),
-		encabezados: document.querySelectorAll("#sectorEncabezados .encabezado"),
-		encabIconos: document.querySelector("#sectorEncabezados .iconos"),
+		sectorEncabezado: document.querySelector("#sectorEncabezado"),
+		encabezados: document.querySelectorAll("#sectorEncabezado .encabezado"),
+		encabIconos: document.querySelector("#sectorEncabezado .iconos"),
 
 		// Contenido actual
 		sectorContActual: document.querySelector("#sectorContActual"),
@@ -67,12 +67,12 @@ window.addEventListener("load", async () => {
 		},
 		actualizaEncabezado: () => {
 			// Variables
-			DOM.encabezado = document.querySelector("#sectorEncabezados .encabezado:not(.ocultar)");
+			DOM.encabezado = document.querySelector("#sectorEncabezado .encabezado:not(.ocultar)");
 
 			// Si corresponde, oculta el sector encabezado - si 'encabSinIndice' no viene de una pestaña, no se lo muestra porque sus títulos no poseen ningún valor
-			if (v.tipoEncab == "encabSinIndice" && !DOM.filtros.pestana.value) DOM.sectorEncabezados.classList.add("ocultar");
+			if (v.tipoEncab == "encabSinIndice" && !DOM.filtros.pestana.value) DOM.sectorEncabezado.classList.add("ocultar");
 			// Muestra el sector encabezados
-			else DOM.sectorEncabezados.classList.remove("ocultar");
+			else DOM.sectorEncabezado.classList.remove("ocultar");
 
 			// Actualiza el DOM
 			const encabezado = v.encabezados.find((n) => n.id == v.encabezado_id);
