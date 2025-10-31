@@ -6,5 +6,4 @@
 		select[name="orden"], select[name="numero"] {width: 70px;}
 		&#encabCartas #areaSoltar {--ladoCuadrado: 100px; width: var(--ladoCuadrado); border-radius: 5px;}
 	}
-	.iconos:not(:has(:not(.ocultar))) {display: none;}
 }
