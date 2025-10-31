@@ -1,0 +1,46 @@
+#sectorContNuevo {
+	position: relative;
+	width: 100%; padding-right: 60px;
+
+	#pestanaLayout {
+		display: flex; flex-direction: column; align-items: center;
+		#pestanas {
+			display: flex; flex-direction: row; align-items: center; gap: 10px;
+			margin-bottom: 15px;
+			.pestana {
+				border: 1px solid var(--grisOscuro); border-radius: 5px; padding: 2px 10px; cursor: pointer;
+				background-color: var(--amarilloClaro);
+				&.activo {background-color: var(--grisOscuro); color: snow;}
+			}
+		}
+		#layouts {
+			display: flex; flex-direction: row; justify-content: center; gap: 30px;
+			width: 100%;
+			.layout {display: none; flex-direction: column;}
+			#texto {flex-grow: 1;}
+			#imagen {max-width: 33%; min-width: 200px; border: 1px solid grey;}
+		}
+		&:has(#textoImagen.pestana.activo) {
+			width: 100%;
+			#texto, #imagen {display: flex;}
+		}
+		&:has(#texto.pestana.activo) {
+			width: 100%;
+			#texto {display: flex;}
+		}
+		&:has(#imagen.pestana.activo) {
+			width: 100%;
+			#imagen {display: flex;}
+		}
+		&:has(#carrousel.pestana.activo) {
+			width: 100%;
+			#carrousel {display: flex;}
+		}
+		&:has(#video.pestana.activo) {
+			width: 100%;
+			#video {display: flex;}
+		}
+	}
+
+	#iconoguardar {position: absolute; top: 50%; right: 20px; translate: 0 -50%;}
+}
