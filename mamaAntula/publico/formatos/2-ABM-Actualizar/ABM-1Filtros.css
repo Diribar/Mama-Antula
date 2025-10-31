@@ -1,0 +1,5 @@
+	/* Sector filtros */
+	#sectorFiltros {
+		background-color: var(--celesteClaro);
+		#filtros {select {width: 210px;}}
+	}

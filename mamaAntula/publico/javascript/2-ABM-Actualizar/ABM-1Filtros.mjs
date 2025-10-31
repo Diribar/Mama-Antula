@@ -88,8 +88,7 @@ window.addEventListener("load", async () => {
 			}
 
 			// Actualiza los íconos
-			DOM.encabIconos.querySelector("#iconoGuardar").classList[v.encabezado_id == "nuevo" ? "remove" : "add"]("ocultar");
-			DOM.encabIconos.querySelector("#iconoEliminar").classList[v.encabezado_id == "nuevo" ? "add" : "remove"]("ocultar");
+			DOM.encabIconos.querySelector("#eliminar").classList[v.encabezado_id == "nuevo" ? "add" : "remove"]("ocultar");
 
 			// Fin
 			return;
