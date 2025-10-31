@@ -18,6 +18,9 @@ window.addEventListener("load", async () => {
 		// Contenido actual
 		sectorContActual: document.querySelector("#sectorContActual"),
 		iconosActual: document.querySelector("#sectorContActual .iconos"),
+
+		// Contenido nuevo
+		sectorContNuevo: document.querySelector("#sectorContNuevo"),
 	};
 	const rutas = {obtieneContenidos: "/contenido/api/abm-obtiene-contenidos/?"};
 	const v = {};
@@ -27,18 +30,18 @@ window.addEventListener("load", async () => {
 		// Operaciones
 		actualizaEncabezado: () => {
 			// Si corresponde, oculta el sector encabezado - si 'encabSinIndice' no viene de una pestaña, no se lo muestra porque sus campos no poseen ningún valor
-			if (cac.tipoEncab == "encabSinIndice" && !DOM.filtros.pestana.value) DOM.sectorEncabezado.classList.add("ocultar");
+			if (varCac.tipoEncab == "encabSinIndice" && !DOM.filtros.pestana.value) DOM.sectorEncabezado.classList.add("ocultar");
 			// Muestra el sector encabezados
 			else DOM.sectorEncabezado.classList.remove("ocultar");
 
 			// Actualiza el DOM
 			DOM.encabezado = document.querySelector("#sectorEncabezado .encabezado:not(.ocultar)");
 			DOM.inputs = DOM.encabezado.querySelectorAll(".input");
-			const encabezado = cac.encabezados.find((n) => n.id == v.encabezado_id);
+			const encabezado = varCac.encabezados.find((n) => n.id == v.encabezado_id);
 			for (const input of DOM.inputs) {
 				// Agrega las opciones
 				const {tabla} = input.dataset;
-				if (input.type == "select-one" && tabla) FN.agregaOpciones(cac[tabla], input, "nombre");
+				if (input.type == "select-one" && tabla) agregaOpciones(varCac[tabla], input, "nombre");
 
 				// Actualiza el valor elegido de todos los inputs
 				const campo = input.name;
@@ -54,7 +57,7 @@ window.addEventListener("load", async () => {
 		actualizaContenidoActual: async () => {
 			// Variables
 			const campo_id =
-				cac.tipoEncab == "encabCartas" ? "carta_id" : cac.tipoEncab == "encabExpers" ? "experiencia_id" : "sinIndice_id";
+				varCac.tipoEncab == "encabCartas" ? "carta_id" : varCac.tipoEncab == "encabExpers" ? "experiencia_id" : "sinIndice_id";
 			const ruta = rutas.obtieneContenidos + "encab_id=" + v.encabezado_id + "&campo_id=" + campo_id;
 
 			// Limpia el DOM
@@ -77,30 +80,15 @@ window.addEventListener("load", async () => {
 		},
 		actualizaHref: () => {
 			// Obtiene los url
-			const urlSeccion = "/" + cac.secciones.find((n) => n.id == cac.seccion_id).url;
-			const urlTema = "/" + cac.temasSecciones.find((n) => n.id == cac.tema_id).url;
-			const urlPestana = (cac.pestana_id && "/" + cac.pestanasTemas.find((n) => n.id == cac.pestana_id).url) || "";
+			const urlSeccion = "/" + varCac.secciones.find((n) => n.id == varCac.seccion_id).url;
+			const urlTema = "/" + varCac.temasSecciones.find((n) => n.id == varCac.tema_id).url;
+			const urlPestana = (varCac.pestana_id && "/" + varCac.pestanasTemas.find((n) => n.id == varCac.pestana_id).url) || "";
 
 			// Actualiza el DOM
 			DOM.filtros.anchorLectura.href = urlSeccion + urlTema + urlPestana + "/" + v.encabezado_id;
 		},
 
 		// Auxiliares
-		agregaOpciones: (opciones, domSelect, campoNombre) => {
-			// Limpia las opciones del select
-			domSelect.innerHTML = "";
-
-			// Agrega las opciones
-			for (const opcion of opciones) {
-				const domOpcion = document.createElement("option");
-				domOpcion.value = opcion.id;
-				domOpcion.textContent = opcion[campoNombre] || "Sin título";
-				domSelect.appendChild(domOpcion);
-			}
-
-			// Fin
-			return;
-		},
 		creaContenedorContenidoIconos: () => {
 			// Variables
 			const inicial_id = v.contenidos[0]?.id;
@@ -214,19 +202,19 @@ window.addEventListener("load", async () => {
 	// Eventos de encabezado
 	DOM.filtros.encabezado.addEventListener("change", async () => {
 		// ENCABEZADO - Si es start-up, elige la opción de la cookie
-		if (cac.startUp && cookie("actualizaEncabezado_id")) DOM.filtros.encabezado.value = cookie("actualizaEncabezado_id");
+		if (varCac.startUp && cookie("actualizaEncabezado_id")) DOM.filtros.encabezado.value = cookie("actualizaEncabezado_id");
 
 		// ENCABEZADO - Guarda la cookie
 		v.encabezado_id = DOM.filtros.encabezado.value;
-		if (!cac.startUp) document.cookie = "actualizaEncabezado_id=" + v.encabezado_id;
-		delete cac.startUp;
+		if (!varCac.startUp) document.cookie = "actualizaEncabezado_id=" + v.encabezado_id;
+		delete varCac.startUp;
 
 		// Actualiza el anchor de flitros
 		FN.actualizaHref();
 
 		// Muestra el encabezado que corresponde, y oculta los demás
 		for (const encabezado of DOM.encabezados)
-			encabezado.classList[encabezado.id == cac.tipoEncab ? "remove" : "add"]("ocultar");
+			encabezado.classList[encabezado.id == varCac.tipoEncab ? "remove" : "add"]("ocultar");
 
 		// Actualiza el encabezado
 		FN.actualizaEncabezado();
