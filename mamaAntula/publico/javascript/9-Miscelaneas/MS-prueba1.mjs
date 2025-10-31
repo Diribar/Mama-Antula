@@ -12,7 +12,7 @@ window.addEventListener("load", async () => {
 	// Función para sincronizar textarea y previsualización
 	const actualizarContenido = () => {
 		const html = quill.root.innerHTML
-			.replace(/&nbsp;/g, " ") // reemplaza por espacios normales;
+			.replace("&nbsp;", " ") // reemplaza por espacios normales;
 			.replace(/\s+/g, " ") // reemplaza espacios duplicados
 			.replace(" </", "</") // reemplaza espacios mal puestos
 			.trim(); // reemplaza espacios al final
@@ -20,7 +20,7 @@ window.addEventListener("load", async () => {
 		return;
 	};
 
-	// Escuchamos cambios en Quill
+	// EVENTO - Escuchamos cambios en Quill
 	quill.on("text-change", actualizarContenido);
 
 	// Evitar que se peguen estilos de color al pegar

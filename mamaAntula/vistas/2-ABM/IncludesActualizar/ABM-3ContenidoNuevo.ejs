@@ -1,14 +1,14 @@
-<section id="sectorContNuevo" class="sector">
-	<div id="pestanas">
-		<div id="textoImagen">Texto + Imagen</div>
-		<div id="texto">Texto</div>
-		<div id="imagen">Imagen</div>
-		<div id="carrousel">Carrousel</div>
-		<div id="video">Video</div>
+<section id="sectorContNuevo" class="sector bloque">
+	<div id="pestanas"	>
+		<div id="textoImagen" class="pestana">Texto + Imagen</div>
+		<div id="texto" class="pestana">Texto</div>
+		<div id="imagen" class="pestana">Imagen</div>
+		<div id="carrousel" class="pestana">Carrousel</div>
+		<div id="video" class="pestana">Video</div>
 
 	</div>
 	<div id="layouts">
-		<div id="texto"></div>
+		<div id="texto"><%- include("ABM-9PegarConFormato", {id: "texto", iconos: ["negrita", "cursiva", "listaNum", "dots", "cita"]}) %></div>
 		<div id="imagen"></div>
 		<div id="carrousel"></div>
 		<div id="video"></div>
