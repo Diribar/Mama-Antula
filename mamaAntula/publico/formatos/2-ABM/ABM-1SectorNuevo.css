@@ -38,9 +38,6 @@
 		}
 		#imagen, #carrousel {border: 1px solid grey;}
 		#imagen {max-width: 33%;}
-
-		/* Ícono Guardar */
-		#iconoguardar {position: absolute; top: 50%; right: -20px; translate: 100% 0%;}
 	}
 
 }
