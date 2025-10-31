@@ -1,6 +1,7 @@
 "use strict";
 
 window.addEventListener("load", async () => {
+	return
 	// Inicializamos Quill
 	const quill = new Quill("#editor-container", {
 		theme: "snow",
