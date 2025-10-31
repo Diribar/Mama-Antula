@@ -4,6 +4,7 @@ window.addEventListener("load", async () => {
 	// Variables
 	const DOM = {
 		// Filtros
+		filtroPestana: document.querySelector("#filtros select[name='pestana_id']"),
 		filtroEncabezado: document.querySelector("#filtros select[name='encabezado']"),
 
 		// Encabezado
@@ -13,6 +14,15 @@ window.addEventListener("load", async () => {
 
 		// Contenido
 		guardaNuevo: document.querySelector("#sectorContNuevo #iconoGuardar"),
+	};
+	const rutas = {
+		// Encabezado
+		guardaEncabezado: "/contenido/api/abm-guarda-encabezado/",
+		eliminaEncabezado: "/contenido/api/abm-elimina-encabezado/?id=",
+
+		// Contenido
+		guardaContenido: "/contenido/api/abm-guarda-contenido/?",
+		eliminaContenido: "/contenido/api/abm-elimina-contenido/?id=",
 	};
 
 	// Impacto en FE - Muestra el botón de guardar el encabezado
@@ -31,10 +41,35 @@ window.addEventListener("load", async () => {
 		});
 	}
 	// Impacto en BD (encabezado - nuevo) - Guardar/Actualizar
-	// Impacto en BD (encabezado - nuevo) - Eliminar
+	DOM.guardaEncabezado.addEventListener("click", async () => {
+		// Arma el feedback
+		const formData = new FormData();
+		formData.append("encabezado_id", DOM.filtroEncabezado.value);
 
-	// Impacto en BD (contenido - nuevo) - Guardar/Actualizar
+		// Guarda el encabezado
+		await fetch(rutas.guardaEncabezado, {
+			method: "POST",
+			body: new FormData(document.querySelector("#sectorEncabezado form")),
+		});
+	});
+
+	// Impacto en BD (encabezado - original) - Eliminar
+	DOM.eliminaEncabezado.addEventListener("click", async () => {
+		// Limpia el FE
+		for (const input of DOM.encabezadoInputs) input.value = "";
+
+		// Elimina de la BD, el encabezado y sus contenidos
+		await fetch(rutas.eliminaEncabezado + DOM.filtroEncabezado.value);
+
+		// Se genera un change en el tema o pestaña, para que se reinicie el filtro del encabezado
+		DOM[!cac.pestanasTema.length ? "tema" : "pestana"].dispatchEvent(new Event("change"));
+
+		// Fin
+		return;
+	});
+
 	// Impacto en BD (contenido - original) - Eliminar
+	// Impacto en BD (contenido - nuevo) - Guardar/Actualizar
 
 	// Impacto en BD (encabezado - edición) - Guardar/Actualizar + Muestra el botón de eliminar el encabezado
 	// Impacto en BD (encabezado - edición) - Eliminar

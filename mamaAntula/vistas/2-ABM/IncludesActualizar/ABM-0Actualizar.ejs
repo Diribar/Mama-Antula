@@ -1,15 +1,20 @@
 <!-- Filtros -->
 <%- include("ABM-1Filtros") %>
 
-<!-- Form -->
-<form>
+<!-- Editables -->
+<section id="editables">
 	<!-- Encabezado -->
-	<%- include("ABM-2Encabezado") %>
+	<form id="sectorEncabezado" class="sector">
+		<%- include("ABM-2Encabezado") %>
+	</form>
 
 	<!-- Contenido actual -->
-	<%- include("ABM-3ContenidoActual") %>
+	<form id="sectorContActual">
+		<%- include("ABM-3ContenidoActual") %>
+	</form>
 
 	<!-- Contenido nuevo -->
-	<%- include("ABM-4ContenidoNuevo") %>
-
-</form>
+	<form id="sectorContNuevo" class="sector">
+		<%- include("ABM-4ContenidoNuevo") %>
+	</form>
+</section>
