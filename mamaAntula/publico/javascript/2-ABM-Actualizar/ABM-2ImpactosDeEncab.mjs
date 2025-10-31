@@ -19,15 +19,8 @@ window.addEventListener("load", async () => {
 		sectorContActual: document.querySelector("#sectorContActual"),
 		iconosActual: document.querySelector("#sectorContActual .iconos"),
 	};
-	const rutas = {
-		datosIniciales: "/contenido/api/abm-datos-inciales",
-		obtieneEncabs: "/contenido/api/abm-obtiene-encabezados/?",
-		obtieneContenidos: "/contenido/api/abm-obtiene-contenidos/?",
-	};
-	const v = {
-		...(await fetch(rutas.datosIniciales).then((n) => n && n.json())),
-		startUp: true,
-	};
+	const rutas = {obtieneContenidos: "/contenido/api/abm-obtiene-contenidos/?"};
+	const v = {};
 
 	// Funciones
 	const FN = {
@@ -45,7 +38,7 @@ window.addEventListener("load", async () => {
 			for (const input of DOM.inputs) {
 				// Agrega las opciones
 				const {tabla} = input.dataset;
-				if (input.type == "select-one" && tabla) FN.agregaOpciones(v[tabla], input, "nombre");
+				if (input.type == "select-one" && tabla) FN.agregaOpciones(cac[tabla], input, "nombre");
 
 				// Actualiza el valor elegido de todos los inputs
 				const campo = input.name;
@@ -84,9 +77,9 @@ window.addEventListener("load", async () => {
 		},
 		actualizaHref: () => {
 			// Obtiene los url
-			const urlSeccion = "/" + v.secciones.find((n) => n.id == cac.seccion_id).url;
-			const urlTema = "/" + v.temasSecciones.find((n) => n.id == cac.tema_id).url;
-			const urlPestana = (cac.pestana_id && "/" + v.pestanasTemas.find((n) => n.id == cac.pestana_id).url) || "";
+			const urlSeccion = "/" + cac.secciones.find((n) => n.id == cac.seccion_id).url;
+			const urlTema = "/" + cac.temasSecciones.find((n) => n.id == cac.tema_id).url;
+			const urlPestana = (cac.pestana_id && "/" + cac.pestanasTemas.find((n) => n.id == cac.pestana_id).url) || "";
 
 			// Actualiza el DOM
 			DOM.filtros.anchorLectura.href = urlSeccion + urlTema + urlPestana + "/" + v.encabezado_id;

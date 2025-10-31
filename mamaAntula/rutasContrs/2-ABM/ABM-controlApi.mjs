@@ -3,7 +3,10 @@
 export default {
 	datosIniciales: (req, res) => {
 		// Variables
-		const datosIniciales = {secciones, temasSecciones, pestanasTemas, personajes, idiomas, lugares};
+		const datosIniciales = {
+			...{secciones, temasSecciones, pestanasTemas}, // Filtros e Impacto...
+			...{personajes, idiomas, lugares}, // Impacto de Filtro Encabezado
+		};
 
 		// Fin
 		return res.json(datosIniciales);
