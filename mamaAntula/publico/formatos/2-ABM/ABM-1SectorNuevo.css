@@ -16,9 +16,12 @@
 		#layouts {
 			display: flex; flex-direction: row; justify-content: center; gap: 30px;
 			width: 100%;
-			.layout {display: none; flex-direction: column;}
+			.layout {
+				display: none; flex-direction: column;
+				min-width: 200px; min-height: 200px;
+			}
 			#texto {flex-grow: 1;}
-			#imagen {max-width: 33%; min-width: 200px; border: 1px solid grey;}
+			#imagen {max-width: 33%; border: 1px solid grey;}
 		}
 		&:has(#textoImagen.pestana.activo) {
 			width: 100%;

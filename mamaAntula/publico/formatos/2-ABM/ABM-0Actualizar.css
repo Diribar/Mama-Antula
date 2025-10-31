@@ -46,7 +46,6 @@
 		/* Sector contenido actual */
 		#sectorContActual {width: 100%;}
 
-
 		.bloque {
 			display: flex; flex-direction: row; justify-content: center; gap: 15px;
 			padding-block: 15px;
