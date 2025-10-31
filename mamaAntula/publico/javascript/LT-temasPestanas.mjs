@@ -14,9 +14,9 @@ window.addEventListener("load", async () => {
 		listadosPestanas: document.querySelectorAll("#contenidoTemas .listadoPestanas"),
 		contenidoPestanas: document.querySelectorAll(".contenidoPestana"),
 	};
-	v.seccionCodigo = document.querySelector("#menuTituloTema").getAttribute("data-seccion_codigo");
-	v.temaCodigo = v[v.seccionCodigo];
-	v.pestanaCodigo = v[v.temaCodigo];
+	const v = {seccionCodigo: document.querySelector("#menuTituloTema").getAttribute("data-seccion_codigo")};
+	v.temaCodigo = cookie(v.seccionCodigo);
+	v.pestanaCodigo = cookie(v.temaCodigo);
 
 	// Eventos - temas
 	for (const tema of DOM.temas)
@@ -74,11 +74,3 @@ window.addEventListener("load", async () => {
 	// Fin
 	return;
 });
-
-// Variables
-const v = {};
-const cookies = document.cookie.split("; "); // separa las cookies individuales
-for (const cookie of cookies) {
-	const [key, value] = cookie.split("="); // separa nombre y valor
-	v[key] = value;
-}
