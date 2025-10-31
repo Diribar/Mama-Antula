@@ -30,18 +30,18 @@ window.addEventListener("load", async () => {
 			return;
 		});
 	}
-	// Impacto en BD (encabezado - nuevo) - Eliminar
-	// Impacto en BD (encabezado - edición) - Eliminar
-	// Impacto en BD (contenido - original) - Eliminar
-	// Impacto en BD (contenido - edición) - Eliminar
+	// Impacto en FE (contenido - edición) - Mostrar
+	// Impacto en FE (contenido - edición) - Cancelar
 
 	// Impacto en BD (encabezado - nuevo) - Guardar/Actualizar
 	// Impacto en BD (encabezado - edición) - Guardar/Actualizar + Muestra el botón de eliminar el encabezado
 	// Impacto en BD (contenido - nuevo) - Guardar/Actualizar
 	// Impacto en BD (contenido - edicion) - Guardar/Actualizar
 
-	// Impacto en FE (contenido - edición) - Mostrar
-	// Impacto en BD (contenido - edición) - Cancelar
+	// Impacto en BD (encabezado - nuevo) - Eliminar
+	// Impacto en BD (encabezado - edición) - Eliminar
+	// Impacto en BD (contenido - original) - Eliminar
+	// Impacto en BD (contenido - edición) - Eliminar
 
 	// Fin
 	return;
