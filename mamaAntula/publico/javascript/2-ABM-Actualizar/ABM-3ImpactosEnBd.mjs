@@ -10,15 +10,17 @@ window.addEventListener("load", async () => {
 		guardarContenido: document.querySelector("#sectorContNuevo #iconoGuardar"),
 	};
 
-	// Evento - Guardado de títulos
-	// Evento - Edición de títulos
-	// Evento - Eliminar títulos
+	// Impacto en FE - Editar contenido actual
 
-	// Eventos - Eliminar actual
-	// Eventos - Editar actual
-	// Eventos - Eliminar edición
+	// Impacto en BD (encabezado - nuevo) - Guardar/Actualizar
+	// Impacto en BD (encabezado - nuevo) - Eliminar
+	// Impacto en BD (encabezado - edición) - Guardar/Actualizar
+	// Impacto en BD (encabezado - edición) - Eliminar
 
-	// Evento - Guardar nuevo
+	// Impacto en BD (contenido - original) - Guardar/Actualizar
+	// Impacto en BD (contenido - original) - Eliminar
+	// Impacto en BD (contenido - edicion) - Guardar/Actualizar
+	// Impacto en BD (contenido - edicion) - Eliminar
 
 	// Fin
 	return;
