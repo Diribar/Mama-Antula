@@ -36,7 +36,8 @@
 			#barraHerrams {align-self: flex-start; border-radius: 10px 10px 0 0;}
 			#input {border-top: 1px solid #ccc; border-radius: 15px; border-top-left-radius: 0; font-size: 1rem;}
 		}
-		#imagen, #carrousel {max-width: 33%; border: 1px solid grey;}
+		#imagen, #carrousel {border: 1px solid grey;}
+		#imagen {max-width: 33%;}
 
 		/* Ícono Guardar */
 		#iconoguardar {position: absolute; top: 50%; right: -20px; translate: 100% 0%;}
