@@ -29,21 +29,6 @@ export default {
 	carpUsuarios: path.join(rutaHome, "..", "9-Imagenes", "8-Usuarios"),
 	carpProvisorio: path.join(rutaHome, "..", "9-Imagenes", "9-Provisorio"), // carpeta donde se guardan las imágenes inicialmente
 
-	// Actualiza contenido
-	barraHerramsEdicion: {
-		grupo1: [
-			{codigo: "negrita", tipo: "button", clase: "ql-bold", title: "Negrita", permitir: "bold"},
-			{codigo: "cursiva", tipo: "button", clase: "ql-italic", title: "Cursiva", permitir: "italic"},
-		],
-		grupo2: [
-			{codigo: "listaNum", tipo: "button", clase: "ql-list", value: "ordered", title: "Lista numerada", permitir: "list"},
-			{codigo: "dots", tipo: "button", clase: "ql-list", value: "bullet", title: "Lista con viñetas", permitir: "list"},
-			{codigo: "cita", tipo: "button", clase: "ql-blockquote", title: "Cita", permitir: "blockquote"},
-		],
-		grupo3: [{codigo: "video", tipo: "button", clase: "ql-video", title: "Insertar video", permitir: "video"}],
-		grupo4: [{codigo: "limpiar", tipo: "button", clase: "ql-clean", title: "Quitar formato"}],
-	},
-
 	// Otras
 	requestsTriviales: ["WhatsApp", "Postman", "TelegramBot", "TwitterBot", "Zabbix"], // evita que se cuenten como visitas
 	continentes: ["América", "Europa", "Africa", "Asia", "Oceanía"],
