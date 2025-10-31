@@ -4,6 +4,8 @@ window.addEventListener("load", async () => {
 	// Variables
 	const DOM = {
 		barraHerrams: document.querySelector("#barraHerrams-texto"),
+		input: document.querySelector("#input-texto"),
+		output: document.querySelector("#output-texto"),
 	};
 	const v = {
 		barraHerrams: {
@@ -38,29 +40,34 @@ window.addEventListener("load", async () => {
 			// Crea el botón
 			const button = document.createElement("button");
 			button.classList.add(herramienta.clase);
-			if (herramienta.valor) button.setAttribute("value", herramienta.valor);
 			button.title = herramienta.title;
+			if (herramienta.valor) button.setAttribute("value", herramienta.valor);
 
 			// Agrega el boton
-			//button.addEventListener("click", () => quill.format(herramienta.clase, herramienta.valor));
 			span.appendChild(button);
 		}
 	}
 
 	// Funciones - Inicializamos Quill
-	const formats = [...new Set(nombreEtiquetas)];
+	const input = "#" + DOM.input.id; // el tag donde se pega el texto con formato
+	const toolbar = "#" + DOM.barraHerrams.id; // el tag que contiene los botones
+	const formats = [...new Set(nombreEtiquetas)]; // los botones
 	const placeholder = "Escribí acá tu contenido...";
-	const toolbar = "#barraHerrams-texto";
-	const quill = new Quill("#edicion-texto", {theme: "snow", placeholder, modules: {toolbar}, formats});
+	const quill = new Quill(input, {modules: {toolbar}, formats, placeholder, theme: "snow"});
 
 	// Función para sincronizar textarea y previsualización
 	const actualizarContenido = () => {
+		// Optiene el input y lo pule
 		const html = quill.root.innerHTML
 			.replace("&nbsp;", " ") // reemplaza por espacios normales;
 			.replace(/\s+/g, " ") // reemplaza espacios duplicados
 			.replace(" </", "</") // reemplaza espacios mal puestos
 			.trim(); // reemplaza espacios al final
-		//document.getElementById("contenidoText").value = html;
+
+		// Lo pega en el output
+		DOM.output.value = html;
+
+		// Fin
 		return;
 	};
 
