@@ -89,34 +89,45 @@ window.addEventListener("load", async () => {
 		},
 
 		// Auxiliares
-		creaContenedorContenidoIconos: () => {
+		creaContenedorContenidoIconos: function () {
 			// Variables
-			const inicial_id = v.contenidos[0]?.id;
-			const final_id = v.contenidos.at(-1)?.id;
+			v.inicial_id = v.contenidos[0]?.id;
+			v.final_id = v.contenidos.at(-1)?.id;
 
 			// Agrega los contenidos
 			for (const contenido of v.contenidos) {
-				// Crea el DOM contenedor
-				const domBloque = document.createElement("div");
-				domBloque.classList.add("bloque", "sector");
-
-				// Crea el DOM contenido
-				FN.creaElContenido.consolidado(contenido); // puede ser: div (para texto, texto-imagen, carrousel), img, video
-				v.domContenido.classList.add("contenido");
-				domBloque.appendChild(v.domContenido);
-
-				// Crea el DOM íconos
-				const domIconos = DOM.iconosActual.cloneNode(true);
-				if (inicial_id == contenido.id) domIconos.querySelector(".subir").classList.add("ocultar");
-				if (final_id == contenido.id) domIconos.querySelector(".bajar").classList.add("ocultar");
-				domBloque.appendChild(domIconos);
-
-				// Agrega el DOM contenedor al DOM sector
-				DOM.sectorContActual.appendChild(domBloque);
+				this.agregaBloqueLectura(contenido);
+				// this.agregaBloqueEdicion(contenido);
 			}
 
 			// Fin
 			return;
+		},
+		agregaBloqueLectura: function (contenido) {
+			// Crea el DOM contenedor
+			const domBloqueLectura = document.createElement("div");
+			domBloqueLectura.classList.add("bloque", "sector");
+
+			// Crea el DOM contenido
+			this.creaElContenido.consolidado(contenido); // puede ser: div (para texto, texto-imagen, carrousel), img, video
+			v.domContenido.classList.add("contenido");
+			domBloqueLectura.appendChild(v.domContenido);
+
+			// Crea el DOM íconos
+			const domIconos = DOM.iconosActual.cloneNode(true);
+			if (v.inicial_id == contenido.id) domIconos.querySelector(".subir").classList.add("ocultar");
+			if (v.final_id == contenido.id) domIconos.querySelector(".bajar").classList.add("ocultar");
+			domBloqueLectura.appendChild(domIconos);
+
+			// Agrega el DOM contenedor al DOM sector
+			DOM.sectorContActual.appendChild(domBloqueLectura);
+
+			// Fin
+			return;
+		},
+		agregaBloqueEdicion: () => {
+			const domBloqueEdicion = sectorContNuevo.cloneNode(true);
+			// continuar
 		},
 		creaElContenido: {
 			consolidado: function (contenido) {
