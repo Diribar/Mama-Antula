@@ -4,6 +4,7 @@ window.addEventListener("load", async () => {
 	// Variables
 	const DOM = {
 		// Filtros
+		filtroTema: document.querySelector("#filtros select[name='tema_id']"),
 		filtroPestana: document.querySelector("#filtros select[name='pestana_id']"),
 		filtroEncabezado: document.querySelector("#filtros select[name='encabezado']"),
 
@@ -40,20 +41,30 @@ window.addEventListener("load", async () => {
 			return;
 		});
 	}
-	// Impacto en BD (encabezado - nuevo) - Guardar/Actualizar
+	// Impacto en BD (encabezado - nuevo) - Guarda/Actualiza
 	DOM.guardaEncabezado.addEventListener("click", async () => {
 		// Arma el feedback
-		const formData = new FormData();
+		const formData = new FormData(document.querySelector("#sectorEncabezado"));
 		formData.append("encabezado_id", DOM.filtroEncabezado.value);
+		formData.append("tipoEncab", cac.tipoEncab);
 
-		// Guarda el encabezado
-		await fetch(rutas.guardaEncabezado, {
-			method: "POST",
-			body: new FormData(document.querySelector("#sectorEncabezado form")),
-		});
+		// Guarda el encabezado en la BD
+		const nuevo_id = await fetch(rutas.guardaEncabezado, postForm(formData));
+
+		// Guarda el nuevo_id en la cookie y establece que se actualicen los filtros por las cookies
+		console.log(nuevo_id);
+		if (nuevo_id.ok) {
+			document.cookie = "actualizaEncabezado_id=" + nuevo_id.id;
+			cac.startUp = true;
+		}
+
+		// Se genera un change en el tema o pestaña, para que se reinicie el filtro del encabezado
+		DOM[!cac.pestanasTema.length ? "filtroTema" : "filtroPestana"].dispatchEvent(new Event("change"));
+
+		// Fin
+		return;
 	});
-
-	// Impacto en BD (encabezado - original) - Eliminar
+	// Impacto en BD (encabezado - original) - Elimina
 	DOM.eliminaEncabezado.addEventListener("click", async () => {
 		// Limpia el FE
 		for (const input of DOM.encabezadoInputs) input.value = "";
@@ -62,7 +73,7 @@ window.addEventListener("load", async () => {
 		await fetch(rutas.eliminaEncabezado + DOM.filtroEncabezado.value);
 
 		// Se genera un change en el tema o pestaña, para que se reinicie el filtro del encabezado
-		DOM[!cac.pestanasTema.length ? "tema" : "pestana"].dispatchEvent(new Event("change"));
+		DOM[!cac.pestanasTema.length ? "filtroTema" : "filtroPestana"].dispatchEvent(new Event("change"));
 
 		// Fin
 		return;
