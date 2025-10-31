@@ -33,9 +33,11 @@
 		.layout {
 			display: none; flex-direction: column;
 			min-width: 200px; min-height: 200px;
+
+			/* Particulares */
+			&#texto {flex-grow: 1;}
+			&#imagen {max-width: 33%; border: 1px solid grey;}
 		}
-		#texto {flex-grow: 1;}
-		#imagen {max-width: 33%; border: 1px solid grey;}
 
 		/* Ícono Guardar */
 		#iconoguardar {position: absolute; top: 50%; right: -20px; translate: 100% 0%;}
