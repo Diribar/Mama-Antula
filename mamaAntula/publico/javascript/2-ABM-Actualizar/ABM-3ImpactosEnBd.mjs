@@ -3,12 +3,31 @@
 window.addEventListener("load", async () => {
 	// Variables
 	const DOM = {
-		// Guardado de títulos
-		guardarEncabezado: document.querySelector("#sectorEncabezado #guardar"),
+		// Filtros
+		filtroEncabezado: document.querySelector("#filtros select[name='encabezado']"),
 
-		// Guardado de contenido
-		guardarContenido: document.querySelector("#sectorContNuevo #iconoGuardar"),
+		// Encabezado
+		encabezadoInputs: document.querySelectorAll("#sectorEncabezado .input"),
+		guardaEncabezado: document.querySelector("#sectorEncabezado #guardar"),
+
+		// Contenido
+		guardaContenido: document.querySelector("#sectorContNuevo #iconoGuardar"),
 	};
+
+	// Impacto en FE - Edición del encabezado
+	for (const encabezadoInput of DOM.encabezadoInputs) {
+		encabezadoInput.addEventListener("change", () => {
+			// Muestra botón de guardar
+			DOM.guardaEncabezado.classList.remove("ocultar");
+
+			// Le actualiza el title
+			const leyenda = DOM.filtroEncabezado.value == "nuevo" ? "Encabezado nuevo" : "Edición del encabezado";
+			DOM.guardaEncabezado.title = leyenda;
+
+			// Fin
+			return;
+		});
+	}
 
 	// Impacto en FE - Editar contenido actual
 

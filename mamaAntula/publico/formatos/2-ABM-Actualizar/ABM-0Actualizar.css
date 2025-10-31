@@ -21,6 +21,7 @@
 			background-color: var(--grisClaro);
 			.iconos {
 				display: flex; flex-direction: row; align-items: center; gap: 5px;
+				&:not(:has(:not(.ocultar))) {display: none;}
 				i {
 					cursor: pointer;
 					&:hover:not(:active) {scale: 1.5;}
