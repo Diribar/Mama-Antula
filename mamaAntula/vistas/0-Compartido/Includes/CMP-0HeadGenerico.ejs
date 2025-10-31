@@ -35,10 +35,10 @@
 
 <!-- Scripts -->
 <script src="/javascript/0-Compartido/CMP-MuestraOculta.mjs"></script>
+<script src="/javascript/0-Compartido/CMP-Funciones.mjs"></script>
 <% if (!locals.usuario) { %>
-	<script src="/javascript/0-Compartido/CMP-Funciones.mjs"></script>
-	<script src="/javascript/0-Compartido/CMP-Login.mjs"></script>
-	<script src="/javascript/0-Compartido/CMP-OjitoContrasena.mjs"></script>
+	<script src="/javascript/8-Usuarios/US-0Login.mjs"></script>
+	<script src="/javascript/8-Usuarios/US-0LoginOjitoContr.mjs"></script>
 <% } else { %>
-	<script src="/javascript/0-Compartido/CMP-Logout.mjs"></script>
+	<script src="/javascript/8-Usuarios/US-0Logout.mjs"></script>
 <% } %>
