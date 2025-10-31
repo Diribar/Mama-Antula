@@ -3,9 +3,9 @@
 window.addEventListener("load", async () => {
 	// Variables
 	const DOM = {
-		barraHerrams: document.querySelector("#barraHerrams-texto"),
-		input: document.querySelector("#input-texto"),
-		output: document.querySelector("#output-texto"),
+		barraHerrams: document.querySelector("#barraHerrams"),
+		input: document.querySelector("#input"),
+		output: document.querySelector("#output"),
 	};
 	const v = {
 		barraHerrams: {
@@ -55,30 +55,17 @@ window.addEventListener("load", async () => {
 	const placeholder = "Escribí acá tu contenido...";
 	const quill = new Quill(input, {modules: {toolbar}, formats, placeholder, theme: "snow"});
 
-	// Función para sincronizar textarea y previsualización
-	const actualizarContenido = () => {
-		// Optiene el input y lo pule
-		const html = quill.root.innerHTML
+	// Pule el input y lo pega en el output
+	const actualizarContenido = () =>
+		(DOM.output.value = quill.root.innerHTML
 			.replace("&nbsp;", " ") // reemplaza por espacios normales;
 			.replace(/\s+/g, " ") // reemplaza espacios duplicados
 			.replace(" </", "</") // reemplaza espacios mal puestos
-			.trim(); // reemplaza espacios al final
+			.trim()); // reemplaza espacios al final
 
-		// Lo pega en el output
-		DOM.output.value = html;
-
-		// Fin
-		return;
-	};
-
-	// EVENTO - Escuchamos cambios en Quill
+	// EVENTO - Cambios en el input actualizan el output
 	quill.on("text-change", actualizarContenido);
 
-	// Capturamos submit
-	// document.getElementById("miForm").addEventListener("submit", function (e) {
-	// 	e.preventDefault();
-	// 	console.log("Título:", document.getElementById("titulo").value);
-	// 	console.log("Contenido HTML:", document.getElementById("contenidoText").value);
-	// 	alert("Formulario listo para enviar. Revisa la consola.");
-	// });
+	// Fin
+	return;
 });
