@@ -15,12 +15,6 @@
 
 	#sectorFiltros, #sectorEncabezado {min-height: 50px;}
 
-	/* Sector filtros */
-	#sectorFiltros {
-		background-color: var(--celesteClaro);
-		#filtros {select {width: 210px;}}
-	}
-
 	form {
 		max-height: calc(100% - 70px); overflow-y: auto;
 		.sector {
@@ -32,14 +26,6 @@
 					&:hover:not(:active) {scale: 1.5;}
 				}
 			}
-		}
-
-		/* Sector encabezados */
-		#sectorEncabezado .encabezado {
-			input[type="text"] {width: 300px;}
-			input[type="date"] {width: 130px;}
-			select[name="orden"], select[name="numero"] {width: 70px;}
-			&#encabCartas #areaSoltar {--ladoCuadrado: 100px; width: var(--ladoCuadrado); border-radius: 5px;}
 		}
 
 		/* Sector contenido actual */
