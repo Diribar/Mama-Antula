@@ -3,5 +3,4 @@
 const temaVista = "abmArticulos";
 
 export default {
-
 };
