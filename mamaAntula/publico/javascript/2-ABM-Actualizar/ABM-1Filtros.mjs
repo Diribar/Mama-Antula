@@ -12,11 +12,8 @@ window.addEventListener("load", async () => {
 	const rutas = {
 		datosIniciales: "/contenido/api/abm-datos-inciales",
 		obtieneEncabs: "/contenido/api/abm-obtiene-encabezados/?",
-		obtieneContenidos: "/contenido/api/abm-obtiene-contenidos/?",
 	};
-	const v = {
-		...(await fetch(rutas.datosIniciales).then((n) => n && n.json())),
-	};
+	cac = {startUp: true, ...(await fetch(rutas.datosIniciales).then((n) => n && n.json()))};
 
 	// Funciones
 	const FN = {
@@ -79,10 +76,10 @@ window.addEventListener("load", async () => {
 
 		// Averigua si la sección es 'Experiencias'
 		cac.tipoEncab =
-			DOM.seccion.value == v.secciones.find((n) => n.codigo == "experiencias")?.id ? "encabExpers" : "encabSinIndice";
+			DOM.seccion.value == cac.secciones.find((n) => n.codigo == "experiencias")?.id ? "encabExpers" : "encabSinIndice";
 
 		// TEMA - Crea las opciones
-		const temasSecciones = v.temasSecciones.filter((n) => n.seccion_id == seccion_id);
+		const temasSecciones = cac.temasSecciones.filter((n) => n.seccion_id == seccion_id);
 		FN.agregaOpciones(temasSecciones, DOM.tema, "titulo");
 
 		// TEMA - Los muestra y dispara el evento
@@ -102,10 +99,10 @@ window.addEventListener("load", async () => {
 
 		// Averigua si el tema es 'Cartas'
 		if (cac.tipoEncab != "encabExpers")
-			cac.tipoEncab = tema_id == v.temasSecciones.find((n) => n.codigo == "cartas")?.id ? "encabCartas" : "encabSinIndice";
+			cac.tipoEncab = tema_id == cac.temasSecciones.find((n) => n.codigo == "cartas")?.id ? "encabCartas" : "encabSinIndice";
 
 		// PESTAÑA - Crea las opciones
-		const pestanasTema = v.pestanasTemas.filter((n) => n.tema_id == tema_id);
+		const pestanasTema = cac.pestanasTemas.filter((n) => n.tema_id == tema_id);
 		if (pestanasTema.length) {
 			// PESTANA - Crea las opciones
 			FN.agregaOpciones(pestanasTema, DOM.pestana, "titulo");
@@ -142,4 +139,4 @@ window.addEventListener("load", async () => {
 });
 
 // Variables
-const cac = {startUp: true}; // compartirActualizarContenidos
+let cac; // compartirActualizarContenidos
