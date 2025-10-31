@@ -9,10 +9,9 @@
 
 		</div>
 		<div id="layouts">
-			<div id="texto" class="layout"><%- include("ABM-4PegarTexto", {id: "texto"}) %></div>
-			<div id="imagen" class="layout"></div>
-			<div id="carrousel" class="layout"></div>
-			<div id="video" class="layout"></div>
+			<% ["texto", "imagen", "carrousel", "video"].forEach((id, i) => { %>
+				<div id="<%= id %>" class="layout"><%- include("ABM-4Nuevo-" + (i + 1) + comp.inicialMayus(id), {id}) %></div>
+			<% }) %>
 		</div>
 	</div>
 	<i id="iconoguardar" class="fa-solid fa-floppy-disk"></i><!-- guardar -->
