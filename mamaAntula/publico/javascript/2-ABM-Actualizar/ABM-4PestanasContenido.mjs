@@ -3,7 +3,7 @@
 window.addEventListener("load", async () => {
 	// Variables
 	const DOM = {
-		pestanas: document.querySelectorAll("#pestanas .pestana"),
+		pestanas: document.querySelectorAll("#pestanasGuardar .pestana"),
 	};
 
 	// Eventos
