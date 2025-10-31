@@ -1,19 +1,16 @@
-<section id="sectorContNuevo" class="sector bloque">
-	<div id="pestanaLayout">
-		<div id="pestanas">
-			<div id="textoImagen" class="pestana activo">Texto + Imagen</div>
-			<div id="texto" class="pestana">Texto</div>
-			<div id="imagen" class="pestana">Imagen</div>
-			<div id="carrousel" class="pestana">Carrousel</div>
-			<div id="video" class="pestana">Video</div>
+<section id="sectorContNuevo" class="sector">
+	<div id="pestanas">
+		<div id="textoImagen" class="pestana activo">Texto + Imagen</div>
+		<div id="texto" class="pestana">Texto</div>
+		<div id="imagen" class="pestana">Imagen</div>
+		<div id="carrousel" class="pestana">Carrousel</div>
+		<div id="video" class="pestana">Video</div>
 
-		</div>
-		<div id="layouts">
-			<div id="texto" class="layout"><%- include("ABM-4PegarTexto", {id: "texto"}) %></div>
-			<div id="imagen" class="layout"></div>
-			<div id="carrousel" class="layout"></div>
-			<div id="video" class="layout"></div>
-		</div>
 	</div>
-	<i id="iconoguardar" class="fa-solid fa-floppy-disk"></i><!-- guardar -->
+	<div id="layoutsGuardar">
+		<% ["texto", "imagen", "carrousel", "video"].forEach((id, i) => { %>
+			<div id="<%= id %>" class="layout"><%- include("ABM-4Nuevo-" + (i + 1) + comp.inicialMayus(id), {id}) %></div>
+		<% }) %>
+		<i id="iconoguardar" class="fa-solid fa-floppy-disk"></i><!-- guardar -->
+	</div>
 </section>

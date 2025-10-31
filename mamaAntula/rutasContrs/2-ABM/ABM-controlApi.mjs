@@ -16,7 +16,7 @@ export default {
 		// Obtiene la entidad
 		const seccionActual = secciones.find((n) => n.id == seccion_id);
 		const temaActual = temasSecciones.find((n) => n.id == tema_id);
-		const {entidad, orden, includes} = comp.obtieneDatosTabla({seccionActual, temaActual});
+		const {entidad, orden, includes} = comp.contenido.obtieneDatosDeTabla({seccionActual, temaActual});
 
 		// Obtiene los encabezados
 		let encabezados =
@@ -40,7 +40,7 @@ export default {
 		}
 
 		// Les agrega el 'tituloCons'
-		encabezados = comp.tituloCons[entidad](encabezados);
+		encabezados = comp.contenido.titulo[entidad](encabezados);
 
 		// Fin
 		return res.json(encabezados);
