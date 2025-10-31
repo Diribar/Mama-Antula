@@ -8,11 +8,9 @@
 
 	</div>
 	<div id="layoutsGuardar">
-		<div id="layouts">
-			<% ["texto", "imagen", "carrousel", "video"].forEach((id, i) => { %>
-				<div id="<%= id %>" class="layout"><%- include("ABM-4Nuevo-" + (i + 1) + comp.inicialMayus(id), {id}) %></div>
-			<% }) %>
-		</div>
+		<% ["texto", "imagen", "carrousel", "video"].forEach((id, i) => { %>
+			<div id="<%= id %>" class="layout"><%- include("ABM-4Nuevo-" + (i + 1) + comp.inicialMayus(id), {id}) %></div>
+		<% }) %>
 		<i id="iconoguardar" class="fa-solid fa-floppy-disk"></i><!-- guardar -->
 	</div>
 </section>
