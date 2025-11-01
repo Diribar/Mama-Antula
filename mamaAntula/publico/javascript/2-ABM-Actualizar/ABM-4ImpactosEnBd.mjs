@@ -15,6 +15,7 @@ window.addEventListener("load", async () => {
 
 		// Contenido
 		guardaNuevo: document.querySelector("#sectorContNuevo #iconoGuardar"),
+		pestanasGuardar: document.querySelectorAll("#pestanasGuardar .pestana"),
 	};
 	const rutas = {
 		// Encabezado
@@ -44,9 +45,12 @@ window.addEventListener("load", async () => {
 	// Impacto en BD (encabezado - nuevo) - Guarda/Actualiza
 	DOM.guardaEncabezado.addEventListener("click", async () => {
 		// Arma el feedback
-		const formData = new FormData(document.querySelector("#sectorEncabezado"));
+		const formVisible = document.querySelector("#sectorEncabezado form:not(.ocultar)"); // elige el unico formulario visible
+		const formData = new FormData(formVisible);
 		formData.append("encabezado_id", DOM.filtroEncabezado.value);
 		formData.append("tipoEncab", cac.tipoEncab);
+		if (cac.tipoEncab != "encabCartas")
+			!cac.pestana_id ? formData.append("tema_id", cac.tema_id) : formData.append("pestana_id", cac.pestana_id);
 
 		// Guarda el encabezado en la BD
 		const nuevo_id = await fetch(rutas.guardaEncabezado, postForm(formData));
@@ -81,6 +85,14 @@ window.addEventListener("load", async () => {
 
 	// Impacto en BD (contenido - original) - Eliminar
 	// Impacto en BD (contenido - nuevo) - Guardar/Actualizar
+	DOM.guardaNuevo.addEventListener("click", async () => {
+		// Arma el feedback del encabezado
+		const formData = new FormData();
+		formData.append("encabezado_id", DOM.filtroEncabezado.value);
+		formData.append("tipoEncab", cac.tipoEncab);
+
+		// Completa el feedback en función de la pestanaGuardar
+	});
 
 	// Impacto en BD (encabezado - edición) - Guardar/Actualizar + Muestra el botón de eliminar el encabezado
 	// Impacto en BD (encabezado - edición) - Eliminar
