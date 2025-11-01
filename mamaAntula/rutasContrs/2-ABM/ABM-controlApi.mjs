@@ -21,6 +21,7 @@ export default {
 		const seccionActual = secciones.find((n) => n.id == seccion_id);
 		const temaActual = temasSecciones.find((n) => n.id == tema_id);
 		const {entidad, orden, includes} = comp.contenido.obtieneDatosDeTabla({seccionActual, temaActual});
+		const includesConEdiciones = [...includes, "ediciones"];
 
 		// Obtiene los encabezados
 		let encabezados =
