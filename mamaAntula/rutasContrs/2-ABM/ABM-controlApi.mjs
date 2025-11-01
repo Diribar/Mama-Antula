@@ -26,8 +26,7 @@ export default {
 		const includesConEdics = [...includes, "ediciones"];
 
 		// Obtiene los encabezados
-		const encabezados = procesos.consolidado.obtieneEncabs({entidad, condicion, includesConEdics, orden, usuario});
-
+		const encabezados = await procesos.obtieneEncabs.consolidado({entidad, condicion, includesConEdics, orden, usuario});
 
 		// Fin
 		return res.json(encabezados);

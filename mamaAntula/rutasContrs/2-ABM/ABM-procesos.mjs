@@ -42,6 +42,9 @@ export default {
 				encabezado.ediciones = [];
 				encabezados = [encabezado];
 			}
+
+			// Fin
+			return encabezados;
 		},
 		fundeConLaEdicionDelUsuario: ({encabezados, usuario}) => {
 			// Rutina por encabezado
