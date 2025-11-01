@@ -18,6 +18,9 @@ window.addEventListener("load", async () => {
 		// Contenido actual
 		sectorContActual: document.querySelector("#sectorContActual"),
 		iconosActual: document.querySelector("#sectorContActual .iconos"),
+
+		// Contenido nuevo
+		sectorContNuevo: document.querySelector("#sectorContNuevo"),
 	};
 	const rutas = {obtieneContenidos: "/contenido/api/abm-obtiene-contenidos/?"};
 	const v = {};
@@ -38,7 +41,7 @@ window.addEventListener("load", async () => {
 			for (const input of DOM.inputs) {
 				// Agrega las opciones
 				const {tabla} = input.dataset;
-				if (input.type == "select-one" && tabla) FN.agregaOpciones(cac[tabla], input, "nombre");
+				if (input.type == "select-one" && tabla) agregaOpciones(cac[tabla], input, "nombre");
 
 				// Actualiza el valor elegido de todos los inputs
 				const campo = input.name;
@@ -86,21 +89,6 @@ window.addEventListener("load", async () => {
 		},
 
 		// Auxiliares
-		agregaOpciones: (opciones, domSelect, campoNombre) => {
-			// Limpia las opciones del select
-			domSelect.innerHTML = "";
-
-			// Agrega las opciones
-			for (const opcion of opciones) {
-				const domOpcion = document.createElement("option");
-				domOpcion.value = opcion.id;
-				domOpcion.textContent = opcion[campoNombre] || "Sin título";
-				domSelect.appendChild(domOpcion);
-			}
-
-			// Fin
-			return;
-		},
 		creaContenedorContenidoIconos: () => {
 			// Variables
 			const inicial_id = v.contenidos[0]?.id;

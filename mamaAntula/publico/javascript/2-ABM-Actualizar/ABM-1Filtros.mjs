@@ -31,7 +31,7 @@ window.addEventListener("load", async () => {
 			cac.encabezados = await fetch(rutas.obtieneEncabs + datos).then((n) => n && n.json());
 
 			// Crea las opciones
-			FN.agregaOpciones(cac.encabezados, DOM.encabezado, "tituloCons");
+			agregaOpciones(cac.encabezados, DOM.encabezado, "tituloCons");
 
 			// Si corresponde, crea la opción NUEVO - encabSinIndice siempre tiene un encabezado creado y no puede tener más de uno
 			if (cac.tipoEncab != "encabSinIndice") {
@@ -44,21 +44,6 @@ window.addEventListener("load", async () => {
 			// Muestra los encabezados y dispara el evento
 			if (cac.tipoEncab != "encabSinIndice") DOM.encabezado.classList.remove("ocultar");
 			DOM.encabezado.dispatchEvent(new Event("change"));
-
-			// Fin
-			return;
-		},
-		agregaOpciones: (opciones, domSelect, campoNombre) => {
-			// Limpia las opciones del select
-			domSelect.innerHTML = "";
-
-			// Agrega las opciones
-			for (const opcion of opciones) {
-				const domOpcion = document.createElement("option");
-				domOpcion.value = opcion.id;
-				domOpcion.textContent = opcion[campoNombre] || "Sin título";
-				domSelect.appendChild(domOpcion);
-			}
 
 			// Fin
 			return;
@@ -80,7 +65,7 @@ window.addEventListener("load", async () => {
 
 		// TEMA - Crea las opciones
 		const temasSecciones = cac.temasSecciones.filter((n) => n.seccion_id == seccion_id);
-		FN.agregaOpciones(temasSecciones, DOM.tema, "titulo");
+		agregaOpciones(temasSecciones, DOM.tema, "titulo");
 
 		// TEMA - Los muestra y dispara el evento
 		DOM.tema.classList.remove("ocultar");
@@ -99,13 +84,14 @@ window.addEventListener("load", async () => {
 
 		// Averigua si el tema es 'Cartas'
 		if (cac.tipoEncab != "encabExpers")
-			cac.tipoEncab = tema_id == cac.temasSecciones.find((n) => n.codigo == "cartas")?.id ? "encabCartas" : "encabSinIndice";
+			cac.tipoEncab =
+				tema_id == cac.temasSecciones.find((n) => n.codigo == "cartas")?.id ? "encabCartas" : "encabSinIndice";
 
 		// PESTAÑA - Crea las opciones
 		const pestanasTema = cac.pestanasTemas.filter((n) => n.tema_id == tema_id);
 		if (pestanasTema.length) {
 			// PESTANA - Crea las opciones
-			FN.agregaOpciones(pestanasTema, DOM.pestana, "titulo");
+			agregaOpciones(pestanasTema, DOM.pestana, "titulo");
 
 			// PESTANA - Las muestra y dispara el evento
 			DOM.pestana.classList.remove("ocultar");
@@ -140,3 +126,18 @@ window.addEventListener("load", async () => {
 
 // Variables
 let cac; // compartirActualizarContenidos
+const agregaOpciones = (opciones, domSelect, campoNombre) => {
+	// Limpia las opciones del select
+	domSelect.innerHTML = "";
+
+	// Agrega las opciones
+	for (const opcion of opciones) {
+		const domOpcion = document.createElement("option");
+		domOpcion.value = opcion.id;
+		domOpcion.textContent = opcion[campoNombre] || "Sin título";
+		domSelect.appendChild(domOpcion);
+	}
+
+	// Fin
+	return;
+};

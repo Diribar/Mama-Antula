@@ -12,7 +12,7 @@ window.addEventListener("load", async () => {
 		eliminaEncabezado: document.querySelector("#sectorEncabezado #eliminar"),
 
 		// Contenido
-		guardaContenido: document.querySelector("#sectorContNuevo #iconoGuardar"),
+		guardaNuevo: document.querySelector("#sectorContNuevo #iconoGuardar"),
 	};
 
 	// Impacto en FE - Muestra el botón de guardar el encabezado
