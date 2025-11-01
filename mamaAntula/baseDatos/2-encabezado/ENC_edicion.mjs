@@ -6,19 +6,20 @@ export default (sequelize, dt) => {
 		experiencia_id: {type: dt.INTEGER},
 		sinIndice_id: {type: dt.INTEGER},
 
-		// Cartas y Experiencias
-		lugar_id: {type: dt.INTEGER},
-		fechaEvento: {type: dt.DATE},
+		// Experiencias y Sin índice
+		titulo: {type: dt.STRING(100)},
+		subTitulo: {type: dt.STRING(100)},
 
 		// Exclusivo cartas
 		numero: {type: dt.INTEGER},
 		nombreDesde_id: {type: dt.INTEGER},
 		nombreHacia_id: {type: dt.INTEGER},
 		idioma_id: {type: dt.INTEGER},
+		imagen: {type: dt.STRING(17)},
 
-		// Experiencias y Sin índice
-		titulo: {type: dt.STRING(100)},
-		subTitulo: {type: dt.STRING(100)},
+		// Cartas y Experiencias
+		lugar_id: {type: dt.INTEGER},
+		fechaEvento: {type: dt.DATE},
 
 		// Control
 		editadoPor_id: {type: dt.INTEGER},
@@ -38,7 +39,7 @@ export default (sequelize, dt) => {
 		entidad.belongsTo(n.personajes, {as: "nombreHacia", foreignKey: "nombreHacia_id"});
 		entidad.belongsTo(n.lugares, {as: "lugar", foreignKey: "lugar_id"});
 		entidad.belongsTo(n.idiomas, {as: "idioma", foreignKey: "idioma_id"});
-		entidad.belongsTo(n.usuarios, {as: "editadoPor", foreignKey: "creadoPor_id"});
+		entidad.belongsTo(n.usuarios, {as: "editadoPor", foreignKey: "editadoPor_id"});
 	};
 	return entidad;
 };
