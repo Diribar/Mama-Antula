@@ -15,7 +15,7 @@
 
 	#sectorFiltros, #sectorEncabezado {min-height: 50px;}
 
-	form {
+	#editables {
 		max-height: calc(100% - 70px); overflow-y: auto;
 		.sector {
 			background-color: var(--grisClaro);

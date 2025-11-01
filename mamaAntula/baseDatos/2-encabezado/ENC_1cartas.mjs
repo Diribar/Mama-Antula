@@ -7,6 +7,7 @@ export default (sequelize, dt) => {
 		nombreHacia_id: {type: dt.INTEGER},
 		lugar_id: {type: dt.INTEGER},
 		idioma_id: {type: dt.INTEGER},
+		imagen: {type: dt.STRING(17)},
 		fechaEvento: {type: dt.DATE},
 
 		// Control
@@ -26,6 +27,8 @@ export default (sequelize, dt) => {
 		entidad.belongsTo(n.idiomas, {as: "idioma", foreignKey: "idioma_id"});
 		entidad.belongsTo(n.usuarios, {as: "creadoPor", foreignKey: "creadoPor_id"});
 		entidad.belongsTo(n.statusRegistros, {as: "statusRegistro", foreignKey: "statusRegistro_id"});
+
+		entidad.hasMany(n.edicionesEncab, {as: "ediciones", foreignKey: "carta_id"});
 	};
 	return entidad;
 };

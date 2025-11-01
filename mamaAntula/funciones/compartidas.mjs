@@ -117,7 +117,7 @@ export default {
 		nombreArchDesc: (reqFile) => Date.now() + path.extname(reqFile.originalname),
 		descarga: (ruta, nombreArch, reqFile) => fs.promises.writeFile(path.join(ruta, nombreArch), reqFile.buffer), // descarga el archivo puesto en memoria por multer
 	},
-	contenido:{
+	contenido: {
 		obtieneDatosDeTabla: ({seccionActual, temaActual}) => {
 			// Obtiene los datos
 			const [entidad, campo_id, orden, includes] = false
@@ -131,23 +131,23 @@ export default {
 			// Fin
 			return {entidad, campo_id, orden, includes};
 		},
-		titulo: {
-			encabCartas: (encabezados) => {
-				for (const encabezado of encabezados)
-					encabezado.tituloCons =
+		tituloCons: {
+			encabCartas: (encabs) => {
+				for (const encab of encabs)
+					encab.tituloCons =
 						"Carta " +
-						encabezado.numero +
+						encab.numero +
 						" - De " +
-						encabezado.nombreDesde.nombre +
+						encab.nombreDesde.nombre +
 						" a " +
-						encabezado.nombreHacia.nombre +
+						encab.nombreHacia.nombre +
 						" - " +
-						encabezado.lugar.nombre +
+						encab.lugar.nombre +
 						" - " +
-						FN.fechaDiaMesAno(encabezado.fechaEvento);
+						FN.fechaDiaMesAno(encab.fechaEvento);
 
 				// Fin
-				return encabezados;
+				return encabs;
 			},
 			encabExpers: (encabs) => {
 				for (const encab of encabs)

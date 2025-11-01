@@ -88,10 +88,10 @@ window.addEventListener("load", async () => {
 				tema_id == cac.temasSecciones.find((n) => n.codigo == "cartas")?.id ? "encabCartas" : "encabSinIndice";
 
 		// PESTAÑA - Crea las opciones
-		const pestanasTema = cac.pestanasTemas.filter((n) => n.tema_id == tema_id);
-		if (pestanasTema.length) {
+		cac.pestanasTema = cac.pestanasTemas.filter((n) => n.tema_id == tema_id);
+		if (cac.pestanasTema.length) {
 			// PESTANA - Crea las opciones
-			agregaOpciones(pestanasTema, DOM.pestana, "titulo");
+			agregaOpciones(cac.pestanasTema, DOM.pestana, "titulo");
 
 			// PESTANA - Las muestra y dispara el evento
 			DOM.pestana.classList.remove("ocultar");

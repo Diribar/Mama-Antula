@@ -210,7 +210,7 @@ window.addEventListener("load", async () => {
 		},
 	};
 
-	// Eventos de encabezado
+	// Eventos del filtro de encabezado
 	DOM.filtros.encabezado.addEventListener("change", async () => {
 		// ENCABEZADO - Si es start-up, elige la opción de la cookie
 		if (cac.startUp && cookie("actualizaEncabezado_id")) DOM.filtros.encabezado.value = cookie("actualizaEncabezado_id");
