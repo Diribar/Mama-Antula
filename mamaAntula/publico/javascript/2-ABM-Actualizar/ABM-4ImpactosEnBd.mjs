@@ -42,6 +42,7 @@ window.addEventListener("load", async () => {
 			return;
 		});
 	}
+
 	// Impacto en BD (encabezado - nuevo) - Guarda/Actualiza
 	DOM.guardaEncabezado.addEventListener("click", async () => {
 		// Arma el feedback
