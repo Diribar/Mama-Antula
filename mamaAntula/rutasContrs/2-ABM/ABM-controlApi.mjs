@@ -68,7 +68,7 @@ export default {
 		console.log(req.body);
 
 		// Fin
-		return res.json();
+		return res.json({id: 34});
 	},
 	eliminaEncabezado: async (req, res) => {
 		// Variables

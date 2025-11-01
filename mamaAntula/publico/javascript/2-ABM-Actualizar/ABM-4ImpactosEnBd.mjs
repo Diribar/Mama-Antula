@@ -47,6 +47,8 @@ window.addEventListener("load", async () => {
 	DOM.guardaEncabezado.addEventListener("click", async () => {
 		// Arma el feedback
 		const formVisible = document.querySelector("#sectorEncabezado form:not(.ocultar)"); // elige el unico formulario visible
+		console.log(formVisible);
+
 		const formData = new FormData(formVisible);
 		formData.append("entidad", cac.tipoEncab);
 		formData.append("id", DOM.filtroEncabezado.value);
@@ -58,13 +60,13 @@ window.addEventListener("load", async () => {
 
 		// Guarda el nuevo_id en la cookie y establece que se actualicen los filtros por las cookies
 		console.log(nuevo_id);
-		if (nuevo_id.ok) {
-			document.cookie = "actualizaEncabezado_id=" + nuevo_id.id;
-			cac.startUp = true;
-		}
+		// if (nuevo_id.ok) {
+		// 	document.cookie = "actualizaEncabezado_id=" + nuevo_id.id;
+		// 	cac.startUp = true;
+		// }
 
 		// Se genera un change en el tema o pestaña, para que se reinicie el filtro del encabezado
-		DOM[!cac.pestanasTema.length ? "filtroTema" : "filtroPestana"].dispatchEvent(new Event("change"));
+		// DOM[!cac.pestanasTema.length ? "filtroTema" : "filtroPestana"].dispatchEvent(new Event("change"));
 
 		// Fin
 		return;
