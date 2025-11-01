@@ -56,7 +56,7 @@ window.addEventListener("load", async () => {
 			!cac.pestana_id ? formData.append("tema_id", cac.tema_id) : formData.append("pestana_id", cac.pestana_id);
 
 		// Guarda el encabezado en la BD
-		const nuevo_id = await fetch(rutas.guardaEncabezado, postForm(formData));
+		const nuevo_id = await fetch(rutas.guardaEncabezado, postForm(formData)).then((n) => n.json());
 
 		// Guarda el nuevo_id en la cookie y establece que se actualicen los filtros por las cookies
 		console.log(nuevo_id);
