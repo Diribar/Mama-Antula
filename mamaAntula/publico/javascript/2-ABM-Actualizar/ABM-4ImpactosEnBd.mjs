@@ -19,11 +19,11 @@ window.addEventListener("load", async () => {
 	};
 	const rutas = {
 		// Encabezado
-		guardaEncabezado: "/contenido/api/abm-guarda-encabezado/",
+		guardaEncabezado: "/contenido/api/abm-guarda-encabezado",
 		eliminaEncabezado: "/contenido/api/abm-elimina-encabezado/?id=",
 
 		// Contenido
-		guardaContenido: "/contenido/api/abm-guarda-contenido/?",
+		guardaContenido: "/contenido/api/abm-guarda-contenido",
 		eliminaContenido: "/contenido/api/abm-elimina-contenido/?id=",
 	};
 
@@ -48,8 +48,8 @@ window.addEventListener("load", async () => {
 		// Arma el feedback
 		const formVisible = document.querySelector("#sectorEncabezado form:not(.ocultar)"); // elige el unico formulario visible
 		const formData = new FormData(formVisible);
-		formData.append("encabezado_id", DOM.filtroEncabezado.value);
-		formData.append("tipoEncab", cac.tipoEncab);
+		formData.append("entidad", cac.tipoEncab);
+		formData.append("id", DOM.filtroEncabezado.value);
 		if (cac.tipoEncab != "encabCartas")
 			!cac.pestana_id ? formData.append("tema_id", cac.tema_id) : formData.append("pestana_id", cac.pestana_id);
 
@@ -75,7 +75,8 @@ window.addEventListener("load", async () => {
 		for (const input of DOM.encabezadoInputs) input.value = "";
 
 		// Elimina de la BD, el encabezado y sus contenidos
-		await fetch(rutas.eliminaEncabezado + DOM.filtroEncabezado.value);
+		const datos = {entidad: cac.tipoEncab, id: DOM.filtroEncabezado.value};
+		await fetch(rutas.eliminaEncabezado, deleteJson(datos));
 
 		// Se genera un change en el tema o pestaña, para que se reinicie el filtro del encabezado
 		DOM[!cac.pestanasTema.length ? "filtroTema" : "filtroPestana"].dispatchEvent(new Event("change"));

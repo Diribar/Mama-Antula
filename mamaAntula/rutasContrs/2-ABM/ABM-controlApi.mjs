@@ -1,6 +1,7 @@
 "use strict";
 
 export default {
+	// Obtiene información
 	datosIniciales: (req, res) => {
 		// Variables
 		const datosIniciales = {
@@ -59,5 +60,35 @@ export default {
 
 		// Fin
 		return res.json(contenidos);
+	},
+
+	// Cambios en BD -
+	guardaEncabezado: async (req, res) => {
+		// Variables
+		console.log(req.body);
+
+		// Fin
+		return res.json();
+	},
+	eliminaEncabezado: async (req, res) => {
+		// Variables
+		console.log(req.body);
+
+		// Fin
+		return res.json();
+	},
+	guardaContenido: async (req, res) => {
+		// Variables
+		console.log(req.body);
+
+		// Fin
+		return res.json();
+	},
+	eliminaContenido: async (req, res) => {
+		// Variables
+		console.log(req.body);
+
+		// Fin
+		return res.json();
 	},
 };
