@@ -21,19 +21,21 @@ export default {
 		const seccionActual = secciones.find((n) => n.id == seccion_id);
 		const temaActual = temasSecciones.find((n) => n.id == tema_id);
 		const {entidad, orden, includes} = comp.contenido.obtieneDatosDeTabla({seccionActual, temaActual});
-		const includesConEdiciones = [...includes, "ediciones"];
+		const includesConEdics = [...includes, "ediciones"];
 
 		// Obtiene los encabezados
 		let encabezados =
 			entidad == "encabCartas"
 				? await baseDatos
-						.obtieneTodos(entidad, includes)
+						.obtieneTodos(entidad, includesConEdics)
 						.then((n) => n.sort((a, b) => new Date(a[orden]) - new Date(b[orden])))
 				: entidad == "encabExpers"
 				? await baseDatos
-						.obtieneTodosPorCondicion(entidad, condicion, includes)
+						.obtieneTodosPorCondicion(entidad, condicion, includesConEdics)
 						.then((n) => n.sort((a, b) => new Date(b[orden]) - new Date(a[orden])))
-				: await baseDatos.obtieneTodosPorCondicion(entidad, condicion).then((n) => n.sort((a, b) => a.orden - b.orden));
+				: await baseDatos
+						.obtieneTodosPorCondicion(entidad, condicion, includesConEdics)
+						.then((n) => n.sort((a, b) => a.orden - b.orden));
 
 		// Si la entidad es encabSinIndice y no existe un registro, lo crea
 		if (entidad == "encabSinIndice" && !encabezados.length) {
