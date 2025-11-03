@@ -7,8 +7,8 @@ window.addEventListener("load", async () => {
 		filtroEncabezado: document.querySelector("#filtros select[name='encabezado']"),
 
 		// Contenido
-		guardaNuevo: document.querySelector("#sectorContNuevo #iconoGuardar"),
 		pestanasGuardar: document.querySelectorAll("#pestanasGuardar .pestana"),
+		guardaNuevo: document.querySelector("#pestanasGuardar #iconoGuardar"),
 	};
 	const rutas = {
 		// Contenido
@@ -16,7 +16,6 @@ window.addEventListener("load", async () => {
 		eliminaContenido: "/contenido/api/abm-elimina-contenido/?id=",
 	};
 
-	// Impacto en BD (contenido - original) - Eliminar
 	// Impacto en BD (contenido - nuevo) - Guardar/Actualizar
 	DOM.guardaNuevo.addEventListener("click", async () => {
 		// Arma el feedback del encabezado
@@ -27,7 +26,10 @@ window.addEventListener("load", async () => {
 		// Completa el feedback en función de la pestanaGuardar
 	});
 
+	// Impacto en BD (contenido - original) - Eliminar
+
 	// Impacto en BD (contenido - edicion) - Guardar/Actualizar
+
 	// Impacto en FE (contenido - edición) - Mostrar
 	// Impacto en FE (contenido - edición) - Cancelar
 	// Impacto en BD (contenido - edición) - Eliminar
