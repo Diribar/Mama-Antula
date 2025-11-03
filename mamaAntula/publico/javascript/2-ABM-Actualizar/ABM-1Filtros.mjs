@@ -56,6 +56,9 @@ window.addEventListener("load", async () => {
 
 			// Actualiza el DOM
 			DOM.filtros.anchorLectura.href = urlSeccion + urlTema + urlPestana + "/" + v.encabezado_id;
+
+			// Fin
+			return;
 		},
 	};
 
