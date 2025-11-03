@@ -7,7 +7,6 @@ window.addEventListener("load", async () => {
 		tema: document.querySelector("#filtros select[name='tema_id']"),
 		pestana: document.querySelector("#filtros select[name='pestana_id']"),
 		encabezado: document.querySelector("#filtros select[name='encabezado']"),
-		anchorLectura: document.querySelector("a#linkLectura"),
 
 		// Inputs del encabezado
 		sectorEncabezado: document.querySelector("#sectorEncabezado"),
