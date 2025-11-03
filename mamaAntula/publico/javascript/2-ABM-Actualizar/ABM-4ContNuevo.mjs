@@ -4,12 +4,18 @@ window.addEventListener("load", async () => {
 	// Variables
 	const DOM = {
 		filtroEncabezado: document.querySelector("#filtros select[name='encabezado']"),
-		iconoGuardar: document.querySelector("#pestanasGuardar #iconoGuardar"),
+		sectorContNuevo: document.querySelector("#sectorContNuevo"),
 
 		// Inputs
-		texto: document.querySelector("#texto textarea"),
-		video: document.querySelector("#video input"),
+		textoInput: document.querySelector("#texto #input"),
+		videoInput: document.querySelector("#video #input"),
+
+		// Ouputs
+		iconoGuardar: document.querySelector("#pestanasGuardar #iconoGuardar"),
+		textoOutput: document.querySelector("#texto #output"),
+		videoOutput: document.querySelector("#video #output"),
 	};
+	const domNuevo=DOM.sectorContNuevo.cloneNode(true);
 	const rutas = {
 		guardaContenido: "/contenido/api/abm-guarda-contenido",
 	};
@@ -18,9 +24,16 @@ window.addEventListener("load", async () => {
 	// Funciones
 	const FN = {
 		creaElForm: () => {
+			// Variables
+			const campo_id = campos_id[cac.tipoEncab];
+			const encabezado_id = DOM.filtroEncabezado.value;
+
+			// Crea el form
 			v.formData = new FormData();
-			v.formData.append("encabezado_id", DOM.filtroEncabezado.value);
-			v.formData.append("tipoEncab", cac.tipoEncab);
+			v.formData.append("campo_id", campos_id[cac.tipoEncab]);
+			v.formData.append("encabezado_id", encabezado_id);
+			v.formData.append("pestanaActiva", v.nombrePestanaActiva);
+			v.formData.append(campo_id, encabezado_id);
 			return;
 		},
 	};
@@ -28,22 +41,22 @@ window.addEventListener("load", async () => {
 	// Guarda los cambios
 	DOM.iconoGuardar.addEventListener("click", async () => {
 		// Obtiene la pestaña activa
-		const nombrePestanaActiva = document.querySelector("#pestanasGuardar .pestana.activo")?.id;
+		v.nombrePestanaActiva = document.querySelector("#pestanasGuardar .pestana.activo")?.id;
 
 		// Feedback si carrousel
-		if (nombrePestanaActiva == "carrousel") {
+		if (v.nombrePestanaActiva == "carrousel") {
 		} else {
 			// Crea el form
 			FN.creaElForm();
 
 			// Feedback si texto (textoImagen o texto)
-			if (["textoImagen", "texto"].includes(nombrePestanaActiva)) {
-				v.formData.append("texto", DOM.texto.value);
+			if (["textoImagen", "texto"].includes(v.nombrePestanaActiva)) {
+				v.formData.append("texto", DOM.textoOutput.value);
 			}
 
 			// Feedback si video
-			if (nombrePestanaActiva == "video") {
-				v.formData.append("video", DOM.video.value);
+			if (v.nombrePestanaActiva == "video") {
+				v.formData.append("video", DOM.videoOutput.value);
 			}
 
 			// Feedback si imagen (textoImagen o imagen)
@@ -53,9 +66,16 @@ window.addEventListener("load", async () => {
 		const respuesta = await fetch(rutas.guardaContenido, postForm(v.formData)).then((n) => n.json());
 
 		// Actualiza
+		console.log(respuesta);
 		DOM.filtroEncabezado.dispatchEvent(new Event("change"));
 
 		// Fin
+	});
+
+	// Lo actualiza por cambio en el encabezado
+	DOM.filtroEncabezado.addEventListener("change", async () => {
+		DOM.textoInput.querySelector(".ql-editor").innerHTML = "";
+
 	});
 
 	// Fin

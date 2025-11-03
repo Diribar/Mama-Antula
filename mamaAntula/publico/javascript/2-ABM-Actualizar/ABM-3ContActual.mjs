@@ -149,8 +149,7 @@ window.addEventListener("load", async () => {
 	DOM.filtroEncabezado.addEventListener("change", async () => {
 		// Variables
 		const encabezado_id = DOM.filtroEncabezado.value;
-		const campo_id =
-			cac.tipoEncab == "encabCartas" ? "carta_id" : cac.tipoEncab == "encabExpers" ? "experiencia_id" : "sinIndice_id";
+		const campo_id = campos_id[cac.tipoEncab];
 		const ruta = rutas.obtieneContenidos + "encab_id=" + encabezado_id + "&campo_id=" + campo_id;
 
 		// Limpia el DOM
@@ -178,3 +177,10 @@ window.addEventListener("load", async () => {
 	// Impacto en BD (contenido - actual) - Eliminar
 	DOM.iconosEliminar.forEach((iconoEliminar, i) => {});
 });
+
+// Variables
+const campos_id = {
+	encabCartas: "carta_id",
+	encabExpers: "experiencia_id",
+	encabSinIndice: "sinIndice_id",
+};

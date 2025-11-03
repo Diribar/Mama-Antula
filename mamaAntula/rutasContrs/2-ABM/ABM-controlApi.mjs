@@ -98,10 +98,34 @@ export default {
 	},
 	guardaContenido: async (req, res) => {
 		// Variables
-		console.log(101, req.body);
+		const {pestanaActiva, campo_id, encabezado_id} = req.body;
+		const camposGuardar = ["carta_id", "experiencia_id", "sinIndice_id", "texto", "imagen", "video", "leyenda"];
+		const datosGuardar = {};
+		for (const campo of camposGuardar) if (req.body[campo]) datosGuardar[campo] = req.body[campo];
+		console.log(101, req.body, datosGuardar);
+
+		// Arma los datos
+		if (pestanaActiva == "carrousel") {
+		} else {
+			// Averigua si ya hay algún registro para ese campo_id
+			const registrosActuales = await baseDatos.obtieneTodosPorCondicion("contenidos", {[campo_id]: encabezado_id});
+
+			// Acciones si lo hay
+			if (registrosActuales.length) {
+				// Averigua cuál es el orden de mayor valor
+				const ordenes = registrosActuales.map((n) => n.orden);
+				const maxOrden = Math.max(...ordenes);
+
+				// Suma 1 y lo guarda en el orden
+				datosGuardar.orden = maxOrden + 1;
+			}
+
+			// Guarda el registro
+			await baseDatos.agregaRegistroIdCorrel("contenidos", datosGuardar);
+		}
 
 		// Fin
-		return res.json();
+		return res.json(req.body);
 	},
 	eliminaContenido: async (req, res) => {
 		// Variables
