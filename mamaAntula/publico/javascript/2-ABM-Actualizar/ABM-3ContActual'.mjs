@@ -30,19 +30,22 @@ window.addEventListener("load", async () => {
 	const v = {};
 
 	// Funciones
-	const creaContenidoIconos = {
-		consolidado: function () {
+	const FN = {
+		creaContenedorContenidoIconos: function () {
 			// Variables
 			v.inicial_id = v.contenidos[0]?.id;
 			v.final_id = v.contenidos.at(-1)?.id;
 
 			// Agrega los contenidos
-			for (const contenido of v.contenidos) this.agregaBloque(contenido);
+			for (const contenido of v.contenidos) {
+				this.agregaBloqueLectura(contenido);
+				// this.agregaBloqueEdicion(contenido);
+			}
 
 			// Fin
 			return;
 		},
-		agregaBloque: function (contenido) {
+		agregaBloqueLectura: function (contenido) {
 			// Crea el DOM contenedor
 			const domBloqueLectura = document.createElement("div");
 			domBloqueLectura.classList.add("bloque", "sector");
@@ -170,7 +173,7 @@ window.addEventListener("load", async () => {
 		else DOM.sectorContActual.classList.remove("ocultar");
 
 		// Actualiza el DOM
-		creaContenidoIconos.consolidado();
+		FN.creaContenedorContenidoIconos();
 
 		// Fin
 		return;

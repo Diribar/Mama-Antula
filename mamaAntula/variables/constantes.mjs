@@ -15,7 +15,7 @@ export default {
 		...{izquierda: "fa-circle-left", derecha: "fa-circle-right", check: "fa-circle-check", xMark: "fa-circle-xmark"}, // Formularios
 
 		// Ocasionales
-		...{agregar: "fa-circle-plus", califica: "fa-chart-simple", eliminar: "fa-trash-can"},
+		...{agregar: "fa-circle-plus", califica: "fa-chart-simple", eliminar: "fa-trash-can", guardar:"fa-floppy-disk"},
 		...{izqDer: "fa-arrow-right-arrow-left", arrAbajo: "fa-arrow-right-arrow-left girar90"},
 		...{detalle: "fa-circle-info", edicion: "fa-pen", edicionCambiada: "fa-arrow-right-long", rotar: "fa-rotate-90"},
 		...{graficos: "fa-chart-line", chart: "fa-chart-pie", columnas: "fa-chart-simple", area: "fa-chart-area"},
