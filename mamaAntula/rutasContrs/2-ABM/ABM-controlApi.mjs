@@ -46,7 +46,6 @@ export default {
 	guardaEncabezado: async (req, res) => {
 		// Variables
 		const {entidad, id, tema_id, pestana_id} = req.body;
-		console.log(49, req.body);
 
 		// Obtiene el original
 		const original = await baseDatos.obtienePorId(entidad, id);
@@ -57,7 +56,6 @@ export default {
 			const creadoPor_id = req.session.usuario.id;
 			const datos = {...req.body, creadoPor_id};
 			delete datos.id;
-			console.log(63, datos);
 
 			// Crea el original
 			const nuevoRegistro = await baseDatos.agregaRegistroIdCorrel(entidad, datos);
