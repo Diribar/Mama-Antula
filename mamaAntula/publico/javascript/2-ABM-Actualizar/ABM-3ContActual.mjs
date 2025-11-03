@@ -29,12 +29,15 @@ window.addEventListener("load", async () => {
 			v.final_id = v.contenidos.at(-1)?.id;
 
 			// Agrega los contenidos
-			for (const contenido of v.contenidos) this.agregaBloque(contenido);
+			for (const contenido of v.contenidos) {
+				this.agregaBloqueLectura(contenido);
+				// this.agregaBloqueEdicion(contenido);
+			}
 
 			// Fin
 			return;
 		},
-		agregaBloque: function (contenido) {
+		agregaBloqueLectura: function (contenido) {
 			// Crea el DOM contenedor
 			const domBloqueLectura = document.createElement("div");
 			domBloqueLectura.classList.add("bloque", "sector");
