@@ -6,18 +6,10 @@ window.addEventListener("load", async () => {
 		// Filtros
 		filtroEncabezado: document.querySelector("#filtros select[name='encabezado']"),
 
-		// Inputs del encabezado
-		sectorEncabezado: document.querySelector("#sectorEncabezado"),
-		encabezados: document.querySelectorAll("#sectorEncabezado .encabezado"),
-		encabIconos: document.querySelector("#sectorEncabezado .iconos"),
-
 		// Contenido actual
-		sectorContActual: document.querySelector("#sectorContActual"),
+		sectorContenido: document.querySelector("#sectorContActual"),
 		iconos: document.querySelector("#sectorContActual .iconos"),
 		iconosEliminar: document.querySelectorAll("#sectorContActual .iconos #iconoEliminar"),
-
-		// Contenido nuevo
-		sectorContNuevo: document.querySelector("#sectorContNuevo"),
 	};
 	const rutas = {
 		// Lectura
@@ -59,7 +51,7 @@ window.addEventListener("load", async () => {
 			domBloqueLectura.appendChild(domIconos);
 
 			// Agrega el DOM contenedor al DOM sector
-			DOM.sectorContActual.appendChild(domBloqueLectura);
+			DOM.sectorContenido.appendChild(domBloqueLectura);
 
 			// Fin
 			return;
@@ -158,16 +150,16 @@ window.addEventListener("load", async () => {
 		const ruta = rutas.obtieneContenidos + "encab_id=" + encabezado_id + "&campo_id=" + campo_id;
 
 		// Limpia el DOM
-		DOM.sectorContActual.innerHTML = "";
+		DOM.sectorContenido.innerHTML = "";
 
 		// Si corresponde, interrumpe la función
 		v.contenidos = v.encabezado_id != "nuevo" ? await fetch(ruta).then((n) => n && n.json()) : [];
 		if (!v.contenidos.length) {
-			DOM.sectorContActual.classList.add("ocultar");
+			DOM.sectorContenido.classList.add("ocultar");
 			return;
 		}
 		// Muestra el sector contenidos
-		else DOM.sectorContActual.classList.remove("ocultar");
+		else DOM.sectorContenido.classList.remove("ocultar");
 
 		// Actualiza el DOM
 		creaContenidoIconos.consolidado();
