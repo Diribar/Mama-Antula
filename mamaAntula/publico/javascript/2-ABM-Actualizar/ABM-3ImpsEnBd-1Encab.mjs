@@ -70,6 +70,7 @@ window.addEventListener("load", async () => {
 		// Fin
 		return;
 	});
+
 	// Impacto en BD (encabezado - original) - Elimina
 	DOM.eliminaEncabezado.addEventListener("click", async () => {
 		// Limpia el FE
@@ -79,14 +80,15 @@ window.addEventListener("load", async () => {
 		const datos = {entidad: cac.tipoEncab, id: DOM.filtroEncabezado.value};
 		await fetch(rutas.eliminaEncabezado, deleteJson(datos));
 
+		// Elimina la cookie
+		document.cookie = "actualizaEncabezado_id=";
+
 		// Se genera un change en el tema o pestaña, para que se reinicie el filtro del encabezado
 		DOM[!cac.pestanasTema.length ? "filtroTema" : "filtroPestana"].dispatchEvent(new Event("change"));
 
 		// Fin
 		return;
 	});
-	// Impacto en BD (encabezado - edición) - Guardar/Actualizar + Muestra el botón de eliminar el encabezado
-	// Impacto en BD (encabezado - edición) - Eliminar
 
 	// Fin
 	return;

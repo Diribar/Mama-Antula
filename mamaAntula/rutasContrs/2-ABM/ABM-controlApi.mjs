@@ -88,7 +88,10 @@ export default {
 	},
 	eliminaEncabezado: async (req, res) => {
 		// Variables
-		console.log(req.body);
+		const {entidad, id} = req.body;
+
+		// Elimina el original
+		await baseDatos.eliminaPorId(entidad, id);
 
 		// Fin
 		return res.json();
