@@ -48,6 +48,15 @@ window.addEventListener("load", async () => {
 			// Fin
 			return;
 		},
+		actualizaHref: () => {
+			// Obtiene los url
+			const urlSeccion = "/" + cac.secciones.find((n) => n.id == cac.seccion_id).url;
+			const urlTema = "/" + cac.temasSecciones.find((n) => n.id == cac.tema_id).url;
+			const urlPestana = (cac.pestana_id && "/" + cac.pestanasTemas.find((n) => n.id == cac.pestana_id).url) || "";
+
+			// Actualiza el DOM
+			DOM.filtros.anchorLectura.href = urlSeccion + urlTema + urlPestana + "/" + v.encabezado_id;
+		},
 	};
 
 	// Eventos de filtros
@@ -118,6 +127,22 @@ window.addEventListener("load", async () => {
 
 		// ENCABEZADO - Los obtiene y genera el evento 'change'
 		FN.actualizaFiltroEncabezado();
+	});
+	// Eventos del filtro de encabezado
+	DOM.encabezado.addEventListener("change", async () => {
+		// ENCABEZADO - Si es start-up, elige la opción de la cookie
+		if (cac.startUp && cookie("actualizaEncabezado_id")) DOM.encabezado.value = cookie("actualizaEncabezado_id");
+
+		// ENCABEZADO - Guarda la cookie
+		cac.encabezado_id = DOM.encabezado.value;
+		if (!cac.startUp) document.cookie = "actualizaEncabezado_id=" + cac.encabezado_id;
+		delete cac.startUp;
+
+		// Actualiza el anchor de flitros
+		FN.actualizaHref();
+
+		// Fin
+		return;
 	});
 
 	// Startup
