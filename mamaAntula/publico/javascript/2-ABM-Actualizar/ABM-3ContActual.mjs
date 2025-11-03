@@ -152,7 +152,7 @@ window.addEventListener("load", async () => {
 	// Lo actualiza por cambio en el encabezado
 	DOM.filtroEncabezado.addEventListener("change", async () => {
 		// Variables
-		const encabezado_id = DOM.encabezado.value;
+		const encabezado_id = DOM.filtroEncabezado.value;
 		const campo_id =
 			cac.tipoEncab == "encabCartas" ? "carta_id" : cac.tipoEncab == "encabExpers" ? "experiencia_id" : "sinIndice_id";
 		const ruta = rutas.obtieneContenidos + "encab_id=" + encabezado_id + "&campo_id=" + campo_id;
