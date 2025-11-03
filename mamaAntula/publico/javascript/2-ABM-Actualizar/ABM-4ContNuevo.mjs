@@ -4,7 +4,6 @@ window.addEventListener("load", async () => {
 	// Variables
 	const DOM = {
 		filtroEncabezado: document.querySelector("#filtros select[name='encabezado']"),
-		sectorContNuevo: document.querySelector("#sectorContNuevo"),
 
 		// Inputs
 		textoInput: document.querySelector("#texto #input"),
@@ -15,7 +14,6 @@ window.addEventListener("load", async () => {
 		textoOutput: document.querySelector("#texto #output"),
 		videoOutput: document.querySelector("#video #output"),
 	};
-	const domNuevo=DOM.sectorContNuevo.cloneNode(true);
 	const rutas = {
 		guardaContenido: "/contenido/api/abm-guarda-contenido",
 	};
