@@ -1,6 +1,8 @@
 "use strict";
+import procesos from "./ABM-procesos.mjs";
 
 export default {
+	// Obtiene información
 	datosIniciales: (req, res) => {
 		// Variables
 		const datosIniciales = {
@@ -15,35 +17,16 @@ export default {
 		// Variables
 		const {seccion_id, tema_id, pestana_id} = req.query;
 		const condicion = {[pestana_id ? "pestana_id" : "tema_id"]: pestana_id || tema_id};
+		const {usuario} = req.session;
 
-		// Obtiene la entidad
+		// Obtiene la entidad y los includes
 		const seccionActual = secciones.find((n) => n.id == seccion_id);
 		const temaActual = temasSecciones.find((n) => n.id == tema_id);
 		const {entidad, orden, includes} = comp.contenido.obtieneDatosDeTabla({seccionActual, temaActual});
+		const includesConEdics = [...includes, "ediciones"];
 
 		// Obtiene los encabezados
-		let encabezados =
-			entidad == "encabCartas"
-				? await baseDatos
-						.obtieneTodos(entidad, includes)
-						.then((n) => n.sort((a, b) => new Date(a[orden]) - new Date(b[orden])))
-				: entidad == "encabExpers"
-				? await baseDatos
-						.obtieneTodosPorCondicion(entidad, condicion, includes)
-						.then((n) => n.sort((a, b) => new Date(b[orden]) - new Date(a[orden])))
-				: await baseDatos.obtieneTodosPorCondicion(entidad, condicion).then((n) => n.sort((a, b) => a.orden - b.orden));
-
-		// Si la entidad es encabSinIndice y no existe un registro, lo crea
-		if (entidad == "encabSinIndice" && !encabezados.length) {
-			const creadoPor_id = req.session.usuario.id;
-			const statusRegistro_id = aprobado_id;
-			const datos = {...condicion, creadoPor_id, statusRegistro_id};
-			const encabezado = await baseDatos.agregaRegistroIdCorrel(entidad, datos);
-			encabezados = [encabezado];
-		}
-
-		// Les agrega el 'tituloCons'
-		encabezados = comp.contenido.titulo[entidad](encabezados);
+		const encabezados = await procesos.obtieneEncabs.consolidado({entidad, condicion, includesConEdics, orden, usuario});
 
 		// Fin
 		return res.json(encabezados);
@@ -59,5 +42,35 @@ export default {
 
 		// Fin
 		return res.json(contenidos);
+	},
+
+	// Cambios en BD -
+	guardaEncabezado: async (req, res) => {
+		// Variables
+		console.log(req.body);
+
+		// Fin
+		return res.json({id: 34});
+	},
+	eliminaEncabezado: async (req, res) => {
+		// Variables
+		console.log(req.body);
+
+		// Fin
+		return res.json();
+	},
+	guardaContenido: async (req, res) => {
+		// Variables
+		console.log(req.body);
+
+		// Fin
+		return res.json();
+	},
+	eliminaContenido: async (req, res) => {
+		// Variables
+		console.log(req.body);
+
+		// Fin
+		return res.json();
 	},
 };
