@@ -34,6 +34,20 @@ window.addEventListener("load", async () => {
 			v.formData.append(campo_id, encabezado_id);
 			return;
 		},
+		obtieneLosDatosDelVideo: () => {
+			// Obtiene el contenido del quill
+			const div = document.createElement("div");
+			div.innerHTML = DOM.videoOutput.value;
+
+			// Obtiene la info distintiva del video de youtube
+			const iframe = div.querySelector("iframe.ql-video");
+			const src = iframe?.getAttribute("src");
+			if (!src) return [];
+
+			// Obtiene la leyenda
+			const p = div.querySelector("p")?.innerText;
+			return [src, p];
+		},
 	};
 
 	// Guarda los cambios
@@ -54,7 +68,15 @@ window.addEventListener("load", async () => {
 
 			// Feedback si video
 			if (v.nombrePestanaActiva == "video") {
-				v.formData.append("video", DOM.videoOutput.value);
+				const [video,leyenda]=FN.obtieneLosDatosDelVideo();
+				console.log(video,leyenda);
+
+				v.formData.append("video", video);
+				v.formData.append("leyenda", leyenda);
+
+				return;
+
+				v.formData.append("video", src);
 			}
 
 			// Feedback si imagen (textoImagen o imagen)

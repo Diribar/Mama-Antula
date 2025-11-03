@@ -61,8 +61,6 @@ window.addEventListener("load", async () => {
 			return;
 		},
 		agregaBloqueEdicion: () => {
-			const domBloqueEdicion = sectorContNuevo.cloneNode(true);
-			// continuar
 		},
 		creaElContenido: {
 			consolidado: function (contenido) {
@@ -116,6 +114,24 @@ window.addEventListener("load", async () => {
 				return contenedor;
 			},
 			video: function (contenido) {
+				// Crea el contenedor
+				console.log(contenido.video);
+				const div = document.createElement("div");
+				div.innerHTML = contenido.video;
+				const iframe = div.querySelector("iframe.ql-video");
+
+				const contenedor = iframe.cloneNode(true);
+				contenedor.classList.add("contVideoLeyenda");
+
+
+				// Crea la leyenda
+				// const domLeyenda = this.leyenda(contenido);
+				// contenedor.appendChild(domLeyenda);
+
+				// Fin
+				return contenedor;
+			},
+			video2: function (contenido) {
 				// Crea el contenedor
 				const contenedor = document.createElement("div");
 				contenedor.classList.add("contVideoLeyenda");
