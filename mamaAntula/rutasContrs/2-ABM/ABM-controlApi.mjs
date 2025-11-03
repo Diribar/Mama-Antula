@@ -98,7 +98,7 @@ export default {
 	},
 	guardaContenido: async (req, res) => {
 		// Variables
-		console.log(req.body);
+		console.log(101, req.body);
 
 		// Fin
 		return res.json();
