@@ -38,7 +38,7 @@ export default {
 				regId != contador && // id sin registro creado
 				!(await bd[entidad].findByPk(contador).then((n) => !!n)) // se asegura de que no se haya creado durante la rutina
 			) {
-				nuevoRegistro = await bd[entidad].create({id: contador, ...datos}).then((n) => n.toJSON()); // lo crea
+				nuevoRegistro = await bd[entidad].create({id: contador, ...datos}); // lo crea
 				break;
 			} else contador++;
 		}
@@ -46,11 +46,11 @@ export default {
 		// Si no se guardó, lo guarda
 		if (!nuevoRegistro) {
 			datos.id = contador;
-			nuevoRegistro = await bd[entidad].create(datos).then((n) => n.toJSON()); // crea
+			nuevoRegistro = await bd[entidad].create(datos); // crea
 		}
 
 		// Fin
-		return nuevoRegistro;
+		return nuevoRegistro.toJSON();
 	},
 	agregaActualizaPorCondicion: async (entidad, condicion, datos) => {
 		// Averigua si existe un registro con esa condición

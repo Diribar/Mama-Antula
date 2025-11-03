@@ -63,17 +63,17 @@ window.addEventListener("load", async () => {
 			!cac.pestana_id ? formData.append("tema_id", cac.tema_id) : formData.append("pestana_id", cac.pestana_id);
 
 		// Guarda el encabezado en la BD
-		const nuevo_id = await fetch(rutas.guardaEncabezado, postForm(formData)).then((n) => n.json());
+		const respuesta = await fetch(rutas.guardaEncabezado, postForm(formData)).then((n) => n.json());
 
 		// Guarda el nuevo_id en la cookie y establece que se actualicen los filtros por las cookies
-		console.log(nuevo_id);
-		// if (nuevo_id.ok) {
-		// 	document.cookie = "actualizaEncabezado_id=" + nuevo_id.id;
-		// 	cac.startUp = true;
-		// }
+		console.log(respuesta.id);
+		if (respuesta.id) {
+			document.cookie = "actualizaEncabezado_id=" + respuesta.id;
+			cac.startUp = true;
+		}
 
 		// Se genera un change en el tema o pestaña, para que se reinicie el filtro del encabezado
-		// DOM[!cac.pestanasTema.length ? "filtroTema" : "filtroPestana"].dispatchEvent(new Event("change"));
+		DOM[!cac.pestanasTema.length ? "filtroTema" : "filtroPestana"].dispatchEvent(new Event("change"));
 
 		// Fin
 		return;
