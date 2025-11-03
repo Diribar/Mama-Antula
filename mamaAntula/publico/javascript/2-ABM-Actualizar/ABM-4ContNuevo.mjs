@@ -11,8 +11,8 @@ window.addEventListener("load", async () => {
 
 		// Ouputs
 		iconoGuardar: document.querySelector("#pestanasGuardar #iconoGuardar"),
-		textoOutput: document.querySelector("#texto #output"),
-		videoOutput: document.querySelector("#video #output"),
+		textoOutput: document.querySelector("#texto .output"),
+		videoOutput: document.querySelector("#video .output"),
 	};
 	const rutas = {
 		guardaContenido: "/contenido/api/abm-guarda-contenido",
