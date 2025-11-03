@@ -1,22 +1,19 @@
 "use strict";
-// Actualiza la pestaña activa
 
 window.addEventListener("load", async () => {
 	// Variables
-	const DOM = {
-		pestanas: document.querySelectorAll("#pestanasGuardar .pestana"),
-	};
+	domPestanas: document.querySelectorAll("#pestanasGuardar .pestana");
 
 	// Eventos
-	for (const pestana of DOM.pestanas)
+	for (const pestana of domPestanas)
 		pestana.addEventListener("click", () => {
 			document.cookie = "actualizaPestanaInput_id=" + pestana.id;
-			for (const p of DOM.pestanas) p.classList[p.id == pestana.id ? "add" : "remove"]("activo");
+			for (const p of domPestanas) p.classList[p.id == pestana.id ? "add" : "remove"]("activo");
 		});
 
 	// Start-up
 	const pestanaActiva = cookie("actualizaPestanaInput_id") || "textoImagen";
-	for (const pestana of DOM.pestanas) if (pestana.id == pestanaActiva) pestana.classList.add("activo");
+	for (const pestana of domPestanas) if (pestana.id == pestanaActiva) pestana.classList.add("activo");
 
 	// Fin
 	return;
