@@ -179,7 +179,7 @@ window.addEventListener("load", async () => {
 		return;
 	});
 
-		// Impacto en BD (contenido - nuevo) - Guardar/Actualizar
+	// Impacto en BD (contenido - nuevo) - Guardar/Actualizar
 	DOM.guardaNuevo.addEventListener("click", async () => {
 		// Arma el feedback del encabezado
 		const formData = new FormData();
@@ -193,8 +193,5 @@ window.addEventListener("load", async () => {
 	// Impacto en BD (contenido - actual) - Subir
 	// Impacto en BD (contenido - actual) - Bajar
 	// Impacto en BD (contenido - actual) - Eliminar
-	DOM.iconosEliminar.forEach((iconoEliminar, i) => {
-
-	})
-
+	DOM.iconosEliminar.forEach((iconoEliminar, i) => {});
 });
