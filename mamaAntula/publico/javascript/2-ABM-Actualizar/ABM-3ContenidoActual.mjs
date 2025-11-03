@@ -37,7 +37,7 @@ window.addEventListener("load", async () => {
 			// Actualiza el DOM
 			DOM.encabezado = document.querySelector("#sectorEncabezado .encabezado:not(.ocultar)");
 			DOM.inputs = DOM.encabezado.querySelectorAll(".input");
-			const encabezado = cac.encabezados.find((n) => n.id == v.encabezado_id);
+			const encabezado = cac.encabezados.find((n) => n.id == cac.encabezado_id);
 			for (const input of DOM.inputs) {
 				// Agrega las opciones
 				const {tabla} = input.dataset;
@@ -49,7 +49,7 @@ window.addEventListener("load", async () => {
 			}
 
 			// Actualiza los íconos
-			DOM.encabIconos.querySelector("#eliminar").classList[v.encabezado_id == "nuevo" ? "add" : "remove"]("ocultar");
+			DOM.encabIconos.querySelector("#eliminar").classList[cac.encabezado_id == "nuevo" ? "add" : "remove"]("ocultar");
 
 			// Fin
 			return;
@@ -58,13 +58,13 @@ window.addEventListener("load", async () => {
 			// Variables
 			const campo_id =
 				cac.tipoEncab == "encabCartas" ? "carta_id" : cac.tipoEncab == "encabExpers" ? "experiencia_id" : "sinIndice_id";
-			const ruta = rutas.obtieneContenidos + "encab_id=" + v.encabezado_id + "&campo_id=" + campo_id;
+			const ruta = rutas.obtieneContenidos + "encab_id=" + cac.encabezado_id + "&campo_id=" + campo_id;
 
 			// Limpia el DOM
 			DOM.sectorContActual.innerHTML = "";
 
 			// Si corresponde, interrumpe la función
-			v.contenidos = v.encabezado_id != "nuevo" ? await fetch(ruta).then((n) => n && n.json()) : [];
+			v.contenidos = cac.encabezado_id != "nuevo" ? await fetch(ruta).then((n) => n && n.json()) : [];
 			if (!v.contenidos.length) {
 				DOM.sectorContActual.classList.add("ocultar");
 				return;
@@ -77,15 +77,6 @@ window.addEventListener("load", async () => {
 
 			// Fin
 			return;
-		},
-		actualizaHref: () => {
-			// Obtiene los url
-			const urlSeccion = "/" + cac.secciones.find((n) => n.id == cac.seccion_id).url;
-			const urlTema = "/" + cac.temasSecciones.find((n) => n.id == cac.tema_id).url;
-			const urlPestana = (cac.pestana_id && "/" + cac.pestanasTemas.find((n) => n.id == cac.pestana_id).url) || "";
-
-			// Actualiza el DOM
-			DOM.filtros.anchorLectura.href = urlSeccion + urlTema + urlPestana + "/" + v.encabezado_id;
 		},
 
 		// Auxiliares
@@ -212,17 +203,6 @@ window.addEventListener("load", async () => {
 
 	// Eventos del filtro de encabezado
 	DOM.filtros.encabezado.addEventListener("change", async () => {
-		// ENCABEZADO - Si es start-up, elige la opción de la cookie
-		if (cac.startUp && cookie("actualizaEncabezado_id")) DOM.filtros.encabezado.value = cookie("actualizaEncabezado_id");
-
-		// ENCABEZADO - Guarda la cookie
-		v.encabezado_id = DOM.filtros.encabezado.value;
-		if (!cac.startUp) document.cookie = "actualizaEncabezado_id=" + v.encabezado_id;
-		delete cac.startUp;
-
-		// Actualiza el anchor de flitros
-		FN.actualizaHref();
-
 		// Muestra el encabezado que corresponde, y oculta los demás
 		for (const encabezado of DOM.encabezados)
 			encabezado.classList[encabezado.id == cac.tipoEncab ? "remove" : "add"]("ocultar");
