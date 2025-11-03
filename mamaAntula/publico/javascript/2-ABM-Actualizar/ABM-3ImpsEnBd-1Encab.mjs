@@ -88,7 +88,6 @@ window.addEventListener("load", async () => {
 		// Fin
 		return;
 	});
-	// Impacto en BD (encabezado - edición) - Eliminar
 
 	// Fin
 	return;
