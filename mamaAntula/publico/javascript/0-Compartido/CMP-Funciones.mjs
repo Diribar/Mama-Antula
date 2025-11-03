@@ -27,3 +27,4 @@ const cookie = (metodo) => {
 	// Fin
 	return respuesta[metodo];
 };
+const inicialMayus = (texto) => texto.slice(0, 1).toUpperCase() + texto.slice(1);

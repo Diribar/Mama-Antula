@@ -54,11 +54,8 @@ export default {
 				delete encabezado.ediciones;
 
 				// Funde el original con su edición
-				if (edicion) {
-					for (const campo in edicion) if (!edicion[campo]) delete edicion[campo];
-					delete edicion.id;
-					encabezado = {...encabezado, ...edicion};
-				}
+				if (edicion)
+					for (const campo in encabezado) if (edicion[campo] && campo != "id") encabezado[campo] = edicion[campo];
 			}
 
 			// Fin
