@@ -41,6 +41,13 @@ window.addEventListener("load", async () => {
 			// Fin
 			return;
 		});
+		encabezadoInput.addEventListener("change", () => {
+			if (["titulo", "subTitulo"].includes(encabezadoInput.name))
+				encabezadoInput.value = inicialMayus(encabezadoInput.value);
+
+			// Fin
+			return;
+		});
 	}
 
 	// Impacto en BD (encabezado - nuevo) - Guarda/Actualiza

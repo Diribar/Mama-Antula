@@ -15,14 +15,12 @@ export default {
 	},
 	obtieneEncabs: async (req, res) => {
 		// Variables
-		const {seccion_id, tema_id, pestana_id} = req.query;
+		const {tema_id, pestana_id} = req.query;
 		const condicion = {[pestana_id ? "pestana_id" : "tema_id"]: pestana_id || tema_id};
 		const {usuario} = req.session;
 
 		// Obtiene la entidad y los includes
-		const seccionActual = secciones.find((n) => n.id == seccion_id);
-		const temaActual = temasSecciones.find((n) => n.id == tema_id);
-		const {entidad, orden, includes} = comp.contenido.obtieneDatosDeTabla({seccionActual, temaActual});
+		const {entidad, orden, includes} = comp.contenido.obtieneDatosDeTabla(condicion);
 		const includesConEdics = [...includes, "ediciones"];
 
 		// Obtiene los encabezados
@@ -47,10 +45,38 @@ export default {
 	// Cambios en BD -
 	guardaEncabezado: async (req, res) => {
 		// Variables
-		console.log(req.body);
+		const {entidad, id, tema_id, pestana_id} = req.body;
+
+		// Obtiene el original
+		const original = await baseDatos.obtienePorId(entidad, id);
+
+		// Si no es propio y no está en status aprobado, interrumpe la funcion
+		console.log(56, original.creadoPor_id != req.session.usuario.id, original.statusRegistro_id != aprobado_id);
+
+		if (original.creadoPor_id != req.session.usuario.id && original.statusRegistro_id != aprobado_id)
+			return res.json({mensaje: "No tenés permiso para editar este encabezado", hay: true});
+
+		// Si está en status creado y por este usuario, actualiza el original
+		console.log(60, original.statusRegistro_id == creado_id, original.creadoPor_id == req.session.usuario.id);
+
+		if (original.statusRegistro_id == creado_id && original.creadoPor_id == req.session.usuario.id) {
+			await baseDatos.actualizaPorId(entidad, id, req.body);
+			return res.json({hay: false});
+		}
+
+		// Si está en status aprobado, crea o actualiza la edicion
+		// Obtiene la edicion del usuario
+		const condicion = {editadoPor_id: req.session.usuario.id};
+		const {campo_id} = comp.contenido.obtieneDatosDeTabla({tema_id, pestana_id});
+		condicion[campo_id] = id;
+		const edicion = await baseDatos.obtienePorCondicion("edicionesEncab", condicion);
+
+		// Averigua si hay novedades con el original
+		// En caso que si, si hay una edición la actualiza, si no la crea
+		// En caso que no, si hay una edición la elimina
 
 		// Fin
-		return res.json({id: 34});
+		return res.json({hay: false});
 	},
 	eliminaEncabezado: async (req, res) => {
 		// Variables

@@ -1,4 +1,5 @@
 "use strict";
+// Actualiza la pestaña activa
 
 window.addEventListener("load", async () => {
 	// Variables

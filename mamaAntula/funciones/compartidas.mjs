@@ -118,7 +118,12 @@ export default {
 		descarga: (ruta, nombreArch, reqFile) => fs.promises.writeFile(path.join(ruta, nombreArch), reqFile.buffer), // descarga el archivo puesto en memoria por multer
 	},
 	contenido: {
-		obtieneDatosDeTabla: ({seccionActual, temaActual}) => {
+		obtieneDatosDeTabla: ({tema_id, pestana_id}) => {
+			// Variables
+			if (!tema_id) tema_id = pestanasTemas.find((n) => n.id == pestana_id).tema_id;
+			const temaActual = temasSecciones.find((n) => n.id == tema_id);
+			const seccionActual = secciones.find((n) => n.id == temaActual.seccion_id);
+
 			// Obtiene los datos
 			const [entidad, campo_id, orden, includes] = false
 				? false
