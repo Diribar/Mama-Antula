@@ -33,11 +33,11 @@ window.addEventListener("load", async () => {
 			this.actualizaLaVisibilidadDelSector();
 			if (DOM.sectorEncabezado.classList.contains("ocultar")) return;
 
-			// Si el encabezado está visible, actualiza sus valores
-			this.actualizaSusValores();
-
 			// Muestra el encabezado que corresponde
 			this.muestraElEncabezadoQueCorresponde();
+
+			// Si el encabezado está visible, actualiza sus valores
+			this.actualizaSusValores();
 
 			// Fin
 			return;
@@ -48,6 +48,14 @@ window.addEventListener("load", async () => {
 			// Si es 'encabSinIndice' y viene de un tema, lo oculta porque sus campos no poseen ningún valor
 			if (cac.tipoEncab == "encabSinIndice" && !DOM.pestana.value) DOM.sectorEncabezado.classList.add("ocultar");
 			else DOM.sectorEncabezado.classList.remove("ocultar");
+
+			// Fin
+			return;
+		},
+		muestraElEncabezadoQueCorresponde: () => {
+			// Muestra el encabezado que corresponde, y oculta los demás
+			for (const encabezado of DOM.encabezados)
+				encabezado.classList[encabezado.id == cac.tipoEncab ? "remove" : "add"]("ocultar");
 
 			// Fin
 			return;
@@ -68,14 +76,6 @@ window.addEventListener("load", async () => {
 				const campo = input.name;
 				input.value = (encabezado && encabezado[campo]) || "";
 			}
-
-			// Fin
-			return;
-		},
-		muestraElEncabezadoQueCorresponde: () => {
-			// Muestra el encabezado que corresponde, y oculta los demás
-			for (const encabezado of DOM.encabezados)
-				encabezado.classList[encabezado.id == cac.tipoEncab ? "remove" : "add"]("ocultar");
 
 			// Fin
 			return;
@@ -120,7 +120,7 @@ window.addEventListener("load", async () => {
 	}
 
 	// Guarda/Actualiza en la BD
-	DOM.guardaEncabezado.addEventListener("click", async () => {
+	DOM.iconoGuardar.addEventListener("click", async () => {
 		// Arma el feedback
 		const formVisible = document.querySelector("#sectorEncabezado form:not(.ocultar)"); // elige el unico formulario visible
 		console.log(formVisible);
@@ -149,7 +149,7 @@ window.addEventListener("load", async () => {
 	});
 
 	// Elimina en la BD
-	DOM.eliminaEncabezado.addEventListener("click", async () => {
+	DOM.iconoEliminar.addEventListener("click", async () => {
 		// Limpia el FE
 		for (const input of DOM.encabezadoInputs) input.value = "";
 
