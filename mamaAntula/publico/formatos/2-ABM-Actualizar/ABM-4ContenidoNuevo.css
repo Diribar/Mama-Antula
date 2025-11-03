@@ -33,10 +33,14 @@
 		}
 		#texto {
 			flex-grow: 1;
-			#barraHerrams {align-self: flex-start; border-radius: 10px 10px 0 0;}
-			#input {border-top: 1px solid #ccc; border-radius: 15px; border-top-left-radius: 0; font-size: 1rem;}
+			.barraHerrams {border-radius: 10px 10px 0 0;}
+			.input {border-top: 1px solid #ccc; border-radius: 15px; border-top-left-radius: 0; font-size: 1rem;}
 		}
 		#imagen, #carrousel {border: 1px solid grey;}
 		#imagen {max-width: 33%;}
+		#video {
+			.barraHerrams {display: flex; flex-direction: row; justify-content: center;}
+			.input:not(:has(iframe)) {height: 0px;}
+		}
 	}
 }

@@ -2,11 +2,11 @@
 
 window.addEventListener("load", async () => {
 	// Variables
-	const domTexto= document.querySelector("#layouts #texto");
+	const domLayout = document.querySelector("#layouts #texto");
 	const DOM = {
-		barraHerrams: domTexto.querySelector("#barraHerrams"),
-		input: domTexto.querySelector("#input"),
-		output: domTexto.querySelector("#output"),
+		barraHerrams: domLayout.querySelector(".barraHerrams"),
+		input: domLayout.querySelector(".input"),
+		output: domLayout.querySelector(".output"),
 	};
 	const v = {
 		barraHerrams: {
@@ -50,8 +50,8 @@ window.addEventListener("load", async () => {
 	}
 
 	// Funciones - Inicializamos Quill
-	const input = "#" + DOM.input.id; // el tag donde se pega el texto con formato
-	const toolbar = "#" + DOM.barraHerrams.id; // el tag que contiene los botones
+	const input = DOM.input; // el tag donde se pega el texto con formato
+	const toolbar = DOM.barraHerrams; // el tag que contiene los botones
 	const formats = [...new Set(nombreEtiquetas)]; // los botones
 	const placeholder = "Escribí acá tu contenido...";
 	const quill = new Quill(input, {modules: {toolbar}, formats, placeholder, theme: "snow"});

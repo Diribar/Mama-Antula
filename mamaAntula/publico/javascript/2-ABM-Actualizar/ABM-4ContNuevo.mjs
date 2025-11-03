@@ -6,8 +6,8 @@ window.addEventListener("load", async () => {
 		filtroEncabezado: document.querySelector("#filtros select[name='encabezado']"),
 
 		// Inputs
-		textoInput: document.querySelector("#texto #input"),
-		videoInput: document.querySelector("#video #input"),
+		textoInput: document.querySelector("#texto .input"),
+		videoInput: document.querySelector("#video .input"),
 
 		// Ouputs
 		iconoGuardar: document.querySelector("#pestanasGuardar #iconoGuardar"),
