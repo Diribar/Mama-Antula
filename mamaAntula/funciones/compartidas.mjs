@@ -238,9 +238,9 @@ const FN = {
 	fechaDiaMesAno: (fecha) => {
 		// Variables
 		fecha = new Date(fecha);
-		const dia = fecha.getDate();
-		const mes = meses[fecha.getMonth()];
-		const año = fecha.getFullYear().toString().slice(-2);
+		const dia = fecha.getUTCDate();
+		const mes = meses[fecha.getUTCMonth()];
+		const año = fecha.getUTCFullYear().toString().slice(-2);
 
 		// Fin
 		return dia + "/" + mes + "/" + año;

@@ -29,6 +29,7 @@ window.addEventListener("load", async () => {
 			// Obtiene los encabezados
 			const datos = "seccion_id=" + cac.seccion_id + "&tema_id=" + cac.tema_id + "&pestana_id=" + cac.pestana_id;
 			cac.encabezados = await fetch(rutas.obtieneEncabs + datos).then((n) => n && n.json());
+			console.log(cac.encabezados);
 
 			// Crea las opciones
 			agregaOpciones(cac.encabezados, DOM.encabezado, "tituloCons");
