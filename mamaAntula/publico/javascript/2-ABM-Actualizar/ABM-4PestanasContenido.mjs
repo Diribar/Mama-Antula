@@ -2,7 +2,7 @@
 
 window.addEventListener("load", async () => {
 	// Variables
-	domPestanas: document.querySelectorAll("#pestanasGuardar .pestana");
+	const domPestanas = document.querySelectorAll("#pestanasGuardar .pestana");
 
 	// Eventos
 	for (const pestana of domPestanas)
