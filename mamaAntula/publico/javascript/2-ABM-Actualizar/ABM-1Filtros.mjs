@@ -8,6 +8,7 @@ window.addEventListener("load", async () => {
 		tema: document.querySelector("#filtros select[name='tema_id']"),
 		pestana: document.querySelector("#filtros select[name='pestana_id']"),
 		encabezado: document.querySelector("#filtros select[name='encabezado']"),
+		anchorLectura: document.querySelector("a#linkLectura"),
 	};
 	const rutas = {
 		datosIniciales: "/contenido/api/abm-datos-inciales",
@@ -56,7 +57,7 @@ window.addEventListener("load", async () => {
 			const urlPestana = (cac.pestana_id && "/" + cac.pestanasTemas.find((n) => n.id == cac.pestana_id).url) || "";
 
 			// Actualiza el DOM
-			DOM.filtros.anchorLectura.href = urlSeccion + urlTema + urlPestana + "/" + v.encabezado_id;
+			DOM.anchorLectura.href = urlSeccion + urlTema + urlPestana + "/" + v.encabezado_id;
 
 			// Fin
 			return;
