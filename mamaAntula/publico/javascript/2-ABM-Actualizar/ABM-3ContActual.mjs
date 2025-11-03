@@ -179,16 +179,6 @@ window.addEventListener("load", async () => {
 		return;
 	});
 
-	// Impacto en BD (contenido - nuevo) - Guardar/Actualizar
-	DOM.guardaNuevo.addEventListener("click", async () => {
-		// Arma el feedback del encabezado
-		const formData = new FormData();
-		formData.append("encabezado_id", DOM.filtroEncabezado.value);
-		formData.append("tipoEncab", cac.tipoEncab);
-
-		// Completa el feedback en función de la pestanaGuardar
-	});
-
 	// Impacto en BD (contenido - actual) - Editar
 	// Impacto en BD (contenido - actual) - Subir
 	// Impacto en BD (contenido - actual) - Bajar
