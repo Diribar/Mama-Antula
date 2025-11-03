@@ -70,6 +70,7 @@ window.addEventListener("load", async () => {
 		// Fin
 		return;
 	});
+
 	// Impacto en BD (encabezado - original) - Elimina
 	DOM.eliminaEncabezado.addEventListener("click", async () => {
 		// Limpia el FE
