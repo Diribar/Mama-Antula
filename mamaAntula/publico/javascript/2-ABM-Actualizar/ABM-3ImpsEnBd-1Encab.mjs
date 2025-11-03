@@ -77,7 +77,6 @@ window.addEventListener("load", async () => {
 
 		// Elimina de la BD, el encabezado y sus contenidos
 		const datos = {entidad: cac.tipoEncab, id: DOM.filtroEncabezado.value};
-		console.log(datos);
 		await fetch(rutas.eliminaEncabezado, deleteJson(datos));
 
 		// Elimina la cookie
