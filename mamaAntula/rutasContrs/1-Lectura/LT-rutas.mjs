@@ -14,6 +14,7 @@ const router = express.Router();
 // 🖥️ Vistas
 router.get("/", vista.landingPage);
 router.get("/:urlSeccion", validaRuta, vista.redirige);// la middleware redirige
+router.get("/cartas-y-escritos/cartas", vista.cartas);
 router.get("/:urlSeccion/:urlTema", validaRuta, vista.temas);
 router.get("/:urlSeccion/:urlTema/:urlPestana", validaRuta, vista.pestanas);
 
