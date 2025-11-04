@@ -39,11 +39,9 @@ export default {
 		const include = ["nombreDesde", "nombreHacia", "lugar", "idioma"];
 		const encabCarta = await baseDatos.obtienePorCondicion("encabCartas", {numero: carta}, include);
 		const contCarta = await baseDatos.obtienePorCondicion("contenidos", {carta_id: encabCarta.id});
-		console.log(42,encabCarta);
-
 
 		// Genera el título de la carta
-		const tituloCarta =comp.contenido.tituloCons.encabCarta(encabCarta);
+		const tituloCarta = comp.contenido.tituloCons.encabCarta(encabCarta);
 
 		// Variables para la vista
 		const archVista = "1Cartas";

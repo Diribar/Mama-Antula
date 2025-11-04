@@ -35,5 +35,5 @@ export default {
 	rutasUsuario: {altaOlvido: "/alta-u-olvido-de-contrasena", edicion: "/edicion", cambioRoles: "/cambio-de-roles"},
 	tamMaxArch: 1024 * 1024, // 1Mb
 	Mb1: 1024 * 1024,
-	meses: ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"],
+	mesesAbrev: ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"],
 };

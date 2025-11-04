@@ -10,6 +10,7 @@ export default {
 		// En uso
 		anoMesDia: (fecha) => new Date(fecha).toISOString().slice(0, 10),
 		ahora: () => new Date(new Date().toUTCString()), // <-- para convertir en horario 'UTC'
+		diaMesAnoUTC: (fecha) => FN.diaMesAnoUTC(fecha),
 	},
 	validacs: {
 		castellano: {
@@ -145,7 +146,7 @@ export default {
 			},
 			encabExpers: (encabs) => {
 				for (const encab of encabs)
-					encab.tituloCons = FN.fechaDiaMesAno(encab.fechaEvento) + " - " + encab.titulo + " - " + encab.lugar.nombre;
+					encab.tituloCons = FN.diaMesAnoUTC(encab.fechaEvento) + " - " + encab.titulo + " - " + encab.lugar.nombre;
 
 				// Fin
 				return encabs;
@@ -155,14 +156,17 @@ export default {
 				const tituloCons =
 					"Carta " +
 					encab.numero +
-					" - De " +
+					" - " +
+					(encab.nombreDesde.nombre.startsWith("P.") ? "Del" : "De") +
+					" " +
 					encab.nombreDesde.nombre +
-					" a " +
+					" para " +
+					(encab.nombreHacia.nombre.startsWith("P.") ? "el " : "") +
 					encab.nombreHacia.nombre +
 					" - " +
 					encab.lugar.nombre +
 					" - " +
-					FN.fechaDiaMesAno(encab.fechaEvento);
+					FN.diaMesAnoUTC(encab.fechaEvento);
 
 				// Fin
 				return tituloCons;
@@ -240,12 +244,12 @@ const FN = {
 		// Fin
 		return;
 	},
-	fechaDiaMesAno: (fecha) => {
+	diaMesAnoUTC: (fecha) => {
 		// Variables
 		fecha = new Date(fecha);
 		const dia = fecha.getUTCDate();
-		const mes = meses[fecha.getUTCMonth()];
-		const año = fecha.getUTCFullYear().toString().slice(-2);
+		const mes = mesesAbrev[fecha.getUTCMonth()];
+		const año = fecha.getUTCFullYear().toString();
 
 		// Fin
 		return dia + "/" + mes + "/" + año;

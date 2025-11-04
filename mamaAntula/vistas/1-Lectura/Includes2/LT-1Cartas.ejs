@@ -1,23 +1,42 @@
-<section id="cartas" class="flexRow">
-	<div id="filtroIndice">
-		<div id="filtros">
-			<div class="titulo">Filtros</div>
-			<div id="camposFiltro"></div>
-		</div>
-		<div id="indice">
-			<div class="titulo">Inicio</div>
-			<div class="titulo">Introducción</div>
-			<div class="titulo">1778</div>
-			<div class="titulo">1780-1784</div>
-			<div class="titulo">1800-1816</div>
+<div id="filtroIndice">
+	<div id="filtros" class="contenedor">
+		<div class="titulo">
+			<i class="fa-solid fa-caret-right mostrar"></i>
+			Filtros
 		</div>
 	</div>
-	<div id="carta">
-		<div id="cartaTitulo"><%= tituloCarta %></div>
-		<div id="cartaContenido"><%- contCarta.texto %></div>
+	<div id="indice" class="contenedor">
+		<div class="titulo">Inicio</div>
+		<div class="titulo">Introducción</div>
+		<div class="titulo">1778</div>
+		<div class="titulo">
+			<i class="fa-solid fa-caret-right mostrar"></i>
+			1780-1784
+		</div>
+		<div class="titulo">
+			<i class="fa-solid fa-caret-right mostrar"></i>
+			1800-1816
+		</div>
 	</div>
-	<div id="imagen">
-		<img id="imagenCarta" src="/imgsEditables/1-Contenido/<%= encabCarta.imagen %>">
-		<div id="leyendaImagen"><%= encabCarta.leyenda %></div>
+	<div id="fichaTecnica">
+		<h3>Ficha técnica:</h3>
+		<ul type="disc">
+			<li>Fecha: <%= comp.fechaHora.diaMesAnoUTC(encabCarta.fechaEvento) %></li>
+			<li>Desde: <%= encabCarta.lugar.nombre %></li>
+			<li>De: <%= encabCarta.nombreDesde.nombre %></li>
+			<li>Para: <%= encabCarta.nombreHacia.nombre %></li>
+			<li>Idioma: <%= encabCarta.idioma.nombre %></li>
+		</ul>
 	</div>
-</section>
+</div>
+
+<div id="carta">
+	<h2 id="cartaTitulo" class="fondo"><%= tituloCarta %></h2>
+	<div id="contImagen">
+		<div id="imgLeyenda">
+			<img id="imagenCarta" src="/imgsEditables/1-Contenido/<%= encabCarta.imagen %>">
+			<div id="leyendaImagen" class="fondo"><%= encabCarta.leyenda %></div>
+		</div>
+		<div id="cartaContenido" class="fondo"><%- contCarta.texto %></div>
+	</div>
+</div>
