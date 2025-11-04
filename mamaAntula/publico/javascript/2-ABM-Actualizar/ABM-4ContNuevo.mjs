@@ -47,27 +47,26 @@ window.addEventListener("load", async () => {
 		v.nombrePestanaActiva = document.querySelector("#pestanasGuardar .pestana.activo")?.id;
 
 		// Feedback si carrousel
-		if (v.nombrePestanaActiva == "carrousel") {
-		} else {
-			// Crea el form
-			FN.creaElForm();
+		if (v.nombrePestanaActiva == "carrousel") return;
 
-			// Feedback si texto (textoImagen o texto)
-			if (["textoImagen", "texto"].includes(v.nombrePestanaActiva)) {
-				v.formData.append("texto", DOM.textoOutput.value);
-			}
+		// Crea el form
+		FN.creaElForm();
 
-			// Feedback si video
-			if (v.nombrePestanaActiva == "video") {
-				v.formData.append("video", DOM.outputVideoId.value);
-				v.formData.append("leyenda", DOM.muestraLeyendaVideo.innerText);
-			}
-
-			// Feedback si imagen (textoImagen o imagen)
+		// Feedback si texto (textoImagen o texto)
+		if (["textoImagen", "texto"].includes(v.nombrePestanaActiva)) {
+			v.formData.append("texto", DOM.textoOutput.value);
 		}
 
+		// Feedback si video
+		if (v.nombrePestanaActiva == "video") {
+			v.formData.append("video", DOM.outputVideoId.value);
+			v.formData.append("leyenda", DOM.muestraLeyendaVideo.innerText);
+		}
+
+		// Feedback si imagen (textoImagen o imagen)
+
 		// Guarda el contenido en la BD
-		const respuesta = await fetch(rutas.guardaContenido, postForm(v.formData)).then((n) => n.json());
+		await fetch(rutas.guardaContenido, postForm(v.formData)).then((n) => n.json());
 
 		// Actualiza
 		DOM.filtroEncabezado.dispatchEvent(new Event("change"));

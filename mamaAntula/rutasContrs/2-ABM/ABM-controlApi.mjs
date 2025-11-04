@@ -125,7 +125,7 @@ export default {
 		}
 
 		// Fin
-		return res.json(req.body);
+		return res.json({});
 	},
 	eliminaContenido: async (req, res) => {
 		// Variables
