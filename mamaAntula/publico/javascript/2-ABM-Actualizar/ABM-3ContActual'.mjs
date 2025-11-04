@@ -6,10 +6,18 @@ window.addEventListener("load", async () => {
 		// Filtros
 		filtroEncabezado: document.querySelector("#filtros select[name='encabezado']"),
 
+		// Inputs del encabezado
+		sectorEncabezado: document.querySelector("#sectorEncabezado"),
+		encabezados: document.querySelectorAll("#sectorEncabezado .encabezado"),
+		encabIconos: document.querySelector("#sectorEncabezado .iconos"),
+
 		// Contenido actual
-		sectorContenido: document.querySelector("#sectorContActual"),
+		sectorContActual: document.querySelector("#sectorContActual"),
 		iconos: document.querySelector("#sectorContActual .iconos"),
 		iconosEliminar: document.querySelectorAll("#sectorContActual .iconos #iconoEliminar"),
+
+		// Contenido nuevo
+		sectorContNuevo: document.querySelector("#sectorContNuevo"),
 	};
 	const rutas = {
 		// Lectura
@@ -22,8 +30,8 @@ window.addEventListener("load", async () => {
 	const v = {};
 
 	// Funciones
-	const creaContenidoIconos = {
-		consolidado: function () {
+	const FN = {
+		creaContenedorContenidoIconos: function () {
 			// Variables
 			v.inicial_id = v.contenidos[0]?.id;
 			v.final_id = v.contenidos.at(-1)?.id;
@@ -54,7 +62,7 @@ window.addEventListener("load", async () => {
 			domBloqueLectura.appendChild(domIconos);
 
 			// Agrega el DOM contenedor al DOM sector
-			DOM.sectorContenido.appendChild(domBloqueLectura);
+			DOM.sectorContActual.appendChild(domBloqueLectura);
 
 			// Fin
 			return;
@@ -147,25 +155,25 @@ window.addEventListener("load", async () => {
 	// Lo actualiza por cambio en el encabezado
 	DOM.filtroEncabezado.addEventListener("change", async () => {
 		// Variables
-		const encabezado_id = DOM.filtroEncabezado.value;
+		const encabezado_id = DOM.encabezado.value;
 		const campo_id =
 			cac.tipoEncab == "encabCartas" ? "carta_id" : cac.tipoEncab == "encabExpers" ? "experiencia_id" : "sinIndice_id";
 		const ruta = rutas.obtieneContenidos + "encab_id=" + encabezado_id + "&campo_id=" + campo_id;
 
 		// Limpia el DOM
-		DOM.sectorContenido.innerHTML = "";
+		DOM.sectorContActual.innerHTML = "";
 
 		// Si corresponde, interrumpe la función
 		v.contenidos = v.encabezado_id != "nuevo" ? await fetch(ruta).then((n) => n && n.json()) : [];
 		if (!v.contenidos.length) {
-			DOM.sectorContenido.classList.add("ocultar");
+			DOM.sectorContActual.classList.add("ocultar");
 			return;
 		}
 		// Muestra el sector contenidos
-		else DOM.sectorContenido.classList.remove("ocultar");
+		else DOM.sectorContActual.classList.remove("ocultar");
 
 		// Actualiza el DOM
-		creaContenidoIconos.consolidado();
+		FN.creaContenedorContenidoIconos();
 
 		// Fin
 		return;
