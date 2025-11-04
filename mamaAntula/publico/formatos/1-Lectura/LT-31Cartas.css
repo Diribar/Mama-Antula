@@ -1,4 +1,4 @@
-#contenidoEstatico {
+#cuerpo {
 	display: flex; flex-direction: row;
 	height: calc(100% - 68.2px); /* 68.2px es el alto del tema */
 	width: 1440px;
