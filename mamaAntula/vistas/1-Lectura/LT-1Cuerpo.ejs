@@ -4,23 +4,17 @@
 	<h1 id="tituloTema"><%= temaActual.titulo %></h1>
 </section>
 
-<section id="contenidoTemas">
-	<!-- Tema -->
-	<div class="contenidoTema contenido" data-tema_codigo="<%= temaActual.codigo %>">
-		<!-- Sin pestañas -->
-		<% if (!locals.pestanasTema) { %>
+<section id="contenidoEstatico">
+	<!-- Sin pestañas -->
+	<% if (!locals.pestanasTema) { %>
+		<%- include("LT-" + archVista) %>
+	<% } else { %>
+		<!-- Pestañas -->
+		<%- include("LT-2Pestanas") %>
+
+		<!-- Contenido -->
+		<% pestanasTema.forEach((pestana, i) => { %>
 			<%- include("LT-" + archVista) %>
-
-		<% } else { %>
-			<!-- Tiene pestañas - Pestañas -->
-			<%- include("LT-2Pestanas") %>
-
-			<!-- Tiene pestañas - Contenido -->
-			<% pestanasTema.forEach((pestana, i) => { %>
-				<div class="contenidoPestana contenido <% if (pestanaActual && pestana.id != pestanaActual.id) { %>ocultar<% } %>" data-pestana_codigo="<%= pestana.codigo %>">
-					<%- include("LT-" + archVista) %>
-				</div>
-			<% }) %>
-		<% } %>
-	</div>
+		<% }) %>
+	<% } %>
 </section>

@@ -41,7 +41,7 @@ export default {
 		const {encabezados, contenidos} = await procesos.contenido({seccionActual, temaActual});
 
 		// Variables para la vista
-		const {archVista}=procesos.varsVista({seccionActual, temaActual})
+		const {archVista} = procesos.varsVista({seccionActual, temaActual});
 
 		// Fin
 		return res.render("CMP-0Estructura", {
@@ -71,16 +71,14 @@ export default {
 		const {encabezados, contenidos} = await procesos.contenido({seccionActual, temaActual, pestanaActual});
 
 		// Variables para la vista
-		const esExperiencias = seccionActual.codigo == "experiencias";
-		const indice = procesos.indice(encabezados);
-		if (esExperiencias) return res.send(indice);
+		const {archVista} = procesos.varsVista({seccionActual, temaActual});
 
 		// Fin
 		return res.render("CMP-0Estructura", {
 			...{tituloPagina, temaVista},
 			...{temasSeccion, pestanasTema},
-			...{seccionActual, temaActual, pestanaActual, esExperiencias},
-			...{encabezados, contenidos},
+			...{seccionActual, temaActual, pestanaActual},
+			...{encabezados, contenidos, archVista},
 		});
 	},
 };
