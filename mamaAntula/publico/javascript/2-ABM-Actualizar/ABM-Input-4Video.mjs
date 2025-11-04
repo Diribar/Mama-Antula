@@ -53,11 +53,7 @@ window.addEventListener("load", async () => {
 		// Fin
 		return;
 	});
-	DOM.inputLeyenda.addEventListener("input", () => (DOM.muestraLeyenda.innerText = DOM.inputLeyenda.value));
-	DOM.inputLeyenda.addEventListener("change", () => {
-		DOM.inputLeyenda.value = inicialMayus(DOM.inputLeyenda.value);
-		DOM.muestraLeyenda.innerText = DOM.inputLeyenda.value;
-	});
+	DOM.inputLeyenda.addEventListener("input", () => (DOM.muestraLeyenda.innerText = inicialMayus(DOM.inputLeyenda.value)));
 
 	// Fin
 	return;

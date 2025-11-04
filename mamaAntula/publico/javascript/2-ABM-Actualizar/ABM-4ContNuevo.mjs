@@ -68,15 +68,8 @@ window.addEventListener("load", async () => {
 
 			// Feedback si video
 			if (v.nombrePestanaActiva == "video") {
-				const [video,leyenda]=FN.obtieneLosDatosDelVideo();
-				console.log(video,leyenda);
-
-				v.formData.append("video", video);
-				v.formData.append("leyenda", leyenda);
-
-				return;
-
-				v.formData.append("video", src);
+				v.formData.append("video", DOM.outputVideoId.value);
+				v.formData.append("leyenda", DOM.muestraLeyenda.innerText);
 			}
 
 			// Feedback si imagen (textoImagen o imagen)

@@ -39,7 +39,16 @@
 		#imagen, #carrousel {border: 1px solid grey;}
 		#imagen {max-width: 33%;}
 		#video {
-			.inputs, .outputs {width: 200px;}
+			flex-direction: row; align-items: center; gap: 10px;
+			.inputs, .outputs {
+				display: flex; flex-direction: column; align-items: center;
+				* {width: 200px;}
+			}
+			.inputs {
+				gap: 10px;
+			}
+			.outputs {
+			}
 			#muestraVideo {width: 100%; height: 150px; border: 1px solid gray;}
 
 		}
