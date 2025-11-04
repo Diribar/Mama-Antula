@@ -126,16 +126,16 @@ export default {
 			const seccionActual = secciones.find((n) => n.id == temaActual.seccion_id);
 
 			// Obtiene los datos
-			const [entidad, campo_id, orden, includes] = false
+			const [entidad, campo_id, includes] = false
 				? false
 				: temaActual.codigo == "cartas"
-				? ["encabCartas", "carta_id", "fechaEvento", ["nombreDesde", "nombreHacia", "lugar", "idioma"]]
+				? ["encabCartas", "carta_id", ["nombreDesde", "nombreHacia", "lugar", "idioma"]]
 				: seccionActual.codigo == "experiencias"
-				? ["encabExpers", "experiencia_id", "fechaEvento", ["lugar"]]
-				: ["encabSinIndice", "sinIndice_id", "orden"];
+				? ["encabExpers", "experiencia_id", ["lugar"]]
+				: ["encabSinIndice", "sinIndice_id", [""]];
 
 			// Fin
-			return {entidad, campo_id, orden, includes};
+			return {entidad, campo_id, includes};
 		},
 		tituloCons: {
 			encabCartas: function (encabs) {

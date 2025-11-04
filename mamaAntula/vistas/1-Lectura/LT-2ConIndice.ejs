@@ -3,8 +3,16 @@
 	<% if (codigoVista == "experiencias") { %><%- include("LT-IndiceExpers") %><% } %>
 
 	<div id="flechas">
-		<i class="<%= iconos.faSolid %> <%= iconos.izquierda %>"></i>
-		<i class="<%= iconos.faSolid %> <%= iconos.derecha %>"></i>
+		<% if (encabezado.ant_id) { %>
+			<a href="?id=<%= encabezado.ant_id %>" class="flechaIzquierda">
+				<i class="<%= iconos.faSolid %> <%= iconos.izquierda %>"></i>
+			</a>
+		<% } %>
+		<% if (encabezado.sig_id) { %>
+			<a href="?id=<%= encabezado.sig_id %>" class="flechaDerecha">
+				<i class="<%= iconos.faSolid %> <%= iconos.derecha %>"></i>
+			</a>
+		<% } %>
 	</div>
 </div>
 
