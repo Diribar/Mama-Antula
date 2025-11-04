@@ -18,7 +18,7 @@ router.get("/api/abm-obtiene-contenidos", API.obtieneContenidos);
 // APIs - Cambios en BD
 router.post("/api/abm-guarda-encabezado", descargaArch.single("archivo"), API.guardaEncabezado);
 router.delete("/api/abm-elimina-encabezado", API.eliminaEncabezado);
-router.post("/api/abm-guarda-contenido", API.guardaContenido);
+router.post("/api/abm-guarda-contenido", descargaArch.single("archivo"), API.guardaContenido);
 router.delete("/api/abm-elimina-contenido", API.eliminaContenido);
 
 // 🖥️ Vistas

@@ -61,8 +61,6 @@ window.addEventListener("load", async () => {
 			return;
 		},
 		agregaBloqueEdicion: () => {
-			const domBloqueEdicion = sectorContNuevo.cloneNode(true);
-			// continuar
 		},
 		creaElContenido: {
 			consolidado: function (contenido) {
@@ -117,6 +115,24 @@ window.addEventListener("load", async () => {
 			},
 			video: function (contenido) {
 				// Crea el contenedor
+				console.log(contenido.video);
+				const div = document.createElement("div");
+				div.innerHTML = contenido.video;
+				const iframe = div.querySelector("iframe.ql-video");
+
+				const contenedor = iframe.cloneNode(true);
+				contenedor.classList.add("contVideoLeyenda");
+
+
+				// Crea la leyenda
+				// const domLeyenda = this.leyenda(contenido);
+				// contenedor.appendChild(domLeyenda);
+
+				// Fin
+				return contenedor;
+			},
+			video2: function (contenido) {
+				// Crea el contenedor
 				const contenedor = document.createElement("div");
 				contenedor.classList.add("contVideoLeyenda");
 
@@ -149,8 +165,7 @@ window.addEventListener("load", async () => {
 	DOM.filtroEncabezado.addEventListener("change", async () => {
 		// Variables
 		const encabezado_id = DOM.filtroEncabezado.value;
-		const campo_id =
-			cac.tipoEncab == "encabCartas" ? "carta_id" : cac.tipoEncab == "encabExpers" ? "experiencia_id" : "sinIndice_id";
+		const campo_id = campos_id[cac.tipoEncab];
 		const ruta = rutas.obtieneContenidos + "encab_id=" + encabezado_id + "&campo_id=" + campo_id;
 
 		// Limpia el DOM
@@ -178,3 +193,10 @@ window.addEventListener("load", async () => {
 	// Impacto en BD (contenido - actual) - Eliminar
 	DOM.iconosEliminar.forEach((iconoEliminar, i) => {});
 });
+
+// Variables
+const campos_id = {
+	encabCartas: "carta_id",
+	encabExpers: "experiencia_id",
+	encabSinIndice: "sinIndice_id",
+};
