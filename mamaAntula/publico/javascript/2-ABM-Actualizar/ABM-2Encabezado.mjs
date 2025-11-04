@@ -23,7 +23,6 @@ window.addEventListener("load", async () => {
 		guardaEncabezado: "/contenido/api/abm-guarda-encabezado",
 		eliminaEncabezado: "/contenido/api/abm-elimina-encabezado/?id=",
 	};
-	const v = {startUp: true};
 
 	// Funciones
 	const actualizaElEncabezado = {
@@ -63,7 +62,7 @@ window.addEventListener("load", async () => {
 			// Variables
 			DOM.encabezado = document.querySelector("#sectorEncabezado .encabezado:not(.ocultar)");
 			DOM.inputs = DOM.encabezado.querySelectorAll(".input");
-			const encabezado = cac.encabezados.find((n) => n.id == v.encabezado_id);
+			const encabezado = cac.encabezados.find((n) => n.id == DOM.encabezado.value);
 
 			// Agrega los valores
 			for (const input of DOM.inputs) {
@@ -83,22 +82,11 @@ window.addEventListener("load", async () => {
 
 	// Impactos del filtro - Actualiza el encabezado
 	DOM.encabezado.addEventListener("change", () => {
-		// ENCABEZADO - Guarda la cookie
-		if (!v.startUp) document.cookie = "actualizaEncabezado_id=" + DOM.encabezado.value;
-		// ENCABEZADO - Si es start-up, elige la opción de la cookie
-		else if (v.startUp) {
-			if (cookie("actualizaEncabezado_id")) DOM.encabezado.value = cookie("actualizaEncabezado_id");
-			delete v.startUp;
-		}
-
-		// Variables
-		v.encabezado_id = DOM.encabezado.value;
-
 		// Muestra el encabezado que corresponde, y oculta los demás
 		actualizaElEncabezado.consolidado();
 
 		// Actualiza los íconos
-		DOM.encabIconos.querySelector("#eliminar").classList[v.encabezado_id == "nuevo" ? "add" : "remove"]("ocultar");
+		DOM.encabIconos.querySelector("#eliminar").classList[DOM.encabezado.value == "nuevo" ? "add" : "remove"]("ocultar");
 
 		// Fin
 		return;
@@ -145,10 +133,10 @@ window.addEventListener("load", async () => {
 		if (respuesta.id) {
 			// Guarda la nueva cookie
 			document.cookie = "actualizaEncabezado_id=" + respuesta.id;
-			v.startUp = true;
+			cac.startUp = true;
 
-			// Se genera un change en el tema o pestaña, para que se reinicie el filtro del encabezado
-			DOM[!cac.pestanasTema.length ? "tema" : "pestana"].dispatchEvent(new Event("change"));
+			// Se genera un change en el tema, para que se reinicie el filtro del encabezado
+			DOM.tema.dispatchEvent(new Event("change"));
 		}
 
 		// Fin
@@ -166,9 +154,10 @@ window.addEventListener("load", async () => {
 
 		// Elimina la cookie
 		document.cookie = "actualizaEncabezado_id=";
+		cac.startUp = true;
 
 		// Se genera un change en el tema o pestaña, para que se reinicie el filtro del encabezado
-		DOM[!cac.pestanasTema.length ? "tema" : "pestana"].dispatchEvent(new Event("change"));
+		DOM.tema.dispatchEvent(new Event("change"));
 
 		// Fin
 		return;
