@@ -1,15 +1,16 @@
 <div id="filtroIndice">
 	<% if (codigoVista == "cartas") { %>	  <%- include("LT-IndiceCartas") %><% } %>
-	<% if (codigoVista == "experiencias") { %><%- include("LT-IndiceEspers") %><% } %>
+	<% if (codigoVista == "experiencias") { %><%- include("LT-IndiceExpers") %><% } %>
 </div>
 
 <div id="tituloMasContenido">
 	<h2 id="tituloDelContenido" class="fondo"><%= locals.tituloCarta || locals.encabezado && encabezado.titulo %></h2>
 	<div id="contsImagenes" class="fondo">
 		<% if (locals.tituloCarta || encabezado) { %>
+			<% console.log(10, contenidos.length) %>
 			<% for (const contenido of contenidos) { %>
-				<% if (contenido.texto || contenido.imagen) { %>
-					<div class="contImagen">
+				<div class="bloque">
+					<% if (contenido.texto || contenido.imagen) { %>
 						<% if (contenido.imagen) { %>
 							<div class="imgLeyenda">
 								<img class="imagen" src="/imgsEditables/1-Contenido/<%= contenido.imagen %>">
@@ -19,10 +20,12 @@
 						<% if (contenido.texto) { %>
 							<div class="texto"><%- contenido.texto %></div>
 						<% } %>
-					</div>
-				<% } %>
+					<% } %>
+					<% if (contenido.video) { %>
+						<iframe src="https://www.youtube.com/embed/<%= contenido.video %>?autoplay=1"></iframe>
+					<% } %>
+				</div>
 			<% } %>
 		<% } %>
-
 	</div>
 </div>

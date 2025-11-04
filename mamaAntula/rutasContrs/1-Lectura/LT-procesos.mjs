@@ -1,14 +1,15 @@
 "use strict";
 
 export default {
-	contenidos: async ({temaActual, pestanaActual}) => {
+	contenidos: async ({temaActual, pestanaActual, encabezado_id}) => {
 		// Variables
 		const condicion = pestanaActual ? {pestana_id: pestanaActual.id} : {tema_id: temaActual.id};
 		const {entidad, campo_id} = comp.contenido.obtieneDatosDeTabla(condicion);
 
 		// Obtiene los encabezados
-		const encabezado = await baseDatos.obtienePorCondicion(entidad, condicion);
-		if (!encabezado) return {};
+		const encabezados = await baseDatos.obtieneTodosPorCondicion(entidad, condicion);
+		if (!encabezados.length) return {};
+		const encabezado = encabezados.find((n) => n.id == encabezado_id) || encabezados[0];
 
 		// Obtiene los contenidos
 		const contenidos = await baseDatos
