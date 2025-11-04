@@ -14,7 +14,7 @@ window.addEventListener("load", async () => {
 		datosIniciales: "/contenido/api/abm-datos-inciales",
 		obtieneEncabs: "/contenido/api/abm-obtiene-encabezados/?",
 	};
-	cac = await fetch(rutas.datosIniciales).then((n) => n && n.json());
+	cac = {startUp: true, ...(await fetch(rutas.datosIniciales).then((n) => n && n.json()))};
 	const v = {};
 
 	// Funciones
@@ -155,7 +155,7 @@ window.addEventListener("load", async () => {
 });
 
 // Variables
-const cac = {startUp: true}; // compartirActualizarContenidos
+let cac; // compartirActualizarContenidos
 const agregaOpciones = (opciones, domSelect, campoNombre) => {
 	// Limpia las opciones del select
 	domSelect.innerHTML = "";
