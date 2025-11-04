@@ -60,8 +60,7 @@ window.addEventListener("load", async () => {
 			// Fin
 			return;
 		},
-		agregaBloqueEdicion: () => {
-		},
+		agregaBloqueEdicion: () => {},
 		creaElContenido: {
 			consolidado: function (contenido) {
 				// Crea el DOM
@@ -79,7 +78,7 @@ window.addEventListener("load", async () => {
 					v.domContenido.classList.add("textoImagen");
 				}
 				// Video
-				else if (contenido.video) v.domContenido = this.video(contenido).cloneNode(true);
+				else if (contenido.video) this.video(contenido);
 				// Carrousel
 				else if (contenido.carrousel.length) null;
 
@@ -114,40 +113,17 @@ window.addEventListener("load", async () => {
 				return contenedor;
 			},
 			video: function (contenido) {
-				// Crea el contenedor
-				console.log(contenido.video);
-				const div = document.createElement("div");
-				div.innerHTML = contenido.video;
-				const iframe = div.querySelector("iframe.ql-video");
-
-				const contenedor = iframe.cloneNode(true);
-				contenedor.classList.add("contVideoLeyenda");
-
-
-				// Crea la leyenda
-				// const domLeyenda = this.leyenda(contenido);
-				// contenedor.appendChild(domLeyenda);
-
-				// Fin
-				return contenedor;
-			},
-			video2: function (contenido) {
-				// Crea el contenedor
-				const contenedor = document.createElement("div");
-				contenedor.classList.add("contVideoLeyenda");
-
-				// Crea la imagen
-				const domVideo = document.createElement("video");
-				domVideo.src = contenido.video;
-				domVideo.classList.add("video");
-				contenedor.appendChild(domVideo);
+				// Crea el iframe
+				const iframe = document.createElement("iframe");
+				iframe.src = "https://www.youtube.com/embed/" + contenido.video + "?autoplay=1";
+				v.domContenido.appendChild(iframe);
 
 				// Crea la leyenda
 				const domLeyenda = this.leyenda(contenido);
-				contenedor.appendChild(domLeyenda);
+				v.domContenido.appendChild(domLeyenda);
 
 				// Fin
-				return contenedor;
+				return;
 			},
 			leyenda: (contenido) => {
 				// Crea el contenedor

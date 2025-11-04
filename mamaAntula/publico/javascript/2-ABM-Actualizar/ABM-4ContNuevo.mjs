@@ -12,7 +12,12 @@ window.addEventListener("load", async () => {
 		// Ouputs
 		iconoGuardar: document.querySelector("#pestanasGuardar #iconoGuardar"),
 		textoOutput: document.querySelector("#texto .output"),
-		videoOutput: document.querySelector("#video .output"),
+
+		// Video
+		outputVideoId: document.querySelector("#video [name='video']"),
+		muestraLeyendaVideo: document.querySelector("#video .muestraLeyenda"),
+		inputsVideo: document.querySelectorAll("#video .input"),
+		divsVideo: document.querySelectorAll("#video .div"),
 	};
 	const rutas = {
 		guardaContenido: "/contenido/api/abm-guarda-contenido",
@@ -34,20 +39,6 @@ window.addEventListener("load", async () => {
 			v.formData.append(campo_id, encabezado_id);
 			return;
 		},
-		obtieneLosDatosDelVideo: () => {
-			// Obtiene el contenido del quill
-			const div = document.createElement("div");
-			div.innerHTML = DOM.videoOutput.value;
-
-			// Obtiene la info distintiva del video de youtube
-			const iframe = div.querySelector("iframe.ql-video");
-			const src = iframe?.getAttribute("src");
-			if (!src) return [];
-
-			// Obtiene la leyenda
-			const p = div.querySelector("p")?.innerText;
-			return [src, p];
-		},
 	};
 
 	// Guarda los cambios
@@ -68,15 +59,8 @@ window.addEventListener("load", async () => {
 
 			// Feedback si video
 			if (v.nombrePestanaActiva == "video") {
-				const [video,leyenda]=FN.obtieneLosDatosDelVideo();
-				console.log(video,leyenda);
-
-				v.formData.append("video", video);
-				v.formData.append("leyenda", leyenda);
-
-				return;
-
-				v.formData.append("video", src);
+				v.formData.append("video", DOM.outputVideoId.value);
+				v.formData.append("leyenda", DOM.muestraLeyendaVideo.innerText);
 			}
 
 			// Feedback si imagen (textoImagen o imagen)
@@ -86,16 +70,23 @@ window.addEventListener("load", async () => {
 		const respuesta = await fetch(rutas.guardaContenido, postForm(v.formData)).then((n) => n.json());
 
 		// Actualiza
-		console.log(respuesta);
 		DOM.filtroEncabezado.dispatchEvent(new Event("change"));
 
 		// Fin
+		return;
 	});
 
 	// Lo actualiza por cambio en el encabezado
 	DOM.filtroEncabezado.addEventListener("change", async () => {
+		// Texto
 		DOM.textoInput.querySelector(".ql-editor").innerHTML = "";
-		DOM.videoInput.querySelector(".ql-editor").innerHTML = "";
+
+		// Video
+		for (const input of DOM.inputsVideo) input.value = "";
+		for (const div of DOM.divsVideo) div.innerHTML = "";
+
+		// Fin
+		return;
 	});
 
 	// Fin
