@@ -4,7 +4,7 @@
 }
 
 .contenidoCuerpo {
-	flex-direction: row !important;
-	overflow-y: hidden;
+	flex-direction: row !important; overflow-y: hidden;
 	border: 1px solid red;
+
 }

@@ -30,13 +30,13 @@
 	</div>
 </div>
 
-<div id="carta">
-	<h2 id="cartaTitulo" class="fondo"><%= tituloCarta %></h2>
-	<div id="contImagen">
+<div id="tituloMasContenido">
+	<h2 id="tituloDelContenido" class="fondo"><%= tituloCarta %></h2>
+	<div id="contImagen" class="fondo">
 		<div id="imgLeyenda">
 			<img id="imagenCarta" src="/imgsEditables/1-Contenido/<%= encabCarta.imagen %>">
-			<div id="leyendaImagen" class="fondo"><%= encabCarta.leyenda %></div>
+			<div id="leyendaImagen"><%= encabCarta.leyenda %></div>
 		</div>
-		<div id="cartaContenido" class="fondo"><%- contCarta.texto %></div>
+		<div id="cartaContenido"><%- contCarta.texto %></div>
 	</div>
 </div>

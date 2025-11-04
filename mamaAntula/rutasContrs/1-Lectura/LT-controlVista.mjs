@@ -40,7 +40,6 @@ export default {
 		const temaActual = temasSeccion.find((n) => n.codigo == "cartas");
 
 		// Obtiene la carta
-		// const quePide=Object.keys(req.query)[0];
 		const numero = req.query.numero || 1;
 		const include = ["nombreDesde", "nombreHacia", "lugar", "idioma"];
 		const encabCarta = await baseDatos.obtienePorCondicion("encabCartas", {numero}, include);
@@ -50,7 +49,7 @@ export default {
 		const tituloCarta = comp.contenido.tituloCons.encabCarta(encabCarta);
 
 		// Variables para la vista
-		const archVista = "1Cartas";
+		const {archVista} = procesos.varsVista({seccionActual, temaActual});
 
 		// Fin
 		return res.render("CMP-0Estructura", {
@@ -74,8 +73,12 @@ export default {
 			const temasSeccion = temasSecciones.filter((n) => n.seccion_id == seccionActual.id);
 			const temaActual = temasSeccion.find((n) => n.url == urlTema);
 
+			// Obtiene la carta
+
 			// Obtiene el encabezado y contenido de los artículos
-			const {encabezados, contenidos} = await procesos.contenido({seccionActual, temaActual});
+			const id = req.query.id || 1;
+			const {encabezado, contenidos} = await procesos.contenido({seccionActual, temaActual});
+			console.log(81, {encabezado, contenidos});
 
 			// Variables para la vista
 			const {archVista} = procesos.varsVista({seccionActual, temaActual});
@@ -85,7 +88,7 @@ export default {
 				...{tituloPagina, temaVista, codigoVista, archVista},
 				...{temasSeccion},
 				...{seccionActual, temaActual},
-				...{encabezados, contenidos},
+				...{encabezado, contenidos},
 			});
 		},
 		pestanas: async (req, res) => {

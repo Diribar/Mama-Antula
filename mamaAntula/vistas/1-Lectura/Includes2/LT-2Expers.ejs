@@ -20,7 +20,30 @@
 	</div>
 </div>
 
-<div id="experiencia">
-	<h2 id="experTitulo" class="fondo">titulo</h2>
-	<div id="experContenido" class="fondo">contenido</div>
+<div id="tituloMasContenido">
+	<% if (locals.pestanasTema) { %>
+		<h2 id="tituloDelContenido" class="fondo"><%= locals.encabezado && encabezado.titulo %></h2>
+	<% } %>
+
+	<div id="contsImagenes" class="fondo">
+		<% if (locals.contenidos) { %>
+			<% for (const contenido of contenidos) { %>
+				<% if (contenido.texto || contenido.imagen) { %>
+					<div id="contImagen">
+						<% if (contenido.imagen) { %>
+							<div id="imgLeyenda">
+								<img id="imagenExper" src="/imgsEditables/1-Contenido/<%= contenido.imagen %>">
+								<div id="leyendaImagen" class="fondo"><%= contenido.leyenda %></div>
+							</div>
+						<% } %>
+						<% if (contenido.texto) { %>
+							<div class="texto"><%= contenido.texto %></div>
+						<% } %>
+					</div>
+
+				<% } %>
+			<% } %>
+		<% } %>
+
+	</div>
 </div>
