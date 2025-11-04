@@ -21,8 +21,6 @@ export default {
 
 		// Obtiene la entidad y los includes
 		const {entidad, orden, includes} = comp.contenido.obtieneDatosDeTabla(condicion);
-		console.log(24, includes);
-
 		const includesConEdics = [...(includes || []), "ediciones"];
 
 		// Obtiene los encabezados
