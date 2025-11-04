@@ -38,13 +38,13 @@
 				<% if (contenido.texto || contenido.imagen) { %>
 					<div class="contImagen">
 						<% if (contenido.imagen) { %>
-							<div id="imgLeyenda">
+							<div class="imgLeyenda">
 								<img class="imagen" src="/imgsEditables/1-Contenido/<%= contenido.imagen %>">
 								<div class="leyenda" class="fondo"><%= contenido.leyenda %></div>
 							</div>
 						<% } %>
 						<% if (contenido.texto) { %>
-							<div class="texto"><%= contenido.texto %></div>
+							<div class="texto"><%- contenido.texto %></div>
 						<% } %>
 					</div>
 				<% } %>
