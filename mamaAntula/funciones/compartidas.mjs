@@ -10,6 +10,7 @@ export default {
 		// En uso
 		anoMesDia: (fecha) => new Date(fecha).toISOString().slice(0, 10),
 		ahora: () => new Date(new Date().toUTCString()), // <-- para convertir en horario 'UTC'
+		fechaDiaMesAno: (fecha) => FN.fechaDiaMesAno(fecha),
 	},
 	validacs: {
 		castellano: {
@@ -137,19 +138,8 @@ export default {
 			return {entidad, campo_id, orden, includes};
 		},
 		tituloCons: {
-			encabCartas: (encabs) => {
-				for (const encab of encabs)
-					encab.tituloCons =
-						"Carta " +
-						encab.numero +
-						" - De " +
-						encab.nombreDesde.nombre +
-						" a " +
-						encab.nombreHacia.nombre +
-						" - " +
-						encab.lugar.nombre +
-						" - " +
-						FN.fechaDiaMesAno(encab.fechaEvento);
+			encabCartas: function (encabs) {
+				for (const encab of encabs) encab.tituloCons = this.encabCarta(encab);
 
 				// Fin
 				return encabs;
@@ -162,6 +152,22 @@ export default {
 				return encabs;
 			},
 			encabSinIndice: (encabs) => encabs.map((encab) => ({...encab, tituloCons: encab.titulo})),
+			encabCarta: (encab) => {
+				const tituloCons =
+					"Carta " +
+					encab.numero +
+					" - De " +
+					encab.nombreDesde.nombre +
+					" a " +
+					encab.nombreHacia.nombre +
+					" - " +
+					encab.lugar.nombre +
+					" - " +
+					FN.fechaDiaMesAno(encab.fechaEvento);
+
+				// Fin
+				return tituloCons;
+			},
 		},
 	},
 
