@@ -1,23 +1,6 @@
 <div id="filtroIndice">
-	<div id="filtros" class="contenedor">
-		<div class="titulo">
-			<i class="fa-solid fa-caret-right mostrar"></i>
-			Filtros
-		</div>
-	</div>
-	<div id="indice" class="contenedor">
-		<a href="?inicio" class="titulo">Inicio</a>
-		<a href="?introduccion" class="titulo">Introducción</a>
-		<a href="?numero=1" class="titulo">1778</a>
-		<div class="titulo">
-			<i class="fa-solid fa-caret-right mostrar"></i>
-			1780-1784
-		</div>
-		<div class="titulo">titulo
-			<i class="fa-solid fa-caret-right mostrar"></i>
-			1800-1816
-		</div>
-	</div>
+	<% if (codigoVista == "cartas") { %>	  <%- include("LT-IndiceCartas") %><% } %>
+	<% if (codigoVista == "experiencias") { %><%- include("LT-IndiceEspers") %><% } %>
 </div>
 
 <div id="tituloMasContenido">
