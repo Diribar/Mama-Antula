@@ -84,6 +84,9 @@ window.addEventListener("load", async () => {
 		// Video
 		for (const input of DOM.inputsVideo) input.value = "";
 		for (const div of DOM.divsVideo) div.innerHTML = "";
+
+		// Fin
+		return;
 	});
 
 	// Fin
