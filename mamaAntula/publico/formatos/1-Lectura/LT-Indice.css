@@ -1,0 +1,28 @@
+#filtroIndice {
+	--anchoIndice: 160px;
+	display: flex; flex-direction: column; gap: 20px;
+	width: var(--anchoIndice);
+	min-width: var(--anchoIndice);
+	margin-right: 50px; overflow-y: hidden;
+
+	.contenedor {
+		display: flex; flex-direction: column; gap: 10px;
+		border: 1px solid var(--rojoOscuro); border-radius: 8px;
+		color: var(--rojoOscuro); background-color: var(--amarilloClaro);
+		width: 100%; padding-block: 10px; padding-left: 30px;
+		.titulo {
+			position: relative;
+			cursor: pointer;
+		}
+		.mostrar {
+			position: absolute; left: -5px; top: 50%; translate: -90% -50%;
+			cursor: pointer;
+		}
+	}
+
+	#fichaTecnica {
+		flex-grow: 1;
+		display: flex; flex-direction: column; justify-content: center;
+		ul {font-size: 0.9rem;}
+	}
+}
