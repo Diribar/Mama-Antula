@@ -41,7 +41,7 @@ export default {
 		const contCarta = await baseDatos.obtienePorCondicion("contenidos", {carta_id: encabCarta.id});
 
 		// Genera el título de la carta
-		const tituloCarta =comp.contenido.tituloCons.encabCarta(encabCarta);
+		const tituloCarta = comp.contenido.tituloCons.encabCarta(encabCarta);
 
 		// Variables para la vista
 		const archVista = "1Cartas";
