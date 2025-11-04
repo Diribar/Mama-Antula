@@ -35,6 +35,7 @@ export default {
 		const temaActual = temasSeccion.find((n) => n.codigo == "cartas");
 
 		// Obtiene la carta
+		// const quePide=Object.keys(req.query)[0];
 		const carta = req.query.carta || 1;
 		const include = ["nombreDesde", "nombreHacia", "lugar", "idioma"];
 		const encabCarta = await baseDatos.obtienePorCondicion("encabCartas", {numero: carta}, include);
