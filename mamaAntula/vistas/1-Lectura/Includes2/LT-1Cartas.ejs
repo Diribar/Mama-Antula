@@ -1,23 +1,24 @@
-<section id="cartas" class="flexRow">
-	<div id="filtroIndice">
-		<div id="filtros">
-			<div class="titulo">Filtros</div>
-			<div id="camposFiltro"></div>
-		</div>
-		<div id="indice">
-			<div class="titulo">Inicio</div>
-			<div class="titulo">Introducción</div>
-			<div class="titulo">1778</div>
-			<div class="titulo">1780-1784</div>
-			<div class="titulo">1800-1816</div>
-		</div>
+<div id="filtroIndice">
+	<div id="filtros">
+		<div class="titulo">Filtros</div>
+		<div id="camposFiltro"></div>
 	</div>
-	<div id="carta">
-		<div id="cartaTitulo"><%= tituloCarta %></div>
+	<div id="indice">
+		<div class="titulo">Inicio</div>
+		<div class="titulo">Introducción</div>
+		<div class="titulo">1778</div>
+		<div class="titulo">1780-1784</div>
+		<div class="titulo">1800-1816</div>
+	</div>
+</div>
+
+<div id="carta">
+	<div id="cartaTitulo"><%= tituloCarta %></div>
+	<div id="contImagen">
+		<!-- <div id="imgLeyenda">
+			<img id="imagenCarta" src="/imgsEditables/1-Contenido/<%= encabCarta.imagen %>">
+			<div id="leyendaImagen"><%= encabCarta.leyenda %></div>
+		</div> -->
 		<div id="cartaContenido"><%- contCarta.texto %></div>
 	</div>
-	<div id="imagen">
-		<img id="imagenCarta" src="/imgsEditables/1-Contenido/<%= encabCarta.imagen %>">
-		<div id="leyendaImagen"><%= encabCarta.leyenda %></div>
-	</div>
-</section>
+</div>

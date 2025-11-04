@@ -1,0 +1,19 @@
+#contenidoEstatico {
+	--anchoIndice: 100px;
+	display: flex; flex-direction: row;
+
+	#filtroIndice {
+	}
+
+	#carta {
+
+		#cartaTitulo {}
+		#contImagen {
+			overflow-y: auto;
+			#imgLeyenda {
+				float: right; margin-left: 15px; margin-bottom: 15px; max-width: 40%; max-height: 500px;
+			}
+			#cartaContenido {}
+		}
+	}
+}
