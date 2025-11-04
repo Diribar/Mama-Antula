@@ -153,20 +153,21 @@ export default {
 			},
 			encabSinIndice: (encabs) => encabs.map((encab) => ({...encab, tituloCons: encab.titulo})),
 			encabCarta: (encab) => {
-				const tituloCons =
-					"Carta " +
-					encab.numero +
-					" - " +
-					(encab.nombreDesde.nombre.startsWith("P.") ? "Del" : "De") +
-					" " +
-					encab.nombreDesde.nombre +
-					" para " +
-					(encab.nombreHacia.nombre.startsWith("P.") ? "el " : "") +
-					encab.nombreHacia.nombre +
-					" - " +
-					encab.lugar.nombre +
-					" - " +
-					FN.diaMesAnoUTC(encab.fechaEvento);
+				const tituloCons = encab
+					? "Carta " +
+					  encab.numero +
+					  " - " +
+					  (encab.nombreDesde.nombre.startsWith("P.") ? "Del" : "De") +
+					  " " +
+					  encab.nombreDesde.nombre +
+					  " para " +
+					  (encab.nombreHacia.nombre.startsWith("P.") ? "el " : "") +
+					  encab.nombreHacia.nombre +
+					  " - " +
+					  encab.lugar.nombre +
+					  " - " +
+					  FN.diaMesAnoUTC(encab.fechaEvento)
+					: "";
 
 				// Fin
 				return tituloCons;

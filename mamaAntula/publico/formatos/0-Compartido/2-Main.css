@@ -15,4 +15,10 @@ main {
 	/* Dimensiones */
 	height: var(--altoMain); max-height: var(--altoMain);
 	padding-bottom: 20px; padding-inline: 30px;
+
+	#cuerpo {
+		height: calc(100% - 68.2px); /* 68.2px es el alto del tema */
+		display: flex; flex-direction: column;
+		overflow-y: hidden;
+	}
 }

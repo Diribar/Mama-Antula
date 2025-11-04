@@ -1,6 +1,7 @@
 export default (req, res, next) => {
 	// Variables
-	const {urlSeccion, urlTema, urlPestana} = req.params;
+	const {urlSeccion: aux, urlTema, urlPestana} = req.params;
+	const urlSeccion = aux || req.originalUrl.split("/")[1];
 	const informacion = {mensajes: ["No tenemos esa dirección en nuestro sistema"]};
 
 	// SECCION - Si el urlSeccion no existe, redirige

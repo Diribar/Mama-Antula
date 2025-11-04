@@ -7,8 +7,6 @@ export default (sequelize, dt) => {
 		nombreHacia_id: {type: dt.INTEGER},
 		lugar_id: {type: dt.INTEGER},
 		idioma_id: {type: dt.INTEGER},
-		imagen: {type: dt.STRING(17)},
-		leyenda: {type: dt.TEXT("medium")},
 		fechaEvento: {type: dt.DATE},
 
 		// Control

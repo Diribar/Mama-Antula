@@ -21,22 +21,33 @@
 	<div id="fichaTecnica">
 		<h3>Ficha técnica:</h3>
 		<ul type="disc">
-			<li>Fecha: <%= comp.fechaHora.diaMesAnoUTC(encabCarta.fechaEvento) %></li>
-			<li>Desde: <%= encabCarta.lugar.nombre %></li>
-			<li>De: <%= encabCarta.nombreDesde.nombre %></li>
-			<li>Para: <%= encabCarta.nombreHacia.nombre %></li>
-			<li>Idioma: <%= encabCarta.idioma.nombre %></li>
+			<li>Fecha: <%= comp.fechaHora.diaMesAnoUTC(encabezado.fechaEvento) %></li>
+			<li>Desde: <%= encabezado.lugar.nombre %></li>
+			<li>De: <%= encabezado.nombreDesde.nombre %></li>
+			<li>Para: <%= encabezado.nombreHacia.nombre %></li>
+			<li>Idioma: <%= encabezado.idioma.nombre %></li>
 		</ul>
 	</div>
 </div>
 
-<div id="carta">
-	<h2 id="cartaTitulo" class="fondo"><%= tituloCarta %></h2>
-	<div id="contImagen">
-		<div id="imgLeyenda">
-			<img id="imagenCarta" src="/imgsEditables/1-Contenido/<%= encabCarta.imagen %>">
-			<div id="leyendaImagen" class="fondo"><%= encabCarta.leyenda %></div>
-		</div>
-		<div id="cartaContenido" class="fondo"><%- contCarta.texto %></div>
+<div id="tituloMasContenido">
+	<h2 id="tituloDelContenido" class="fondo"><%= tituloCarta %></h2>
+	<div id="contsImagenes" class="fondo">
+		<% if (tituloCarta) { %>
+			<% for (const contenido of contenidos) { %>
+				<% if (contenido.texto || contenido.imagen) { %>
+					<div class="contImagen">
+						<% if (contenido.imagen) { %>
+							<div class="imgLeyenda">
+								<img class="imagen" src="/imgsEditables/1-Contenido/<%= contenido.imagen %>">
+								<div class="leyenda" class="fondo"><%= contenido.leyenda %></div>
+							</div>
+						<% } %>
+						<% if (contenido.texto) { %>
+							<div class="texto"><%- contenido.texto %></div>
+						<% } %>
+					</div>
+				<% } %>
+			<% } %>
+		<% } %>
 	</div>
-</div>

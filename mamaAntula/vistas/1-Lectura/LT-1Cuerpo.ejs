@@ -4,17 +4,23 @@
 	<h1 id="tituloTema"><%= temaActual.titulo %></h1>
 </section>
 
-<section id="contenidoEstatico">
-	<!-- Sin pestañas -->
-	<% if (!locals.pestanasTema) { %>
-		<%- include("LT-" + archVista) %>
-	<% } else { %>
+<% if (locals.pestanasTema) { %>
+	<!-- Con pestañas -->
+	<section id="cuerpo">
 		<!-- Pestañas -->
 		<%- include("LT-2Pestanas") %>
 
-		<!-- Contenido -->
-		<% pestanasTema.forEach((pestana, i) => { %>
+		<!-- Contenido del cuerpo -->
+		<div class="contenidoCuerpo">
 			<%- include("LT-" + archVista) %>
-		<% }) %>
-	<% } %>
-</section>
+		</div>
+	</section>
+
+<% } else { %>
+	<!-- Sin pestañas -->
+	<section id="cuerpo" class="contenidoCuerpo">
+		<%- include("LT-" + archVista) %>
+	</section>
+<% } %>
+
+
