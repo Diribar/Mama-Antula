@@ -82,18 +82,19 @@ export default {
 
 			// Fin
 			return res.render("CMP-0Estructura", {
-				...{tituloPagina, temaVista, codigoVista},
+				...{tituloPagina, temaVista, codigoVista, archVista},
 				...{temasSeccion},
-				...{seccionActual, temaActual, archVista},
+				...{seccionActual, temaActual},
 				...{encabezados, contenidos},
 			});
 		},
 		pestanas: async (req, res) => {
 			// Variables
-			const {urlSeccion, urlTema, urlPestana} = req.params;
+			const codigoVista = "experiencias";
+			const {urlTema, urlPestana} = req.params;
 
 			// Sección
-			const seccionActual = secciones.find((n) => n.url == urlSeccion);
+			const seccionActual = secciones.find((n) => n.codigo == "experiencias");
 			const tituloPagina = seccionActual.nombre;
 
 			// Tema
@@ -112,10 +113,10 @@ export default {
 
 			// Fin
 			return res.render("CMP-0Estructura", {
-				...{tituloPagina, temaVista},
+				...{tituloPagina, temaVista, codigoVista, archVista},
 				...{temasSeccion, pestanasTema},
 				...{seccionActual, temaActual, pestanaActual},
-				...{encabezados, contenidos, archVista},
+				...{encabezados, contenidos},
 			});
 		},
 	},
