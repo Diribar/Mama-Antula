@@ -12,7 +12,10 @@ window.addEventListener("load", async () => {
 		// Ouputs
 		iconoGuardar: document.querySelector("#pestanasGuardar #iconoGuardar"),
 		textoOutput: document.querySelector("#texto .output"),
-		videoOutput: document.querySelector("#video .output"),
+
+		// Video
+		outputVideoId: document.querySelector("#video [name='video']"),
+		muestraLeyendaVideo: document.querySelector("#video .muestraLeyenda"),
 	};
 	const rutas = {
 		guardaContenido: "/contenido/api/abm-guarda-contenido",
@@ -33,20 +36,6 @@ window.addEventListener("load", async () => {
 			v.formData.append("pestanaActiva", v.nombrePestanaActiva);
 			v.formData.append(campo_id, encabezado_id);
 			return;
-		},
-		obtieneLosDatosDelVideo: () => {
-			// Obtiene el contenido del quill
-			const div = document.createElement("div");
-			div.innerHTML = DOM.videoOutput.value;
-
-			// Obtiene la info distintiva del video de youtube
-			const iframe = div.querySelector("iframe.ql-video");
-			const src = iframe?.getAttribute("src");
-			if (!src) return [];
-
-			// Obtiene la leyenda
-			const p = div.querySelector("p")?.innerText;
-			return [src, p];
 		},
 	};
 
@@ -69,7 +58,7 @@ window.addEventListener("load", async () => {
 			// Feedback si video
 			if (v.nombrePestanaActiva == "video") {
 				v.formData.append("video", DOM.outputVideoId.value);
-				v.formData.append("leyenda", DOM.muestraLeyenda.innerText);
+				v.formData.append("leyenda", DOM.muestraLeyendaVideo.innerText);
 			}
 
 			// Feedback si imagen (textoImagen o imagen)
