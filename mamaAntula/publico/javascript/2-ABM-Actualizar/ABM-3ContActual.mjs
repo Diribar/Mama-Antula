@@ -125,24 +125,6 @@ window.addEventListener("load", async () => {
 				// Fin
 				return;
 			},
-			video2: function (contenido) {
-				// Crea el contenedor
-				const contenedor = document.createElement("div");
-				contenedor.classList.add("contVideoLeyenda");
-
-				// Crea la imagen
-				const domVideo = document.createElement("video");
-				domVideo.src = contenido.video;
-				domVideo.classList.add("video");
-				contenedor.appendChild(domVideo);
-
-				// Crea la leyenda
-				const domLeyenda = this.leyenda(contenido);
-				contenedor.appendChild(domLeyenda);
-
-				// Fin
-				return contenedor;
-			},
 			leyenda: (contenido) => {
 				// Crea el contenedor
 				const domLeyenda = document.createElement("div");

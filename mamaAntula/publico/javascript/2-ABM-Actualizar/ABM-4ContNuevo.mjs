@@ -16,6 +16,8 @@ window.addEventListener("load", async () => {
 		// Video
 		outputVideoId: document.querySelector("#video [name='video']"),
 		muestraLeyendaVideo: document.querySelector("#video .muestraLeyenda"),
+		inputsVideo: document.querySelectorAll("#video .input"),
+		divsVideo: document.querySelectorAll("#video .div"),
 	};
 	const rutas = {
 		guardaContenido: "/contenido/api/abm-guarda-contenido",
@@ -68,16 +70,20 @@ window.addEventListener("load", async () => {
 		const respuesta = await fetch(rutas.guardaContenido, postForm(v.formData)).then((n) => n.json());
 
 		// Actualiza
-		console.log(respuesta);
 		DOM.filtroEncabezado.dispatchEvent(new Event("change"));
 
 		// Fin
+		return;
 	});
 
 	// Lo actualiza por cambio en el encabezado
 	DOM.filtroEncabezado.addEventListener("change", async () => {
+		// Texto
 		DOM.textoInput.querySelector(".ql-editor").innerHTML = "";
-		// DOM.videoInput.querySelector(".ql-editor").innerHTML = "";
+
+		// Video
+		for (const input of DOM.inputsVideo) input.value = "";
+		for (const div of DOM.divsVideo) div.innerHTML = "";
 	});
 
 	// Fin
