@@ -10,7 +10,6 @@ export default {
 		// En uso
 		anoMesDia: (fecha) => new Date(fecha).toISOString().slice(0, 10),
 		ahora: () => new Date(new Date().toUTCString()), // <-- para convertir en horario 'UTC'
-		fechaDiaMesAno: (fecha) => FN.fechaDiaMesAno(fecha),
 	},
 	validacs: {
 		castellano: {
