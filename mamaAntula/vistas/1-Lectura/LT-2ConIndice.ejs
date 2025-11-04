@@ -21,9 +21,9 @@
 </div>
 
 <div id="tituloMasContenido">
-	<h2 id="tituloDelContenido" class="fondo"><%= locals.encabezado && encabezado.titulo %></h2>
+	<h2 id="tituloDelContenido" class="fondo"><%= locals.tituloCarta || locals.encabezado && encabezado.titulo %></h2>
 	<div id="contsImagenes" class="fondo">
-		<% if (locals.encabezado) { %>
+		<% if (locals.tituloCarta || encabezado) { %>
 			<% for (const contenido of contenidos) { %>
 				<% if (contenido.texto || contenido.imagen) { %>
 					<div class="contImagen">
@@ -34,7 +34,7 @@
 							</div>
 						<% } %>
 						<% if (contenido.texto) { %>
-							<div class="texto"><%= contenido.texto %></div>
+							<div class="texto"><%- contenido.texto %></div>
 						<% } %>
 					</div>
 				<% } %>
