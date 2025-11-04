@@ -49,6 +49,7 @@ window.addEventListener("load", async () => {
 
 			// Crea el DOM íconos
 			const domIconos = DOM.iconos.cloneNode(true);
+			domIconos.dataset.id = contenido.id;
 			if (v.inicial_id == contenido.id) domIconos.querySelector(".subir").classList.add("ocultar");
 			if (v.final_id == contenido.id) domIconos.querySelector(".bajar").classList.add("ocultar");
 			domBloqueLectura.appendChild(domIconos);
