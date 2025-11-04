@@ -7,8 +7,6 @@ export default {
 		const {entidad, campo_id, includes} = comp.contenido.obtieneDatosDeTabla(condicion);
 
 		// Obtiene los encabezados
-		console.log(10, entidad, condicion, includes);
-
 		const encabezados =
 			entidad == "encabCartas"
 				? await baseDatos
