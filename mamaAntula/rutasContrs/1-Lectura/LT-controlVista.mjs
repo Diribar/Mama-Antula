@@ -13,7 +13,7 @@ export default {
 		const temaActual = temasSeccion[0];
 
 		// Obtiene el encabezado y contenido de los artículos
-		const {encabezados, contenidos} = await procesos.contenido({seccionActual, temaActual});
+		const {encabezados, contenidos} = await procesos.contenidos({seccionActual, temaActual});
 
 		// Variables para la vista
 		const {archVista} = procesos.varsVista({seccionActual, temaActual});
@@ -75,7 +75,7 @@ export default {
 
 			// Obtiene el encabezado y contenidos
 			const encabezado_id = req.query.id || 1;
-			const {encabezado, contenidos} = await procesos.contenido({seccionActual, temaActual, encabezado_id});
+			const {encabezado, contenidos} = await procesos.contenidos({seccionActual, temaActual, encabezado_id});
 
 			// Variables para la vista
 			const {archVista} = procesos.varsVista({seccionActual, temaActual});
@@ -106,7 +106,7 @@ export default {
 			const pestanaActual = pestanasTema.find((n) => n.url == urlPestana);
 
 			// Obtiene el encabezado, contenido y imgsCarrousel del artículo
-			const {encabezados, contenidos} = await procesos.contenido({seccionActual, temaActual, pestanaActual});
+			const {encabezados, contenidos} = await procesos.contenidos({seccionActual, temaActual, pestanaActual});
 
 			// Variables para la vista
 			const {archVista} = procesos.varsVista({seccionActual, temaActual});
@@ -133,7 +133,7 @@ export default {
 		const temaActual = temasSeccion.find((n) => n.url == urlTema);
 
 		// Obtiene el encabezado y contenido de los artículos
-		const {encabezados, contenidos} = await procesos.contenido({seccionActual, temaActual});
+		const {encabezados, contenidos} = await procesos.contenidos({seccionActual, temaActual});
 
 		// Variables para la vista
 		const {archVista} = procesos.varsVista({seccionActual, temaActual});
@@ -163,7 +163,7 @@ export default {
 		const pestanaActual = pestanasTema.find((n) => n.url == urlPestana);
 
 		// Obtiene el encabezado, contenido y imgsCarrousel del artículo
-		const {encabezados, contenidos} = await procesos.contenido({seccionActual, temaActual, pestanaActual});
+		const {encabezados, contenidos} = await procesos.contenidos({seccionActual, temaActual, pestanaActual});
 
 		// Variables para la vista
 		const {archVista} = procesos.varsVista({seccionActual, temaActual});

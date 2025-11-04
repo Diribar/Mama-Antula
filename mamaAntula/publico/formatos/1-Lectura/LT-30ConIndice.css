@@ -3,6 +3,7 @@
 
 	#tituloMasContenido {
 		background-image: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9));
+		flex-grow: 1;
 
 		#tituloDelContenido {padding-block: 6px 10px;}
 
@@ -13,13 +14,15 @@
 
 			.contImagen {
 				.imgLeyenda {
-					float: right; margin-left: 30px; margin-bottom: 15px; max-width: 33%;
 					display: flex; flex-direction: column; align-items: center;
 					.imagen {max-width: 100%; max-height: 65vh;}
-					.leyenda {text-align: center; font-style: italic; color: var(--grisInterm);}
+					.leyenda {text-align: center; font-style: italic; color: var(--grisInterm); text-wrap: balance;}
 				}
 				.texto {
 					p {margin-bottom: 12px; line-height: 1.5;}
+				}
+				&:has(.texto) .imgLeyenda {
+					float: right; margin-left: 30px; margin-bottom: 15px; max-width: 33%;
 				}
 			}
 		}

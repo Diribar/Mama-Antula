@@ -26,18 +26,17 @@
 		<% if (locals.encabezado) { %>
 			<% for (const contenido of contenidos) { %>
 				<% if (contenido.texto || contenido.imagen) { %>
-					<div id="contImagen">
+					<div class="contImagen">
 						<% if (contenido.imagen) { %>
-							<div id="imgLeyenda">
-								<img id="imagenExper" src="/imgsEditables/1-Contenido/<%= contenido.imagen %>">
-								<div id="leyendaImagen" class="fondo"><%= contenido.leyenda %></div>
+							<div class="imgLeyenda">
+								<img class="imagen" src="/imgsEditables/1-Contenido/<%= contenido.imagen %>">
+								<div class="leyenda" class="fondo"><%= contenido.leyenda %></div>
 							</div>
 						<% } %>
 						<% if (contenido.texto) { %>
 							<div class="texto"><%= contenido.texto %></div>
 						<% } %>
 					</div>
-
 				<% } %>
 			<% } %>
 		<% } %>

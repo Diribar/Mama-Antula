@@ -1,15 +1,13 @@
 "use strict";
 
 export default {
-	contenido: async ({temaActual, pestanaActual}) => {
+	contenidos: async ({temaActual, pestanaActual}) => {
 		// Variables
 		const condicion = pestanaActual ? {pestana_id: pestanaActual.id} : {tema_id: temaActual.id};
 		const {entidad, campo_id} = comp.contenido.obtieneDatosDeTabla(condicion);
 
 		// Obtiene los encabezados
 		const encabezado = await baseDatos.obtienePorCondicion(entidad, condicion);
-		console.log(10, entidad, condicion);
-		console.log(11, encabezado);
 		if (!encabezado) return {};
 
 		// Obtiene los contenidos
