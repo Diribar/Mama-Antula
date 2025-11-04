@@ -25,6 +25,31 @@ export default {
 		});
 	},
 	redirige: (req, res) => {},
+	cartas: async (req, res) => {
+		// Sección
+		const seccionActual = secciones.find((n) => n.codigo == "cartasEscritos");
+		const tituloPagina = seccionActual.nombre;
+
+		// Tema
+		const temasSeccion = temasSecciones.filter((n) => n.seccion_id == seccionActual.id);
+		const temaActual = temasSeccion.find((n) => n.codigo == "cartas");
+
+		// Obtiene la carta
+		const carta = req.query.carta || 1;
+		const encabCarta = await baseDatos.obtienePorCondicion("encabCartas", {numero: carta});
+		const contCarta = await baseDatos.obtienePorCondicion("contenidos", {carta_id: encabCarta.id});
+
+		// Variables para la vista
+		const archVista = "1Cartas";
+
+		// Fin
+		return res.render("CMP-0Estructura", {
+			...{tituloPagina, temaVista},
+			...{temasSeccion},
+			...{seccionActual, temaActual, archVista},
+			...{encabCarta, contCarta},
+		});
+	},
 	temas: async (req, res) => {
 		// Variables
 		const {urlSeccion, urlTema} = req.params;

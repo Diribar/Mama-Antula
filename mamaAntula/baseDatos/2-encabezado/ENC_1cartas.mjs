@@ -2,7 +2,7 @@ export default (sequelize, dt) => {
 	const alias = "encabCartas";
 	const columns = {
 		// Referencias
-		numero: {type: dt.INTEGER},
+		numero: {type: dt.STRING(10)},
 		nombreDesde_id: {type: dt.INTEGER},
 		nombreHacia_id: {type: dt.INTEGER},
 		lugar_id: {type: dt.INTEGER},
