@@ -8,9 +8,10 @@ window.addEventListener("load", async () => {
 		inputUrl: domLayout.querySelector("[name='url']"),
 		inputLeyenda: domLayout.querySelector("[name='leyenda']"),
 
-		// Muestra
+		// Output
 		muestraVideo: domLayout.querySelector("#muestraVideo"),
 		muestraLeyenda: domLayout.querySelector(".muestraLeyenda"),
+		outputVideoId: domLayout.querySelector("[name='video']"),
 	};
 	console.log(DOM.inputUrl);
 
@@ -39,6 +40,7 @@ window.addEventListener("load", async () => {
 		// Obtiene el id del video
 		const youTubeId = getYouTubeId(inputUrl);
 		if (!youTubeId) return;
+		DOM.outputVideoId.value = youTubeId;
 
 		// Crea el iframe
 		const iframe = document.createElement("iframe");
@@ -50,6 +52,11 @@ window.addEventListener("load", async () => {
 
 		// Fin
 		return;
+	});
+	DOM.inputLeyenda.addEventListener("input", () => (DOM.muestraLeyenda.innerText = DOM.inputLeyenda.value));
+	DOM.inputLeyenda.addEventListener("change", () => {
+		DOM.inputLeyenda.value = inicialMayus(DOM.inputLeyenda.value);
+		DOM.muestraLeyenda.innerText = DOM.inputLeyenda.value;
 	});
 
 	// Fin

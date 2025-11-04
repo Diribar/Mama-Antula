@@ -95,7 +95,7 @@ window.addEventListener("load", async () => {
 	// Lo actualiza por cambio en el encabezado
 	DOM.filtroEncabezado.addEventListener("change", async () => {
 		DOM.textoInput.querySelector(".ql-editor").innerHTML = "";
-		DOM.videoInput.querySelector(".ql-editor").innerHTML = "";
+		// DOM.videoInput.querySelector(".ql-editor").innerHTML = "";
 	});
 
 	// Fin

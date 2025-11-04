@@ -39,8 +39,10 @@
 		#imagen, #carrousel {border: 1px solid grey;}
 		#imagen {max-width: 33%;}
 		#video {
-			.barraHerrams {display: flex; flex-direction: row; justify-content: center;}
-			.input:not(:has(iframe)) {height: 0px;}
+			.inputs, .outputs {width: 200px;}
+			#muestraVideo {width: 100%; height: 150px; border: 1px solid gray;}
+
 		}
+		.muestraLeyenda {width: 100%; text-align: center;}
 	}
 }
