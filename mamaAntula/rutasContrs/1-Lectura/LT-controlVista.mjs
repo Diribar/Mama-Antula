@@ -40,10 +40,8 @@ export default {
 		const temaActual = temasSeccion.find((n) => n.codigo == "cartas");
 
 		// Obtiene la carta
-		const numero = req.query.numero || 1;
-		const include = ["nombreDesde", "nombreHacia", "lugar", "idioma"];
-		const encabezado = await baseDatos.obtienePorCondicion("encabCartas", {numero}, include);
-		const contenidos = encabezado ? await baseDatos.obtieneTodosPorCondicion("contenidos", {carta_id: encabezado.id}) : [];
+		const encabezado_id = req.query.id || 1;
+		const {encabezado, contenidos} = await procesos.contenidos({seccionActual, temaActual, encabezado_id});
 
 		// Genera el título de la carta
 		const tituloCarta = comp.contenido.tituloCons.encabCarta(encabezado);

@@ -7,9 +7,16 @@ export default {
 		const {entidad, campo_id, includes} = comp.contenido.obtieneDatosDeTabla(condicion);
 
 		// Obtiene los encabezados
-		const encabezados = await baseDatos
-			.obtieneTodosPorCondicion(entidad, condicion, includes)
-			.then((n) => n.sort((a, b) => (b.fechaEvento < a.fechaEvento ? -1 : 1)));
+		console.log(10, entidad, condicion, includes);
+
+		const encabezados =
+			entidad == "encabCartas"
+				? await baseDatos
+						.obtieneTodos(entidad, includes)
+						.then((n) => n.sort((a, b) => (a.fechaEvento < b.fechaEvento ? -1 : 1)))
+				: await baseDatos
+						.obtieneTodosPorCondicion(entidad, condicion, includes)
+						.then((n) => n.sort((a, b) => (b.fechaEvento < a.fechaEvento ? -1 : 1)));
 		if (!encabezados.length) return {};
 		const encabezado = encabezados.find((n) => n.id == encabezado_id) || encabezados[0];
 
