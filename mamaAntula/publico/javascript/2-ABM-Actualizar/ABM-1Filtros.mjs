@@ -14,6 +14,7 @@ window.addEventListener("load", async () => {
 		obtieneEncabs: "/contenido/api/abm-obtiene-encabezados/?",
 	};
 	cac = {startUp: true, ...(await fetch(rutas.datosIniciales).then((n) => n && n.json()))};
+	const v = {};
 
 	// Funciones
 	const FN = {
@@ -133,13 +134,13 @@ window.addEventListener("load", async () => {
 	});
 	// Eventos del filtro de encabezado
 	DOM.encabezado.addEventListener("change", async () => {
-		// ENCABEZADO - Si es start-up, elige la opción de la cookie
-		if (cac.startUp && cookie("actualizaEncabezado_id")) DOM.encabezado.value = cookie("actualizaEncabezado_id");
-
 		// ENCABEZADO - Guarda la cookie
-		cac.encabezado_id = DOM.encabezado.value;
-		if (!cac.startUp) document.cookie = "actualizaEncabezado_id=" + cac.encabezado_id;
-		delete cac.startUp;
+		if (!cac.startUp) document.cookie = "actualizaEncabezado_id=" + DOM.encabezado.value;
+		// ENCABEZADO - Si es start-up, elige la opción de la cookie
+		else if (cac.startUp) {
+			if (cookie("actualizaEncabezado_id")) DOM.encabezado.value = cookie("actualizaEncabezado_id");
+			delete cac.startUp;
+		}
 
 		// Actualiza el anchor de flitros
 		FN.actualizaHref();

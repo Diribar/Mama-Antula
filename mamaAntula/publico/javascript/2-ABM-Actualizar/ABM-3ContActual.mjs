@@ -4,11 +4,7 @@ window.addEventListener("load", async () => {
 	// Variables
 	const DOM = {
 		// Filtros
-		filtros: {
-			pestana: document.querySelector("#filtros select[name='pestana_id']"),
-			encabezado: document.querySelector("#filtros select[name='encabezado']"),
-			anchorLectura: document.querySelector("a#linkLectura"),
-		},
+		filtroEncabezado: document.querySelector("#filtros select[name='encabezado']"),
 
 		// Inputs del encabezado
 		sectorEncabezado: document.querySelector("#sectorEncabezado"),
@@ -17,69 +13,24 @@ window.addEventListener("load", async () => {
 
 		// Contenido actual
 		sectorContActual: document.querySelector("#sectorContActual"),
-		iconosActual: document.querySelector("#sectorContActual .iconos"),
+		iconos: document.querySelector("#sectorContActual .iconos"),
+		iconosEliminar: document.querySelectorAll("#sectorContActual .iconos #iconoEliminar"),
 
 		// Contenido nuevo
 		sectorContNuevo: document.querySelector("#sectorContNuevo"),
 	};
-	const rutas = {obtieneContenidos: "/contenido/api/abm-obtiene-contenidos/?"};
+	const rutas = {
+		// Lectura
+		obtieneContenidos: "/contenido/api/abm-obtiene-contenidos/?",
+
+		// Impactos en BD
+		guardaContenido: "/contenido/api/abm-guarda-contenido",
+		eliminaContenido: "/contenido/api/abm-elimina-contenido/?id=",
+	};
 	const v = {};
 
 	// Funciones
 	const FN = {
-		// Operaciones
-		actualizaEncabezado: () => {
-			// Si corresponde, oculta el sector encabezado - si 'encabSinIndice' no viene de una pestaña, no se lo muestra porque sus campos no poseen ningún valor
-			if (cac.tipoEncab == "encabSinIndice" && !DOM.filtros.pestana.value) DOM.sectorEncabezado.classList.add("ocultar");
-			// Muestra el sector encabezados
-			else DOM.sectorEncabezado.classList.remove("ocultar");
-
-			// Actualiza el DOM
-			DOM.encabezado = document.querySelector("#sectorEncabezado .encabezado:not(.ocultar)");
-			DOM.inputs = DOM.encabezado.querySelectorAll(".input");
-			const encabezado = cac.encabezados.find((n) => n.id == cac.encabezado_id);
-			for (const input of DOM.inputs) {
-				// Agrega las opciones
-				const {tabla} = input.dataset;
-				if (input.type == "select-one" && tabla) agregaOpciones(cac[tabla], input, "nombre");
-
-				// Actualiza el valor elegido de todos los inputs
-				const campo = input.name;
-				input.value = (encabezado && encabezado[campo]) || "";
-			}
-
-			// Actualiza los íconos
-			DOM.encabIconos.querySelector("#eliminar").classList[cac.encabezado_id == "nuevo" ? "add" : "remove"]("ocultar");
-
-			// Fin
-			return;
-		},
-		actualizaContenidoActual: async () => {
-			// Variables
-			const campo_id =
-				cac.tipoEncab == "encabCartas" ? "carta_id" : cac.tipoEncab == "encabExpers" ? "experiencia_id" : "sinIndice_id";
-			const ruta = rutas.obtieneContenidos + "encab_id=" + cac.encabezado_id + "&campo_id=" + campo_id;
-
-			// Limpia el DOM
-			DOM.sectorContActual.innerHTML = "";
-
-			// Si corresponde, interrumpe la función
-			v.contenidos = cac.encabezado_id != "nuevo" ? await fetch(ruta).then((n) => n && n.json()) : [];
-			if (!v.contenidos.length) {
-				DOM.sectorContActual.classList.add("ocultar");
-				return;
-			}
-			// Muestra el sector contenidos
-			else DOM.sectorContActual.classList.remove("ocultar");
-
-			// Actualiza el DOM
-			FN.creaContenedorContenidoIconos();
-
-			// Fin
-			return;
-		},
-
-		// Auxiliares
 		creaContenedorContenidoIconos: function () {
 			// Variables
 			v.inicial_id = v.contenidos[0]?.id;
@@ -105,7 +56,7 @@ window.addEventListener("load", async () => {
 			domBloqueLectura.appendChild(v.domContenido);
 
 			// Crea el DOM íconos
-			const domIconos = DOM.iconosActual.cloneNode(true);
+			const domIconos = DOM.iconos.cloneNode(true);
 			if (v.inicial_id == contenido.id) domIconos.querySelector(".subir").classList.add("ocultar");
 			if (v.final_id == contenido.id) domIconos.querySelector(".bajar").classList.add("ocultar");
 			domBloqueLectura.appendChild(domIconos);
@@ -201,19 +152,46 @@ window.addEventListener("load", async () => {
 		},
 	};
 
-	// Eventos del filtro de encabezado
-	DOM.filtros.encabezado.addEventListener("change", async () => {
-		// Muestra el encabezado que corresponde, y oculta los demás
-		for (const encabezado of DOM.encabezados)
-			encabezado.classList[encabezado.id == cac.tipoEncab ? "remove" : "add"]("ocultar");
+	// Lo actualiza por cambio en el encabezado
+	DOM.filtroEncabezado.addEventListener("change", async () => {
+		// Variables
+		const encabezado_id = DOM.encabezado.value;
+		const campo_id =
+			cac.tipoEncab == "encabCartas" ? "carta_id" : cac.tipoEncab == "encabExpers" ? "experiencia_id" : "sinIndice_id";
+		const ruta = rutas.obtieneContenidos + "encab_id=" + encabezado_id + "&campo_id=" + campo_id;
 
-		// Actualiza el encabezado
-		FN.actualizaEncabezado();
+		// Limpia el DOM
+		DOM.sectorContActual.innerHTML = "";
 
-		// Actualiza el contenido actual
-		FN.actualizaContenidoActual();
+		// Si corresponde, interrumpe la función
+		v.contenidos = v.encabezado_id != "nuevo" ? await fetch(ruta).then((n) => n && n.json()) : [];
+		if (!v.contenidos.length) {
+			DOM.sectorContActual.classList.add("ocultar");
+			return;
+		}
+		// Muestra el sector contenidos
+		else DOM.sectorContActual.classList.remove("ocultar");
+
+		// Actualiza el DOM
+		FN.creaContenedorContenidoIconos();
 
 		// Fin
 		return;
 	});
+
+	// Impacto en BD (contenido - nuevo) - Guardar/Actualizar
+	DOM.guardaNuevo.addEventListener("click", async () => {
+		// Arma el feedback del encabezado
+		const formData = new FormData();
+		formData.append("encabezado_id", DOM.filtroEncabezado.value);
+		formData.append("tipoEncab", cac.tipoEncab);
+
+		// Completa el feedback en función de la pestanaGuardar
+	});
+
+	// Impacto en BD (contenido - actual) - Editar
+	// Impacto en BD (contenido - actual) - Subir
+	// Impacto en BD (contenido - actual) - Bajar
+	// Impacto en BD (contenido - actual) - Eliminar
+	DOM.iconosEliminar.forEach((iconoEliminar, i) => {});
 });

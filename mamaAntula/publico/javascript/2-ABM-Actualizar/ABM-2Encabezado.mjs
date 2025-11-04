@@ -56,7 +56,7 @@ window.addEventListener("load", async () => {
 			// Variables
 			DOM.encabezado = document.querySelector("#sectorEncabezado .encabezado:not(.ocultar)");
 			DOM.inputs = DOM.encabezado.querySelectorAll(".input");
-			const encabezado = cac.encabezados.find((n) => n.id == cac.encabezado_id);
+			const encabezado = cac.encabezados.find((n) => n.id == v.encabezado_id);
 
 			// Agrega los valores
 			for (const input of DOM.inputs) {
@@ -84,11 +84,14 @@ window.addEventListener("load", async () => {
 
 	// Impactos del filtro - Actualiza el encabezado
 	DOM.encabezado.addEventListener("change", () => {
+		// Variables
+		v.encabezado_id = DOM.encabezado.value;
+
 		// Muestra el encabezado que corresponde, y oculta los demás
 		actualizaElEncabezado.consolidado();
 
 		// Actualiza los íconos
-		DOM.encabIconos.querySelector("#eliminar").classList[cac.encabezado_id == "nuevo" ? "add" : "remove"]("ocultar");
+		DOM.encabIconos.querySelector("#eliminar").classList[v.encabezado_id == "nuevo" ? "add" : "remove"]("ocultar");
 
 		// Fin
 		return;
