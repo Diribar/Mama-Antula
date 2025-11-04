@@ -14,8 +14,8 @@ window.addEventListener("load", async () => {
 		datosIniciales: "/contenido/api/abm-datos-inciales",
 		obtieneEncabs: "/contenido/api/abm-obtiene-encabezados/?",
 	};
-	cac = {startUp: true, ...(await fetch(rutas.datosIniciales).then((n) => n && n.json()))};
-	const v = {};
+	cac = await fetch(rutas.datosIniciales).then((n) => n && n.json());
+	const v = {startUp: true};
 
 	// Funciones
 	const FN = {
@@ -67,11 +67,11 @@ window.addEventListener("load", async () => {
 	// Eventos de filtros
 	DOM.seccion.addEventListener("change", () => {
 		// SECCION - Si es start-up, elige la opción de la cookie
-		if (cac.startUp && cookie("actualizaSeccion_id")) DOM.seccion.value = cookie("actualizaSeccion_id");
+		if (v.startUp && cookie("actualizaSeccion_id")) DOM.seccion.value = cookie("actualizaSeccion_id");
 
 		// SECCIÓN - Guarda la cookie
 		const seccion_id = DOM.seccion.value;
-		if (!cac.startUp) document.cookie = "actualizaSeccion_id=" + seccion_id;
+		if (!v.startUp) document.cookie = "actualizaSeccion_id=" + seccion_id;
 
 		// Averigua si la sección es 'Experiencias'
 		cac.tipoEncab =
@@ -90,11 +90,11 @@ window.addEventListener("load", async () => {
 	});
 	DOM.tema.addEventListener("change", () => {
 		// TEMA - Si es start-up, elige la opción de la cookie
-		if (cac.startUp && cookie("actualizaTema_id")) DOM.tema.value = cookie("actualizaTema_id");
+		if (v.startUp && cookie("actualizaTema_id")) DOM.tema.value = cookie("actualizaTema_id");
 
 		// TEMA -  Guarda la cookie
 		const tema_id = DOM.tema.value;
-		if (!cac.startUp) document.cookie = "actualizaTema_id=" + tema_id;
+		if (!v.startUp) document.cookie = "actualizaTema_id=" + tema_id;
 
 		// Averigua si el tema es 'Cartas'
 		if (cac.tipoEncab != "encabExpers")
@@ -123,12 +123,12 @@ window.addEventListener("load", async () => {
 	});
 	DOM.pestana.addEventListener("change", () => {
 		// PESTAÑA - Si es start-up, elige la opción de la cookie
-		if (cac.startUp && cookie("actualizaPestana_id")) DOM.pestana.value = cookie("actualizaPestana_id");
-		delete cac.startUp;
+		if (v.startUp && cookie("actualizaPestana_id")) DOM.pestana.value = cookie("actualizaPestana_id");
+		delete v.startUp;
 
 		// PESTAÑA -  Guarda la cookie
 		const pestana_id = DOM.pestana.value;
-		if (!cac.startUp) document.cookie = "actualizaPestana_id=" + pestana_id;
+		if (!v.startUp) document.cookie = "actualizaPestana_id=" + pestana_id;
 
 		// ENCABEZADO - Los obtiene y genera el evento 'change'
 		FN.actualizaFiltroEncabezado();
@@ -136,11 +136,11 @@ window.addEventListener("load", async () => {
 	// Eventos del filtro de encabezado
 	DOM.encabezado.addEventListener("change", async () => {
 		// ENCABEZADO - Guarda la cookie
-		if (!cac.startUp) document.cookie = "actualizaEncabezado_id=" + DOM.encabezado.value;
+		if (!v.startUp) document.cookie = "actualizaEncabezado_id=" + DOM.encabezado.value;
 		// ENCABEZADO - Si es start-up, elige la opción de la cookie
-		else if (cac.startUp) {
+		else if (v.startUp) {
 			if (cookie("actualizaEncabezado_id")) DOM.encabezado.value = cookie("actualizaEncabezado_id");
-			delete cac.startUp;
+			delete v.startUp;
 		}
 
 		// Actualiza el anchor de flitros

@@ -36,9 +36,9 @@ export default {
 
 		// Obtiene la carta
 		// const quePide=Object.keys(req.query)[0];
-		const carta = req.query.carta || 1;
+		const numero = req.query.numero || 1;
 		const include = ["nombreDesde", "nombreHacia", "lugar", "idioma"];
-		const encabCarta = await baseDatos.obtienePorCondicion("encabCartas", {numero: carta}, include);
+		const encabCarta = await baseDatos.obtienePorCondicion("encabCartas", {numero}, include);
 		const contCarta = await baseDatos.obtienePorCondicion("contenidos", {carta_id: encabCarta.id});
 
 		// Genera el título de la carta
