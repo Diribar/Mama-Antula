@@ -45,6 +45,13 @@ window.addEventListener("load", async () => {
 
 			// Muestra los encabezados y dispara el evento
 			if (cac.tipoEncab != "encabSinIndice") DOM.encabezado.classList.remove("ocultar");
+
+			// ENCABEZADO - Si es start-up, elige la opción de la cookie
+			if (v.startUp) {
+				if (cookie("actualizaEncabezado_id")) DOM.encabezado.value = cookie("actualizaEncabezado_id");
+				delete v.startUp;
+			}
+
 			DOM.encabezado.dispatchEvent(new Event("change"));
 
 			// Fin
