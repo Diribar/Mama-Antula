@@ -132,7 +132,7 @@ export default {
 				? ["encabCartas", "carta_id", ["nombreDesde", "nombreHacia", "lugar", "idioma"]]
 				: seccionActual.codigo == "experiencias"
 				? ["encabExpers", "experiencia_id", ["lugar"]]
-				: ["encabSinIndice", "sinIndice_id", [""]];
+				: ["encabSinIndice", "sinIndice_id"];
 
 			// Fin
 			return {entidad, campo_id, includes};
