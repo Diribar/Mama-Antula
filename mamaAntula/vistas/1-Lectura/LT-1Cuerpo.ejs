@@ -9,7 +9,7 @@
 	<div class="contenidoTema contenido" data-tema_codigo="<%= temaActual.codigo %>">
 		<!-- Sin pestañas -->
 		<% if (!locals.pestanasTema) { %>
-			<%- include("LT-3ArticCarta") %>
+			<%- include("LT-" + archVista) %>
 
 		<% } else { %>
 			<!-- Tiene pestañas - Pestañas -->
@@ -18,7 +18,7 @@
 			<!-- Tiene pestañas - Contenido -->
 			<% pestanasTema.forEach((pestana, i) => { %>
 				<div class="contenidoPestana contenido <% if (pestanaActual && pestana.id != pestanaActual.id) { %>ocultar<% } %>" data-pestana_codigo="<%= pestana.codigo %>">
-					<%- include("LT-3ArticCarta") %>
+					<%- include("LT-" + archVista) %>
 				</div>
 			<% }) %>
 		<% } %>
