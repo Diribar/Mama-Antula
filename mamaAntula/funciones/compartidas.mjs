@@ -156,9 +156,12 @@ export default {
 				const tituloCons =
 					"Carta " +
 					encab.numero +
-					" - De " +
+					" - " +
+					(encab.nombreDesde.nombre.startsWith("P.") ? "Del" : "De") +
+					" " +
 					encab.nombreDesde.nombre +
-					" a " +
+					" para " +
+					(encab.nombreHacia.nombre.startsWith("P.") ? "el " : "") +
 					encab.nombreHacia.nombre +
 					" - " +
 					encab.lugar.nombre +
