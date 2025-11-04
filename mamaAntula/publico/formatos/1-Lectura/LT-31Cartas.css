@@ -1,7 +1,5 @@
-#cuerpo {
-	display: flex; flex-direction: row;
-	height: calc(100% - 68.2px); /* 68.2px es el alto del tema */
-	overflow: hidden;
+.contenidoCuerpo {
+	flex-direction: row !important;
 
 	#carta {
 		background-image: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9));
