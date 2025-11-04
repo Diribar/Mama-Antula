@@ -64,8 +64,6 @@ window.addEventListener("load", async () => {
 			DOM.encabezado = document.querySelector("#sectorEncabezado .encabezado:not(.ocultar)");
 			DOM.inputs = DOM.encabezado.querySelectorAll(".input");
 			const encabezado = cac.encabezados.find((n) => n.id == v.encabezado_id);
-			console.log(encabezado,v.encabezado_id);
-
 
 			// Agrega los valores
 			for (const input of DOM.inputs) {
