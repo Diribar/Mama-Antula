@@ -106,7 +106,7 @@ export default {
 			const pestanaActual = pestanasTema.find((n) => n.url == urlPestana);
 
 			// Obtiene el encabezado, contenido y imgsCarrousel del artículo
-			const {encabezados, contenidos} = await procesos.contenidos({seccionActual, temaActual, pestanaActual});
+			const {encabezado, contenidos} = await procesos.contenidos({seccionActual, temaActual, pestanaActual});
 
 			// Variables para la vista
 			const {archVista} = procesos.varsVista({seccionActual, temaActual});
@@ -116,7 +116,7 @@ export default {
 				...{tituloPagina, temaVista, codigoVista, archVista},
 				...{temasSeccion, pestanasTema},
 				...{seccionActual, temaActual, pestanaActual},
-				...{encabezados, contenidos},
+				...{encabezado, contenidos},
 			});
 		},
 	},
@@ -133,7 +133,7 @@ export default {
 		const temaActual = temasSeccion.find((n) => n.url == urlTema);
 
 		// Obtiene el encabezado y contenido de los artículos
-		const {encabezados, contenidos} = await procesos.contenidos({seccionActual, temaActual});
+		const {encabezado, contenidos} = await procesos.contenidos({seccionActual, temaActual});
 
 		// Variables para la vista
 		const {archVista} = procesos.varsVista({seccionActual, temaActual});
@@ -143,7 +143,7 @@ export default {
 			...{tituloPagina, temaVista},
 			...{temasSeccion},
 			...{seccionActual, temaActual, archVista},
-			...{encabezados, contenidos},
+			...{encabezado, contenidos},
 		});
 	},
 	pestanas: async (req, res) => {
@@ -163,7 +163,7 @@ export default {
 		const pestanaActual = pestanasTema.find((n) => n.url == urlPestana);
 
 		// Obtiene el encabezado, contenido y imgsCarrousel del artículo
-		const {encabezados, contenidos} = await procesos.contenidos({seccionActual, temaActual, pestanaActual});
+		const {encabezado, contenidos} = await procesos.contenidos({seccionActual, temaActual, pestanaActual});
 
 		// Variables para la vista
 		const {archVista} = procesos.varsVista({seccionActual, temaActual});
@@ -173,7 +173,7 @@ export default {
 			...{tituloPagina, temaVista},
 			...{temasSeccion, pestanasTema},
 			...{seccionActual, temaActual, pestanaActual},
-			...{encabezados, contenidos, archVista},
+			...{encabezado, contenidos, archVista},
 		});
 	},
 };
