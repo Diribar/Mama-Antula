@@ -9,7 +9,6 @@ window.addEventListener("load", async () => {
 		// Contenido actual
 		sectorContenido: document.querySelector("#sectorContActual"),
 		iconos: document.querySelector("#sectorContActual .iconos"),
-		iconosEliminar: document.querySelectorAll("#sectorContActual .iconos #iconoEliminar"),
 	};
 	const rutas = {
 		// Lectura
@@ -17,7 +16,7 @@ window.addEventListener("load", async () => {
 
 		// Impactos en BD
 		guardaContenido: "/contenido/api/abm-guarda-contenido",
-		eliminaContenido: "/contenido/api/abm-elimina-contenido/?id=",
+		eliminaContenido: "/contenido/api/abm-elimina-contenido",
 	};
 	const v = {};
 
@@ -33,6 +32,9 @@ window.addEventListener("load", async () => {
 				this.agregaBloqueLectura(contenido);
 				// this.agregaBloqueEdicion(contenido);
 			}
+
+			// Obtiene los íconos
+			this.eventos();
 
 			// Fin
 			return;
@@ -61,6 +63,15 @@ window.addEventListener("load", async () => {
 			return;
 		},
 		agregaBloqueEdicion: () => {},
+		eventos: () => {
+			const eventos = ["Eliminar"];
+			for (const evento of eventos) {
+				DOM["iconos" + evento] = document.querySelectorAll("#sectorContActual .iconos .icono" + evento);
+				for (const icono of DOM["iconos" + evento]) eventosClick["icono" + evento](icono);
+			}
+		},
+
+		// Auxiliares
 		creaElContenido: {
 			consolidado: function (contenido) {
 				// Crea el DOM
@@ -136,6 +147,24 @@ window.addEventListener("load", async () => {
 			},
 		},
 	};
+	const eventosClick = {
+		// Eliminar
+		iconoEliminar: (iconoEliminar) => {
+			iconoEliminar.addEventListener("click", async () => {
+				// Variables
+				const id = iconoEliminar.parentNode.dataset.id;
+
+				// Elimina el contenido
+				await fetch(rutas.eliminaContenido, deleteJson({id})).then((n) => n.json());
+
+				// Actualiza el DOM
+				DOM.filtroEncabezado.dispatchEvent(new Event("change"));
+
+				// Fin
+				return;
+			});
+		},
+	};
 
 	// Lo actualiza por cambio en el encabezado
 	DOM.filtroEncabezado.addEventListener("change", async () => {
@@ -163,11 +192,9 @@ window.addEventListener("load", async () => {
 		return;
 	});
 
-	// Impacto en BD (contenido - actual) - Editar
-	// Impacto en BD (contenido - actual) - Subir
-	// Impacto en BD (contenido - actual) - Bajar
-	// Impacto en BD (contenido - actual) - Eliminar
-	DOM.iconosEliminar.forEach((iconoEliminar, i) => {});
+	// Editar
+	// Subir
+	// Bajar
 });
 
 // Variables

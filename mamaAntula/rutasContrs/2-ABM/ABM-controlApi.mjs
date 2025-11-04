@@ -129,9 +129,10 @@ export default {
 	},
 	eliminaContenido: async (req, res) => {
 		// Variables
-		console.log(req.body);
+		const {id} = req.body;
+		if (id) await baseDatos.eliminaPorId("contenidos", id);
 
 		// Fin
-		return res.json();
+		return res.json({});
 	},
 };

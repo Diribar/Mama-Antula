@@ -17,7 +17,7 @@ window.addEventListener("load", async () => {
 		outputVideoId: document.querySelector("#video [name='video']"),
 		muestraLeyendaVideo: document.querySelector("#video .muestraLeyenda"),
 		inputsVideo: document.querySelectorAll("#video .input"),
-		divsVideo: document.querySelectorAll("#video .div"),
+		limpiarsVideo: document.querySelectorAll("#video .limpiar"),
 	};
 	const rutas = {
 		guardaContenido: "/contenido/api/abm-guarda-contenido",
@@ -82,7 +82,7 @@ window.addEventListener("load", async () => {
 
 		// Video
 		for (const input of DOM.inputsVideo) input.value = "";
-		for (const div of DOM.divsVideo) div.innerHTML = "";
+		for (const limpiar of DOM.limpiarsVideo) limpiar.innerHTML = "";
 
 		// Fin
 		return;
