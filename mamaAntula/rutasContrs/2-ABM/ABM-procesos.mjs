@@ -23,7 +23,7 @@ export default {
 				entidad == "encabCartas"
 					? baseDatos
 							.obtieneTodos(entidad, includesConEdics)
-							.then((n) => n.sort((a, b) => new Date(b.fechaEvento) - new Date(a.fechaEvento)))
+							.then((n) => n.sort((a, b) => new Date(a.fechaEvento) - new Date(b.fechaEvento)))
 					: entidad == "encabExpers"
 					? baseDatos
 							.obtieneTodosPorCondicion(entidad, condicion, includesConEdics)
