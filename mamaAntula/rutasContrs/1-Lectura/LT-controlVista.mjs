@@ -14,14 +14,16 @@ export default {
 
 		// Obtiene el encabezado y contenido de los artículos
 		const {encabezados, contenidos} = await procesos.contenido({seccionActual, temaActual});
-		const esConIndice = false;
+
+		// Variables para la vista
+		const {archVista} = procesos.varsVista({seccionActual, temaActual});
 
 		// Fin
 		return res.render("CMP-0Estructura", {
 			...{tituloPagina, temaVista},
 			...{temasSeccion},
-			...{seccionActual, temaActual},
-			...{esConIndice, encabezados, contenidos},
+			...{seccionActual, temaActual, archVista},
+			...{encabezados, contenidos},
 		});
 	},
 	redirige: (req, res) => {},
