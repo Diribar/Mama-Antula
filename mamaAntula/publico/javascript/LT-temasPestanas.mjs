@@ -10,8 +10,8 @@ window.addEventListener("load", async () => {
 		tituloTema: document.querySelector("#menuTituloTema #tituloTema"),
 
 		// Contenido
-		contenidosTema: document.querySelectorAll("#contenidoTemas .contenidoTema"),
-		listadosPestanas: document.querySelectorAll("#contenidoTemas .listadoPestanas"),
+		contenidosTema: document.querySelectorAll("#cuerpo .contenidoTema"),
+		listadosPestanas: document.querySelectorAll("#cuerpo .listadoPestanas"),
 		contenidoPestanas: document.querySelectorAll(".contenidoPestana"),
 	};
 	const v = {seccionCodigo: document.querySelector("#menuTituloTema").getAttribute("data-seccion_codigo")};

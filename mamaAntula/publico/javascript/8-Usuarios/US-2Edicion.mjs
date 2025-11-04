@@ -6,7 +6,7 @@ window.addEventListener("load", async () => {
 		imagenHeader: document.querySelector("header #imagenUsuario"),
 
 		// Formulario
-		form: document.querySelector("#contenidoTemas #formEdicion"),
+		form: document.querySelector("#cuerpo #formEdicion"),
 		mensaje: document.querySelector("#formEdicion #mensaje"),
 		confirma: document.querySelector("#formEdicion #confirma"),
 
