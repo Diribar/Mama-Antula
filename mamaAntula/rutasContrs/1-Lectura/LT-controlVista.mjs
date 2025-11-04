@@ -42,11 +42,11 @@ export default {
 		// Obtiene la carta
 		const numero = req.query.numero || 1;
 		const include = ["nombreDesde", "nombreHacia", "lugar", "idioma"];
-		const encabCarta = await baseDatos.obtienePorCondicion("encabCartas", {numero}, include);
-		const contCarta = await baseDatos.obtienePorCondicion("contenidos", {carta_id: encabCarta.id});
+		const encabezado = await baseDatos.obtienePorCondicion("encabCartas", {numero}, include);
+		const contenidos = encabezado ? await baseDatos.obtieneTodosPorCondicion("contenidos", {carta_id: encabezado.id}) : [];
 
 		// Genera el título de la carta
-		const tituloCarta = comp.contenido.tituloCons.encabCarta(encabCarta);
+		const tituloCarta = comp.contenido.tituloCons.encabCarta(encabezado);
 
 		// Variables para la vista
 		const {archVista} = procesos.varsVista({seccionActual, temaActual});
@@ -56,7 +56,7 @@ export default {
 			...{tituloPagina, temaVista, codigoVista},
 			...{temasSeccion},
 			...{seccionActual, temaActual, archVista},
-			...{tituloCarta, encabCarta, contCarta},
+			...{tituloCarta, encabezado, contenidos},
 		});
 	},
 	expers: {
@@ -73,12 +73,9 @@ export default {
 			const temasSeccion = temasSecciones.filter((n) => n.seccion_id == seccionActual.id);
 			const temaActual = temasSeccion.find((n) => n.url == urlTema);
 
-			// Obtiene la carta
-
-			// Obtiene el encabezado y contenido de los artículos
-			const id = req.query.id || 1;
-			const {encabezado, contenidos} = await procesos.contenido({seccionActual, temaActual});
-			console.log(81, {encabezado, contenidos});
+			// Obtiene el encabezado y contenidos
+			const encabezado_id = req.query.id || 1;
+			const {encabezado, contenidos} = await procesos.contenido({seccionActual, temaActual, encabezado_id});
 
 			// Variables para la vista
 			const {archVista} = procesos.varsVista({seccionActual, temaActual});

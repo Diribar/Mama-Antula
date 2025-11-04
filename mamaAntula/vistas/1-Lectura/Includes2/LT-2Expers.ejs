@@ -21,12 +21,9 @@
 </div>
 
 <div id="tituloMasContenido">
-	<% if (locals.pestanasTema) { %>
-		<h2 id="tituloDelContenido" class="fondo"><%= locals.encabezado && encabezado.titulo %></h2>
-	<% } %>
-
+	<h2 id="tituloDelContenido" class="fondo"><%= locals.encabezado && encabezado.titulo %></h2>
 	<div id="contsImagenes" class="fondo">
-		<% if (locals.contenidos) { %>
+		<% if (locals.encabezado) { %>
 			<% for (const contenido of contenidos) { %>
 				<% if (contenido.texto || contenido.imagen) { %>
 					<div id="contImagen">
