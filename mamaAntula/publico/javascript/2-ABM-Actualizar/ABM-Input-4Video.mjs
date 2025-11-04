@@ -4,33 +4,53 @@ window.addEventListener("load", async () => {
 	// Variables
 	const domLayout = document.querySelector("#layouts #video");
 	const DOM = {
-		barraHerrams: domLayout.querySelector(".barraHerrams"),
-		input: domLayout.querySelector(".input"),
-		output: domLayout.querySelector(".output"),
+		// Inputs
+		inputUrl: domLayout.querySelector("[name='url']"),
+		inputLeyenda: domLayout.querySelector("[name='leyenda']"),
+
+		// Muestra
+		muestraVideo: domLayout.querySelector("#muestraVideo"),
+		muestraLeyenda: domLayout.querySelector(".muestraLeyenda"),
+	};
+	console.log(DOM.inputUrl);
+
+	const v = {};
+
+	// Funciones
+	const getYouTubeId = (url) => {
+		const u = new URL(url);
+
+		// Caso 1: URL normal con ?v=ID
+		const idFromParam = u.searchParams.get("v");
+		if (idFromParam) return idFromParam;
+
+		// Caso 2: URL corta https://youtu.be/ID
+		if (u.hostname === "youtu.be") return u.pathname.slice(1).split("/")[0].split("?")[0];
+
+		return null; // No se pudo extraer
 	};
 
-	// Crea el botón en la barra de herramientas
-	const button = document.createElement("button");
-	button.classList.add("ql-video");
-	button.title = "Insertar link de video";
-	DOM.barraHerrams.appendChild(button);
+	// Evento url
+	DOM.inputUrl.addEventListener("input", () => {
+		// Variables
+		const inputUrl = DOM.inputUrl.value;
+		if (!inputUrl.includes("youtu")) return;
 
-	// Funciones - Inicializamos Quill
-	const input = DOM.input; // el tag donde se pega el texto con formato
-	const toolbar = DOM.barraHerrams; // el tag que contiene los botones
-	const formats = ["video"]; // los botones
-	const quill = new Quill(input, {modules: {toolbar}, formats, theme: "snow"});
+		// Obtiene el id del video
+		const youTubeId = getYouTubeId(inputUrl);
+		if (!youTubeId) return;
 
-	// Pule el input y lo pega en el output
-	const actualizarContenido = () =>
-		(DOM.output.value = quill.root.innerHTML
-			// .replace("&nbsp;", " ") // reemplaza por espacios normales;
-			// .replace(/\s+/g, " ") // reemplaza espacios duplicados
-			// .replace(" </", "</") // reemplaza espacios mal puestos
-			.trim()); // reemplaza espacios al final
+		// Crea el iframe
+		const iframe = document.createElement("iframe");
+		iframe.src = "https://www.youtube.com/embed/" + youTubeId + "?autoplay=1";
 
-	// EVENTO - Cambios en el input actualizan el output
-	quill.on("text-change", actualizarContenido);
+		// Muestra el iframe
+		DOM.muestraVideo.innerHTML = "";
+		DOM.muestraVideo.appendChild(iframe);
+
+		// Fin
+		return;
+	});
 
 	// Fin
 	return;
