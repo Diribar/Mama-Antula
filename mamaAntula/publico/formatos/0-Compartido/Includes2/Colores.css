@@ -10,19 +10,19 @@ body {
 	--grisInterm: rgb(160,160,160);
 	--verde-intermedio: rgb(188, 199, 167);
 
-	--amarillo-oscuro: rgb(255, 230, 153);
-	--celeste-oscuro: #C7D7EA;
-	--grisOscuro: rgb(100, 100, 100);
-	--grisMasOscuro: rgb(80, 80, 80);
+	--amarilloOscuro: rgb(255, 230, 153);
 	--azulOscuro: rgb(37,64,97);
 	--azul-frances: rgb(31,73,125);
-	--naranja-oscuro: #F57C00;
-	--rojo-oscuro: firebrick;
-	--verde-oscuro:rgb(79,98,40);
-	--verde-ingles: #009879;
+	--celesteOscuro: #C7D7EA;
+	--grisOscuro: rgb(100, 100, 100);
+	--grisMasOscuro: rgb(80, 80, 80);
 	--marron: rgb(102,51,0);
+	--naranjaOscuro: #F57C00;
+	--rojoOscuro: firebrick;
 	--terracota: rgb(181, 73, 52);
 	--usuarios: #757575;
+	--verdeOscuro:rgb(79,98,40);
+	--verde-ingles: #009879;
 
 	/* Colores principales */
 	--colorHeader: var(--terracota);

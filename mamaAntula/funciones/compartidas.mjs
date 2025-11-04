@@ -10,6 +10,16 @@ export default {
 		// En uso
 		anoMesDia: (fecha) => new Date(fecha).toISOString().slice(0, 10),
 		ahora: () => new Date(new Date().toUTCString()), // <-- para convertir en horario 'UTC'
+		diaMesAnoUTC: function (fecha) {
+			// Variables
+			fecha = new Date(fecha);
+			const diaMes = FN.diaMesUTC(fecha);
+			const ano = fecha.getUTCFullYear().toString();
+			const diaMesAno = diaMes + "/" + ano;
+
+			// Fin
+			return diaMesAno;
+		},
 	},
 	validacs: {
 		castellano: {
@@ -244,10 +254,17 @@ const FN = {
 		// Variables
 		fecha = new Date(fecha);
 		const dia = fecha.getUTCDate();
-		const mes = meses[fecha.getUTCMonth()];
+		const mes = mesesAbrev[fecha.getUTCMonth()];
 		const año = fecha.getUTCFullYear().toString().slice(-2);
 
 		// Fin
 		return dia + "/" + mes + "/" + año;
+	},
+	diaMesUTC: (fecha) => {
+		fecha = new Date(fecha);
+		const dia = fecha.getUTCDate();
+		const mes = mesesAbrev[fecha.getUTCMonth()];
+		fecha = dia + "/" + mes;
+		return fecha;
 	},
 };
