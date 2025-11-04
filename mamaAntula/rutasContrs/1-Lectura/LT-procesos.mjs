@@ -10,12 +10,7 @@ export default {
 		const encabezados = await baseDatos
 			.obtieneTodosPorCondicion(entidad, condicion, includes)
 			.then((n) => n.sort((a, b) => (b.fechaEvento < a.fechaEvento ? -1 : 1)));
-
 		if (!encabezados.length) return {};
-		console.log(
-			15,
-			encabezados.map((n) => n.fechaEvento)
-		);
 		const encabezado = encabezados.find((n) => n.id == encabezado_id) || encabezados[0];
 
 		// Obtiene los encabezados anterior y posterior
