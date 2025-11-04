@@ -7,8 +7,6 @@ export default {
 		const {entidad, campo_id, orden} = comp.contenido.obtieneDatosDeTabla(condicion);
 
 		// Obtiene los encabezados
-		console.log(10,entidad, condicion);
-
 		const encabezados = await baseDatos
 			.obtieneTodosPorCondicion(entidad, condicion)
 			.then((n) => (orden ? n.sort((a, b) => a[orden] - b[orden]) : n));
