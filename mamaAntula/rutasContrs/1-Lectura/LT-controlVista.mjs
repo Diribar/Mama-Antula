@@ -20,7 +20,7 @@ export default {
 		const temaActual = temasSeccion.find((n) => n.url == urlTema);
 
 		// Obtiene el encabezado y contenido
-		const encabezado_id = req.query.id || 1;
+		const encabezado_id = req.query.id;
 		const {encabezado, contenidos} = await procesos.contenidos({seccionActual, temaActual, encabezado_id});
 
 		// Genera el título de la carta
