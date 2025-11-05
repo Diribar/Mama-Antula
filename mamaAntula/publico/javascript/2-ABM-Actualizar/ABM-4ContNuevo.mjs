@@ -87,8 +87,14 @@ window.addEventListener("load", async () => {
 
 	// Guarda los cambios
 	DOM.iconoGuardar.addEventListener("click", async () => {
-		// Obtiene la pestaña activa y crea el form
+		// Si confirmar está inactivo, interrumpe la función
+		if (DOM.iconoGuardar.className.includes("inactivo")) return;
+		DOM.iconoGuardar.classList.add("inactivo"); // se deja inactivo hasta que se vuelve a hacer un input en el formulario
+
+		// Obtiene la pestaña activa
 		v.nombrePestanaActiva = document.querySelector("#pestanasGuardar .pestana.activo")?.id;
+
+		// Crea el form
 		creaElForm.consolidado();
 
 		// Guarda el contenido en la BD y actualiza
@@ -100,10 +106,6 @@ window.addEventListener("load", async () => {
 	});
 
 	DOM.form.addEventListener("submit", async (e) => {
-		// Si confirmar está inactivo, interrumpe la función
-		e.preventDefault();
-		if (DOM.confirma.className.includes("inactivo")) return;
-		DOM.confirma.classList.add("inactivo"); // se deja inactivo hasta que se vuelve a hacer un input en el formulario
 
 		// Si no hay algo para guardar, interrumpe la función
 		if (!FN.accionesSubmit.hayAlgoParaGuardar()) return;

@@ -156,14 +156,6 @@ window.addEventListener("load", async () => {
 	});
 	// Eventos - submit
 	DOM.form.addEventListener("submit", async (e) => {
-		// Si confirmar está inactivo, interrumpe la función
-		e.preventDefault();
-		if (DOM.confirma.className.includes("inactivo")) return;
-		DOM.confirma.classList.add("inactivo"); // se deja inactivo hasta que se vuelve a hacer un input en el formulario
-
-		// Si no hay algo para guardar, interrumpe la función
-		if (!FN.accionesSubmit.hayAlgoParaGuardar()) return;
-
 		// Crea el FormData y agrega los datos
 		const formData = FN.accionesSubmit.formData();
 
