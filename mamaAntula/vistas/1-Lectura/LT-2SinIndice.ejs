@@ -1,1 +1,28 @@
-<p><%= locals.pestanaActual?.titulo || temaActual.titulo %></p>
+<div id="tituloMasContenido">
+	<h2 id="tituloDelContenido" class="fondo"><%= locals.encabezado && encabezado.titulo %></h2>
+	<div id="contsImagenes" class="fondo">
+		<% if (locals.encabezado) { %>
+			<% for (const contenido of contenidos) { %>
+				<div class="bloque">
+					<% if (contenido.texto || contenido.imagen) { %>
+						<% if (contenido.imagen) { %>
+							<div class="imgLeyenda">
+								<img class="imagen" src="/imgsEditables/1-Contenido/<%= contenido.imagen %>">
+								<div class="leyenda" class="fondo"><%= contenido.leyenda %></div>
+							</div>
+						<% } %>
+						<% if (contenido.texto) { %>
+							<div class="texto"><%- contenido.texto %></div>
+						<% } %>
+					<% } %>
+					<% if (contenido.video) { %>
+						<div class="imgLeyenda">
+							<iframe src="https://www.youtube.com/embed/<%= contenido.video %>?autoplay=1"></iframe>
+							<div class="leyenda" class="fondo"><%= contenido.leyenda %></div>
+						</div>
+					<% } %>
+				</div>
+			<% } %>
+		<% } %>
+	</div>
+</div>
