@@ -27,10 +27,10 @@ export default {
 		});
 	},
 	redirige: (req, res) => {},
-	conIndice: async (req, res) => {
+	temas: async (req, res) => {
 		// Variables
 		const [urlSeccion, urlTema] = req.originalUrl.slice(1).split("/");
-		const codigoVista = urlTema == "cartas" ? "cartas" : "experiencias";
+		const codigoVista = urlTema == "cartas" ? "cartas" : urlSeccion == "experiencias" ? "experiencias" : "sinIndice";
 
 		// Sección
 		const seccionActual = secciones.find((n) => n.url == urlSeccion);
@@ -45,12 +45,10 @@ export default {
 		const {encabezado, contenidos} = await procesos.contenidos({seccionActual, temaActual, encabezado_id});
 
 		// Genera el título de la carta
-		const tituloCarta = urlTema == "cartas" ? comp.contenido.tituloCons.encabCarta(encabezado) : null;
+		const tituloCarta = codigoVista == "cartas" && comp.contenido.tituloCons.encabCarta(encabezado);
 
 		// Variables para la vista
 		const {archVista} = procesos.varsVista({seccionActual, temaActual});
-		console.log(52,archVista);
-
 
 		// Fin
 		return res.render("CMP-0Estructura", {
@@ -92,32 +90,6 @@ export default {
 				...{encabezado, contenidos},
 			});
 		},
-	},
-	temas: async (req, res) => {
-		// Variables
-		const {urlSeccion, urlTema} = req.params;
-
-		// Sección
-		const seccionActual = secciones.find((n) => n.url == urlSeccion);
-		const tituloPagina = seccionActual.nombre;
-
-		// Tema
-		const temasSeccion = temasSecciones.filter((n) => n.seccion_id == seccionActual.id);
-		const temaActual = temasSeccion.find((n) => n.url == urlTema);
-
-		// Obtiene el encabezado y contenido de los artículos
-		const {encabezado, contenidos} = await procesos.contenidos({seccionActual, temaActual});
-
-		// Variables para la vista
-		const {archVista} = procesos.varsVista({seccionActual, temaActual});
-
-		// Fin
-		return res.render("CMP-0Estructura", {
-			...{tituloPagina, temaVista},
-			...{temasSeccion},
-			...{seccionActual, temaActual, archVista},
-			...{encabezado, contenidos},
-		});
 	},
 	pestanas: async (req, res) => {
 		// Variables
