@@ -26,9 +26,6 @@ window.addEventListener("load", async () => {
 
 		// Actualiza variables
 		archivoImgSubido = nuevaImagen;
-		const {name: imagen, size: tamano, type: tipo} = archivoImgSubido;
-		v.datos = {...v.datos, imagen, tamano, tipo};
-		v.errores = {};
 
 		// Fin
 		return;
