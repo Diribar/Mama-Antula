@@ -56,7 +56,6 @@
 				gap: 10px;
 				input[name="url"] {text-align: center;}
 			}
-			.outputs {}
 			#muestraVideo {width: 100%; height: 150px; border: 1px solid gray;}
 
 		}
