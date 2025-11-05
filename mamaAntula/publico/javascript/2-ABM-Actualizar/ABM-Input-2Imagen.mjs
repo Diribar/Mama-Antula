@@ -126,11 +126,6 @@ window.addEventListener("load", async () => {
 		},
 	};
 
-	// Eventos - input
-	DOM.form.addEventListener("input", () => {
-		DOM.mensaje.classList.add("invisible");
-		DOM.confirma.classList.remove("inactivo");
-	});
 	// Eventos - Busca un archivo de imagen
 	DOM.areaSoltar.addEventListener("click", () => DOM.inputImagen.click());
 	// Eventos - Drag & Drop
