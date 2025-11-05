@@ -1,12 +1,10 @@
 "use strict";
-// import procesos from "./US-procesos.mjs";
-const temaVista = "abmArticulos";
 
 export default {
 	obtieneEncabs: {
-		consolidado: async function ({entidad, condicion, includesConEdics, orden, usuario}) {
+		consolidado: async function ({entidad, condicion, includesConEdics, usuario}) {
 			// Obtiene los encabezados con todas sus ediciones
-			let encabezados = await this.conTodasLasEdiciones({entidad, condicion, includesConEdics, orden});
+			let encabezados = await this.conTodasLasEdiciones({entidad, condicion, includesConEdics, usuario});
 
 			// Funde los originales con las ediciones del usuario
 			encabezados = this.fundeConLaEdicionDelUsuario({encabezados, usuario});
@@ -17,7 +15,7 @@ export default {
 			// Fin
 			return encabezados;
 		},
-		conTodasLasEdiciones: async ({entidad, condicion, includesConEdics, orden}) => {
+		conTodasLasEdiciones: async ({entidad, condicion, includesConEdics, usuario}) => {
 			// Obtiene los encabezados
 			let encabezados =
 				entidad == "encabCartas"
@@ -34,7 +32,7 @@ export default {
 
 			// Si la entidad es encabSinIndice y no existe un registro, lo crea
 			if (entidad == "encabSinIndice" && !encabezados.length) {
-				const creadoPor_id = req.session.usuario.id;
+				const creadoPor_id = usuario.id;
 				const statusRegistro_id = aprobado_id;
 				const datos = {...condicion, creadoPor_id, statusRegistro_id};
 				const encabezado = await baseDatos.agregaRegistroIdCorrel(entidad, datos);
