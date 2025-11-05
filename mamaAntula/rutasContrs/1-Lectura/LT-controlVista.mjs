@@ -58,42 +58,10 @@ export default {
 			...{encabezado, contenidos},
 		});
 	},
-	expers: {
-		pestanas: async (req, res) => {
-			// Variables
-			const codigoVista = "experiencias";
-			const {urlTema, urlPestana} = req.params;
-
-			// Sección
-			const seccionActual = secciones.find((n) => n.codigo == "experiencias");
-			const tituloPagina = seccionActual.nombre;
-
-			// Tema
-			const temasSeccion = temasSecciones.filter((n) => n.seccion_id == seccionActual.id);
-			const temaActual = temasSeccion.find((n) => n.url == urlTema);
-
-			// Pestaña
-			const pestanasTema = pestanasTemas.filter((n) => n.tema_id == temaActual.id);
-			const pestanaActual = pestanasTema.find((n) => n.url == urlPestana);
-
-			// Obtiene el encabezado, contenido y imgsCarrousel del artículo
-			const {encabezado, contenidos} = await procesos.contenidos({seccionActual, temaActual, pestanaActual});
-
-			// Variables para la vista
-			const {archVista} = procesos.varsVista({seccionActual, temaActual});
-
-			// Fin
-			return res.render("CMP-0Estructura", {
-				...{tituloPagina, temaVista, codigoVista, archVista},
-				...{temasSeccion, pestanasTema},
-				...{seccionActual, temaActual, pestanaActual},
-				...{encabezado, contenidos},
-			});
-		},
-	},
 	pestanas: async (req, res) => {
 		// Variables
-		const {urlSeccion, urlTema, urlPestana} = req.params;
+		const [urlSeccion, urlTema, urlPestana] = req.originalUrl.slice(1).split("/");
+		const codigoVista = urlSeccion == "experiencias" ? "experiencias" : "sinIndice";
 
 		// Sección
 		const seccionActual = secciones.find((n) => n.url == urlSeccion);
@@ -115,10 +83,10 @@ export default {
 
 		// Fin
 		return res.render("CMP-0Estructura", {
-			...{tituloPagina, temaVista},
+			...{tituloPagina, temaVista, codigoVista, archVista},
 			...{temasSeccion, pestanasTema},
 			...{seccionActual, temaActual, pestanaActual},
-			...{encabezado, contenidos, archVista},
+			...{encabezado, contenidos},
 		});
 	},
 };
