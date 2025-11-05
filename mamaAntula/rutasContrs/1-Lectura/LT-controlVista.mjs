@@ -30,8 +30,8 @@ export default {
 		return res.render("CMP-0Estructura", {
 			...{tituloPagina, temaVista, codigoVista},
 			...{temasSeccion},
-			...{seccionActual, temaActual, tituloCarta},
-			...{encabezado, contenidos},
+			...{seccionActual, temaActual},
+			...{tituloCarta, encabezado, contenidos},
 		});
 	},
 	pestanas: async (req, res) => {

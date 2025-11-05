@@ -1,4 +1,4 @@
-<% if (codigoVista == "cartas" && locals.tituloCarta || codigoVista == "experiencias" && locals.encabezado) { %>
+<% if (codigoVista == "cartas" && tituloCarta || codigoVista == "experiencias" && encabezado) { %>
 	<div id="filtroIndice">
 		<% if (codigoVista == "cartas") { %>	  <%- include("LT-IndiceCartas") %><% } %>
 		<% if (codigoVista == "experiencias") { %><%- include("LT-IndiceExpers") %><% } %>
