@@ -155,7 +155,7 @@ window.addEventListener("load", async () => {
 		return;
 	});
 	// Eventos - submit
-		DOM.form.addEventListener("submit", async (e) => {
+	DOM.form.addEventListener("submit", async (e) => {
 		// Si confirmar está inactivo, interrumpe la función
 		e.preventDefault();
 		if (DOM.confirma.className.includes("inactivo")) return;
@@ -176,5 +176,4 @@ window.addEventListener("load", async () => {
 		// Fin
 		return;
 	});
-
 });
