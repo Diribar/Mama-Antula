@@ -23,14 +23,13 @@ export default {
 				entidad == "encabCartas"
 					? baseDatos
 							.obtieneTodos(entidad, includesConEdics)
-							.then((n) => n.sort((a, b) => new Date(a[orden]) - new Date(b[orden])))
+							.then((n) => n.sort((a, b) => new Date(b.fechaEvento) - new Date(a.fechaEvento)))
 					: entidad == "encabExpers"
 					? baseDatos
 							.obtieneTodosPorCondicion(entidad, condicion, includesConEdics)
-							.then((n) => n.sort((a, b) => new Date(b[orden]) - new Date(a[orden])))
-					: baseDatos
-							.obtieneTodosPorCondicion(entidad, condicion, includesConEdics)
-							.then((n) => n.sort((a, b) => a.orden - b.orden));
+							.then((n) => n.sort((a, b) => new Date(b.fechaEvento) - new Date(a.fechaEvento)))
+					: baseDatos.obtieneTodosPorCondicion(entidad, condicion, includesConEdics);
+
 			encabezados = await encabezados;
 
 			// Si la entidad es encabSinIndice y no existe un registro, lo crea
