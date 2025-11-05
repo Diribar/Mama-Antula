@@ -4,12 +4,19 @@ export default {
 	contenidos: async ({temaActual, pestanaActual, encabezado_id}) => {
 		// Variables
 		const condicion = pestanaActual ? {pestana_id: pestanaActual.id} : {tema_id: temaActual.id};
-		const {entidad, campo_id} = comp.contenido.obtieneDatosDeTabla(condicion);
+		const {entidad, campo_id, includes} = comp.contenido.obtieneDatosDeTabla(condicion);
 
 		// Obtiene los encabezados
-		const encabezados = await baseDatos.obtieneTodosPorCondicion(entidad, condicion);
+		const encabezados = await baseDatos
+			.obtieneTodosPorCondicion(entidad, condicion, includes)
+			.then((n) => n.sort((a, b) => (b.fechaEvento < a.fechaEvento ? -1 : 1)));
 		if (!encabezados.length) return {};
 		const encabezado = encabezados.find((n) => n.id == encabezado_id) || encabezados[0];
+
+		// Obtiene los encabezados anterior y posterior
+		const indice = encabezados.indexOf(encabezado);
+		encabezado.ant_id = encabezados[indice - 1]?.id || null;
+		encabezado.sig_id = encabezados[indice + 1]?.id || null;
 
 		// Obtiene los contenidos
 		const contenidos = await baseDatos
