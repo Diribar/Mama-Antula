@@ -27,65 +27,40 @@ export default {
 		});
 	},
 	redirige: (req, res) => {},
-	cartas: async (req, res) => {
+	conIndice: async (req, res) => {
 		// Variables
-		const codigoVista = "cartas";
+		const [urlSeccion, urlTema] = req.originalUrl.slice(1).split("/");
+		const codigoVista = urlTema == "cartas" ? "cartas" : "experiencias";
 
 		// Sección
-		const seccionActual = secciones.find((n) => n.codigo == "cartasEscritos");
+		const seccionActual = secciones.find((n) => n.url == urlSeccion);
 		const tituloPagina = seccionActual.nombre;
 
 		// Tema
 		const temasSeccion = temasSecciones.filter((n) => n.seccion_id == seccionActual.id);
-		const temaActual = temasSeccion.find((n) => n.codigo == "cartas");
+		const temaActual = temasSeccion.find((n) => n.url == urlTema);
 
-		// Obtiene la carta
+		// Obtiene el encabezado y contenido
 		const encabezado_id = req.query.id || 1;
 		const {encabezado, contenidos} = await procesos.contenidos({seccionActual, temaActual, encabezado_id});
 
 		// Genera el título de la carta
-		const tituloCarta = comp.contenido.tituloCons.encabCarta(encabezado);
+		const tituloCarta = urlTema == "cartas" ? comp.contenido.tituloCons.encabCarta(encabezado) : null;
 
 		// Variables para la vista
 		const {archVista} = procesos.varsVista({seccionActual, temaActual});
+		console.log(52,archVista);
+
 
 		// Fin
 		return res.render("CMP-0Estructura", {
-			...{tituloPagina, temaVista, codigoVista},
+			...{tituloPagina, temaVista, codigoVista, archVista},
 			...{temasSeccion},
-			...{seccionActual, temaActual, archVista},
-			...{tituloCarta, encabezado, contenidos},
+			...{seccionActual, temaActual, tituloCarta},
+			...{encabezado, contenidos},
 		});
 	},
 	expers: {
-		temas: async (req, res) => {
-			// Variables
-			const codigoVista = "experiencias";
-			const {urlTema} = req.params;
-
-			// Sección
-			const seccionActual = secciones.find((n) => n.codigo == "experiencias");
-			const tituloPagina = seccionActual.nombre;
-
-			// Tema
-			const temasSeccion = temasSecciones.filter((n) => n.seccion_id == seccionActual.id);
-			const temaActual = temasSeccion.find((n) => n.url == urlTema);
-
-			// Obtiene el encabezado y contenidos
-			const encabezado_id = req.query.id || 1;
-			const {encabezado, contenidos} = await procesos.contenidos({seccionActual, temaActual, encabezado_id});
-
-			// Variables para la vista
-			const {archVista} = procesos.varsVista({seccionActual, temaActual});
-
-			// Fin
-			return res.render("CMP-0Estructura", {
-				...{tituloPagina, temaVista, codigoVista, archVista},
-				...{temasSeccion},
-				...{seccionActual, temaActual},
-				...{encabezado, contenidos},
-			});
-		},
 		pestanas: async (req, res) => {
 			// Variables
 			const codigoVista = "experiencias";
