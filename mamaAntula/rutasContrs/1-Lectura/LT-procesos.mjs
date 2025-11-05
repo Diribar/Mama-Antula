@@ -19,9 +19,11 @@ export default {
 		const encabezado = encabezados.find((n) => n.id == encabezado_id) || encabezados[0];
 
 		// Obtiene los encabezados anterior y posterior
-		const indice = encabezados.indexOf(encabezado);
-		encabezado.ant_id = encabezados[indice - 1]?.id || null;
-		encabezado.sig_id = encabezados[indice + 1]?.id || null;
+		if (["encabCartas", "encabExpers"].includes(entidad)) {
+			const indice = encabezados.indexOf(encabezado);
+			encabezado.ant_id = encabezados[indice - 1]?.id || null;
+			encabezado.sig_id = encabezados[indice + 1]?.id || null;
+		}
 
 		// Obtiene los contenidos
 		const contenidos = await baseDatos
