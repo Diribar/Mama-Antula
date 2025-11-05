@@ -57,6 +57,15 @@ window.addEventListener("load", async () => {
 			return;
 		},
 		imagen: () => {
+			// Le agrega los valores
+			if (v.archivoImgSubido) {
+				v.formData.append("archivo", v.archivoImgSubido);
+				v.formData.append("imagen", v.archivoImgSubido.name);
+				v.formData.append("tamano", v.archivoImgSubido.size);
+				v.formData.append("tipo", v.archivoImgSubido.type);
+				v.archivoImgSubido = null;
+			}
+
 			// Fin
 			return;
 		},
@@ -106,7 +115,6 @@ window.addEventListener("load", async () => {
 	});
 
 	DOM.form.addEventListener("submit", async (e) => {
-
 		// Si no hay algo para guardar, interrumpe la función
 		if (!FN.accionesSubmit.hayAlgoParaGuardar()) return;
 
