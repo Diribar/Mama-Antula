@@ -65,24 +65,6 @@ window.addEventListener("load", async () => {
 			return;
 		},
 		accionesSubmit: {
-			formData: () => {
-				// Crea el formulario
-				const formData = new FormData();
-
-				// Le agrega los valores
-				if (v.archivoImgSubido) {
-					formData.append("archivo", v.archivoImgSubido);
-					formData.append("imagen", v.archivoImgSubido.name);
-					formData.append("tamano", v.archivoImgSubido.size);
-					formData.append("tipo", v.archivoImgSubido.type);
-				}
-				if (DOM.contrasena.value) formData.append("contrasena", DOM.contrasena.value);
-				formData.append("apodo", DOM.apodo.value);
-				formData.append("notificacs", DOM.notificacs.checked ? 1 : 0);
-
-				// Fin
-				return formData;
-			},
 			finSubmit: () => {
 				// Actualiza el mensaje
 				const mensaje = v.errores.hay
@@ -156,9 +138,6 @@ window.addEventListener("load", async () => {
 	});
 	// Eventos - submit
 	DOM.form.addEventListener("submit", async (e) => {
-		// Crea el FormData y agrega los datos
-		const formData = FN.accionesSubmit.formData();
-
 		// Valida y guarda los cambios del form
 		v.errores = await fetch(v.rutaGuardar, postForm(formData)).then((n) => n.json());
 
