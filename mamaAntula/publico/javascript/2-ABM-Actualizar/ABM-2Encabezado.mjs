@@ -61,8 +61,6 @@ window.addEventListener("load", async () => {
 		actualizaSusValores: () => {
 			// Variables
 			DOM.encabezado = document.querySelector("#sectorEncabezado .encabezado:not(.ocultar)");
-			console.log(DOM.filtroEncab.value);
-
 			DOM.inputs = DOM.encabezado.querySelectorAll(".input");
 			const encabezado = cac.encabezados.find((n) => n.id == DOM.filtroEncab.value);
 
@@ -101,7 +99,7 @@ window.addEventListener("load", async () => {
 			DOM.iconoGuardar.classList.remove("ocultar");
 
 			// Les actualiza el título a guardar y eliminar
-			const leyenda = DOM.filtroEncabezado.value == "nuevo" ? "Encabezado nuevo" : "Edición del encabezado";
+			const leyenda = DOM.filtroEncab.value == "nuevo" ? "Encabezado nuevo" : "Edición del encabezado";
 			DOM.iconoGuardar.title = leyenda;
 			DOM.iconoGuardar.title = leyenda;
 
@@ -120,11 +118,9 @@ window.addEventListener("load", async () => {
 	DOM.iconoGuardar.addEventListener("click", async () => {
 		// Arma el feedback
 		const formVisible = document.querySelector("#sectorEncabezado form:not(.ocultar)"); // elige el unico formulario visible
-		console.log(formVisible);
-
 		const formData = new FormData(formVisible);
 		formData.append("entidad", cac.tipoEncab);
-		formData.append("id", DOM.filtroEncabezado.value);
+		formData.append("id", DOM.filtroEncab.value);
 		if (cac.tipoEncab != "encabCartas")
 			!cac.pestana_id ? formData.append("tema_id", cac.tema_id) : formData.append("pestana_id", cac.pestana_id);
 
@@ -148,10 +144,10 @@ window.addEventListener("load", async () => {
 	// Elimina en la BD
 	DOM.iconoEliminar.addEventListener("click", async () => {
 		// Limpia el FE
-		for (const input of DOM.encabezadoInputs) input.value = "";
+		for (const input of DOM.inputs) input.value = "";
 
 		// Elimina de la BD, el encabezado y sus contenidos
-		const datos = {entidad: cac.tipoEncab, id: DOM.filtroEncabezado.value};
+		const datos = {entidad: cac.tipoEncab, id: DOM.filtroEncab.value};
 		await fetch(rutas.eliminaEncabezado, deleteJson(datos));
 
 		// Elimina la cookie
