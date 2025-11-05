@@ -14,29 +14,29 @@ window.addEventListener("load", async () => {
 		datosIniciales: "/contenido/api/abm-datos-inciales",
 		obtieneEncabs: "/contenido/api/abm-obtiene-encabezados/?",
 	};
-	cac = {startUp: true, ...(await fetch(rutas.datosIniciales).then((n) => n && n.json()))};
+	comp1234 = {startUp: true, ...(await fetch(rutas.datosIniciales).then((n) => n && n.json()))};
 	const v = {};
 
 	// Funciones
 	const FN = {
 		actualizaFiltroEncabezado: async () => {
 			// Si corresponde, oculta el sector encabezados - encabSinIndice solo puede tener un encabezado
-			if (cac.tipoEncab == "encabSinIndice") DOM.encabezado.classList.add("ocultar");
+			if (comp1234.tipoEncab == "encabSinIndice") DOM.encabezado.classList.add("ocultar");
 
 			// Variables
-			cac.seccion_id = DOM.seccion.value;
-			cac.tema_id = DOM.tema.value;
-			cac.pestana_id = DOM.pestana.value;
+			comp1234.seccion_id = DOM.seccion.value;
+			comp1234.tema_id = DOM.tema.value;
+			comp1234.pestana_id = DOM.pestana.value;
 
 			// Obtiene los encabezados
-			const datos = "seccion_id=" + cac.seccion_id + "&tema_id=" + cac.tema_id + "&pestana_id=" + cac.pestana_id;
-			cac.encabezados = await fetch(rutas.obtieneEncabs + datos).then((n) => n && n.json());
+			const datos = "seccion_id=" + comp1234.seccion_id + "&tema_id=" + comp1234.tema_id + "&pestana_id=" + comp1234.pestana_id;
+			comp1234.encabezados = await fetch(rutas.obtieneEncabs + datos).then((n) => n && n.json());
 
 			// Crea las opciones
-			agregaOpciones(cac.encabezados, DOM.encabezado, "tituloCons");
+			agregaOpciones(comp1234.encabezados, DOM.encabezado, "tituloCons");
 
 			// Si corresponde, crea la opción NUEVO - encabSinIndice siempre tiene un encabezado creado y no puede tener más de uno
-			if (cac.tipoEncab != "encabSinIndice") {
+			if (comp1234.tipoEncab != "encabSinIndice") {
 				const option = document.createElement("option");
 				option.value = "nuevo";
 				option.textContent = "Encabezado nuevo";
@@ -44,10 +44,10 @@ window.addEventListener("load", async () => {
 			}
 
 			// Muestra los encabezados y dispara el evento
-			if (cac.tipoEncab != "encabSinIndice") DOM.encabezado.classList.remove("ocultar");
+			if (comp1234.tipoEncab != "encabSinIndice") DOM.encabezado.classList.remove("ocultar");
 
 			// ENCABEZADO - Si es start-up, elige la opción de la cookie
-			if (cac.startUp && cookie("actualizaEncabezado_id")) DOM.encabezado.value = cookie("actualizaEncabezado_id");
+			if (comp1234.startUp && cookie("actualizaEncabezado_id")) DOM.encabezado.value = cookie("actualizaEncabezado_id");
 
 			DOM.encabezado.dispatchEvent(new Event("change"));
 
@@ -56,9 +56,9 @@ window.addEventListener("load", async () => {
 		},
 		actualizaHref: () => {
 			// Obtiene los url
-			const urlSeccion = "/" + cac.secciones.find((n) => n.id == cac.seccion_id).url;
-			const urlTema = "/" + cac.temasSecciones.find((n) => n.id == cac.tema_id).url;
-			const urlPestana = (cac.pestana_id && "/" + cac.pestanasTemas.find((n) => n.id == cac.pestana_id).url) || "";
+			const urlSeccion = "/" + comp1234.secciones.find((n) => n.id == comp1234.seccion_id).url;
+			const urlTema = "/" + comp1234.temasSecciones.find((n) => n.id == comp1234.tema_id).url;
+			const urlPestana = (comp1234.pestana_id && "/" + comp1234.pestanasTemas.find((n) => n.id == comp1234.pestana_id).url) || "";
 
 			// Actualiza el DOM
 			DOM.anchorLectura.href = urlSeccion + urlTema + urlPestana + "/" + v.encabezado_id;
@@ -71,18 +71,18 @@ window.addEventListener("load", async () => {
 	// Eventos de filtros
 	DOM.seccion.addEventListener("change", () => {
 		// SECCION - Si es start-up, elige la opción de la cookie
-		if (cac.startUp && cookie("actualizaSeccion_id")) DOM.seccion.value = cookie("actualizaSeccion_id");
+		if (comp1234.startUp && cookie("actualizaSeccion_id")) DOM.seccion.value = cookie("actualizaSeccion_id");
 
 		// SECCIÓN - Guarda la cookie
 		const seccion_id = DOM.seccion.value;
-		if (!cac.startUp) document.cookie = "actualizaSeccion_id=" + seccion_id;
+		if (!comp1234.startUp) document.cookie = "actualizaSeccion_id=" + seccion_id;
 
 		// Averigua si la sección es 'Experiencias'
-		cac.tipoEncab =
-			DOM.seccion.value == cac.secciones.find((n) => n.codigo == "experiencias")?.id ? "encabExpers" : "encabSinIndice";
+		comp1234.tipoEncab =
+			DOM.seccion.value == comp1234.secciones.find((n) => n.codigo == "experiencias")?.id ? "encabExpers" : "encabSinIndice";
 
 		// TEMA - Crea las opciones
-		const temasSecciones = cac.temasSecciones.filter((n) => n.seccion_id == seccion_id);
+		const temasSecciones = comp1234.temasSecciones.filter((n) => n.seccion_id == seccion_id);
 		agregaOpciones(temasSecciones, DOM.tema, "titulo");
 
 		// TEMA - Los muestra y dispara el evento
@@ -94,22 +94,22 @@ window.addEventListener("load", async () => {
 	});
 	DOM.tema.addEventListener("change", () => {
 		// TEMA - Si es start-up, elige la opción de la cookie
-		if (cac.startUp && cookie("actualizaTema_id")) DOM.tema.value = cookie("actualizaTema_id");
+		if (comp1234.startUp && cookie("actualizaTema_id")) DOM.tema.value = cookie("actualizaTema_id");
 
 		// TEMA -  Guarda la cookie
 		const tema_id = DOM.tema.value;
-		if (!cac.startUp) document.cookie = "actualizaTema_id=" + tema_id;
+		if (!comp1234.startUp) document.cookie = "actualizaTema_id=" + tema_id;
 
 		// Averigua si el tema es 'Cartas'
-		if (cac.tipoEncab != "encabExpers")
-			cac.tipoEncab =
-				tema_id == cac.temasSecciones.find((n) => n.codigo == "cartas")?.id ? "encabCartas" : "encabSinIndice";
+		if (comp1234.tipoEncab != "encabExpers")
+			comp1234.tipoEncab =
+				tema_id == comp1234.temasSecciones.find((n) => n.codigo == "cartas")?.id ? "encabCartas" : "encabSinIndice";
 
 		// PESTAÑA - Crea las opciones
-		cac.pestanasTema = cac.pestanasTemas.filter((n) => n.tema_id == tema_id);
-		if (cac.pestanasTema.length) {
+		comp1234.pestanasTema = comp1234.pestanasTemas.filter((n) => n.tema_id == tema_id);
+		if (comp1234.pestanasTema.length) {
 			// PESTANA - Crea las opciones
-			agregaOpciones(cac.pestanasTema, DOM.pestana, "titulo");
+			agregaOpciones(comp1234.pestanasTema, DOM.pestana, "titulo");
 
 			// PESTANA - Las muestra y dispara el evento
 			DOM.pestana.classList.remove("ocultar");
@@ -127,12 +127,12 @@ window.addEventListener("load", async () => {
 	});
 	DOM.pestana.addEventListener("change", () => {
 		// PESTAÑA - Si es start-up, elige la opción de la cookie
-		if (cac.startUp && cookie("actualizaPestana_id")) DOM.pestana.value = cookie("actualizaPestana_id");
-		delete cac.startUp;
+		if (comp1234.startUp && cookie("actualizaPestana_id")) DOM.pestana.value = cookie("actualizaPestana_id");
+		delete comp1234.startUp;
 
 		// PESTAÑA -  Guarda la cookie
 		const pestana_id = DOM.pestana.value;
-		if (!cac.startUp) document.cookie = "actualizaPestana_id=" + pestana_id;
+		if (!comp1234.startUp) document.cookie = "actualizaPestana_id=" + pestana_id;
 
 		// ENCABEZADO - Los obtiene y genera el evento 'change'
 		FN.actualizaFiltroEncabezado();
@@ -140,8 +140,8 @@ window.addEventListener("load", async () => {
 	// Eventos del filtro de encabezado
 	DOM.encabezado.addEventListener("change", async () => {
 		// ENCABEZADO - Guarda la cookie
-		if (!cac.startUp) document.cookie = "actualizaEncabezado_id=" + DOM.encabezado.value;
-		else delete cac.startUp;
+		if (!comp1234.startUp) document.cookie = "actualizaEncabezado_id=" + DOM.encabezado.value;
+		else delete comp1234.startUp;
 
 		// Actualiza el anchor de flitros
 		FN.actualizaHref();
@@ -155,7 +155,7 @@ window.addEventListener("load", async () => {
 });
 
 // Variables
-let cac; // compartirActualizarContenidos
+let comp1234; // compartirActualizarContenidos
 const agregaOpciones = (opciones, domSelect, campoNombre) => {
 	// Limpia las opciones del select
 	domSelect.innerHTML = "";

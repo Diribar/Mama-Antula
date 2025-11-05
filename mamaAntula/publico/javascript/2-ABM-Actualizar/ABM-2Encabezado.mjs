@@ -44,7 +44,7 @@ window.addEventListener("load", async () => {
 		// Auxiliares
 		actualizaLaVisibilidadDelSector: () => {
 			// Si es 'encabSinIndice' y viene de un tema, lo oculta porque sus campos no poseen ningún valor
-			if (cac.tipoEncab == "encabSinIndice" && !DOM.filtroPestana.value) DOM.sectorEncabezado.classList.add("ocultar");
+			if (comp1234.tipoEncab == "encabSinIndice" && !DOM.filtroPestana.value) DOM.sectorEncabezado.classList.add("ocultar");
 			else DOM.sectorEncabezado.classList.remove("ocultar");
 
 			// Fin
@@ -53,7 +53,7 @@ window.addEventListener("load", async () => {
 		muestraElEncabezadoQueCorresponde: () => {
 			// Muestra el encabezado que corresponde, y oculta los demás
 			for (const encabezado of DOM.encabezados)
-				encabezado.classList[encabezado.id == cac.tipoEncab ? "remove" : "add"]("ocultar");
+				encabezado.classList[encabezado.id == comp1234.tipoEncab ? "remove" : "add"]("ocultar");
 
 			// Fin
 			return;
@@ -62,13 +62,13 @@ window.addEventListener("load", async () => {
 			// Variables
 			DOM.encabezado = document.querySelector("#sectorEncabezado .encabezado:not(.ocultar)");
 			DOM.inputs = DOM.encabezado.querySelectorAll(".input");
-			const encabezado = cac.encabezados.find((n) => n.id == DOM.filtroEncab.value);
+			const encabezado = comp1234.encabezados.find((n) => n.id == DOM.filtroEncab.value);
 
 			// Agrega los valores
 			for (const input of DOM.inputs) {
 				// Agrega las opciones
 				const {tabla} = input.dataset;
-				if (input.type == "select-one" && tabla) agregaOpciones(cac[tabla], input, "nombre");
+				if (input.type == "select-one" && tabla) agregaOpciones(comp1234[tabla], input, "nombre");
 
 				// Actualiza el valor elegido de todos los inputs
 				const campo = input.name;
@@ -119,10 +119,10 @@ window.addEventListener("load", async () => {
 		// Arma el feedback
 		const formVisible = document.querySelector("#sectorEncabezado form:not(.ocultar)"); // elige el unico formulario visible
 		const formData = new FormData(formVisible);
-		formData.append("entidad", cac.tipoEncab);
+		formData.append("entidad", comp1234.tipoEncab);
 		formData.append("id", DOM.filtroEncab.value);
-		if (cac.tipoEncab != "encabCartas")
-			!cac.pestana_id ? formData.append("tema_id", cac.tema_id) : formData.append("pestana_id", cac.pestana_id);
+		if (comp1234.tipoEncab != "encabCartas")
+			!comp1234.pestana_id ? formData.append("tema_id", comp1234.tema_id) : formData.append("pestana_id", comp1234.pestana_id);
 
 		// Guarda el encabezado en la BD
 		const respuesta = await fetch(rutas.guardaEncabezado, postForm(formData)).then((n) => n.json());
@@ -131,7 +131,7 @@ window.addEventListener("load", async () => {
 		if (respuesta.id) {
 			// Guarda la nueva cookie y se genera un change en el tema, para que se reinicie el filtro del encabezado
 			document.cookie = "actualizaEncabezado_id=" + respuesta.id;
-			cac.startUp = true;
+			comp1234.startUp = true;
 			DOM.filtroTema.dispatchEvent(new Event("change"));
 		}
 
@@ -145,12 +145,12 @@ window.addEventListener("load", async () => {
 		for (const input of DOM.inputs) input.value = "";
 
 		// Elimina de la BD, el encabezado y sus contenidos
-		const datos = {entidad: cac.tipoEncab, id: DOM.filtroEncab.value};
+		const datos = {entidad: comp1234.tipoEncab, id: DOM.filtroEncab.value};
 		await fetch(rutas.eliminaEncabezado, deleteJson(datos));
 
 		// Elimina la cookie y se genera un change en el tema o pestaña, para que se reinicie el filtro del encabezado
 		document.cookie = "actualizaEncabezado_id=";
-		cac.startUp = true;
+		comp1234.startUp = true;
 		DOM.filtroTema.dispatchEvent(new Event("change"));
 
 		// Fin

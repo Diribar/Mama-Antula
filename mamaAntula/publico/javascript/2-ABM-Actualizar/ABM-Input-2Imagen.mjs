@@ -15,11 +15,6 @@ window.addEventListener("load", async () => {
 	const v = {
 		entrada: ["dragenter", "dragover"],
 		salida: ["dragleave", "drop"],
-
-		rutaValidaCampo: "/usuarios/api/us-valida-campo-edicion",
-		rutaGuardar: "/usuarios/api/us-guarda-edicion-en-usuario",
-		unInputCambio: false,
-		errores: {},
 		archivoImgSubido: null,
 	};
 
@@ -27,11 +22,7 @@ window.addEventListener("load", async () => {
 	const obtieneNuevaImagen = async function (archImagen, vistaImagen) {
 		// Acciones si no se cargó una imagen
 		const nuevaImagen = await procesaArchImg(archImagen, vistaImagen);
-		if (!nuevaImagen) {
-			v.errores = {imagen: "El archivo no pudo ser leído como imagen", hay: true};
-			this.respuestas("imagen");
-			return;
-		}
+		if (!nuevaImagen) return;
 
 		// Actualiza variables
 		v.archivoImgSubido = nuevaImagen;
@@ -43,40 +34,11 @@ window.addEventListener("load", async () => {
 		return;
 	};
 
-	DOM.areaSoltar.addEventListener("drop", async (e) => {
-		// Variables
-		v.datos = {campo: "imagen"};
-		await obtieneNuevaImagen(e.dataTransfer.files, DOM.vistaImagen);
-		if (v.errores.hay) return;
+	// Eventos nueva imagen
+	DOM.areaSoltar.addEventListener("drop", async (e) => await obtieneNuevaImagen(e.dataTransfer.files, DOM.vistaImagen));
+	DOM.inputImagen.addEventListener("change", async () => await obtieneNuevaImagen(DOM.inputImagen.files, DOM.vistaImagen));
 
-		// Averigua si hay un error
-		v.errores = await fetch(v.rutaValidaCampo, postJson(v.datos)).then((n) => n.json());
-
-		// Respuestas
-		FN.respuestas("imagen");
-
-		// Fin
-		return;
-	});
-	// Eventos - change
-	DOM.form.addEventListener("change", async (e) => {
-		// Inactiva confirmar
-		DOM.confirma.classList.add("inactivo");
-
-		// Crea los datos a enviar
-		const campo = e.target.name;
-		v.datos = {campo, [campo]: e.target.value};
-
-		if (campo == "imagen") {
-			await obtieneNuevaImagen(DOM.inputImagen.files, DOM.vistaImagen);
-			if (v.errores.hay) return;
-		}
-
-		// Fin
-		return;
-	});
-
-	// Evento para simular el click en el input - Busca un archivo de imagen
+	// Evento click en el input - Busca un archivo de imagen
 	DOM.areaSoltar.addEventListener("click", () => DOM.inputImagen.click());
 	// Eventos preventivos - Drag & Drop
 	[...v.entrada, ...v.salida].forEach((evento) =>
@@ -90,4 +52,7 @@ window.addEventListener("load", async () => {
 			);
 		})
 	);
+
+	// Fin
+	return;
 });

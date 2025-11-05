@@ -49,8 +49,8 @@ window.addEventListener("load", async () => {
 			v.formData.append("encabezado_id", encabezado_id);
 
 			// Campo_id
-			const campo_id = campos_id[cac.tipoEncab];
-			v.formData.append("campo_id", campos_id[cac.tipoEncab]);
+			const campo_id = campos_id[comp1234.tipoEncab];
+			v.formData.append("campo_id", campos_id[comp1234.tipoEncab]);
 			v.formData.append(campo_id, encabezado_id);
 
 			// Fin
