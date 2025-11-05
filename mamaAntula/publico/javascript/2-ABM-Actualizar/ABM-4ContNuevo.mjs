@@ -114,23 +114,6 @@ window.addEventListener("load", async () => {
 		return;
 	});
 
-	DOM.form.addEventListener("submit", async (e) => {
-		// Si no hay algo para guardar, interrumpe la función
-		if (!FN.accionesSubmit.hayAlgoParaGuardar()) return;
-
-		// Crea el FormData y agrega los datos
-		const formData = FN.accionesSubmit.formData();
-
-		// Valida y guarda los cambios del form
-		v.errores = await fetch(v.rutaGuardar, postForm(formData)).then((n) => n.json());
-
-		// Acciones finales
-		FN.accionesSubmit.finSubmit();
-
-		// Fin
-		return;
-	});
-
 	// Fin
 	return;
 });
