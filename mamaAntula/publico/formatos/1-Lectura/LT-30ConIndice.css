@@ -12,11 +12,15 @@
 			overflow-y: auto;
 			padding-right: 20px;
 
-			.contImagen {
+			.bloque {
 				.imgLeyenda {
 					display: flex; flex-direction: column; align-items: center;
 					.imagen {max-width: 100%; max-height: 65vh;}
-					.leyenda {text-align: center; font-style: italic; color: var(--grisInterm); text-wrap: balance;}
+					iframe {height: 350px; width: auto; aspect-ratio: 16 / 9;}
+					.leyenda {
+						font-style: italic; color: var(--grisInterm);
+						text-align: center; text-wrap: balance; padding-block: 6px;
+					}
 				}
 				.texto {
 					p {margin-bottom: 12px; line-height: 1.5;}

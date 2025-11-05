@@ -1,6 +1,7 @@
 #filtroIndice {
 	--anchoIndice: 160px;
-	display: flex; flex-direction: column; gap: 20px;
+
+	display: flex; flex-direction: column; align-items: center; gap: 20px;
 	width: var(--anchoIndice);
 	min-width: var(--anchoIndice);
 	margin-right: 50px; overflow-y: hidden;
@@ -17,6 +18,22 @@
 		.mostrar {
 			position: absolute; left: -5px; top: 50%; translate: -90% -50%;
 			cursor: pointer;
+		}
+	}
+
+	#fichaTecnica {
+		flex-grow: 1;
+		display: flex; flex-direction: column; justify-content: center;
+		ul {font-size: 0.9rem;}
+	}
+
+	#flechas {
+		display: flex; flex-direction: row; gap: 20px;
+		margin-bottom: 20px;
+		color: var(--rojoOscuro);
+		i {
+			font-size: 1.5rem; cursor: pointer;
+			&:hover {scale: 1.5;}
 		}
 	}
 }

@@ -1,0 +1,30 @@
+<div id="filtros" class="contenedor">
+	<div class="titulo">
+		<i class="fa-solid fa-caret-right mostrar"></i>
+		Filtros
+	</div>
+</div>
+<div id="indice" class="contenedor">
+	<a href="?inicio" class="titulo">Inicio</a>
+	<a href="?introduccion" class="titulo">Introducción</a>
+	<a href="?numero=1" class="titulo">1778</a>
+	<div class="titulo">
+		<i class="fa-solid fa-caret-right mostrar"></i>
+		1780-1784
+	</div>
+	<div class="titulo">
+		<i class="fa-solid fa-caret-right mostrar"></i>
+		1800-1816
+	</div>
+</div>
+<div id="fichaTecnica">
+	<h3>Ficha técnica:</h3>
+	<ul type="disc">
+		<li>Fecha: <%= comp.fechaHora.diaMesAnoUTC(encabezado.fechaEvento) %></li>
+		<li>Desde: <%= encabezado.lugar.nombre %></li>
+		<li>De: <%= encabezado.nombreDesde.nombre %></li>
+		<li>Para: <%= encabezado.nombreHacia.nombre %></li>
+		<li>Idioma: <%= encabezado.idioma.nombre %></li>
+	</ul>
+</div>
+
