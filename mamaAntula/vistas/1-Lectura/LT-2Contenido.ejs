@@ -1,7 +1,27 @@
+<% if (["cartas", "experiencias"].includes(codigoVista)) { %>
+	<div id="filtroIndice">
+		<% if (codigoVista == "cartas") { %>	  <%- include("LT-IndiceCartas") %><% } %>
+		<% if (codigoVista == "experiencias") { %><%- include("LT-IndiceExpers") %><% } %>
+
+		<div id="flechas">
+			<% if (encabezado.ant_id) { %>
+				<a href="?id=<%= encabezado.ant_id %>" class="flechaIzquierda">
+					<i class="<%= iconos.faSolid %> <%= iconos.izquierda %>"></i>
+				</a>
+			<% } %>
+			<% if (encabezado.sig_id) { %>
+				<a href="?id=<%= encabezado.sig_id %>" class="flechaDerecha">
+					<i class="<%= iconos.faSolid %> <%= iconos.derecha %>"></i>
+				</a>
+			<% } %>
+		</div>
+	</div>
+<% } %>
+
 <div id="tituloMasContenido">
-	<h2 id="tituloDelContenido" class="fondo"><%= locals.encabezado && encabezado.titulo %></h2>
+	<h2 id="tituloDelContenido" class="fondo"><%= locals.tituloCarta || locals.encabezado && encabezado.titulo %></h2>
 	<div id="contsImagenes" class="fondo">
-		<% if (locals.encabezado) { %>
+		<% if (locals.tituloCarta || locals.encabezado) { %>
 			<% for (const contenido of contenidos) { %>
 				<div class="bloque">
 					<% if (contenido.texto || contenido.imagen) { %>
