@@ -1,11 +1,7 @@
 "use strict";
 
 window.addEventListener("load", async () => {
-	return
 	const DOM = {
-		// Avatar del encabezado
-		imagenHeader: document.querySelector("header #imagenUsuario"),
-
 		// Formulario
 		form: document.querySelector("#cuerpo #formEdicion"),
 		mensaje: document.querySelector("#formEdicion #mensaje"),
@@ -109,14 +105,6 @@ window.addEventListener("load", async () => {
 					: "Los cambios fueron guardados";
 				colorMensaje(DOM, v.errores.hay, mensaje);
 
-				// Actualiza la imagen en el header
-				if (v.archivoImgSubido && !v.errores.imagen) {
-					DOM.imagenHeader.src = URL.createObjectURL(v.archivoImgSubido);
-				}
-
-				// Cambia el nombre en el encabezado
-				DOM.imagenHeader.setAttribute("title", "Hola " + DOM.apodo.value);
-
 				// Resetea variables
 				v.archivoImgSubido = null;
 				v.unInputCambio = false;
@@ -180,25 +168,4 @@ window.addEventListener("load", async () => {
 		return;
 	});
 	// Eventos - submit
-	DOM.form.addEventListener("submit", async (e) => {
-		// Si confirmar está inactivo, interrumpe la función
-		e.preventDefault();
-		if (DOM.confirma.className.includes("inactivo")) return;
-		DOM.confirma.classList.add("inactivo"); // se deja inactivo hasta que se vuelve a hacer un input en el formulario
-
-		// Si no hay algo para guardar, interrumpe la función
-		if (!FN.accionesSubmit.hayAlgoParaGuardar()) return;
-
-		// Crea el FormData y agrega los datos
-		const formData = FN.accionesSubmit.formData();
-
-		// Valida y guarda los cambios del form
-		v.errores = await fetch(v.rutaGuardar, postForm(formData)).then((n) => n.json());
-
-		// Acciones finales
-		FN.accionesSubmit.finSubmit();
-
-		// Fin
-		return;
-	});
 });
