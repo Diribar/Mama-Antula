@@ -3,33 +3,12 @@ import procesos from "./LT-procesos.mjs";
 const temaVista = "secciones";
 
 export default {
-	landingPage: async (req, res) => {
-		// Sección
-		const seccionActual = secciones.find((n) => n.codigo == "inicio");
-		const tituloPagina = seccionActual.nombre;
-
-		// Tema
-		const temasSeccion = temasSecciones.filter((n) => n.seccion_id == seccionActual.id);
-		const temaActual = temasSeccion[0];
-
-		// Obtiene el encabezado y contenido de los artículos
-		const {encabezados, contenidos} = await procesos.contenidos({seccionActual, temaActual});
-
-		// Variables para la vista
-		const {archVista} = procesos.varsVista({seccionActual, temaActual});
-
-		// Fin
-		return res.render("CMP-0Estructura", {
-			...{tituloPagina, temaVista},
-			...{temasSeccion},
-			...{seccionActual, temaActual, archVista},
-			...{encabezados, contenidos},
-		});
-	},
 	redirige: (req, res) => {},
 	temas: async (req, res) => {
 		// Variables
-		const [urlSeccion, urlTema] = req.originalUrl.slice(1).split("/");
+		let [urlSeccion, urlTema] = req.originalUrl.slice(1).split("/");
+		urlSeccion = urlSeccion || "inicio";
+		urlTema = urlTema || "proximos-eventos";
 		const codigoVista = urlTema == "cartas" ? "cartas" : urlSeccion == "experiencias" ? "experiencias" : "sinIndice";
 
 		// Sección
