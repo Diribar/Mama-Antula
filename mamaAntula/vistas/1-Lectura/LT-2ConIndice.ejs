@@ -20,7 +20,6 @@
 	<h2 id="tituloDelContenido" class="fondo"><%= locals.tituloCarta || locals.encabezado && encabezado.titulo %></h2>
 	<div id="contsImagenes" class="fondo">
 		<% if (locals.tituloCarta || encabezado) { %>
-			<% console.log(10, contenidos.length) %>
 			<% for (const contenido of contenidos) { %>
 				<div class="bloque">
 					<% if (contenido.texto || contenido.imagen) { %>
