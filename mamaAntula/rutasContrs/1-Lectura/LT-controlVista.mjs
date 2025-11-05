@@ -8,7 +8,7 @@ export default {
 		// Variables
 		let {urlSeccion, urlTema} = req.params;
 		urlSeccion = urlSeccion || "inicio";
-		urlTema = urlTema || "proximos-eventos";
+		urlTema = urlTema || "novedades";
 		const codigoVista = urlTema == "cartas" ? "cartas" : urlSeccion == "experiencias" ? "experiencias" : "sinIndice";
 
 		// Sección
