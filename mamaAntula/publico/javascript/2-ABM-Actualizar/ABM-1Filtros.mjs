@@ -141,7 +141,7 @@ window.addEventListener("load", async () => {
 	DOM.encabezado.addEventListener("change", async () => {
 		// ENCABEZADO - Guarda la cookie
 		if (!cac.startUp) document.cookie = "actualizaEncabezado_id=" + DOM.encabezado.value;
-		delete cac.startUp;
+		else delete cac.startUp;
 
 		// Actualiza el anchor de flitros
 		FN.actualizaHref();
