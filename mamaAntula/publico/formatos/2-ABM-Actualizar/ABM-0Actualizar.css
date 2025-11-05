@@ -5,7 +5,7 @@
 	.sector {
 		border: 1px solid black; border-radius: 10px;
 		padding-inline: 20px;
-		margin-bottom: 20px; width: fit-content;
+		margin-bottom: 20px;
 		&#sectorFiltros, &#sectorFiltros #filtros,
 		&#sectorEncabezado, &#sectorEncabezado .encabezado
 			{display: flex; flex-direction: row; align-items: center; justify-content: flex-start; gap: 30px;}
