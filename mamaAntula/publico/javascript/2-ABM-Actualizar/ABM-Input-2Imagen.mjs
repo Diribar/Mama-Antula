@@ -65,19 +65,6 @@ window.addEventListener("load", async () => {
 			return;
 		},
 		accionesSubmit: {
-			hayAlgoParaGuardar: () => {
-				// Averigua si hay algo para guardar
-				const hayAlgoParaGuardar = v.archivoImgSubido || v.unInputCambio;
-
-				// Acciones si no hay nada para guardar
-				if (!hayAlgoParaGuardar) {
-					v.errores = {mensaje: "No se hicieron cambios a guardar", hay: true};
-					colorMensaje(DOM, v.errores.hay, v.errores.mensaje);
-				}
-
-				// Fin
-				return hayAlgoParaGuardar;
-			},
 			formData: () => {
 				// Crea el formulario
 				const formData = new FormData();
@@ -168,4 +155,26 @@ window.addEventListener("load", async () => {
 		return;
 	});
 	// Eventos - submit
+		DOM.form.addEventListener("submit", async (e) => {
+		// Si confirmar está inactivo, interrumpe la función
+		e.preventDefault();
+		if (DOM.confirma.className.includes("inactivo")) return;
+		DOM.confirma.classList.add("inactivo"); // se deja inactivo hasta que se vuelve a hacer un input en el formulario
+
+		// Si no hay algo para guardar, interrumpe la función
+		if (!FN.accionesSubmit.hayAlgoParaGuardar()) return;
+
+		// Crea el FormData y agrega los datos
+		const formData = FN.accionesSubmit.formData();
+
+		// Valida y guarda los cambios del form
+		v.errores = await fetch(v.rutaGuardar, postForm(formData)).then((n) => n.json());
+
+		// Acciones finales
+		FN.accionesSubmit.finSubmit();
+
+		// Fin
+		return;
+	});
+
 });
