@@ -25,8 +25,8 @@ window.addEventListener("load", async () => {
 		if (!nuevaImagen) return;
 
 		// Actualiza variables
-		v.archivoImgSubido = nuevaImagen;
-		const {name: imagen, size: tamano, type: tipo} = v.archivoImgSubido;
+		archivoImgSubido = nuevaImagen;
+		const {name: imagen, size: tamano, type: tipo} = archivoImgSubido;
 		v.datos = {...v.datos, imagen, tamano, tipo};
 		v.errores = {};
 
@@ -56,3 +56,6 @@ window.addEventListener("load", async () => {
 	// Fin
 	return;
 });
+
+// Variables
+let archivoImgSubido

@@ -58,12 +58,12 @@ window.addEventListener("load", async () => {
 		},
 		imagen: () => {
 			// Le agrega los valores
-			if (v.archivoImgSubido) {
-				v.formData.append("archivo", v.archivoImgSubido);
-				v.formData.append("imagen", v.archivoImgSubido.name);
-				v.formData.append("tamano", v.archivoImgSubido.size);
-				v.formData.append("tipo", v.archivoImgSubido.type);
-				v.archivoImgSubido = null;
+			if (archivoImgSubido) {
+				v.formData.append("archivo", archivoImgSubido);
+				v.formData.append("imagen", archivoImgSubido.name);
+				v.formData.append("tamano", archivoImgSubido.size);
+				v.formData.append("tipo", archivoImgSubido.type);
+				archivoImgSubido = null;
 			}
 
 			// Fin
