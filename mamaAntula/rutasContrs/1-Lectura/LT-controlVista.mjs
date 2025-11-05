@@ -47,12 +47,9 @@ export default {
 		// Genera el título de la carta
 		const tituloCarta = codigoVista == "cartas" && comp.contenido.tituloCons.encabCarta(encabezado);
 
-		// Variables para la vista
-		const {archVista} = procesos.varsVista({seccionActual, temaActual});
-
 		// Fin
 		return res.render("CMP-0Estructura", {
-			...{tituloPagina, temaVista, codigoVista, archVista},
+			...{tituloPagina, temaVista, codigoVista},
 			...{temasSeccion},
 			...{seccionActual, temaActual, tituloCarta},
 			...{encabezado, contenidos},
@@ -78,12 +75,9 @@ export default {
 		// Obtiene el encabezado, contenido y imgsCarrousel del artículo
 		const {encabezado, contenidos} = await procesos.contenidos({seccionActual, temaActual, pestanaActual});
 
-		// Variables para la vista
-		const {archVista} = procesos.varsVista({seccionActual, temaActual});
-
 		// Fin
 		return res.render("CMP-0Estructura", {
-			...{tituloPagina, temaVista, codigoVista, archVista},
+			...{tituloPagina, temaVista, codigoVista},
 			...{temasSeccion, pestanasTema},
 			...{seccionActual, temaActual, pestanaActual},
 			...{encabezado, contenidos},
