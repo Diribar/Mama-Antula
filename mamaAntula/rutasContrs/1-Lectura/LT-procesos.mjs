@@ -51,14 +51,4 @@ export default {
 		// Fin
 		return fechas;
 	},
-	varsVista: ({seccionActual, temaActual}) => {
-		const esCartas = temaActual.codigo == "cartas";
-		const esExpers = seccionActual.codigo == "experiencias";
-		// const indice = procesos.indice(encabezados);
-		// if (esCartas || esExperiencias) return res.send(indice);
-		const archVista = esCartas || esExpers ? "2ConIndice" : "2SinIndice";
-
-		// Fin
-		return {archVista};
-	},
 };
