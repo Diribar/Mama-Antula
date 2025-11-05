@@ -26,7 +26,7 @@ window.addEventListener("load", async () => {
 
 	// Funciones
 	const creaElForm = {
-		consolidado: () => {
+		consolidado: function () {
 			// Crea el form
 			v.formData = new FormData();
 
