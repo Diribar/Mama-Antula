@@ -6,7 +6,7 @@ export default {
 	redirige: (req, res) => {},
 	temas: async (req, res) => {
 		// Variables
-		let [urlSeccion, urlTema] = req.originalUrl.slice(1).split("/");
+		let {urlSeccion, urlTema} = req.params;
 		urlSeccion = urlSeccion || "inicio";
 		urlTema = urlTema || "proximos-eventos";
 		const codigoVista = urlTema == "cartas" ? "cartas" : urlSeccion == "experiencias" ? "experiencias" : "sinIndice";
@@ -36,7 +36,7 @@ export default {
 	},
 	pestanas: async (req, res) => {
 		// Variables
-		const [urlSeccion, urlTema, urlPestana] = req.originalUrl.slice(1).split("/");
+		const {urlSeccion, urlTema, urlPestana} = req.params;
 		const codigoVista = urlSeccion == "experiencias" ? "experiencias" : "sinIndice";
 
 		// Sección

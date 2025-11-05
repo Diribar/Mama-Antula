@@ -1,8 +1,21 @@
-<% if (codigoVista == "cartas" && locals.tituloCarta) { %>
-	<%- include("LT-IndiceCartas") %>
-<% } %>
-<% if (codigoVista == "experiencias" && locals.encabezado) { %>
-	<%- include("LT-IndiceExpers") %>
+<% if (codigoVista == "cartas" && locals.tituloCarta || codigoVista == "experiencias" && locals.encabezado) { %>
+	<div id="filtroIndice">
+		<% if (codigoVista == "cartas") { %>	  <%- include("LT-IndiceCartas") %><% } %>
+		<% if (codigoVista == "experiencias") { %><%- include("LT-IndiceExpers") %><% } %>
+
+		<div id="flechas">
+			<% if (encabezado.ant_id) { %>
+				<a href="?id=<%= encabezado.ant_id %>" class="flechaIzquierda">
+					<i class="<%= iconos.faSolid %> <%= iconos.izquierda %>"></i>
+				</a>
+			<% } %>
+			<% if (encabezado.sig_id) { %>
+				<a href="?id=<%= encabezado.sig_id %>" class="flechaDerecha">
+					<i class="<%= iconos.faSolid %> <%= iconos.derecha %>"></i>
+				</a>
+			<% } %>
+		</div>
+	</div>
 <% } %>
 
 <div id="tituloMasContenido">
