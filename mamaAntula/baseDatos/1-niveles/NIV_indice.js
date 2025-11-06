@@ -3,7 +3,6 @@ export default (sequelize, dt) => {
 	const columns = {
 		// Referencias
 		tema_id: {type: dt.INTEGER},
-		pestana_id: {type: dt.INTEGER},
 
 		// Otros
 		nombre: {type: dt.STRING(20)},
@@ -18,7 +17,6 @@ export default (sequelize, dt) => {
 	const entidad = sequelize.define(alias, columns, config);
 	entidad.associate = (n) => {
 		entidad.belongsTo(n.temasSecciones, {as: "tema", foreignKey: "tema_id"});
-		entidad.belongsTo(n.pestanasTemas, {as: "pestana", foreignKey: "pestana_id"});
 	};
 	return entidad;
 };
