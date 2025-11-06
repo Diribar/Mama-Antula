@@ -27,7 +27,7 @@
 					<% if (contenido.texto || contenido.imagen) { %>
 						<% if (contenido.imagen) { %>
 							<div class="imgLeyenda">
-								<img class="imagen" src="/imgsEditables/1-Contenido/<%= contenido.imagen %>">
+								<img class="imagen" src="/imgsEditables/<%- contenido.statusRegiastro_id == creado_id ? '2-Revisar' : '1-Contenido' %>/<%= contenido.imagen %>">
 								<div class="leyenda" class="fondo"><%= contenido.leyenda %></div>
 							</div>
 						<% } %>
