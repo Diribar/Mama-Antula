@@ -110,7 +110,9 @@ export default {
 
 		// Arma los datos
 		if (pestanaActiva == "carrousel") {
-		} else {
+		}
+		// En caso que no sea carrousel
+		else {
 			// Averigua si ya hay algún registro para ese campo_id
 			const registrosActuales = await baseDatos.obtieneTodosPorCondicion("contenidos", {[campo_id]: encabezado_id});
 
