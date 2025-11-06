@@ -43,8 +43,8 @@ window.addEventListener("load", async () => {
 
 		// Auxiliares
 		actualizaLaVisibilidadDelSector: () => {
-			// Si es 'encabSinIndice' y viene de un tema, lo oculta porque sus campos no poseen ningún valor
-			if (comp1234.tipoEncab == "encabSinIndice" && !DOM.filtroPestana.value) DOM.sectorEncabezado.classList.add("ocultar");
+			// Si es 'sin índice' y viene de un tema, lo oculta porque sus campos no poseen ningún valor
+			if (!comp1234.conIndice && !DOM.filtroPestana.value) DOM.sectorEncabezado.classList.add("ocultar");
 			else DOM.sectorEncabezado.classList.remove("ocultar");
 
 			// Fin

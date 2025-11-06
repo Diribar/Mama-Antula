@@ -20,35 +20,33 @@ window.addEventListener("load", async () => {
 	// Funciones
 	const FN = {
 		actualizaFiltroEncabezado: async () => {
-			// Si corresponde, oculta el sector encabezados - encabSinIndice solo puede tener un encabezado
-			if (comp1234.tipoEncab == "encabSinIndice") DOM.encabezado.classList.add("ocultar");
-
 			// Variables
 			comp1234.seccion_id = DOM.seccion.value;
 			comp1234.tema_id = DOM.tema.value;
 			comp1234.pestana_id = DOM.pestana.value;
 
-			// Obtiene los encabezados
-			const datos = "seccion_id=" + comp1234.seccion_id + "&tema_id=" + comp1234.tema_id + "&pestana_id=" + comp1234.pestana_id;
+			// ENCABEZADO - Si corresponde, oculta el sector encabezados - encabSinIndice solo puede tener un encabezado
+			if (!comp1234.conIndice) DOM.encabezado.classList.add("ocultar");
+
+			// ENCABEZADO - Obtiene los encabezados
+			const datos =
+				"seccion_id=" + comp1234.seccion_id + "&tema_id=" + comp1234.tema_id + "&pestana_id=" + comp1234.pestana_id;
 			comp1234.encabezados = await fetch(rutas.obtieneEncabs + datos).then((n) => n && n.json());
 
-			// Crea las opciones
+			// ENCABEZADO - Crea las opciones
 			agregaOpciones(comp1234.encabezados, DOM.encabezado, "tituloCons");
 
-			// Si corresponde, crea la opción NUEVO - encabSinIndice siempre tiene un encabezado creado y no puede tener más de uno
-			if (comp1234.tipoEncab != "encabSinIndice") {
+			// ENCABEZADO - Si 'conIndice', crea la opción NUEVO - sin indice siempre tiene un encabezado creado y no puede tener más de uno
+			if (comp1234.conIndice) {
 				const option = document.createElement("option");
 				option.value = "nuevo";
 				option.textContent = "Encabezado nuevo";
 				DOM.encabezado.appendChild(option);
+				DOM.encabezado.classList.remove("ocultar");
 			}
-
-			// Muestra los encabezados y dispara el evento
-			if (comp1234.tipoEncab != "encabSinIndice") DOM.encabezado.classList.remove("ocultar");
 
 			// ENCABEZADO - Si es start-up, elige la opción de la cookie
 			if (comp1234.startUp && cookie("actualizaEncabezado_id")) DOM.encabezado.value = cookie("actualizaEncabezado_id");
-
 			DOM.encabezado.dispatchEvent(new Event("change"));
 
 			// Fin
@@ -58,7 +56,8 @@ window.addEventListener("load", async () => {
 			// Obtiene los url
 			const urlSeccion = "/" + comp1234.secciones.find((n) => n.id == comp1234.seccion_id).url;
 			const urlTema = "/" + comp1234.temasSecciones.find((n) => n.id == comp1234.tema_id).url;
-			const urlPestana = (comp1234.pestana_id && "/" + comp1234.pestanasTemas.find((n) => n.id == comp1234.pestana_id).url) || "";
+			const urlPestana =
+				(comp1234.pestana_id && "/" + comp1234.pestanasTemas.find((n) => n.id == comp1234.pestana_id).url) || "";
 
 			// Actualiza el DOM
 			DOM.anchorLectura.href = urlSeccion + urlTema + urlPestana + "/" + v.encabezado_id;
@@ -76,10 +75,6 @@ window.addEventListener("load", async () => {
 		// SECCIÓN - Guarda la cookie
 		const seccion_id = DOM.seccion.value;
 		if (!comp1234.startUp) document.cookie = "actualizaSeccion_id=" + seccion_id;
-
-		// Averigua si la sección es 'Experiencias'
-		comp1234.tipoEncab =
-			DOM.seccion.value == comp1234.secciones.find((n) => n.codigo == "experiencias")?.id ? "encabExpers" : "encabSinIndice";
 
 		// TEMA - Crea las opciones
 		const temasSecciones = comp1234.temasSecciones.filter((n) => n.seccion_id == seccion_id);
@@ -101,9 +96,9 @@ window.addEventListener("load", async () => {
 		if (!comp1234.startUp) document.cookie = "actualizaTema_id=" + tema_id;
 
 		// Averigua si el tema es 'Cartas'
-		if (comp1234.tipoEncab != "encabExpers")
-			comp1234.tipoEncab =
-				tema_id == comp1234.temasSecciones.find((n) => n.codigo == "cartas")?.id ? "encabCartas" : "encabSinIndice";
+		const temaActual = comp1234.temasSecciones.find((n) => n.id == tema_id);
+		comp1234.esCarta = temaActual.codigo == "cartas"
+		comp1234.conIndice = !!temaActual.indices.length;
 
 		// PESTAÑA - Crea las opciones
 		comp1234.pestanasTema = comp1234.pestanasTemas.filter((n) => n.tema_id == tema_id);
