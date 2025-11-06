@@ -1,9 +1,9 @@
 import express from "express";
 // import API from "./LT-controlApi.mjs";
-import vista from "./LT-controlVista.mjs";
+import vista from "./LT-controlVista.js";
 
 // Middlewares
-import validaRuta from "../../middlewares/LT-validaRuta.mjs";
+import validaRuta from "../../middlewares/LT-validaRuta.js";
 
 // 🧩 Router
 const router = express.Router();

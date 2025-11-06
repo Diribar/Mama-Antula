@@ -1,14 +1,14 @@
 // Imports
 import express from "express";
-import API from "./US-controlApi.mjs";
-import vista from "./US-controlVista.mjs";
+import API from "./US-controlApi.js";
+import vista from "./US-controlVista.js";
 
 // Middlewares
-import soloVisitas from "../../middlewares/usuarios/US-1SoloVisitas.mjs";
-import soloUsuarios from "../../middlewares/usuarios/US-2SoloUsuarios.mjs";
-import soloAdmin from "../../middlewares/usuarios/US-4SoloAdmin.mjs";
-import descargaImg from "../../middlewares/descargaImg/IMG-descargaImg.mjs";
-import imgEnReqBody from "../../middlewares/descargaImg/IMG-imgEnReqBody.mjs";
+import soloVisitas from "../../middlewares/usuarios/US-1SoloVisitas.js";
+import soloUsuarios from "../../middlewares/usuarios/US-2SoloUsuarios.js";
+import soloAdmin from "../../middlewares/usuarios/US-4SoloAdmin.js";
+import descargaImg from "../../middlewares/descargaImg/IMG-descargaImg.js";
+import imgEnReqBody from "../../middlewares/descargaImg/IMG-imgEnReqBody.js";
 
 // 🧩 Router
 const router = express.Router();

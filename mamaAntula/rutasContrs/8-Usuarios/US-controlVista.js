@@ -1,5 +1,5 @@
 "use strict";
-import procesos from "./US-procesos.mjs";
+import procesos from "./US-procesos.js";
 const temaVista = "usuarios";
 
 export default {

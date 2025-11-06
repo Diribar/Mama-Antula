@@ -73,7 +73,7 @@ const entornoBd = !entDesarr ? "produccion" : "desarrollo";
 const credencsBD = credencsSitio.bd[entornoBd];
 const {database, username, password} = credencsBD;
 globalThis.sequelize = new Sequelize(database, username, password, credencsBD);
-const bd = await import("./baseDatos/index.mjs").then((n) => n.default);
+const bd = await import("./baseDatos/index.js").then((n) => n.default);
 globalThis.bd = bd;
 globalThis.Op = Sequelize.Op;
 
