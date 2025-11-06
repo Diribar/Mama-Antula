@@ -3,8 +3,7 @@ export default (sequelize, dt) => {
 	const columns = {
 		// Referencias
 		carta_id: {type: dt.INTEGER},
-		experiencia_id: {type: dt.INTEGER},
-		sinIndice_id: {type: dt.INTEGER},
+		encab_id: {type: dt.INTEGER},
 
 		// Experiencias y Sin índice
 		titulo: {type: dt.STRING(100)},
@@ -32,8 +31,7 @@ export default (sequelize, dt) => {
 	const entidad = sequelize.define(alias, columns, config);
 	entidad.associate = (n) => {
 		entidad.belongsTo(n.encabCartas, {as: "carta", foreignKey: "carta_id"});
-		entidad.belongsTo(n.encabExpers, {as: "experiencia", foreignKey: "experiencia_id"});
-		entidad.belongsTo(n.encabSinIndice, {as: "sinIndice", foreignKey: "sinIndice_id"});
+		entidad.belongsTo(n.encabResto, {as: "experiencia", foreignKey: "encab_id"});
 
 		entidad.belongsTo(n.personajes, {as: "nombreDesde", foreignKey: "nombreDesde_id"});
 		entidad.belongsTo(n.personajes, {as: "nombreHacia", foreignKey: "nombreHacia_id"});

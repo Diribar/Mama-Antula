@@ -100,7 +100,7 @@ export default {
 	guardaContenido: async (req, res) => {
 		// Variables
 		const {pestanaActiva, campo_id, encabezado_id} = req.body;
-		const camposGuardar = ["carta_id", "experiencia_id", "sinIndice_id", "texto", "imagen", "video", "leyenda"];
+		const camposGuardar = ["carta_id", "encab_id", "texto", "imagen", "video", "leyenda"];
 		const datos = {};
 
 		// Guarda los datos útiles

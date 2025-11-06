@@ -1,0 +1,24 @@
+export default (sequelize, dt) => {
+	const alias = "encabIndice";
+	const columns = {
+		// Referencias
+		tema_id: {type: dt.INTEGER},
+		pestana_id: {type: dt.INTEGER},
+
+		// Otros
+		nombre: {type: dt.STRING(20)},
+		fechaDesde: {type: dt.DATE},
+		fechaHasta: {type: dt.DATE},
+		orden: {type: dt.INTEGER},
+	};
+	const config = {
+		tableName: "niv_indices",
+		timestamps: false,
+	};
+	const entidad = sequelize.define(alias, columns, config);
+	entidad.associate = (n) => {
+		entidad.belongsTo(n.temasSecciones, {as: "tema", foreignKey: "tema_id"});
+		entidad.belongsTo(n.pestanasTemas, {as: "pestana", foreignKey: "pestana_id"});
+	};
+	return entidad;
+};
