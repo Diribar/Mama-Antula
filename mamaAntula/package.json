@@ -1,6 +1,7 @@
 {
 	"name": "mamaantula",
 	"version": "1.00",
+	"main": "app.mjs",
 	"type": "module",
 	"scripts": {
 		"start": "nodemon -e js,json app.js"
