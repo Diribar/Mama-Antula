@@ -21,8 +21,9 @@ export default {
 			encabezado.ediciones = [];
 			encabezados = [encabezado];
 		}
+
 		// Les agrega los títulos
-		else encabezados = comp.contenido.tituloCons[esCarta ? entidad : "encabConIndice"](encabezados);
+		if (conIndice) encabezados = comp.contenido.tituloCons[esCarta ? entidad : "encabConIndice"](encabezados);
 
 		// Fin
 		return encabezados;
