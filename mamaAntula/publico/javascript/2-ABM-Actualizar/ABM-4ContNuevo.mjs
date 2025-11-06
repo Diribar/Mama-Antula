@@ -16,8 +16,8 @@ window.addEventListener("load", async () => {
 		// Video
 		outputVideoId: document.querySelector("#video [name='video']"),
 		muestraLeyendaVideo: document.querySelector("#video .muestraLeyenda"),
-		inputsVideo: document.querySelectorAll("#video .input"),
-		limpiarsVideo: document.querySelectorAll("#video .limpiar"),
+		limpiarValue: document.querySelectorAll("#video .input"),
+		limpiarHTML: document.querySelectorAll("#video .limpiar"),
 	};
 	const rutas = {
 		guardaContenido: "/contenido/api/abm-guarda-contenido",
@@ -25,64 +25,97 @@ window.addEventListener("load", async () => {
 	const v = {};
 
 	// Funciones
-	const FN = {
-		creaElForm: () => {
-			// Variables
-			const campo_id = campos_id[cac.tipoEncab];
-			const encabezado_id = DOM.filtroEncab.value;
-
+	const creaElForm = {
+		consolidado: () => {
 			// Crea el form
 			v.formData = new FormData();
-			v.formData.append("campo_id", campos_id[cac.tipoEncab]);
-			v.formData.append("encabezado_id", encabezado_id);
+
+			// Encabezado
+			this.encabezado();
+
+			// Inputs
 			v.formData.append("pestanaActiva", v.nombrePestanaActiva);
+			if (["textoImagen", "texto"].includes(v.nombrePestanaActiva)) v.formData.append("texto", DOM.textoOutput.value);
+			if (v.nombrePestanaActiva == "video") this.video();
+			if (["textoImagen", "imagen"].includes(v.nombrePestanaActiva)) this.imagen();
+			if (v.nombrePestanaActiva == "carrousel") return;
+
+			// Fin
+			return;
+		},
+		encabezado: () => {
+			// Encabezado
+			const encabezado_id = DOM.filtroEncab.value;
+			v.formData.append("encabezado_id", encabezado_id);
+
+			// Campo_id
+			const campo_id = campos_id[cac.tipoEncab];
+			v.formData.append("campo_id", campos_id[cac.tipoEncab]);
 			v.formData.append(campo_id, encabezado_id);
+
+			// Fin
+			return;
+		},
+		imagen: () => {
+			// Fin
+			return;
+		},
+		video: () => {
+			// Video y leyenda
+			v.formData.append("video", DOM.outputVideoId.value);
+			v.formData.append("leyenda", DOM.muestraLeyendaVideo.innerText);
+
+			// Fin
 			return;
 		},
 	};
 
+	// Actualiza el sector por cambio en el encabezado
+	DOM.filtroEncab.addEventListener("change", async () => {
+		// Texto
+		DOM.textoInput.querySelector(".ql-editor").innerHTML = "";
+
+		// Imagen
+
+		// Video
+		for (const limpiar of DOM.limpiarValue) limpiar.value = "";
+		for (const limpiar of DOM.limpiarHTML) limpiar.innerHTML = "";
+
+		// Fin
+		return;
+	});
+
 	// Guarda los cambios
 	DOM.iconoGuardar.addEventListener("click", async () => {
-		// Obtiene la pestaña activa
+		// Obtiene la pestaña activa y crea el form
 		v.nombrePestanaActiva = document.querySelector("#pestanasGuardar .pestana.activo")?.id;
+		creaElForm.consolidado();
 
-		// Feedback si carrousel
-		if (v.nombrePestanaActiva == "carrousel") return;
-
-		// Crea el form
-		FN.creaElForm();
-
-		// Feedback si texto (textoImagen o texto)
-		if (["textoImagen", "texto"].includes(v.nombrePestanaActiva)) {
-			v.formData.append("texto", DOM.textoOutput.value);
-		}
-
-		// Feedback si video
-		if (v.nombrePestanaActiva == "video") {
-			v.formData.append("video", DOM.outputVideoId.value);
-			v.formData.append("leyenda", DOM.muestraLeyendaVideo.innerText);
-		}
-
-		// Feedback si imagen (textoImagen o imagen)
-
-		// Guarda el contenido en la BD
+		// Guarda el contenido en la BD y actualiza
 		await fetch(rutas.guardaContenido, postForm(v.formData)).then((n) => n.json());
-
-		// Actualiza
 		DOM.filtroEncab.dispatchEvent(new Event("change"));
 
 		// Fin
 		return;
 	});
 
-	// Lo actualiza por cambio en el encabezado
-	DOM.filtroEncab.addEventListener("change", async () => {
-		// Texto
-		DOM.textoInput.querySelector(".ql-editor").innerHTML = "";
+	DOM.form.addEventListener("submit", async (e) => {
+		// Si confirmar está inactivo, interrumpe la función
+		e.preventDefault();
+		if (DOM.confirma.className.includes("inactivo")) return;
+		DOM.confirma.classList.add("inactivo"); // se deja inactivo hasta que se vuelve a hacer un input en el formulario
 
-		// Video
-		for (const input of DOM.inputsVideo) input.value = "";
-		for (const limpiar of DOM.limpiarsVideo) limpiar.innerHTML = "";
+		// Si no hay algo para guardar, interrumpe la función
+		if (!FN.accionesSubmit.hayAlgoParaGuardar()) return;
+
+		// Crea el FormData y agrega los datos
+		const formData = FN.accionesSubmit.formData();
+
+		// Valida y guarda los cambios del form
+		v.errores = await fetch(v.rutaGuardar, postForm(formData)).then((n) => n.json());
+
+		// Acciones finales
+		FN.accionesSubmit.finSubmit();
 
 		// Fin
 		return;

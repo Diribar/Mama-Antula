@@ -2,9 +2,6 @@
 
 window.addEventListener("load", async () => {
 	const DOM = {
-		// Avatar del encabezado
-		imagenHeader: document.querySelector("header #imagenUsuario"),
-
 		// Formulario
 		form: document.querySelector("#cuerpo #formEdicion"),
 		mensaje: document.querySelector("#formEdicion #mensaje"),
@@ -68,19 +65,6 @@ window.addEventListener("load", async () => {
 			return;
 		},
 		accionesSubmit: {
-			hayAlgoParaGuardar: () => {
-				// Averigua si hay algo para guardar
-				const hayAlgoParaGuardar = v.archivoImgSubido || v.unInputCambio;
-
-				// Acciones si no hay nada para guardar
-				if (!hayAlgoParaGuardar) {
-					v.errores = {mensaje: "No se hicieron cambios a guardar", hay: true};
-					colorMensaje(DOM, v.errores.hay, v.errores.mensaje);
-				}
-
-				// Fin
-				return hayAlgoParaGuardar;
-			},
 			formData: () => {
 				// Crea el formulario
 				const formData = new FormData();
@@ -107,14 +91,6 @@ window.addEventListener("load", async () => {
 							.join(". ") // quita los 'no errores' y el 'hay'
 					: "Los cambios fueron guardados";
 				colorMensaje(DOM, v.errores.hay, mensaje);
-
-				// Actualiza la imagen en el header
-				if (v.archivoImgSubido && !v.errores.imagen) {
-					DOM.imagenHeader.src = URL.createObjectURL(v.archivoImgSubido);
-				}
-
-				// Cambia el nombre en el encabezado
-				DOM.imagenHeader.setAttribute("title", "Hola " + DOM.apodo.value);
 
 				// Resetea variables
 				v.archivoImgSubido = null;

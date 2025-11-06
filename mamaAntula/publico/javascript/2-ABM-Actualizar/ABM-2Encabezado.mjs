@@ -129,11 +129,9 @@ window.addEventListener("load", async () => {
 
 		// Guarda el nuevo_id en la cookie y establece que se actualicen los filtros por las cookies
 		if (respuesta.id) {
-			// Guarda la nueva cookie
+			// Guarda la nueva cookie y se genera un change en el tema, para que se reinicie el filtro del encabezado
 			document.cookie = "actualizaEncabezado_id=" + respuesta.id;
 			cac.startUp = true;
-
-			// Se genera un change en el tema, para que se reinicie el filtro del encabezado
 			DOM.filtroTema.dispatchEvent(new Event("change"));
 		}
 
@@ -150,11 +148,9 @@ window.addEventListener("load", async () => {
 		const datos = {entidad: cac.tipoEncab, id: DOM.filtroEncab.value};
 		await fetch(rutas.eliminaEncabezado, deleteJson(datos));
 
-		// Elimina la cookie
+		// Elimina la cookie y se genera un change en el tema o pestaña, para que se reinicie el filtro del encabezado
 		document.cookie = "actualizaEncabezado_id=";
 		cac.startUp = true;
-
-		// Se genera un change en el tema o pestaña, para que se reinicie el filtro del encabezado
 		DOM.filtroTema.dispatchEvent(new Event("change"));
 
 		// Fin
