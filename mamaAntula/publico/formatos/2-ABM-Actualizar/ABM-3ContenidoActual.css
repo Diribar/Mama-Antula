@@ -3,13 +3,13 @@
 	display: flex; flex-direction: row; justify-content: center; gap: 15px;
 	padding-block: 15px;
 
-	.textoImagen {display: flex; flex-direction: row; gap: 15px;}
 	.texto p {margin-bottom: 10px;}
 	.contenido:has(iframe) {
 		display: flex; flex-direction: column; align-items: center;
 		iframe {height: 300px; width: auto; aspect-ratio: 16 / 9;}
 	}
 
+	.textoImagen .contImagenLeyenda {float: right; margin-left: 30px; margin-bottom: 15px; max-width: 33%;} /* sólo para la combinación textoImagen */
 	.contImagenLeyenda {
 		display: flex; flex-direction: column; align-items: center;
 		width: min-content;
