@@ -17,11 +17,11 @@
 			.ql-editor p {margin-bottom: 15px;}
 		}
 	}
-	#carrousel {border: 1px solid grey;}
 	#imagen {
 		max-width: 33%;
 		#areaSoltar {width: 100%; flex-grow: 1; border-radius: 5px;}
 	}
+	#carrousel {border: 1px solid grey;}
 	#video {
 		flex-direction: row; align-items: center; gap: 10px;
 		.inputs, .outputs {
