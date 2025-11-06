@@ -8,6 +8,7 @@ window.addEventListener("load", async () => {
 		// Inputs
 		textoInput: document.querySelector("#texto .input"),
 		videoInput: document.querySelector("#video .input"),
+		leyendaImagen: document.querySelector("#imagen .leyenda"),
 
 		// Ouputs
 		iconoGuardar: document.querySelector("#pestanasGuardar #iconoGuardar"),
@@ -57,12 +58,20 @@ window.addEventListener("load", async () => {
 			return;
 		},
 		imagen: () => {
-			// Le agrega los valores
+			// Si se subió un archivo, le agrega los valores
 			if (archivoImgSubido) {
+				// El archivo de imagen
 				v.formData.append("archivo", archivoImgSubido);
+
+				// La leyenda de la imagen
+				v.formData.append("leyenda", DOM.leyendaImagen.value);
+
+				// Datos para validar la imagen
 				v.formData.append("imagen", archivoImgSubido.name);
 				v.formData.append("tamano", archivoImgSubido.size);
 				v.formData.append("tipo", archivoImgSubido.type);
+
+				// Fin
 				archivoImgSubido = null;
 			}
 
