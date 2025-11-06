@@ -41,10 +41,9 @@
 
 		}
 		/* Ya agregados */
-		img.yaAgregs {
-			height: var(--lado);
-			&[src=""] {display: none;}
-
+		#modeloVista {
+			position: relative; display: none;
+			i {position: absolute; top: 50%; left: 50%; translate: -50% -50%;}
 		}
 
 	}

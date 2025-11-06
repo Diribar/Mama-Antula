@@ -8,37 +8,38 @@ window.addEventListener("load", async () => {
 		dragDrop: domLayout.querySelector("#dragDrop"),
 		areaSoltar: domLayout.querySelector("#areaSoltar"),
 		inputImagen: domLayout.querySelector("#areaSoltar [name='imagen']"),
-
-		// Otros
-		carrImgs: domLayout.querySelector("#carrImgs"),
-		imgModeloVista: domLayout.querySelector("img#modeloVistaImagen"),
 		inputLeyenda: domLayout.querySelector("[name='leyenda']"),
+
+		// Modelo Vista
+		modeloVista: domLayout.querySelector("#modeloVista"),
+		modeloVistaImg: domLayout.querySelector("#modeloVista img"),
+
+		// Carrousel de imágenes
+		carrImgs: domLayout.querySelector("#carrImgs"),
 	};
-	console.log(DOM.areaSoltar);
-	console.log(DOM.inputImagen);
-
-
 	const v = {
 		entrada: ["dragenter", "dragover"],
 		salida: ["dragleave", "drop"],
-		archCarrousel: null,
 	};
 
 	// Funciones
-	const obtieneNuevaImagen = async function (archImagen) {
+	const obtieneNuevaImagen = async function (archivoImg) {
 		// Crea un nuevo hijo
-		const nuevaVistaImagen = DOM.imgModeloVista.cloneNode();
+		const nuevoModeloVista = DOM.modeloVista.cloneNode(true);
+		const nuevaImg = nuevoModeloVista.querySelector("img");
 
-		// Acciones si no se cargó una imagen
-		const nuevaImagen = await procesaArchImg(archImagen, nuevaVistaImagen);
-		if (!nuevaImagen) return;
+		// Obtiene el url de la imagen
+		const urlImagen = await procesaArchImg(archivoImg, nuevaImg);
+
+		// Si no se recibió ninguna imagen, interrumpe la función
+		if (!urlImagen) return;
 
 		// Actualiza vista
-		nuevaVistaImagen.removeAttribute("id");
-		DOM.carrImgs.appendChild(nuevaVistaImagen);
+		nuevoModeloVista.removeAttribute("id");
+		DOM.carrImgs.appendChild(nuevoModeloVista);
 
 		// Actualiza variables
-		archCarrousel = nuevaImagen;
+		archCarrousel.push(urlImagen);
 
 		// Fin
 		return;
@@ -69,4 +70,4 @@ window.addEventListener("load", async () => {
 });
 
 // Variables
-let archCarrousel;
+let archCarrousel = [];
