@@ -13,4 +13,5 @@ form {
 		&:not([type="checkbox"]) {padding: 2px 10px;}
 		&[name="apodo"] {background-color: var(--verdeClaro);}
 	}
+	#areaSoltar img {border-radius: 50%;}
 }

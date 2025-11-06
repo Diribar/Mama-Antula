@@ -67,7 +67,28 @@ export default {
 	},
 	gestionArchs: {
 		existe: (rutaNombre) => rutaNombre && fs.existsSync(rutaNombre),
-		elimina: (ruta, nombreArch, output) => FN.elimina(ruta, nombreArch, output),
+		elimina: (ruta, nombreArch, output) => {
+			// Arma el nombre del archivo
+			const rutaNombre = path.join(ruta, nombreArch);
+
+			// Se fija si encuentra el archivo
+			if (rutaNombre && fs.existsSync(rutaNombre)) {
+				const queEs = fs.statSync(rutaNombre);
+				if (queEs.isFile()) {
+					fs.unlinkSync(rutaNombre); // Borra el archivo
+					if (output) console.log("Archivo '" + rutaNombre + "' borrado"); // Avisa que lo borra
+				} else if (queEs.isDirectory()) {
+					fs.rmdirSync(rutaNombre); // Borra el directorio
+					if (output) console.log("Carpeta '" + rutaNombre + "' borrada"); // Avisa que lo borra
+				}
+			}
+			// Mensaje si no lo encuentra
+			else if (output) console.log("Archivo/Carpeta " + rutaNombre + " no encontrado para borrar");
+
+			// Fin
+			return;
+		},
+
 		mueve: function (nombreArch, carpOrigen, carpDestino) {
 			// Variables
 			const rutaNombreOrigen = path.join(carpOrigen, nombreArch);
@@ -137,6 +158,8 @@ export default {
 			// Fin
 			return {entidad, campo_id, includes};
 		},
+		obtieneCampo_id: (entidad) =>
+			entidad == "encabCartas" ? "carta_id" : entidad == "encabExpers" ? "experiencia_id" : "sinIndice_id",
 		tituloCons: {
 			encabCartas: function (encabs) {
 				for (const encab of encabs) encab.tituloCons = this.encabCarta(encab);
@@ -224,27 +247,6 @@ export default {
 
 // Funciones
 const FN = {
-	elimina: (ruta, archivo, output) => {
-		// Arma el nombre del archivo
-		const rutaNombre = path.join(ruta, archivo);
-
-		// Se fija si encuentra el archivo
-		if (rutaNombre && fs.existsSync(rutaNombre)) {
-			const queEs = fs.statSync(rutaNombre);
-			if (queEs.isFile()) {
-				fs.unlinkSync(rutaNombre); // Borra el archivo
-				if (output) console.log("Archivo '" + rutaNombre + "' borrado"); // Avisa que lo borra
-			} else if (queEs.isDirectory()) {
-				fs.rmdirSync(rutaNombre); // Borra el directorio
-				if (output) console.log("Carpeta '" + rutaNombre + "' borrada"); // Avisa que lo borra
-			}
-		}
-		// Mensaje si no lo encuentra
-		else if (output) console.log("Archivo/Carpeta " + rutaNombre + " no encontrado para borrar");
-
-		// Fin
-		return;
-	},
 	diaMesAnoUTC: (fecha) => {
 		// Variables
 		fecha = new Date(fecha);

@@ -90,7 +90,8 @@ export default {
 		// Variables
 		const {entidad, id} = req.body;
 
-		// Elimina el original
+		// Elimina los dependientes y el encabezado
+		await procesos.eliminaDepends(entidad, id);
 		await baseDatos.eliminaPorId(entidad, id);
 
 		// Fin
@@ -100,13 +101,19 @@ export default {
 		// Variables
 		const {pestanaActiva, campo_id, encabezado_id} = req.body;
 		const camposGuardar = ["carta_id", "experiencia_id", "sinIndice_id", "texto", "imagen", "video", "leyenda"];
-		const datosGuardar = {};
-		for (const campo of camposGuardar) if (req.body[campo]) datosGuardar[campo] = req.body[campo];
-		console.log(101, req.body, datosGuardar);
+		const datos = {};
+
+		// Guarda los datos útiles
+		for (const campo of camposGuardar) if (req.body[campo]) datos[campo] = req.body[campo];
+
+		// Guarda la imagen
+		if (req.file) await comp.gestionArchs.descarga(carpRevisar, datos.imagen, req.file);
 
 		// Arma los datos
 		if (pestanaActiva == "carrousel") {
-		} else {
+		}
+		// En caso que no sea carrousel
+		else {
 			// Averigua si ya hay algún registro para ese campo_id
 			const registrosActuales = await baseDatos.obtieneTodosPorCondicion("contenidos", {[campo_id]: encabezado_id});
 
@@ -117,11 +124,11 @@ export default {
 				const maxOrden = Math.max(...ordenes);
 
 				// Suma 1 y lo guarda en el orden
-				datosGuardar.orden = maxOrden + 1;
+				datos.orden = maxOrden + 1;
 			}
 
 			// Guarda el registro
-			await baseDatos.agregaRegistroIdCorrel("contenidos", datosGuardar);
+			await baseDatos.agregaRegistroIdCorrel("contenidos", datos);
 		}
 
 		// Fin
@@ -130,7 +137,17 @@ export default {
 	eliminaContenido: async (req, res) => {
 		// Variables
 		const {id} = req.body;
-		if (id) await baseDatos.eliminaPorId("contenidos", id);
+		if (!id) return res.json({});
+		const contenido = await baseDatos.obtienePorId("contenidos", id, "imgsCarrousel");
+		const ruta = contenido.statusRegistro_id == creado_id ? carpRevisar : carpContenido;
+
+		// Carrouseles
+		for (const imgCarrousel of contenido.imgsCarrousel) comp.gestionArchs.elimina(ruta, imgCarrousel.imagen, true);
+		await baseDatos.eliminaPorCondicion("imgsCarrousel", {contenido_id: id});
+
+		// Contenidos
+		if (contenido.imagen) comp.gestionArchs.elimina(ruta, contenido.imagen, true);
+		await baseDatos.eliminaPorId("contenidos", id);
 
 		// Fin
 		return res.json({});

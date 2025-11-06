@@ -84,8 +84,8 @@ window.addEventListener("load", async () => {
 				else if (contenido.imagen && !contenido.texto) v.domContenido = this.imagen(contenido).cloneNode(true);
 				// Texto e imagen
 				else if (contenido.texto && contenido.imagen) {
-					v.domContenido.appendChild(this.texto(contenido));
 					v.domContenido.appendChild(this.imagen(contenido));
+					v.domContenido.appendChild(this.texto(contenido));
 					v.domContenido.classList.add("textoImagen");
 				}
 				// Video
@@ -112,7 +112,8 @@ window.addEventListener("load", async () => {
 
 				// Crea la imagen
 				const domImagen = document.createElement("img");
-				domImagen.src = "/imgsEditables/1-Contenido/" + contenido.imagen;
+				const subCarpeta = contenido.statusRegistro_id == 1 ? "2-Revisar/" : "1-Contenido/";
+				domImagen.src = "/imgsEditables/" + subCarpeta + contenido.imagen;
 				domImagen.classList.add("imagen");
 				contenedor.appendChild(domImagen);
 

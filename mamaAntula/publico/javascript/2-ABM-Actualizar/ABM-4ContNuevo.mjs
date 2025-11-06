@@ -3,11 +3,14 @@
 window.addEventListener("load", async () => {
 	// Variables
 	const DOM = {
+		// Form
+		sectorContNuevo: document.querySelector("#sectorContNuevo"),
 		filtroEncab: document.querySelector("#filtros select[name='encabezado']"),
 
 		// Inputs
 		textoInput: document.querySelector("#texto .input"),
 		videoInput: document.querySelector("#video .input"),
+		leyendaImagen: document.querySelector("#imagen [name='leyenda']"),
 
 		// Ouputs
 		iconoGuardar: document.querySelector("#pestanasGuardar #iconoGuardar"),
@@ -26,7 +29,7 @@ window.addEventListener("load", async () => {
 
 	// Funciones
 	const creaElForm = {
-		consolidado: () => {
+		consolidado: function () {
 			// Crea el form
 			v.formData = new FormData();
 
@@ -57,13 +60,21 @@ window.addEventListener("load", async () => {
 			return;
 		},
 		imagen: () => {
-			// Le agrega los valores
-			if (v.archivoImgSubido) {
-				v.formData.append("archivo", v.archivoImgSubido);
-				v.formData.append("imagen", v.archivoImgSubido.name);
-				v.formData.append("tamano", v.archivoImgSubido.size);
-				v.formData.append("tipo", v.archivoImgSubido.type);
-				v.archivoImgSubido = null;
+			// Si se subió un archivo, le agrega los valores
+			if (archivoImgSubido) {
+				// El archivo de imagen
+				v.formData.append("archivo", archivoImgSubido);
+
+				// La leyenda de la imagen
+				v.formData.append("leyenda", DOM.leyendaImagen.value);
+
+				// Datos para validar la imagen
+				v.formData.append("imagen", archivoImgSubido.name);
+				v.formData.append("tamano", archivoImgSubido.size);
+				v.formData.append("tipo", archivoImgSubido.type);
+
+				// Fin
+				archivoImgSubido = null;
 			}
 
 			// Fin
@@ -94,7 +105,9 @@ window.addEventListener("load", async () => {
 		return;
 	});
 
+
 	// Guarda los cambios
+	DOM.sectorContNuevo.addEventListener("input", () => DOM.iconoGuardar.classList.remove("inactivo"));
 	DOM.iconoGuardar.addEventListener("click", async () => {
 		// Si confirmar está inactivo, interrumpe la función
 		if (DOM.iconoGuardar.className.includes("inactivo")) return;
@@ -106,26 +119,11 @@ window.addEventListener("load", async () => {
 		// Crea el form
 		creaElForm.consolidado();
 
-		// Guarda el contenido en la BD y actualiza
+		// Guarda el contenido en la BD
 		await fetch(rutas.guardaContenido, postForm(v.formData)).then((n) => n.json());
-		DOM.filtroEncab.dispatchEvent(new Event("change"));
 
-		// Fin
-		return;
-	});
-
-	DOM.form.addEventListener("submit", async (e) => {
-		// Si no hay algo para guardar, interrumpe la función
-		if (!FN.accionesSubmit.hayAlgoParaGuardar()) return;
-
-		// Crea el FormData y agrega los datos
-		const formData = FN.accionesSubmit.formData();
-
-		// Valida y guarda los cambios del form
-		v.errores = await fetch(v.rutaGuardar, postForm(formData)).then((n) => n.json());
-
-		// Acciones finales
-		FN.accionesSubmit.finSubmit();
+		// Recarga la vista, para que limpie todo
+		location.reload();
 
 		// Fin
 		return;
