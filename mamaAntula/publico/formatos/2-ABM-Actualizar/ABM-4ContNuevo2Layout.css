@@ -8,7 +8,6 @@
 		display: none; flex-direction: column;
 		min-width: 200px; min-height: 200px;
 		textarea[name="leyenda"] {text-align: center;}
-		.muestraLeyenda {width: 100%; text-align: center;}
 	}
 	#texto {
 		flex-grow: 1;
@@ -34,6 +33,6 @@
 			input[name="url"] {text-align: center;}
 		}
 		#muestraVideo {width: 100%; height: 150px; border: 1px solid gray;}
-
+		#muestraLeyenda {width: 100%; text-align: center;}
 	}
 }
