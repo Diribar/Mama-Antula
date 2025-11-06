@@ -119,10 +119,14 @@ window.addEventListener("load", async () => {
 		// Arma el feedback
 		const formVisible = document.querySelector("#sectorEncabezado form:not(.ocultar)"); // elige el unico formulario visible
 		const formData = new FormData(formVisible);
-		formData.append("entidad", comp1234.tipoEncab);
+		formData.append("entidad", comp1234.entidad);
 		formData.append("id", DOM.filtroEncab.value);
-		if (comp1234.tipoEncab != "encabCartas")
-			!comp1234.pestana_id ? formData.append("tema_id", comp1234.tema_id) : formData.append("pestana_id", comp1234.pestana_id);
+
+		// Si no es una carta, le agrega el tema_id o pestana_id, según corresponda
+		if (!comp1234.esCarta)
+			!comp1234.pestana_id
+				? formData.append("tema_id", comp1234.tema_id)
+				: formData.append("pestana_id", comp1234.pestana_id);
 
 		// Guarda el encabezado en la BD
 		const respuesta = await fetch(rutas.guardaEncabezado, postForm(formData)).then((n) => n.json());
@@ -145,7 +149,7 @@ window.addEventListener("load", async () => {
 		for (const input of DOM.inputs) input.value = "";
 
 		// Elimina de la BD, el encabezado y sus contenidos
-		const datos = {entidad: comp1234.tipoEncab, id: DOM.filtroEncab.value};
+		const datos = {entidad: comp1234.entidad, id: DOM.filtroEncab.value};
 		await fetch(rutas.eliminaEncabezado, deleteJson(datos));
 
 		// Elimina la cookie y se genera un change en el tema o pestaña, para que se reinicie el filtro del encabezado
