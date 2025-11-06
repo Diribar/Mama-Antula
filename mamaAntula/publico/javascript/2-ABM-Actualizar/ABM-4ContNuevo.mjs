@@ -119,9 +119,11 @@ window.addEventListener("load", async () => {
 		// Crea el form
 		creaElForm.consolidado();
 
-		// Guarda el contenido en la BD y actualiza
+		// Guarda el contenido en la BD
 		await fetch(rutas.guardaContenido, postForm(v.formData)).then((n) => n.json());
-		DOM.filtroEncab.dispatchEvent(new Event("change"));
+
+		// Actualiza desde el encabezado
+		location.reload();
 
 		// Fin
 		return;
