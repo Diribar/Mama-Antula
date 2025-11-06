@@ -24,15 +24,19 @@
 	#carrousel {
 		border: 1px solid grey;
 		flex-direction: row-reverse !important; gap: 20px;
-		.cuadrado {
-			display: flex; flex-direction: column; align-items: stretch; justify-content: space-between;
+
+		/* Drag & Drop */
+		#dragDrop {
+			display: flex; flex-direction: column; align-items: stretch; justify-content: space-between; gap: 5px;
+			width: 200px; height: 200px;
+			#areaSoltar {border-radius: 5px; flex-grow: 1;}
+
+		}
+		/* Ya agregados */
+		img.yaAgregs {
 			height: 200px;
-			img {height: 160px;}
-			&#dragDrop {
-				width: 200px;
-				#areaSoltar {height: 160px; border-radius: 5px;}
-			}
-			&:has(img[src=""]):not(:has(#areaSoltar)) {display: none;}
+			&[src=""] {display: none;}
+
 		}
 
 	}
