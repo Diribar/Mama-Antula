@@ -68,7 +68,7 @@ export default {
 		// Elimina los carrouseles
 		const espera = [];
 		for (const contenido of contenidos) {
-			// Subcarpeta
+			// Obtiene la ruta del archivo
 			const ruta = contenido.statusRegiastro_id == creado_id ? carpRevisar : carpContenido;
 
 			// Carrouseles

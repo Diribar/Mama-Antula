@@ -137,7 +137,17 @@ export default {
 	eliminaContenido: async (req, res) => {
 		// Variables
 		const {id} = req.body;
-		if (id) await baseDatos.eliminaPorId("contenidos", id);
+		if (!id) return res.json({});
+		const ruta = contenido.statusRegiastro_id == creado_id ? carpRevisar : carpContenido;
+		const contenido = await baseDatos.obtienePorId("contenidos", id, "imgsCarrousel");
+
+		// Carrouseles
+		for (const imgCarrousel of imgsCarrousel) comp.gestionArchs.elimina(ruta, imgCarrousel.imagen);
+		await baseDatos.eliminaPorCondicion("imgsCarrousel", {contenido_id: id});
+
+		// Contenidos
+		if (contenido.imagen) comp.gestionArchs.elimina(ruta, contenido.imagen);
+		await baseDatos.eliminaPorId("contenidos", id);
 
 		// Fin
 		return res.json({});
