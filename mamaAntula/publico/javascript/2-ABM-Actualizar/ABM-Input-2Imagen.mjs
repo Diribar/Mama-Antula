@@ -1,16 +1,16 @@
 "use strict";
 
 window.addEventListener("load", async () => {
+	// Variables
+	const domLayout = document.querySelector("#sectorContNuevo #layouts #imagen");
 	const DOM = {
-		// Formulario
-		form: document.querySelector("#cuerpo #formEdicion"),
-		mensaje: document.querySelector("#formEdicion #mensaje"),
-		confirma: document.querySelector("#formEdicion #confirma"),
-
 		// Drag & Drop
-		areaSoltar: document.querySelector("#sectorContNuevo #areaSoltar"),
-		inputImagen: document.querySelector("#sectorContNuevo #areaSoltar [name='imagen']"),
-		vistaImagen: document.querySelector("#sectorContNuevo #areaSoltar img"),
+		areaSoltar: domLayout.querySelector("#sectorContNuevo #areaSoltar"),
+		inputImagen: domLayout.querySelector("#sectorContNuevo #areaSoltar [name='imagen']"),
+		vistaImagen: domLayout.querySelector("#sectorContNuevo #areaSoltar img"),
+
+		// Formulario
+		inputLeyenda: domLayout.querySelector("[name='leyenda']"),
 	};
 	const v = {
 		entrada: ["dragenter", "dragover"],
@@ -34,6 +34,7 @@ window.addEventListener("load", async () => {
 	// Eventos nueva imagen
 	DOM.areaSoltar.addEventListener("drop", async (e) => await obtieneNuevaImagen(e.dataTransfer.files, DOM.vistaImagen));
 	DOM.inputImagen.addEventListener("change", async () => await obtieneNuevaImagen(DOM.inputImagen.files, DOM.vistaImagen));
+	DOM.inputLeyenda.addEventListener("change", () => (DOM.inputLeyenda.innerText = inicialMayus(DOM.inputLeyenda.value)));
 
 	// Evento click en el input - Busca un archivo de imagen
 	DOM.areaSoltar.addEventListener("click", () => DOM.inputImagen.click());
@@ -55,4 +56,4 @@ window.addEventListener("load", async () => {
 });
 
 // Variables
-let archivoImgSubido
+let archivoImgSubido;

@@ -8,7 +8,7 @@ window.addEventListener("load", async () => {
 		// Inputs
 		textoInput: document.querySelector("#texto .input"),
 		videoInput: document.querySelector("#video .input"),
-		leyendaImagen: document.querySelector("#imagen .leyenda"),
+		leyendaImagen: document.querySelector("#imagen [name='leyenda']"),
 
 		// Ouputs
 		iconoGuardar: document.querySelector("#pestanasGuardar #iconoGuardar"),
