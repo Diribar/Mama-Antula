@@ -6,8 +6,8 @@
 	/* Layouts */
 	.layout {
 		display: none; flex-direction: column;
-		min-width: 200px; min-height: 200px;
-		textarea[name="leyenda"] {text-align: center;}
+		min-width: 200px; min-height: 200px; max-height: 300px;
+		[name="leyenda"] {text-align: center;}
 	}
 	#texto {
 		flex-grow: 1;
@@ -23,7 +23,18 @@
 	}
 	#carrousel {
 		border: 1px solid grey;
-		flex-direction: row-reverse !important; gap: 10px;
+		flex-direction: row-reverse !important; gap: 20px;
+		.cuadrado {
+			display: flex; flex-direction: column; align-items: stretch; justify-content: space-between;
+			height: 200px;
+			img {height: 160px;}
+			&#dragDrop {
+				width: 200px;
+				#areaSoltar {height: 160px; border-radius: 5px;}
+			}
+			&:has(img[src=""]):not(:has(#areaSoltar)) {display: none;}
+		}
+
 	}
 	#video {
 		flex-direction: row; align-items: center; gap: 10px;
