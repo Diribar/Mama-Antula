@@ -6,8 +6,8 @@ export default {
 		const lecturas = {
 			// Niveles
 			secciones: baseDatos.obtieneTodosConOrden("secciones", "orden"),
-			temasSecciones: baseDatos.obtieneTodosConOrden("temasSecciones", "orden"),
-			pestanasTemas: baseDatos.obtieneTodosConOrden("pestanasTemas", "orden"),
+			temasSecciones: baseDatos.obtieneTodos("temasSecciones", "indices").then((n) => n.sort((a, b) => a.orden - b.orden)),
+			pestanasTemas: baseDatos.obtieneTodos("pestanasTemas", "indices").then((n) => n.sort((a, b) => a.orden - b.orden)),
 
 			// Cartas
 			idiomas: baseDatos.obtieneTodosConOrden("idiomas", "orden"),
@@ -49,7 +49,6 @@ export default {
 			aprobado_id: statusRegistros.find((n) => n.codigo == "aprobado").id,
 			inactivar_id: statusRegistros.find((n) => n.codigo == "inactivar").id,
 			inactivo_id: statusRegistros.find((n) => n.codigo == "inactivo").id,
-
 		};
 
 		// Fin
