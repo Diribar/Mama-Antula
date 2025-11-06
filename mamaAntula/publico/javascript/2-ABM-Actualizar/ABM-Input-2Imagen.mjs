@@ -15,7 +15,6 @@ window.addEventListener("load", async () => {
 	const v = {
 		entrada: ["dragenter", "dragover"],
 		salida: ["dragleave", "drop"],
-		archImagen: null,
 	};
 
 	// Funciones
