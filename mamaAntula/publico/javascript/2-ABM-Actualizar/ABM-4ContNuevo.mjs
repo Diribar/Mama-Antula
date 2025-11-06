@@ -18,7 +18,7 @@ window.addEventListener("load", async () => {
 
 		// Video
 		outputVideoId: document.querySelector("#video [name='video']"),
-		muestraLeyendaVideo: document.querySelector("#video .muestraLeyenda"),
+		muestraLeyendaVideo: document.querySelector("#video #muestraLeyenda"),
 		limpiarValue: document.querySelectorAll("#video .input"),
 		limpiarHTML: document.querySelectorAll("#video .limpiar"),
 	};

@@ -10,7 +10,7 @@ window.addEventListener("load", async () => {
 
 		// Output
 		muestraVideo: domLayout.querySelector("#muestraVideo"),
-		muestraLeyenda: domLayout.querySelector(".muestraLeyenda"),
+		muestraLeyenda: domLayout.querySelector("#muestraLeyenda"),
 		outputVideoId: domLayout.querySelector("[name='video']"),
 	};
 	const v = {};
