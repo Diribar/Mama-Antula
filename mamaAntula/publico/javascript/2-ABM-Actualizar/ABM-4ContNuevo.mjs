@@ -122,7 +122,7 @@ window.addEventListener("load", async () => {
 		// Guarda el contenido en la BD
 		await fetch(rutas.guardaContenido, postForm(v.formData)).then((n) => n.json());
 
-		// Actualiza desde el encabezado
+		// Recarga la vista, para que limpie todo
 		location.reload();
 
 		// Fin
