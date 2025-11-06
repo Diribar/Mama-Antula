@@ -100,9 +100,13 @@ export default {
 		// Variables
 		const {pestanaActiva, campo_id, encabezado_id} = req.body;
 		const camposGuardar = ["carta_id", "experiencia_id", "sinIndice_id", "texto", "imagen", "video", "leyenda"];
-		const datosGuardar = {};
-		for (const campo of camposGuardar) if (req.body[campo]) datosGuardar[campo] = req.body[campo];
-		console.log(101, req.body, datosGuardar);
+		const datos = {};
+
+		// Guarda los datos útiles
+		for (const campo of camposGuardar) if (req.body[campo]) datos[campo] = req.body[campo];
+
+		// Guarda la imagen
+		if (req.file) await comp.gestionArchs.descarga(carpRevisar, datos.imagen, req.file);
 
 		// Arma los datos
 		if (pestanaActiva == "carrousel") {
@@ -117,11 +121,11 @@ export default {
 				const maxOrden = Math.max(...ordenes);
 
 				// Suma 1 y lo guarda en el orden
-				datosGuardar.orden = maxOrden + 1;
+				datos.orden = maxOrden + 1;
 			}
 
 			// Guarda el registro
-			await baseDatos.agregaRegistroIdCorrel("contenidos", datosGuardar);
+			await baseDatos.agregaRegistroIdCorrel("contenidos", datos);
 		}
 
 		// Fin
