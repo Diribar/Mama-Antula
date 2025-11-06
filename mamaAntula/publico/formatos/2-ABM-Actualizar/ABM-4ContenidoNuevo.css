@@ -11,6 +11,10 @@
 			background-color: var(--amarilloClaro);
 			&.activo {background-color: var(--grisOscuro); color: snow;}
 		}
+		#iconoGuardar {
+			cursor: pointer;
+			&:not(.inactivo):hover {scale: 1.5;}
+		}
 	}
 
 	/* Condicionado por las pestañas */

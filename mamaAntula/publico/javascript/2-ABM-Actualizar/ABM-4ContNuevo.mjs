@@ -3,6 +3,8 @@
 window.addEventListener("load", async () => {
 	// Variables
 	const DOM = {
+		// Form
+		sectorContNuevo: document.querySelector("#sectorContNuevo"),
 		filtroEncab: document.querySelector("#filtros select[name='encabezado']"),
 
 		// Inputs
@@ -103,7 +105,9 @@ window.addEventListener("load", async () => {
 		return;
 	});
 
+
 	// Guarda los cambios
+	DOM.sectorContNuevo.addEventListener("input", () => DOM.iconoGuardar.classList.remove("inactivo"));
 	DOM.iconoGuardar.addEventListener("click", async () => {
 		// Si confirmar está inactivo, interrumpe la función
 		if (DOM.iconoGuardar.className.includes("inactivo")) return;
