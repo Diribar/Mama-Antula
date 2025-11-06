@@ -5,9 +5,9 @@ window.addEventListener("load", async () => {
 	const domLayout = document.querySelector("#sectorContNuevo #layouts #imagen");
 	const DOM = {
 		// Drag & Drop
-		areaSoltar: domLayout.querySelector("#sectorContNuevo #areaSoltar"),
-		inputImagen: domLayout.querySelector("#sectorContNuevo #areaSoltar [name='imagen']"),
-		vistaImagen: domLayout.querySelector("#sectorContNuevo #areaSoltar img"),
+		areaSoltar: domLayout.querySelector("#areaSoltar"),
+		inputImagen: domLayout.querySelector("#areaSoltar [name='imagen']"),
+		vistaImagen: domLayout.querySelector("#areaSoltar img"),
 
 		// Formulario
 		inputLeyenda: domLayout.querySelector("[name='leyenda']"),
@@ -15,25 +15,25 @@ window.addEventListener("load", async () => {
 	const v = {
 		entrada: ["dragenter", "dragover"],
 		salida: ["dragleave", "drop"],
-		archivoImgSubido: null,
+		archImagen: null,
 	};
 
 	// Funciones
-	const obtieneNuevaImagen = async function (archImagen, vistaImagen) {
+	const obtieneNuevaImagen = async function (archImagen) {
 		// Acciones si no se cargó una imagen
-		const nuevaImagen = await procesaArchImg(archImagen, vistaImagen);
+		const nuevaImagen = await procesaArchImg(archImagen, DOM.vistaImagen);
 		if (!nuevaImagen) return;
 
 		// Actualiza variables
-		archivoImgSubido = nuevaImagen;
+		archImagen = nuevaImagen;
 
 		// Fin
 		return;
 	};
 
 	// Eventos nueva imagen
-	DOM.areaSoltar.addEventListener("drop", async (e) => await obtieneNuevaImagen(e.dataTransfer.files, DOM.vistaImagen));
-	DOM.inputImagen.addEventListener("change", async () => await obtieneNuevaImagen(DOM.inputImagen.files, DOM.vistaImagen));
+	DOM.areaSoltar.addEventListener("drop", async (e) => await obtieneNuevaImagen(e.dataTransfer.files));
+	DOM.inputImagen.addEventListener("change", async () => await obtieneNuevaImagen(DOM.inputImagen.files));
 	DOM.inputLeyenda.addEventListener("change", () => (DOM.inputLeyenda.value = inicialMayus(DOM.inputLeyenda.value)));
 
 	// Evento click en el input - Busca un archivo de imagen
@@ -56,4 +56,4 @@ window.addEventListener("load", async () => {
 });
 
 // Variables
-let archivoImgSubido;
+let archImagen;
