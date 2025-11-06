@@ -70,11 +70,8 @@ export default {
 	edicion: {
 		validaCampo: (req, res) => res.json(valida.edicion(req.body)),
 		revisaGuarda: (req, res) => {
-			// Variables
-			const datos = {...req.body};
-			if (req.file) datos.imagen = comp.gestionArchs.nombreArchDesc(req.file);
-
 			// Valida
+			const datos = req.body;
 			const errores = valida.edicion(datos);
 			if (errores.hay) return res.json(errores);
 

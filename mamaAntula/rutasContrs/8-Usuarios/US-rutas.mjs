@@ -7,7 +7,8 @@ import vista from "./US-controlVista.mjs";
 import soloVisitas from "../../middlewares/usuarios/US-1SoloVisitas.mjs";
 import soloUsuarios from "../../middlewares/usuarios/US-2SoloUsuarios.mjs";
 import soloAdmin from "../../middlewares/usuarios/US-4SoloAdmin.mjs";
-import descargaArch from "../../middlewares/CMP-descargaArch.mjs";
+import descargaImg from "../../middlewares/descargaImg/IMG-descargaImg.mjs";
+import imgEnReqBody from "../../middlewares/descargaImg/IMG-imgEnReqBody.mjs";
 
 // 🧩 Router
 const router = express.Router();
@@ -17,7 +18,7 @@ router.get("/api/us-envia-contrasena-por-mail", API.altaOlvido);
 router.post("/api/us-realiza-login", API.login);
 router.get("/api/us-realiza-logout", API.logout);
 router.post("/api/us-valida-campo-edicion", API.edicion.validaCampo);
-router.post("/api/us-guarda-edicion-en-usuario", descargaArch.single("archivo"), API.edicion.revisaGuarda);
+router.post("/api/us-guarda-edicion-en-usuario", descargaImg.single("archivo"), imgEnReqBody, API.edicion.revisaGuarda);
 router.post("/api/us-cambio-roles", API.cambioRoles);
 
 // 🖥️ Vistas

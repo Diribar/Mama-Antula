@@ -1,3 +1,5 @@
+"use strict";
+
 export default (req, res, next) => {
 	// Variables
 	const {urlSeccion, urlTema, urlPestana} = req.params;
