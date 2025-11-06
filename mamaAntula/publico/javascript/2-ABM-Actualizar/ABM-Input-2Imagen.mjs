@@ -34,7 +34,7 @@ window.addEventListener("load", async () => {
 	// Eventos nueva imagen
 	DOM.areaSoltar.addEventListener("drop", async (e) => await obtieneNuevaImagen(e.dataTransfer.files, DOM.vistaImagen));
 	DOM.inputImagen.addEventListener("change", async () => await obtieneNuevaImagen(DOM.inputImagen.files, DOM.vistaImagen));
-	DOM.inputLeyenda.addEventListener("change", () => (DOM.inputLeyenda.innerText = inicialMayus(DOM.inputLeyenda.value)));
+	DOM.inputLeyenda.addEventListener("change", () => (DOM.inputLeyenda.value = inicialMayus(DOM.inputLeyenda.value)));
 
 	// Evento click en el input - Busca un archivo de imagen
 	DOM.areaSoltar.addEventListener("click", () => DOM.inputImagen.click());
