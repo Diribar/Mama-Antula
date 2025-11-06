@@ -11,7 +11,7 @@ export default (sequelize, dt) => {
 		orden: {type: dt.INTEGER},
 	};
 	const config = {
-		tableName: "niv_indices",
+		tableName: "nivel_indices",
 		timestamps: false,
 	};
 	const entidad = sequelize.define(alias, columns, config);
