@@ -45,6 +45,17 @@ window.addEventListener("load", async () => {
 		return;
 	};
 
+	DOM.carrImgs.addEventListener("click", (e) => {
+		// Obtiene el indice
+		const domEliminar = DOM.carrImgs.querySelectorAll(".eliminar");
+		const indice = Array.from(domEliminar).indexOf(e.target);
+		if (indice < 0) return;
+
+		// Elimina el hijo
+		DOM.carrImgs.removeChild(domEliminar[indice].parentNode);
+		archCarrousel.splice(indice, 1);
+	});
+
 	// Eventos nueva imagen
 	DOM.areaSoltar.addEventListener("drop", async (e) => await obtieneNuevaImagen(e.dataTransfer.files));
 	DOM.inputImagen.addEventListener("change", async () => await obtieneNuevaImagen(DOM.inputImagen.files));
