@@ -15,13 +15,12 @@ window.addEventListener("load", async () => {
 	const v = {
 		entrada: ["dragenter", "dragover"],
 		salida: ["dragleave", "drop"],
-		archImagen: null,
 	};
 
 	// Funciones
-	const obtieneNuevaImagen = async function (archImagen) {
+	const obtieneNuevaImagen = async function (archivoImg) {
 		// Acciones si no se cargó una imagen
-		const nuevaImagen = await procesaArchImg(archImagen, DOM.vistaImagen);
+		const nuevaImagen = await procesaArchImg(archivoImg, DOM.vistaImagen);
 		if (!nuevaImagen) return;
 
 		// Actualiza variables
