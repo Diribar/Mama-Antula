@@ -64,11 +64,11 @@ app.use("/javascript", express.static(path.join(rutaHome, "/publico/javascript")
 app.use("/fa", express.static("node_modules/@fortawesome/fontawesome-free"));
 
 // Variables globales - debe ser con await, para que primero se carguen las variables globales de más arriba
-const constantes = await import("./variables/constantes.mjs");
+const constantes = await import("./variables/constantes.js");
 for (const metodo in constantes.default) globalThis[metodo] = constantes.default[metodo];
 
 // Base de datos
-globalThis.credencsSitio = await import("./variables/credenciales.mjs").then((n) => n.default); // es necesario el await para que traiga los valores de .env
+globalThis.credencsSitio = await import("./variables/credenciales.js").then((n) => n.default); // es necesario el await para que traiga los valores de .env
 const entornoBd = !entDesarr ? "produccion" : "desarrollo";
 const credencsBD = credencsSitio.bd[entornoBd];
 const {database, username, password} = credencsBD;
@@ -116,11 +116,11 @@ app.set("view engine", "ejs");
 // Funciones asíncronas de start-up
 (async () => {
 	// Funciones globales
-	globalThis.baseDatos = await import("./funciones/baseDatos.mjs").then((n) => n.default);
-	globalThis.comp = await import("./funciones/compartidas.mjs").then((n) => n.default);
+	globalThis.baseDatos = await import("./funciones/baseDatos.js").then((n) => n.default);
+	globalThis.comp = await import("./funciones/compartidas.js").then((n) => n.default);
 
 	// Variables globales de la base de datos
-	const varsBD = await import("./variables/baseDatos.mjs").then((n) => n.default);
+	const varsBD = await import("./variables/baseDatos.js").then((n) => n.default);
 	const lecturasDeBd = await varsBD.lecturasDeBd();
 	for (const campo in lecturasDeBd) globalThis[campo] = lecturasDeBd[campo];
 	const datosPartics = varsBD.datosPartics();
@@ -130,12 +130,12 @@ app.set("view engine", "ejs");
 	// await rutinas.startupMasConfiguracion();
 
 	// Middlewares transversales
-	app.use((await import("./middlewares/transversales/TR-clienteId.mjs")).default);
-	app.use((await import("./middlewares/transversales/TR-haciaEdicUs.mjs")).default);
+	app.use((await import("./middlewares/transversales/TR-clienteId.js")).default);
+	app.use((await import("./middlewares/transversales/TR-haciaEdicUs.js")).default);
 
 	// Rutas
-	app.use("/contenido", (await import("./rutasContrs/2-ABM/ABM-rutas.mjs")).default);
-	app.use("/usuarios", (await import("./rutasContrs/8-Usuarios/US-rutas.mjs")).default);
-	app.use("/", (await import("./rutasContrs/9-Miscelaneas/MS-rutas.mjs")).default);
-	app.use("/", (await import("./rutasContrs/1-Lectura/LT-rutas.mjs")).default);
+	app.use("/contenido", (await import("./rutasContrs/2-ABM/ABM-rutas.js")).default);
+	app.use("/usuarios", (await import("./rutasContrs/8-Usuarios/US-rutas.js")).default);
+	app.use("/", (await import("./rutasContrs/9-Miscelaneas/MS-rutas.js")).default);
+	app.use("/", (await import("./rutasContrs/1-Lectura/LT-rutas.js")).default);
 })();
