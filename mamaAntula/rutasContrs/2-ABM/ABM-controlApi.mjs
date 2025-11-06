@@ -90,7 +90,8 @@ export default {
 		// Variables
 		const {entidad, id} = req.body;
 
-		// Elimina el original
+		// Elimina los dependientes y el encabezado
+		await procesos.eliminaDepends(entidad, id);
 		await baseDatos.eliminaPorId(entidad, id);
 
 		// Fin

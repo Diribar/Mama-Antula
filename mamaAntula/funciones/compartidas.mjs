@@ -137,6 +137,8 @@ export default {
 			// Fin
 			return {entidad, campo_id, includes};
 		},
+		obtieneCampo_id: (entidad) =>
+			entidad == "encabCartas" ? "carta_id" : entidad == "encabExpers" ? "experiencia_id" : "sinIndice_id",
 		tituloCons: {
 			encabCartas: function (encabs) {
 				for (const encab of encabs) encab.tituloCons = this.encabCarta(encab);

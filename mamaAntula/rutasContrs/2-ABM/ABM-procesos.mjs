@@ -59,4 +59,21 @@ export default {
 			return encabezados;
 		},
 	},
+	eliminaDepends: async (entidad, id) => {
+		// Obtiene los contenidos y los elimina
+		const campo_id = comp.contenido.obtieneCampo_id(entidad);
+		const contenidos = await baseDatos.obtieneTodosPorCondicion("contenidos", {[campo_id]: id});
+		if (!contenidos.length) return;
+
+		// Elimina los carrouseles
+		const espera = [];
+		for (const contenido of contenidos) {
+			await baseDatos.eliminaPorCondicion("imgsCarrousel", {contenido_id: contenido.id});
+			espera.push(baseDatos.eliminaPorId("contenidos", contenido.id));
+		}
+		await Promise.all(espera);
+
+		// Fin
+		return;
+	},
 };
