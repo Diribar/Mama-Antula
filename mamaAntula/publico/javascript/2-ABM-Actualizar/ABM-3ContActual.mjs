@@ -4,7 +4,7 @@ window.addEventListener("load", async () => {
 	// Variables
 	const DOM = {
 		// Filtros
-		filtroEncabezado: document.querySelector("#filtros select[name='encabezado']"),
+		filtroEncab: document.querySelector("#filtros select[name='encabezado']"),
 
 		// Contenido actual
 		sectorContenido: document.querySelector("#sectorContActual"),
@@ -158,7 +158,7 @@ window.addEventListener("load", async () => {
 				await fetch(rutas.eliminaContenido, deleteJson({id})).then((n) => n.json());
 
 				// Actualiza el DOM
-				DOM.filtroEncabezado.dispatchEvent(new Event("change"));
+				DOM.filtroEncab.dispatchEvent(new Event("change"));
 
 				// Fin
 				return;
@@ -167,9 +167,9 @@ window.addEventListener("load", async () => {
 	};
 
 	// Lo actualiza por cambio en el encabezado
-	DOM.filtroEncabezado.addEventListener("change", async () => {
+	DOM.filtroEncab.addEventListener("change", async () => {
 		// Variables
-		const encabezado_id = DOM.filtroEncabezado.value;
+		const encabezado_id = DOM.filtroEncab.value;
 		const campo_id = campos_id[cac.tipoEncab];
 		const ruta = rutas.obtieneContenidos + "encab_id=" + encabezado_id + "&campo_id=" + campo_id;
 

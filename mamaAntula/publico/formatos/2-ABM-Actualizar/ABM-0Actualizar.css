@@ -5,7 +5,7 @@
 	.sector {
 		border: 1px solid black; border-radius: 10px;
 		padding-inline: 20px;
-		margin-bottom: 20px; width: fit-content;
+		margin-bottom: 20px;
 		&#sectorFiltros, &#sectorFiltros #filtros,
 		&#sectorEncabezado, &#sectorEncabezado .encabezado
 			{display: flex; flex-direction: row; align-items: center; justify-content: flex-start; gap: 30px;}
@@ -30,22 +30,6 @@
 			}
 		}
 
-		/* Sector contenido actual */
-		#sectorContActual {width: 100%;}
-
-		.bloque {
-			display: flex; flex-direction: row; justify-content: center; gap: 15px;
-			padding-block: 15px;
-			.textoImagen {display: flex; flex-direction: row; gap: 15px;}
-			.texto p {margin-bottom: 10px;}
-
-			.contImagenLeyenda {
-				display: flex; flex-direction: column; align-items: center;
-				width: min-content;
-				.imagen {max-height: 350px;}
-				.leyenda {max-width: fit-content; text-align: center;}
-			}
-		}
 	}
 
 	/* Si el encabezado es nuevo, oculta el sectorContNuevo */

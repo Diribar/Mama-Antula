@@ -20,11 +20,11 @@ export default {
 		const {usuario} = req.session;
 
 		// Obtiene la entidad y los includes
-		const {entidad, orden, includes} = comp.contenido.obtieneDatosDeTabla(condicion);
+		const {entidad, includes} = comp.contenido.obtieneDatosDeTabla(condicion);
 		const includesConEdics = [...(includes || []), "ediciones"];
 
 		// Obtiene los encabezados
-		const encabezados = await procesos.obtieneEncabs.consolidado({entidad, condicion, includesConEdics, orden, usuario});
+		const encabezados = await procesos.obtieneEncabs.consolidado({entidad, condicion, includesConEdics, usuario});
 
 		// Fin
 		return res.json(encabezados);

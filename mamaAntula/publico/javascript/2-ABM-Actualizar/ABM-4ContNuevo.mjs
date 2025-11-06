@@ -3,7 +3,7 @@
 window.addEventListener("load", async () => {
 	// Variables
 	const DOM = {
-		filtroEncabezado: document.querySelector("#filtros select[name='encabezado']"),
+		filtroEncab: document.querySelector("#filtros select[name='encabezado']"),
 
 		// Inputs
 		textoInput: document.querySelector("#texto .input"),
@@ -29,7 +29,7 @@ window.addEventListener("load", async () => {
 		creaElForm: () => {
 			// Variables
 			const campo_id = campos_id[cac.tipoEncab];
-			const encabezado_id = DOM.filtroEncabezado.value;
+			const encabezado_id = DOM.filtroEncab.value;
 
 			// Crea el form
 			v.formData = new FormData();
@@ -69,14 +69,14 @@ window.addEventListener("load", async () => {
 		await fetch(rutas.guardaContenido, postForm(v.formData)).then((n) => n.json());
 
 		// Actualiza
-		DOM.filtroEncabezado.dispatchEvent(new Event("change"));
+		DOM.filtroEncab.dispatchEvent(new Event("change"));
 
 		// Fin
 		return;
 	});
 
 	// Lo actualiza por cambio en el encabezado
-	DOM.filtroEncabezado.addEventListener("change", async () => {
+	DOM.filtroEncab.addEventListener("change", async () => {
 		// Texto
 		DOM.textoInput.querySelector(".ql-editor").innerHTML = "";
 

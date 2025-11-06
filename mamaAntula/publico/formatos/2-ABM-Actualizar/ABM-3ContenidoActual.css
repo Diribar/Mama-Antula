@@ -1,0 +1,19 @@
+/* Sector contenido actual */
+.bloque {
+	display: flex; flex-direction: row; justify-content: center; gap: 15px;
+	padding-block: 15px;
+
+	.textoImagen {display: flex; flex-direction: row; gap: 15px;}
+	.texto p {margin-bottom: 10px;}
+	.contenido:has(iframe) {
+		display: flex; flex-direction: column; align-items: center;
+		iframe {height: 300px; width: auto; aspect-ratio: 16 / 9;}
+	}
+
+	.contImagenLeyenda {
+		display: flex; flex-direction: column; align-items: center;
+		width: min-content;
+		.imagen {max-height: 300px;}
+	}
+	.leyenda {max-width: fit-content; text-align: center; text-wrap: balance;}
+}

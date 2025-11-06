@@ -1,7 +1,9 @@
 /* Sector encabezados */
-#sectorEncabezado .encabezado {
-	input[type="text"] {width: 300px;}
-	input[type="date"] {width: 130px;}
-	select[name="orden"], select[name="numero"] {width: 70px;}
-	&#encabCartas #areaSoltar {--ladoCuadrado: 100px; width: var(--ladoCuadrado); border-radius: 5px;}
+#sectorEncabezado {
+	width: fit-content;
+	.encabezado {
+		input[type="text"] {width: 300px;}
+		input[type="date"] {width: 130px;}
+		select[name="orden"], select[name="numero"] {width: 70px;}
+	}
 }
