@@ -5,10 +5,12 @@ window.addEventListener("load", async () => {
 	const domLayout = document.querySelector("#sectorContNuevo #layouts #carrousel");
 	const DOM = {
 		// Drag & Drop
+		dragDrop: domLayout.querySelector("#dragDrop"),
 		areaSoltar: domLayout.querySelector("#areaSoltar"),
 		inputImagen: domLayout.querySelector("#areaSoltar [name='imagen']"),
 
 		// Otros
+		carrImgs: domLayout.querySelector("#carrImgs"),
 		imgModeloVista: domLayout.querySelector("img#modeloVistaImagen"),
 		inputLeyenda: domLayout.querySelector("[name='leyenda']"),
 	};
@@ -33,7 +35,7 @@ window.addEventListener("load", async () => {
 
 		// Actualiza vista
 		nuevaVistaImagen.removeAttribute("id");
-		domLayout.appendChild(nuevaVistaImagen);
+		DOM.carrImgs.appendChild(nuevaVistaImagen);
 
 		// Actualiza variables
 		archCarrousel = nuevaImagen;

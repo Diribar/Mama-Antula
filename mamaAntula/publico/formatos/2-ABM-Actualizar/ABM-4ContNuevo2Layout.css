@@ -22,19 +22,27 @@
 		#areaSoltar {width: 100%; flex-grow: 1; border-radius: 5px;}
 	}
 	#carrousel {
+		--lado: 200px; --gap: 20px;
 		border: 1px solid grey;
-		flex-direction: row-reverse !important; gap: 20px;
+		flex-direction: row !important; gap: var(--gap);
+
+		/* Carrousel de imágenes */
+		#carrImgs {
+			max-width: calc(100% - var(--lado) - var(--gap)); overflow-x: auto;
+			display: flex; flex-direction: row; gap: var(--gap);
+			&:empty {display: none;}
+		}
 
 		/* Drag & Drop */
 		#dragDrop {
 			display: flex; flex-direction: column; align-items: stretch; justify-content: space-between; gap: 5px;
-			width: 200px; height: 200px;
+			width: var(--lado); height: var(--lado);
 			#areaSoltar {border-radius: 5px; flex-grow: 1;}
 
 		}
 		/* Ya agregados */
 		img.yaAgregs {
-			height: 200px;
+			height: var(--lado);
 			&[src=""] {display: none;}
 
 		}
