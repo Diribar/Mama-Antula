@@ -2,38 +2,51 @@
 
 window.addEventListener("load", async () => {
 	// Variables
-	const domLayout = document.querySelector("#sectorContNuevo #layouts #imagen");
+	const domLayout = document.querySelector("#sectorContNuevo #layouts #carrousel");
 	const DOM = {
 		// Drag & Drop
-		areaSoltar: domLayout.querySelector("#sectorContNuevo #areaSoltar"),
-		inputImagen: domLayout.querySelector("#sectorContNuevo #areaSoltar [name='imagen']"),
-		vistaImagen: domLayout.querySelector("#sectorContNuevo #areaSoltar img"),
+		dragDrop: domLayout.querySelector("#dragDrop"),
+		areaSoltar: domLayout.querySelector("#areaSoltar"),
+		inputImagen: domLayout.querySelector("#areaSoltar [name='imagen']"),
 
-		// Formulario
+		// Otros
+		carrImgs: domLayout.querySelector("#carrImgs"),
+		imgModeloVista: domLayout.querySelector("img#modeloVistaImagen"),
 		inputLeyenda: domLayout.querySelector("[name='leyenda']"),
 	};
+	console.log(DOM.areaSoltar);
+	console.log(DOM.inputImagen);
+
+
 	const v = {
 		entrada: ["dragenter", "dragover"],
 		salida: ["dragleave", "drop"],
-		archivoImgSubido: null,
+		archCarrousel: null,
 	};
 
 	// Funciones
-	const obtieneNuevaImagen = async function (archImagen, vistaImagen) {
+	const obtieneNuevaImagen = async function (archImagen) {
+		// Crea un nuevo hijo
+		const nuevaVistaImagen = DOM.imgModeloVista.cloneNode();
+
 		// Acciones si no se cargó una imagen
-		const nuevaImagen = await procesaArchImg(archImagen, vistaImagen);
+		const nuevaImagen = await procesaArchImg(archImagen, nuevaVistaImagen);
 		if (!nuevaImagen) return;
 
+		// Actualiza vista
+		nuevaVistaImagen.removeAttribute("id");
+		DOM.carrImgs.appendChild(nuevaVistaImagen);
+
 		// Actualiza variables
-		archivoImgSubido = nuevaImagen;
+		archCarrousel = nuevaImagen;
 
 		// Fin
 		return;
 	};
 
 	// Eventos nueva imagen
-	DOM.areaSoltar.addEventListener("drop", async (e) => await obtieneNuevaImagen(e.dataTransfer.files, DOM.vistaImagen));
-	DOM.inputImagen.addEventListener("change", async () => await obtieneNuevaImagen(DOM.inputImagen.files, DOM.vistaImagen));
+	DOM.areaSoltar.addEventListener("drop", async (e) => await obtieneNuevaImagen(e.dataTransfer.files));
+	DOM.inputImagen.addEventListener("change", async () => await obtieneNuevaImagen(DOM.inputImagen.files));
 	DOM.inputLeyenda.addEventListener("change", () => (DOM.inputLeyenda.value = inicialMayus(DOM.inputLeyenda.value)));
 
 	// Evento click en el input - Busca un archivo de imagen
@@ -56,4 +69,4 @@ window.addEventListener("load", async () => {
 });
 
 // Variables
-let archivoImgSubido;
+let archCarrousel;

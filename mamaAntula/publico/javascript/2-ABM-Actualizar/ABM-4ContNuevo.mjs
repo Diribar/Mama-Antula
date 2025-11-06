@@ -61,20 +61,20 @@ window.addEventListener("load", async () => {
 		},
 		imagen: () => {
 			// Si se subió un archivo, le agrega los valores
-			if (archivoImgSubido) {
+			if (archImagen) {
 				// El archivo de imagen
-				v.formData.append("archivo", archivoImgSubido);
+				v.formData.append("archivo", archImagen);
 
 				// La leyenda de la imagen
 				v.formData.append("leyenda", DOM.leyendaImagen.value);
 
 				// Datos para validar la imagen
-				v.formData.append("imagen", archivoImgSubido.name);
-				v.formData.append("tamano", archivoImgSubido.size);
-				v.formData.append("tipo", archivoImgSubido.type);
+				v.formData.append("imagen", archImagen.name);
+				v.formData.append("tamano", archImagen.size);
+				v.formData.append("tipo", archImagen.type);
 
 				// Fin
-				archivoImgSubido = null;
+				archImagen = null;
 			}
 
 			// Fin
