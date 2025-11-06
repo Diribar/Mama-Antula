@@ -21,7 +21,10 @@
 		max-width: 33%;
 		#areaSoltar {width: 100%; flex-grow: 1; border-radius: 5px;}
 	}
-	#carrousel {border: 1px solid grey;}
+	#carrousel {
+		border: 1px solid grey;
+		flex-direction: row !important; gap: 10px;
+	}
 	#video {
 		flex-direction: row; align-items: center; gap: 10px;
 		.inputs, .outputs {
