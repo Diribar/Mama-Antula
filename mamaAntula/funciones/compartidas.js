@@ -164,13 +164,6 @@ export default {
 				// Fin
 				return encabs;
 			},
-			encabResto: (encabs) => {
-				for (const encab of encabs)
-					encab.tituloCons = FN.diaMesAnoUTC(encab.fechaEvento) + " - " + encab.titulo + " - " + encab.lugar.nombre;
-
-				// Fin
-				return encabs;
-			},
 			encabCarta: (encab) => {
 				const tituloCons = encab
 					? "Carta " +
@@ -190,6 +183,13 @@ export default {
 
 				// Fin
 				return tituloCons;
+			},
+			encabExpers: (encabs) => {
+				for (const encab of encabs)
+					encab.tituloCons = FN.diaMesAnoUTC(encab.fechaEvento) + " - " + encab.titulo + " - " + encab.lugar.nombre;
+
+				// Fin
+				return encabs;
 			},
 		},
 	},
