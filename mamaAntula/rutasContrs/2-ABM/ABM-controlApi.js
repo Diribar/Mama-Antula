@@ -21,10 +21,9 @@ export default {
 
 		// Obtiene la entidad y los includes
 		const {entidad, includes} = comp.contenido.obtieneDatosDeTabla(condicion);
-		const includesConEdics = [...(includes || []), "ediciones"];
 
 		// Obtiene los encabezados
-		const encabezados = await procesos.obtieneEncabs.consolidado({entidad, condicion, includesConEdics, usuario});
+		const encabezados = await procesos.obtieneEncabs({tema_id, entidad, condicion, includes, usuario});
 
 		// Fin
 		return res.json(encabezados);

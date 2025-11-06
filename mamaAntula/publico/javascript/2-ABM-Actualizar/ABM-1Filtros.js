@@ -25,7 +25,7 @@ window.addEventListener("load", async () => {
 			comp1234.tema_id = DOM.tema.value;
 			comp1234.pestana_id = DOM.pestana.value;
 
-			// ENCABEZADO - Si corresponde, oculta el sector encabezados - encabSinIndice solo puede tener un encabezado
+			// ENCABEZADO - Si corresponde, oculta el sector encabezados - 'sin índice' solo puede tener un encabezado
 			if (!comp1234.conIndice) DOM.encabezado.classList.add("ocultar");
 
 			// ENCABEZADO - Obtiene los encabezados

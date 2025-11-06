@@ -18,8 +18,8 @@ export default {
 		if (!encabezados.length) return {};
 		const encabezado = encabezados.find((n) => n.id == encabezado_id) || encabezados[0];
 
-		// Obtiene los encabezados anterior y posterior
-		if (["encabCartas", "encabExpers"].includes(entidad)) {
+		// Si es una tema con índice, obtiene los encabezados anterior y posterior
+		if (temaActual.indices.length) {
 			const indice = encabezados.indexOf(encabezado);
 			encabezado.ant_id = encabezados[indice - 1]?.id || null;
 			encabezado.sig_id = encabezados[indice + 1]?.id || null;
@@ -37,18 +37,5 @@ export default {
 
 		// Fin
 		return {encabezado, contenidos};
-	},
-	indice: (encabezados) => {
-		// Variables
-		const fechas = [...new Set(encabezados.map((n) => n.fechaEvento))];
-
-		// Averigua la cantidad de fechas distintas
-
-		// Si se superan las 8, resume por año
-
-		// Si se siguen superando las 8, resume por lustro
-
-		// Fin
-		return fechas;
 	},
 };
