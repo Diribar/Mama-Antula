@@ -50,7 +50,6 @@ window.addEventListener("load", async () => {
 			// Encabezado
 			const encabezado_id = DOM.filtroEncab.value;
 			v.formData.append("encabezado_id", encabezado_id);
-			v.formData.append("pestanaActiva", v.nombrePestanaActiva); // es la pestaña del contNuevo
 
 			// Campo_id
 			const campo_id = campos_id[comp1234.entidad];
@@ -95,6 +94,7 @@ window.addEventListener("load", async () => {
 			// Fin
 			return;
 		},
+
 		// Varios
 		archImg: (archivo, s) => {
 			// El archivo de imagen
