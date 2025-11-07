@@ -59,6 +59,7 @@ window.addEventListener("load", async () => {
 			// Fin
 			return;
 		},
+		// Partes del form
 		encabezado: () => {
 			// Encabezado
 			const encabezado_id = DOM.filtroEncab.value;
@@ -73,22 +74,14 @@ window.addEventListener("load", async () => {
 			// Fin
 			return;
 		},
-		imagen: () => {
+		imagen: function () {
 			// Si se subió un archivo, le agrega los valores
 			if (archImagen) {
-				// El archivo de imagen
-				v.formData.append("archivo", archImagen);
+				// El archivo de la imagen
+				this.archImg(archImagen);
 
 				// La leyenda de la imagen
 				v.formData.append("leyenda", DOM.leyendaImagen.value);
-
-				// Datos para validar la imagen
-				v.formData.append("imagen", archImagen.name);
-				v.formData.append("tamano", archImagen.size);
-				v.formData.append("tipo", archImagen.type);
-
-				// Fin
-				archImagen = null;
 			}
 
 			// Fin
@@ -98,6 +91,19 @@ window.addEventListener("load", async () => {
 			// Video y leyenda
 			v.formData.append("video", DOM.outputVideoId.value);
 			v.formData.append("leyenda", DOM.muestraLeyendaVideo.innerText);
+
+			// Fin
+			return;
+		},
+		// Varios
+		archImg: (archivo) => {
+			// El archivo de imagen
+			v.formData.append("archivo", archivo);
+
+			// Datos para validar la imagen
+			v.formData.append("imagen", archivo.name);
+			v.formData.append("tamano", archivo.size);
+			v.formData.append("tipo", archivo.type);
 
 			// Fin
 			return;
