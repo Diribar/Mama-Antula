@@ -23,13 +23,16 @@ window.addEventListener("load", async () => {
 	};
 
 	// Funciones
-	const obtieneNuevaImagen = async function (archivoImg) {
+	const obtieneNuevaImagen = async function (archsImagen) {
+		// Si no existen archivos, interrumpe la función
+		if (!archsImagen.length) return;
+
 		// Crea un nuevo hijo
 		const nuevoModeloVista = DOM.modeloVista.cloneNode(true);
 		const nuevaImg = nuevoModeloVista.querySelector("img");
 
 		// Obtiene el url de la imagen
-		const urlImagen = await procesaArchImg(archivoImg, nuevaImg);
+		const urlImagen = await procesaArchImg(archsImagen, nuevaImg);
 
 		// Si no se recibió ninguna imagen, interrumpe la función
 		if (!urlImagen) return;

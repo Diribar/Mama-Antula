@@ -1,8 +1,5 @@
 const procesaArchImg = (files, vistaImagen) =>
 	new Promise((resolve, reject) => {
-		// Si no hay una imagen, interrumpe la función
-		if (!files.length) return resolve(null);
-
 		// Si no tiene extensión de imagen o supera el tamaño maximo permitido, interrumpe la función
 		const file = files[0];
 		const tamMaxArch = 1024 * 1024; // 1 MB

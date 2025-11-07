@@ -33,9 +33,12 @@ window.addEventListener("load", async () => {
 
 	// Funciones
 	const FN = {
-		nuevaImagen: async function (archImagen, vistaImagen) {
+		nuevaImagen: async function (archsImagen, vistaImagen) {
+			// Si no existen archivos, interrumpe la función
+			if (!archsImagen.length) return;
+
 			// Acciones si no se cargó una imagen
-			const nuevaImagen = await procesaArchImg(archImagen, vistaImagen);
+			const nuevaImagen = await procesaArchImg(archsImagen, vistaImagen);
 			if (!nuevaImagen) {
 				v.errores = {imagen: "El archivo no pudo ser leído como imagen", hay: true};
 				this.respuestas("imagen");
