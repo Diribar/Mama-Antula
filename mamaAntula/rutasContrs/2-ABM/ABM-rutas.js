@@ -20,6 +20,7 @@ router.get("/api/abm-obtiene-contenidos", API.obtieneContenidos);
 router.post("/api/abm-guarda-encabezado", descargaImg.none(), API.guardaEncabezado); // se usa multer para que procese el formData
 router.delete("/api/abm-elimina-encabezado", API.eliminaEncabezado);
 router.post("/api/abm-guarda-contenido", descargaImg.single("archivo"), imgEnReqBody, API.guardaContenido);
+router.post("/api/abm-guarda-carrusel", descargaImg.array("archivo"), imgEnReqBody, API.guardaContenido);
 router.delete("/api/abm-elimina-contenido", API.eliminaContenido);
 
 // 🖥️ Vistas
