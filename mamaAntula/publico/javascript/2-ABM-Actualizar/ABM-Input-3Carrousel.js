@@ -2,7 +2,7 @@
 
 window.addEventListener("load", async () => {
 	// Variables
-	const domLayout = document.querySelector("#sectorContNuevo #layouts #carrousel");
+	const domLayout = document.querySelector("#sectorContNuevo #layouts #carrusel");
 	const DOM = {
 		// Drag & Drop
 		dragDrop: domLayout.querySelector("#dragDrop"),

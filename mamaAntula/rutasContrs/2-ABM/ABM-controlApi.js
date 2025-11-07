@@ -115,9 +115,9 @@ export default {
 		if (req.file) await comp.gestionArchs.descarga(carpRevisar, datos.imagen, req.file);
 
 		// Arma los datos
-		if (pestanaActiva == "carrousel") {
+		if (pestanaActiva == "carrusel") {
 		}
-		// En caso que no sea carrousel
+		// En caso que no sea carrusel
 		else {
 			// Averigua si ya hay algún registro para ese campo_id
 			const registrosActuales = await baseDatos.obtieneTodosPorCondicion("contenidos", {[campo_id]: encabezado_id});

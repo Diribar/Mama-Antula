@@ -45,7 +45,7 @@ window.addEventListener("load", async () => {
 			domBloqueLectura.classList.add("bloque", "sector");
 
 			// Crea el DOM contenido
-			this.creaElContenido.consolidado(contenido); // puede ser: div (para texto, texto-imagen, carrousel), img, video
+			this.creaElContenido.consolidado(contenido); // puede ser: div (para texto, texto-imagen, carrusel), img, video
 			v.domContenido.classList.add("contenido");
 			domBloqueLectura.appendChild(v.domContenido);
 
@@ -91,7 +91,7 @@ window.addEventListener("load", async () => {
 				// Video
 				else if (contenido.video) this.video(contenido);
 				// Carrousel
-				else if (contenido.carrousel.length) null;
+				else if (contenido.carrusel.length) null;
 
 				// Fin
 				return;

@@ -18,10 +18,10 @@
 	}
 
 	/* Condicionado por las pestañas */
-	&:has(#textoImagen.pestana.activo, #texto.pestana.activo, #carrousel.pestana.activo) #layouts {align-self: stretch;}
+	&:has(#textoImagen.pestana.activo, #texto.pestana.activo, #carrusel.pestana.activo) #layouts {align-self: stretch;}
 	&:has(#textoImagen.pestana.activo) {#texto, #imagen {display: flex;}}
 	&:has(#texto.pestana.activo) {#texto {display: flex;}}
 	&:has(#imagen.pestana.activo) {#imagen {display: flex;}}
-	&:has(#carrousel.pestana.activo) {#carrousel {display: flex;}}
+	&:has(#carrusel.pestana.activo) {#carrusel {display: flex;}}
 	&:has(#video.pestana.activo) {#video {display: flex;}}
 }

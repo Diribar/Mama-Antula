@@ -7,7 +7,7 @@ export default {
 		// Variables
 		const codigoVista = "actualizar";
 		const tituloPagina = iconosAgrupados.find((n) => n.codigo == codigoVista).nombre;
-		const layouts = ["texto", "imagen", "carrousel", "video"];
+		const layouts = ["texto", "imagen", "carrusel", "video"];
 
 		// Fin
 		return res.render("CMP-0Estructura", {

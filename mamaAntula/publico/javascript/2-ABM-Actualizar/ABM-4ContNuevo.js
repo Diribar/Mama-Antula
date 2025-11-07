@@ -29,19 +29,32 @@ window.addEventListener("load", async () => {
 
 	// Funciones
 	const creaElForm = {
-		consolidado: function () {
+		consolidado: async function () {
 			// Crea el form
 			v.formData = new FormData();
 
 			// Encabezado
 			this.encabezado();
 
+			// Carrousel
+			if (v.nombrePestanaActiva == "carrusel") {
+				// Rutina por imagen
+				// Obtiene
+
+				// Fin
+				return;
+			}
+
 			// Inputs
-			v.formData.append("pestanaActiva", v.nombrePestanaActiva);
-			if (["textoImagen", "texto"].includes(v.nombrePestanaActiva)) v.formData.append("texto", DOM.textoOutput.value);
-			if (v.nombrePestanaActiva == "video") this.video();
-			if (["textoImagen", "imagen"].includes(v.nombrePestanaActiva)) this.imagen();
-			if (v.nombrePestanaActiva == "carrousel") return;
+			else {
+				// Le agrega info en función de la pestaña
+				if (["textoImagen", "texto"].includes(v.nombrePestanaActiva)) v.formData.append("texto", DOM.textoOutput.value);
+				if (v.nombrePestanaActiva == "video") this.video();
+				if (["textoImagen", "imagen"].includes(v.nombrePestanaActiva)) this.imagen();
+
+				// Guarda la información en la BD
+				this.guarda();
+			}
 
 			// Fin
 			return;
@@ -50,6 +63,7 @@ window.addEventListener("load", async () => {
 			// Encabezado
 			const encabezado_id = DOM.filtroEncab.value;
 			v.formData.append("encabezado_id", encabezado_id);
+			v.formData.append("pestanaActiva", v.nombrePestanaActiva); // es la pestaña del contNuevo
 
 			// Campo_id
 			const campo_id = campos_id[comp1234.entidad];
@@ -88,6 +102,13 @@ window.addEventListener("load", async () => {
 			// Fin
 			return;
 		},
+		guarda: async () => {
+			// Guarda el contenido en la BD
+			await fetch(rutas.guardaContenido, postForm(v.formData)).then((n) => n.json());
+
+			// Fin
+			return;
+		},
 	};
 
 	// Actualiza el sector por cambio en el encabezado
@@ -105,7 +126,6 @@ window.addEventListener("load", async () => {
 		return;
 	});
 
-
 	// Guarda los cambios
 	DOM.sectorContNuevo.addEventListener("input", () => DOM.iconoGuardar.classList.remove("inactivo"));
 	DOM.iconoGuardar.addEventListener("click", async () => {
@@ -116,11 +136,8 @@ window.addEventListener("load", async () => {
 		// Obtiene la pestaña activa
 		v.nombrePestanaActiva = document.querySelector("#pestanasGuardar .pestana.activo")?.id;
 
-		// Crea el form
-		creaElForm.consolidado();
-
-		// Guarda el contenido en la BD
-		await fetch(rutas.guardaContenido, postForm(v.formData)).then((n) => n.json());
+		// Crea el form y guarda el contenido en la BD
+		await creaElForm.consolidado();
 
 		// Recarga la vista, para que limpie todo
 		location.reload();
