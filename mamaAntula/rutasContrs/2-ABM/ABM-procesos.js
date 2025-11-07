@@ -14,11 +14,19 @@ export default {
 
 		// Si es sin indice y no existe un registro, lo crea
 		if (!conIndice && !encabezados.length) {
+			// Crea los datos a guardar
 			const creadoPor_id = usuario.id;
 			const statusRegistro_id = aprobado_id;
-			const datos = {...condicion, creadoPor_id, statusRegistro_id};
+			const datos = {creadoPor_id, statusRegistro_id};
+
+			// Le agrega la referencia
+			const {tema_id, pestana_id} = condicion;
+			if (tema_id) datos.tema_id = tema_id;
+			if (pestana_id) datos.pestana_id = pestana_id;
+
+			// Guarda el encabezado
 			const encabezado = await baseDatos.agregaRegistroIdCorrel("encabResto", datos);
-			encabezado.ediciones = [];
+			// encabezado.ediciones = [];
 			encabezados = [encabezado];
 		}
 
