@@ -14,7 +14,7 @@ export default (sequelize, dt) => {
 		statusRegistro_id: {type: dt.INTEGER},
 	};
 	const config = {
-		tableName: "cont_3carrousel",
+		tableName: "cont_3carrusel",
 		timestamps: false,
 	};
 	const entidad = sequelize.define(alias, columns, config);
