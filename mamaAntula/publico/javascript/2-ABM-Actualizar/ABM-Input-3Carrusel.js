@@ -39,7 +39,7 @@ window.addEventListener("load", async () => {
 		DOM.carrImgs.appendChild(nuevoModeloVista);
 
 		// Actualiza la variable donde se almacenan los url de cada imagen
-		archCarrusel.push(urlImagen);
+		urlsCarrusel.push(urlImagen);
 
 		// Fin
 		return;
@@ -53,7 +53,7 @@ window.addEventListener("load", async () => {
 
 		// Elimina el hijo
 		DOM.carrImgs.removeChild(domEliminar[indice].parentNode);
-		archCarrusel.splice(indice, 1);
+		urlsCarrusel.splice(indice, 1);
 	});
 
 	// Eventos nueva imagen
@@ -81,4 +81,4 @@ window.addEventListener("load", async () => {
 });
 
 // Variables
-let archCarrusel = [];
+let urlsCarrusel = [];

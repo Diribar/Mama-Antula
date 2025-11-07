@@ -11,6 +11,7 @@ window.addEventListener("load", async () => {
 		textoInput: document.querySelector("#texto .input"),
 		videoInput: document.querySelector("#video .input"),
 		leyendaImagen: document.querySelector("#imagen [name='leyenda']"),
+		leyendaCarrusel: document.querySelector("#carrusel [name='leyenda']"),
 
 		// Ouputs
 		iconoGuardar: document.querySelector("#pestanasGuardar #iconoGuardar"),
@@ -32,29 +33,13 @@ window.addEventListener("load", async () => {
 		consolidado: async function () {
 			// Crea el form
 			v.formData = new FormData();
-
-			// Encabezado
 			this.encabezado();
 
-			// Carrusel
-			if (v.nombrePestanaActiva == "carrusel") {
-				// Rutina por imagen
-				// Obtiene
-
-				// Fin
-				return;
-			}
-
-			// Inputs
-			else {
-				// Le agrega info en función de la pestaña
-				if (["textoImagen", "texto"].includes(v.nombrePestanaActiva)) v.formData.append("texto", DOM.textoOutput.value);
-				if (v.nombrePestanaActiva == "video") this.video();
-				if (["textoImagen", "imagen"].includes(v.nombrePestanaActiva)) this.imagen();
-
-				// Guarda la información en la BD
-				this.guarda();
-			}
+			// Le agrega info en función de la pestaña
+			if (["textoImagen", "texto"].includes(v.nombrePestanaActiva)) v.formData.append("texto", DOM.textoOutput.value);
+			if (["textoImagen", "imagen"].includes(v.nombrePestanaActiva)) this.imagen();
+			if (v.nombrePestanaActiva == "carrusel") this.carrusel();
+			if (v.nombrePestanaActiva == "video") this.video();
 
 			// Fin
 			return;
@@ -75,14 +60,29 @@ window.addEventListener("load", async () => {
 			return;
 		},
 		imagen: function () {
-			// Si se subió un archivo, le agrega los valores
-			if (archImagen) {
-				// El archivo de la imagen
-				this.archImg(archImagen);
+			// Si no se subió un archivo, interrumpe la función
+			if (!archImagen) return;
 
-				// La leyenda de la imagen
-				v.formData.append("leyenda", DOM.leyendaImagen.value);
-			}
+			// Agrega el archivo de la imagen
+			this.archImg(archImagen);
+			// archImagen = null;
+
+			// Agrega la leyenda de la imagen
+			v.formData.append("leyenda", DOM.leyendaImagen.value);
+
+			// Fin
+			return;
+		},
+		carrusel: function () {
+			// Si no se subieron por lo menos 2 archivos, interrumpe la función
+			if (!urlsCarrusel || urlsCarrusel.length < 2) return;
+
+			// Agrega las imágenes
+			for (const urlCarrusel of urlsCarrusel) this.archImg(urlCarrusel);
+			// urlsCarrusel = [];
+
+			// Agrega la leyenda de la imagen
+			v.formData.append("leyenda", DOM.leyendaCarrusel.value);
 
 			// Fin
 			return;
@@ -104,13 +104,6 @@ window.addEventListener("load", async () => {
 			v.formData.append("imagen", archivo.name);
 			v.formData.append("tamano", archivo.size);
 			v.formData.append("tipo", archivo.type);
-
-			// Fin
-			return;
-		},
-		guarda: async () => {
-			// Guarda el contenido en la BD
-			await fetch(rutas.guardaContenido, postForm(v.formData)).then((n) => n.json());
 
 			// Fin
 			return;
@@ -142,8 +135,11 @@ window.addEventListener("load", async () => {
 		// Obtiene la pestaña activa
 		v.nombrePestanaActiva = document.querySelector("#pestanasGuardar .pestana.activo")?.id;
 
-		// Crea el form y guarda el contenido en la BD
+		// Crea el form
 		await creaElForm.consolidado();
+
+		// Guarda la información en la BD
+		await fetch(rutas.guardaContenido, postForm(v.formData)).then((n) => n.json());
 
 		// Recarga la vista, para que limpie todo
 		location.reload();
