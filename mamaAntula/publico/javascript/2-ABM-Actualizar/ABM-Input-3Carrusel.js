@@ -73,8 +73,6 @@ window.addEventListener("load", async () => {
 	// Eventos preventivos - Drag & Drop
 	[...v.entrada, ...v.salida].forEach((evento) =>
 		DOM.areaSoltar.addEventListener(evento, (e) => {
-			console.log(123);
-
 			e.preventDefault();
 
 			// Eventos - Efectos visuales
