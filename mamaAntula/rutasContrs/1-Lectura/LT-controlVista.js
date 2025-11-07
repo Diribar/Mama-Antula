@@ -1,5 +1,5 @@
 "use strict";
-import procesos from "./LT-procesos.mjs";
+import procesos from "./LT-procesos.js";
 const temaVista = "secciones";
 
 export default {

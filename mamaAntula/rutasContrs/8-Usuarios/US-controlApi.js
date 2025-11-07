@@ -1,7 +1,7 @@
 "use strict";
 import bcryptjs from "bcryptjs";
-import valida from "./US-FN-valida.mjs";
-import procesos from "./US-procesos.mjs";
+import valida from "./US-FN-valida.js";
+import procesos from "./US-procesos.js";
 
 export default {
 	altaOlvido: async (req, res) => {

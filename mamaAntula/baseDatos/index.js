@@ -15,9 +15,7 @@ carpetas.forEach((n, i) => (carpetas[i] = path.join(rutaActual, n)));
 // Agrega cada tabla a 'tablas'
 for (const carpeta of carpetas) {
 	// Obtiene los archivos de la carpeta
-	const archivos = fs
-		.readdirSync(carpeta)
-		.filter((arch) => arch !== nombreArch && [".mjs", ".js"].includes(path.extname(arch))); // archivo distinto a éste y con terminación correcta
+	const archivos = fs.readdirSync(carpeta).filter((arch) => arch !== nombreArch && path.extname(arch) == ".js"); // archivo distinto a éste y con terminación correcta
 
 	for (const archivo of archivos) {
 		// Obtiene la ruta del archivo en formato 'url' e importa el modelo

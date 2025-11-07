@@ -1,5 +1,5 @@
 "use strict";
-import procesos from "./ABM-procesos.mjs";
+import procesos from "./ABM-procesos.js";
 
 export default {
 	// Obtiene información
