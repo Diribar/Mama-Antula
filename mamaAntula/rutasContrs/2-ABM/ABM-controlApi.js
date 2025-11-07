@@ -107,6 +107,7 @@ export default {
 		const {campo_id, encabezado_id} = req.body;
 		const creadoPor_id = req.session.usuario.id;
 		const datos = {creadoPor_id};
+		const {imagens} = req.body;
 
 		// Obtiene los datos útiles
 		const camposGuardar = ["carta_id", "encab_id", "texto", "imagen", "video", "leyenda"];
@@ -114,14 +115,14 @@ export default {
 
 		// Descarga la/s imagen/es
 		if (req.file) await comp.gestionArchs.descarga(carpRevisar, datos.imagen, req.file);
-		if (req.files) req.files.forEach((file, i) => comp.gestionArchs.descarga(carpRevisar, datos.imagens[i], file));
+		if (req.files) req.files.forEach((file, i) => comp.gestionArchs.descarga(carpRevisar, imagens[i], file));
 
 		// Averigua el orden y guarda el registro
 		datos.orden = procesos.obtieneOrdenContenidos({campo_id, encabezado_id});
 		const {id: contenido_id} = await baseDatos.agregaRegistroIdCorrel("contenidos", datos);
 
 		// Guarda las imgsCarrusel
-		await guardaImgsCarrusel(req.body.imagens, contenido_id, creadoPor_id);
+		await procesos.guardaRegsCarrusel(imagens, contenido_id, creadoPor_id);
 
 		// Fin
 		return res.json({});
