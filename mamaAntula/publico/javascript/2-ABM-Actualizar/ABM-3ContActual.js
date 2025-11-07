@@ -74,8 +74,6 @@ window.addEventListener("load", async () => {
 		// Auxiliares
 		creaElContenido: {
 			consolidado: function (contenido) {
-				console.log(contenido);
-
 				// Crea el DOM
 				v.domContenido = document.createElement("div");
 
