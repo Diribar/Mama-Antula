@@ -39,18 +39,18 @@ export default {
 	eliminaDepends: async (entidad, id) => {
 		// Obtiene los contenidos y los elimina
 		const campo_id = comp.contenido.obtieneCampo_id(entidad);
-		const contenidos = await baseDatos.obtieneTodosPorCondicion("contenidos", {[campo_id]: id}, "imgsCarrousel");
+		const contenidos = await baseDatos.obtieneTodosPorCondicion("contenidos", {[campo_id]: id}, "imgsCarrusel");
 		if (!contenidos.length) return;
 
-		// Elimina los carrouseles
+		// Elimina los carruseles
 		const espera = [];
 		for (const contenido of contenidos) {
 			// Obtiene la ruta del archivo
 			const ruta = contenido.statusRegiastro_id == creado_id ? carpRevisar : carpContenido;
 
-			// Carrouseles
-			for (const imgCarrousel of contenido.imgsCarrousel) comp.gestionArchs.elimina(ruta, imgCarrousel.imagen);
-			await baseDatos.eliminaPorCondicion("imgsCarrousel", {contenido_id: contenido.id});
+			// Carruseles
+			for (const imgCarrusel of contenido.imgsCarrusel) comp.gestionArchs.elimina(ruta, imgCarrusel.imagen);
+			await baseDatos.eliminaPorCondicion("imgsCarrusel", {contenido_id: contenido.id});
 
 			// Contenidos
 			if (contenido.imagen) comp.gestionArchs.elimina(ruta, contenido.imagen);

@@ -36,7 +36,7 @@ window.addEventListener("load", async () => {
 			// Encabezado
 			this.encabezado();
 
-			// Carrousel
+			// Carrusel
 			if (v.nombrePestanaActiva == "carrusel") {
 				// Rutina por imagen
 				// Obtiene

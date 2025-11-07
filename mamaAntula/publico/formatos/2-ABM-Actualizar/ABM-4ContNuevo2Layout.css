@@ -26,7 +26,7 @@
 		border: 1px solid grey;
 		flex-direction: row !important; gap: var(--gap);
 
-		/* Carrousel de imágenes */
+		/* Carrusel de imágenes */
 		#carrImgs {
 			max-width: calc(100% - var(--lado) - var(--gap)); overflow-x: auto;
 			display: flex; flex-direction: row; gap: var(--gap);

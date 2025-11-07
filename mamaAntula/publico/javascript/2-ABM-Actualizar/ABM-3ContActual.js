@@ -90,7 +90,7 @@ window.addEventListener("load", async () => {
 				}
 				// Video
 				else if (contenido.video) this.video(contenido);
-				// Carrousel
+				// Carrusel
 				else if (contenido.carrusel.length) null;
 
 				// Fin

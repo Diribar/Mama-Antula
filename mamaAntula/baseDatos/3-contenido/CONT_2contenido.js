@@ -27,7 +27,7 @@ export default (sequelize, dt) => {
 		entidad.belongsTo(n.encabResto, {as: "encab", foreignKey: "encab_id"});
 		entidad.belongsTo(n.usuarios, {as: "creadoPor", foreignKey: "creadoPor_id"});
 		entidad.belongsTo(n.statusRegistros, {as: "statusRegistro", foreignKey: "statusRegistro_id"});
-		entidad.hasMany(n.imgsCarrousel, {as: "imgsCarrousel", foreignKey: "contenido_id"});
+		entidad.hasMany(n.imgsCarrusel, {as: "imgsCarrusel", foreignKey: "contenido_id"});
 	};
 	return entidad;
 };

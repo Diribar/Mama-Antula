@@ -143,12 +143,12 @@ export default {
 		// Variables
 		const {id} = req.body;
 		if (!id) return res.json({});
-		const contenido = await baseDatos.obtienePorId("contenidos", id, "imgsCarrousel");
+		const contenido = await baseDatos.obtienePorId("contenidos", id, "imgsCarrusel");
 		const ruta = contenido.statusRegistro_id == creado_id ? carpRevisar : carpContenido;
 
-		// Carrouseles
-		for (const imgCarrousel of contenido.imgsCarrousel) comp.gestionArchs.elimina(ruta, imgCarrousel.imagen, true);
-		await baseDatos.eliminaPorCondicion("imgsCarrousel", {contenido_id: id});
+		// Carruseles
+		for (const imgCarrusel of contenido.imgsCarrusel) comp.gestionArchs.elimina(ruta, imgCarrusel.imagen, true);
+		await baseDatos.eliminaPorCondicion("imgsCarrusel", {contenido_id: id});
 
 		// Contenidos
 		if (contenido.imagen) comp.gestionArchs.elimina(ruta, contenido.imagen, true);
