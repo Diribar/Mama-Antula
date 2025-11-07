@@ -40,7 +40,7 @@ export default {
 
 		// Obtiene los contenidos
 		const contenidos = await baseDatos
-			.obtieneTodosPorCondicion("contenidos", {[campo_id]: encab_id})
+			.obtieneTodosPorCondicion("contenidos", {[campo_id]: encab_id}, "carrusel")
 			.then((n) => n.sort((a, b) => a.orden - b.orden));
 
 		// Fin
@@ -96,7 +96,7 @@ export default {
 		const {entidad, id} = req.body;
 
 		// Elimina los dependientes y el encabezado
-		await procesos.eliminaDepends(entidad, id);
+		await procesos.eliminaDependsEncab(entidad, id);
 		await baseDatos.eliminaPorId(entidad, id);
 
 		// Fin
@@ -121,7 +121,7 @@ export default {
 		datos.orden = procesos.obtieneOrdenContenidos({campo_id, encabezado_id});
 		const {id: contenido_id} = await baseDatos.agregaRegistroIdCorrel("contenidos", datos);
 
-		// Guarda las imgsCarrusel
+		// Guarda los registros de carrusel
 		await procesos.guardaRegsCarrusel(imagens, contenido_id, creadoPor_id);
 
 		// Fin
@@ -131,12 +131,12 @@ export default {
 		// Variables
 		const {id} = req.body;
 		if (!id) return res.json({});
-		const contenido = await baseDatos.obtienePorId("contenidos", id, "imgsCarrusel");
+		const contenido = await baseDatos.obtienePorId("contenidos", id, "carrusel");
 		const ruta = contenido.statusRegistro_id == creado_id ? carpRevisar : carpContenido;
 
-		// Carruseles
-		for (const imgCarrusel of contenido.imgsCarrusel) comp.gestionArchs.elimina(ruta, imgCarrusel.imagen, true);
-		await baseDatos.eliminaPorCondicion("imgsCarrusel", {contenido_id: id});
+		// Elimina los archivos del carrusel más los registros
+		for (const registro of contenido.carrusel) comp.gestionArchs.elimina(ruta, registro.imagen, true);
+		await baseDatos.eliminaPorCondicion("carrusel", {contenido_id: id});
 
 		// Contenidos
 		if (contenido.imagen) comp.gestionArchs.elimina(ruta, contenido.imagen, true);

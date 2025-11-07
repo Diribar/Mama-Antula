@@ -30,10 +30,10 @@ export default {
 			.obtieneTodosPorCondicion("contenidos", {[campo_id]: encabezado.id})
 			.then((n) => n.sort((a, b) => a.orden - b.orden));
 
-		// Obtiene las imgsCarrusel y las  vincula a su contenido
+		// Obtiene los registros del carrusel y los  vincula a su contenido
 		const contenidos_ids = contenidos.map((n) => n.id);
-		const imgsCarrusel = await baseDatos.obtieneTodosPorCondicion("imgsCarrusel", {contenido_id: contenidos_ids});
-		contenidos.forEach((n) => (n.imgsCarrusel = imgsCarrusel.filter((m) => m.contenido_id == n.id)));
+		const carrusel = await baseDatos.obtieneTodosPorCondicion("carrusel", {contenido_id: contenidos_ids});
+		contenidos.forEach((n) => (n.carrusel = carrusel.filter((m) => m.contenido_id == n.id)));
 
 		// Fin
 		return {encabezado, contenidos};

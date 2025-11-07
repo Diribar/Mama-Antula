@@ -36,21 +36,21 @@ export default {
 		// Fin
 		return encabezados;
 	},
-	eliminaDepends: async (entidad, id) => {
+	eliminaDependsEncab: async (entidad, id) => {
 		// Obtiene los contenidos y los elimina
 		const campo_id = comp.contenido.obtieneCampo_id(entidad);
-		const contenidos = await baseDatos.obtieneTodosPorCondicion("contenidos", {[campo_id]: id}, "imgsCarrusel");
+		const contenidos = await baseDatos.obtieneTodosPorCondicion("contenidos", {[campo_id]: id}, "carrusel");
 		if (!contenidos.length) return;
 
-		// Elimina los carruseles
+		// Elimina los archivos y registros del carrusel de cada contenido, y también borra los contenidos
 		const espera = [];
 		for (const contenido of contenidos) {
 			// Obtiene la ruta del archivo
 			const ruta = contenido.statusRegiastro_id == creado_id ? carpRevisar : carpContenido;
 
 			// Carruseles
-			for (const imgCarrusel of contenido.imgsCarrusel) comp.gestionArchs.elimina(ruta, imgCarrusel.imagen);
-			await baseDatos.eliminaPorCondicion("imgsCarrusel", {contenido_id: contenido.id});
+			for (const registro of contenido.carrusel) comp.gestionArchs.elimina(ruta, registro.imagen);
+			await baseDatos.eliminaPorCondicion("carrusel", {contenido_id: contenido.id});
 
 			// Contenidos
 			if (contenido.imagen) comp.gestionArchs.elimina(ruta, contenido.imagen);
@@ -94,7 +94,7 @@ export default {
 			const registro = {contenido_id, orden, imagen, creadoPor_id};
 
 			// Guarda el registro
-			baseDatos.agregaRegistroIdCorrel("imgsCarrusel", registro);
+			baseDatos.agregaRegistroIdCorrel("carrusel", registro);
 		});
 
 		// Fin
