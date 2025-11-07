@@ -88,14 +88,13 @@ export default {
 		if (!imagenes) return;
 
 		// Guarda las imágenes
-		imagenes.forEach((imagen, i) => {
-			// Variables
+		for (let i = 0; i < imagenes.length; i++) {
+			const imagen = imagenes[i];
 			const orden = i + 1;
 			const registro = {contenido_id, orden, imagen, creadoPor_id};
 
-			// Guarda el registro
-			baseDatos.agregaRegistroIdCorrel("carrusel", registro);
-		});
+			await baseDatos.agregaRegistroIdCorrel("carrusel", registro);
+		}
 
 		// Fin
 		return;
