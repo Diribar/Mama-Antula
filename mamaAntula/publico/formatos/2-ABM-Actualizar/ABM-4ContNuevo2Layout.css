@@ -18,12 +18,11 @@
 		}
 	}
 	#imagen {
-		max-width: 33%;
+		max-width: 33%; gap: 5px;
 		#areaSoltar {width: 100%; flex-grow: 1; border-radius: 5px;}
 	}
 	#carrusel {
 		--lado: 200px; --gap: 20px;
-		border: 1px solid grey;
 		flex-direction: row !important; gap: var(--gap);
 
 		/* Carrusel de imágenes */

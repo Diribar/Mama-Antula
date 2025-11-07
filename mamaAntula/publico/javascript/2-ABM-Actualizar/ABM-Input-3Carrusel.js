@@ -51,6 +51,7 @@ window.addEventListener("load", async () => {
 		return;
 	};
 
+	// Eventos - Elimina una imagen
 	DOM.carrImgs.addEventListener("click", (e) => {
 		// Obtiene el indice
 		const domEliminar = DOM.carrImgs.querySelectorAll(".eliminar");
@@ -72,6 +73,8 @@ window.addEventListener("load", async () => {
 	// Eventos preventivos - Drag & Drop
 	[...v.entrada, ...v.salida].forEach((evento) =>
 		DOM.areaSoltar.addEventListener(evento, (e) => {
+			console.log(123);
+
 			e.preventDefault();
 
 			// Eventos - Efectos visuales
