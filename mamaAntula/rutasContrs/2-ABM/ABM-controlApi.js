@@ -104,37 +104,24 @@ export default {
 	},
 	guardaContenido: async (req, res) => {
 		// Variables
-		const {pestanaActiva, campo_id, encabezado_id} = req.body;
-		const camposGuardar = ["carta_id", "encab_id", "texto", "imagen", "video", "leyenda"];
-		const datos = {};
+		const {campo_id, encabezado_id} = req.body;
+		const creadoPor_id = req.session.usuario.id;
+		const datos = {creadoPor_id};
 
-		// Guarda los datos útiles
+		// Obtiene los datos útiles
+		const camposGuardar = ["carta_id", "encab_id", "texto", "imagen", "video", "leyenda"];
 		for (const campo of camposGuardar) if (req.body[campo]) datos[campo] = req.body[campo];
 
-		// Guarda la imagen
+		// Descarga la/s imagen/es
 		if (req.file) await comp.gestionArchs.descarga(carpRevisar, datos.imagen, req.file);
+		if (req.files) req.files.forEach((file, i) => comp.gestionArchs.descarga(carpRevisar, datos.imagens[i], file));
 
-		// Arma los datos
-		if (pestanaActiva == "carrusel") {
-		}
-		// En caso que no sea carrusel
-		else {
-			// Averigua si ya hay algún registro para ese campo_id
-			const registrosActuales = await baseDatos.obtieneTodosPorCondicion("contenidos", {[campo_id]: encabezado_id});
+		// Averigua el orden y guarda el registro
+		datos.orden = procesos.obtieneOrdenContenidos({campo_id, encabezado_id});
+		const {id: contenido_id} = await baseDatos.agregaRegistroIdCorrel("contenidos", datos);
 
-			// Acciones si lo hay
-			if (registrosActuales.length) {
-				// Averigua cuál es el orden de mayor valor
-				const ordenes = registrosActuales.map((n) => n.orden);
-				const maxOrden = Math.max(...ordenes);
-
-				// Suma 1 y lo guarda en el orden
-				datos.orden = maxOrden + 1;
-			}
-
-			// Guarda el registro
-			await baseDatos.agregaRegistroIdCorrel("contenidos", datos);
-		}
+		// Guarda las imgsCarrusel
+		await guardaImgsCarrusel(req.body.imagens, contenido_id, creadoPor_id);
 
 		// Fin
 		return res.json({});
