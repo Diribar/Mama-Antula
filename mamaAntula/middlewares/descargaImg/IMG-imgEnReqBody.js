@@ -5,11 +5,12 @@ export default (req, res, next) => {
 	if (req.file) req.body.imagen = comp.gestionArchs.nombreArchDesc(req.file);
 	if (req.files) {
 		// Variables
-		req.body.imagenes = [];
 		const contador = Date.now();
+
+		// Le cambia el nombre a la/s imagenes
 		req.files.forEach((file, i) => {
 			const nombre = contador + i;
-			req.body.imagenes.push(nombre + path.extname(file.originalname));
+			req.body.imagens[i] = nombre + path.extname(file.originalname);
 		});
 	}
 
