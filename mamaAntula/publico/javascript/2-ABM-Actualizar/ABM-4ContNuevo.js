@@ -80,7 +80,6 @@ window.addEventListener("load", async () => {
 
 			// Agrega las imágenes
 			for (const urlCarrusel of urlsCarrusel) this.archImg(urlCarrusel, "s");
-			// urlsCarrusel = [];
 
 			// Agrega la leyenda de la imagen
 			v.formData.append("leyenda", DOM.leyendaCarrusel.value);
