@@ -21,10 +21,13 @@
 		}
 
 		/* Carrusel */
-		.carrImgs {
-			display: flex; flex-direction: row; gap: 10px;
-			overflow-x: auto; max-width: 100%;
-			img {max-height: 300px;}
+		&:has(.carrImgs) {
+			max-width: 100%; overflow-x: auto;
+			.carrImgs {
+				display: flex; flex-direction: row; gap: 20px;
+				max-width: 100%;
+				img {max-height: 300px;}
+			}
 		}
 
 		/* Video */
