@@ -144,14 +144,12 @@ export default {
 			// Variables
 			if (!tema_id) tema_id = pestanasTemas.find((n) => n.id == pestana_id).tema_id;
 			const temaActual = temasSecciones.find((n) => n.id == tema_id);
-			const seccionActual = secciones.find((n) => n.id == temaActual.seccion_id);
 
 			// Obtiene los datos
-			const [entidad, campo_id, includes] = false
-				? false
-				: temaActual.codigo == "cartas"
-				? ["encabCartas", "carta_id", ["nombreDesde", "nombreHacia", "idioma", "lugar"]]
-				: ["encabResto", "encab_id", ["lugar"]];
+			const [entidad, campo_id, includes] =
+				temaActual.codigo == "cartas"
+					? ["encabCartas", "carta_id", ["nombreDesde", "nombreHacia", "idioma", "lugar"]]
+					: ["encabResto", "encab_id", ["lugar"]];
 
 			// Fin
 			return {entidad, campo_id, includes};
@@ -184,7 +182,7 @@ export default {
 				// Fin
 				return tituloCons;
 			},
-			encabExpers: (encabs) => {
+			encabConIndice: (encabs) => {
 				for (const encab of encabs)
 					encab.tituloCons = FN.diaMesAnoUTC(encab.fechaEvento) + " - " + encab.titulo + " - " + encab.lugar.nombre;
 

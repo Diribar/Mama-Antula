@@ -23,7 +23,7 @@ export default {
 		// Datos para la vista
 		const encabezado_id = req.query.id;
 		const {encabezado, contenidos} = await procesos.contenidos({seccionActual, temaActual, encabezado_id});
-		const tituloCarta = codigoVista == "cartas" && comp.contenido.tituloCons.encabCarta(encabezado);
+		const tituloCarta = esCarta && comp.contenido.tituloCons.encabCarta(encabezado);
 
 		// Fin
 		return res.render("CMP-0Estructura", {

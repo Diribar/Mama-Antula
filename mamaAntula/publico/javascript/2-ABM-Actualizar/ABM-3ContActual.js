@@ -171,7 +171,7 @@ window.addEventListener("load", async () => {
 	DOM.filtroEncab.addEventListener("change", async () => {
 		// Variables
 		const encabezado_id = DOM.filtroEncab.value;
-		const campo_id = campos_id[comp1234.tipoEncab];
+		const campo_id = campos_id[comp1234.entidad];
 		const ruta = rutas.obtieneContenidos + "encab_id=" + encabezado_id + "&campo_id=" + campo_id;
 
 		// Limpia el DOM

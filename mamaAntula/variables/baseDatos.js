@@ -8,6 +8,7 @@ export default {
 			secciones: baseDatos.obtieneTodosConOrden("secciones", "orden"),
 			temasSecciones: baseDatos.obtieneTodos("temasSecciones", "indices").then((n) => n.sort((a, b) => a.orden - b.orden)),
 			pestanasTemas: baseDatos.obtieneTodosConOrden("pestanasTemas", "orden"),
+			temaIndice: baseDatos.obtieneTodosConOrden("temaIndice", "orden"),
 
 			// Cartas
 			idiomas: baseDatos.obtieneTodosConOrden("idiomas", "orden"),

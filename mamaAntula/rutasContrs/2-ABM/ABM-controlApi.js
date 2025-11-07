@@ -19,12 +19,14 @@ export default {
 		const condicion = {[pestana_id ? "pestana_id" : "tema_id"]: pestana_id || tema_id};
 		const {usuario} = req.session;
 
-		// Obtiene la entidad y los includes
-		const {entidad, includes} = comp.contenido.obtieneDatosDeTabla(condicion);
-		const includesConEdics = [...(includes || []), "ediciones"];
+		// Averigua si es carta o con índice
+		const temaActual = temasSecciones.find((n) => n.id == tema_id);
+		const esCarta = temaActual.codigo == "cartas";
+		const conIndice = !!temaActual.indices.length;
 
 		// Obtiene los encabezados
-		const encabezados = await procesos.obtieneEncabs.consolidado({entidad, condicion, includesConEdics, usuario});
+		const {entidad, includes} = comp.contenido.obtieneDatosDeTabla(condicion);
+		const encabezados = await procesos.obtieneEncabs({esCarta, conIndice, entidad, condicion, includes, usuario});
 
 		// Fin
 		return res.json(encabezados);
