@@ -15,10 +15,8 @@
 		&.texto p {margin-bottom: 10px;}
 
 		/* Imagen sola o con texto */
-		:where(&.contImagenLeyenda, .contImagenLeyenda) {
-			display: flex; flex-direction: column; align-items: center;
-			.imagen {max-height: 300px; max-width: 100%;}
-		}
+		:where(&.contImagenLeyenda, .contImagenLeyenda) .imagen {max-height: 300px; max-width: 100%;}
+		.contImagenLeyenda {display: flex; flex-direction: column; align-items: center;}
 
 		/* Carrusel */
 		&:has(.carrImgs) {
