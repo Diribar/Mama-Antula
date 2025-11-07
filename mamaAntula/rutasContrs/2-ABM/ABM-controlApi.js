@@ -16,7 +16,6 @@ export default {
 	obtieneEncabs: async (req, res) => {
 		// Variables
 		const {tema_id, pestana_id} = req.query;
-		const condicion = {[pestana_id ? "pestana_id" : "tema_id"]: pestana_id || tema_id};
 		const {usuario} = req.session;
 
 		// Averigua si es carta o con índice
@@ -24,8 +23,12 @@ export default {
 		const esCarta = temaActual.codigo == "cartas";
 		const conIndice = !!temaActual.indices.length;
 
-		// Obtiene los encabezados
+		// Obtiene datos de la tabla
+		const condicion = {[pestana_id ? "pestana_id" : "tema_id"]: pestana_id || tema_id};
 		const {entidad, includes} = comp.contenido.obtieneDatosDeTabla(condicion);
+
+		// Obtiene los encabezados
+		condicion.lugar_id = conIndice ? {[Op.not]: null} : {[Op.is]: null};
 		const encabezados = await procesos.obtieneEncabs({esCarta, conIndice, entidad, condicion, includes, usuario});
 
 		// Fin
