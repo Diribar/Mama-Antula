@@ -25,6 +25,7 @@ window.addEventListener("load", async () => {
 	};
 	const rutas = {
 		guardaContenido: "/contenido/api/abm-guarda-contenido",
+		guardaCarrusel: "/contenido/api/abm-guarda-carrusel",
 	};
 	const v = {};
 
@@ -64,7 +65,7 @@ window.addEventListener("load", async () => {
 			if (!archImagen) return;
 
 			// Agrega el archivo de la imagen
-			this.archImg(archImagen);
+			this.archImg(archImagen, "");
 			// archImagen = null;
 
 			// Agrega la leyenda de la imagen
@@ -78,7 +79,7 @@ window.addEventListener("load", async () => {
 			if (!urlsCarrusel || urlsCarrusel.length < 2) return;
 
 			// Agrega las imágenes
-			for (const urlCarrusel of urlsCarrusel) this.archImg(urlCarrusel);
+			for (const urlCarrusel of urlsCarrusel) this.archImg(urlCarrusel, "s");
 			// urlsCarrusel = [];
 
 			// Agrega la leyenda de la imagen
@@ -96,14 +97,14 @@ window.addEventListener("load", async () => {
 			return;
 		},
 		// Varios
-		archImg: (archivo) => {
+		archImg: (archivo, s) => {
 			// El archivo de imagen
-			v.formData.append("archivo", archivo);
+			v.formData.append("archivo" + s, archivo);
 
 			// Datos para validar la imagen
-			v.formData.append("imagen", archivo.name);
-			v.formData.append("tamano", archivo.size);
-			v.formData.append("tipo", archivo.type);
+			v.formData.append("imagen" + s, archivo.name);
+			v.formData.append("tamano" + s, archivo.size);
+			v.formData.append("tipo" + s, archivo.type);
 
 			// Fin
 			return;
@@ -139,7 +140,8 @@ window.addEventListener("load", async () => {
 		await creaElForm.consolidado();
 
 		// Guarda la información en la BD
-		await fetch(rutas.guardaContenido, postForm(v.formData)).then((n) => n.json());
+		const ruta = v.nombrePestanaActiva == "carrusel" ? "guardaCarrusel" : "guardaContenido";
+		await fetch(rutas[ruta], postForm(v.formData)).then((n) => n.json());
 
 		// Recarga la vista, para que limpie todo
 		location.reload();
