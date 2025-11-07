@@ -13,7 +13,7 @@ const router = express.Router();
 
 // 🖥️ Vistas
 router.get("/", vista.temas);
-router.get("/:urlSeccion", validaRuta, vista.redirige); // la middleware redirige
+router.get("/:urlSeccion", validaRuta); // la middleware redirige
 router.get("/:urlSeccion/:urlTema", validaRuta, vista.temas);
 router.get("/:urlSeccion/:urlTema/:urlPestana", validaRuta, vista.pestanas);
 

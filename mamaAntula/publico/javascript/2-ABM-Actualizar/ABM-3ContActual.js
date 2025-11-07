@@ -201,6 +201,5 @@ window.addEventListener("load", async () => {
 // Variables
 const campos_id = {
 	encabCartas: "carta_id",
-	encabExpers: "experiencia_id",
-	encabSinIndice: "sinIndice_id",
+	encabResto: "encab_id",
 };

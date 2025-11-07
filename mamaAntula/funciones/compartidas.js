@@ -150,16 +150,13 @@ export default {
 			const [entidad, campo_id, includes] = false
 				? false
 				: temaActual.codigo == "cartas"
-				? ["encabCartas", "carta_id", ["nombreDesde", "nombreHacia", "lugar", "idioma"]]
-				: seccionActual.codigo == "experiencias"
-				? ["encabExpers", "experiencia_id", ["lugar"]]
-				: ["encabSinIndice", "sinIndice_id"];
+				? ["encabCartas", "carta_id", ["nombreDesde", "nombreHacia", "idioma", "lugar"]]
+				: ["encabResto", "encab_id", ["lugar"]];
 
 			// Fin
 			return {entidad, campo_id, includes};
 		},
-		obtieneCampo_id: (entidad) =>
-			entidad == "encabCartas" ? "carta_id" : entidad == "encabExpers" ? "experiencia_id" : "sinIndice_id",
+		obtieneCampo_id: (entidad) => (entidad == "encabCartas" ? "carta_id" : "encab_id"),
 		tituloCons: {
 			encabCartas: function (encabs) {
 				for (const encab of encabs) encab.tituloCons = this.encabCarta(encab);
@@ -167,14 +164,6 @@ export default {
 				// Fin
 				return encabs;
 			},
-			encabExpers: (encabs) => {
-				for (const encab of encabs)
-					encab.tituloCons = FN.diaMesAnoUTC(encab.fechaEvento) + " - " + encab.titulo + " - " + encab.lugar.nombre;
-
-				// Fin
-				return encabs;
-			},
-			encabSinIndice: (encabs) => encabs.map((encab) => ({...encab, tituloCons: encab.titulo})),
 			encabCarta: (encab) => {
 				const tituloCons = encab
 					? "Carta " +
@@ -194,6 +183,13 @@ export default {
 
 				// Fin
 				return tituloCons;
+			},
+			encabExpers: (encabs) => {
+				for (const encab of encabs)
+					encab.tituloCons = FN.diaMesAnoUTC(encab.fechaEvento) + " - " + encab.titulo + " - " + encab.lugar.nombre;
+
+				// Fin
+				return encabs;
 			},
 		},
 	},

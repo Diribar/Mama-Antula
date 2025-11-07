@@ -2,9 +2,8 @@ export default (sequelize, dt) => {
 	const alias = "contenidos";
 	const columns = {
 		// Referencias
-		sinIndice_id: {type: dt.INTEGER},
-		experiencia_id: {type: dt.INTEGER},
 		carta_id: {type: dt.INTEGER},
+		encab_id: {type: dt.INTEGER},
 		orden: {type: dt.INTEGER},
 
 		// Otros
@@ -24,9 +23,8 @@ export default (sequelize, dt) => {
 	};
 	const entidad = sequelize.define(alias, columns, config);
 	entidad.associate = (n) => {
-		entidad.belongsTo(n.encabSinIndice, {as: "articulo", foreignKey: "sinIndice_id"});
-		entidad.belongsTo(n.encabExpers, {as: "experiencia", foreignKey: "experiencia_id"});
 		entidad.belongsTo(n.encabCartas, {as: "carta", foreignKey: "carta_id"});
+		entidad.belongsTo(n.encabResto, {as: "encab", foreignKey: "encab_id"});
 		entidad.belongsTo(n.usuarios, {as: "creadoPor", foreignKey: "creadoPor_id"});
 		entidad.belongsTo(n.statusRegistros, {as: "statusRegistro", foreignKey: "statusRegistro_id"});
 		entidad.hasMany(n.imgsCarrousel, {as: "imgsCarrousel", foreignKey: "contenido_id"});

@@ -1,7 +1,7 @@
-<% if (codigoVista == "cartas" && tituloCarta || codigoVista == "experiencias" && encabezado) { %>
+<% if (conIndice) { %>
 	<div id="filtroIndice">
-		<% if (codigoVista == "cartas") { %>	  <%- include("LT-IndiceCartas") %><% } %>
-		<% if (codigoVista == "experiencias") { %><%- include("LT-IndiceExpers") %><% } %>
+		<% if (esCarta) { %> <%- include("LT-IndiceCartas") %><% } %>
+		<% if (!esCarta) { %><%- include("LT-IndiceExpers") %><% } %>
 
 		<div id="flechas">
 			<% if (encabezado.ant_id) { %>
