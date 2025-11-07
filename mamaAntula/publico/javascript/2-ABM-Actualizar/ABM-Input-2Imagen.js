@@ -23,7 +23,8 @@ window.addEventListener("load", async () => {
 		if (!archsImagen.length) return;
 
 		// Acciones si no se cargó una imagen
-		const nuevaImagen = await procesaArchImg(archsImagen, DOM.vistaImagen);
+		const archImagen = archsImagen[0];
+		const nuevaImagen = await procesaArchImg(archImagen, DOM.vistaImagen);
 		if (!nuevaImagen) return;
 
 		// Actualiza variables

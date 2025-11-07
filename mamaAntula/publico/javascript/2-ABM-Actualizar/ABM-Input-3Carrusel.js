@@ -27,22 +27,25 @@ window.addEventListener("load", async () => {
 		// Si no existen archivos, interrumpe la función
 		if (!archsImagen.length) return;
 
-		// Crea un nuevo hijo
-		const nuevoModeloVista = DOM.modeloVista.cloneNode(true);
-		const nuevaImg = nuevoModeloVista.querySelector("img");
+		// Recorre los archivos
+		for (const archImagen of archsImagen) {
+			// Crea un nuevo hijo
+			const nuevoModeloVista = DOM.modeloVista.cloneNode(true);
+			const nuevaImg = nuevoModeloVista.querySelector("img");
 
-		// Obtiene el url de la imagen
-		const urlImagen = await procesaArchImg(archsImagen, nuevaImg);
+			// Obtiene el url de la imagen
+			const urlImagen = await procesaArchImg(archImagen, nuevaImg);
 
-		// Si no se recibió ninguna imagen, interrumpe la función
-		if (!urlImagen) return;
+			// Si no se recibió ninguna imagen, interrumpe la función
+			if (!urlImagen) return;
 
-		// Actualiza vista
-		nuevoModeloVista.removeAttribute("id");
-		DOM.carrImgs.appendChild(nuevoModeloVista);
+			// Actualiza vista
+			nuevoModeloVista.removeAttribute("id");
+			DOM.carrImgs.appendChild(nuevoModeloVista);
 
-		// Actualiza la variable donde se almacenan los url de cada imagen
-		urlsCarrusel.push(urlImagen);
+			// Actualiza la variable donde se almacenan los url de cada imagen
+			urlsCarrusel.push(urlImagen);
+		}
 
 		// Fin
 		return;

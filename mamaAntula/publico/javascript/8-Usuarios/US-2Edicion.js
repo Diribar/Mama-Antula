@@ -38,7 +38,8 @@ window.addEventListener("load", async () => {
 			if (!archsImagen.length) return;
 
 			// Acciones si no se cargó una imagen
-			const nuevaImagen = await procesaArchImg(archsImagen, vistaImagen);
+			const archImagen = archsImagen[0];
+			const nuevaImagen = await procesaArchImg(archImagen, vistaImagen);
 			if (!nuevaImagen) {
 				v.errores = {imagen: "El archivo no pudo ser leído como imagen", hay: true};
 				this.respuestas("imagen");
