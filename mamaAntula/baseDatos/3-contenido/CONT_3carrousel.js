@@ -1,5 +1,5 @@
 export default (sequelize, dt) => {
-	const alias = "imgsCarrusel";
+	const alias = "carrusel";
 	const columns = {
 		// Referencias
 		contenido_id: {type: dt.INTEGER},
