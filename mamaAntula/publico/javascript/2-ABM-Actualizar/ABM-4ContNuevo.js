@@ -31,7 +31,7 @@ window.addEventListener("load", async () => {
 
 	// Funciones
 	const creaElForm = {
-		consolidado: async function () {
+		consolidado: function () {
 			// Crea el form
 			v.formData = new FormData();
 			this.encabezado();
@@ -136,7 +136,7 @@ window.addEventListener("load", async () => {
 		v.nombrePestanaActiva = document.querySelector("#pestanasGuardar .pestana.activo")?.id;
 
 		// Crea el form
-		await creaElForm.consolidado();
+		creaElForm.consolidado();
 
 		// Guarda la información en la BD
 		const ruta = v.nombrePestanaActiva == "carrusel" ? "guardaCarrusel" : "guardaContenido";
