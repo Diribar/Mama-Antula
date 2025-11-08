@@ -36,7 +36,12 @@
 		}
 
 		/* Auxiliar */
-		.leyenda {max-width: fit-content; text-align: center; text-wrap: balance;}
+		&.contImagenLeyenda .leyenda {max-width: 70%;}
+		.contImagenLeyenda .leyenda {max-width: 100%;}
+		.leyenda {
+			font-style: italic; color: var(--grisInterm);
+			text-align: center; text-wrap: balance; padding-block: 6px;
+		}
 	}
 	.iconos .fa-trash-can {color: var(--rojoOscuro)}
 }
