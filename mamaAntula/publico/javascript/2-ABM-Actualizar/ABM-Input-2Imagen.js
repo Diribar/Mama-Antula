@@ -40,7 +40,7 @@ window.addEventListener("load", async () => {
 			);
 
 		// Conversor a JPG
-		if (tipo != "image/jpg") urlImagen = await conversorJpg[tipo](urlImagen);
+		if (tipo != "image/jpg") urlImagen = await conversorJpg(urlImagen);
 
 		// Actualiza variables
 		archImagen = urlImagen;

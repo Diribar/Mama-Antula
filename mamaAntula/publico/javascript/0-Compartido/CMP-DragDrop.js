@@ -31,38 +31,38 @@ const procesaArchImg = (file, vistaImagen) =>
 		reader.onerror = () => resolve(null);
 	});
 
-const conversorJpg = {
-	webp: async (file) => {
-		// 🟢 1. Crea un objeto Image y carga el archivo WebP desde una URL temporal
-		const img = new Image();
-		const objectURL = URL.createObjectURL(file);
-		img.src = objectURL;
-		await img.decode();
+const conversorJpg = async (file, tipo) => {
+	// 🟢 1. Crea un objeto Image y carga el archivo desde una URL temporal
+	const img = new Image();
+	const objectURL = URL.createObjectURL(file);
+	img.src = objectURL;
+	await img.decode();
 
-		// 🧹 2. Libera la URL temporal (previene fugas de memoria)
-		URL.revokeObjectURL(objectURL);
+	// 🧹 2. Libera la URL temporal (previene fugas de memoria)
+	URL.revokeObjectURL(objectURL);
 
-		// 🎨 3. Ajusta el tamaño del canvas solo si cambió
-		if (canvas.width !== img.width || canvas.height !== img.height) {
-			canvas.width = img.width;
-			canvas.height = img.height;
-		} else {
-			// Limpia si el tamaño es igual (evita restos de imagen anterior)
-			ctx.clearRect(0, 0, canvas.width, canvas.height);
-		}
+	// 🎨 3. Ajusta el tamaño del canvas solo si cambió
+	if (canvas.width !== img.width || canvas.height !== img.height) {
+		canvas.width = img.width;
+		canvas.height = img.height;
+	} else {
+		// Limpia si el tamaño es igual (evita restos de imagen anterior)
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+	}
 
-		// 🖌️ 4. Dibuja la imagen WebP en el canvas
-		ctx.drawImage(img, 0, 0);
+	// 🖌️ 4. Dibuja la imagen en el canvas
+	ctx.fillStyle = "white"; // sobre fondo blanco
+	ctx.fillRect(0, 0, canvas.width, canvas.height);
+	ctx.drawImage(img, 0, 0);
 
-		// 🔄 5. Convierte el contenido del canvas en un Blob JPEG (calidad 90%)
-		const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/jpeg", 0.9));
+	// 🔄 5. Convierte el contenido del canvas en un Blob JPEG (calidad 90%)
+	const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/jpeg", 0.9));
 
-		// 🧾 6. Crea un nuevo archivo con el mismo nombre pero extensión .jpg
-		const baseName = file.name.replace(/\.[^/.]+$/, ""); // quita cualquier extensión
-		const nuevoNombre = baseName + ".jpg";
-		const nuevoFile = new File([blob], nuevoNombre, {type: "image/jpeg"});
+	// 🧾 6. Crea un nuevo archivo con el mismo nombre pero extensión .jpg
+	const baseName = file.name.replace(/\.[^/.]+$/, ""); // quita cualquier extensión
+	const nuevoNombre = baseName + ".jpg";
+	const nuevoFile = new File([blob], nuevoNombre, {type: "image/jpeg"});
 
-		// Fin
-		return nuevoFile;
-	},
+	// Fin
+	return nuevoFile;
 };
