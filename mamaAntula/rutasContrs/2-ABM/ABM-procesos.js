@@ -39,24 +39,63 @@ export default {
 	eliminaDepends: async (entidad, id) => {
 		// Obtiene los contenidos y los elimina
 		const campo_id = comp.contenido.obtieneCampo_id(entidad);
-		const contenidos = await baseDatos.obtieneTodosPorCondicion("contenidos", {[campo_id]: id}, "imgsCarrousel");
+		const contenidos = await baseDatos.obtieneTodosPorCondicion("contenidos", {[campo_id]: id}, "imgsCarrusel");
 		if (!contenidos.length) return;
 
-		// Elimina los carrouseles
+		// Elimina los carruseles
 		const espera = [];
 		for (const contenido of contenidos) {
 			// Obtiene la ruta del archivo
 			const ruta = contenido.statusRegiastro_id == creado_id ? carpRevisar : carpContenido;
 
-			// Carrouseles
-			for (const imgCarrousel of contenido.imgsCarrousel) comp.gestionArchs.elimina(ruta, imgCarrousel.imagen);
-			await baseDatos.eliminaPorCondicion("imgsCarrousel", {contenido_id: contenido.id});
+			// Carruseles
+			for (const imgCarrusel of contenido.imgsCarrusel) comp.gestionArchs.elimina(ruta, imgCarrusel.imagen);
+			await baseDatos.eliminaPorCondicion("imgsCarrusel", {contenido_id: contenido.id});
 
 			// Contenidos
 			if (contenido.imagen) comp.gestionArchs.elimina(ruta, contenido.imagen);
 			espera.push(baseDatos.eliminaPorId("contenidos", contenido.id));
 		}
 		await Promise.all(espera);
+
+		// Fin
+		return;
+	},
+	// API guardaContenido - obtiene el orden de contenido
+	obtieneOrdenContenidos: async ({campo_id, encabezado_id}) => {
+		// Variables
+		let orden = 1;
+
+		// Averigua si ya hay algún registro para ese 'campo_id'
+		const registrosActuales = await baseDatos.obtieneTodosPorCondicion("contenidos", {[campo_id]: encabezado_id});
+
+		// Acciones si lo hay
+		if (registrosActuales.length) {
+			// Averigua cuál es el orden de mayor valor
+			const ordenes = registrosActuales.map((n) => n.orden);
+			const maxOrden = Math.max(...ordenes);
+
+			// Suma 1 y lo guarda en el orden
+			orden = maxOrden + 1;
+		}
+
+		// Fin
+		return orden;
+	},
+	// API guar
+	guardaImgsCarrusel: async (imagenes, contenido_id, creadoPor_id) => {
+		// Si no hay imagenes, interrumpe la función
+		if (!imagenes) return;
+
+		// Guarda las imágenes
+		imagenes.forEach((imagen, i) => {
+			// Variables
+			const orden = i + 1;
+			const registro = {contenido_id, orden, imagen, creadoPor_id};
+
+			// Guarda el registro
+			baseDatos.agregaRegistroIdCorrel("imgsCarrusel", registro);
+		});
 
 		// Fin
 		return;

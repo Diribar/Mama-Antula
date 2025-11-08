@@ -104,37 +104,24 @@ export default {
 	},
 	guardaContenido: async (req, res) => {
 		// Variables
-		const {pestanaActiva, campo_id, encabezado_id} = req.body;
-		const camposGuardar = ["carta_id", "encab_id", "texto", "imagen", "video", "leyenda"];
-		const datos = {};
+		const {campo_id, encabezado_id} = req.body;
+		const creadoPor_id = req.session.usuario.id;
+		const datos = {creadoPor_id};
 
-		// Guarda los datos útiles
+		// Obtiene los datos útiles
+		const camposGuardar = ["carta_id", "encab_id", "texto", "imagen", "video", "leyenda"];
 		for (const campo of camposGuardar) if (req.body[campo]) datos[campo] = req.body[campo];
 
-		// Guarda la imagen
+		// Descarga la/s imagen/es
 		if (req.file) await comp.gestionArchs.descarga(carpRevisar, datos.imagen, req.file);
+		if (req.files) req.files.forEach((file, i) => comp.gestionArchs.descarga(carpRevisar, datos.imagens[i], file));
 
-		// Arma los datos
-		if (pestanaActiva == "carrousel") {
-		}
-		// En caso que no sea carrousel
-		else {
-			// Averigua si ya hay algún registro para ese campo_id
-			const registrosActuales = await baseDatos.obtieneTodosPorCondicion("contenidos", {[campo_id]: encabezado_id});
+		// Averigua el orden y guarda el registro
+		datos.orden = procesos.obtieneOrdenContenidos({campo_id, encabezado_id});
+		const {id: contenido_id} = await baseDatos.agregaRegistroIdCorrel("contenidos", datos);
 
-			// Acciones si lo hay
-			if (registrosActuales.length) {
-				// Averigua cuál es el orden de mayor valor
-				const ordenes = registrosActuales.map((n) => n.orden);
-				const maxOrden = Math.max(...ordenes);
-
-				// Suma 1 y lo guarda en el orden
-				datos.orden = maxOrden + 1;
-			}
-
-			// Guarda el registro
-			await baseDatos.agregaRegistroIdCorrel("contenidos", datos);
-		}
+		// Guarda las imgsCarrusel
+		await guardaImgsCarrusel(req.body.imagens, contenido_id, creadoPor_id);
 
 		// Fin
 		return res.json({});
@@ -143,12 +130,12 @@ export default {
 		// Variables
 		const {id} = req.body;
 		if (!id) return res.json({});
-		const contenido = await baseDatos.obtienePorId("contenidos", id, "imgsCarrousel");
+		const contenido = await baseDatos.obtienePorId("contenidos", id, "imgsCarrusel");
 		const ruta = contenido.statusRegistro_id == creado_id ? carpRevisar : carpContenido;
 
-		// Carrouseles
-		for (const imgCarrousel of contenido.imgsCarrousel) comp.gestionArchs.elimina(ruta, imgCarrousel.imagen, true);
-		await baseDatos.eliminaPorCondicion("imgsCarrousel", {contenido_id: id});
+		// Carruseles
+		for (const imgCarrusel of contenido.imgsCarrusel) comp.gestionArchs.elimina(ruta, imgCarrusel.imagen, true);
+		await baseDatos.eliminaPorCondicion("imgsCarrusel", {contenido_id: id});
 
 		// Contenidos
 		if (contenido.imagen) comp.gestionArchs.elimina(ruta, contenido.imagen, true);

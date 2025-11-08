@@ -11,6 +11,7 @@ window.addEventListener("load", async () => {
 		textoInput: document.querySelector("#texto .input"),
 		videoInput: document.querySelector("#video .input"),
 		leyendaImagen: document.querySelector("#imagen [name='leyenda']"),
+		leyendaCarrusel: document.querySelector("#carrusel [name='leyenda']"),
 
 		// Ouputs
 		iconoGuardar: document.querySelector("#pestanasGuardar #iconoGuardar"),
@@ -24,6 +25,7 @@ window.addEventListener("load", async () => {
 	};
 	const rutas = {
 		guardaContenido: "/contenido/api/abm-guarda-contenido",
+		guardaCarrusel: "/contenido/api/abm-guarda-carrusel",
 	};
 	const v = {};
 
@@ -32,20 +34,18 @@ window.addEventListener("load", async () => {
 		consolidado: function () {
 			// Crea el form
 			v.formData = new FormData();
-
-			// Encabezado
 			this.encabezado();
 
-			// Inputs
-			v.formData.append("pestanaActiva", v.nombrePestanaActiva);
+			// Le agrega info en función de la pestaña
 			if (["textoImagen", "texto"].includes(v.nombrePestanaActiva)) v.formData.append("texto", DOM.textoOutput.value);
-			if (v.nombrePestanaActiva == "video") this.video();
 			if (["textoImagen", "imagen"].includes(v.nombrePestanaActiva)) this.imagen();
-			if (v.nombrePestanaActiva == "carrousel") return;
+			if (v.nombrePestanaActiva == "carrusel") this.carrusel();
+			if (v.nombrePestanaActiva == "video") this.video();
 
 			// Fin
 			return;
 		},
+		// Partes del form
 		encabezado: () => {
 			// Encabezado
 			const encabezado_id = DOM.filtroEncab.value;
@@ -59,23 +59,29 @@ window.addEventListener("load", async () => {
 			// Fin
 			return;
 		},
-		imagen: () => {
-			// Si se subió un archivo, le agrega los valores
-			if (archImagen) {
-				// El archivo de imagen
-				v.formData.append("archivo", archImagen);
+		imagen: function () {
+			// Si no se subió un archivo, interrumpe la función
+			if (!archImagen) return;
 
-				// La leyenda de la imagen
-				v.formData.append("leyenda", DOM.leyendaImagen.value);
+			// Agrega el archivo de la imagen
+			this.archImg(archImagen, "");
+			// archImagen = null;
 
-				// Datos para validar la imagen
-				v.formData.append("imagen", archImagen.name);
-				v.formData.append("tamano", archImagen.size);
-				v.formData.append("tipo", archImagen.type);
+			// Agrega la leyenda de la imagen
+			v.formData.append("leyenda", DOM.leyendaImagen.value);
 
-				// Fin
-				archImagen = null;
-			}
+			// Fin
+			return;
+		},
+		carrusel: function () {
+			// Si no se subieron por lo menos 2 archivos, interrumpe la función
+			if (!urlsCarrusel || urlsCarrusel.length < 2) return;
+
+			// Agrega las imágenes
+			for (const urlCarrusel of urlsCarrusel) this.archImg(urlCarrusel, "s");
+
+			// Agrega la leyenda del carrusel
+			v.formData.append("leyenda", DOM.leyendaCarrusel.value);
 
 			// Fin
 			return;
@@ -84,6 +90,20 @@ window.addEventListener("load", async () => {
 			// Video y leyenda
 			v.formData.append("video", DOM.outputVideoId.value);
 			v.formData.append("leyenda", DOM.muestraLeyendaVideo.innerText);
+
+			// Fin
+			return;
+		},
+
+		// Varios
+		archImg: (archivo, s) => {
+			// El archivo de imagen
+			v.formData.append("archivo" + s, archivo);
+
+			// Datos para validar la imagen
+			v.formData.append("imagen" + s, archivo.name);
+			v.formData.append("tamano" + s, archivo.size);
+			v.formData.append("tipo" + s, archivo.type);
 
 			// Fin
 			return;
@@ -105,7 +125,6 @@ window.addEventListener("load", async () => {
 		return;
 	});
 
-
 	// Guarda los cambios
 	DOM.sectorContNuevo.addEventListener("input", () => DOM.iconoGuardar.classList.remove("inactivo"));
 	DOM.iconoGuardar.addEventListener("click", async () => {
@@ -119,8 +138,9 @@ window.addEventListener("load", async () => {
 		// Crea el form
 		creaElForm.consolidado();
 
-		// Guarda el contenido en la BD
-		await fetch(rutas.guardaContenido, postForm(v.formData)).then((n) => n.json());
+		// Guarda la información en la BD
+		const ruta = v.nombrePestanaActiva == "carrusel" ? "guardaCarrusel" : "guardaContenido";
+		await fetch(rutas[ruta], postForm(v.formData)).then((n) => n.json());
 
 		// Recarga la vista, para que limpie todo
 		location.reload();

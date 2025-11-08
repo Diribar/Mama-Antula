@@ -11,7 +11,7 @@
 	}
 	#texto {
 		flex-grow: 1;
-		.barraHerrams {border-radius: 10px 10px 0 0;}
+		.barraHerrams {border-radius: 10px 10px 0 0; max-width: fit-content;}
 		.input {
 			border-top: 1px solid #ccc; border-radius: 15px; border-top-left-radius: 0; font-size: 1rem;
 			.ql-editor p {margin-bottom: 15px;}
@@ -21,12 +21,12 @@
 		max-width: 33%;
 		#areaSoltar {width: 100%; flex-grow: 1; border-radius: 5px;}
 	}
-	#carrousel {
+	#carrusel {
 		--lado: 200px; --gap: 20px;
 		border: 1px solid grey;
 		flex-direction: row !important; gap: var(--gap);
 
-		/* Carrousel de imágenes */
+		/* Carrusel de imágenes */
 		#carrImgs {
 			max-width: calc(100% - var(--lado) - var(--gap)); overflow-x: auto;
 			display: flex; flex-direction: row; gap: var(--gap);

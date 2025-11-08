@@ -2,7 +2,7 @@
 
 window.addEventListener("load", async () => {
 	// Variables
-	const domLayout = document.querySelector("#sectorContNuevo #layouts #carrousel");
+	const domLayout = document.querySelector("#sectorContNuevo #layouts #carrusel");
 	const DOM = {
 		// Drag & Drop
 		dragDrop: domLayout.querySelector("#dragDrop"),
@@ -14,7 +14,7 @@ window.addEventListener("load", async () => {
 		modeloVista: domLayout.querySelector("#modeloVista"),
 		modeloVistaImg: domLayout.querySelector("#modeloVista img"),
 
-		// Carrousel de imágenes
+		// Carrusel de imágenes
 		carrImgs: domLayout.querySelector("#carrImgs"),
 	};
 	const v = {
@@ -38,8 +38,8 @@ window.addEventListener("load", async () => {
 		nuevoModeloVista.removeAttribute("id");
 		DOM.carrImgs.appendChild(nuevoModeloVista);
 
-		// Actualiza variables
-		archCarrousel.push(urlImagen);
+		// Actualiza la variable donde se almacenan los url de cada imagen
+		urlsCarrusel.push(urlImagen);
 
 		// Fin
 		return;
@@ -53,7 +53,7 @@ window.addEventListener("load", async () => {
 
 		// Elimina el hijo
 		DOM.carrImgs.removeChild(domEliminar[indice].parentNode);
-		archCarrousel.splice(indice, 1);
+		urlsCarrusel.splice(indice, 1);
 	});
 
 	// Eventos nueva imagen
@@ -81,4 +81,4 @@ window.addEventListener("load", async () => {
 });
 
 // Variables
-let archCarrousel = [];
+let urlsCarrusel = [];

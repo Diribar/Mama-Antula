@@ -10,8 +10,7 @@
 		&.texto p {margin-bottom: 10px;}
 		:where(&.contImagenLeyenda, .contImagenLeyenda) {
 			display: flex; flex-direction: column; align-items: center;
-			width: min-content;
-			.imagen {max-height: 300px;}
+			.imagen {max-height: 300px; max-width: 100%;}
 		}
 		&:has(iframe) {
 			display: flex; flex-direction: column; align-items: center;
