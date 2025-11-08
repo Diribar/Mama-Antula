@@ -33,17 +33,21 @@ window.addEventListener("load", async () => {
 
 	// Funciones
 	const FN = {
-		nuevaImagen: async function (archImagen, vistaImagen) {
+		nuevaImagen: async function (archsImagen, vistaImagen) {
+			// Si no existen archivos, interrumpe la función
+			if (!archsImagen.length) return;
+
 			// Acciones si no se cargó una imagen
-			const nuevaImagen = await procesaArchImg(archImagen, vistaImagen);
-			if (!nuevaImagen) {
+			const archImagen = archsImagen[0];
+			const urlImagen = await procesaArchImg(archImagen, vistaImagen);
+			if (!urlImagen) {
 				v.errores = {imagen: "El archivo no pudo ser leído como imagen", hay: true};
 				this.respuestas("imagen");
 				return;
 			}
 
 			// Actualiza variables
-			v.archivoImgSubido = nuevaImagen;
+			v.archivoImgSubido = urlImagen;
 			const {name: imagen, size: tamano, type: tipo} = v.archivoImgSubido;
 			v.datos = {...v.datos, imagen, tamano, tipo};
 			v.errores = {};

@@ -34,7 +34,7 @@ window.addEventListener("load", async () => {
 			}
 
 			// Obtiene los íconos
-			this.eventos();
+			this.iconosEventos();
 
 			// Fin
 			return;
@@ -63,9 +63,9 @@ window.addEventListener("load", async () => {
 			return;
 		},
 		agregaBloqueEdicion: () => {},
-		eventos: () => {
-			const eventos = ["Eliminar"];
-			for (const evento of eventos) {
+		iconosEventos: () => {
+			const iconosEventos = ["Eliminar"];
+			for (const evento of iconosEventos) {
 				DOM["iconos" + evento] = document.querySelectorAll("#sectorContActual .iconos .icono" + evento);
 				for (const icono of DOM["iconos" + evento]) eventosClick["icono" + evento](icono);
 			}
@@ -88,10 +88,10 @@ window.addEventListener("load", async () => {
 					v.domContenido.appendChild(this.texto(contenido));
 					v.domContenido.classList.add("textoImagen");
 				}
+				// Carrusel
+				else if (contenido.carrusel.length) this.carrusel(contenido);
 				// Video
 				else if (contenido.video) this.video(contenido);
-				// Carrusel
-				else if (contenido.carrusel.length) null;
 
 				// Fin
 				return;
@@ -124,6 +124,24 @@ window.addEventListener("load", async () => {
 				// Fin
 				return contenedor;
 			},
+			carrusel: function (contenido) {
+				// Crea el contenedor
+				const contenedor = document.createElement("div");
+				contenedor.classList.add("contImagenLeyenda");
+
+				// Crea el carrusel
+				v.carrImgs = document.createElement("div");
+				v.carrImgs.classList.add("carrImgs");
+				this.agregaImgsCrsl(contenido);
+				v.domContenido.appendChild(v.carrImgs);
+
+				// Crea la leyenda
+				const domLeyenda = this.leyenda(contenido);
+				v.domContenido.appendChild(domLeyenda);
+
+				// Fin
+				return;
+			},
 			video: function (contenido) {
 				// Crea el iframe
 				const iframe = document.createElement("iframe");
@@ -137,11 +155,30 @@ window.addEventListener("load", async () => {
 				// Fin
 				return;
 			},
+
+			// Auxiliares
+			agregaImgsCrsl: (contenido) => {
+				// Recorre el carrusel
+				for (const registro of contenido.carrusel) {
+					// Variables
+					const subCarpeta = registro.statusRegistro_id == 1 ? "2-Revisar/" : "1-Contenido/";
+
+					// Crea el domImagen
+					const img = document.createElement("img");
+					img.src = "/imgsEditables/" + subCarpeta + registro.imagen;
+
+					// La agrega al padre
+					v.carrImgs.appendChild(img);
+				}
+
+				// Fin
+				return;
+			},
 			leyenda: (contenido) => {
 				// Crea el contenedor
 				const domLeyenda = document.createElement("div");
-				domLeyenda.innerHTML = contenido.leyenda;
 				domLeyenda.classList.add("leyenda");
+				domLeyenda.innerHTML = contenido.leyenda;
 
 				// Fin
 				return domLeyenda;

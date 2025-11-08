@@ -18,13 +18,17 @@ window.addEventListener("load", async () => {
 	};
 
 	// Funciones
-	const obtieneNuevaImagen = async function (archivoImg) {
+	const obtieneNuevaImagen = async function (archsImagen) {
+		// Si no existen archivos, interrumpe la función
+		if (!archsImagen.length) return;
+
 		// Acciones si no se cargó una imagen
-		const nuevaImagen = await procesaArchImg(archivoImg, DOM.vistaImagen);
-		if (!nuevaImagen) return;
+		const archInput = archsImagen[0];
+		const urlImagen = await procesaArchImg(archInput, DOM.vistaImagen);
+		if (!urlImagen) return;
 
 		// Actualiza variables
-		archImagen = nuevaImagen;
+		archImagen = urlImagen;
 
 		// Fin
 		return;

@@ -23,28 +23,35 @@ window.addEventListener("load", async () => {
 	};
 
 	// Funciones
-	const obtieneNuevaImagen = async function (archivoImg) {
-		// Crea un nuevo hijo
-		const nuevoModeloVista = DOM.modeloVista.cloneNode(true);
-		const nuevaImg = nuevoModeloVista.querySelector("img");
+	const obtieneNuevaImagen = async function (archsImagen) {
+		// Si no existen archivos, interrumpe la función
+		if (!archsImagen.length) return;
 
-		// Obtiene el url de la imagen
-		const urlImagen = await procesaArchImg(archivoImg, nuevaImg);
+		// Recorre los archivos
+		for (const archImagen of archsImagen) {
+			// Crea un nuevo hijo
+			const nuevoModeloVista = DOM.modeloVista.cloneNode(true);
+			const nuevaImg = nuevoModeloVista.querySelector("img");
 
-		// Si no se recibió ninguna imagen, interrumpe la función
-		if (!urlImagen) return;
+			// Obtiene el url de la imagen
+			const urlImagen = await procesaArchImg(archImagen, nuevaImg);
 
-		// Actualiza vista
-		nuevoModeloVista.removeAttribute("id");
-		DOM.carrImgs.appendChild(nuevoModeloVista);
+			// Si no se recibió ninguna imagen, interrumpe la función
+			if (!urlImagen) return;
 
-		// Actualiza la variable donde se almacenan los url de cada imagen
-		urlsCarrusel.push(urlImagen);
+			// Actualiza vista
+			nuevoModeloVista.removeAttribute("id");
+			DOM.carrImgs.appendChild(nuevoModeloVista);
+
+			// Actualiza la variable donde se almacenan los url de cada imagen
+			urlsCarrusel.push(urlImagen);
+		}
 
 		// Fin
 		return;
 	};
 
+	// Eventos - Elimina una imagen
 	DOM.carrImgs.addEventListener("click", (e) => {
 		// Obtiene el indice
 		const domEliminar = DOM.carrImgs.querySelectorAll(".eliminar");
