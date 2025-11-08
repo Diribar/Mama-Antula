@@ -31,19 +31,25 @@ const procesaArchImg = (file, vistaImagen) =>
 		reader.onerror = () => resolve(null);
 	});
 
-const conversorAjpg = {
+const conversorJpg = {
 	webp: async (file) => {
 		// 🟢 1. Crea un objeto Image y carga el archivo WebP desde una URL temporal
 		const img = new Image();
-		img.src = URL.createObjectURL(file);
+		const objectURL = URL.createObjectURL(file);
+		img.src = objectURL;
 		await img.decode();
 
-		// 🧹 2. Libera la URL temporal para evitar fugas de memoria
-		URL.revokeObjectURL(img.src);
+		// 🧹 2. Libera la URL temporal (previene fugas de memoria)
+		URL.revokeObjectURL(objectURL);
 
-		// 🎨 3. Crea un canvas del mismo tamaño que la imagen original
-		canvas.width = img.width;
-		canvas.height = img.height;
+		// 🎨 3. Ajusta el tamaño del canvas solo si cambió
+		if (canvas.width !== img.width || canvas.height !== img.height) {
+			canvas.width = img.width;
+			canvas.height = img.height;
+		} else {
+			// Limpia si el tamaño es igual (evita restos de imagen anterior)
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+		}
 
 		// 🖌️ 4. Dibuja la imagen WebP en el canvas
 		ctx.drawImage(img, 0, 0);
