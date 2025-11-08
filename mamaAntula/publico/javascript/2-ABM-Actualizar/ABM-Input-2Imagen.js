@@ -39,10 +39,8 @@ window.addEventListener("load", async () => {
 				"El tipo de imagen '" + tipo + "' no es admitido (sólo se aceptan tipos " + v.tiposAdmitidos.join(", ") + ")"
 			);
 
-		// Conversores a JPG
-		console.log(urlImagen.type);
+		// Conversor a JPG
 		if (tipo != "image/jpg") urlImagen = await conversorJpg[tipo](urlImagen);
-		console.log(urlImagen.type);
 
 		// Actualiza variables
 		archImagen = urlImagen;
