@@ -23,10 +23,10 @@ window.addEventListener("load", async () => {
 		if (!archsImagen.length) return;
 
 		// Obtiene el url de la imagen
-		let urlImagen = await procesaArchImg(archsImagen[0], DOM.vistaImagen);
+		const urlImagen = await procesaArchImg(archsImagen[0], DOM.vistaImagen);
 		if (!urlImagen) return;
 
-		// Actualiza la variable donde se almacena el url de la imagen
+		// IMG - Actualiza la variable donde se almacena el url de la imagen
 		archImagen = urlImagen;
 
 		// Fin
