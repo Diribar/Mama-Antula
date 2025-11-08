@@ -4,6 +4,8 @@
 	padding-block: 15px;
 
 	.contenido {
+		a {color: var(--terracota); text-decoration: underline;}
+
 		/* Texto con imagen */
 		&.textoImagen .contImagenLeyenda {float: right; margin-left: 30px; margin-bottom: 15px; max-width: 33%;}
 

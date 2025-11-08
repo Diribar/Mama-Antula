@@ -58,9 +58,10 @@ window.addEventListener("load", async () => {
 			const urlTema = "/" + comp1234.temasSecciones.find((n) => n.id == comp1234.tema_id).url;
 			const urlPestana =
 				(comp1234.pestana_id && "/" + comp1234.pestanasTemas.find((n) => n.id == comp1234.pestana_id).url) || "";
+			const urlEncabezado = (v.encabezado_id && "/" + v.encabezado_id) || "";
 
 			// Actualiza el DOM
-			DOM.anchorLectura.href = urlSeccion + urlTema + urlPestana + "/" + v.encabezado_id;
+			DOM.anchorLectura.href = urlSeccion + urlTema + urlPestana + urlEncabezado;
 
 			// Fin
 			return;
