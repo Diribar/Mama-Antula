@@ -36,7 +36,9 @@ window.addEventListener("load", async () => {
 		const tipo = urlImagen.type.split("/")[1];
 		console.log(tipo);
 		if (!v.tiposAdmitidos.includes(tipo))
-			return console.log("El tipo de imagen '" + tipo + "' no es admitido (sólo se aceptan tipos jpg, jpeg, png y webp)");
+			return console.log(
+				"El tipo de imagen '" + tipo + "' no es admitido (sólo se aceptan tipos " + v.tiposAdmitidos.join(", ") + ")"
+			);
 
 		// Conversores a JPG
 		console.log(urlImagen.type);
