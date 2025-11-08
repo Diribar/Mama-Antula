@@ -29,13 +29,14 @@ window.addEventListener("load", async () => {
 		if (!urlImagen) return;
 
 		// Valida que sea una archivo de imagen
-		if (!urlImagen.type.startsWith("image/")) return console.log("El archivo no es una imagen. El tipo es " + urlImagen.type);
+		if (!urlImagen.type.startsWith("image/"))
+			return console.log("El tipo de archivo '" + urlImagen.type + "' no es una imagen");
 
 		// Valida el tipo de archivo
 		const tipo = urlImagen.type.split("/")[1];
 		console.log(tipo);
 		if (!v.tiposAdmitidos.includes(tipo))
-			return console.log("El tipo de imagen " + tipo + " no es admitido (sólo se aceptan tipos .jpg, .jpeg, .png y .webp)");
+			return console.log("El tipo de imagen '" + tipo + "' no es admitido (sólo se aceptan tipos jpg, jpeg, png y webp)");
 
 		// Conversores a JPG
 		console.log(urlImagen.type);
