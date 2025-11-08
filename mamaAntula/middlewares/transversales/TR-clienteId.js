@@ -35,7 +35,7 @@ export default async (req, res, next) => {
 		// Si corresponde, actualiza la cookie
 		const {cliente_id} = cliente; // es el cliente_id del usuario
 		if (!req.cookies.cliente_id || req.cookies.cliente_id != cliente_id)
-			res.cookie("cliente_id", cliente_id, {maxAge: unAno});
+			res.cookie("cliente_id", cliente_id, {maxAge: unAno, path: "/"});
 	}
 
 	// Cliente: 2. Lo obtiene de la cookie
@@ -63,7 +63,7 @@ export default async (req, res, next) => {
 		cliente_id = "V" + String(cliente.id).padStart(10, "0");
 
 		// Actualiza o crea la cookie
-		res.cookie("cliente_id", cliente_id, {maxAge: unAno});
+		res.cookie("cliente_id", cliente_id, {maxAge: unAno, path: "/"});
 
 		// Actualiza el 'cliente_id' en la BD
 		await baseDatos.actualizaPorId("visitas", cliente.id, {cliente_id}); // es crítico el 'await'
