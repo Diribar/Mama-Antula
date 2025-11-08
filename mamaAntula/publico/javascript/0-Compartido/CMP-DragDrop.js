@@ -1,13 +1,20 @@
 // 🔧 Recursos reutilizables
 const canvas = document.createElement("canvas");
 const ctx = canvas.getContext("2d");
+const tiposAdmitidos = ["jpg", "jpeg", "png", "webp"];
 
 // Funciones
 const procesaArchImg = (file, vistaImagen) =>
 	new Promise((resolve) => {
-		// Si no tiene extensión de imagen o supera el tamaño maximo permitido, interrumpe la función
-		const tamMaxArch = 1024 * 1024; // 1 MB
-		if (!file.type.startsWith("image/") || file.size > tamMaxArch) return resolve(file);
+		// Variables
+		const [familia, tipo] = file.type.split("/");
+
+		// Si no es un archivo de imagen, interrumpe la función
+		if (familia != "image") return resolve(console.log("La familia '" + familia + "' del archivo no es una imagen"));
+
+		// Valida el tipo de archivo
+		const frase = "El tipo de imagen '" + tipo + "' no es admitido (sólo se aceptan tipos " + tiposAdmitidos.join(", ") + ")";
+		if (!tiposAdmitidos.includes(tipo)) return resolve(console.log(frase));
 
 		// Lee el archivo
 		const reader = new FileReader();
@@ -18,9 +25,20 @@ const procesaArchImg = (file, vistaImagen) =>
 			image.src = reader.result;
 
 			// Acciones si realmente es una imagen
-			image.onload = () => {
-				vistaImagen.src = reader.result; // hace visible la imagen
-				return resolve(file); // Resuelve la promesa con el archivo
+			image.onload = async () => {
+				// Conversor a JPG
+				if (tipo != "jpg") file = await conversorJpg(file);
+
+				// Si supera el tamaño maximo permitido, interrumpe la función
+				const tamMaxArch = 1024 * 1024; // 1 MB
+				if (file.size > tamMaxArch ) return resolve(console.log("El archivo es demasiado grande"));
+				console.log(file.size);
+
+				// hace visible la imagen
+				vistaImagen.src = reader.result;
+
+				// Resuelve la promesa con el archivo
+				return resolve(file);
 			};
 
 			// Si no es imagen, resuelve con null
