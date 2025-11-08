@@ -19,7 +19,10 @@
 	}
 	#imagen {
 		max-width: 33%; gap: 5px;
-		#areaSoltar {width: 100%; height: 162px; border-radius: 5px;}
+		#areaSoltar {
+			display: flex; flex-direction: column; align-items: center; justify-content: center;
+			width: 100%; height: 162px; border-radius: 5px;
+		}
 	}
 	#carrusel {
 		--lado: 200px; --gap: 20px;

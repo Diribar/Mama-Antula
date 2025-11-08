@@ -29,22 +29,20 @@ window.addEventListener("load", async () => {
 
 		// Recorre los archivos
 		for (const archImagen of archsImagen) {
-			// Crea un nuevo hijo
+			// CRSL - Crea un nuevo hijo
 			const nuevoModeloVista = DOM.modeloVista.cloneNode(true);
+			nuevoModeloVista.removeAttribute("id");
 			const nuevaImg = nuevoModeloVista.querySelector("img");
 
 			// Obtiene el url de la imagen
 			const urlImagen = await procesaArchImg(archImagen, nuevaImg);
-
-			// Si no se recibió ninguna imagen, interrumpe la función
 			if (!urlImagen) return;
 
-			// Actualiza vista
-			nuevoModeloVista.removeAttribute("id");
-			DOM.carrImgs.appendChild(nuevoModeloVista);
-
-			// Actualiza la variable donde se almacenan los url de cada imagen
+			// CRSL - Actualiza la variable donde se almacenan los url de cada imagen
 			urlsCarrusel.push(urlImagen);
+
+			// CRSL - Actualiza vista
+			DOM.carrImgs.appendChild(nuevoModeloVista);
 		}
 
 		// Fin
