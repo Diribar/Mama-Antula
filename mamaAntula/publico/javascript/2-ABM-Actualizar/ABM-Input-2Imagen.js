@@ -15,6 +15,7 @@ window.addEventListener("load", async () => {
 	const v = {
 		entrada: ["dragenter", "dragover"],
 		salida: ["dragleave", "drop"],
+		tiposAdmitidos: ["jpg", "jpeg", "png", "webp"],
 	};
 
 	// Funciones
@@ -24,8 +25,22 @@ window.addEventListener("load", async () => {
 
 		// Acciones si no se cargó una imagen
 		const archInput = archsImagen[0];
-		const urlImagen = await procesaArchImg(archInput, DOM.vistaImagen);
+		let urlImagen = await procesaArchImg(archInput, DOM.vistaImagen);
 		if (!urlImagen) return;
+
+		// Valida que sea una archivo de imagen
+		if (!urlImagen.type.startsWith("image/"))
+			return console.log("El tipo de archivo '" + urlImagen.type + "' no es una imagen");
+
+		// Valida el tipo de archivo
+		const tipo = urlImagen.type.split("/")[1];
+		if (!v.tiposAdmitidos.includes(tipo))
+			return console.log(
+				"El tipo de imagen '" + tipo + "' no es admitido (sólo se aceptan tipos " + v.tiposAdmitidos.join(", ") + ")"
+			);
+
+		// Conversor a JPG
+		if (tipo != "image/jpg") urlImagen = await conversorJpg[tipo](urlImagen);
 
 		// Actualiza variables
 		archImagen = urlImagen;
