@@ -31,7 +31,7 @@ const procesaArchImg = (file, vistaImagen) =>
 		reader.onerror = () => resolve(null);
 	});
 
-const conversorJpg = async (file, tipo) => {
+const conversorJpg = async (file) => {
 	// 🟢 1. Crea un objeto Image y carga el archivo desde una URL temporal
 	const img = new Image();
 	const objectURL = URL.createObjectURL(file);
