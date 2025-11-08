@@ -34,7 +34,6 @@ window.addEventListener("load", async () => {
 
 		// Valida el tipo de archivo
 		const tipo = urlImagen.type.split("/")[1];
-		console.log(tipo);
 		if (!v.tiposAdmitidos.includes(tipo))
 			return console.log(
 				"El tipo de imagen '" + tipo + "' no es admitido (sólo se aceptan tipos " + v.tiposAdmitidos.join(", ") + ")"
