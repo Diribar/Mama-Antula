@@ -8,7 +8,7 @@ export default {
 		const codigoVista = "temas";
 		let {urlSeccion, urlTema} = req.params;
 		urlSeccion = urlSeccion || "inicio";
-		urlTema = urlTema || "novedades";
+		urlTema = urlTema || "quien-es-mama-antula";
 
 		// Sección
 		const seccionActual = secciones.find((n) => n.url == urlSeccion);
