@@ -31,8 +31,9 @@ window.addEventListener("load", async () => {
 			this.actualizaLaVisibilidadDelSector();
 			if (DOM.sectorEncabezado.classList.contains("ocultar")) return;
 
-			// Muestra el encabezado que corresponde
-			this.muestraElEncabezadoQueCorresponde();
+			// Muestra el encabezado que corresponde, y oculta los demás
+			for (const encabezado of DOM.encabezados)
+				encabezado.classList[encabezado.id == comp1234.tipoEncab ? "remove" : "add"]("ocultar");
 
 			// Si el encabezado está visible, actualiza sus valores
 			this.actualizaSusValores();
@@ -46,14 +47,6 @@ window.addEventListener("load", async () => {
 			// Si es 'sin índice' y viene de un tema, lo oculta porque sus campos no poseen ningún valor
 			if (!comp1234.conIndice && !DOM.filtroPestana.value) DOM.sectorEncabezado.classList.add("ocultar");
 			else DOM.sectorEncabezado.classList.remove("ocultar");
-
-			// Fin
-			return;
-		},
-		muestraElEncabezadoQueCorresponde: () => {
-			// Muestra el encabezado que corresponde, y oculta los demás
-			for (const encabezado of DOM.encabezados)
-				encabezado.classList[encabezado.id == comp1234.tipoEncab ? "remove" : "add"]("ocultar");
 
 			// Fin
 			return;

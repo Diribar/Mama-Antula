@@ -7,7 +7,13 @@
 		a {color: var(--terracota); text-decoration: underline;}
 
 		/* Texto con imagen */
-		&.textoImagen .contImagenLeyenda {float: right; margin-left: 30px; margin-bottom: 15px; max-width: 33%;}
+		&.textoImagen {
+			.contImagenLeyenda {float: right; margin-left: 30px; margin-bottom: 15px; max-width: 33%;}
+			.texto:has(img) {
+				display: flex; flex-direction: column; align-items: center;
+				img {max-height: 300px;}
+			}
+		}
 
 		/* Texto sin imagen */
 		&.texto p {margin-bottom: 10px;}
