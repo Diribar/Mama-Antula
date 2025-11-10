@@ -1,3 +1,1 @@
-#cuerpo {
-	max-height: 100%;
-}
+#cuerpo {max-height: 100%; position: relative;}
