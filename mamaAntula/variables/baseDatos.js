@@ -8,7 +8,7 @@ export default {
 			secciones: baseDatos.obtieneTodosConOrden("secciones", "orden"),
 			temasSecciones: baseDatos.obtieneTodos("temasSecciones", "indices").then((n) => n.sort((a, b) => a.orden - b.orden)),
 			pestanasTemas: baseDatos.obtieneTodosConOrden("pestanasTemas", "orden"),
-			temaIndice: baseDatos.obtieneTodosConOrden("temaIndice", "orden"),
+			indiceTemas: baseDatos.obtieneTodos("indiceTemas"),
 
 			// Cartas
 			idiomas: baseDatos.obtieneTodosConOrden("idiomas", "orden"),
@@ -50,6 +50,10 @@ export default {
 			aprobado_id: statusRegistros.find((n) => n.codigo == "aprobado").id,
 			inactivar_id: statusRegistros.find((n) => n.codigo == "inactivar").id,
 			inactivo_id: statusRegistros.find((n) => n.codigo == "inactivo").id,
+
+			// Otros
+			indiceCartas: indiceTemas.filter((n) => n.tema_id == 10).sort((a, b) => (a.fechaDesde < b.fechaDesde ? -1 : 1)), // el tema_id es el de cartas
+			indiceResto: indiceTemas.filter((n) => n.tema_id != 10).sort((a, b) => (b.fechaDesde < a.fechaDesde ? -1 : 1)),
 		};
 
 		// Fin

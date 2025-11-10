@@ -1,14 +1,14 @@
 export default (sequelize, dt) => {
-	const alias = "temaIndice";
+	const alias = "indiceTemas";
 	const columns = {
 		// Referencias
 		tema_id: {type: dt.INTEGER},
 
 		// Otros
-		nombre: {type: dt.STRING(20)},
+		nombre: {type: dt.STRING(15)},
+		codigo: {type: dt.STRING(15)},
 		fechaDesde: {type: dt.DATE},
 		fechaHasta: {type: dt.DATE},
-		orden: {type: dt.INTEGER},
 	};
 	const config = {
 		tableName: "nivel_indices",
