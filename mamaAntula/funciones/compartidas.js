@@ -163,21 +163,24 @@ export default {
 				return encabs;
 			},
 			encabCarta: (encab) => {
-				const tituloCons = encab
-					? "Carta " +
-					  encab.numero +
-					  " - " +
-					  (encab.nombreDesde.nombre.startsWith("P.") ? "Del" : "De") +
-					  " " +
-					  encab.nombreDesde.nombre +
-					  " para " +
-					  (encab.nombreHacia.nombre.startsWith("P.") ? "el " : "") +
-					  encab.nombreHacia.nombre +
-					  " - " +
-					  encab.lugar.nombre +
-					  " - " +
-					  FN.diaMesAnoUTC(encab.fechaEvento)
-					: "";
+				const tituloCons =
+					encab && !encab.numero // para 'Inicio' e 'Introducción'
+						? encab.nombre
+						: encab
+						? "Carta " +
+						  encab.numero +
+						  " - " +
+						  (encab.nombreDesde.nombre.startsWith("P.") ? "Del" : "De") +
+						  " " +
+						  encab.nombreDesde.nombre +
+						  " para " +
+						  (encab.nombreHacia.nombre.startsWith("P.") ? "el " : "") +
+						  encab.nombreHacia.nombre +
+						  " - " +
+						  encab.lugar.nombre +
+						  " - " +
+						  FN.diaMesAnoUTC(encab.fechaEvento)
+						: "";
 
 				// Fin
 				return tituloCons;
