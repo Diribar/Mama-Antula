@@ -187,7 +187,9 @@ export default {
 			},
 			encabConIndice: (encabs) => {
 				for (const encab of encabs)
-					encab.tituloCons = FN.diaMesAnoUTC(encab.fechaEvento) + " - " + encab.titulo + " - " + encab.lugar.nombre;
+					encab.tituloCons = encab.titulo
+						? FN.diaMesAnoUTC(encab.fechaEvento) + " - " + encab.titulo + " - " + encab.lugar.nombre
+						: "";
 
 				// Fin
 				return encabs;

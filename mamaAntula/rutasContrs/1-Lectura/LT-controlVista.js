@@ -22,7 +22,10 @@ export default {
 
 		// Datos para la vista
 		const encabezado_id = req.query.id;
-		const {encabezado, contenidos, encabezados} = await procesos.contenidos({seccionActual, temaActual, encabezado_id});
+		const {encabezados, encabezado} = await procesos.encabezados({temaActual, encabezado_id});
+		console.log(26, encabezado);
+
+		const contenidos = await procesos.contenidos({temaActual, encabezado});
 		const tituloCarta = esCarta && comp.contenido.tituloCons.encabCarta(encabezado);
 
 		// Fin

@@ -8,20 +8,20 @@
 
 <!-- Índice -->
 <div id="indice" class="contenedor">
-	<% for (const indiceCarta of indiceCartas) { %>
+	<% for (const indice of indiceCartas) { %>
 		<!-- Rutina por indice -->
-		<% const encabsIndice = encabezados.filter((n) => n.fechaEvento >= indiceCarta.fechaDesde && n.fechaEvento <= indiceCarta.fechaHasta); %>
+		<% const encabsIndice = encabezados.filter((n) => n.fechaEvento >= indice.fechaDesde && n.fechaEvento <= indice.fechaHasta); %>
 		<% if (!encabsIndice.length) continue  %>
 		<% if (encabsIndice.length == 1) { %>
 			<!-- Indice con una sola carta -->
 			<a href="?id=<%= encabsIndice[0].id %>" class="titulo">
-				<%= indiceCarta.nombre %>
+				<%= indice.nombre %>
 			</a>
 		<% } else { %>
 			<!-- Índice con varias cartas -->
 			<div class="titulo">
 				<i class="fa-solid fa-caret-right mostrar"></i>
-				<%= indiceCarta.nombre %>
+				<%= indice.nombre %>
 			</div>
 			<!-- Cartas -->
 			<% for (const encabIndice of encabsIndice) { %>
