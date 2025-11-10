@@ -36,6 +36,6 @@ export default {
 		contenidos.forEach((n) => (n.carrusel = carrusel.filter((m) => m.contenido_id == n.id)));
 
 		// Fin
-		return {encabezado, contenidos};
+		return {encabezado, contenidos, encabezados};
 	},
 };

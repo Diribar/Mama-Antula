@@ -22,14 +22,14 @@ export default {
 
 		// Datos para la vista
 		const encabezado_id = req.query.id;
-		const {encabezado, contenidos} = await procesos.contenidos({seccionActual, temaActual, encabezado_id});
+		const {encabezado, contenidos, encabezados} = await procesos.contenidos({seccionActual, temaActual, encabezado_id});
 		const tituloCarta = esCarta && comp.contenido.tituloCons.encabCarta(encabezado);
 
 		// Fin
 		return res.render("CMP-0Estructura", {
 			...{tituloPagina, temaVista, codigoVista, temasSeccion},
 			...{seccionActual, temaActual, esCarta, conIndice},
-			...{tituloCarta, encabezado, contenidos},
+			...{tituloCarta, encabezado, contenidos, encabezados},
 		});
 	},
 	pestanas: async (req, res) => {
@@ -51,7 +51,7 @@ export default {
 
 		// Datos para la vista
 		const esCarta = null;
-		const conIndice = null
+		const conIndice = null;
 		const {encabezado, contenidos} = await procesos.contenidos({seccionActual, temaActual, pestanaActual});
 
 		// Fin

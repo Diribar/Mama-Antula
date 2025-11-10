@@ -1,29 +1,43 @@
+<!-- Filtros -->
 <div id="filtros" class="contenedor">
 	<div class="titulo">
 		<i class="fa-solid fa-caret-right mostrar"></i>
 		Filtros
 	</div>
 </div>
+
+<!-- Índice -->
 <div id="indice" class="contenedor">
-	<a href="?inicio" class="titulo">Inicio</a>
-	<a href="?introduccion" class="titulo">Introducción</a>
-	<a href="?numero=1" class="titulo">1778</a>
-	<div class="titulo">
-		<i class="fa-solid fa-caret-right mostrar"></i>
-		1780-1784
-	</div>
-	<div class="titulo">
-		<i class="fa-solid fa-caret-right mostrar"></i>
-		1800-1816
-	</div>
+	<% for (const indiceCarta of indiceCartas) { %>
+		<% const encabsIndice = encabezados.filter((n) => n.fechaEvento >= indiceCarta.fechaDesde && n.fechaEvento <= indiceCarta.fechaHasta); %>
+		<% console.log(encabsIndice.nombre, encabsIndice.length) %>
+		<% if (!encabsIndice.length) continue  %>
+		<% if (encabsIndice.length == 1) { %>
+			<a href="?id=<%= encabsIndice[0].id %>" class="titulo">
+				<%= indiceCarta.nombre %>
+			</a>
+		<% } else { %>
+			<div class="titulo">
+				<i class="fa-solid fa-caret-right mostrar"></i>
+				<%= indiceCarta.nombre %>
+			</div>
+			<% for (const encabIndice of encabsIndice) { %>
+				<a href="?id=<%= encabIndice.id %>" class="carta"><%= encabIndice.tituloCons %></a>
+			<% } %>
+		<% } %>
+	<% } %>
 </div>
+
+<!-- Ficha técnica -->
 <div id="fichaTecnica">
-	<h3>Ficha técnica:</h3>
-	<ul type="disc">
-		<li>Fecha: <%= comp.fechaHora.diaMesAnoUTC(encabezado.fechaEvento) %></li>
-		<li>Desde: <%= encabezado.lugar.nombre %></li>
-		<li>De: <%= encabezado.nombreDesde.nombre %></li>
-		<li>Para: <%= encabezado.nombreHacia.nombre %></li>
-		<li>Idioma: <%= encabezado.idioma.nombre %></li>
-	</ul>
+	<% if (encabezado.numero) { %>
+		<h3>Ficha técnica:</h3>
+		<ul type="disc">
+			<li>Fecha: <%= comp.fechaHora.diaMesAnoUTC(encabezado.fechaEvento) %></li>
+			<li>Desde: <%= encabezado.lugar.nombre %></li>
+			<li>De: <%= encabezado.nombreDesde.nombre %></li>
+			<li>Para: <%= encabezado.nombreHacia.nombre %></li>
+			<li>Idioma: <%= encabezado.idioma.nombre %></li>
+		</ul>
+	<% } %>
 </div>
