@@ -4,9 +4,11 @@ export default (sequelize, dt) => {
 		// Referencias
 		tema_id: {type: dt.INTEGER},
 
-		// Otros
+		// Nombre y código
 		nombre: {type: dt.STRING(15)},
 		codigo: {type: dt.STRING(15)},
+
+		// Fechas
 		fechaDesde: {type: dt.DATE},
 		fechaHasta: {type: dt.DATE},
 	};
