@@ -57,16 +57,17 @@ window.addEventListener("load", async () => {
 	const quill = new Quill(input, {modules: {toolbar}, formats, placeholder, theme: "snow"});
 
 	// Pule el input y lo pega en el output
-	const actualizarContenido = () =>
+	const actualizaContenido = () =>
 		(DOM.output.value = quill.root.innerHTML
 			.replaceAll("&nbsp;", " ") // reemplaza por espacios normales;
 			.replaceAll("  ", " ") // reemplaza espacios duplicados
 			.replaceAll(" </", "</") // reemplaza espacios mal puestos
 			.replaceAll("<p><br></p>", "")
+			.replaceAll("<p></p>", "")
 			.trim()); // reemplaza espacios al final
 
 	// EVENTO - Cambios en el input actualizan el output
-	quill.on("text-change", actualizarContenido);
+	quill.on("text-change", actualizaContenido);
 
 	// Fin
 	return;
