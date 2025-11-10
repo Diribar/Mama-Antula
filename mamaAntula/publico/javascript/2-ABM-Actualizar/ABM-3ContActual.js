@@ -210,6 +210,8 @@ window.addEventListener("load", async () => {
 		const encabezado_id = DOM.filtroEncab.value;
 		const campo_id = campos_id[comp1234.entidad];
 		const ruta = rutas.obtieneContenidos + "encab_id=" + encabezado_id + "&campo_id=" + campo_id;
+		console.log(ruta);
+
 
 		// Limpia el DOM
 		DOM.sectorContenido.innerHTML = "";
