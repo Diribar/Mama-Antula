@@ -61,7 +61,6 @@ window.addEventListener("load", async () => {
 		(DOM.output.value = quill.root.innerHTML
 			.replaceAll("&nbsp;", " ") // reemplaza por espacios normales;
 			.replaceAll("  ", " ") // reemplaza espacios duplicados
-			.replaceAll(" </", "</") // reemplaza espacios mal puestos
 			.replaceAll("<p><br></p>", "")
 			.replaceAll("<p></p>", "")
 			.trim()); // reemplaza espacios al final

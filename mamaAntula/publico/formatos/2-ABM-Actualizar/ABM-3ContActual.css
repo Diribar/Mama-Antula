@@ -16,7 +16,10 @@
 		}
 
 		/* Texto sin imagen */
-		&.texto p {margin-bottom: 10px;}
+		:where(&.texto, .texto) {
+			blockquote {font-size: 1rem; margin-bottom: 20px; text-align: center; text-wrap: balance;}
+			p {margin-bottom: 10px;}
+		}
 
 		/* Imagen sola o con texto */
 		:where(&.contImagenLeyenda, .contImagenLeyenda) {
