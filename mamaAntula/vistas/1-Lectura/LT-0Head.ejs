@@ -1,10 +1,12 @@
+<!-- Formatos -->
 <link rel="stylesheet" href="/formatos/1-Lectura/LT-0General.css">
 <link rel="stylesheet" href="/formatos/1-Lectura/LT-1Temas.css">
 <link rel="stylesheet" href="/formatos/1-Lectura/LT-2Pestanas.css">
 <link rel="stylesheet" href="/formatos/1-Lectura/LT-30Contenido.css">
 <link rel="stylesheet" href="/formatos/1-Lectura/LT-31ContPestanas.css">
-<link rel="stylesheet" href="/formatos/1-Lectura/LT-32FiltroIndice.css"><!-- sólo aplica para conIndice -->
 
 <% if (temaActual.indices.length) { %>
-	<script src="/javascript/1-Lectura/LT-Filtros.js"></script>
+	<!-- Sólo aplica para conIndice -->
+	<link rel="stylesheet" href="/formatos/1-Lectura/LT-32FiltroIndice.css">
+	<script src="/javascript/1-Lectura/LT-FiltroIndice.js"></script>
 <% } %>

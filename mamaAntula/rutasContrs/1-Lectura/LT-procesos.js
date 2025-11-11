@@ -6,8 +6,6 @@ export default {
 		const condicion = pestanaActual ? {pestana_id: pestanaActual.id} : {tema_id: temaActual.id};
 		const {entidad, includes} = comp.contenido.obtieneDatosDeTabla(condicion);
 		const esCarta = entidad == "encabCartas";
-		console.log(9,esCarta,entidad);
-
 
 		// Obtiene los encabezados
 		let encabezados = esCarta
