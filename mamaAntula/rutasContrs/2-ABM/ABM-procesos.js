@@ -16,8 +16,7 @@ export default {
 		if (!conIndice && !encabezados.length) {
 			// Crea los datos a guardar
 			const creadoPor_id = usuario.id;
-			const statusRegistro_id = aprobado_id;
-			const datos = {creadoPor_id, statusRegistro_id};
+			const datos = {creadoPor_id};
 
 			// Le agrega la referencia
 			const {tema_id, pestana_id} = condicion;
