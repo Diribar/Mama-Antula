@@ -40,7 +40,7 @@ main {
 			}
 
 			/* Color de fondo */
-			&:has(#alerta):not(:has(#alerta.ocultar)) {background: var(--rojo-oscuro);}
+			&:has(#alerta):not(:has(#alerta.ocultar)) {background: var(--rojoOscuro);}
 
 			&#cartelGenerico {
 				.inicio {font-size: 4rem; color: var(--amarillo-oscuro);}

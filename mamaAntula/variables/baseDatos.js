@@ -7,8 +7,7 @@ export default {
 			// Niveles
 			secciones: baseDatos.obtieneTodosConOrden("secciones", "orden"),
 			temasSecciones: baseDatos
-				.obtieneTodos("temasSecciones", "indices")
-				.then((n) => n.filter((m) => m.codigo != "novedades"))
+				.obtieneTodosPorCondicion("temasSecciones", {inactivo: false}, "indices")
 				.then((n) => n.sort((a, b) => a.orden - b.orden)),
 			pestanasTemas: baseDatos.obtieneTodosConOrden("pestanasTemas", "orden"),
 			indiceTemas: baseDatos.obtieneTodos("indiceTemas"),
