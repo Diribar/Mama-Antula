@@ -16,6 +16,9 @@ export default (req, res, next) => {
 	const seccionActual = secciones.find((n) => n.url == urlSeccion);
 	if (!seccionActual) return res.render("CMP-0Estructura", {informacion});
 
+	// SECCION - Guarda cookies
+	res.cookie("actualizaSeccion_id", seccionActual.id, {maxAge: unDia, path: "/"});
+
 	// TEMA - Si el urlTema no existe, redirige
 	const temasPosibles = temasSecciones.filter((n) => n.seccion_id == seccionActual.id);
 	if (!urlTema) {
@@ -26,7 +29,10 @@ export default (req, res, next) => {
 	// TEMA - Si el temaActual no corresponde, muestra la vista de error
 	const temaActual = temasPosibles.find((n) => n.url == urlTema);
 	if (!temaActual) return res.render("CMP-0Estructura", {informacion});
+
+	// TEMA - Guarda cookies
 	res.cookie(seccionActual.codigo, temaActual.codigo, {maxAge: unDia, path: "/"});
+	res.cookie("actualizaTema_id", temaActual.id, {maxAge: unDia, path: "/"});
 
 	// PESTAÑA - Averigua si el tema tiene pestañas
 	const pestsPosibles = pestanasTemas.filter((n) => n.tema_id == temaActual.id);
@@ -43,6 +49,7 @@ export default (req, res, next) => {
 
 		// Guarda cookies
 		res.cookie(temaActual.codigo, pestanaActual.codigo, {maxAge: unDia, path: "/"});
+		res.cookie("actualizaPestana_id", pestanaActual.id, {maxAge: unDia, path: "/"});
 	}
 
 	// Fin

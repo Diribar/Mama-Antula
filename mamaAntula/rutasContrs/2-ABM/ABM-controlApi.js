@@ -118,7 +118,7 @@ export default {
 		if (req.files) req.files.forEach((file, i) => comp.gestionArchs.descarga(carpRevisar, imagens[i], file));
 
 		// Averigua el orden y guarda el registro
-		datos.orden = procesos.obtieneOrdenContenidos({campo_id, encabezado_id});
+		datos.orden = await procesos.obtieneOrdenContenidos({campo_id, encabezado_id});
 		const {id: contenido_id} = await baseDatos.agregaRegistroIdCorrel("contenidos", datos);
 
 		// Guarda los registros de carrusel

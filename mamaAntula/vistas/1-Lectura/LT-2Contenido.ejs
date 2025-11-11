@@ -20,7 +20,7 @@
 
 <div id="tituloMasContenido">
 	<h2 id="tituloDelContenido" class="fondo"><%= locals.tituloCarta || locals.encabezado && encabezado.titulo %></h2>
-	<div id="contsImagenes" class="fondo">
+	<div id="contenido" class="fondo">
 		<% if (locals.tituloCarta || locals.encabezado) { %>
 			<% for (const contenido of contenidos) { %>
 				<div class="bloque">
@@ -39,6 +39,14 @@
 						<div class="imgLeyenda">
 							<iframe src="https://www.youtube.com/embed/<%= contenido.video %>?autoplay=1"></iframe>
 							<div class="leyenda" class="fondo"><%= contenido.leyenda %></div>
+						</div>
+					<% } %>
+					<% if (contenido.carrusel) { %>
+						<!-- Carrusel -->
+						<div class="carrusel">
+							<% for (const carrusel of contenido.carrusel) { %>
+								<img src="/imgsEditables/<%- carrusel.statusRegistro_id == creado_id ? '2-Revisar' : '1-Contenido' %>/<%= carrusel.imagen %>">
+							<% } %>
 						</div>
 					<% } %>
 				</div>

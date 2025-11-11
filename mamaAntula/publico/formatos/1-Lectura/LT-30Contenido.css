@@ -1,5 +1,7 @@
 .contenidoCuerpo {
 	flex-direction: row !important;
+	&:has(#filtroIndice) #tituloMasContenido {max-width: calc(100% - 210px);}
+	&:not(:has(#filtroIndice)) #tituloMasContenido {max-width: 100%;}
 
 	#tituloMasContenido {
 		background-image: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9));
@@ -7,26 +9,43 @@
 
 		#tituloDelContenido {padding-block: 6px 10px;}
 
-		#contsImagenes {
+		#contenido {
+			display: flex; flex-direction: column;
 			height: calc(100% - 22px - 16px); /* 22px es el alto de #tituloDelContenido sin el padding */
-			overflow-y: auto;
 			padding-right: 20px;
+			overflow-y: auto;
 
 			.bloque {
+				margin-bottom: 12px;
+				a {color: var(--terracota); text-decoration: underline;}
+
+				/* Texto con imagen */
+				&:has(.texto) .imgLeyenda {float: right; margin-left: 30px; margin-bottom: 15px; max-width: 33%;}
+
+				/* Texto sólo o con imagen */
+				.texto {
+					p, ul li {margin-bottom: 12px; line-height: 1.5;}
+					ul {margin-left: 12px;}
+				}
+
+				/* Imagen sola o con texto */
 				.imgLeyenda {
 					display: flex; flex-direction: column; align-items: center;
 					.imagen {max-width: 100%; max-height: 65vh;}
 					iframe {height: 350px; width: auto; aspect-ratio: 16 / 9;}
-					.leyenda {
-						font-style: italic; color: var(--grisInterm);
-						text-align: center; text-wrap: balance; padding-block: 6px;
-					}
 				}
-				.texto {
-					p {margin-bottom: 12px; line-height: 1.5;}
+
+				.carrusel {
+					display: flex; flex-direction: row; gap: 20px;
+					max-width: 100%; overflow-x: auto;
+					img {max-height: 65vh;}
 				}
-				&:has(.texto) .imgLeyenda {
-					float: right; margin-left: 30px; margin-bottom: 15px; max-width: 33%;
+
+				/* Imagen, Carrusel, Video */
+				.leyenda {
+					font-style: italic; color: var(--grisInterm);
+					text-align: center; text-wrap: balance; padding-block: 6px;
+					max-width: 70%;
 				}
 			}
 		}

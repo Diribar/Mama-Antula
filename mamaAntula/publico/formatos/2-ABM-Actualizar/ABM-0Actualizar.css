@@ -17,7 +17,8 @@
 	#sectorFiltros, #sectorEncabezado {min-height: 50px;}
 
 	#editables {
-		max-height: calc(100% - 70px); overflow-y: auto;
+		max-height: calc(100% - 70px);
+		overflow-y: auto; scrollbar-gutter: stable;
 		.sector {
 			background-color: var(--grisClaro);
 			.iconos {
