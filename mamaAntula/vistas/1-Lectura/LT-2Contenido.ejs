@@ -20,8 +20,9 @@
 
 <div id="tituloMasContenido">
 	<h2 id="tituloDelContenido" class="fondo"><%= locals.tituloCarta || locals.encabezado && encabezado.titulo %></h2>
-	<div id="contenido" class="fondo">
-		<% if (locals.encabezado) { %>
+	<div id="contenido" class="fondo <%= clase %>">
+		<% if (temaActual.codigo.startsWith("libros")) { %>
+		<% } else if (locals.encabezado) { %>
 			<% for (const contenido of contenidos) { %>
 				<div class="bloque">
 					<% if (contenido.texto || contenido.imagen) { %>

@@ -17,6 +17,8 @@ export default {
 		// Tema
 		const temasSeccion = temasSecciones.filter((n) => n.seccion_id == seccionActual.id);
 		const temaActual = temasSeccion.find((n) => n.url == urlTema);
+		console.log(20, temaActual.codigo);
+
 		const esCarta = temaActual.codigo == "cartas";
 		const conIndice = !!temaActual.indices.length;
 
@@ -25,11 +27,14 @@ export default {
 		const {encabezados, encabezado} = await procesos.encabezados({temaActual, encabezado_id});
 		const contenidos = encabezado && (await procesos.contenidos({temaActual, encabezado}));
 		const tituloCarta = esCarta && comp.contenido.tituloCons.encabCarta(encabezado);
+		const clase = temaActual.codigo.startsWith("libros")
+			? "libros" // Libros
+			: "estandar";
 
 		// Fin
 		return res.render("CMP-0Estructura", {
 			...{tituloPagina, temaVista, codigoVista, temasSeccion},
-			...{seccionActual, temaActual, esCarta, conIndice},
+			...{seccionActual, temaActual, esCarta, conIndice, clase},
 			...{tituloCarta, encabezado, contenidos, encabezados},
 		});
 	},
@@ -56,11 +61,14 @@ export default {
 		const encabezado_id = req.query.id;
 		const {encabezados, encabezado} = await procesos.encabezados({pestanaActual, encabezado_id});
 		const contenidos = encabezado && (await procesos.contenidos({pestanaActual, encabezado}));
+		const clase = temaActual.codigo.startsWith("qqq")
+			? "qqq" // Libros
+			: "estandar";
 
 		// Fin
 		return res.render("CMP-0Estructura", {
 			...{tituloPagina, temaVista, codigoVista, temasSeccion, pestanasTema},
-			...{seccionActual, temaActual, pestanaActual, esCarta, conIndice},
+			...{seccionActual, temaActual, pestanaActual, esCarta, conIndice, clase},
 			...{encabezado, contenidos, encabezados},
 		});
 	},
