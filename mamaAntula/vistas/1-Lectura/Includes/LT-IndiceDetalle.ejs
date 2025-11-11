@@ -21,10 +21,11 @@
 				</div>
 
 				<!-- Encabezados -->
-				<% for (const encabIndice of encabsIndice) { %>
-					<% console.log(21, encabIndice) %>
-					<a href="?id=<%= encabIndice.id %>" class="encabezado ocultar"><%= encabIndice.tituloCons %></a>
-				<% } %>
+				<div class="encabezados ocultar">
+					<% for (const encabIndice of encabsIndice) { %>
+						<a href="?id=<%= encabIndice.id %>" class="encabezado"><%= encabIndice.tituloCons %></a>
+					<% } %>
+				</div>
 
 			</div>
 		<% } %>

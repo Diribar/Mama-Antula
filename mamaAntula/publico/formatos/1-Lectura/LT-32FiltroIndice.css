@@ -16,11 +16,19 @@
 
 		.titulo {
 			position: relative; cursor: pointer;
-			.mostrar {position: absolute; left: -5px; top: 50%; translate: -90% -50%; cursor: pointer;}
+			.mostrar {
+				position: absolute; left: -5px; top: 50%; translate: -90% -50%;
+				cursor: pointer;
+				&.girar {transform: rotate(90deg);}
+			}
 		}
 		.tituloEncabs {
 			display: flex; flex-direction: column; justify-content: flex-start;
-			.encabezado {margin-inline: 10px 15px;}
+			.encabezados {
+				display: flex; flex-direction: column; justify-content: flex-start;
+				margin-inline: 10px 15px;
+				a {line-height: 1.1;}
+			}
 		}
 	}
 
@@ -32,6 +40,7 @@
 	#fichaTecnica {
 		flex-grow: 1;
 		display: flex; flex-direction: column; justify-content: center;
+		max-width: var(--anchoIndice);
 		ul {font-size: 0.9rem;}
 	}
 

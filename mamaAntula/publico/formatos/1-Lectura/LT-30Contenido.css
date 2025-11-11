@@ -4,7 +4,7 @@
 
 	#tituloMasContenido {
 		background-image: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9));
-		flex-grow: 1;
+		flex-grow: 1; overflow-y: auto;
 
 		#tituloDelContenido {
 			padding-block: 6px 10px;
