@@ -58,7 +58,9 @@
 						<% if (contenido.imagen) { %>
 							<div class="imgLeyenda">
 								<img class="imagen" src="/imgsEditables/<%= subCarpeta %>/<%= contenido.imagen %>">
-								<div class="leyenda" class="fondo"><%= contenido.leyenda %></div>
+								<% if (contenido.leyenda) { %>
+									<div class="leyenda" class="fondo"><%= contenido.leyenda %></div>
+								<% } %>
 							</div>
 						<% } %>
 						<% if (contenido.texto) { %>
@@ -68,7 +70,9 @@
 					<% if (contenido.video) { %>
 						<div class="imgLeyenda">
 							<iframe src="https://www.youtube.com/embed/<%= contenido.video %>?autoplay=1"></iframe>
-							<div class="leyenda" class="fondo"><%= contenido.leyenda %></div>
+							<% if (contenido.leyenda) { %>
+								<div class="leyenda" class="fondo"><%= contenido.leyenda %></div>
+							<% } %>
 						</div>
 					<% } %>
 					<% if (contenido.carrusel.length) { %>
