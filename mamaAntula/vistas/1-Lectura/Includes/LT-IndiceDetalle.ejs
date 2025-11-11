@@ -2,7 +2,9 @@
 	<% for (const indice of indices) { %>
 		<!-- Rutina por indice -->
 		<% const encabsIndice = encabezados.filter((n) => n.fechaEvento >= indice.fechaDesde && n.fechaEvento <= indice.fechaHasta); %>
+
 		<% if (!encabsIndice.length) continue  %>
+
 		<% if (encabsIndice.length == 1) { %>
 			<!-- Indice con un solo encabezado -->
 			<a href="?id=<%= encabsIndice[0].id %>" class="titulo">
@@ -11,16 +13,21 @@
 
 		<% } else { %>
 			<!-- Índice con varios encabezados -->
-			<div class="titulo">
-				<i class="fa-solid fa-caret-right mostrar"></i>
-				<%= indice.nombre %>
-			</div>
+			<div class="tituloEncabs">
+				<!-- Titulo -->
+				<div class="titulo">
+					<i class="fa-solid fa-caret-right mostrar"></i>
+					<%= indice.nombre %>
+				</div>
 
-			<!-- Encabezados -->
-			<% for (const encabIndice of encabsIndice) { %>
-				<% console.log(21, encabIndice) %>
-				<a href="?id=<%= encabIndice.id %>" class="encabezado"><%= encabIndice.tituloCons %></a>
-			<% } %>
+				<!-- Encabezados -->
+				<div class="encabezados ocultar">
+					<% for (const encabIndice of encabsIndice) { %>
+						<a href="?id=<%= encabIndice.id %>" class="encabezado"><%= encabIndice.tituloCons %></a>
+					<% } %>
+				</div>
+
+			</div>
 		<% } %>
 	<% } %>
 </div>
