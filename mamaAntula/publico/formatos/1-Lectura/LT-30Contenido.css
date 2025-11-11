@@ -1,3 +1,7 @@
+#cuerpo .contenidoCuerpo {
+	border: 1px solid var(--grisOscuro);
+	padding-left: 20px; padding-block: 10px;
+}
 .contenidoCuerpo {
 	&:has(#filtroIndice) #tituloMasContenido {--margenIzq: 210px; margin-left: var(--margenIzq); max-width: calc(100% - var(--margenIzq));}
 	&:not(:has(#filtroIndice)) #tituloMasContenido {max-width: 100%;}
@@ -19,7 +23,6 @@
 
 		#contenido.estandar {
 			flex-direction: column;
-
 			.bloque {
 				margin-bottom: 12px;
 				a {color: var(--terracota); text-decoration: underline;}
@@ -66,7 +69,25 @@
 		}
 
 		#contenido.libros {
-			flex-direction: row; gap: 20px;
+			flex-direction: row; flex-wrap: wrap; justify-content: space-evenly;
+			row-gap: 200px; /* entre filas */
+			column-gap: 50px; /* entre bloques */
+
+			.bloque {
+				position: relative;
+
+				img {
+					height: 400px; cursor: pointer;
+					&:hover {scale: 1.05;}
+				}
+				.texto {
+					position: absolute; left: 50%; bottom: 0px; translate: -50% 100%;
+					width: 100%; padding-block: 6px;
+					* {line-height: 1.2;}
+					.nombre {font-weight: bold; margin-bottom: 6px;}
+					.autor {font-style: italic;}
+				}
+			}
 		}
 	}
 }
