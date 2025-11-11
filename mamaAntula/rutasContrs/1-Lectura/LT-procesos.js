@@ -18,13 +18,14 @@ export default {
 		if (!encabezados.length) return {};
 
 		// Les agrega los títulos
-		if (temaActual.indices.length) encabezados = comp.contenido.tituloCons[esCarta ? entidad : "encabConIndice"](encabezados);
+		if (temaActual && temaActual.indices.length)
+			encabezados = comp.contenido.tituloCons[esCarta ? entidad : "encabConIndice"](encabezados);
 
 		// Obtiene el encabezado actual
 		const encabezado = encabezados.find((n) => n.id == encabezado_id) || encabezados[0];
 
 		// Si es una tema con índice, obtiene los encabezados anterior y posterior
-		if (temaActual.indices.length) {
+		if (temaActual && temaActual.indices.length) {
 			const indice = encabezados.indexOf(encabezado);
 			encabezado.ant_id = encabezados[indice - 1]?.id || null;
 			encabezado.sig_id = encabezados[indice + 1]?.id || null;
