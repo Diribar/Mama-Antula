@@ -23,7 +23,7 @@ export default {
 		// Datos para la vista
 		const encabezado_id = req.query.id;
 		const {encabezados, encabezado} = await procesos.encabezados({temaActual, encabezado_id});
-		const contenidos = await procesos.contenidos({temaActual, encabezado});
+		const contenidos = encabezado && (await procesos.contenidos({temaActual, encabezado}));
 		const tituloCarta = esCarta && comp.contenido.tituloCons.encabCarta(encabezado);
 
 		// Fin
@@ -53,13 +53,15 @@ export default {
 		// Datos para la vista
 		const esCarta = null;
 		const conIndice = null;
-		const {encabezado, contenidos} = await procesos.contenidos({seccionActual, temaActual, pestanaActual});
+		const encabezado_id = req.query.id;
+		const {encabezados, encabezado} = await procesos.encabezados({pestanaActual, encabezado_id});
+		const contenidos = encabezado && (await procesos.contenidos({pestanaActual, encabezado}));
 
 		// Fin
 		return res.render("CMP-0Estructura", {
 			...{tituloPagina, temaVista, codigoVista, temasSeccion, pestanasTema},
 			...{seccionActual, temaActual, pestanaActual, esCarta, conIndice},
-			...{encabezado, contenidos},
+			...{encabezado, contenidos, encabezados},
 		});
 	},
 };
