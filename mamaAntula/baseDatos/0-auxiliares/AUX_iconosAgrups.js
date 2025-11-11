@@ -12,6 +12,7 @@ export default (sequelize, dt) => {
 		grupo: {type: dt.STRING(20)},
 
 		// Permisos
+		lectura: {type: dt.BOOLEAN},
 		edicion: {type: dt.BOOLEAN},
 		revision: {type: dt.BOOLEAN},
 		admin: {type: dt.BOOLEAN},

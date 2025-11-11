@@ -5,10 +5,12 @@
 <% if (locals.usuario && usuario.rol.edicion) { %>
 	<div id="iconosFooterOtros" class="iconosFooter">
 		<% for (const icono of iconosAgrupados.filter(n => n.grupo == "footerOtros")) { %>
-			<% const muestraEdicion = icono.edicion && usuario.rol.edicion && (locals.temaVista != "abmContenido" || codigoVista != "actualizar") %>
-			<% const muestraRevision = icono.revision && usuario.rol.revision && (locals.temaVista != "abmContenido" || codigoVista != "revisar") %>
-			<% const muestraAdmin = icono.admin && usuario.rol.admin && (locals.temaVista != "usuarios" || codigoVista != "cambioRoles") %>
-			<% if (muestraEdicion || muestraRevision || muestraAdmin) { %>
+			<% const muestraLectura = icono.lectura && temaVista == "abmContenido" %>
+			<% const muestraEdicion = icono.edicion && usuario.rol.edicion && (temaVista != "abmContenido" || codigoVista != "actualizar") %>
+			<% const muestraRevision = icono.revision && usuario.rol.revision && (temaVista != "abmContenido" || codigoVista != "revisar") %>
+			<% const muestraAdmin = icono.admin && usuario.rol.admin && (temaVista != "usuarios" || codigoVista != "cambioRoles") %>
+			<% console.log(12, muestraLectura) %>
+			<% if (muestraLectura || muestraEdicion || muestraRevision || muestraAdmin) { %>
 				<a href="<%= icono.link %>" title="<%= icono.nombre %>">
 					<i class="fa-solid <%= icono.clase %> scaleHover"></i>
 				</a>
