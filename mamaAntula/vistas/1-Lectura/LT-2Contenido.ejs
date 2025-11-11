@@ -28,7 +28,14 @@
 					<div class="texto">
 						<div class="nombre"><%= contenido.texto %></div>
 						<div class="autor"><%= contenido.leyenda %></div>
-						<div class="editorialAno"><%= contenido.video %></div>
+						<div class="editorialAno">
+							<%= contenido.video %>
+							<% if (contenido.video.toLowerCase().includes("descarga")) { %>
+								<a href="/descargas/El-estandarte-de-la-mujer-fuerte.pdf" download>
+									<i class="fa-solid fa-download"></i>
+								</a>
+							<% } %>
+						</div>
 					</div>
 
 				<% } else if (locals.encabezado) { %>
