@@ -2,7 +2,10 @@
 #sectorEncabezado {
 	width: fit-content;
 	.encabezado {
-		input[type="text"] {width: 300px;}
+		input[type="text"] {
+			width: 300px;
+			&[name="numero"] {width: 50px; text-align: center;}
+		}
 		input[type="date"] {width: 130px;}
 		select[name="orden"], select[name="numero"] {width: 70px;}
 	}

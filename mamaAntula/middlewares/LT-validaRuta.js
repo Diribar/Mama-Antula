@@ -3,6 +3,7 @@
 export default (req, res, next) => {
 	// Variables
 	const {urlSeccion, urlTema, urlPestana} = req.params;
+	const {id: encabezado_id} = req.query;
 	const informacion = {mensajes: ["No tenemos esa dirección en nuestro sistema"]};
 
 	// SECCION - Si el urlSeccion no existe, redirige
@@ -51,6 +52,9 @@ export default (req, res, next) => {
 		res.cookie(temaActual.codigo, pestanaActual.codigo, {maxAge: unDia, path: "/"});
 		res.cookie("actualizaPestana_id", pestanaActual.id, {maxAge: unDia, path: "/"});
 	}
+
+	// ENCABEZADO - Si el encabezado existe, guarda la cookie
+	if (encabezado_id) res.cookie("actualizaEncabezado_id", encabezado_id, {maxAge: unDia, path: "/"});
 
 	// Fin
 	return next();

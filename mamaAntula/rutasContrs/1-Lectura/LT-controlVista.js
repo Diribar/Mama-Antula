@@ -8,7 +8,7 @@ export default {
 		const codigoVista = "temas";
 		let {urlSeccion, urlTema} = req.params;
 		urlSeccion = urlSeccion || "inicio";
-		urlTema = urlTema || "novedades";
+		urlTema = urlTema || "quien-es-mama-antula";
 
 		// Sección
 		const seccionActual = secciones.find((n) => n.url == urlSeccion);
@@ -22,14 +22,15 @@ export default {
 
 		// Datos para la vista
 		const encabezado_id = req.query.id;
-		const {encabezado, contenidos} = await procesos.contenidos({seccionActual, temaActual, encabezado_id});
+		const {encabezados, encabezado} = await procesos.encabezados({temaActual, encabezado_id});
+		const contenidos = await procesos.contenidos({temaActual, encabezado});
 		const tituloCarta = esCarta && comp.contenido.tituloCons.encabCarta(encabezado);
 
 		// Fin
 		return res.render("CMP-0Estructura", {
 			...{tituloPagina, temaVista, codigoVista, temasSeccion},
 			...{seccionActual, temaActual, esCarta, conIndice},
-			...{tituloCarta, encabezado, contenidos},
+			...{tituloCarta, encabezado, contenidos, encabezados},
 		});
 	},
 	pestanas: async (req, res) => {
@@ -51,7 +52,7 @@ export default {
 
 		// Datos para la vista
 		const esCarta = null;
-		const conIndice = null
+		const conIndice = null;
 		const {encabezado, contenidos} = await procesos.contenidos({seccionActual, temaActual, pestanaActual});
 
 		// Fin

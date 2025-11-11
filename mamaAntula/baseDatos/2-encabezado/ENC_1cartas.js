@@ -1,13 +1,16 @@
 export default (sequelize, dt) => {
 	const alias = "encabCartas";
 	const columns = {
-		// Referencias
+		// Datos
 		numero: {type: dt.STRING(10)},
+		nombre: {type: dt.STRING(15)},
+		fechaEvento: {type: dt.DATE},
+
+		// Referencias
 		nombreDesde_id: {type: dt.INTEGER},
 		nombreHacia_id: {type: dt.INTEGER},
 		lugar_id: {type: dt.INTEGER},
 		idioma_id: {type: dt.INTEGER},
-		fechaEvento: {type: dt.DATE},
 
 		// Control
 		creadoPor_id: {type: dt.INTEGER},

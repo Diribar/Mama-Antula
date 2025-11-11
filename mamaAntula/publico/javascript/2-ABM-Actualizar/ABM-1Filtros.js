@@ -46,7 +46,12 @@ window.addEventListener("load", async () => {
 			}
 
 			// ENCABEZADO - Si es start-up, elige la opción de la cookie
-			if (comp1234.startUp && cookie("actualizaEncabezado_id")) DOM.encabezado.value = cookie("actualizaEncabezado_id");
+			const valoresPosiblesOpciones = Array.from(DOM.encabezado.querySelectorAll("option")).map((n) => n.value);
+			const valorCookie = cookie("actualizaEncabezado_id");
+			if (comp1234.startUp && valorCookie && valoresPosiblesOpciones.includes(valorCookie))
+				DOM.encabezado.value = valorCookie;
+
+			// ENCABEZADO - Dispara el evento
 			DOM.encabezado.dispatchEvent(new Event("change"));
 
 			// Fin
@@ -155,8 +160,12 @@ window.addEventListener("load", async () => {
 // Variables
 let comp1234; // compartirActualizarContenidos
 const agregaOpciones = (opciones, domSelect, campoNombre) => {
+	// Averigua si tiene una opción sin valor, para conservarla
+	const opcSinValor = domSelect.querySelector(`option[value='']`);
+
 	// Limpia las opciones del select
 	domSelect.innerHTML = "";
+	if (opcSinValor) domSelect.appendChild(opcSinValor);
 
 	// Agrega las opciones
 	for (const opcion of opciones) {
