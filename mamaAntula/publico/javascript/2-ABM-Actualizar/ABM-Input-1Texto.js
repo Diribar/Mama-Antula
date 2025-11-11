@@ -68,6 +68,20 @@ window.addEventListener("load", async () => {
 	// EVENTO - Cambios en el input actualizan el output
 	quill.on("text-change", actualizaContenido);
 
+	quill.keyboard.addBinding(
+		{
+			key: 13, // tecla Enter
+			shiftKey: true,
+		},
+		function (range, context) {
+			// Inserta un salto de línea (\n) en la posición del cursor
+			quill.insertText(range.index, "\n");
+			quill.setSelection(range.index + 1);
+
+			// Evita que Quill ejecute el comportamiento por defecto
+			return false;
+		}
+	);
 	// Fin
 	return;
 });

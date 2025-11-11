@@ -19,12 +19,18 @@
 <% } %>
 
 <div id="tituloMasContenido">
-	<h2 id="tituloDelContenido" class="fondo"><%= locals.tituloCarta || locals.encabezado && encabezado.titulo %></h2>
+	<% const tituloDelContenido = locals.tituloCarta || locals.encabezado && encabezado.titulo %>
+	<% if (tituloDelContenido) { %>
+		<h2 id="tituloDelContenido" class="fondo"><%= locals.tituloCarta || locals.encabezado && encabezado.titulo %></h2>
+	<% } %>
 	<div id="contenido" class="fondo <%= clase %>">
 		<% if (encabezado) for (const contenido of contenidos) { %>
+			<% const subCarpeta = contenido.statusRegistro_id == creado_id ? '2-Revisar' : '1-Contenido' %>
 			<div class="bloque">
-				<% if (temaActual.codigo.startsWith("libros")) { %>
-					<img src="/imgsEditables/<%- contenido.statusRegistro_id == creado_id ? '2-Revisar' : '1-Contenido' %>/<%= contenido.imagen %>" alt="">
+				<% if (false) { %>
+				<% } else if (clase == "libros") { %>
+					<!-- LIBROS -->
+					<img src="/imgsEditables/<%= subCarpeta %>/<%= contenido.imagen %>">
 					<div class="texto">
 						<div class="nombre"><%= contenido.texto %></div>
 						<div class="autor"><%= contenido.leyenda %></div>
@@ -39,11 +45,19 @@
 						</div>
 					</div>
 
+				<% } else if (clase == "estampas") { %>
+					<!-- ESTAMPAS -->
+					<p><%= contenido.texto %></p>
+					<div class="imagenes">
+						<img src="/imgsEditables/<%= subCarpeta %>/<%= contenido.imagen %>">
+						<img src="/imgsEditables/<%= subCarpeta %>/<%= contenido.video %>">
+					</div>
+
 				<% } else if (locals.encabezado) { %>
 					<% if (contenido.texto || contenido.imagen) { %>
 						<% if (contenido.imagen) { %>
 							<div class="imgLeyenda">
-								<img class="imagen" src="/imgsEditables/<%- contenido.statusRegistro_id == creado_id ? '2-Revisar' : '1-Contenido' %>/<%= contenido.imagen %>">
+								<img class="imagen" src="/imgsEditables/<%= subCarpeta %>/<%= contenido.imagen %>">
 								<div class="leyenda" class="fondo"><%= contenido.leyenda %></div>
 							</div>
 						<% } %>
