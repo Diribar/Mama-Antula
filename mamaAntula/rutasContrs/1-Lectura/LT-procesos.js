@@ -43,8 +43,6 @@ export default {
 		const contenidos = await baseDatos
 			.obtieneTodosPorCondicion("contenidos", {[campo_id]: encabezado.id})
 			.then((n) => n.sort((a, b) => a.orden - b.orden));
-		console.log(46,contenidos);
-
 
 		// Obtiene los registros del carrusel y los  vincula a su contenido
 		const contenidos_ids = contenidos.map((n) => n.id);
