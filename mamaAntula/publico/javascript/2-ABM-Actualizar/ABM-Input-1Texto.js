@@ -59,9 +59,10 @@ window.addEventListener("load", async () => {
 	// Pule el input y lo pega en el output
 	const actualizarContenido = () =>
 		(DOM.output.value = quill.root.innerHTML
-			.replace("&nbsp;", " ") // reemplaza por espacios normales;
-			.replace(/\s+/g, " ") // reemplaza espacios duplicados
-			.replace(" </", "</") // reemplaza espacios mal puestos
+			.replaceAll("&nbsp;", " ") // reemplaza por espacios normales;
+			.replaceAll("  ", " ") // reemplaza espacios duplicados
+			.replaceAll(" </", "</") // reemplaza espacios mal puestos
+			.replaceAll("<p><br></p>", "")
 			.trim()); // reemplaza espacios al final
 
 	// EVENTO - Cambios en el input actualizan el output

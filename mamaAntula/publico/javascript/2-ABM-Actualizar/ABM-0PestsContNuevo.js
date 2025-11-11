@@ -7,7 +7,7 @@ window.addEventListener("load", async () => {
 	// Eventos
 	for (const pestana of domPestanas)
 		pestana.addEventListener("click", () => {
-			document.cookie = "actualizaPestanaInput_id=" + pestana.id;
+			document.cookie = "actualizaPestanaInput_id=" + pestana.id + "; path=/";
 			for (const p of domPestanas) p.classList[p.id == pestana.id ? "add" : "remove"]("activo");
 		});
 

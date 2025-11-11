@@ -75,7 +75,7 @@ window.addEventListener("load", async () => {
 
 		// SECCIÓN - Guarda la cookie
 		const seccion_id = DOM.seccion.value;
-		if (!comp1234.startUp) document.cookie = "actualizaSeccion_id=" + seccion_id;
+		if (!comp1234.startUp) document.cookie = "actualizaSeccion_id=" + seccion_id + "; path=/";
 
 		// TEMA - Crea las opciones
 		const temasSecciones = comp1234.temasSecciones.filter((n) => n.seccion_id == seccion_id);
@@ -94,7 +94,7 @@ window.addEventListener("load", async () => {
 
 		// TEMA -  Guarda la cookie
 		const tema_id = DOM.tema.value;
-		if (!comp1234.startUp) document.cookie = "actualizaTema_id=" + tema_id;
+		if (!comp1234.startUp) document.cookie = "actualizaTema_id=" + tema_id + "; path=/";
 
 		// Averigua si el tema es 'Cartas'
 		const temaActual = comp1234.temasSecciones.find((n) => n.id == tema_id);
@@ -130,7 +130,7 @@ window.addEventListener("load", async () => {
 
 		// PESTAÑA -  Guarda la cookie
 		const pestana_id = DOM.pestana.value;
-		if (!comp1234.startUp) document.cookie = "actualizaPestana_id=" + pestana_id;
+		if (!comp1234.startUp) document.cookie = "actualizaPestana_id=" + pestana_id + "; path=/";
 
 		// ENCABEZADO - Los obtiene y genera el evento 'change'
 		FN.actualizaFiltroEncabezado();
@@ -138,7 +138,7 @@ window.addEventListener("load", async () => {
 	// Eventos del filtro de encabezado
 	DOM.encabezado.addEventListener("change", async () => {
 		// ENCABEZADO - Guarda la cookie
-		if (!comp1234.startUp) document.cookie = "actualizaEncabezado_id=" + DOM.encabezado.value;
+		if (!comp1234.startUp) document.cookie = "actualizaEncabezado_id=" + DOM.encabezado.value + "; path=/";
 		else delete comp1234.startUp;
 
 		// Actualiza el anchor de flitros

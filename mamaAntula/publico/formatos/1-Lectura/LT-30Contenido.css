@@ -7,7 +7,10 @@
 		background-image: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9));
 		flex-grow: 1;
 
-		#tituloDelContenido {padding-block: 6px 10px;}
+		#tituloDelContenido {
+			padding-block: 6px 10px;
+			&:empty {display: none;}
+		}
 
 		#contenido {
 			display: flex; flex-direction: column;
@@ -24,8 +27,8 @@
 
 				/* Texto sólo o con imagen */
 				.texto {
-					p, ul li {margin-bottom: 12px; line-height: 1.5;}
-					ul {margin-left: 12px;}
+					p, :where(ul, ol) li {margin-bottom: 12px; line-height: 1.5;}
+					ul, ol {margin-left: 12px;}
 				}
 
 				/* Imagen sola o con texto */
@@ -42,10 +45,12 @@
 				}
 
 				/* Imagen, Carrusel, Video */
+				&:not(:has(.texto)) .leyenda {max-width: 70%;}
+				&:has(.texto) .leyenda {max-width: 100%;}
 				.leyenda {
 					font-style: italic; color: var(--grisInterm);
 					text-align: center; text-wrap: balance; padding-block: 6px;
-					max-width: 70%;
+					line-height: 1.2;
 				}
 			}
 		}

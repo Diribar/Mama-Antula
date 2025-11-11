@@ -134,7 +134,7 @@ window.addEventListener("load", async () => {
 		// Guarda el nuevo_id en la cookie y establece que se actualicen los filtros por las cookies
 		if (respuesta.id) {
 			// Guarda la nueva cookie y se genera un change en el tema, para que se reinicie el filtro del encabezado
-			document.cookie = "actualizaEncabezado_id=" + respuesta.id;
+			document.cookie = "actualizaEncabezado_id=" + respuesta.id + "; path=/";
 			comp1234.startUp = true;
 			DOM.filtroTema.dispatchEvent(new Event("change"));
 		}
@@ -153,7 +153,7 @@ window.addEventListener("load", async () => {
 		await fetch(rutas.eliminaEncabezado, deleteJson(datos));
 
 		// Elimina la cookie y se genera un change en el tema o pestaña, para que se reinicie el filtro del encabezado
-		document.cookie = "actualizaEncabezado_id=";
+		document.cookie = "actualizaEncabezado_id=; path=/";
 		comp1234.startUp = true;
 		DOM.filtroTema.dispatchEvent(new Event("change"));
 
