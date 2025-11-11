@@ -9,9 +9,8 @@
 			<% const muestraEdicion = icono.edicion && usuario.rol.edicion && (temaVista != "abmContenido" || codigoVista != "actualizar") %>
 			<% const muestraRevision = icono.revision && usuario.rol.revision && (temaVista != "abmContenido" || codigoVista != "revisar") %>
 			<% const muestraAdmin = icono.admin && usuario.rol.admin && (temaVista != "usuarios" || codigoVista != "cambioRoles") %>
-			<% console.log(12, muestraLectura) %>
 			<% if (muestraLectura || muestraEdicion || muestraRevision || muestraAdmin) { %>
-				<a href="<%= icono.link %>" title="<%= icono.nombre %>">
+				<a href="<%= icono.link %>" id="<%= icono.codigo %>" title="<%= icono.nombre %>">
 					<i class="fa-solid <%= icono.clase %> scaleHover"></i>
 				</a>
 			<% } %>

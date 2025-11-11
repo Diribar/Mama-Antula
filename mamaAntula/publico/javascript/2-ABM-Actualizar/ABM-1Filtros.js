@@ -8,7 +8,7 @@ window.addEventListener("load", async () => {
 		tema: document.querySelector("#filtros select[name='tema_id']"),
 		pestana: document.querySelector("#filtros select[name='pestana_id']"),
 		encabezado: document.querySelector("#filtros select[name='encabezado']"),
-		anchorLectura: document.querySelector("a#linkLectura"),
+		anchorLectura: document.querySelector("footer #iconosFooterOtros a#lectura"),
 	};
 	const rutas = {
 		datosIniciales: "/contenido/api/abm-datos-inciales",
