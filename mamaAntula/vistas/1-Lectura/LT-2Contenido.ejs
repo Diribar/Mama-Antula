@@ -20,10 +20,18 @@
 
 <div id="tituloMasContenido">
 	<h2 id="tituloDelContenido" class="fondo"><%= locals.tituloCarta || locals.encabezado && encabezado.titulo %></h2>
-	<div id="contenido" class="fondo">
-		<% if (locals.encabezado) { %>
-			<% for (const contenido of contenidos) { %>
-				<div class="bloque">
+	<div id="contenido" class="fondo <%= clase %>">
+		<% if (encabezado) for (const contenido of contenidos) { %>
+			<div class="bloque">
+				<% if (temaActual.codigo.startsWith("libros")) { %>
+					<img src="/imgsEditables/<%- contenido.statusRegistro_id == creado_id ? '2-Revisar' : '1-Contenido' %>/<%= contenido.imagen %>" alt="">
+					<div class="texto">
+						<div class="nombre"><%= contenido.texto %></div>
+						<div class="autor"><%= contenido.leyenda %></div>
+						<div class="editorialAno"><%= contenido.video %></div>
+					</div>
+
+				<% } else if (locals.encabezado) { %>
 					<% if (contenido.texto || contenido.imagen) { %>
 						<% if (contenido.imagen) { %>
 							<div class="imgLeyenda">
@@ -49,8 +57,8 @@
 							<% } %>
 						</div>
 					<% } %>
-				</div>
-			<% } %>
+				<% } %>
+			</div>
 		<% } %>
 	</div>
 </div>

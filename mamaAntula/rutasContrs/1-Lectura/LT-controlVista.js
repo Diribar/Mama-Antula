@@ -25,11 +25,13 @@ export default {
 		const {encabezados, encabezado} = await procesos.encabezados({temaActual, encabezado_id});
 		const contenidos = encabezado && (await procesos.contenidos({temaActual, encabezado}));
 		const tituloCarta = esCarta && comp.contenido.tituloCons.encabCarta(encabezado);
+		const clase = temaActual.codigo.startsWith("libros") ? "libros" : "estandar";
+		if (clase == "libros") contenidos.sort((a, b) => (b.video < a.video ? -1 : 1));
 
 		// Fin
 		return res.render("CMP-0Estructura", {
 			...{tituloPagina, temaVista, codigoVista, temasSeccion},
-			...{seccionActual, temaActual, esCarta, conIndice},
+			...{seccionActual, temaActual, esCarta, conIndice, clase},
 			...{tituloCarta, encabezado, contenidos, encabezados},
 		});
 	},
@@ -56,11 +58,12 @@ export default {
 		const encabezado_id = req.query.id;
 		const {encabezados, encabezado} = await procesos.encabezados({pestanaActual, encabezado_id});
 		const contenidos = encabezado && (await procesos.contenidos({pestanaActual, encabezado}));
+		const clase = pestanaActual.codigo.startsWith("estampas") ? "estampas" : "estandar";
 
 		// Fin
 		return res.render("CMP-0Estructura", {
 			...{tituloPagina, temaVista, codigoVista, temasSeccion, pestanasTema},
-			...{seccionActual, temaActual, pestanaActual, esCarta, conIndice},
+			...{seccionActual, temaActual, pestanaActual, esCarta, conIndice, clase},
 			...{encabezado, contenidos, encabezados},
 		});
 	},
