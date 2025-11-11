@@ -4,18 +4,18 @@ window.addEventListener("load", async () => {
 	// Variables
 	const domFiltroIndice = document.querySelector("#filtroIndice");
 	const DOM = {
-		tituloEncabs: domFiltroIndice.querySelectorAll(".tituloEncabs"),
-		mostrar: domFiltroIndice.querySelectorAll(".mostrar"),
+		titulos: domFiltroIndice.querySelectorAll(".titulo"),
 	};
 
 	// Eventos
-	for (const mostrar of DOM.mostrar)
-		mostrar.addEventListener("click", () => {
+	for (const titulo of DOM.titulos)
+		titulo.addEventListener("click", () => {
 			// Alterna entre girar o no el ícono
+			const mostrar = titulo.querySelector(".mostrar");
 			mostrar.classList.toggle("girar");
 
 			// Alterna entre mostrar y ocultar los encabezados
-			const padre = mostrar.closest(".tituloEncabs");
+			const padre = titulo.closest(".tituloEncabs");
 			const encabezados = padre.querySelector(".encabezados");
 			encabezados.classList.toggle("ocultar");
 
