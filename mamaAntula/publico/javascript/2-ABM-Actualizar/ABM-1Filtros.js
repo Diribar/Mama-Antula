@@ -33,6 +33,7 @@ window.addEventListener("load", async () => {
 				"seccion_id=" + comp1234.seccion_id + "&tema_id=" + comp1234.tema_id + "&pestana_id=" + comp1234.pestana_id;
 			const respuesta = await fetch(rutas.obtieneEncabs + datos).then((n) => n && n.json());
 
+			// ENCABEZADO - Si hubo un error, muestra el mensaje
 			if (respuesta.error) {
 				if (respuesta.error.includes("[horario]")) {
 					// Variables
@@ -44,15 +45,18 @@ window.addEventListener("load", async () => {
 					const minutos = String(horario.getMinutes()).padStart(2, "0");
 					const horaResp = " a las " + hora + ":" + minutos + "hs";
 					const horarioLocal = fechaResp + horaResp;
-					console.log(fechaResp , horaResp);
-
+					console.log(fechaResp, horaResp);
 
 					// Reemplaza el texto
 					respuesta.error = respuesta.error.replace("[horario]", horarioLocal);
 				}
-				alert(respuesta.error);
-				return;
-			} else comp1234.encabezados = respuesta;
+
+				// Muestra el error e interrumpe la función
+				return alert(respuesta.error);
+			}
+
+			// ENCABEZADO - Guarda los encabezados
+			else comp1234.encabezados = respuesta;
 
 			// ENCABEZADO - Crea las opciones
 			agregaOpciones(comp1234.encabezados, DOM.encabezado, "tituloCons");
