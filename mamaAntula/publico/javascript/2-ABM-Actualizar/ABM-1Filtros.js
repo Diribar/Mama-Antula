@@ -142,6 +142,7 @@ window.addEventListener("load", async () => {
 		// ENCABEZADO - Si no tiene pestañas, obtiene los encabezados
 		else {
 			DOM.pestana.value = "";
+			document.cookie = "actualizaPestana_id=; path=/";
 			DOM.pestana.classList.add("ocultar");
 			FN.actualizaFiltroEncabezado();
 		}
