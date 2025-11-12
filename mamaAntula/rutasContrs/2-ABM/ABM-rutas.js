@@ -14,7 +14,7 @@ const router = express.Router();
 
 // 📡 APIs - Obtiene información
 router.get("/api/abm-datos-inciales", API.datosIniciales);
-router.get("/api/abm-obtiene-encabezados", API.obtieneEncabs);
+router.get("/api/abm-obtiene-encabezados", captura, API.obtieneEncabs);
 router.get("/api/abm-obtiene-contenidos", API.obtieneContenidos);
 
 // APIs - Cambios en BD - Encabezado
@@ -31,7 +31,7 @@ router.post("/api/abm-guarda-nuevo-contenido", descargaImg.single("archivo"), im
 router.post("/api/abm-guarda-nuevo-carrusel", descargaImg.array("archivos"), imgEnReqBody, API.guardaNuevo);
 
 // 🖥️ Vistas
-router.get("/actualizar", soloEdicion, captura, vista.actualizar);
+router.get("/actualizar", soloEdicion, vista.actualizar);
 router.get("/revisar", vista.revisar);
 
 // ✅ Export
