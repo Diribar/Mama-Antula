@@ -2,52 +2,40 @@
 import procesos from "./ABM-procesos.js";
 
 export default {
-	// Obtiene información
-	datosIniciales: (req, res) => {
-		// Variables
-		const datosIniciales = {
-			...{secciones, temasSecciones, pestanasTemas}, // Filtros e Impacto...
-			...{personajes, idiomas, lugares}, // Impacto de Filtro Encabezado
-		};
+	filtros:{
+		datosIniciales: (req, res) => {
+			// Variables
+			const datosIniciales = {
+				...{secciones, temasSecciones, pestanasTemas}, // Filtros e Impacto...
+				...{personajes, idiomas, lugares}, // Impacto de Filtro Encabezado
+			};
 
-		// Fin
-		return res.json(datosIniciales);
-	},
-	obtieneEncabs: async (req, res) => {
-		// Variables
-		const {tema_id, pestana_id} = req.query;
-		const {usuario} = req.session;
+			// Fin
+			return res.json(datosIniciales);
+		},
+		obtieneEncabs: async (req, res) => {
+			// Variables
+			const {tema_id, pestana_id} = req.query;
+			const {usuario} = req.session;
 
-		// Averigua si es carta o con índice
-		const temaActual = temasSecciones.find((n) => n.id == tema_id);
-		const esCarta = temaActual.codigo == "cartas";
-		const conIndice = !!temaActual.indices.length;
+			// Averigua si es carta o con índice
+			const temaActual = temasSecciones.find((n) => n.id == tema_id);
+			const esCarta = temaActual.codigo == "cartas";
+			const conIndice = !!temaActual.indices.length;
 
-		// Obtiene datos de la tabla
-		const condicion = {[pestana_id ? "pestana_id" : "tema_id"]: pestana_id || tema_id};
-		const {entidad, includes} = comp.contenido.obtieneDatosDeTabla(condicion);
+			// Obtiene datos de la tabla
+			const condicion = {[pestana_id ? "pestana_id" : "tema_id"]: pestana_id || tema_id};
+			const {entidad, includes} = comp.contenido.obtieneDatosDeTabla(condicion);
 
-		// Obtiene los encabezados
-		condicion.lugar_id = conIndice ? {[Op.not]: null} : {[Op.is]: null};
-		const encabezados = await procesos.obtieneEncabs({esCarta, conIndice, entidad, condicion, includes, usuario});
+			// Obtiene los encabezados
+			condicion.lugar_id = conIndice ? {[Op.not]: null} : {[Op.is]: null};
+			const encabezados = await procesos.obtieneEncabs({esCarta, conIndice, entidad, condicion, includes, usuario});
 
-		// Fin
-		return res.json(encabezados);
-	},
-	obtieneContenidos: async (req, res) => {
-		// Variables
-		const {encab_id, campo_id} = req.query;
-
-		// Obtiene los contenidos
-		const contenidos = await baseDatos
-			.obtieneTodosPorCondicion("contenidos", {[campo_id]: encab_id}, "carrusel")
-			.then((n) => n.sort((a, b) => a.orden - b.orden));
-
-		// Fin
-		return res.json(contenidos);
+			// Fin
+			return res.json(encabezados);
+		},
 	},
 
-	// Cambios en BD
 	encabezado: {
 		guarda: async (req, res) => {
 			// Variables
@@ -104,7 +92,20 @@ export default {
 			return res.json({});
 		},
 	},
+
 	contActual: {
+		obtiene: async (req, res) => {
+			// Variables
+			const {encab_id, campo_id} = req.query;
+
+			// Obtiene los contenidos
+			const contenidos = await baseDatos
+				.obtieneTodosPorCondicion("contenidos", {[campo_id]: encab_id}, "carrusel")
+				.then((n) => n.sort((a, b) => a.orden - b.orden));
+
+			// Fin
+			return res.json(contenidos);
+		},
 		baja: async (req, res) => {
 			// Variables
 			const {id} = req.body;
@@ -164,6 +165,7 @@ export default {
 			return res.json({});
 		},
 	},
+
 	guardaNuevo: async (req, res) => {
 		// Variables
 		const {campo_id, encabezado_id} = req.body;
