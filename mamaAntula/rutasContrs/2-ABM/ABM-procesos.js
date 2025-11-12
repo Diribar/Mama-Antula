@@ -60,7 +60,28 @@ export default {
 		// Fin
 		return;
 	},
-	// API guardaContenido - obtiene el orden de contenido
+
+	// API contenido actual
+	obtieneIndiceEnContenidos: async (id) => {
+		// Obtiene el contenido
+		const contenido = await baseDatos.obtienePorId("contenidos", id);
+		if (!contenido) return {};
+
+		// Obtiene todos los contenidos del mismo encabezado
+		const campo_id = contenido.carta_id ? "carta_id" : "encab_id";
+		const contenidos = await baseDatos
+			.obtieneTodosPorCondicion("contenidos", {[campo_id]: contenido[campo_id]})
+			.then((n) => n.sort((a, b) => a.orden - b.orden));
+		if (contenidos.length < 2) return {};
+
+		// Obtiene el índice del contenido
+		const indice = contenidos.findIndex((n) => n.id == id);
+
+		// Fin
+		return {indice, contenidos};
+	},
+
+	// API guarda nuevo
 	obtieneOrdenContenidos: async ({campo_id, encabezado_id}) => {
 		// Variables
 		let orden = 1;
@@ -81,7 +102,6 @@ export default {
 		// Fin
 		return orden;
 	},
-	// API guar
 	guardaRegsCarrusel: async (imagenes, contenido_id, creadoPor_id) => {
 		// Si no hay imagenes, interrumpe la función
 		if (!imagenes) return;
