@@ -65,24 +65,24 @@ export default {
 	obtieneIndiceEnContenidos: async ({id, usuario}) => {
 		// Obtiene el contenido
 		const contenido = await baseDatos.obtienePorId("contenidos", id);
-		if (!contenido) return {};
+		if (!contenido) return {mensaje: "No se encontró el contenido solicitado"};
 
 		// Revisa que sea status creado_id y por el usuario o un revisor
 		if (contenido.statusRegistro_id != creado_id || (contenido.creadoPor_id != usuario.id && !usuario.rol.revision))
-			return {};
+			return {mensaje: "No tenés permisos para mover este contenido"};
 
 		// Obtiene todos los contenidos del mismo encabezado
 		const campo_id = contenido.carta_id ? "carta_id" : "encab_id";
 		const contenidos = await baseDatos
 			.obtieneTodosPorCondicion("contenidos", {[campo_id]: contenido[campo_id]})
 			.then((n) => n.sort((a, b) => a.orden - b.orden));
-		if (contenidos.length < 2) return {};
+		if (contenidos.length < 2) return {mensaje: "No hay otros contenidos para mover"};
 
 		// Obtiene el índice del contenido
 		const indice = contenidos.findIndex((n) => n.id == id);
 
 		// Fin
-		return {indice, contenidos};
+		return {indice, contenido, contenidos};
 	},
 
 	// API guarda nuevo

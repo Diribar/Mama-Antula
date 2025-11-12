@@ -11,7 +11,6 @@ window.addEventListener("load", async () => {
 		iconos: document.querySelector("#sectorContActual .iconos"),
 	};
 	const v = {
-		campos_id: {encabCartas: "carta_id", encabResto: "encab_id"},
 		cruds: ["baja", "sube", "elimina"],
 		funcsComps: {
 			baja: (datos) => putJson(datos),
@@ -216,7 +215,7 @@ window.addEventListener("load", async () => {
 	DOM.filtroEncab.addEventListener("change", async () => {
 		// Variables
 		const encabezado_id = DOM.filtroEncab.value;
-		const campo_id = v.campos_id[comp1234.entidad];
+		const campo_id = campos_id[comp1234.entidad];
 		const ruta = rutasContenido.obtiene + "encab_id=" + encabezado_id + "&campo_id=" + campo_id;
 
 		// Limpia el DOM
@@ -235,3 +234,6 @@ window.addEventListener("load", async () => {
 		return;
 	});
 });
+
+// Variables compartidas
+const campos_id = {encabCartas: "carta_id", encabResto: "encab_id"};

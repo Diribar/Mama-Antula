@@ -1,5 +1,6 @@
 "use strict";
 // Variables
+const unMinuto = 60 * 1000;
 const unaHora = 60 * 60 * 1000;
 const unDia = unaHora * 24;
 const unaSemana = unDia * 7;
@@ -8,14 +9,14 @@ const unAno = unDia * 365;
 
 export default {
 	logoOficial: "/imgsEstables/Varios/logoOficial.jpg",
-	...{unaHora, unDia, unaSemana, unMes, unAno},
+	...{unMinuto, unaHora, unDia, unaSemana, unMes, unAno},
 	iconos: {
 		...{faSolid: "fa-solid", hogar: "fa-home", ayuda: "fa-circle-question"}, // Uso general
 		...{triangulo: "fa-triangle-exclamation", entendido: "fa-thumbs-up"}, // Carteles
 		...{izquierda: "fa-circle-left", derecha: "fa-circle-right", check: "fa-circle-check", xMark: "fa-circle-xmark"}, // Formularios
 
 		// Ocasionales
-		...{agregar: "fa-circle-plus", califica: "fa-chart-simple", eliminar: "fa-trash-can", guardar:"fa-floppy-disk"},
+		...{agregar: "fa-circle-plus", califica: "fa-chart-simple", eliminar: "fa-trash-can", guardar: "fa-floppy-disk"},
 		...{izqDer: "fa-arrow-right-arrow-left", arrAbajo: "fa-arrow-right-arrow-left girar90"},
 		...{detalle: "fa-circle-info", edicion: "fa-pen", edicionCambiada: "fa-arrow-right-long", rotar: "fa-rotate-90"},
 		...{graficos: "fa-chart-line", chart: "fa-chart-pie", columnas: "fa-chart-simple", area: "fa-chart-area"},

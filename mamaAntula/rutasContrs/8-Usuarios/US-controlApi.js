@@ -65,7 +65,7 @@ export default {
 		if (res.locals && res.locals.usuario) delete res.locals.usuario;
 
 		// Fin
-		return res.json();
+		return res.json({});
 	},
 	edicion: {
 		validaCampo: (req, res) => res.json(valida.edicion(req.body)),

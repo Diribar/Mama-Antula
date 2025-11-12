@@ -1,3 +1,7 @@
+// Variables
+const mesesAbrev = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"];
+
+// Funciones
 const colorMensaje = (DOM, hay, mensaje) => {
 	// Cambia el color en la respuesta
 	DOM.mensaje.classList[!hay ? "add" : "remove"]("exito");

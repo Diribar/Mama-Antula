@@ -11,8 +11,8 @@ window.addEventListener("load", async () => {
 		anchorLectura: document.querySelector("footer #iconosFooterOtros a#lectura"),
 	};
 	const rutas = {
-		datosIniciales: "/contenido/api/abm-datos-inciales",
-		obtieneEncabs: "/contenido/api/abm-obtiene-encabezados/?",
+		datosIniciales: "/contenido/api/abm-filtros-datos-inciales",
+		obtieneEncabs: "/contenido/api/abm-filtros-obtiene-encabezados/?",
 	};
 	comp1234 = {startUp: true, ...(await fetch(rutas.datosIniciales).then((n) => n && n.json()))};
 	const v = {};
@@ -31,7 +31,28 @@ window.addEventListener("load", async () => {
 			// ENCABEZADO - Obtiene los encabezados
 			const datos =
 				"seccion_id=" + comp1234.seccion_id + "&tema_id=" + comp1234.tema_id + "&pestana_id=" + comp1234.pestana_id;
-			comp1234.encabezados = await fetch(rutas.obtieneEncabs + datos).then((n) => n && n.json());
+			const respuesta = await fetch(rutas.obtieneEncabs + datos).then((n) => n && n.json());
+
+			if (respuesta.error) {
+				if (respuesta.error.includes("[horario]")) {
+					// Variables
+					const horario = new Date(respuesta.horario);
+					console.log(respuesta);
+
+					const fechaResp = horario.getDate() + "/" + mesesAbrev[horario.getMonth()];
+					const hora = horario.getHours();
+					const minutos = String(horario.getMinutes()).padStart(2, "0");
+					const horaResp = " a las " + hora + ":" + minutos + "hs";
+					const horarioLocal = fechaResp + horaResp;
+					console.log(fechaResp , horaResp);
+
+
+					// Reemplaza el texto
+					respuesta.error = respuesta.error.replace("[horario]", horarioLocal);
+				}
+				alert(respuesta.error);
+				return;
+			} else comp1234.encabezados = respuesta;
 
 			// ENCABEZADO - Crea las opciones
 			agregaOpciones(comp1234.encabezados, DOM.encabezado, "tituloCons");
@@ -121,6 +142,7 @@ window.addEventListener("load", async () => {
 		// ENCABEZADO - Si no tiene pestañas, obtiene los encabezados
 		else {
 			DOM.pestana.value = "";
+			document.cookie = "actualizaPestana_id=; path=/";
 			DOM.pestana.classList.add("ocultar");
 			FN.actualizaFiltroEncabezado();
 		}
