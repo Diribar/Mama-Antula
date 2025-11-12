@@ -4,9 +4,10 @@ import API from "./ABM-controlApi.js";
 import vista from "./ABM-controlVista.js";
 
 // Middlewares
-import soloEdicion from "../../middlewares/usuarios/US-3SoloEdicion.js";
+import soloEdicion from "../../middlewares/8-usuarios/US-3SoloEdicion.js";
 import descargaImg from "../../middlewares/descargaImg/IMG-descargaImg.js";
 import imgEnReqBody from "../../middlewares/descargaImg/IMG-imgEnReqBody.js";
+
 
 // 🧩 Router
 const router = express.Router();

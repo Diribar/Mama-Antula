@@ -4,9 +4,9 @@ import API from "./US-controlApi.js";
 import vista from "./US-controlVista.js";
 
 // Middlewares
-import soloVisitas from "../../middlewares/usuarios/US-1SoloVisitas.js";
-import soloUsuarios from "../../middlewares/usuarios/US-2SoloUsuarios.js";
-import soloAdmin from "../../middlewares/usuarios/US-4SoloAdmin.js";
+import soloVisitas from "../../middlewares/8-usuarios/US-1SoloVisitas.js";
+import soloUsuarios from "../../middlewares/8-usuarios/US-2SoloUsuarios.js";
+import soloAdmin from "../../middlewares/8-usuarios/US-4SoloAdmin.js";
 import descargaImg from "../../middlewares/descargaImg/IMG-descargaImg.js";
 import imgEnReqBody from "../../middlewares/descargaImg/IMG-imgEnReqBody.js";
 
