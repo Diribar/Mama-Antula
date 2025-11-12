@@ -11,6 +11,13 @@ export default {
 		anoMesDia: (fecha) => new Date(fecha).toISOString().slice(0, 10),
 		ahora: () => new Date(new Date().toUTCString()), // <-- para convertir en horario 'UTC'
 		diaMesAnoUTC: (fecha) => FN.diaMesAnoUTC(fecha),
+		horarioUTC: (fecha) => {
+			const horario = fecha ? new Date(fecha) : FN.ahora();
+			const hora = horario.getUTCHours();
+			const minutos = String(horario.getUTCMinutes()).padStart(2, "0");
+			const horaResp = hora + ":" + minutos + "hs (UTC)";
+			return horaResp;
+		},
 	},
 	validacs: {
 		castellano: {
