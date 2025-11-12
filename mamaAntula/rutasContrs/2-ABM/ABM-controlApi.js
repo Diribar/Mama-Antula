@@ -109,18 +109,11 @@ export default {
 			// Variables
 			const {id} = req.body;
 
-			// Obtiene el contenido
-			const contenido = await baseDatos.obtienePorId("contenidos", id);
-			if (!contenido) return res.json();
+			// Obtiene todos los contenidos del mismo encabezado y el indice del actual
+			const {indice, contenidos} = await procesos.obtieneIndiceEnContenidos(id);
+			if (!contenidos) return res.json();
 
-			// Obtiene todos los contenidos del mismo encabezado
-			const campo_id = contenido.carta_id ? "carta_id" : "encab_id";
-			const contenidos = await baseDatos
-				.obtieneTodosPorCondicion("contenidos", {[campo_id]: contenido[campo_id]})
-				.then((n) => n.sort((a, b) => a.orden - b.orden));
-
-			// Obtiene el índice del contenido y, si no es el último, intercambia el orden con el siguiente
-			const indice = contenidos.findIndex((n) => n.id == id);
+			// Si no es el último, intercambia el orden con el siguiente
 			if (indice < contenidos.length - 1) {
 				const siguiente = contenidos[indice + 1];
 				await baseDatos.actualizaPorId("contenidos", siguiente.id, {orden: contenido.orden});
@@ -134,22 +127,15 @@ export default {
 			// Variables
 			const {id} = req.body;
 
-			// Obtiene el contenido
-			const contenido = await baseDatos.obtienePorId("contenidos", id);
-			if (!contenido) return res.json();
+			// Obtiene todos los contenidos del mismo encabezado y el indice del actual
+			const {indice, contenidos} = await procesos.obtieneIndiceEnContenidos(id);
+			if (!contenidos) return res.json();
 
-			// Obtiene todos los contenidos del mismo encabezado
-			const campo_id = contenido.carta_id ? "carta_id" : "encab_id";
-			const contenidos = await baseDatos
-				.obtieneTodosPorCondicion("contenidos", {[campo_id]: contenido[campo_id]})
-				.then((n) => n.sort((a, b) => a.orden - b.orden));
-
-			// Obtiene el índice del contenido y, si no es el último, intercambia el orden con el siguiente
-			const indice = contenidos.findIndex((n) => n.id == id);
-			if (indice < contenidos.length - 1) {
-				const siguiente = contenidos[indice + 1];
-				await baseDatos.actualizaPorId("contenidos", siguiente.id, {orden: contenido.orden});
-				await baseDatos.actualizaPorId("contenidos", contenido.id, {orden: siguiente.orden});
+			// Si no es el primero, intercambia el orden con el anterior
+			if (indice > 0) {
+				const anterior = contenidos[indice - 1];
+				await baseDatos.actualizaPorId("contenidos", anterior.id, {orden: contenido.orden});
+				await baseDatos.actualizaPorId("contenidos", contenido.id, {orden: anterior.orden});
 			}
 
 			// Fin
