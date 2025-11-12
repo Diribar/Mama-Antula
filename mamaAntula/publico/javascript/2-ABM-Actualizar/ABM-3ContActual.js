@@ -54,7 +54,6 @@ window.addEventListener("load", async () => {
 					return;
 				});
 			}
-			eventosClick["icono" + evento](domIcono);
 		}
 	};
 	const FN = {
@@ -75,8 +74,8 @@ window.addEventListener("load", async () => {
 			domIconos.dataset.statusRegistro_id = contenido.statusRegistro_id;
 
 			// Si corresponde, elimina los íconos de subir y/o bajar
-			if (v.inicial_id == contenido.id || contenido.statusRegistro_id != 1) domIconos.querySelector(".iconoSubir").remove();
-			if (v.final_id == contenido.id || contenido.statusRegistro_id != 1) domIconos.querySelector(".iconoBajar").remove();
+			if (v.final_id == contenido.id || contenido.statusRegistro_id != 1) domIconos.querySelector(".baja").remove();
+			if (v.inicial_id == contenido.id || contenido.statusRegistro_id != 1) domIconos.querySelector(".sube").remove();
 
 			// Agrega el DOM de los íconos
 			domBloqueLectura.appendChild(domIconos);
