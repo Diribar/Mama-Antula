@@ -31,7 +31,12 @@ window.addEventListener("load", async () => {
 			// ENCABEZADO - Obtiene los encabezados
 			const datos =
 				"seccion_id=" + comp1234.seccion_id + "&tema_id=" + comp1234.tema_id + "&pestana_id=" + comp1234.pestana_id;
-			comp1234.encabezados = await fetch(rutas.obtieneEncabs + datos).then((n) => n && n.json());
+			const respuesta = await fetch(rutas.obtieneEncabs + datos).then((n) => n && n.json());
+
+			if (respuesta.error) {
+				alert(respuesta.error);
+				return;
+			} else comp1234.encabezados = respuesta;
 
 			// ENCABEZADO - Crea las opciones
 			agregaOpciones(comp1234.encabezados, DOM.encabezado, "tituloCons");

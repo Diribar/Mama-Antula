@@ -3,6 +3,7 @@
 export default async (req, res, next) => {
 	// Variables
 	const {actualizaTema_id: tema_id, actualizaPestana_id: pestana_id} = req.cookies;
+
 	const pestsPosibles = (tema_id && pestanasTemas.filter((n) => n.tema_id == tema_id)) || [];
 
 	// PESTAÑA - Validaciones
@@ -48,12 +49,15 @@ export default async (req, res, next) => {
 
 		// 4. Problemas con la captura
 		const {capturadoPor_id, capturadoEn} = temaActual;
-		const liberadoEn = new Date(capturadoEn) + unaHora * 1;
+		const liberadoEn = new Date(capturadoEn).getTime() + unaHora * 1;
+		console.log(6, tema_id, capturadoPor_id, Date.now(), liberadoEn);
+		console.log(7, capturadoPor_id != req.session.usuario.id, Date.now() < liberadoEn);
+
 		if (
 			capturadoPor_id &&
 			capturadoEn && // está capturado
 			capturadoPor_id != req.session.usuario.id && // está capturado por otra persona
-			new Date() < liberadoEn // y no se venció el tiempo
+			Date.now() < liberadoEn // y no se venció el tiempo
 		) {
 			const usuarioCaptura = await baseDatos.obtienePorId("usuarios", capturadoPor_id);
 			const {nombreCompleto} = usuarioCaptura;
