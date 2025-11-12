@@ -61,6 +61,7 @@ app.use("/imgsEditables", express.static(carpImgsEditables));
 // Carpetas públicas - otras
 app.use("/formatos", express.static(path.join(rutaHome, "/publico/formatos")));
 app.use("/javascript", express.static(path.join(rutaHome, "/publico/javascript")));
+app.use("/descargas", express.static(path.join(rutaHome, "/publico/descargas")));
 app.use("/fa", express.static("node_modules/@fortawesome/fontawesome-free"));
 
 // Variables globales - debe ser con await, para que primero se carguen las variables globales de más arriba
