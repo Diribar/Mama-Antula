@@ -124,6 +124,9 @@ window.addEventListener("load", async () => {
 		// Guarda el encabezado en la BD
 		const respuesta = await fetch(rutas.guardaEncabezado, postForm(formData)).then((n) => n.json());
 
+		// Si hubo un error, muestra el mensaje e interrumpe la función
+		if (respuesta.error) return alert(respuesta.error);
+
 		// Guarda el nuevo_id en la cookie y establece que se actualicen los filtros por las cookies
 		if (respuesta.id) {
 			// Guarda la nueva cookie y se genera un change en el tema, para que se reinicie el filtro del encabezado
@@ -146,7 +149,10 @@ window.addEventListener("load", async () => {
 
 		// Elimina de la BD, el encabezado y sus contenidos
 		const datos = {entidad: comp1234.entidad, id: DOM.filtroEncab.value};
-		await fetch(rutas.eliminaEncabezado, deleteJson(datos));
+		const respuesta = await fetch(rutas.eliminaEncabezado, deleteJson(datos)).then((n) => n.json());
+
+		// Si hubo un error, muestra el mensaje e interrumpe la función
+		if (respuesta.error) return alert(respuesta.error);
 
 		// Elimina la cookie y se genera un change en el tema o pestaña, para que se reinicie el filtro del encabezado
 		document.cookie = "actualizaEncabezado_id=; path=/";

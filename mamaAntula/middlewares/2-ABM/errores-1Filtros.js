@@ -22,12 +22,12 @@ export default async (req, res, next) => {
 			new Date() < liberadoEn // y no se venció el tiempo
 		) {
 			const usuarioCaptura = await baseDatos.obtienePorId("usuarios", capturadoPor_id);
-			const {nombreCompleto} = usuarioCaptura;
+			const {nombreCompleto, apodo} = usuarioCaptura;
 
 			return res.json({
 				error:
 					"La pestaña está siendo actualizada por " +
-					nombreCompleto +
+					(nombreCompleto || apodo) +
 					", y quedará liberada a las " +
 					comp.fechaHora.horarioUTC(liberadoEn) +
 					" si no registra actividad antes de esa hora.",
@@ -58,12 +58,12 @@ export default async (req, res, next) => {
 			Date.now() < liberadoEn // y no se venció el tiempo
 		) {
 			const usuarioCaptura = await baseDatos.obtienePorId("usuarios", capturadoPor_id);
-			const {nombreCompleto} = usuarioCaptura;
+			const {nombreCompleto, apodo} = usuarioCaptura;
 
 			return res.json({
 				error:
 					"El tema está siendo actualizado por " +
-					nombreCompleto +
+					(nombreCompleto || apodo) +
 					", y quedará liberado el [horario] si no registra actividad antes de esa hora.",
 				horario: liberadoEn + unMinuto,
 			});
