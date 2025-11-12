@@ -64,8 +64,6 @@ export default {
 	// API contenido actual
 	obtieneIndiceEnContenidos: async ({id, usuario}) => {
 		// Obtiene el contenido
-		console.log(67,id);
-
 		const contenido = await baseDatos.obtienePorId("contenidos", id);
 		if (!contenido) return {mensaje: "No se encontró el contenido solicitado"};
 
