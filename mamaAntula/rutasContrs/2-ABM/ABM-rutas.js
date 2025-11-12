@@ -23,13 +23,13 @@ router.get("/api/abm-filtros-obtiene-encabezados", erroresFiltros, captura, API.
 router.post("/api/abm-encabezado-guarda-encabezado", descargaImg.none(), API.encabezado.guarda); // se usa multer para que procese el formData
 router.delete("/api/abm-encabezado-elimina", API.encabezado.elimina);
 
-// APIs - Cambios en BD - Contenido Actual
+// APIs - Contenido Actual
 router.get("/api/abm-obtiene-contenidos", API.obtieneContenidos);
 router.put("/api/abm-baja-contenido", API.contActual.baja);
 router.put("/api/abm-sube-contenido", API.contActual.sube);
 router.delete("/api/abm-elimina-contenido", API.contActual.elimina);
 
-// APIs - Cambios en BD - Contenido Nuevo
+// APIs - Contenido Nuevo
 router.post("/api/abm-guarda-nuevo-contenido", descargaImg.single("archivo"), imgEnReqBody, API.guardaNuevo);
 router.post("/api/abm-guarda-nuevo-carrusel", descargaImg.array("archivos"), imgEnReqBody, API.guardaNuevo);
 
