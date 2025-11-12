@@ -51,7 +51,7 @@ window.addEventListener("load", async () => {
 					const id = domIcono.parentNode.dataset.id;
 
 					// Crud del contenido
-					await fetch(rutasContenido[crud], v.funcsComps[crud]({id})).then((n) => n.json());
+					await fetch(rutasContenido[crud], v.funcsComps[crud]({id})); //.then((n) => n.json());
 
 					// Actualiza el DOM
 					DOM.filtroEncab.dispatchEvent(new Event("change"));
