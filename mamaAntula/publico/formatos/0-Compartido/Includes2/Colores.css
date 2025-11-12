@@ -35,7 +35,7 @@ body {
 	--colorTitulo: var(--grisOscuro);
 	--backTitulo: var(--amarilloClaro);
 	--bordeTitulo: var(--naranja-oscuro);
-	--colorMensajeError: var(--rojo-oscuro);
+	--colorMensajeError: var(--rojoOscuro);
 	--backMensajeError: var(--amarilloClaro);
 	--backIcono: white;
 	--backFlechas: var(--celeste-oscuro);

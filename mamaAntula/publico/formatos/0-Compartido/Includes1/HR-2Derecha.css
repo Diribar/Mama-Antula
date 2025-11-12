@@ -15,7 +15,7 @@ header #derecha {
 	#menuLogin {
 		padding: 10px; align-items: center; gap: 10px;
 		&:has(#mensajeError:not(:empty)) {
-			background-color: var(--rojo-oscuro);
+			background-color: var(--rojoOscuro);
 			#mensajeError {color: var(--grisClaro); text-align: center;font-style: italic; line-height: 1;}
 			#iconos {display: none;}
 		}
