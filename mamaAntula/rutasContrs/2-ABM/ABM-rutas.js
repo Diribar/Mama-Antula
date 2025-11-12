@@ -7,7 +7,7 @@ import vista from "./ABM-controlVista.js";
 import soloEdicion from "../../middlewares/8-usuarios/US-3SoloEdicion.js";
 import descargaImg from "../../middlewares/descargaImg/IMG-descargaImg.js";
 import imgEnReqBody from "../../middlewares/descargaImg/IMG-imgEnReqBody.js";
-
+import captura from "../../middlewares/captura.js";
 
 // 🧩 Router
 const router = express.Router();
@@ -31,7 +31,7 @@ router.post("/api/abm-guarda-nuevo-contenido", descargaImg.single("archivo"), im
 router.post("/api/abm-guarda-nuevo-carrusel", descargaImg.array("archivos"), imgEnReqBody, API.guardaNuevo);
 
 // 🖥️ Vistas
-router.get("/actualizar", soloEdicion, vista.actualizar);
+router.get("/actualizar", soloEdicion, captura, vista.actualizar);
 router.get("/revisar", vista.revisar);
 
 // ✅ Export
