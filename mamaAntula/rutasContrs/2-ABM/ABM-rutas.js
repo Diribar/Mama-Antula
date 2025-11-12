@@ -7,7 +7,7 @@ import vista from "./ABM-controlVista.js";
 import soloEdicion from "../../middlewares/8-usuarios/US-3SoloEdicion.js";
 import descargaImg from "../../middlewares/descargaImg/IMG-descargaImg.js";
 import imgEnReqBody from "../../middlewares/descargaImg/IMG-imgEnReqBody.js";
-import captura from "../../middlewares/captura.js";
+import captura from "../../middlewares/2-ABM/captura.js";
 
 // 🧩 Router
 const router = express.Router();
