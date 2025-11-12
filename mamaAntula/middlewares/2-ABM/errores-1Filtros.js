@@ -66,9 +66,8 @@ export default async (req, res, next) => {
 				error:
 					"El tema está siendo actualizado por " +
 					nombreCompleto +
-					", y quedará liberado a las " +
-					comp.fechaHora.horarioUTC(liberadoEn) +
-					" si no registra actividad antes de esa hora.",
+					", y quedará liberado el [horario] si no registra actividad antes de esa hora.",
+				horario: liberadoEn + unMinuto,
 			});
 		}
 	}

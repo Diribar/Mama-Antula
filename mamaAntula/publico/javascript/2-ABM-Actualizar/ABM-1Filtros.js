@@ -34,6 +34,22 @@ window.addEventListener("load", async () => {
 			const respuesta = await fetch(rutas.obtieneEncabs + datos).then((n) => n && n.json());
 
 			if (respuesta.error) {
+				if (respuesta.error.includes("[horario]")) {
+					// Variables
+					const horario = new Date(respuesta.horario);
+					console.log(respuesta);
+
+					const fechaResp = horario.getDate() + "/" + mesesAbrev[horario.getMonth()];
+					const hora = horario.getHours();
+					const minutos = String(horario.getMinutes()).padStart(2, "0");
+					const horaResp = " a las " + hora + ":" + minutos + "hs";
+					const horarioLocal = fechaResp + horaResp;
+					console.log(fechaResp , horaResp);
+
+
+					// Reemplaza el texto
+					respuesta.error = respuesta.error.replace("[horario]", horarioLocal);
+				}
 				alert(respuesta.error);
 				return;
 			} else comp1234.encabezados = respuesta;
