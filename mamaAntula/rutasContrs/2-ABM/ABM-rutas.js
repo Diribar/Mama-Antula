@@ -7,14 +7,14 @@ import vista from "./ABM-controlVista.js";
 import soloEdicion from "../../middlewares/8-usuarios/US-3SoloEdicion.js";
 import descargaImg from "../../middlewares/descargaImg/IMG-descargaImg.js";
 import imgEnReqBody from "../../middlewares/descargaImg/IMG-imgEnReqBody.js";
-
+import captura from "../../middlewares/captura.js";
 
 // 🧩 Router
 const router = express.Router();
 
 // 📡 APIs - Obtiene información
 router.get("/api/abm-datos-inciales", API.datosIniciales);
-router.get("/api/abm-obtiene-encabezados", API.obtieneEncabs);
+router.get("/api/abm-obtiene-encabezados", captura, API.obtieneEncabs);
 router.get("/api/abm-obtiene-contenidos", API.obtieneContenidos);
 
 // APIs - Cambios en BD - Encabezado

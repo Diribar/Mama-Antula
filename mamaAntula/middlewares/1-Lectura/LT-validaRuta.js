@@ -8,7 +8,7 @@ export default (req, res, next) => {
 
 	// SECCION - Si el urlSeccion no existe, redirige
 	if (!urlSeccion) {
-		const {seccionActual} = req.cookies || "inicio";
+		const seccionActual = req.cookies.seccionActual || "inicio";
 		const urlActual = secciones.find((n) => n.url == seccionActual).url;
 		return res.redirect("/" + urlActual);
 	}
@@ -52,6 +52,8 @@ export default (req, res, next) => {
 		res.cookie(temaActual.codigo, pestanaActual.codigo, {maxAge: unDia, path: "/"});
 		res.cookie("actualizaPestana_id", pestanaActual.id, {maxAge: unDia, path: "/"});
 	}
+	// Borra la cookie de pestaña
+	else res.clearCookie("actualizaPestana_id");
 
 	// ENCABEZADO - Si el encabezado existe, guarda la cookie
 	if (encabezado_id) res.cookie("actualizaEncabezado_id", encabezado_id, {maxAge: unDia, path: "/"});
