@@ -12,9 +12,8 @@ window.addEventListener("load", async () => {
 	};
 	const v = {
 		campos_id: {encabCartas: "carta_id", encabResto: "encab_id"},
-		cruds: ["guarda", "baja", "sube", "elimina"],
+		cruds: ["baja", "sube", "elimina"],
 		funcsComps: {
-			guarda: (datos) => postJson(datos),
 			baja: (datos) => putJson(datos),
 			sube: (datos) => putJson(datos),
 			elimina: (datos) => deleteJson(datos),
