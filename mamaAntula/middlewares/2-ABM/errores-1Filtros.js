@@ -50,8 +50,6 @@ export default async (req, res, next) => {
 		// 4. Problemas con la captura
 		const {capturadoPor_id, capturadoEn} = temaActual;
 		const liberadoEn = new Date(capturadoEn).getTime() + unaHora * 1;
-		console.log(6, tema_id, capturadoPor_id, Date.now(), liberadoEn);
-		console.log(7, capturadoPor_id != req.session.usuario.id, Date.now() < liberadoEn);
 
 		if (
 			capturadoPor_id &&
