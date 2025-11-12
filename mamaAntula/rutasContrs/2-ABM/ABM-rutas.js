@@ -20,7 +20,7 @@ router.get("/api/abm-filtros-datos-inciales", API.datosIniciales);
 router.get("/api/abm-filtros-obtiene-encabezados", erroresFiltros, captura, API.obtieneEncabs);
 
 // APIs - Encabezado
-router.post("/api/abm-encabezado-guarda-encabezado", descargaImg.none(), API.encabezado.guarda); // se usa multer para que procese el formData
+router.post("/api/abm-encabezado-guarda", descargaImg.none(), API.encabezado.guarda); // se usa multer para que procese el formData
 router.delete("/api/abm-encabezado-elimina", API.encabezado.elimina);
 
 // APIs - Contenido Actual
