@@ -16,22 +16,22 @@ import erroresFiltros from "../../middlewares/2-ABM/errores-1Filtros.js";
 const router = express.Router();
 
 // 📡 APIs - Filtros
-router.get("/api/abm-filtros-datos-inciales", API.datosIniciales);
-router.get("/api/abm-filtros-obtiene-encabezados", erroresFiltros, captura, API.obtieneEncabs);
+router.get("/api/abm-filtros-datos-inciales", API.filtros.datosIniciales);
+router.get("/api/abm-filtros-obtiene-encabezados", erroresFiltros, captura, API.filtros.obtieneEncabs);
 
 // APIs - Encabezado
 router.post("/api/abm-encabezado-guarda", descargaImg.none(), API.encabezado.guarda); // se usa multer para que procese el formData
 router.delete("/api/abm-encabezado-elimina", API.encabezado.elimina);
 
 // APIs - Contenido Actual
-router.get("/api/abm-obtiene-contenidos", API.obtieneContenidos);
-router.put("/api/abm-baja-contenido", API.contActual.baja);
-router.put("/api/abm-sube-contenido", API.contActual.sube);
-router.delete("/api/abm-elimina-contenido", API.contActual.elimina);
+router.get("/api/abm-contenido-obtiene", API.contActual.obtiene);
+router.put("/api/abm-contenido-baja", API.contActual.baja);
+router.put("/api/abm-contenido-sube", API.contActual.sube);
+router.delete("/api/abm-contenido-elimina", API.contActual.elimina);
 
 // APIs - Contenido Nuevo
-router.post("/api/abm-guarda-nuevo-contenido", descargaImg.single("archivo"), imgEnReqBody, API.guardaNuevo);
-router.post("/api/abm-guarda-nuevo-carrusel", descargaImg.array("archivos"), imgEnReqBody, API.guardaNuevo);
+router.post("/api/abm-nuevo-contenido-guarda", descargaImg.single("archivo"), imgEnReqBody, API.guardaNuevo);
+router.post("/api/abm-nuevo-carrusel-guarda", descargaImg.array("archivos"), imgEnReqBody, API.guardaNuevo);
 
 // 🖥️ Vistas
 router.get("/actualizar", soloEdicion, vista.actualizar);
