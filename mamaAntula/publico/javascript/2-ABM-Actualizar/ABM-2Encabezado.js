@@ -138,6 +138,9 @@ window.addEventListener("load", async () => {
 
 	// Elimina en la BD
 	DOM.iconoEliminar.addEventListener("click", async () => {
+		// Pide la confirmación del usuario
+		if (!confirm("¿Estás seguro/a de que querés eliminar este encabezado y su contenido?")) return;
+
 		// Limpia el FE
 		for (const input of DOM.inputs) input.value = "";
 

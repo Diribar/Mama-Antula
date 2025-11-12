@@ -108,9 +108,10 @@ export default {
 		baja: async (req, res) => {
 			// Variables
 			const {id} = req.body;
+			const {usuario} = req.session;
 
 			// Obtiene todos los contenidos del mismo encabezado y el indice del actual
-			const {indice, contenidos} = await procesos.obtieneIndiceEnContenidos(id);
+			const {indice, contenidos} = await procesos.obtieneIndiceEnContenidos({id, usuario});
 			if (!contenidos) return res.json();
 
 			// Si no es el último, intercambia el orden con el siguiente

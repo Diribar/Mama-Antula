@@ -62,10 +62,14 @@ export default {
 	},
 
 	// API contenido actual
-	obtieneIndiceEnContenidos: async (id) => {
+	obtieneIndiceEnContenidos: async ({id, usuario}) => {
 		// Obtiene el contenido
 		const contenido = await baseDatos.obtienePorId("contenidos", id);
 		if (!contenido) return {};
+
+		// Revisa que sea status creado_id y por el usuario o un revisor
+		if (contenido.statusRegistro_id != creado_id || (contenido.creadoPor_id != usuario.id && !usuario.rol.revision))
+			return {};
 
 		// Obtiene todos los contenidos del mismo encabezado
 		const campo_id = contenido.carta_id ? "carta_id" : "encab_id";
