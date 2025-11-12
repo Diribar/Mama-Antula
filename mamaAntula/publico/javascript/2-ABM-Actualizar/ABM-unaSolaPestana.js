@@ -1,22 +1,18 @@
 "use strict";
 
-export default async (req, res, next) => {
+window.addEventListener("load", () => {
 	// Broadcast that you're opening a page
-	localStorage.openpages = Date.now();
+	localStorage.estaPestana = Date.now();
 
 	// Funcion
-	var onLocalStorageEvent = (e) => {
-		console.log(e.key);
+	const evento = (e) => {
+		// Dispara el evento en otras pestañas, mediante 'localStorage.otraPestana'
+		if (e.key == "estaPestana") localStorage.otraPestana = Date.now();
 
-		// Listen if anybody else is opening the same page!
-		// if (e.key == "openpages") localStorage.page_available = Date.now();
-
-		// if (e.key == "page_available") location.href = "/";
+		// Si otra pestaña avisa que está abierta, esta pestaña cambia su url
+		if (e.key == "otraPestana") window.history.back();
 	};
 
-	// Evento
-	window.addEventListener("storage", onLocalStorageEvent, false);
-
-	// Fin
-	return next();
-}
+	// Evento - provocado por otra pestaña, mediante 'localStorage.otraPestana'
+	window.addEventListener("storage", evento, false);
+});

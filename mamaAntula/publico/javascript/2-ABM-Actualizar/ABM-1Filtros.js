@@ -47,9 +47,9 @@ window.addEventListener("load", async () => {
 
 			// ENCABEZADO - Si es start-up, elige la opción de la cookie
 			const valoresPosiblesOpciones = Array.from(DOM.encabezado.querySelectorAll("option")).map((n) => n.value);
-			const valorCookie = cookie("actualizaEncabezado_id");
-			if (comp1234.startUp && valorCookie && valoresPosiblesOpciones.includes(valorCookie))
-				DOM.encabezado.value = valorCookie;
+			const encabezado_id = cookie("actualizaEncabezado_id");
+			if (comp1234.startUp && encabezado_id && valoresPosiblesOpciones.includes(encabezado_id))
+				DOM.encabezado.value = encabezado_id;
 
 			// ENCABEZADO - Dispara el evento
 			DOM.encabezado.dispatchEvent(new Event("change"));
