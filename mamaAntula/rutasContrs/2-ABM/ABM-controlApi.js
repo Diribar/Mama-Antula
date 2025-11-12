@@ -101,7 +101,7 @@ export default {
 			await baseDatos.eliminaPorId(entidad, id);
 
 			// Fin
-			return res.json();
+			return res.json({});
 		},
 	},
 	contActual: {
@@ -112,7 +112,7 @@ export default {
 
 			// Obtiene todos los contenidos del mismo encabezado y el indice del actual
 			const {indice, contenidos} = await procesos.obtieneIndiceEnContenidos({id, usuario});
-			if (!contenidos) return res.json();
+			if (!contenidos) return res.json({});
 
 			// Si no es el último, intercambia el orden con el siguiente
 			if (indice < contenidos.length - 1) {
@@ -122,7 +122,7 @@ export default {
 			}
 
 			// Fin
-			return res.json();
+			return res.json({});
 		},
 		sube: async (req, res) => {
 			// Variables
@@ -130,7 +130,7 @@ export default {
 
 			// Obtiene todos los contenidos del mismo encabezado y el indice del actual
 			const {indice, contenidos} = await procesos.obtieneIndiceEnContenidos(id);
-			if (!contenidos) return res.json();
+			if (!contenidos) return res.json({});
 
 			// Si no es el primero, intercambia el orden con el anterior
 			if (indice > 0) {
@@ -140,12 +140,12 @@ export default {
 			}
 
 			// Fin
-			return res.json();
+			return res.json({});
 		},
 		elimina: async (req, res) => {
 			// Variables
 			const {id} = req.body;
-			if (!id) return res.json();
+			if (!id) return res.json({});
 			const contenido = await baseDatos.obtienePorId("contenidos", id, "carrusel");
 			const ruta = contenido.statusRegistro_id == creado_id ? carpRevisar : carpContenido;
 
@@ -158,7 +158,7 @@ export default {
 			await baseDatos.eliminaPorId("contenidos", id);
 
 			// Fin
-			return res.json();
+			return res.json({});
 		},
 	},
 	guardaNuevo: async (req, res) => {
@@ -184,6 +184,6 @@ export default {
 		await procesos.guardaRegsCarrusel(imagens, contenido_id, creadoPor_id);
 
 		// Fin
-		return res.json();
+		return res.json({});
 	},
 };
