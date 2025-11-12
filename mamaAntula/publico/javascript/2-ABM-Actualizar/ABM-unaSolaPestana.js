@@ -6,7 +6,7 @@ window.addEventListener("load", () => {
 
 	// Funcion
 	const evento = (e) => {
-		// Dispara el evento en otras pestañas, mediante 'localStorage.otraPestana'
+		// Sólo dispara el evento en las demás pestañas
 		if (e.key == "estaPestana") localStorage.otraPestana = Date.now();
 
 		// Si otra pestaña avisa que está abierta, esta pestaña cambia su url
