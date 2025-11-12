@@ -11,6 +11,7 @@ const colorMensaje = (DOM, hay, mensaje) => {
 	return;
 };
 const postJson = (datos) => ({method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(datos)});
+const putJson = (datos) => ({method: "PUT", headers: {"Content-Type": "application/json"}, body: JSON.stringify(datos)});
 const deleteJson = (datos) => ({method: "DELETE", headers: {"Content-Type": "application/json"}, body: JSON.stringify(datos)});
 const postForm = (formData) => ({method: "POST", body: formData});
 const cookie = (metodo) => {
