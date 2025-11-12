@@ -20,7 +20,7 @@ window.addEventListener("load", async () => {
 		subeContenido: "/contenido/api/abm-sube-contenido",
 		eliminaContenido: "/contenido/api/abm-elimina-contenido",
 	};
-	const v = {};
+	const v = {campos_id: {encabCartas: "carta_id", encabResto: "encab_id"}};
 
 	// Funciones
 	const creaContenidoIconos = {
@@ -208,12 +208,11 @@ window.addEventListener("load", async () => {
 	const eventosClick = {
 		iconoBajar: (iconoBajar) => {
 			iconoBajar.addEventListener("click", async () => {
-				// Si el ícono está oculto, interrumpe la función
-				if (iconoBajar.classList.contains("ocultar")) return;
-
 				// Baja el contenido y actualiza el DOM
 				const id = iconoBajar.parentNode.dataset.id;
 				await fetch(rutas.bajaContenido, putJson({id})).then((n) => n.json());
+
+				// Reinicia el DOM
 				DOM.filtroEncab.dispatchEvent(new Event("change"));
 
 				// Fin
@@ -222,9 +221,6 @@ window.addEventListener("load", async () => {
 		},
 		iconoSubir: (iconoSubir) => {
 			iconoSubir.addEventListener("click", async () => {
-				// Si el ícono está oculto, interrumpe la función
-				if (iconoSubir.classList.contains("ocultar")) return;
-
 				// Sube el contenido y actualiza el DOM
 				const id = iconoSubir.parentNode.dataset.id;
 				await fetch(rutas.subeContenido, putJson({id})).then((n) => n.json());
@@ -255,7 +251,7 @@ window.addEventListener("load", async () => {
 	DOM.filtroEncab.addEventListener("change", async () => {
 		// Variables
 		const encabezado_id = DOM.filtroEncab.value;
-		const campo_id = campos_id[comp1234.entidad];
+		const campo_id = v.campos_id[comp1234.entidad];
 		const ruta = rutas.obtieneContenidos + "encab_id=" + encabezado_id + "&campo_id=" + campo_id;
 
 		// Limpia el DOM
@@ -263,8 +259,7 @@ window.addEventListener("load", async () => {
 
 		// Si el sector no tiene contenidos, interrumpe la función
 		v.contenidos = v.encabezado_id != "nuevo" ? await fetch(ruta).then((n) => n && n.json()) : [];
-		if (!v.contenidos.length) return DOM.sectorContenido.remove();
-
+		if (!v.contenidos.length) return DOM.sectorContenido.classList.add("ocultar");
 		// Muestra el sector contenidos
 		else DOM.sectorContenido.classList.remove("ocultar");
 
@@ -274,14 +269,4 @@ window.addEventListener("load", async () => {
 		// Fin
 		return;
 	});
-
-	// Editar
-	// Subir
-	// Bajar
 });
-
-// Variables
-const campos_id = {
-	encabCartas: "carta_id",
-	encabResto: "encab_id",
-};
