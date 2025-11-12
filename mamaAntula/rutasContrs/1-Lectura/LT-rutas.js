@@ -3,7 +3,7 @@ import express from "express";
 import vista from "./LT-controlVista.js";
 
 // Middlewares
-import validaRuta from "../../middlewares/LT-validaRuta.js";
+import validaRuta from "../../middlewares/lectura/LT-validaRuta.js";
 
 // 🧩 Router
 const router = express.Router();
