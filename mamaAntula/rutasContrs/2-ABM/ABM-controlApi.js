@@ -118,6 +118,7 @@ export default {
 			const contenidos = await baseDatos
 				.obtieneTodosPorCondicion("contenidos", {[campo_id]: contenido[campo_id]})
 				.then((n) => n.sort((a, b) => a.orden - b.orden));
+			if (contenidos.length < 2) return res.json();
 
 			// Obtiene el índice del contenido y, si no es el último, intercambia el orden con el siguiente
 			const indice = contenidos.findIndex((n) => n.id == id);
@@ -143,13 +144,14 @@ export default {
 			const contenidos = await baseDatos
 				.obtieneTodosPorCondicion("contenidos", {[campo_id]: contenido[campo_id]})
 				.then((n) => n.sort((a, b) => a.orden - b.orden));
+			if (contenidos.length < 2) return res.json();
 
-			// Obtiene el índice del contenido y, si no es el último, intercambia el orden con el siguiente
+			// Obtiene el índice del contenido y, si no es el primero, intercambia el orden con el anterior
 			const indice = contenidos.findIndex((n) => n.id == id);
-			if (indice < contenidos.length - 1) {
-				const siguiente = contenidos[indice + 1];
-				await baseDatos.actualizaPorId("contenidos", siguiente.id, {orden: contenido.orden});
-				await baseDatos.actualizaPorId("contenidos", contenido.id, {orden: siguiente.orden});
+			if (indice > 0) {
+				const anterior = contenidos[indice - 1];
+				await baseDatos.actualizaPorId("contenidos", anterior.id, {orden: contenido.orden});
+				await baseDatos.actualizaPorId("contenidos", contenido.id, {orden: anterior.orden});
 			}
 
 			// Fin
