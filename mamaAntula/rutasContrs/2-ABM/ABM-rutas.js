@@ -15,13 +15,13 @@ import erroresFiltros from "../../middlewares/2-ABM/errores-1Filtros.js";
 // 🧩 Router
 const router = express.Router();
 
-// 📡 APIs - Información inicial
-router.get("/api/abm-datos-inciales", API.datosIniciales);
+// 📡 APIs - Filtros
+router.get("/api/abm-filtros-datos-inciales", API.datosIniciales);
+router.get("/api/abm-filtros-obtiene-encabezados", erroresFiltros, captura, API.obtieneEncabs);
 
 // APIs - Encabezado
-router.get("/api/abm-obtiene-encabezados", erroresFiltros, captura, API.obtieneEncabs);
-router.post("/api/abm-guarda-encabezado", erroresFiltros, descargaImg.none(), API.encabezado.guarda); // se usa multer para que procese el formData
-router.delete("/api/abm-elimina-encabezado", erroresFiltros, API.encabezado.elimina);
+router.post("/api/abm-encabezado-guarda-encabezado", erroresFiltros, descargaImg.none(), API.encabezado.guarda); // se usa multer para que procese el formData
+router.delete("/api/abm-encabezado-elimina", erroresFiltros, API.encabezado.elimina);
 
 // APIs - Cambios en BD - Contenido Actual
 router.get("/api/abm-obtiene-contenidos", API.obtieneContenidos);
