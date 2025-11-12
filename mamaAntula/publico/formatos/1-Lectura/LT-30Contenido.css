@@ -62,10 +62,8 @@
 				&:not(:has(.texto)) .leyenda {max-width: 70%;}
 				&:has(.texto) .leyenda {max-width: 100%;}
 				.leyenda {
-					font-style: italic; color: var(--grisInterm);
-					text-align: center; text-wrap: balance;
-					line-height: 1.2;
-					&:not(:empty) {padding-block: 6px;}
+					padding-block: 6px; line-height: 1.2;
+					font-style: italic; color: var(--grisInterm); text-align: center; text-wrap: balance;
 				}
 			}
 		}

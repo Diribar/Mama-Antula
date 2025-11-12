@@ -16,6 +16,8 @@ window.addEventListener("load", async () => {
 
 		// Impactos en BD
 		guardaContenido: "/contenido/api/abm-guarda-contenido",
+		bajaContenido: "/contenido/api/abm-baja-contenido",
+		subeContenido: "/contenido/api/abm-sube-contenido",
 		eliminaContenido: "/contenido/api/abm-elimina-contenido",
 	};
 	const v = {};
@@ -28,10 +30,7 @@ window.addEventListener("load", async () => {
 			v.final_id = v.contenidos.at(-1)?.id;
 
 			// Agrega los contenidos
-			for (const contenido of v.contenidos) {
-				this.agregaBloqueLectura(contenido);
-				// this.agregaBloqueEdicion(contenido);
-			}
+			for (const contenido of v.contenidos) this.agregaBloque(contenido);
 
 			// Obtiene los íconos
 			this.iconosEventos();
@@ -39,7 +38,7 @@ window.addEventListener("load", async () => {
 			// Fin
 			return;
 		},
-		agregaBloqueLectura: function (contenido) {
+		agregaBloque: function (contenido) {
 			// Crea el DOM contenedor
 			const domBloqueLectura = document.createElement("div");
 			domBloqueLectura.classList.add("bloque", "sector");
@@ -52,8 +51,12 @@ window.addEventListener("load", async () => {
 			// Crea el DOM íconos
 			const domIconos = DOM.iconos.cloneNode(true);
 			domIconos.dataset.id = contenido.id;
-			if (v.inicial_id == contenido.id) domIconos.querySelector(".subir").classList.add("ocultar");
-			if (v.final_id == contenido.id) domIconos.querySelector(".bajar").classList.add("ocultar");
+			domIconos.dataset.statusRegistro_id = contenido.statusRegistro_id;
+
+			// Si corresponde, oculta los íconos de subir y bajar
+			if (v.inicial_id == contenido.id || contenido.statusRegistro_id != 1) domIconos.querySelector(".iconoSubir").remove();
+			//classList.add("ocultar");
+			if (v.final_id == contenido.id || contenido.statusRegistro_id != 1) domIconos.querySelector(".iconoBajar").remove();
 			domBloqueLectura.appendChild(domIconos);
 
 			// Agrega el DOM contenedor al DOM sector
@@ -62,12 +65,23 @@ window.addEventListener("load", async () => {
 			// Fin
 			return;
 		},
-		agregaBloqueEdicion: () => {},
 		iconosEventos: () => {
-			const iconosEventos = ["Eliminar"];
+			// Variables
+			const iconosEventos = [
+				// "Editar",
+				"Subir",
+				"Bajar",
+				"Eliminar",
+			];
+
+			// Rutina por evento
 			for (const evento of iconosEventos) {
-				DOM["iconos" + evento] = document.querySelectorAll("#sectorContActual .iconos .icono" + evento);
-				for (const icono of DOM["iconos" + evento]) eventosClick["icono" + evento](icono);
+				// Obtiene los íconos
+				const iconosEvento = "iconos" + evento;
+				DOM[iconosEvento] = document.querySelectorAll("#sectorContActual .iconos .icono" + evento);
+
+				// Les asigna el evento a c/u
+				for (const icono of DOM[iconosEvento]) eventosClick["icono" + evento](icono);
 			}
 		},
 
@@ -118,8 +132,10 @@ window.addEventListener("load", async () => {
 				contenedor.appendChild(domImagen);
 
 				// Crea la leyenda
-				const domLeyenda = this.leyenda(contenido);
-				contenedor.appendChild(domLeyenda);
+				if (contenido.leyenda) {
+					const domLeyenda = this.leyenda(contenido);
+					contenedor.appendChild(domLeyenda);
+				}
 
 				// Fin
 				return contenedor;
@@ -136,8 +152,10 @@ window.addEventListener("load", async () => {
 				v.domContenido.appendChild(v.carrImgs);
 
 				// Crea la leyenda
-				const domLeyenda = this.leyenda(contenido);
-				v.domContenido.appendChild(domLeyenda);
+				if (contenido.leyenda) {
+					const domLeyenda = this.leyenda(contenido);
+					v.domContenido.appendChild(domLeyenda);
+				}
 
 				// Fin
 				return;
@@ -149,8 +167,10 @@ window.addEventListener("load", async () => {
 				v.domContenido.appendChild(iframe);
 
 				// Crea la leyenda
-				const domLeyenda = this.leyenda(contenido);
-				v.domContenido.appendChild(domLeyenda);
+				if (contenido.leyenda) {
+					const domLeyenda = this.leyenda(contenido);
+					v.domContenido.appendChild(domLeyenda);
+				}
 
 				// Fin
 				return;
@@ -186,7 +206,34 @@ window.addEventListener("load", async () => {
 		},
 	};
 	const eventosClick = {
-		// Eliminar
+		iconoBajar: (iconoBajar) => {
+			iconoBajar.addEventListener("click", async () => {
+				// Si el ícono está oculto, interrumpe la función
+				if (iconoBajar.classList.contains("ocultar")) return;
+
+				// Baja el contenido y actualiza el DOM
+				const id = iconoBajar.parentNode.dataset.id;
+				await fetch(rutas.bajaContenido, putJson({id})).then((n) => n.json());
+				DOM.filtroEncab.dispatchEvent(new Event("change"));
+
+				// Fin
+				return;
+			});
+		},
+		iconoSubir: (iconoSubir) => {
+			iconoSubir.addEventListener("click", async () => {
+				// Si el ícono está oculto, interrumpe la función
+				if (iconoSubir.classList.contains("ocultar")) return;
+
+				// Sube el contenido y actualiza el DOM
+				const id = iconoSubir.parentNode.dataset.id;
+				await fetch(rutas.subeContenido, putJson({id})).then((n) => n.json());
+				DOM.filtroEncab.dispatchEvent(new Event("change"));
+
+				// Fin
+				return;
+			});
+		},
 		iconoEliminar: (iconoEliminar) => {
 			iconoEliminar.addEventListener("click", async () => {
 				// Variables
@@ -214,12 +261,10 @@ window.addEventListener("load", async () => {
 		// Limpia el DOM
 		DOM.sectorContenido.innerHTML = "";
 
-		// Si corresponde, interrumpe la función
+		// Si el sector no tiene contenidos, interrumpe la función
 		v.contenidos = v.encabezado_id != "nuevo" ? await fetch(ruta).then((n) => n && n.json()) : [];
-		if (!v.contenidos.length) {
-			DOM.sectorContenido.classList.add("ocultar");
-			return;
-		}
+		if (!v.contenidos.length) return DOM.sectorContenido.remove();
+
 		// Muestra el sector contenidos
 		else DOM.sectorContenido.classList.remove("ocultar");
 

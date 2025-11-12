@@ -47,102 +47,135 @@ export default {
 		return res.json(contenidos);
 	},
 
-	// Cambios en BD -
-	guardaEncabezado: async (req, res) => {
-		// Variables
-		const {entidad, id, tema_id, pestana_id} = req.body;
-
-		// Obtiene el original
-		const original = await baseDatos.obtienePorId(entidad, id);
-
-		// Si no existe el original, lo crea
-		if (!original) {
+	// Cambios en BD
+	encabezado: {
+		guarda: async (req, res) => {
 			// Variables
-			const creadoPor_id = req.session.usuario.id;
-			const datos = {...req.body, creadoPor_id};
-			delete datos.id;
+			const {entidad, id, tema_id, pestana_id} = req.body;
 
-			// Crea el original
-			const nuevoRegistro = await baseDatos.agregaRegistroIdCorrel(entidad, datos);
-			return res.json({id: nuevoRegistro.id, hay: false});
-		}
+			// Obtiene el original
+			const original = await baseDatos.obtienePorId(entidad, id);
 
-		// Si no es propio y no está en status aprobado, interrumpe la función
-		if (original.creadoPor_id != req.session.usuario.id && original.statusRegistro_id != aprobado_id)
-			return res.json({mensaje: "No tenés permiso para editar este encabezado", hay: true});
+			// Si no existe el original, lo crea
+			if (!original) {
+				// Variables
+				const creadoPor_id = req.session.usuario.id;
+				const datos = {...req.body, creadoPor_id};
+				delete datos.id;
 
-		// Si está en status creado y por este usuario, actualiza el original
-		if (original.statusRegistro_id == creado_id && original.creadoPor_id == req.session.usuario.id) {
-			await baseDatos.actualizaPorId(entidad, id, req.body);
+				// Crea el original
+				const nuevoRegistro = await baseDatos.agregaRegistroIdCorrel(entidad, datos);
+				return res.json({id: nuevoRegistro.id, hay: false});
+			}
+
+			// Si no es propio y no está en status aprobado, interrumpe la función
+			if (original.creadoPor_id != req.session.usuario.id && original.statusRegistro_id != aprobado_id)
+				return res.json({mensaje: "No tenés permiso para editar este encabezado", hay: true});
+
+			// Si está en status creado y por este usuario, actualiza el original
+			if (original.statusRegistro_id == creado_id && original.creadoPor_id == req.session.usuario.id) {
+				await baseDatos.actualizaPorId(entidad, id, req.body);
+				return res.json({hay: false});
+			}
+
+			// Si está en status aprobado, crea o actualiza la edicion
+			// Obtiene la edicion del usuario
+			const condicion = {editadoPor_id: req.session.usuario.id};
+			const {campo_id} = comp.contenido.obtieneDatosDeTabla({tema_id, pestana_id});
+			condicion[campo_id] = id;
+			const edicion = await baseDatos.obtienePorCondicion("edicionesEncab", condicion);
+
+			// Averigua si hay novedades con el original
+			// En caso que si, si hay una edición la actualiza, si no la crea
+			// En caso que no, si hay una edición la elimina
+
+			// Fin
 			return res.json({hay: false});
-		}
+		},
+		elimina: async (req, res) => {
+			// Variables
+			const {entidad, id} = req.body;
 
-		// Si está en status aprobado, crea o actualiza la edicion
-		// Obtiene la edicion del usuario
-		const condicion = {editadoPor_id: req.session.usuario.id};
-		const {campo_id} = comp.contenido.obtieneDatosDeTabla({tema_id, pestana_id});
-		condicion[campo_id] = id;
-		const edicion = await baseDatos.obtienePorCondicion("edicionesEncab", condicion);
+			// Elimina los dependientes y el encabezado
+			await procesos.eliminaDependsEncab(entidad, id);
+			await baseDatos.eliminaPorId(entidad, id);
 
-		// Averigua si hay novedades con el original
-		// En caso que si, si hay una edición la actualiza, si no la crea
-		// En caso que no, si hay una edición la elimina
-
-		// Fin
-		return res.json({hay: false});
+			// Fin
+			return res.json();
+		},
 	},
-	eliminaEncabezado: async (req, res) => {
-		// Variables
-		const {entidad, id} = req.body;
+	contenido: {
+		guarda: async (req, res) => {
+			// Variables
+			const {campo_id, encabezado_id} = req.body;
+			const creadoPor_id = req.session.usuario.id;
+			const datos = {creadoPor_id};
+			const {imagens} = req.body;
 
-		// Elimina los dependientes y el encabezado
-		await procesos.eliminaDependsEncab(entidad, id);
-		await baseDatos.eliminaPorId(entidad, id);
+			// Obtiene los datos útiles
+			const camposGuardar = ["carta_id", "encab_id", "texto", "imagen", "video", "leyenda"];
+			for (const campo of camposGuardar) if (req.body[campo]) datos[campo] = req.body[campo];
 
-		// Fin
-		return res.json();
-	},
-	guardaContenido: async (req, res) => {
-		// Variables
-		const {campo_id, encabezado_id} = req.body;
-		const creadoPor_id = req.session.usuario.id;
-		const datos = {creadoPor_id};
-		const {imagens} = req.body;
+			// Descarga la/s imagen/es
+			if (req.file) await comp.gestionArchs.descarga(carpRevisar, datos.imagen, req.file);
+			if (req.files) req.files.forEach((file, i) => comp.gestionArchs.descarga(carpRevisar, imagens[i], file));
 
-		// Obtiene los datos útiles
-		const camposGuardar = ["carta_id", "encab_id", "texto", "imagen", "video", "leyenda"];
-		for (const campo of camposGuardar) if (req.body[campo]) datos[campo] = req.body[campo];
+			// Averigua el orden y guarda el registro
+			datos.orden = await procesos.obtieneOrdenContenidos({campo_id, encabezado_id});
+			const {id: contenido_id} = await baseDatos.agregaRegistroIdCorrel("contenidos", datos);
 
-		// Descarga la/s imagen/es
-		if (req.file) await comp.gestionArchs.descarga(carpRevisar, datos.imagen, req.file);
-		if (req.files) req.files.forEach((file, i) => comp.gestionArchs.descarga(carpRevisar, imagens[i], file));
+			// Guarda los registros de carrusel
+			await procesos.guardaRegsCarrusel(imagens, contenido_id, creadoPor_id);
 
-		// Averigua el orden y guarda el registro
-		datos.orden = await procesos.obtieneOrdenContenidos({campo_id, encabezado_id});
-		const {id: contenido_id} = await baseDatos.agregaRegistroIdCorrel("contenidos", datos);
+			// Fin
+			return res.json({});
+		},
+		baja: async (req, res) => {
+			// Variables
+			const {id} = req.body;
 
-		// Guarda los registros de carrusel
-		await procesos.guardaRegsCarrusel(imagens, contenido_id, creadoPor_id);
+			// Obtiene el contenido
+			const contenido = await baseDatos.obtienePorId("contenidos", id);
+			if (!contenido) return res.json({});
 
-		// Fin
-		return res.json({});
-	},
-	eliminaContenido: async (req, res) => {
-		// Variables
-		const {id} = req.body;
-		if (!id) return res.json({});
-		const contenido = await baseDatos.obtienePorId("contenidos", id, "carrusel");
-		const ruta = contenido.statusRegistro_id == creado_id ? carpRevisar : carpContenido;
+			// Obtiene todos los contenidos del mismo encabezado
+			const campo_id = contenido.carta_id ? "carta_id" : "encab_id";
+			const contenidos = await baseDatos
+				.obtieneTodosPorCondicion("contenidos", {[campo_id]: contenido[campo_id]})
+				.then((n) => n.sort((a, b) => a.orden - b.orden));
 
-		// Elimina los archivos del carrusel más los registros
-		for (const registro of contenido.carrusel) comp.gestionArchs.elimina(ruta, registro.imagen, true);
-		await baseDatos.eliminaPorCondicion("carrusel", {contenido_id: id});
+			// Obtiene el índice del contenido y, si no es el último, intercambia el orden con el siguiente
+			const indice = contenidos.findIndex((n) => n.id == id);
+			if (indice < contenidos.length - 1) {
+				const siguiente = contenidos[indice + 1];
+				await baseDatos.actualizaPorId("contenidos", siguiente.id, {orden: contenido.orden});
+				await baseDatos.actualizaPorId("contenidos", contenido.id, {orden: siguiente.orden});
+			}
 
-		// Contenidos
-		if (contenido.imagen) comp.gestionArchs.elimina(ruta, contenido.imagen, true);
-		await baseDatos.eliminaPorId("contenidos", id);
+			// Fin
+			return res.json({});
+		},
+		sube: async (req, res) => {
+			console.log(138, req.body);
+			return res.json({});
+		},
+		elimina: async (req, res) => {
+			// Variables
+			const {id} = req.body;
+			if (!id) return res.json({});
+			const contenido = await baseDatos.obtienePorId("contenidos", id, "carrusel");
+			const ruta = contenido.statusRegistro_id == creado_id ? carpRevisar : carpContenido;
 
-		// Fin
-		return res.json({});
+			// Elimina los archivos del carrusel más los registros
+			for (const registro of contenido.carrusel) comp.gestionArchs.elimina(ruta, registro.imagen, true);
+			await baseDatos.eliminaPorCondicion("carrusel", {contenido_id: id});
+
+			// Contenidos
+			if (contenido.imagen) comp.gestionArchs.elimina(ruta, contenido.imagen, true);
+			await baseDatos.eliminaPorId("contenidos", id);
+
+			// Fin
+			return res.json({});
+		},
 	},
 };
