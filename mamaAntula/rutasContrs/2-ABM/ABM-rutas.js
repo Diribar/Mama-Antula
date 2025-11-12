@@ -20,14 +20,14 @@ router.get("/api/abm-obtiene-contenidos", API.obtieneContenidos);
 router.post("/api/abm-guarda-encabezado", descargaImg.none(), API.encabezado.guarda); // se usa multer para que procese el formData
 router.delete("/api/abm-elimina-encabezado", API.encabezado.elimina);
 
-// APIs - Cambios en BD - Contenido
-router.post("/api/abm-guarda-contenido", descargaImg.single("archivo"), imgEnReqBody, API.contenido.guarda);
-router.put("/api/abm-baja-contenido", API.contenido.baja);
-router.put("/api/abm-sube-contenido", API.contenido.sube);
-router.delete("/api/abm-elimina-contenido", API.contenido.elimina);
+// APIs - Cambios en BD - Contenido Actual
+router.put("/api/abm-baja-contenido", API.contActual.baja);
+router.put("/api/abm-sube-contenido", API.contActual.sube);
+router.delete("/api/abm-elimina-contenido", API.contActual.elimina);
 
-// APIs - Cambios en BD - Carrusel
-router.post("/api/abm-guarda-carrusel", descargaImg.array("archivos"), imgEnReqBody, API.contenido.guarda);
+// APIs - Cambios en BD - Contenido Nuevo
+router.post("/api/abm-guarda-nuevo-contenido", descargaImg.single("archivo"), imgEnReqBody, API.guardaNuevo);
+router.post("/api/abm-guarda-nuevo-carrusel", descargaImg.array("archivos"), imgEnReqBody, API.guardaNuevo);
 
 // 🖥️ Vistas
 router.get("/actualizar", soloEdicion, vista.actualizar);

@@ -104,39 +104,14 @@ export default {
 			return res.json();
 		},
 	},
-	contenido: {
-		guarda: async (req, res) => {
-			// Variables
-			const {campo_id, encabezado_id} = req.body;
-			const creadoPor_id = req.session.usuario.id;
-			const datos = {creadoPor_id};
-			const {imagens} = req.body;
-
-			// Obtiene los datos útiles
-			const camposGuardar = ["carta_id", "encab_id", "texto", "imagen", "video", "leyenda"];
-			for (const campo of camposGuardar) if (req.body[campo]) datos[campo] = req.body[campo];
-
-			// Descarga la/s imagen/es
-			if (req.file) await comp.gestionArchs.descarga(carpRevisar, datos.imagen, req.file);
-			if (req.files) req.files.forEach((file, i) => comp.gestionArchs.descarga(carpRevisar, imagens[i], file));
-
-			// Averigua el orden y guarda el registro
-			datos.orden = await procesos.obtieneOrdenContenidos({campo_id, encabezado_id});
-			const {id: contenido_id} = await baseDatos.agregaRegistroIdCorrel("contenidos", datos);
-
-			// Guarda los registros de carrusel
-			await procesos.guardaRegsCarrusel(imagens, contenido_id, creadoPor_id);
-
-			// Fin
-			return res.json({});
-		},
+	contActual: {
 		baja: async (req, res) => {
 			// Variables
 			const {id} = req.body;
 
 			// Obtiene el contenido
 			const contenido = await baseDatos.obtienePorId("contenidos", id);
-			if (!contenido) return res.json({});
+			if (!contenido) return res.json();
 
 			// Obtiene todos los contenidos del mismo encabezado
 			const campo_id = contenido.carta_id ? "carta_id" : "encab_id";
@@ -153,16 +128,37 @@ export default {
 			}
 
 			// Fin
-			return res.json({});
+			return res.json();
 		},
 		sube: async (req, res) => {
-			console.log(138, req.body);
-			return res.json({});
+			// Variables
+			const {id} = req.body;
+
+			// Obtiene el contenido
+			const contenido = await baseDatos.obtienePorId("contenidos", id);
+			if (!contenido) return res.json();
+
+			// Obtiene todos los contenidos del mismo encabezado
+			const campo_id = contenido.carta_id ? "carta_id" : "encab_id";
+			const contenidos = await baseDatos
+				.obtieneTodosPorCondicion("contenidos", {[campo_id]: contenido[campo_id]})
+				.then((n) => n.sort((a, b) => a.orden - b.orden));
+
+			// Obtiene el índice del contenido y, si no es el último, intercambia el orden con el siguiente
+			const indice = contenidos.findIndex((n) => n.id == id);
+			if (indice < contenidos.length - 1) {
+				const siguiente = contenidos[indice + 1];
+				await baseDatos.actualizaPorId("contenidos", siguiente.id, {orden: contenido.orden});
+				await baseDatos.actualizaPorId("contenidos", contenido.id, {orden: siguiente.orden});
+			}
+
+			// Fin
+			return res.json();
 		},
 		elimina: async (req, res) => {
 			// Variables
 			const {id} = req.body;
-			if (!id) return res.json({});
+			if (!id) return res.json();
 			const contenido = await baseDatos.obtienePorId("contenidos", id, "carrusel");
 			const ruta = contenido.statusRegistro_id == creado_id ? carpRevisar : carpContenido;
 
@@ -175,7 +171,32 @@ export default {
 			await baseDatos.eliminaPorId("contenidos", id);
 
 			// Fin
-			return res.json({});
+			return res.json();
 		},
+	},
+	guardaNuevo: async (req, res) => {
+		// Variables
+		const {campo_id, encabezado_id} = req.body;
+		const creadoPor_id = req.session.usuario.id;
+		const datos = {creadoPor_id};
+		const {imagens} = req.body;
+
+		// Obtiene los datos útiles
+		const camposGuardar = ["carta_id", "encab_id", "texto", "imagen", "video", "leyenda"];
+		for (const campo of camposGuardar) if (req.body[campo]) datos[campo] = req.body[campo];
+
+		// Descarga la/s imagen/es
+		if (req.file) await comp.gestionArchs.descarga(carpRevisar, datos.imagen, req.file);
+		if (req.files) req.files.forEach((file, i) => comp.gestionArchs.descarga(carpRevisar, imagens[i], file));
+
+		// Averigua el orden y guarda el registro
+		datos.orden = await procesos.obtieneOrdenContenidos({campo_id, encabezado_id});
+		const {id: contenido_id} = await baseDatos.agregaRegistroIdCorrel("contenidos", datos);
+
+		// Guarda los registros de carrusel
+		await procesos.guardaRegsCarrusel(imagens, contenido_id, creadoPor_id);
+
+		// Fin
+		return res.json();
 	},
 };

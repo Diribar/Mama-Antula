@@ -12,7 +12,12 @@ window.addEventListener("load", async () => {
 	};
 	const v = {
 		campos_id: {encabCartas: "carta_id", encabResto: "encab_id"},
-		cruds: ["guarda", "baja", "sube", "elimina"],
+		cruds: ["baja", "sube", "elimina"],
+		funcsComps: {
+			baja: (datos) => putJson(datos),
+			sube: (datos) => putJson(datos),
+			elimina: (datos) => deleteJson(datos),
+		},
 	};
 	const rutasContenido = {obtiene: "/contenido/api/abm-obtiene-contenidos/?"};
 	for (const crud of v.cruds) rutasContenido[crud] = "/contenido/api/abm-" + crud + "-contenido";
@@ -24,7 +29,7 @@ window.addEventListener("load", async () => {
 		v.final_id = v.contenidos.at(-1)?.id;
 
 		// Agrega los contenidos
-		for (const contenido of v.contenidos) FN.agregaBloque(contenido);
+		for (const contenido of v.contenidos) auxCci.agregaBloque(contenido);
 
 		// Genera los eventos de los íconos
 		eventosIconos();
@@ -32,6 +37,7 @@ window.addEventListener("load", async () => {
 		// Fin
 		return;
 	};
+
 	const eventosIconos = () => {
 		// Rutina por evento
 		for (const crud of v.cruds) {
@@ -45,7 +51,7 @@ window.addEventListener("load", async () => {
 					const id = domIcono.parentNode.dataset.id;
 
 					// Crud del contenido
-					await fetch(rutasContenido[crud], putJson({id})).then((n) => n.json());
+					await fetch(rutasContenido[crud], v.funcsComps[crud]({id})).then((n) => n.json());
 
 					// Actualiza el DOM
 					DOM.filtroEncab.dispatchEvent(new Event("change"));
@@ -54,11 +60,11 @@ window.addEventListener("load", async () => {
 					return;
 				});
 			}
-			eventosClick["icono" + evento](domIcono);
 		}
 	};
-	const FN = {
-		// Crea contenido
+
+	// Funciones auxiliares de crea contenido e íconos
+	const auxCci = {
 		agregaBloque: function (contenido) {
 			// Crea el DOM contenedor
 			const domBloqueLectura = document.createElement("div");
@@ -75,8 +81,8 @@ window.addEventListener("load", async () => {
 			domIconos.dataset.statusRegistro_id = contenido.statusRegistro_id;
 
 			// Si corresponde, elimina los íconos de subir y/o bajar
-			if (v.inicial_id == contenido.id || contenido.statusRegistro_id != 1) domIconos.querySelector(".iconoSubir").remove();
-			if (v.final_id == contenido.id || contenido.statusRegistro_id != 1) domIconos.querySelector(".iconoBajar").remove();
+			if (v.final_id == contenido.id || contenido.statusRegistro_id != 1) domIconos.querySelector(".baja").remove();
+			if (v.inicial_id == contenido.id || contenido.statusRegistro_id != 1) domIconos.querySelector(".sube").remove();
 
 			// Agrega el DOM de los íconos
 			domBloqueLectura.appendChild(domIconos);
