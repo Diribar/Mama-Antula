@@ -53,7 +53,6 @@ window.addEventListener("load", async () => {
 
 		// Actualiza el timer
 		if (timer) clearInterval(timer);
-		console.log("nuevo");
 		minutosDispon = minutosPermitidos;
 		DOM.timer.innerText = minutosDispon + " min.";
 
