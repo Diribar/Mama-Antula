@@ -1,15 +1,15 @@
 "use strict";
 
 export default {
-	obtieneEncabs: async ({esCarta, conIndice, condicion, includes, usuario}) => {
+	obtieneEncabs: async ({esCarta, conIndice, condicion, usuario}) => {
 		// Obtiene los encabezados
 		let encabezados = esCarta
 			? await baseDatos
-					.obtieneTodos("encabezados", includes)
+					.obtieneTodos("encabezados", includesEncabs.cartas)
 					.then((n) => n.sort((a, b) => new Date(a.fechaEvento) - new Date(b.fechaEvento)))
 			: conIndice
 			? await baseDatos
-					.obtieneTodosPorCondicion("encabezados", condicion, includes)
+					.obtieneTodosPorCondicion("encabezados", condicion, includesEncabs.conIndice)
 					.then((n) => n.sort((a, b) => new Date(b.fechaEvento) - new Date(a.fechaEvento)))
 			: await baseDatos.obtieneTodosPorCondicion("encabezados", condicion);
 

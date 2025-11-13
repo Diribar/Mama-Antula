@@ -44,7 +44,6 @@ export default {
 	includesEncabs: {
 		cartas: ["nombreDesde", "nombreHacia", "idioma", "lugar"],
 		conIndice: "lugar",
-		sinIndice: "",
 	},
 	temaCarta_id: 10, // el id del tema "Cartas"
 };
