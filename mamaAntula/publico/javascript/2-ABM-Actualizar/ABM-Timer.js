@@ -6,7 +6,7 @@ window.addEventListener("load", async () => {
 		filtroEncab: document.querySelector("#filtros select[name='encabezado']"),
 	};
 	const unMinuto = 60 * 1000;
-	const minutosPermitidos = 1;
+	const minutosPermitidos = 60;
 	let minutosDispon;
 
 	// Funciones
@@ -34,9 +34,12 @@ window.addEventListener("load", async () => {
 
 				// Botón confirm
 				...{confirmButtonText: "Recargar vista", confirmButtonColor: "rgb(79,98,40)"}, // verdeOscuro
-			}).then((n) => {
+			}).then(async (n) => {
 				if (n.isConfirmed) location.reload();
-				else if (n.isDismissed) location.href = redirigeLectura;
+				else if (n.isDismissed) {
+					const redirigeLectura = await actualizaUrlLectura();
+					location.href = redirigeLectura;
+				}
 			});
 
 			// Fin
@@ -49,11 +52,13 @@ window.addEventListener("load", async () => {
 		if (!DOM.filtroEncab.value) return;
 
 		// Actualiza el timer
+		if (timer) clearInterval(timer);
+		console.log("nuevo");
 		minutosDispon = minutosPermitidos;
 		DOM.timer.innerText = minutosDispon + " min.";
 
 		// Rutina de timer
-		const timer = setInterval(() => {
+		timer = setInterval(() => {
 			// Actualiza los minutos disponibles
 			minutosDispon--;
 			if (minutosDispon < 0) minutosDispon = 0;
@@ -79,3 +84,4 @@ window.addEventListener("load", async () => {
 
 // Variables
 let minutosDispon;
+let timer; // variable global para guardar el intervalo
