@@ -151,7 +151,7 @@ export default {
 		esCarta || (temaActual && temaActual.codigo == "cartas") // cartas
 			? FN.tituloCartas(encabezados)
 			: conIndice || (temaActual && temaActual.indices.length) // conIndice
-			? FN.tituloConIndice(encabezados)
+			? FN.titulosConIndice(encabezados)
 			: encabezados, // sinIndice
 
 	// Funciones puntuales
@@ -241,7 +241,7 @@ const FN = {
 		// Fin
 		return tituloLectura;
 	},
-	tituloConIndice: (encabs) => {
+	titulosConIndice: (encabs) => {
 		for (const encab of encabs)
 			encab.tituloLectura =
 				encab.titulo && encab.encab_id != temaCarta_id
