@@ -11,6 +11,6 @@ header #izquierda {
 	#secciones {
 		flex-grow: 1; justify-content: space-evenly;
 		font-size: 1.2rem;
-		.resaltar {color: var(--amarillo-intermedio); font-weight: bold;}
+		.resaltar {color: var(--amarilloInterm); font-weight: bold;}
 	}
 }
