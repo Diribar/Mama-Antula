@@ -58,8 +58,8 @@ window.addEventListener("load", async () => {
 					html: respuesta.error, // Permite HTML
 					icon: "warning",
 					confirmButtonText: "Aceptar",
-					confirmButtonColor: "rgb(79,98,40)",
-					background: "rgb(242,242,242)"
+					confirmButtonColor: "rgb(79,98,40)", // verdeOscuro
+					background: "rgb(242,242,242)", // grisClaro
 				});
 				return;
 			}
