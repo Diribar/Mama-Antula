@@ -3,7 +3,7 @@
 export default (req, res, next) => {
 	// Variables
 	const {urlSeccion, urlTema, urlPestana} = req.params;
-	const {id: encabezado_id} = req.query;
+	const {id: encab_id} = req.query;
 	const informacion = {mensajes: ["No tenemos esa dirección en nuestro sistema"]};
 	const {usuario} = req.session;
 
@@ -49,7 +49,7 @@ export default (req, res, next) => {
 		res.cookie("actualizaTema_id", temaActual.id, {maxAge: unDia, path: "/"});
 		if (pestsPosibles.length) res.cookie("actualizaPestana_id", pestanaActual.id, {maxAge: unDia, path: "/"});
 		else res.clearCookie("actualizaPestana_id");
-		if (encabezado_id) res.cookie("actualizaEncabezado_id", encabezado_id, {maxAge: unDia, path: "/"});
+		if (encab_id) res.cookie("actualizaEncabezado_id", encab_id, {maxAge: unDia, path: "/"});
 	}
 
 	// Fin
