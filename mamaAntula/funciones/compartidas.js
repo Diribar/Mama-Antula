@@ -148,9 +148,9 @@ export default {
 	},
 
 	titulosLectura: ({esCarta, conIndice, temaActual, encabezados}) =>
-		esCarta || temaActual.codigo == "cartas" // cartas
+		esCarta || (temaActual && temaActual.codigo == "cartas") // cartas
 			? FN.tituloCartas(encabezados)
-			: conIndice || temaActual.indices.length // conIndice
+			: conIndice || (temaActual && temaActual.indices.length) // conIndice
 			? FN.tituloConIndice(encabezados)
 			: encabezados, // sinIndice
 
