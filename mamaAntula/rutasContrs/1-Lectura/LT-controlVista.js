@@ -24,7 +24,6 @@ export default {
 		const encabezado_id = req.query.id;
 		const {encabezados, encabezado} = await procesos.encabezados({temaActual, encabezado_id});
 		const contenidos = encabezado && (await procesos.contenidos(encabezado));
-		const tituloCarta = encabezado && encabezado.tituloLectura; // el encabezado puede no estar creado
 		const clase = temaActual.codigo == "libros" ? "libros" : "estandar";
 		if (clase == "libros") contenidos.sort((a, b) => (b.video < a.video ? -1 : 1)); // ordena los libros en forma descenente
 
@@ -32,7 +31,7 @@ export default {
 		return res.render("CMP-0Estructura", {
 			...{tituloPagina, temaVista, codigoVista, temasSeccion},
 			...{seccionActual, temaActual, esCarta, conIndice, clase},
-			...{tituloCarta, encabezado, contenidos, encabezados},
+			...{encabezado, contenidos, encabezados},
 		});
 	},
 	pestanas: async (req, res) => {
