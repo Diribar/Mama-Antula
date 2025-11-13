@@ -5,35 +5,25 @@ export default (req, res, next) => {
 	const {urlSeccion, urlTema, urlPestana} = req.params;
 	const {id: encabezado_id} = req.query;
 	const informacion = {mensajes: ["No tenemos esa dirección en nuestro sistema"]};
-
-	// SECCION - Si el urlSeccion no existe, redirige
-	if (!urlSeccion) {
-		const seccionActual = req.cookies.seccionActual || "inicio";
-		const urlActual = secciones.find((n) => n.url == seccionActual).url;
-		return res.redirect("/" + urlActual);
-	}
+	const {usuario} = req.session;
 
 	// SECCION - Si la seccionActual no corresponde, muestra la vista de error
-	const seccionActual = secciones.find((n) => n.url == urlSeccion);
+	const seccionActual = secciones.find((n) => n.url == (urlSeccion || LP_urlSeccion)); // si no existe urlSeccion, se usa la de la landing page
 	if (!seccionActual) return res.render("CMP-0Estructura", {informacion});
 
-	// SECCION - Guarda cookies
-	res.cookie("actualizaSeccion_id", seccionActual.id, {maxAge: unDia, path: "/"});
-
-	// TEMA - Si el urlTema no existe, redirige
+	// TEMA - Si existe la urlSeccion y no el urlTema, redirige
 	const temasPosibles = temasSecciones.filter((n) => n.seccion_id == seccionActual.id);
-	if (!urlTema) {
+	if (urlSeccion && !urlTema) {
 		const urlActual = (temasPosibles.find((n) => n.codigo == req.cookies[seccionActual.codigo]) || temasPosibles[0]).url;
 		return res.redirect("/" + seccionActual.url + "/" + urlActual);
 	}
 
 	// TEMA - Si el temaActual no corresponde, muestra la vista de error
-	const temaActual = temasPosibles.find((n) => n.url == urlTema);
+	const temaActual = temasPosibles.find((n) => n.url == (urlTema || LP_urlTema)); // si no existe urlTema, se usa el de la landing page
 	if (!temaActual) return res.render("CMP-0Estructura", {informacion});
 
 	// TEMA - Guarda cookies
 	res.cookie(seccionActual.codigo, temaActual.codigo, {maxAge: unDia, path: "/"});
-	res.cookie("actualizaTema_id", temaActual.id, {maxAge: unDia, path: "/"});
 
 	// PESTAÑA - Averigua si el tema tiene pestañas
 	const pestsPosibles = pestanasTemas.filter((n) => n.tema_id == temaActual.id);
@@ -50,13 +40,16 @@ export default (req, res, next) => {
 
 		// Guarda cookies
 		res.cookie(temaActual.codigo, pestanaActual.codigo, {maxAge: unDia, path: "/"});
-		res.cookie("actualizaPestana_id", pestanaActual.id, {maxAge: unDia, path: "/"});
 	}
-	// Borra la cookie de pestaña
-	else res.clearCookie("actualizaPestana_id");
 
-	// ENCABEZADO - Si el encabezado existe, guarda la cookie
-	if (encabezado_id) res.cookie("actualizaEncabezado_id", encabezado_id, {maxAge: unDia, path: "/"});
+	// Guarda cookies para interactuar con actualización
+	if (usuario) {
+		res.cookie("actualizaSeccion_id", seccionActual.id, {maxAge: unDia, path: "/"});
+		res.cookie("actualizaTema_id", temaActual.id, {maxAge: unDia, path: "/"});
+		if (pestsPosibles.length) res.cookie("actualizaPestana_id", pestanaActual.id, {maxAge: unDia, path: "/"});
+		else res.clearCookie("actualizaPestana_id");
+		if (encabezado_id) res.cookie("actualizaEncabezado_id", encabezado_id, {maxAge: unDia, path: "/"});
+	}
 
 	// Fin
 	return next();
