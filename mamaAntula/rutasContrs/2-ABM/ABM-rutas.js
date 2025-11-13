@@ -11,6 +11,8 @@ import imgEnReqBody from "../../middlewares/descargaImg/IMG-imgEnReqBody.js";
 // Middlewares de API
 import captura from "../../middlewares/2-ABM/captura.js";
 import erroresFiltros from "../../middlewares/2-ABM/errores-1Filtros.js";
+import erroresEncabGuarda from "../../middlewares/2-ABM/errores-2Encab1Guarda.js";
+import erroresEncabElimina from "../../middlewares/2-ABM/errores-2Encab2Elimina.js";
 
 // 🧩 Router
 const router = express.Router();
@@ -20,8 +22,8 @@ router.get("/api/abm-filtros-datos-inciales", API.filtros.datosIniciales);
 router.get("/api/abm-filtros-obtiene-encabezados", erroresFiltros, captura, API.filtros.obtieneEncabs);
 
 // APIs - Encabezado
-router.post("/api/abm-encabezado-guarda", descargaImg.none(), API.encabezado.guarda); // se usa multer para que procese el formData
-router.delete("/api/abm-encabezado-elimina", API.encabezado.elimina);
+router.post("/api/abm-encabezado-guarda", descargaImg.none(), erroresEncabGuarda, API.encabezado.guarda); // se usa multer para que procese el formData
+router.delete("/api/abm-encabezado-elimina", erroresEncabElimina, API.encabezado.elimina);
 
 // APIs - Contenido Actual
 router.get("/api/abm-contenido-obtiene", API.contActual.obtiene);
