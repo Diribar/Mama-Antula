@@ -1,6 +1,13 @@
-	/* Sector filtros */
-	#sectorFiltros {
-		background-color: var(--celesteClaro);
-		width: fit-content;
-		#filtros {select {width: 210px;}}
-	}
+/* Sector filtros */
+#sectorFiltros {
+	background-color: var(--celesteClaro);
+	width: fit-content;
+	#filtros {select {width: 210px;}}
+}
+
+#cuerpo:has(#sectorFiltros #filtros select:invalid) #editables {display: none;}
+
+.swal2-html-container .resaltar {
+	background-color: var(--azulOscuro); color: snow;
+	padding-inline: 5px; border-radius: 5px;
+}

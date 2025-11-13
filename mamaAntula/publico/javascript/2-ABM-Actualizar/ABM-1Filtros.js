@@ -14,7 +14,7 @@ window.addEventListener("load", async () => {
 		datosIniciales: "/contenido/api/abm-filtros-datos-inciales",
 		obtieneEncabs: "/contenido/api/abm-filtros-obtiene-encabezados/?",
 	};
-	comp1234 = {startUp: true, ...(await fetch(rutas.datosIniciales).then((n) => n && n.json()))};
+	comp1234 = {startUp: true, ...(await fetch(rutas.datosIniciales).then((n) => n.json()))};
 	const v = {};
 
 	// Funciones
@@ -31,28 +31,37 @@ window.addEventListener("load", async () => {
 			// ENCABEZADO - Obtiene los encabezados
 			const datos =
 				"seccion_id=" + comp1234.seccion_id + "&tema_id=" + comp1234.tema_id + "&pestana_id=" + comp1234.pestana_id;
-			const respuesta = await fetch(rutas.obtieneEncabs + datos).then((n) => n && n.json());
+			const respuesta = await fetch(rutas.obtieneEncabs + datos).then((n) => n.json());
 
 			// ENCABEZADO - Si hubo un error, muestra el mensaje e interrumpe la función
 			if (respuesta.error) {
 				if (respuesta.error.includes("[horario]")) {
 					// Variables
 					const horario = new Date(respuesta.horario);
-					console.log(respuesta);
-
 					const fechaResp = horario.getDate() + "/" + mesesAbrev[horario.getMonth()];
 					const hora = horario.getHours();
 					const minutos = String(horario.getMinutes()).padStart(2, "0");
 					const horaResp = " a las " + hora + ":" + minutos + "hs";
 					const horarioLocal = fechaResp + horaResp;
-					console.log(fechaResp, horaResp);
 
 					// Reemplaza el texto
 					respuesta.error = respuesta.error.replace("[horario]", horarioLocal);
 				}
 
+				// Configuraciones
+				DOM.encabezado.innerHTML = "";
+				delete comp1234.startUp;
+
 				// Muestra el error e interrumpe la función
-				return alert(respuesta.error);
+				Swal.fire({
+					title: "Atención",
+					html: respuesta.error, // Permite HTML
+					icon: "warning",
+					confirmButtonText: "Aceptar",
+					confirmButtonColor: "rgb(79,98,40)", // verdeOscuro
+					background: "rgb(242,242,242)", // grisClaro
+				});
+				return;
 			}
 
 			// ENCABEZADO - Guarda los encabezados
