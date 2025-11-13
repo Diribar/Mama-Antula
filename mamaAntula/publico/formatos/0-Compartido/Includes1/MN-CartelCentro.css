@@ -46,7 +46,6 @@ main {
 				.inicio {font-size: 4rem; color: var(--amarillo-oscuro);}
 				#contenedorMensajes {
 					overflow-y: auto;
-					/* scrollbar-width: none; */
 					max-height: calc(var(--alturaViewPort) * 0.5);
 				}
 			}
