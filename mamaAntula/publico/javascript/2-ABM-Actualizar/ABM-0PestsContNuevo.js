@@ -7,12 +7,12 @@ window.addEventListener("load", async () => {
 	// Eventos
 	for (const pestana of domPestanas)
 		pestana.addEventListener("click", () => {
-			document.cookie = "actualizaPestanaInput_id=" + pestana.id + "; path=/";
+			document.cookie = "actualizaContNuevo_id=" + pestana.id + "; path=/";
 			for (const p of domPestanas) p.classList[p.id == pestana.id ? "add" : "remove"]("activo");
 		});
 
 	// Start-up
-	const pestanaActiva = cookie("actualizaPestanaInput_id") || "textoImagen";
+	const pestanaActiva = cookie("actualizaContNuevo_id") || "textoImagen";
 	for (const pestana of domPestanas) if (pestana.id == pestanaActiva) pestana.classList.add("activo");
 
 	// Fin
