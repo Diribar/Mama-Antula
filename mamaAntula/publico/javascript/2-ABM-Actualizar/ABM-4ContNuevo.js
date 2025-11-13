@@ -15,7 +15,7 @@ window.addEventListener("load", async () => {
 
 		// Ouputs
 		iconoGuardar: document.querySelector("#pestanasGuardar #iconoGuardar"),
-		textoOutput: document.querySelector("#texto .output"),
+		textoOutput: document.querySelector("#texto #output"),
 
 		// Video
 		outputVideoId: document.querySelector("#video [name='video']"),

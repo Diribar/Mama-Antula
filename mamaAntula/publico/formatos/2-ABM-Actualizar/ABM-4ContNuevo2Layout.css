@@ -14,7 +14,7 @@
 		.barraHerrams {border-radius: 10px 10px 0 0; max-width: fit-content;}
 		.input {
 			border-top: 1px solid #ccc; border-radius: 15px; border-top-left-radius: 0; font-size: 1rem;
-			max-height: calc(100% - 41.6px); /* 41.6px es el alto de la barra de herramientas */
+			max-height: calc(100% - 34.8px); /* 34.8px es el alto de la barra de herramientas */
 			.ql-editor p {margin-bottom: 15px;}
 		}
 	}
