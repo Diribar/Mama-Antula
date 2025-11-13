@@ -21,8 +21,8 @@ export default {
 		const conIndice = !!temaActual.indices.length;
 
 		// Datos para la vista
-		const encabezado_id = req.query.id;
-		const {encabezados, encabezado} = await procesos.encabezados({temaActual, encabezado_id});
+		const encab_id = req.query.id;
+		const {encabezados, encabezado} = await procesos.encabezados({temaActual, encab_id});
 		const contenidos = encabezado && (await procesos.contenidos(encabezado));
 		const clase = temaActual.codigo == "libros" ? "libros" : "estandar";
 		if (clase == "libros") contenidos.sort((a, b) => (b.video < a.video ? -1 : 1)); // ordena los libros en forma descenente
@@ -54,8 +54,8 @@ export default {
 		// Datos para la vista
 		const esCarta = null;
 		const conIndice = null;
-		const encabezado_id = req.query.id;
-		const {encabezados, encabezado} = await procesos.encabezados({pestanaActual, encabezado_id});
+		const encab_id = req.query.id;
+		const {encabezados, encabezado} = await procesos.encabezados({pestanaActual, encab_id});
 		const contenidos = encabezado && (await procesos.contenidos(encabezado));
 		const clase = pestanaActual.codigo.startsWith("estampas") ? "estampas" : "estandar";
 

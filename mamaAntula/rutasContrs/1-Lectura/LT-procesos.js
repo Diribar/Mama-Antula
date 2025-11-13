@@ -1,7 +1,7 @@
 "use strict";
 
 export default {
-	encabezados: async ({temaActual, pestanaActual, encabezado_id}) => {
+	encabezados: async ({temaActual, pestanaActual, encab_id}) => {
 		// Variables
 		const condicion = pestanaActual ? {pestana_id: pestanaActual.id} : {tema_id: temaActual.id};
 		const esCarta = temaActual && temaActual.codigo == "cartas";
@@ -23,7 +23,7 @@ export default {
 		if (esCarta || conIndice) encabezados = comp.titulosLectura({esCarta, conIndice, encabezados});
 
 		// Obtiene el encabezado actual
-		const encabezado = encabezados.find((n) => n.id == encabezado_id) || encabezados[0];
+		const encabezado = encabezados.find((n) => n.id == encab_id) || encabezados[0];
 
 		// Si es una tema con índice, obtiene los encabezados anterior y posterior
 		if (temaActual && temaActual.indices.length) {
