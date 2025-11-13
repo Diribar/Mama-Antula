@@ -143,7 +143,6 @@ export default {
 		elimina: async (req, res) => {
 			// Variables
 			const {id} = req.body;
-			if (!id) return res.json({});
 			const contenido = await baseDatos.obtienePorId("contenidos", id, "carrusel");
 			const ruta = contenido.statusRegistro_id == creado_id ? carpRevisar : carpContenido;
 
