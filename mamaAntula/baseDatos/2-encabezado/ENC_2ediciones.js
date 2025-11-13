@@ -24,7 +24,7 @@ export default (sequelize, dt) => {
 		editadoEn: {type: dt.DATE},
 	};
 	const config = {
-		tableName: "encab_edicion",
+		tableName: "encab_2edicion",
 		timestamps: false,
 	};
 	const entidad = sequelize.define(alias, columns, config);

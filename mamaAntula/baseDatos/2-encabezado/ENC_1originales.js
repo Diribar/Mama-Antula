@@ -6,7 +6,7 @@ export default (sequelize, dt) => {
 		pestana_id: {type: dt.INTEGER},
 
 		// Otros
-		numero: {type: dt.STRING(10)},
+		numero: {type: dt.INTEGER},
 		titulo: {type: dt.STRING(100)},
 		subTitulo: {type: dt.STRING(100)},
 		fechaEvento: {type: dt.DATE},
@@ -23,7 +23,7 @@ export default (sequelize, dt) => {
 		statusRegistro_id: {type: dt.INTEGER},
 	};
 	const config = {
-		tableName: "encab_original",
+		tableName: "encab_1original",
 		timestamps: false,
 	};
 	const entidad = sequelize.define(alias, columns, config);

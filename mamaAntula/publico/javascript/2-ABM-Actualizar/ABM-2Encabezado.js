@@ -65,7 +65,7 @@ window.addEventListener("load", async () => {
 
 				// Actualiza el valor elegido de todos los inputs
 				const campo = input.name;
-				input.value = (encabezado && encabezado[campo]) || "";
+				input.value = encabezado && (encabezado[campo] || encabezado[campo] === 0) ? encabezado[campo] : "";
 			}
 
 			// Fin
