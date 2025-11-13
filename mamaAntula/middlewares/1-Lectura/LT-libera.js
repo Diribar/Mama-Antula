@@ -1,6 +1,6 @@
 "use strict";
 
-export default async (req, res, next) => {
+export default (req, res, next) => {
 	// Variables
 	const {actualizaTema_id: tema_id, actualizaPestana_id: pestana_id} = req.cookies;
 	const {usuario} = req.session;
