@@ -222,7 +222,7 @@ window.addEventListener("load", async () => {
 		DOM.sectorContenido.innerHTML = "";
 
 		// Si el sector no tiene contenidos, interrumpe la función
-		v.contenidos = v.encabezado_id != "nuevo" ? await fetch(ruta).then((n) => n && n.json()) : [];
+		v.contenidos = v.encabezado_id != "nuevo" ? await fetch(ruta).then((n) => n.json()) : [];
 		if (!v.contenidos.length) return DOM.sectorContenido.classList.add("ocultar");
 		// Muestra el sector contenidos
 		else DOM.sectorContenido.classList.remove("ocultar");

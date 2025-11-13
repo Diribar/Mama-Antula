@@ -14,7 +14,7 @@ window.addEventListener("load", async () => {
 		datosIniciales: "/contenido/api/abm-filtros-datos-inciales",
 		obtieneEncabs: "/contenido/api/abm-filtros-obtiene-encabezados/?",
 	};
-	comp1234 = {startUp: true, ...(await fetch(rutas.datosIniciales).then((n) => n && n.json()))};
+	comp1234 = {startUp: true, ...(await fetch(rutas.datosIniciales).then((n) => n.json()))};
 	const v = {};
 
 	// Funciones
@@ -31,7 +31,7 @@ window.addEventListener("load", async () => {
 			// ENCABEZADO - Obtiene los encabezados
 			const datos =
 				"seccion_id=" + comp1234.seccion_id + "&tema_id=" + comp1234.tema_id + "&pestana_id=" + comp1234.pestana_id;
-			const respuesta = await fetch(rutas.obtieneEncabs + datos).then((n) => n && n.json());
+			const respuesta = await fetch(rutas.obtieneEncabs + datos).then((n) => n.json());
 
 			// ENCABEZADO - Si hubo un error, muestra el mensaje e interrumpe la función
 			if (respuesta.error) {
