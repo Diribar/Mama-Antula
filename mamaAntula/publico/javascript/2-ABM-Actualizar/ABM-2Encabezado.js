@@ -126,18 +126,8 @@ window.addEventListener("load", async () => {
 		// Guarda el encabezado en la BD
 		const respuesta = await fetch(rutas.guardaEncabezado, postForm(formData)).then((n) => n.json());
 
-		// Muestra el error e interrumpe la función
-		if (respuesta.error) {
-			Swal.fire({
-				title: "Atención",
-				html: respuesta.error, // Permite HTML
-				icon: "warning",
-				confirmButtonText: "Aceptar",
-				confirmButtonColor: "rgb(79,98,40)", // verdeOscuro
-				background: "rgb(242,242,242)", // grisClaro
-			});
-			return;
-		}
+		// Si hubo un error, muestra el mensaje e interrumpe la función
+		if (respuesta.error) return cartelDeError(respuesta.error);
 
 		// Guarda el nuevo_id en la cookie y establece que se actualicen los filtros por las cookies
 		if (respuesta.id) {
@@ -164,7 +154,7 @@ window.addEventListener("load", async () => {
 		const respuesta = await fetch(rutas.eliminaEncabezado, deleteJson(datos)).then((n) => n.json());
 
 		// Si hubo un error, muestra el mensaje e interrumpe la función
-		if (respuesta.error) return alert(respuesta.error);
+		if (respuesta.error) return cartelDeError(respuesta.error);
 
 		// Elimina la cookie y se genera un change en el tema o pestaña, para que se reinicie el filtro del encabezado
 		document.cookie = "actualizaEncabezado_id=; path=/";
