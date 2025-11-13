@@ -24,9 +24,9 @@ export default {
 		const encabezado_id = req.query.id;
 		const {encabezados, encabezado} = await procesos.encabezados({temaActual, encabezado_id});
 		const contenidos = encabezado && (await procesos.contenidos({temaActual, encabezado}));
-		const tituloCarta = esCarta && comp.contenido.tituloCons.encabCarta(encabezado);
-		const clase = temaActual.codigo.startsWith("libros") ? "libros" : "estandar";
-		if (clase == "libros") contenidos.sort((a, b) => (b.video < a.video ? -1 : 1));
+		const tituloCarta = encabezado && encabezado.tituloLectura; // el encabezado puede no estar creado
+		const clase = temaActual.codigo == "libros" ? "libros" : "estandar";
+		if (clase == "libros") contenidos.sort((a, b) => (b.video < a.video ? -1 : 1)); // ordena los libros en forma descenente
 
 		// Fin
 		return res.render("CMP-0Estructura", {

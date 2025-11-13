@@ -1,19 +1,20 @@
 "use strict";
 
 export default {
-	obtieneEncabs: async ({esCarta, conIndice, entidad, condicion, includes, usuario}) => {
+	obtieneEncabs: async ({esCarta, conIndice, condicion, includes, usuario}) => {
 		// Obtiene los encabezados
 		let encabezados = esCarta
-			? baseDatos
-					.obtieneTodos(entidad, includes)
+			? await baseDatos
+					.obtieneTodos("encabezados", includes)
 					.then((n) => n.sort((a, b) => new Date(a.fechaEvento) - new Date(b.fechaEvento)))
-			: baseDatos
-					.obtieneTodosPorCondicion(entidad, condicion, includes)
-					.then((n) => n.sort((a, b) => new Date(b.fechaEvento) - new Date(a.fechaEvento)));
-		encabezados = await encabezados;
+			: conIndice
+			? await baseDatos
+					.obtieneTodosPorCondicion("encabezados", condicion, includes)
+					.then((n) => n.sort((a, b) => new Date(b.fechaEvento) - new Date(a.fechaEvento)))
+			: await baseDatos.obtieneTodosPorCondicion("encabezados", condicion);
 
 		// Si es sin indice y no existe un registro, lo crea
-		if (!conIndice && !encabezados.length) {
+		if (!esCarta && !conIndice && !encabezados.length) {
 			// Crea los datos a guardar
 			const creadoPor_id = usuario.id;
 			const datos = {creadoPor_id};
@@ -24,21 +25,20 @@ export default {
 			if (pestana_id) datos.pestana_id = pestana_id;
 
 			// Guarda el encabezado
-			const encabezado = await baseDatos.agregaRegistroIdCorrel("encabResto", datos);
+			const encabezado = await baseDatos.agregaRegistroIdCorrel("encabezados", datos);
 			// encabezado.ediciones = [];
 			encabezados = [encabezado];
 		}
 
 		// Les agrega los títulos
-		if (conIndice) encabezados = comp.contenido.tituloCons[esCarta ? entidad : "encabConIndice"](encabezados);
+		if (esCarta || conIndice) encabezados = comp.titulosLectura({esCarta, conIndice, encabezados});
 
 		// Fin
 		return encabezados;
 	},
-	eliminaDependsEncab: async (entidad, id) => {
+	eliminaDependsEncab: async (id) => {
 		// Obtiene los contenidos y los elimina
-		const campo_id = comp.contenido.obtieneCampo_id(entidad);
-		const contenidos = await baseDatos.obtieneTodosPorCondicion("contenidos", {[campo_id]: id}, "carrusel");
+		const contenidos = await baseDatos.obtieneTodosPorCondicion("contenidos", {encab_id: id}, "carrusel");
 		if (!contenidos.length) return;
 
 		// Elimina los archivos y registros del carrusel de cada contenido, y también borra los contenidos
