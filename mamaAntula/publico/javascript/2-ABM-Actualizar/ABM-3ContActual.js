@@ -215,8 +215,7 @@ window.addEventListener("load", async () => {
 	DOM.filtroEncab.addEventListener("change", async () => {
 		// Variables
 		const encabezado_id = DOM.filtroEncab.value;
-		const campo_id = campos_id[comp1234.entidad];
-		const ruta = rutasContenido.obtiene + "encab_id=" + encabezado_id + "&campo_id=" + campo_id;
+		const ruta = rutasContenido.obtiene + "encab_id=" + encabezado_id;
 
 		// Limpia el DOM
 		DOM.sectorContenido.innerHTML = "";
@@ -234,6 +233,3 @@ window.addEventListener("load", async () => {
 		return;
 	});
 });
-
-// Variables compartidas
-const campos_id = {encabCartas: "carta_id", encabResto: "encab_id"};
