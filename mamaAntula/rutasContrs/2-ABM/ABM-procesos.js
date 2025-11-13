@@ -5,7 +5,7 @@ export default {
 		// Obtiene los encabezados
 		let encabezados = esCarta
 			? await baseDatos
-					.obtieneTodos("encabezados", includesEncabs.cartas)
+					.obtieneTodosPorCondicion("encabezados", condicion, includesEncabs.cartas)
 					.then((n) => n.sort((a, b) => new Date(a.fechaEvento) - new Date(b.fechaEvento)))
 			: conIndice
 			? await baseDatos
