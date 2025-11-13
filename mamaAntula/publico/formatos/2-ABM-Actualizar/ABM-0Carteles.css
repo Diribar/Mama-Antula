@@ -1,0 +1,13 @@
+.swal2-html-container {
+	.resaltar {
+		background-color: var(--azulOscuro); color: snow;
+		padding-inline: 5px; border-radius: 5px;
+	}
+	ul {
+		width: fit-content; margin-inline: auto;
+		li {
+			text-align: left;
+			/* &:not(:last-child) {margin-bottom: 5px;} */
+		}
+	}
+}

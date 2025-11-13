@@ -23,12 +23,18 @@ const cookie = (metodo) => {
 const carteles = {
 	error: (mensaje) =>
 		Swal.fire({
-			title: "Atención",
-			html: mensaje, // Permite HTML
+			// Encabezado
 			icon: "warning",
+			title: "Atención",
+			background: "rgb(242,242,242)", // grisClaro
+
+			// Contenido
+			html: mensaje, // Permite HTML
+			color: "firebrick", // rojoOscuro
+
+			// Botón
 			confirmButtonText: "Aceptar",
 			confirmButtonColor: "rgb(79,98,40)", // verdeOscuro
-			background: "rgb(242,242,242)", // grisClaro
 		}),
 	pregunta: ({mensaje, cancelButtonText, confirmButtonText}) =>
 		Swal.fire({
