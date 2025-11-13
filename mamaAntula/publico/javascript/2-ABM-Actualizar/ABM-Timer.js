@@ -6,6 +6,7 @@ window.addEventListener("load", async () => {
 		filtroEncab: document.querySelector("#filtros select[name='encabezado']"),
 	};
 	const unMinuto = 60 * 1000;
+	const minutosPermitidos = 1;
 	let minutosDispon;
 
 	// Funciones
@@ -17,10 +18,10 @@ window.addEventListener("load", async () => {
 			// Mensaje
 			const mensaje =
 				"Se detectaron " +
-				minutosDispon +
+				minutosPermitidos +
 				" min. sin guardado de novedades." +
 				"<br>" +
-				"Para poder volver a usar esta vista, necesitamos que vuelvas a cargarla.";
+				"Para poder volver a usar esta vista, necesitamos que la vuelvas a cargar.";
 
 			// Aviso
 			Swal.fire({
@@ -31,6 +32,9 @@ window.addEventListener("load", async () => {
 				confirmButtonColor: "rgb(79,98,40)", // verdeOscuro
 				background: "rgb(242,242,242)", // grisClaro
 			});
+
+			// Fin
+			return;
 		},
 	};
 
@@ -39,11 +43,11 @@ window.addEventListener("load", async () => {
 		if (!DOM.filtroEncab.value) return;
 
 		// Actualiza el timer
-		minutosDispon = 1;
+		minutosDispon = minutosPermitidos;
 		DOM.timer.innerText = minutosDispon + " min.";
 
 		// Rutina de timer
-		setInterval(() => {
+		const timer = setInterval(() => {
 			// Actualiza los minutos disponibles
 			minutosDispon--;
 			if (minutosDispon < 0) minutosDispon = 0;
@@ -51,7 +55,7 @@ window.addEventListener("load", async () => {
 
 			// Acciones si se acabó el tiempo
 			if (minutosDispon == 0) {
-				clearInterval(FN.timer);
+				clearInterval(timer);
 				return FN.cartelDeAviso();
 			}
 
