@@ -15,7 +15,7 @@ window.addEventListener("load", async () => {
 			(minutosDispon <= 15 && (DOM.timer.style.backgroundColor = "var(--rojoOscuro)")) ||
 			(minutosDispon <= 30 && (DOM.timer.style.backgroundColor = "var(--naranjaOscuro)")),
 		cartelDeAviso: async () => {
-			// Mensaje
+			// Variables
 			const mensaje =
 				"Se detectaron " +
 				minutosPermitidos +
@@ -25,15 +25,9 @@ window.addEventListener("load", async () => {
 			const cancelButtonText = "Salir de esta vista";
 			const confirmButtonText = "Recargar vista";
 
-			// Aviso
+			// Aviso y acciones
 			const confirma = await cartelPregunta({mensaje, cancelButtonText, confirmButtonText});
-
-			// Acciones
-			if (confirma) location.reload();
-			else {
-				const redirigeLectura = await actualizaUrlLectura();
-				location.href = redirigeLectura;
-			}
+			confirma ? location.reload() : location.href = await actualizaUrlLectura();
 
 			// Fin
 			return;
