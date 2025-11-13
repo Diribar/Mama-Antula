@@ -53,7 +53,10 @@ window.addEventListener("load", async () => {
 					if (crud == "elimina" && !confirm("¿Estás seguro/a de que querés eliminar este contenido?")) return;
 
 					// Crud del contenido
-					await fetch(rutasContenido[crud], v.funcsComps[crud]({id})); //.then((n) => n.json());
+					const respuesta = await fetch(rutasContenido[crud], v.funcsComps[crud]({id})).then((n) => n.json());
+
+					// Si hubo un error, muestra el mensaje e interrumpe la función
+					if (respuesta.error) return carteles.error(respuesta.error);
 
 					// Actualiza el DOM
 					DOM.filtroEncab.dispatchEvent(new Event("change"));
@@ -220,8 +223,10 @@ window.addEventListener("load", async () => {
 		// Limpia el DOM
 		DOM.sectorContenido.innerHTML = "";
 
-		// Si el sector no tiene contenidos, interrumpe la función
+		// Obtiene los contenidos
 		v.contenidos = v.encab_id != "nuevo" ? await fetch(ruta).then((n) => n.json()) : [];
+
+		// Si el sector no tiene contenidos, interrumpe la función
 		if (!v.contenidos.length) return DOM.sectorContenido.classList.add("ocultar");
 		// Muestra el sector contenidos
 		else DOM.sectorContenido.classList.remove("ocultar");

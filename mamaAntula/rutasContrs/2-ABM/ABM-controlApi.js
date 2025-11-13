@@ -107,7 +107,7 @@ export default {
 
 			// Obtiene todos los contenidos del mismo encabezado y el indice del actual
 			const {indice, contenido, contenidos, mensaje} = await procesos.obtieneIndiceEnContenidos({id, usuario});
-			if (mensaje) return res.json({mensaje});
+			if (mensaje) return res.json({error: mensaje});
 
 			// Si no es el último, intercambia el orden con el siguiente
 			if (indice < contenidos.length - 1) {
