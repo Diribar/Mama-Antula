@@ -27,6 +27,7 @@ export default (req, res, next) => {
 
 	// PESTAÑA - Averigua si el tema tiene pestañas
 	const pestsPosibles = pestanasTemas.filter((n) => n.tema_id == temaActual.id);
+	let pestanaActual
 	if (pestsPosibles.length) {
 		// Si el urlPestana no existe redirige
 		if (!urlPestana) {
@@ -35,7 +36,7 @@ export default (req, res, next) => {
 		}
 
 		// Si la pestanaActual no corresponde, muestra la vista de error
-		const pestanaActual = pestsPosibles.find((n) => n.url == urlPestana);
+		pestanaActual = pestsPosibles.find((n) => n.url == urlPestana);
 		if (!pestanaActual) return res.render("CMP-0Estructura", {informacion});
 
 		// Guarda cookies

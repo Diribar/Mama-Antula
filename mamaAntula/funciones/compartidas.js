@@ -216,7 +216,7 @@ const FN = {
 
 	// Títulos para lectura
 	tituloCartas: function (encabs) {
-		for (const encab of encabs) encab.tituloLectura = this.encabCarta(encab);
+		for (const encab of encabs) encab.tituloLectura = this.tituloCarta(encab);
 
 		// Fin
 		return encabs;
