@@ -1,15 +1,18 @@
 /* Colores */
 body {
+	/* Claro */
 	--amarilloClaro:rgb(255,242,204);
 	--celesteClaro: rgb(220, 230, 242);
 	--grisClaro: rgb(242,242,242);
 	--rojoClaro: #f8c4c4;
 	--verdeClaro: rgb(217, 223, 205);
 
-	--amarillo-intermedio: #fcff82;
+	/* Intermedio */
+	--amarilloInterm: #fcff82;
 	--grisInterm: rgb(160,160,160);
-	--verde-intermedio: rgb(188, 199, 167);
+	--verdeInterm: rgb(188, 199, 167);
 
+	/* Oscuro */
 	--amarilloOscuro: rgb(255, 230, 153);
 	--azulOscuro: rgb(37,64,97);
 	--azul-frances: rgb(31,73,125);
@@ -34,11 +37,11 @@ body {
 	--bordeAyuda: var(--amarilloClaro);
 	--colorTitulo: var(--grisOscuro);
 	--backTitulo: var(--amarilloClaro);
-	--bordeTitulo: var(--naranja-oscuro);
+	--bordeTitulo: var(--naranjaOscuro);
 	--colorMensajeError: var(--rojoOscuro);
 	--backMensajeError: var(--amarilloClaro);
 	--backIcono: white;
-	--backFlechas: var(--celeste-oscuro);
+	--backFlechas: var(--celesteOscuro);
 	--bordeFlechas: var(--azulOscuro);
-	--backComandos: var(--verde-oscuro);
+	--backComandos: var(--verdeOscuro);
 }
