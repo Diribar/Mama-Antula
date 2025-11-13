@@ -5,8 +5,9 @@ export default {
 	filtros: {
 		datosIniciales: (req, res) => {
 			// Variables
+			const seccsListas = secciones.filter((n) => n.id < 4);
 			const datosIniciales = {
-				...{secciones, temasSecciones, pestanasTemas}, // Filtros e Impacto...
+				...{secciones: seccsListas, temasSecciones, pestanasTemas}, // Filtros e Impacto...
 				...{personajes, idiomas, lugares}, // Impacto de Filtro Encabezado
 			};
 
