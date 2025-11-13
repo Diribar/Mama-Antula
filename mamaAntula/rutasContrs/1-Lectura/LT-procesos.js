@@ -35,12 +35,7 @@ export default {
 		// Fin
 		return {encabezados, encabezado};
 	},
-	contenidos: async ({temaActual, pestanaActual, encabezado}) => {
-		// Variables
-		const condicion = pestanaActual ? {pestana_id: pestanaActual.id} : {tema_id: temaActual.id};
-		console.log(41,encabezado);
-
-
+	contenidos: async (encabezado) => {
 		// Obtiene los contenidos
 		const contenidos = await baseDatos
 			.obtieneTodosPorCondicion("contenidos", {encab_id: encabezado.id})

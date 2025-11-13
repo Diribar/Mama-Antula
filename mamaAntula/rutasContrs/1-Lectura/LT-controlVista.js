@@ -23,7 +23,7 @@ export default {
 		// Datos para la vista
 		const encabezado_id = req.query.id;
 		const {encabezados, encabezado} = await procesos.encabezados({temaActual, encabezado_id});
-		const contenidos = encabezado && (await procesos.contenidos({temaActual, encabezado}));
+		const contenidos = encabezado && (await procesos.contenidos(encabezado));
 		const tituloCarta = encabezado && encabezado.tituloLectura; // el encabezado puede no estar creado
 		const clase = temaActual.codigo == "libros" ? "libros" : "estandar";
 		if (clase == "libros") contenidos.sort((a, b) => (b.video < a.video ? -1 : 1)); // ordena los libros en forma descenente
@@ -57,7 +57,7 @@ export default {
 		const conIndice = null;
 		const encabezado_id = req.query.id;
 		const {encabezados, encabezado} = await procesos.encabezados({pestanaActual, encabezado_id});
-		const contenidos = encabezado && (await procesos.contenidos({pestanaActual, encabezado}));
+		const contenidos = encabezado && (await procesos.contenidos(encabezado));
 		const clase = pestanaActual.codigo.startsWith("estampas") ? "estampas" : "estandar";
 
 		// Fin
