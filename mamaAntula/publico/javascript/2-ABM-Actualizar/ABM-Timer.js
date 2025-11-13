@@ -25,12 +25,18 @@ window.addEventListener("load", async () => {
 
 			// Aviso
 			Swal.fire({
-				title: "Atención",
-				html: mensaje, // Permite HTML
-				icon: "warning",
-				confirmButtonText: "Aceptar",
-				confirmButtonColor: "rgb(79,98,40)", // verdeOscuro
-				background: "rgb(242,242,242)", // grisClaro
+				// General
+				...{background: "rgb(242,242,242)", title: "Atención", icon: "warning", html: mensaje}, // grisClaro
+
+				// Botón cancel
+				...{showCancelButton: true, reverseButtons: true},
+				...{cancelButtonText: "Salir de esta vista", cancelButtonColor: "firebrick"}, // rojoOscuro
+
+				// Botón confirm
+				...{confirmButtonText: "Recargar vista", confirmButtonColor: "rgb(79,98,40)"}, // verdeOscuro
+			}).then((n) => {
+				if (n.isConfirmed) location.reload();
+				else if (n.isDismissed) location.href = redirigeLectura;
 			});
 
 			// Fin
