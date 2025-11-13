@@ -7,8 +7,8 @@ export default {
 		// Variables
 		const codigoVista = "temas";
 		let {urlSeccion, urlTema} = req.params;
-		urlSeccion = urlSeccion || "inicio";
-		urlTema = urlTema || "quien-es-mama-antula";
+		urlSeccion = urlSeccion || LP_urlSeccion;
+		urlTema = urlTema || LP_urlTema;
 
 		// Sección
 		const seccionActual = secciones.find((n) => n.url == urlSeccion);
