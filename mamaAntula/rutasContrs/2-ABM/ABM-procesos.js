@@ -1,19 +1,20 @@
 "use strict";
 
 export default {
-	obtieneEncabs: async ({esCarta, conIndice, entidad, condicion, includes, usuario}) => {
+	obtieneEncabs: async ({esCarta, conIndice, condicion, includes, usuario}) => {
 		// Obtiene los encabezados
 		let encabezados = esCarta
-			? baseDatos
-					.obtieneTodos(entidad, includes)
+			? await baseDatos
+					.obtieneTodos("encabezados", includes)
 					.then((n) => n.sort((a, b) => new Date(a.fechaEvento) - new Date(b.fechaEvento)))
-			: baseDatos
-					.obtieneTodosPorCondicion(entidad, condicion, includes)
-					.then((n) => n.sort((a, b) => new Date(b.fechaEvento) - new Date(a.fechaEvento)));
-		encabezados = await encabezados;
+			: conIndice
+			? await baseDatos
+					.obtieneTodosPorCondicion("encabezados", condicion, includes)
+					.then((n) => n.sort((a, b) => new Date(b.fechaEvento) - new Date(a.fechaEvento)))
+			: await baseDatos.obtieneTodosPorCondicion("encabezados", condicion);
 
 		// Si es sin indice y no existe un registro, lo crea
-		if (!conIndice && !encabezados.length) {
+		if (!esCarta && !conIndice && !encabezados.length) {
 			// Crea los datos a guardar
 			const creadoPor_id = usuario.id;
 			const datos = {creadoPor_id};
@@ -24,21 +25,20 @@ export default {
 			if (pestana_id) datos.pestana_id = pestana_id;
 
 			// Guarda el encabezado
-			const encabezado = await baseDatos.agregaRegistroIdCorrel("encabResto", datos);
+			const encabezado = await baseDatos.agregaRegistroIdCorrel("encabezados", datos);
 			// encabezado.ediciones = [];
 			encabezados = [encabezado];
 		}
 
 		// Les agrega los títulos
-		if (conIndice) encabezados = comp.contenido.tituloCons[esCarta ? entidad : "encabConIndice"](encabezados);
+		if (esCarta || conIndice) encabezados = comp.titulosLectura({esCarta, conIndice, encabezados});
 
 		// Fin
 		return encabezados;
 	},
-	eliminaDependsEncab: async (entidad, id) => {
+	eliminaDependsEncab: async (encab_id) => {
 		// Obtiene los contenidos y los elimina
-		const campo_id = comp.contenido.obtieneCampo_id(entidad);
-		const contenidos = await baseDatos.obtieneTodosPorCondicion("contenidos", {[campo_id]: id}, "carrusel");
+		const contenidos = await baseDatos.obtieneTodosPorCondicion("contenidos", {encab_id}, "carrusel");
 		if (!contenidos.length) return;
 
 		// Elimina los archivos y registros del carrusel de cada contenido, y también borra los contenidos
@@ -72,9 +72,9 @@ export default {
 			return {mensaje: "No tenés permisos para mover este contenido"};
 
 		// Obtiene todos los contenidos del mismo encabezado
-		const campo_id = contenido.carta_id ? "carta_id" : "encab_id";
+		const {encab_id} = contenido;
 		const contenidos = await baseDatos
-			.obtieneTodosPorCondicion("contenidos", {[campo_id]: contenido[campo_id]})
+			.obtieneTodosPorCondicion("contenidos", {encab_id})
 			.then((n) => n.sort((a, b) => a.orden - b.orden));
 		if (contenidos.length < 2) return {mensaje: "No hay otros contenidos para mover"};
 
@@ -86,12 +86,12 @@ export default {
 	},
 
 	// API guarda nuevo
-	obtieneOrdenContenidos: async ({campo_id, encabezado_id}) => {
+	obtieneOrdenContenidos: async (encab_id) => {
 		// Variables
 		let orden = 1;
 
-		// Averigua si ya hay algún registro para ese 'campo_id'
-		const registrosActuales = await baseDatos.obtieneTodosPorCondicion("contenidos", {[campo_id]: encabezado_id});
+		// Averigua si ya hay algún registro para ese encabezado
+		const registrosActuales = await baseDatos.obtieneTodosPorCondicion("contenidos", {encab_id});
 
 		// Acciones si lo hay
 		if (registrosActuales.length) {

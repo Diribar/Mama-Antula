@@ -1,31 +1,27 @@
 "use strict";
 
 export default {
-	encabezados: async ({temaActual, pestanaActual, encabezado_id}) => {
-		// Variables
-		const condicion = pestanaActual ? {pestana_id: pestanaActual.id} : {tema_id: temaActual.id};
-		const {entidad, includes} = comp.contenido.obtieneDatosDeTabla(condicion);
-		const esCarta = entidad == "encabCartas";
-
+	encabezados: async ({esCarta, conIndice, condicion, encab_id}) => {
 		// Obtiene los encabezados
 		let encabezados = esCarta
 			? await baseDatos
-					.obtieneTodos(entidad, includes)
+					.obtieneTodosPorCondicion("encabezados", condicion, includesEncabs.cartas)
 					.then((n) => n.sort((a, b) => (a.fechaEvento < b.fechaEvento ? -1 : 1)))
-			: await baseDatos
-					.obtieneTodosPorCondicion(entidad, condicion, includes)
-					.then((n) => n.sort((a, b) => (b.fechaEvento < a.fechaEvento ? -1 : 1)));
+			: conIndice
+			? await baseDatos
+					.obtieneTodosPorCondicion("encabezados", condicion, includesEncabs.conIndice)
+					.then((n) => n.sort((a, b) => (b.fechaEvento < a.fechaEvento ? -1 : 1)))
+			: await baseDatos.obtieneTodosPorCondicion("encabezados", condicion);
 		if (!encabezados.length) return {};
 
 		// Les agrega los títulos
-		if (temaActual && temaActual.indices.length)
-			encabezados = comp.contenido.tituloCons[esCarta ? entidad : "encabConIndice"](encabezados);
+		if (esCarta || conIndice) encabezados = comp.titulosLectura({esCarta, conIndice, encabezados});
 
 		// Obtiene el encabezado actual
-		const encabezado = encabezados.find((n) => n.id == encabezado_id) || encabezados[0];
+		const encabezado = encabezados.find((n) => n.id == encab_id) || encabezados[0];
 
 		// Si es una tema con índice, obtiene los encabezados anterior y posterior
-		if (temaActual && temaActual.indices.length) {
+		if (esCarta || conIndice) {
 			const indice = encabezados.indexOf(encabezado);
 			encabezado.ant_id = encabezados[indice - 1]?.id || null;
 			encabezado.sig_id = encabezados[indice + 1]?.id || null;
@@ -34,14 +30,10 @@ export default {
 		// Fin
 		return {encabezados, encabezado};
 	},
-	contenidos: async ({temaActual, pestanaActual, encabezado}) => {
-		// Variables
-		const condicion = pestanaActual ? {pestana_id: pestanaActual.id} : {tema_id: temaActual.id};
-		const {campo_id} = comp.contenido.obtieneDatosDeTabla(condicion);
-
+	contenidos: async (encabezado) => {
 		// Obtiene los contenidos
 		const contenidos = await baseDatos
-			.obtieneTodosPorCondicion("contenidos", {[campo_id]: encabezado.id})
+			.obtieneTodosPorCondicion("contenidos", {encab_id: encabezado.id})
 			.then((n) => n.sort((a, b) => a.orden - b.orden));
 
 		// Obtiene los registros del carrusel y los  vincula a su contenido

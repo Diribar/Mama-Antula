@@ -48,13 +48,11 @@ window.addEventListener("load", async () => {
 		// Partes del form
 		encabezado: () => {
 			// Encabezado
-			const encabezado_id = DOM.filtroEncab.value;
-			v.formData.append("encabezado_id", encabezado_id);
+			const encab_id = DOM.filtroEncab.value;
+			v.formData.append("encab_id", encab_id);
 
 			// Campo_id
-			const campo_id = campos_id[comp1234.entidad];
-			v.formData.append("campo_id", campos_id[comp1234.entidad]);
-			v.formData.append(campo_id, encabezado_id);
+			v.formData.append("encab_id", encab_id);
 
 			// Fin
 			return;

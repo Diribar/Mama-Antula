@@ -81,9 +81,9 @@ window.addEventListener("load", async () => {
 
 			// ENCABEZADO - Si es start-up, elige la opción de la cookie
 			const valoresPosiblesOpciones = Array.from(DOM.encabezado.querySelectorAll("option")).map((n) => n.value);
-			const encabezado_id = cookie("actualizaEncabezado_id");
-			if (comp1234.startUp && encabezado_id && valoresPosiblesOpciones.includes(encabezado_id))
-				DOM.encabezado.value = encabezado_id;
+			const encab_id = cookie("actualizaEncabezado_id");
+			if (comp1234.startUp && encab_id && valoresPosiblesOpciones.includes(encab_id))
+				DOM.encabezado.value = encab_id;
 
 			// ENCABEZADO - Dispara el evento
 			DOM.encabezado.dispatchEvent(new Event("change"));
@@ -97,7 +97,7 @@ window.addEventListener("load", async () => {
 			const urlTema = "/" + comp1234.temasSecciones.find((n) => n.id == comp1234.tema_id).url;
 			const urlPestana =
 				(comp1234.pestana_id && "/" + comp1234.pestanasTemas.find((n) => n.id == comp1234.pestana_id).url) || "";
-			const urlEncabezado = (v.encabezado_id && "/" + v.encabezado_id) || "";
+			const urlEncabezado = (v.encab_id && "/" + v.encab_id) || "";
 
 			// Actualiza el DOM
 			DOM.anchorLectura.href = urlSeccion + urlTema + urlPestana + urlEncabezado;

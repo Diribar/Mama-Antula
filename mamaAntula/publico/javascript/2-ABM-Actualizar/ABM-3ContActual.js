@@ -214,14 +214,14 @@ window.addEventListener("load", async () => {
 	// Lo actualiza por cambio en el encabezado
 	DOM.filtroEncab.addEventListener("change", async () => {
 		// Variables
-		const encabezado_id = DOM.filtroEncab.value;
-		const ruta = rutasContenido.obtiene + "encab_id=" + encabezado_id;
+		const encab_id = DOM.filtroEncab.value;
+		const ruta = rutasContenido.obtiene + "encab_id=" + encab_id;
 
 		// Limpia el DOM
 		DOM.sectorContenido.innerHTML = "";
 
 		// Si el sector no tiene contenidos, interrumpe la función
-		v.contenidos = v.encabezado_id != "nuevo" ? await fetch(ruta).then((n) => n.json()) : [];
+		v.contenidos = v.encab_id != "nuevo" ? await fetch(ruta).then((n) => n.json()) : [];
 		if (!v.contenidos.length) return DOM.sectorContenido.classList.add("ocultar");
 		// Muestra el sector contenidos
 		else DOM.sectorContenido.classList.remove("ocultar");

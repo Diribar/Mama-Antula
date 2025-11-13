@@ -2,7 +2,7 @@
 import procesos from "./ABM-procesos.js";
 
 export default {
-	filtros:{
+	filtros: {
 		datosIniciales: (req, res) => {
 			// Variables
 			const datosIniciales = {
@@ -19,17 +19,13 @@ export default {
 			const {usuario} = req.session;
 
 			// Averigua si es carta o con índice
-			const temaActual = temasSecciones.find((n) => n.id == tema_id);
-			const esCarta = temaActual.codigo == "cartas";
-			const conIndice = !!temaActual.indices.length;
-
-			// Obtiene datos de la tabla
-			const condicion = {[pestana_id ? "pestana_id" : "tema_id"]: pestana_id || tema_id};
-			const {entidad, includes} = comp.contenido.obtieneDatosDeTabla(condicion);
+			const temaActual = tema_id && temasSecciones.find((n) => n.id == tema_id);
+			const esCarta = temaActual && temaActual.codigo == "cartas";
+			const conIndice = temaActual && temaActual.indices.length && !esCarta;
 
 			// Obtiene los encabezados
-			condicion.lugar_id = conIndice ? {[Op.not]: null} : {[Op.is]: null};
-			const encabezados = await procesos.obtieneEncabs({esCarta, conIndice, entidad, condicion, includes, usuario});
+			const condicion = {[pestana_id ? "pestana_id" : "tema_id"]: pestana_id || tema_id};
+			const encabezados = await procesos.obtieneEncabs({esCarta, conIndice, condicion, includes, usuario});
 
 			// Fin
 			return res.json(encabezados);
@@ -39,10 +35,10 @@ export default {
 	encabezado: {
 		guarda: async (req, res) => {
 			// Variables
-			const {entidad, id, tema_id, pestana_id} = req.body;
+			const {id, tema_id, pestana_id} = req.body;
 
 			// Obtiene el original
-			const original = await baseDatos.obtienePorId(entidad, id);
+			const original = await baseDatos.obtienePorId("encabezados", id);
 
 			// Si no existe el original, lo crea
 			if (!original) {
@@ -52,7 +48,7 @@ export default {
 				delete datos.id;
 
 				// Crea el original
-				const nuevoRegistro = await baseDatos.agregaRegistroIdCorrel(entidad, datos);
+				const nuevoRegistro = await baseDatos.agregaRegistroIdCorrel("encabezados", datos);
 				return res.json({id: nuevoRegistro.id, hay: false});
 			}
 
@@ -62,15 +58,13 @@ export default {
 
 			// Si está en status creado y por este usuario, actualiza el original
 			if (original.statusRegistro_id == creado_id && original.creadoPor_id == req.session.usuario.id) {
-				await baseDatos.actualizaPorId(entidad, id, req.body);
+				await baseDatos.actualizaPorId("encabezados", id, req.body);
 				return res.json({hay: false});
 			}
 
 			// Si está en status aprobado, crea o actualiza la edicion
 			// Obtiene la edicion del usuario
-			const condicion = {editadoPor_id: req.session.usuario.id};
-			const {campo_id} = comp.contenido.obtieneDatosDeTabla({tema_id, pestana_id});
-			condicion[campo_id] = id;
+			const condicion = {encab_id: id, editadoPor_id: req.session.usuario.id};
 			const edicion = await baseDatos.obtienePorCondicion("edicionesEncab", condicion);
 
 			// Averigua si hay novedades con el original
@@ -82,11 +76,11 @@ export default {
 		},
 		elimina: async (req, res) => {
 			// Variables
-			const {entidad, id} = req.body;
+			const {id} = req.body;
 
 			// Elimina los dependientes y el encabezado
-			await procesos.eliminaDependsEncab(entidad, id);
-			await baseDatos.eliminaPorId(entidad, id);
+			await procesos.eliminaDependsEncab(id);
+			await baseDatos.eliminaPorId("encabezados", id);
 
 			// Fin
 			return res.json({});
@@ -96,11 +90,11 @@ export default {
 	contActual: {
 		obtiene: async (req, res) => {
 			// Variables
-			const {encab_id, campo_id} = req.query;
+			const {encab_id} = req.query;
 
 			// Obtiene los contenidos
 			const contenidos = await baseDatos
-				.obtieneTodosPorCondicion("contenidos", {[campo_id]: encab_id}, "carrusel")
+				.obtieneTodosPorCondicion("contenidos", {encab_id}, "carrusel")
 				.then((n) => n.sort((a, b) => a.orden - b.orden));
 
 			// Fin
@@ -168,7 +162,7 @@ export default {
 
 	guardaNuevo: async (req, res) => {
 		// Variables
-		const {campo_id, encabezado_id} = req.body;
+		const {encab_id} = req.body;
 		const creadoPor_id = req.session.usuario.id;
 		const datos = {creadoPor_id};
 		const {imagens} = req.body;
@@ -182,7 +176,7 @@ export default {
 		if (req.files) req.files.forEach((file, i) => comp.gestionArchs.descarga(carpRevisar, imagens[i], file));
 
 		// Averigua el orden y guarda el registro
-		datos.orden = await procesos.obtieneOrdenContenidos({campo_id, encabezado_id});
+		datos.orden = await procesos.obtieneOrdenContenidos(encab_id);
 		const {id: contenido_id} = await baseDatos.agregaRegistroIdCorrel("contenidos", datos);
 
 		// Guarda los registros de carrusel

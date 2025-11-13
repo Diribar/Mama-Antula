@@ -3,7 +3,7 @@
 export default (req, res, next) => {
 	// Variables
 	const {urlSeccion, urlTema, urlPestana} = req.params;
-	const {id: encabezado_id} = req.query;
+	const {id: encab_id} = req.query;
 	const informacion = {mensajes: ["No tenemos esa dirección en nuestro sistema"]};
 	const {usuario} = req.session;
 
@@ -27,6 +27,7 @@ export default (req, res, next) => {
 
 	// PESTAÑA - Averigua si el tema tiene pestañas
 	const pestsPosibles = pestanasTemas.filter((n) => n.tema_id == temaActual.id);
+	let pestanaActual
 	if (pestsPosibles.length) {
 		// Si el urlPestana no existe redirige
 		if (!urlPestana) {
@@ -35,7 +36,7 @@ export default (req, res, next) => {
 		}
 
 		// Si la pestanaActual no corresponde, muestra la vista de error
-		const pestanaActual = pestsPosibles.find((n) => n.url == urlPestana);
+		pestanaActual = pestsPosibles.find((n) => n.url == urlPestana);
 		if (!pestanaActual) return res.render("CMP-0Estructura", {informacion});
 
 		// Guarda cookies
@@ -48,7 +49,7 @@ export default (req, res, next) => {
 		res.cookie("actualizaTema_id", temaActual.id, {maxAge: unDia, path: "/"});
 		if (pestsPosibles.length) res.cookie("actualizaPestana_id", pestanaActual.id, {maxAge: unDia, path: "/"});
 		else res.clearCookie("actualizaPestana_id");
-		if (encabezado_id) res.cookie("actualizaEncabezado_id", encabezado_id, {maxAge: unDia, path: "/"});
+		if (encab_id) res.cookie("actualizaEncabezado_id", encab_id, {maxAge: unDia, path: "/"});
 	}
 
 	// Fin
