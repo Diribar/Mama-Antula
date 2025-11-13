@@ -3,8 +3,7 @@
 
 export default async (req, res, next) => {
 	// Variables
-	const {tema_id, pestana_id} = req.body;
-	const campo_id = pestana_id ? "pestana_id" : "tema_id";
+	const {tema_id} = req.body;
 
 	// Valida encabezado de cartas
 	if (tema_id == temaCarta_id) {
@@ -47,7 +46,7 @@ export default async (req, res, next) => {
 		}
 	}
 	// Valida encabezado con índices
-	else if (tema_id && temasSecciones.find((n) => n.indices.length && n.id == tema_id)) {
+	else if (tema_id && temasSecciones.find((n) => n.id == tema_id && n.indices.length)) {
 		console.log(req.body);
 
 		return res.json({error: "No puedes crear encabezados con índices"});
