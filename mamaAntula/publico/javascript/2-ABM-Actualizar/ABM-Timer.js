@@ -1,33 +1,70 @@
 "use strict";
 window.addEventListener("load", async () => {
 	// Variables
-	const domTimer = document.querySelector("#timer");
+	const DOM = {
+		timer: document.querySelector("#timer"),
+		filtroEncab: document.querySelector("#filtros select[name='encabezado']"),
+	};
 	const unMinuto = 60 * 1000;
-	const minutosDispon = 60;
+	let minutosDispon;
 
 	// Funciones
 	const FN = {
-		timer: setInterval(() => {
+		formatoTimer: () =>
+			(minutosDispon <= 15 && (DOM.timer.style.backgroundColor = "var(--rojoOscuro)")) ||
+			(minutosDispon <= 30 && (DOM.timer.style.backgroundColor = "var(--naranjaOscuro)")),
+		cartelDeAviso: () => {
+			// Mensaje
+			const mensaje =
+				"Se detectaron " +
+				minutosDispon +
+				" min. sin guardado de novedades." +
+				"<br>" +
+				"Para poder volver a usar esta vista, necesitamos que vuelvas a cargarla.";
+
+			// Aviso
+			Swal.fire({
+				title: "Atención",
+				html: mensaje, // Permite HTML
+				icon: "warning",
+				confirmButtonText: "Aceptar",
+				confirmButtonColor: "rgb(79,98,40)", // verdeOscuro
+				background: "rgb(242,242,242)", // grisClaro
+			});
+		},
+	};
+
+	DOM.filtroEncab.addEventListener("change", () => {
+		// Si el encabezado no tiene un valor, interrumpe la función
+		if (!DOM.filtroEncab.value) return;
+
+		// Actualiza el timer
+		minutosDispon = 1;
+		DOM.timer.innerText = minutosDispon + " min.";
+
+		// Rutina de timer
+		setInterval(() => {
 			// Actualiza los minutos disponibles
 			minutosDispon--;
 			if (minutosDispon < 0) minutosDispon = 0;
-			domTimer.innerText = minutosDispon + " min.";
+			DOM.timer.innerText = minutosDispon + " min.";
 
 			// Acciones si se acabó el tiempo
 			if (minutosDispon == 0) {
 				clearInterval(FN.timer);
-				return FN.funcionCartel();
+				return FN.cartelDeAviso();
 			}
 
 			// Si sigue habiendo tiempo, actualiza el formato
 			else FN.formatoTimer();
-		}, unMinuto),
-		formatoTimer: () =>
-			(minutosDispon <= 15 && (DOM.timer.style.backgroundColor = "var(--rojoOscuro)")) ||
-			(minutosDispon <= 30 && (DOM.timer.style.backgroundColor = "var(--naranjaOscuro)")),
-	};
+		}, unMinuto);
 
-	// Start-up
+		// Fin
+		return;
+	});
+
+	// Fin
+	return;
 });
 
 // Variables
