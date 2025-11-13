@@ -125,7 +125,7 @@ window.addEventListener("load", async () => {
 		const respuesta = await fetch(rutas.guardaEncabezado, postForm(formData)).then((n) => n.json());
 
 		// Si hubo un error, muestra el mensaje e interrumpe la función
-		if (respuesta.error) return cartelDeError(respuesta.error);
+		if (respuesta.error) return carteles.error(respuesta.error);
 
 		// Guarda el nuevo_id en la cookie y establece que se actualicen los filtros por las cookies
 		if (respuesta.id) {
@@ -146,7 +146,7 @@ window.addEventListener("load", async () => {
 		const confirmButtonText = "Eliminar";
 
 		// Aviso y acciones
-		const confirma = await cartelPregunta({mensaje, cancelButtonText, confirmButtonText});
+		const confirma = await carteles.pregunta({mensaje, cancelButtonText, confirmButtonText});
 		if (!confirma) return;
 
 		// Limpia el FE
@@ -157,7 +157,7 @@ window.addEventListener("load", async () => {
 		const respuesta = await fetch(rutas.eliminaEncabezado, deleteJson(datos)).then((n) => n.json());
 
 		// Si hubo un error, muestra el mensaje e interrumpe la función
-		if (respuesta.error) return cartelDeError(respuesta.error);
+		if (respuesta.error) return carteles.error(respuesta.error);
 
 		// Elimina la cookie y se genera un change en el tema o pestaña, para que se reinicie el filtro del encabezado
 		document.cookie = "actualizaEncabezado_id=; path=/";
