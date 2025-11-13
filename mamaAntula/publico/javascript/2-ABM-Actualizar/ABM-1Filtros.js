@@ -134,7 +134,6 @@ window.addEventListener("load", async () => {
 		// TEMA -  Guarda la cookie
 		const tema_id = DOM.tema.value;
 		if (!comp1234.startUp) document.cookie = "actualizaTema_id=" + tema_id + "; path=/";
-		console.log(comp1234.startUp, cookie("actualizaTema_id"));
 
 		// Averigua si el tema es 'Cartas'
 		const temaActual = comp1234.temasSecciones.find((n) => n.id == tema_id);
