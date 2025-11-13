@@ -10,13 +10,13 @@ export default {
 		// Obtiene los encabezados
 		let encabezados = esCarta
 			? await baseDatos
-					.obtieneTodosPorCondicion(encabezados, condicion, includesEncabs.cartas)
+					.obtieneTodosPorCondicion("encabezados", condicion, includesEncabs.cartas)
 					.then((n) => n.sort((a, b) => (a.fechaEvento < b.fechaEvento ? -1 : 1)))
 			: conIndice
 			? await baseDatos
-					.obtieneTodosPorCondicion(encabezados, condicion, includesEncabs.conIndice)
+					.obtieneTodosPorCondicion("encabezados", condicion, includesEncabs.conIndice)
 					.then((n) => n.sort((a, b) => (b.fechaEvento < a.fechaEvento ? -1 : 1)))
-			: await baseDatos.obtieneTodosPorCondicion(encabezados, condicion);
+			: await baseDatos.obtieneTodosPorCondicion("encabezados", condicion);
 		if (!encabezados.length) return {};
 
 		// Les agrega los títulos
@@ -38,6 +38,8 @@ export default {
 	contenidos: async ({temaActual, pestanaActual, encabezado}) => {
 		// Variables
 		const condicion = pestanaActual ? {pestana_id: pestanaActual.id} : {tema_id: temaActual.id};
+		console.log(41,encabezado);
+
 
 		// Obtiene los contenidos
 		const contenidos = await baseDatos

@@ -2,7 +2,6 @@ export default (sequelize, dt) => {
 	const alias = "contenidos";
 	const columns = {
 		// Referencias
-		carta_id: {type: dt.INTEGER},
 		encab_id: {type: dt.INTEGER},
 		orden: {type: dt.INTEGER},
 
