@@ -38,21 +38,30 @@ window.addEventListener("load", async () => {
 				if (respuesta.error.includes("[horario]")) {
 					// Variables
 					const horario = new Date(respuesta.horario);
-					console.log(respuesta);
-
 					const fechaResp = horario.getDate() + "/" + mesesAbrev[horario.getMonth()];
 					const hora = horario.getHours();
 					const minutos = String(horario.getMinutes()).padStart(2, "0");
 					const horaResp = " a las " + hora + ":" + minutos + "hs";
 					const horarioLocal = fechaResp + horaResp;
-					console.log(fechaResp, horaResp);
 
 					// Reemplaza el texto
 					respuesta.error = respuesta.error.replace("[horario]", horarioLocal);
 				}
 
+				// Configuraciones
+				DOM.encabezado.innerHTML = "";
+				delete comp1234.startUp;
+
 				// Muestra el error e interrumpe la función
-				return alert(respuesta.error);
+				Swal.fire({
+					title: "Atención",
+					html: respuesta.error, // Permite HTML
+					icon: "warning",
+					confirmButtonText: "Aceptar",
+					confirmButtonColor: "rgb(79,98,40)",
+					background: "rgb(242,242,242)"
+				});
+				return;
 			}
 
 			// ENCABEZADO - Guarda los encabezados
@@ -125,6 +134,7 @@ window.addEventListener("load", async () => {
 		// TEMA -  Guarda la cookie
 		const tema_id = DOM.tema.value;
 		if (!comp1234.startUp) document.cookie = "actualizaTema_id=" + tema_id + "; path=/";
+		console.log(comp1234.startUp, cookie("actualizaTema_id"));
 
 		// Averigua si el tema es 'Cartas'
 		const temaActual = comp1234.temasSecciones.find((n) => n.id == tema_id);

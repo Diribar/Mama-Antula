@@ -13,7 +13,7 @@ export default async (req, res, next) => {
 		if (!pestanaActual) return res.json({error: "Debés seleccionar una pestaña válida"});
 
 		// 2. Problemas con la captura
-		const {capturadoPor_id, capturadoEn} = pestanaActual;
+		const {capturadoPor_id, capturadoEn, titulo} = pestanaActual;
 		const liberadoEn = new Date(capturadoEn) + unaHora * 1;
 		if (
 			capturadoPor_id &&
@@ -23,14 +23,17 @@ export default async (req, res, next) => {
 		) {
 			const usuarioCaptura = await baseDatos.obtienePorId("usuarios", capturadoPor_id);
 			const {nombreCompleto, apodo} = usuarioCaptura;
+			const entidad = "La pestaña ";
 
 			return res.json({
 				error:
-					"La pestaña está siendo actualizada por " +
+					entidad +
+					tituloHtml(titulo) +
+					" está siendo actualizada por " +
 					(nombreCompleto || apodo) +
-					", y quedará liberada a las " +
-					comp.fechaHora.horarioUTC(liberadoEn) +
-					" si no registra actividad antes de esa hora.",
+					siNoRegistra +
+					entidad +
+					noAccesible,
 			});
 		}
 	}
@@ -48,7 +51,7 @@ export default async (req, res, next) => {
 		if (!temaActual) return res.json({error: "Debés seleccionar un tema válido"});
 
 		// 4. Problemas con la captura
-		const {capturadoPor_id, capturadoEn} = temaActual;
+		const {capturadoPor_id, capturadoEn, titulo} = temaActual;
 		const liberadoEn = new Date(capturadoEn).getTime() + unaHora * 1;
 
 		if (
@@ -59,12 +62,17 @@ export default async (req, res, next) => {
 		) {
 			const usuarioCaptura = await baseDatos.obtienePorId("usuarios", capturadoPor_id);
 			const {nombreCompleto, apodo} = usuarioCaptura;
+			const entidad = "El tema ";
 
 			return res.json({
 				error:
-					"El tema está siendo actualizado por " +
+					entidad +
+					tituloHtml(titulo) +
+					" está siendo actualizado por " +
 					(nombreCompleto || apodo) +
-					", y quedará liberado el [horario] si no registra actividad antes de esa hora.",
+					siNoRegistra +
+					entidad.toLowerCase() +
+					noAccesible,
 				horario: liberadoEn + unMinuto,
 			});
 		}
@@ -82,3 +90,11 @@ export default async (req, res, next) => {
 	// Fin
 	return next();
 };
+
+// Variables
+const siNoRegistra =
+	", y quedará liberado el <span class='resaltar'>[horario]</span> si él/ella no registra actividad antes de ese horario.<br><br>Hasta entonces, ";
+const noAccesible = "<strong><u>no está accesible</u></strong> para ser actualizado por otra persona.";
+
+// Funciones
+const tituloHtml = (titulo) => "<em>" + titulo + "</em>";
