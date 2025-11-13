@@ -27,7 +27,7 @@ export default (req, res, next) => {
 
 	// PESTAÑA - Averigua si el tema tiene pestañas
 	const pestsPosibles = pestanasTemas.filter((n) => n.tema_id == temaActual.id);
-	let pestanaActual
+	let pestanaActual;
 	if (pestsPosibles.length) {
 		// Si el urlPestana no existe redirige
 		if (!urlPestana) {
@@ -41,7 +41,7 @@ export default (req, res, next) => {
 
 		// Guarda cookies
 		res.cookie(temaActual.codigo, pestanaActual.codigo, {maxAge: unDia, path: "/"});
-	}
+	} else if (urlPestana) return res.render("CMP-0Estructura", {informacion});
 
 	// Guarda cookies para interactuar con actualización
 	if (usuario) {
