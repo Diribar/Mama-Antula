@@ -68,7 +68,7 @@ window.addEventListener("load", async () => {
 			comp1234.encabezados = respuesta;
 
 			// ENCABEZADO - Crea las opciones
-			agregaOpciones(comp1234.encabezados, DOM.encabezado, "tituloCons");
+			agregaOpciones(comp1234.encabezados, DOM.encabezado, "tituloLectura");
 
 			// ENCABEZADO - Si 'conIndice', crea la opción NUEVO - sin indice siempre tiene un encabezado creado y no puede tener más de uno
 			if (comp1234.conIndice) {
@@ -140,7 +140,6 @@ window.addEventListener("load", async () => {
 		comp1234.esCarta = temaActual.codigo == "cartas";
 		comp1234.conIndice = !!temaActual.indices.length;
 		comp1234.tipoEncab = comp1234.esCarta ? "encabCartas" : comp1234.conIndice ? "encabConIndice" : "encabSinIndice";
-		comp1234.entidad = comp1234.esCarta ? "encabCartas" : "encabResto";
 
 		// PESTAÑA - Crea las opciones
 		comp1234.pestanasTema = comp1234.pestanasTemas.filter((n) => n.tema_id == tema_id);

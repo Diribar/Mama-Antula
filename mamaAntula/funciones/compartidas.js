@@ -146,61 +146,46 @@ export default {
 		nombreArchDesc: (reqFile) => Date.now() + path.extname(reqFile.originalname),
 		descarga: (ruta, nombreArch, reqFile) => fs.promises.writeFile(path.join(ruta, nombreArch), reqFile.buffer), // descarga el archivo puesto en memoria por multer
 	},
-	contenido: {
-		obtieneDatosDeTabla: ({tema_id, pestana_id}) => {
-			// Variables
-			if (!tema_id) tema_id = pestanasTemas.find((n) => n.id == pestana_id).tema_id;
-			const temaActual = temasSecciones.find((n) => n.id == tema_id);
 
-			// Obtiene los datos
-			const [entidad, campo_id, includes] =
-				temaActual.codigo == "cartas"
-					? ["encabCartas", "carta_id", ["nombreDesde", "nombreHacia", "idioma", "lugar"]]
-					: ["encabResto", "encab_id", ["lugar"]];
+	tituloLectura: {
+		encabCartas: function (encabs) {
+			for (const encab of encabs) encab.tituloLectura = this.encabCarta(encab);
 
 			// Fin
-			return {entidad, campo_id, includes};
+			return encabs;
 		},
-		obtieneCampo_id: (entidad) => (entidad == "encabCartas" ? "carta_id" : "encab_id"),
-		tituloCons: {
-			encabCartas: function (encabs) {
-				for (const encab of encabs) encab.tituloCons = this.encabCarta(encab);
+		encabCarta: (encab) => {
+			const tituloLectura =
+				encab && !encab.numero // para 'Inicio' e 'Introducción'
+					? encab.titulo
+					: encab
+					? "Carta " +
+					  encab.numero +
+					  " - " +
+					  (encab.nombreDesde.nombre.startsWith("P.") ? "Del" : "De") +
+					  " " +
+					  encab.nombreDesde.nombre +
+					  " para " +
+					  (encab.nombreHacia.nombre.startsWith("P.") ? "el " : "") +
+					  encab.nombreHacia.nombre +
+					  " - " +
+					  encab.lugar.nombre +
+					  " - " +
+					  FN.diaMesAnoUTC(encab.fechaEvento)
+					: "";
 
-				// Fin
-				return encabs;
-			},
-			encabCarta: (encab) => {
-				const tituloCons =
-					encab && !encab.numero // para 'Inicio' e 'Introducción'
-						? encab.nombre
-						: encab
-						? "Carta " +
-						  encab.numero +
-						  " - " +
-						  (encab.nombreDesde.nombre.startsWith("P.") ? "Del" : "De") +
-						  " " +
-						  encab.nombreDesde.nombre +
-						  " para " +
-						  (encab.nombreHacia.nombre.startsWith("P.") ? "el " : "") +
-						  encab.nombreHacia.nombre +
-						  " - " +
-						  encab.lugar.nombre +
-						  " - " +
-						  FN.diaMesAnoUTC(encab.fechaEvento)
-						: "";
-
-				// Fin
-				return tituloCons;
-			},
-			encabConIndice: (encabs) => {
-				for (const encab of encabs)
-					encab.tituloCons = encab.titulo
+			// Fin
+			return tituloLectura;
+		},
+		encabConIndice: (encabs) => {
+			for (const encab of encabs)
+				encab.tituloLectura =
+					encab.titulo && encab.carta_id != temaCarta_id
 						? FN.diaMesAnoUTC(encab.fechaEvento) + " - " + encab.titulo + " - " + encab.lugar.nombre
 						: "";
 
-				// Fin
-				return encabs;
-			},
+			// Fin
+			return encabs;
 		},
 	},
 

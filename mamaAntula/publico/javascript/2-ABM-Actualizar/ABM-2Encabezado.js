@@ -112,7 +112,6 @@ window.addEventListener("load", async () => {
 		// Arma el feedback
 		const formVisible = document.querySelector("#sectorEncabezado form:not(.ocultar)"); // elige el unico formulario visible
 		const formData = new FormData(formVisible);
-		formData.append("entidad", comp1234.entidad);
 		formData.append("id", DOM.filtroEncab.value);
 
 		// Si no es una carta, le agrega el tema_id o pestana_id, según corresponda
@@ -148,7 +147,7 @@ window.addEventListener("load", async () => {
 		for (const input of DOM.inputs) input.value = "";
 
 		// Elimina de la BD, el encabezado y sus contenidos
-		const datos = {entidad: comp1234.entidad, id: DOM.filtroEncab.value};
+		const datos = {id: DOM.filtroEncab.value};
 		const respuesta = await fetch(rutas.eliminaEncabezado, deleteJson(datos)).then((n) => n.json());
 
 		// Si hubo un error, muestra el mensaje e interrumpe la función
