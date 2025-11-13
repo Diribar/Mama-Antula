@@ -46,4 +46,5 @@ export default {
 		conIndice: "lugar",
 	},
 	temaCarta_id: 10, // el id del tema "Cartas"
+	encabCartaIntro_id: 33,
 };

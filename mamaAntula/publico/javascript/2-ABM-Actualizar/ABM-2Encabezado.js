@@ -44,8 +44,11 @@ window.addEventListener("load", async () => {
 
 		// Auxiliares
 		actualizaLaVisibilidadDelSector: () => {
-			// Si es 'sin índice' y viene de un tema, lo oculta porque sus campos no poseen ningún valor
-			if (!comp1234.conIndice && !DOM.filtroPestana.value) DOM.sectorEncabezado.classList.add("ocultar");
+			if (
+				(!comp1234.conIndice && !DOM.filtroPestana.value) || // Si es 'sin índice' y viene de un tema, lo oculta porque sus campos no poseen ningún valor
+				DOM.filtroEncab.value == comp1234.encabCartaIntro_id // Si es la nota de introducción al tema cartas, oculta el encabezado
+			)
+				DOM.sectorEncabezado.classList.add("ocultar");
 			else DOM.sectorEncabezado.classList.remove("ocultar");
 
 			// Fin
@@ -123,8 +126,18 @@ window.addEventListener("load", async () => {
 		// Guarda el encabezado en la BD
 		const respuesta = await fetch(rutas.guardaEncabezado, postForm(formData)).then((n) => n.json());
 
-		// Si hubo un error, muestra el mensaje e interrumpe la función
-		if (respuesta.error) return alert(respuesta.error);
+		// Muestra el error e interrumpe la función
+		if (respuesta.error) {
+			Swal.fire({
+				title: "Atención",
+				html: respuesta.error, // Permite HTML
+				icon: "warning",
+				confirmButtonText: "Aceptar",
+				confirmButtonColor: "rgb(79,98,40)", // verdeOscuro
+				background: "rgb(242,242,242)", // grisClaro
+			});
+			return;
+		}
 
 		// Guarda el nuevo_id en la cookie y establece que se actualicen los filtros por las cookies
 		if (respuesta.id) {
