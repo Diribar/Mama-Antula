@@ -21,7 +21,7 @@
 <div id="tituloMasContenido">
 	<% const tituloDelContenido = locals.tituloCarta || locals.encabezado && encabezado.titulo %>
 	<% if (tituloDelContenido) { %>
-		<h2 id="tituloDelContenido" class="fondo"><%= locals.tituloCarta || locals.encabezado && encabezado.titulo %></h2>
+		<h2 id="tituloDelContenido" class="fondo"><%= tituloDelContenido %></h2>
 	<% } %>
 	<div id="contenido" class="fondo <%= clase %>">
 		<% if (encabezado) for (const contenido of contenidos) { %>
