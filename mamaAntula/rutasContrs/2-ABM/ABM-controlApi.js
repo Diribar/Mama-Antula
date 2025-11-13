@@ -35,7 +35,8 @@ export default {
 	encabezado: {
 		guarda: async (req, res) => {
 			// Variables
-			const {id, tema_id, pestana_id} = req.body;
+			const {id} = req.body;
+			delete req.body.id;
 
 			// Obtiene el original
 			const original = await baseDatos.obtienePorId("encabezados", id);
@@ -62,8 +63,7 @@ export default {
 				return res.json({hay: false});
 			}
 
-			// Si está en status aprobado, crea o actualiza la edicion
-			// Obtiene la edicion del usuario
+			// Si está en status aprobado, crea o actualiza la edicion (pendiente)
 			const condicion = {encab_id: id, editadoPor_id: req.session.usuario.id};
 			const edicion = await baseDatos.obtienePorCondicion("encabEdics", condicion);
 

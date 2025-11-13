@@ -118,10 +118,8 @@ window.addEventListener("load", async () => {
 		formData.append("id", DOM.filtroEncab.value);
 
 		// Si no es una carta, le agrega el tema_id o pestana_id, según corresponda
-		if (!comp1234.esCarta)
-			comp1234.pestana_id
-				? formData.append("pestana_id", comp1234.pestana_id)
-				: formData.append("tema_id", comp1234.tema_id);
+		const campo_id = comp1234.pestana_id ? "pestana_id" : "tema_id";
+		formData.append(campo_id, comp1234[campo_id]);
 
 		// Guarda el encabezado en la BD
 		const respuesta = await fetch(rutas.guardaEncabezado, postForm(formData)).then((n) => n.json());
