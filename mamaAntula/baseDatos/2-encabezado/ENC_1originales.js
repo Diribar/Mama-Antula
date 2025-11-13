@@ -23,7 +23,7 @@ export default (sequelize, dt) => {
 		statusRegistro_id: {type: dt.INTEGER},
 	};
 	const config = {
-		tableName: "encab_resto",
+		tableName: "encab_original",
 		timestamps: false,
 	};
 	const entidad = sequelize.define(alias, columns, config);
@@ -43,7 +43,7 @@ export default (sequelize, dt) => {
 		entidad.belongsTo(n.idiomas, {as: "idioma", foreignKey: "idioma_id"});
 
 		// Has many
-		entidad.hasMany(n.edicionesEncab, {as: "ediciones", foreignKey: "encab_id"});
+		entidad.hasMany(n.encabEdics, {as: "ediciones", foreignKey: "encab_id"});
 	};
 	return entidad;
 };

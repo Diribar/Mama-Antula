@@ -1,8 +1,7 @@
 export default (sequelize, dt) => {
-	const alias = "edicionesEncab";
+	const alias = "encabEdics";
 	const columns = {
 		// Referencias
-		carta_id: {type: dt.INTEGER},
 		encab_id: {type: dt.INTEGER},
 
 		// Experiencias y Sin índice
@@ -25,7 +24,7 @@ export default (sequelize, dt) => {
 		editadoEn: {type: dt.DATE},
 	};
 	const config = {
-		tableName: "edic_1encab",
+		tableName: "encab_edicion",
 		timestamps: false,
 	};
 	const entidad = sequelize.define(alias, columns, config);
