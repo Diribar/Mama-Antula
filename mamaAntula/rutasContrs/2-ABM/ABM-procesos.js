@@ -36,9 +36,9 @@ export default {
 		// Fin
 		return encabezados;
 	},
-	eliminaDependsEncab: async (id) => {
+	eliminaDependsEncab: async (encab_id) => {
 		// Obtiene los contenidos y los elimina
-		const contenidos = await baseDatos.obtieneTodosPorCondicion("contenidos", {encab_id: id}, "carrusel");
+		const contenidos = await baseDatos.obtieneTodosPorCondicion("contenidos", {encab_id}, "carrusel");
 		if (!contenidos.length) return;
 
 		// Elimina los archivos y registros del carrusel de cada contenido, y también borra los contenidos

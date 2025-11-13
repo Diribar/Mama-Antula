@@ -34,10 +34,10 @@ export default {
 	encabezado: {
 		guarda: async (req, res) => {
 			// Variables
-			const {entidad, id, tema_id, pestana_id} = req.body;
+			const {id, tema_id, pestana_id} = req.body;
 
 			// Obtiene el original
-			const original = await baseDatos.obtienePorId(entidad, id);
+			const original = await baseDatos.obtienePorId("encabezados", id);
 
 			// Si no existe el original, lo crea
 			if (!original) {
@@ -47,7 +47,7 @@ export default {
 				delete datos.id;
 
 				// Crea el original
-				const nuevoRegistro = await baseDatos.agregaRegistroIdCorrel(entidad, datos);
+				const nuevoRegistro = await baseDatos.agregaRegistroIdCorrel("encabezados", datos);
 				return res.json({id: nuevoRegistro.id, hay: false});
 			}
 
@@ -57,7 +57,7 @@ export default {
 
 			// Si está en status creado y por este usuario, actualiza el original
 			if (original.statusRegistro_id == creado_id && original.creadoPor_id == req.session.usuario.id) {
-				await baseDatos.actualizaPorId(entidad, id, req.body);
+				await baseDatos.actualizaPorId("encabezados", id, req.body);
 				return res.json({hay: false});
 			}
 
@@ -75,11 +75,11 @@ export default {
 		},
 		elimina: async (req, res) => {
 			// Variables
-			const {entidad, id} = req.body;
+			const {id} = req.body;
 
 			// Elimina los dependientes y el encabezado
-			await procesos.eliminaDependsEncab(entidad, id);
-			await baseDatos.eliminaPorId(entidad, id);
+			await procesos.eliminaDependsEncab(id);
+			await baseDatos.eliminaPorId("encabezados", id);
 
 			// Fin
 			return res.json({});
