@@ -10,7 +10,7 @@ window.addEventListener("load", () => {
 		if (e.key == "estaPestana") localStorage.otraPestana = Date.now();
 
 		// Si otra pestaña avisa que está abierta, esta pestaña cambia su url
-		if (e.key == "otraPestana") window.history.back();
+		if (e.key == "otraPestana") location.href = "/";
 	};
 
 	// Evento - provocado por otra pestaña, mediante 'localStorage.otraPestana'
