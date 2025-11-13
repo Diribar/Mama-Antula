@@ -36,26 +36,68 @@ export default async (req, res, next) => {
 			((fechaEvento < "1778-01-06" || fechaEvento > "1816-02-20") && mensajes.push("La fecha está fuera de rango"));
 
 		// Fin
-		if (mensajes.length == 1) return res.json({error: mensajes[0]});
-		if (mensajes.length > 1) {
-			const ulMensajes = mensajes.map((n) => "<li>" + n + "</li>");
-			const error = "Necesitamos que soluciones lo siguiente:<ul>" + ulMensajes.join("") + "</ul>";
-			console.log(45, error);
-
-			return res.json({error});
-		}
+		const error = preparaLaRespuesta(mensajes);
+		if (error) return res.json({error});
 	}
 	// Valida encabezado con índices
 	else if (tema_id && temasSecciones.find((n) => n.id == tema_id && n.indices.length)) {
-		console.log(req.body);
+		// Variables
+		const {titulo, lugar_id, fechaEvento} = req.body;
+		const mensajes = [];
 
-		return res.json({error: "No puedes crear encabezados con índices"});
+		// Valida cada variable - titulo
+		!titulo && mensajes.push("El campo <em>Título</em> es obligatorio");
+
+		// Valida cada variable - lugar_id
+		(!lugar_id && mensajes.push("El campo <em>Lugar</em> es obligatorio")) ||
+			(!lugares.find((n) => n.id == lugar_id) && mensajes.push("El lugar no existe"));
+
+		// Valida cada variable - fechaEvento
+		(!fechaEvento && mensajes.push("El campo <em>Fecha</em> es obligatorio")) ||
+			((fechaEvento < "2024" || fechaEvento > String(new Date().getFullYear())) &&
+				mensajes.push("La fecha está fuera de rango"));
+
+		// Fin
+		const error = preparaLaRespuesta(mensajes);
+		if (error) return res.json({error});
 	}
 	// Valida encabezado de los demás
 	else {
-		return res.json({error: "No puedes crear encabezados de otros temas"});
+		// Variables
+		const {titulo, pestana_id} = req.body;
+		const mensajes = [];
+
+		// Valida cada variable - tema_id y pestana_id
+		(!tema_id && !pestana_id && mensajes.push("Tenés que elegir un tema o una pestaña")) ||
+			(tema_id && !temasSecciones.find((n) => n.id == tema_id) && mensajes.push("El tema no existe")) ||
+			(pestana_id && !pestanasTemas.find((n) => n.id == pestana_id) && mensajes.push("La pestaña no existe"));
+
+		// Valida cada variable - titulo
+		pestana_id && !titulo && mensajes.push("El campo <em>Título</em> es obligatorio");
+
+		// Fin
+		const error = preparaLaRespuesta(mensajes);
+		if (error) return res.json({error});
 	}
 
 	// Fin
 	return next();
+};
+
+// Función
+const preparaLaRespuesta = (mensajes) => {
+	// Variables
+	let error;
+
+	// Un sólo mensaje
+	if (mensajes.length == 1) error = mensajes[0];
+
+	// Más de un mensaje
+	if (mensajes.length > 1) {
+		const ulMensajes = mensajes.map((n) => "<li>" + n + "</li>");
+		error = "Necesitamos que soluciones lo siguiente:<ul>" + ulMensajes.join("") + "</ul>";
+	}
+
+	// Fin
+	return error;
 };
