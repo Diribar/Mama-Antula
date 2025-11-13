@@ -89,11 +89,11 @@ export default {
 	contActual: {
 		obtiene: async (req, res) => {
 			// Variables
-			const {encab_id, campo_id} = req.query;
+			const {encab_id} = req.query;
 
 			// Obtiene los contenidos
 			const contenidos = await baseDatos
-				.obtieneTodosPorCondicion("contenidos", {[campo_id]: encab_id}, "carrusel")
+				.obtieneTodosPorCondicion("contenidos", {encab_id}, "carrusel")
 				.then((n) => n.sort((a, b) => a.orden - b.orden));
 
 			// Fin
@@ -161,7 +161,7 @@ export default {
 
 	guardaNuevo: async (req, res) => {
 		// Variables
-		const {campo_id, encabezado_id} = req.body;
+		const {encabezado_id} = req.body;
 		const creadoPor_id = req.session.usuario.id;
 		const datos = {creadoPor_id};
 		const {imagens} = req.body;
@@ -175,7 +175,7 @@ export default {
 		if (req.files) req.files.forEach((file, i) => comp.gestionArchs.descarga(carpRevisar, imagens[i], file));
 
 		// Averigua el orden y guarda el registro
-		datos.orden = await procesos.obtieneOrdenContenidos({campo_id, encabezado_id});
+		datos.orden = await procesos.obtieneOrdenContenidos(encabezado_id);
 		const {id: contenido_id} = await baseDatos.agregaRegistroIdCorrel("contenidos", datos);
 
 		// Guarda los registros de carrusel

@@ -72,9 +72,9 @@ export default {
 			return {mensaje: "No tenés permisos para mover este contenido"};
 
 		// Obtiene todos los contenidos del mismo encabezado
-		const campo_id = contenido.carta_id ? "carta_id" : "encab_id";
+		const {encab_id} = contenido;
 		const contenidos = await baseDatos
-			.obtieneTodosPorCondicion("contenidos", {[campo_id]: contenido[campo_id]})
+			.obtieneTodosPorCondicion("contenidos", {encab_id})
 			.then((n) => n.sort((a, b) => a.orden - b.orden));
 		if (contenidos.length < 2) return {mensaje: "No hay otros contenidos para mover"};
 
@@ -86,12 +86,12 @@ export default {
 	},
 
 	// API guarda nuevo
-	obtieneOrdenContenidos: async ({campo_id, encabezado_id}) => {
+	obtieneOrdenContenidos: async (encab_id) => {
 		// Variables
 		let orden = 1;
 
-		// Averigua si ya hay algún registro para ese 'campo_id'
-		const registrosActuales = await baseDatos.obtieneTodosPorCondicion("contenidos", {[campo_id]: encabezado_id});
+		// Averigua si ya hay algún registro para ese encabezado
+		const registrosActuales = await baseDatos.obtieneTodosPorCondicion("contenidos", {encab_id});
 
 		// Acciones si lo hay
 		if (registrosActuales.length) {
