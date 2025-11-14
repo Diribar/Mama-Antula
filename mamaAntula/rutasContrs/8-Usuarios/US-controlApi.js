@@ -68,7 +68,7 @@ export default {
 		return res.json({});
 	},
 	edicion: (req, res) => {
-		// Valida
+		// Variables
 		const datos = req.body;
 
 		// Actualizaciones varias
