@@ -4,7 +4,7 @@ import API from "./ABM-controlApi.js";
 import vista from "./ABM-controlVista.js";
 
 // Middlewares de Vista
-import soloEdicion from "../../middlewares/8-Uusuarios/US-Solo3Edicion.js";
+import soloEdicion from "../../middlewares/8-Usuarios/US-Solo3Edicion.js";
 import descargaImg from "../../middlewares/descargaImg/IMG-descargaImg.js";
 import imgEnReqBody from "../../middlewares/descargaImg/IMG-imgEnReqBody.js";
 

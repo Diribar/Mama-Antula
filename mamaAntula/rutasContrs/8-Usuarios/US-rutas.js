@@ -4,10 +4,10 @@ import API from "./US-controlApi.js";
 import vista from "./US-controlVista.js";
 
 // Middlewares - Validaciones
-import soloVisitas from "../../middlewares/8-Uusuarios/US-Solo1Visitas.js";
-import soloUsuarios from "../../middlewares/8-Uusuarios/US-Solo2Usuarios.js";
-import soloAdmin from "../../middlewares/8-Uusuarios/US-Solo4Admin.js";
-import cambioRoles from "../../middlewares/8-Uusuarios/US-3CambioRoles.js";
+import soloVisitas from "../../middlewares/8-Usuarios/US-Solo1Visitas.js";
+import soloUsuarios from "../../middlewares/8-Usuarios/US-Solo2Usuarios.js";
+import soloAdmin from "../../middlewares/8-Usuarios/US-Solo4Admin.js";
+import cambioRoles from "../../middlewares/8-Usuarios/US-3CambioRoles.js";
 
 // Middlewares - Descarga imagenes
 import descargaImg from "../../middlewares/descargaImg/IMG-descargaImg.js";
