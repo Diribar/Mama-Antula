@@ -5,7 +5,7 @@ import vista from "./US-controlVista.js";
 
 // Middlewares - Validación de ABM
 import validaEdicion from "../../middlewares/8-Usuarios-ABM/US-2Edicion.js";
-import validaCambioRol from "../../middlewares/8-Usuarios-ABM/US-3CambioRoles.js";
+import validaCambioRol from "../../middlewares/8-Usuarios-ABM/US-3CambioRol.js";
 
 // Middlewares - Validación de Roles
 import soloVisitas from "../../middlewares/8-Usuarios-Roles/US-Solo1Visitas.js";
