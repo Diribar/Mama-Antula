@@ -1,12 +1,12 @@
 <!-- Formulario -->
 <form>
 	<!-- Elegí un usuario -->
-	<section class="flexCol">
+	<section id="filtro" class="flexCol">
 		<h2>Elegí un usuario</h2>
 		<div class="flexRowAlign">
 			<div class="flexCol">
 				<h3>Elegí un usuario</h3>
-				<select name="usuario">
+				<select name="usuario" autofocus>
 					<option value="">Elegí un usuario...</option>
 					<% for (const usuario of usuarios) { %>
 						<option value="<%= usuario.id %>" data-rol_id="<%= usuario.rol_id %>">
