@@ -17,7 +17,8 @@ export default async (req, res, next) => {
 	// Obtiene el usuario de su cookie 'mail'
 	if (!usuario && req.cookies && req.cookies.email && req.cookies.cliente_id) {
 		// Obtiene el usuario
-		const {email, cliente_id} = req.cookies;
+		let email;
+		({email, cliente_id} = req.cookies);
 		usuario = await comp.obtieneUsuarioPorMail(email);
 
 		// Acciones si el cliente_id de la BD y de la cookie difieren
@@ -33,7 +34,7 @@ export default async (req, res, next) => {
 		cliente = obtieneCamposNecesarios(usuario);
 
 		// Si corresponde, actualiza la cookie
-		const {cliente_id} = cliente; // es el cliente_id del usuario
+		({cliente_id} = cliente); // es el cliente_id del usuario
 		if (!req.cookies.cliente_id || req.cookies.cliente_id != cliente_id)
 			res.cookie("cliente_id", cliente_id, {maxAge: unAno, path: "/"});
 	}
@@ -54,7 +55,6 @@ export default async (req, res, next) => {
 	if (!cliente) {
 		// Variables
 		const datos = {versionWeb};
-		if (cliente_id) datos.diasNaveg = 1;
 
 		// Crea el cliente
 		cliente = await baseDatos.agregaRegistroIdCorrel("visitas", datos);
