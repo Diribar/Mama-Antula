@@ -85,5 +85,13 @@ export default {
 			return res.json({hay: false});
 		},
 	},
-	cambioRoles: async (req, res) => {},
+	cambiaRoles: async (req, res) => {
+		// Variables
+		const {usuario_id, nombreCompleto, rol_id} = req.body;
+
+
+
+		// Fin
+		return res.json({});
+	},
 };

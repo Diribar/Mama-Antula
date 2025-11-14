@@ -16,7 +16,7 @@ window.addEventListener("load", async () => {
 		rol_id: domForm.querySelector("select[name='rol_id']"),
 		iconoRol: domForm.querySelector("select[name='rol_id'] + i"),
 	};
-	const rutaApi = "/usuarios/api/us-cambia-roles/?usuario_id=";
+	const rutaApi = "/usuarios/api/us-cambia-roles";
 
 	// Eventos - Filtros - Rol
 	DOM.rolFiltro.addEventListener("change", () => {
@@ -50,19 +50,18 @@ window.addEventListener("load", async () => {
 	// Evento input - Oculta los íconos
 	DOM.nombre.addEventListener("input", () => DOM.iconoNombre.classList.add("ocultar"));
 
-	// Guarda las novedades
+	// Guarda las novedades - mombreCompleto
 	DOM.nombre.addEventListener("change", async () => {
 		// Variables
 		const usuario_id = DOM.usuario.value;
 		const nombreCompleto = DOM.nombre.value;
-		if (!usuario_id || !nombre) return;
+		if (!usuario_id || !nombreCompleto) return;
 
 		// Guarda el nombreCompleto en el BE
-		const respuesta = {error: "No se pudo actualizar el nombre"};
-		//await fetch(rutaApi + usuario_id, putJson({nombreCompleto})).then((n) => n.json());
+		const respuesta = await fetch(rutaApi, putJson({usuario_id, nombreCompleto})).then((n) => n.json());
 
 		// Si hubo un error, muestra el mensaje e interrumpe la función
-		// if (respuesta.error) return carteles.error(respuesta.error);
+		if (respuesta.error) return carteles.error(respuesta.error);
 
 		// Muestra el ícono de OK
 		DOM.iconoNombre.classList.remove("ocultar");
@@ -70,18 +69,18 @@ window.addEventListener("load", async () => {
 		// Fin
 		return;
 	});
-	DOM.rol_id.addEventListener("change", () => {
+	// Guarda las novedades - rol
+	DOM.rol_id.addEventListener("change", async () => {
 		// Variables
 		const usuario_id = DOM.usuario.value;
 		const rol_id = DOM.rol_id.value;
 		if (!usuario_id || !rol_id) return;
 
 		// Guarda el rol_id en el BE
-		const respuesta = {error: "No se pudo actualizar el rol"};
-		//await fetch(rutaApi + usuario_id, putJson({rol_id})).then((n) => n.json());
+		const respuesta = await fetch(rutaApi, putJson({usuario_id, rol_id})).then((n) => n.json());
 
 		// Si hubo un error, muestra el mensaje e interrumpe la función
-		// if (respuesta.error) return carteles.error(respuesta.error);
+		if (respuesta.error) return carteles.error(respuesta.error);
 
 		// Muestra el ícono de OK
 		DOM.iconoRol.classList.remove("ocultar");

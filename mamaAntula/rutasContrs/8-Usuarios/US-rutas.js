@@ -19,7 +19,7 @@ router.post("/api/us-realiza-login", API.login);
 router.get("/api/us-realiza-logout", API.logout);
 router.post("/api/us-valida-campo-edicion", API.edicion.validaCampo);
 router.post("/api/us-guarda-edicion-en-usuario", descargaImg.single("archivo"), imgEnReqBody, API.edicion.revisaGuarda);
-router.post("/api/us-cambio-roles", API.cambioRoles);
+router.put("/api/us-cambia-roles", API.cambiaRoles);
 
 // 🖥️ Vistas
 router.get(rutasUsuario.altaOlvido, soloVisitas, vista.altaOlvido);
