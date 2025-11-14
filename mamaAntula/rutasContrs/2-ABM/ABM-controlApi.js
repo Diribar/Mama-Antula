@@ -35,7 +35,8 @@ export default {
 	encabezado: {
 		guarda: async (req, res) => {
 			// Variables
-			const {id, tema_id, pestana_id} = req.body;
+			const {id} = req.body;
+			delete req.body.id;
 
 			// Obtiene el original
 			const original = await baseDatos.obtienePorId("encabezados", id);
@@ -62,8 +63,7 @@ export default {
 				return res.json({hay: false});
 			}
 
-			// Si está en status aprobado, crea o actualiza la edicion
-			// Obtiene la edicion del usuario
+			// Si está en status aprobado, crea o actualiza la edicion (pendiente)
 			const condicion = {encab_id: id, editadoPor_id: req.session.usuario.id};
 			const edicion = await baseDatos.obtienePorCondicion("encabEdics", condicion);
 
@@ -107,7 +107,7 @@ export default {
 
 			// Obtiene todos los contenidos del mismo encabezado y el indice del actual
 			const {indice, contenido, contenidos, mensaje} = await procesos.obtieneIndiceEnContenidos({id, usuario});
-			if (mensaje) return res.json({mensaje});
+			if (mensaje) return res.json({error: mensaje});
 
 			// Si no es el último, intercambia el orden con el siguiente
 			if (indice < contenidos.length - 1) {

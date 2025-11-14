@@ -8,11 +8,14 @@ import soloEdicion from "../../middlewares/8-usuarios/US-3SoloEdicion.js";
 import descargaImg from "../../middlewares/descargaImg/IMG-descargaImg.js";
 import imgEnReqBody from "../../middlewares/descargaImg/IMG-imgEnReqBody.js";
 
-// Middlewares de API
-import captura from "../../middlewares/2-ABM/captura.js";
+// Middlewares de API - valida errores
 import erroresFiltros from "../../middlewares/2-ABM/errores-1Filtros.js";
 import erroresEncabGuarda from "../../middlewares/2-ABM/errores-2Encab1Guarda.js";
 import erroresEncabElimina from "../../middlewares/2-ABM/errores-2Encab2Elimina.js";
+import erroresContActual from "../../middlewares/2-ABM/errores-3ContActual.js";
+
+// Middlewares de API - captura
+import captura from "../../middlewares/2-ABM/captura.js";
 
 // 🧩 Router
 const router = express.Router();
@@ -27,9 +30,9 @@ router.delete("/api/abm-encabezado-elimina", erroresEncabElimina, API.encabezado
 
 // APIs - Contenido Actual
 router.get("/api/abm-contenido-obtiene", API.contActual.obtiene);
-router.put("/api/abm-contenido-baja", API.contActual.baja);
-router.put("/api/abm-contenido-sube", API.contActual.sube);
-router.delete("/api/abm-contenido-elimina", API.contActual.elimina);
+router.put("/api/abm-contenido-baja", erroresContActual, API.contActual.baja);
+router.put("/api/abm-contenido-sube", erroresContActual, API.contActual.sube);
+router.delete("/api/abm-contenido-elimina", erroresContActual, API.contActual.elimina);
 
 // APIs - Contenido Nuevo
 router.post("/api/abm-nuevo-contenido-guarda", descargaImg.single("archivo"), imgEnReqBody, API.guardaNuevo);

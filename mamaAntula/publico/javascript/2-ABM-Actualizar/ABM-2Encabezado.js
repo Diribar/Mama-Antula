@@ -118,16 +118,14 @@ window.addEventListener("load", async () => {
 		formData.append("id", DOM.filtroEncab.value);
 
 		// Si no es una carta, le agrega el tema_id o pestana_id, según corresponda
-		if (!comp1234.esCarta)
-			comp1234.pestana_id
-				? formData.append("pestana_id", comp1234.pestana_id)
-				: formData.append("tema_id", comp1234.tema_id);
+		const campo_id = comp1234.pestana_id ? "pestana_id" : "tema_id";
+		formData.append(campo_id, comp1234[campo_id]);
 
 		// Guarda el encabezado en la BD
 		const respuesta = await fetch(rutas.guardaEncabezado, postForm(formData)).then((n) => n.json());
 
 		// Si hubo un error, muestra el mensaje e interrumpe la función
-		if (respuesta.error) return cartelDeError(respuesta.error);
+		if (respuesta.error) return carteles.error(respuesta.error);
 
 		// Guarda el nuevo_id en la cookie y establece que se actualicen los filtros por las cookies
 		if (respuesta.id) {
@@ -148,7 +146,7 @@ window.addEventListener("load", async () => {
 		const confirmButtonText = "Eliminar";
 
 		// Aviso y acciones
-		const confirma = await cartelPregunta({mensaje, cancelButtonText, confirmButtonText});
+		const confirma = await carteles.pregunta({mensaje, cancelButtonText, confirmButtonText});
 		if (!confirma) return;
 
 		// Limpia el FE
@@ -159,7 +157,7 @@ window.addEventListener("load", async () => {
 		const respuesta = await fetch(rutas.eliminaEncabezado, deleteJson(datos)).then((n) => n.json());
 
 		// Si hubo un error, muestra el mensaje e interrumpe la función
-		if (respuesta.error) return cartelDeError(respuesta.error);
+		if (respuesta.error) return carteles.error(respuesta.error);
 
 		// Elimina la cookie y se genera un change en el tema o pestaña, para que se reinicie el filtro del encabezado
 		document.cookie = "actualizaEncabezado_id=; path=/";

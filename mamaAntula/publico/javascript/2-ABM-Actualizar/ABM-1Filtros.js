@@ -53,7 +53,7 @@ window.addEventListener("load", async () => {
 				delete comp1234.startUp;
 
 				// Muestra el error e interrumpe la función
-				return cartelDeError(respuesta.error);
+				return carteles.error(respuesta.error);
 			}
 
 			// ENCABEZADO - Guarda los encabezados
