@@ -1,3 +1,6 @@
+"use strict";
+
+// Imports
 export default async (req, res, next) => {
 	// Variables
 	const {usuario_id: id, nombreCompleto, rol_id: rol_idTexto} = req.body;

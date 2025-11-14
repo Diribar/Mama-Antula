@@ -68,12 +68,10 @@ export default {
 		return res.json({});
 	},
 	edicion: {
-		validaCampo: (req, res) => res.json(valida.edicion(req.body)),
+		validaCampo: (req, res) => res.json({}),
 		revisaGuarda: (req, res) => {
 			// Valida
 			const datos = req.body;
-			const errores = valida.edicion(datos);
-			if (errores.hay) return res.json(errores);
 
 			// Actualizaciones varias
 			const {usuario} = req.session;
