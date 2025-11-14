@@ -74,8 +74,7 @@ window.addEventListener("load", async () => {
 			// ENCABEZADO - Si es start-up, elige la opción de la cookie
 			const valoresPosiblesOpciones = Array.from(DOM.encabezado.querySelectorAll("option")).map((n) => n.value);
 			const encab_id = cookie("actualizaEncabezado_id");
-			if (comp1234.startUp && encab_id && valoresPosiblesOpciones.includes(encab_id))
-				DOM.encabezado.value = encab_id;
+			if (comp1234.startUp && encab_id && valoresPosiblesOpciones.includes(encab_id)) DOM.encabezado.value = encab_id;
 
 			// ENCABEZADO - Dispara el evento
 			DOM.encabezado.dispatchEvent(new Event("change"));
@@ -102,10 +101,12 @@ window.addEventListener("load", async () => {
 	// Eventos de filtros
 	DOM.seccion.addEventListener("change", () => {
 		// SECCION - Si es start-up, elige la opción de la cookie
-		if (comp1234.startUp && cookie("actualizaSeccion_id")) DOM.seccion.value = cookie("actualizaSeccion_id");
+		let seccion_id = cookie("actualizaSeccion_id");
+		if (comp1234.startUp && seccion_id && comp1234.secciones.find((n) => n.id == seccion_id)) DOM.seccion.value = seccion_id;
+		else delete comp1234.startUp; // si no se pudo elegir la cookie, descarta las futuras cookies
 
 		// SECCIÓN - Guarda la cookie
-		const seccion_id = DOM.seccion.value;
+		seccion_id = DOM.seccion.value;
 		if (!comp1234.startUp) document.cookie = "actualizaSeccion_id=" + seccion_id + "; path=/";
 
 		// TEMA - Crea las opciones
@@ -121,10 +122,13 @@ window.addEventListener("load", async () => {
 	});
 	DOM.tema.addEventListener("change", () => {
 		// TEMA - Si es start-up, elige la opción de la cookie
-		if (comp1234.startUp && cookie("actualizaTema_id")) DOM.tema.value = cookie("actualizaTema_id");
+		let tema_id = cookie("actualizaTema_id");
+		const temasPosibles = comp1234.temasSecciones.filter((n) => n.seccion_id == DOM.seccion.value);
+		if (comp1234.startUp && tema_id && temasPosibles.find((n) => n.id == tema_id)) DOM.tema.value = tema_id;
+		else delete comp1234.startUp; // si no se pudo elegir la cookie, descarta las futuras cookies
 
 		// TEMA -  Guarda la cookie
-		const tema_id = DOM.tema.value;
+		tema_id = DOM.tema.value;
 		if (!comp1234.startUp) document.cookie = "actualizaTema_id=" + tema_id + "; path=/";
 
 		// Averigua si el tema es 'Cartas'
@@ -156,11 +160,13 @@ window.addEventListener("load", async () => {
 	});
 	DOM.pestana.addEventListener("change", () => {
 		// PESTAÑA - Si es start-up, elige la opción de la cookie
-		if (comp1234.startUp && cookie("actualizaPestana_id")) DOM.pestana.value = cookie("actualizaPestana_id");
-		delete comp1234.startUp;
+		let pestana_id = cookie("actualizaPestana_id");
+		const pestanasPosibles = comp1234.pestanasTema.filter((n) => n.tema_id == DOM.tema.value);
+		if (comp1234.startUp && pestana_id && pestanasPosibles.find((n) => n.id == pestana_id)) DOM.pestana.value = pestana_id;
+		else delete comp1234.startUp; // si no se pudo elegir la cookie, descarta las futuras cookies
 
 		// PESTAÑA -  Guarda la cookie
-		const pestana_id = DOM.pestana.value;
+		pestana_id = DOM.pestana.value;
 		if (!comp1234.startUp) document.cookie = "actualizaPestana_id=" + pestana_id + "; path=/";
 
 		// ENCABEZADO - Los obtiene y genera el evento 'change'
