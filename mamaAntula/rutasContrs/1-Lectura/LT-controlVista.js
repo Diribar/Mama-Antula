@@ -17,9 +17,13 @@ export default {
 		// Tema
 		const temasSeccion = temasSecciones.filter((n) => n.seccion_id == seccionActual.id);
 		const temaActual = temasSeccion.find((n) => n.url == urlTema);
-		const condicion = {tema_id: temaActual.id};
 		const esCarta = temaActual.codigo == "cartas";
 		const conIndice = !!temaActual.indices.length;
+
+		// Condición - si el usuario no tiene el permiso de edición, no se le permite ver los contenidos que tengan status 'creado'
+		const condicion = {tema_id: temaActual.id};
+		const leeStatusCreado = (req.session.usuario && rolesEdicion_ids.includes(req.session.usuario.rol_id)) || false;
+		if (!leeStatusCreado) condicion.statusRegistro_id = {[Op.lt]: creado_id};
 
 		// Datos para la vista
 		const encab_id = req.query.id;
