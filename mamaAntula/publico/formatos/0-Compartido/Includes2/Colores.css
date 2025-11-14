@@ -28,6 +28,7 @@ body {
 	--verde-ingles: #009879;
 
 	/* Colores principales */
+	--fondoBlanco: rgba(255, 255, 255, 0.9);
 	--colorHeader: var(--terracota);
 	--colorEscritura: var(--azulOscuro);
 
