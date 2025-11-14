@@ -28,14 +28,6 @@ export default async (req, res, next) => {
 		const administradores = usuarios.filter((n) => rolesAdmin_ids.includes(n.rol_id));
 
 		// Revisores - deben ser entre 1 y 2 usuarios
-		console.log(30, rolesRevision_ids, rolesAdmin_ids, rol_id);
-		console.log(32, revisores.length, administradores.length);
-		console.log(
-			33,
-			revisores.length < 1 && !rolesRevision_ids.includes(rol_id),
-			administradores.length < 1 && !rolesAdmin_ids.includes(rol_id)
-		);
-
 		if (revisores.length < 1 && !rolesRevision_ids.includes(rol_id))
 			return res.json({error: "El rol Revisión debe tener al menos 1 usuario"});
 		if (revisores.length > 2 && rolesRevision_ids.includes(rol_id))
