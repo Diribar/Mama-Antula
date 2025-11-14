@@ -5,9 +5,6 @@
 	}
 	ul {
 		width: fit-content; margin-inline: auto;
-		li {
-			text-align: left;
-			/* &:not(:last-child) {margin-bottom: 5px;} */
-		}
+		li {text-align: left;}
 	}
 }

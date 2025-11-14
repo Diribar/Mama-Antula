@@ -6,10 +6,10 @@
 	form {
 		display: flex; flex-direction: column; align-items: center; justify-content: space-between;
 		background-color: var(--fondoBlanco); backdrop-filter: blur(4px); box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-		padding: 2rem 2.5rem; border-radius: 12px;
+		padding: 36px 45px 40px; border-radius: 12px;
 
 		input:not([type="checkbox"]), select {
-			background: var(--grisClaro); border: 1px solid var(--grisInterm);
+			background: var(--celesteClaro); border: 1px solid var(--grisInterm);
 			border-radius: 8px; transition: all 0.2s ease;
 			padding-inline: 10px; height: 30px; width: 250px;
 			&:focus {
@@ -27,7 +27,7 @@
 		#mensaje {
 			text-align: center; text-wrap: balance; padding: 4px 10px;
 			border-radius: 10px; border: 2.5px solid currentColor;
-			&.exito {background-color: var(--verdeClaro); color: var(--verde-oscuro);}
+			&.exito {background-color: var(--verdeClaro); color: var(--verdeOscuro);}
 			&.error {background-color: var(--rojoClaro); color: var(--rojoOscuro);}
 		}
 
