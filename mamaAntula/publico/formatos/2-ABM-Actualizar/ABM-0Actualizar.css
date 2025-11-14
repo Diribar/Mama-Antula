@@ -11,7 +11,7 @@
 			{display: flex; flex-direction: row; align-items: center; justify-content: flex-start; gap: 30px;}
 		input, select, textarea {
 			border-radius: 6px; border: 1px solid var(--grisOscuro);
-			background-color: snow; backdrop-filter: blur(4px);
+			background-color: var(--fondoBlanco); backdrop-filter: blur(4px);
 		}
 		input, select {height: 23px;}
 		input {padding-inline: 4px;}
