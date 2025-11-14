@@ -1,23 +1,23 @@
 <!-- Formulario -->
-<form>
+<form id="cambioRoles">
 	<!-- Elegí un usuario -->
-	<section id="filtro" class="flexCol">
+	<section id="bloqueFiltros" class="flexCol">
 		<h2>Elegí un usuario</h2>
 		<div class="flexRowAlign">
-			<div class="flexCol">
+			<div class="bloqueInput">
 				<h3>Elegí un usuario</h3>
 				<select name="usuario" autofocus>
 					<option value="">Elegí un usuario...</option>
 					<% for (const usuario of usuarios) { %>
-						<option value="<%= usuario.id %>" data-rol_id="<%= usuario.rol_id %>">
+						<option value="<%= usuario.id %>" data-rol_id="<%= usuario.rol_id %>" data-nombre_completo="<%= usuario.nombreCompleto %>">
 							<%= usuario.apodo %> - <%= usuario.email %>
 						</option>
 					<% } %>
 				</select>
 			</div>
-			<div class="flexCol">
+			<div class="bloqueInput">
 				<h3>Filtra por rol</h3>
-				<select name="roles">
+				<select name="rolFiltro">
 					<option value="">Filtrá por rol...</option>
 					<% for (const rol of roles) { %>
 						<option value="<%= rol.id %>"><%= rol.nombre %></option>
@@ -28,14 +28,15 @@
 	</section>
 
 	<!-- Actualizá sus datos -->
-	<section class="flexCol">
+	<section id="bloqueInputs" class="flexCol">
 		<h2>Actualizá sus datos</h2>
 		<div class="flexRowAlign">
-			<div class="flexCol">
+			<div class="bloqueInput">
 				<h3>Nombre completo</h3>
-				<input type="text" name="nombreCompleto">
+				<input type="text" name="nombreCompleto" placeholder="Nombre completo">
+				<i class="<%= iconos.faSolid %> <%= iconos.check %> ocultar"></i>
 			</div>
-			<div class="flexCol">
+			<div class="bloqueInput">
 				<h3>Rol</h3>
 				<select name="rol_id">
 					<option value="">Rol</option>
@@ -43,6 +44,7 @@
 						<option value="<%= rol.id %>"><%= rol.nombre %></option>
 					<% } %>
 				</select>
+				<i class="<%= iconos.faSolid %> <%= iconos.check %> ocultar"></i>
 			</div>
 		</div>
 	</section>

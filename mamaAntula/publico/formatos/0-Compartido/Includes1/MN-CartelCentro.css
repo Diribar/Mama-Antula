@@ -33,7 +33,7 @@ main {
 					& > i {
 						font-size: 1rem; line-height: normal; margin-right: 10px;
 						&.fa-circle {border: solid 1px transparent;}
-						&.fa-solid.fa-circle {color: var(--amarillo-oscuro);}
+						&.fa-solid.fa-circle {color: var(--amarilloOscuro);}
 					}
 				}
 				span {font-weight: bold; font-style: italic;}
@@ -43,7 +43,7 @@ main {
 			&:has(#alerta):not(:has(#alerta.ocultar)) {background: var(--rojoOscuro);}
 
 			&#cartelGenerico {
-				.inicio {font-size: 4rem; color: var(--amarillo-oscuro);}
+				.inicio {font-size: 4rem; color: var(--amarilloOscuro);}
 				#contenedorMensajes {
 					overflow-y: auto;
 					max-height: calc(var(--alturaViewPort) * 0.5);

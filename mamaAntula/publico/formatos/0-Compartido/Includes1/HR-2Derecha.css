@@ -47,7 +47,7 @@ header #derecha {
 		.menuOpcion {
 			display: flex; flex-direction: row; align-items: center; gap: 10px;
 			cursor: pointer; padding: 5px 10px;
-			&:hover {background-color: var(--amarillo-oscuro); color: inherit;}
+			&:hover {background-color: var(--amarilloOscuro); color: inherit;}
 		}
 	}
 }
