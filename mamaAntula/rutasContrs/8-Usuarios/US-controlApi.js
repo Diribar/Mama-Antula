@@ -88,7 +88,9 @@ export default {
 	cambiaRoles: async (req, res) => {
 		// Variables
 		const {usuario_id: id, nombreCompleto, rol_id} = req.body;
-		const datos = {id};
+
+		// Arma los datos a actualizar
+		const datos = {};
 		if (nombreCompleto) datos.nombreCompleto = nombreCompleto;
 		if (rol_id) datos.rol_id = rol_id;
 
