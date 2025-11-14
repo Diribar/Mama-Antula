@@ -23,14 +23,8 @@ const router = express.Router();
 router.get("/api/us-envia-contrasena-por-mail", API.altaOlvido);
 router.post("/api/us-realiza-login", API.login);
 router.get("/api/us-realiza-logout", API.logout);
-router.post("/api/us-valida-campo-edicion", validaEdicion, API.edicion.validaCampo);
-router.post(
-	"/api/us-guarda-edicion-en-usuario",
-	descargaImg.single("archivo"),
-	imgEnReqBody,
-	validaEdicion,
-	API.edicion.revisaGuarda
-);
+router.post("/api/us-valida-campo-edicion", validaEdicion); // se responde con la API
+router.post("/api/us-guarda-edicion-en-usuario", descargaImg.single("archivo"), imgEnReqBody, validaEdicion, API.edicion);
 router.put("/api/us-cambia-roles", validaCambioRol, API.cambiaRoles);
 
 // 🖥️ Vistas
