@@ -3,7 +3,7 @@ form {
 	label {font-weight: bold;}
 
 	input[type="text"], #editor-container, textarea {border-radius: 6px; border: 1px solid #ccc; }
-	input[type="text"], #editor-container {background-color: snow; margin-bottom: 30px;}
+	input[type="text"], #editor-container {background-color: var(--fondoBlanco); margin-bottom: 30px;}
 	input[type="text"], textarea {padding: 3px 15px;}
 
 	#toolbar {

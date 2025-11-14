@@ -18,7 +18,7 @@ main {
 
 	#cuerpo {
 		height: calc(100% - 68.2px); /* 68.2px es el alto del tema */
-		display: flex; flex-direction: column;
+		display: flex;
 		overflow-y: hidden;
 	}
 }

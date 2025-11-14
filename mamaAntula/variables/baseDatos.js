@@ -19,7 +19,7 @@ export default {
 
 			// Otros
 			iconosAgrupados: baseDatos.obtieneTodosConOrden("iconosAgrupados", "orden"),
-			rolesUs: baseDatos.obtieneTodosConOrden("rolesUs", "orden"),
+			roles: baseDatos.obtieneTodosConOrden("roles", "orden"),
 			statusRegistrosUs: baseDatos.obtieneTodosConOrden("statusRegistrosUs", "orden"),
 			statusRegistros: baseDatos.obtieneTodosConOrden("statusRegistros", "orden"),
 			paises: baseDatos.obtieneTodos("paises"),
@@ -37,10 +37,10 @@ export default {
 		// Variables
 		const respuesta = {
 			// 1. Roles de usuario
-			rolLectura_id: rolesUs.find((n) => n.codigo == "lectura").id,
-			rolesEdicion_ids: rolesUs.filter((n) => n.edicion).map((n) => n.id),
-			rolesRevision_ids: rolesUs.filter((n) => n.revision).map((n) => n.id),
-			rolesAdmin_ids: rolesUs.filter((n) => n.admin).map((n) => n.id),
+			rolLectura_id: roles.find((n) => n.codigo == "lectura").id,
+			rolesEdicion_ids: roles.filter((n) => n.edicion).map((n) => n.id),
+			rolesRevision_ids: roles.filter((n) => n.revision).map((n) => n.id),
+			rolesAdmin_ids: roles.filter((n) => n.admin).map((n) => n.id),
 
 			// 2. Status de usuario
 			mailPendValidar_id: statusRegistrosUs.find((n) => n.codigo == "mailPendValidar").id,

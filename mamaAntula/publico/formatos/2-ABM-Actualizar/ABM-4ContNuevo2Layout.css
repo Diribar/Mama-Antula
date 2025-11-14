@@ -38,7 +38,7 @@
 			img.imgAgreg {height: var(--lado); &[src=""] {display: none;}}
 			i {
 				position: absolute; top: 50%; left: 50%; translate: -50% -50%;
-				color: var(--rojoOscuro); background-color: snow;
+				color: var(--rojoOscuro); background-color: var(--fondoBlanco);
 				width: 2rem; padding-inline: 9px;
 				height: 2rem; padding-block: 10px 9px;
 				border-radius: 50%; cursor: pointer;

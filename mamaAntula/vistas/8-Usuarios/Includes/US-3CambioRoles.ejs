@@ -1,4 +1,49 @@
 <!-- Formulario -->
-<form action="" id="formCambioRoles">
+<form>
+	<!-- Elegí un usuario -->
+	<section id="filtro" class="flexCol">
+		<h2>Elegí un usuario</h2>
+		<div class="flexRowAlign">
+			<div class="flexCol">
+				<h3>Elegí un usuario</h3>
+				<select name="usuario" autofocus>
+					<option value="">Elegí un usuario...</option>
+					<% for (const usuario of usuarios) { %>
+						<option value="<%= usuario.id %>" data-rol_id="<%= usuario.rol_id %>">
+							<%= usuario.apodo %> - <%= usuario.email %>
+						</option>
+					<% } %>
+				</select>
+			</div>
+			<div class="flexCol">
+				<h3>Filtra por rol</h3>
+				<select name="roles">
+					<option value="">Filtrá por rol...</option>
+					<% for (const rol of roles) { %>
+						<option value="<%= rol.id %>"><%= rol.nombre %></option>
+					<% } %>
+				</select>
+			</div>
+		</div>
+	</section>
 
+	<!-- Actualizá sus datos -->
+	<section class="flexCol">
+		<h2>Actualizá sus datos</h2>
+		<div class="flexRowAlign">
+			<div class="flexCol">
+				<h3>Nombre completo</h3>
+				<input type="text" name="nombreCompleto">
+			</div>
+			<div class="flexCol">
+				<h3>Rol</h3>
+				<select name="rol_id">
+					<option value="">Rol</option>
+					<% for (const rol of roles) { %>
+						<option value="<%= rol.id %>"><%= rol.nombre %></option>
+					<% } %>
+				</select>
+			</div>
+		</div>
+	</section>
 </form>
