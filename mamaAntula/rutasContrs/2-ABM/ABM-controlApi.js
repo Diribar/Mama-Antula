@@ -6,8 +6,8 @@ export default {
 		datosIniciales: (req, res) => {
 			// Variables
 			const datosIniciales = {
-				...{secciones, temasSecciones, pestanasTemas}, // Filtros e Impacto...
-				...{personajes, idiomas, lugares}, // Impacto de Filtro Encabezado
+				...{secciones, temasSecciones, pestanasTemas},
+				...{personajes, idiomas, lugares, encabCartaIntro_id},
 			};
 
 			// Fin
@@ -65,7 +65,7 @@ export default {
 			// Si está en status aprobado, crea o actualiza la edicion
 			// Obtiene la edicion del usuario
 			const condicion = {encab_id: id, editadoPor_id: req.session.usuario.id};
-			const edicion = await baseDatos.obtienePorCondicion("edicionesEncab", condicion);
+			const edicion = await baseDatos.obtienePorCondicion("encabEdics", condicion);
 
 			// Averigua si hay novedades con el original
 			// En caso que si, si hay una edición la actualiza, si no la crea

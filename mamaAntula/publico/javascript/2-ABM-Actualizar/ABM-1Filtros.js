@@ -53,15 +53,7 @@ window.addEventListener("load", async () => {
 				delete comp1234.startUp;
 
 				// Muestra el error e interrumpe la función
-				Swal.fire({
-					title: "Atención",
-					html: respuesta.error, // Permite HTML
-					icon: "warning",
-					confirmButtonText: "Aceptar",
-					confirmButtonColor: "rgb(79,98,40)", // verdeOscuro
-					background: "rgb(242,242,242)", // grisClaro
-				});
-				return;
+				return cartelDeError(respuesta.error);
 			}
 
 			// ENCABEZADO - Guarda los encabezados

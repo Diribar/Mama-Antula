@@ -44,8 +44,11 @@ window.addEventListener("load", async () => {
 
 		// Auxiliares
 		actualizaLaVisibilidadDelSector: () => {
-			// Si es 'sin índice' y viene de un tema, lo oculta porque sus campos no poseen ningún valor
-			if (!comp1234.conIndice && !DOM.filtroPestana.value) DOM.sectorEncabezado.classList.add("ocultar");
+			if (
+				(!comp1234.conIndice && !DOM.filtroPestana.value) || // Si es 'sin índice' y viene de un tema, lo oculta porque sus campos no poseen ningún valor
+				DOM.filtroEncab.value == comp1234.encabCartaIntro_id // Si es la nota de introducción al tema cartas, oculta el encabezado
+			)
+				DOM.sectorEncabezado.classList.add("ocultar");
 			else DOM.sectorEncabezado.classList.remove("ocultar");
 
 			// Fin
@@ -65,7 +68,7 @@ window.addEventListener("load", async () => {
 
 				// Actualiza el valor elegido de todos los inputs
 				const campo = input.name;
-				input.value = (encabezado && encabezado[campo]) || "";
+				input.value = encabezado && (encabezado[campo] || encabezado[campo] === 0) ? encabezado[campo] : "";
 			}
 
 			// Fin
@@ -124,7 +127,7 @@ window.addEventListener("load", async () => {
 		const respuesta = await fetch(rutas.guardaEncabezado, postForm(formData)).then((n) => n.json());
 
 		// Si hubo un error, muestra el mensaje e interrumpe la función
-		if (respuesta.error) return alert(respuesta.error);
+		if (respuesta.error) return cartelDeError(respuesta.error);
 
 		// Guarda el nuevo_id en la cookie y establece que se actualicen los filtros por las cookies
 		if (respuesta.id) {
@@ -140,8 +143,13 @@ window.addEventListener("load", async () => {
 
 	// Elimina en la BD
 	DOM.iconoEliminar.addEventListener("click", async () => {
-		// Pide la confirmación del usuario
-		if (!confirm("¿Estás seguro/a de que querés eliminar este encabezado y su contenido?")) return;
+		const mensaje = "Estas a punto de eliminar el encabezado y su contenido";
+		const cancelButtonText = "Conservar";
+		const confirmButtonText = "Eliminar";
+
+		// Aviso y acciones
+		const confirma = await cartelPregunta({mensaje, cancelButtonText, confirmButtonText});
+		if (!confirma) return;
 
 		// Limpia el FE
 		for (const input of DOM.inputs) input.value = "";
@@ -151,7 +159,7 @@ window.addEventListener("load", async () => {
 		const respuesta = await fetch(rutas.eliminaEncabezado, deleteJson(datos)).then((n) => n.json());
 
 		// Si hubo un error, muestra el mensaje e interrumpe la función
-		if (respuesta.error) return alert(respuesta.error);
+		if (respuesta.error) return cartelDeError(respuesta.error);
 
 		// Elimina la cookie y se genera un change en el tema o pestaña, para que se reinicie el filtro del encabezado
 		document.cookie = "actualizaEncabezado_id=; path=/";

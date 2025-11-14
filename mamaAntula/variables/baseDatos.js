@@ -56,6 +56,7 @@ export default {
 			// Otros
 			indiceCartas: indiceTemas.filter((n) => n.tema_id == 10).sort((a, b) => (a.fechaDesde < b.fechaDesde ? -1 : 1)), // el tema_id es el de cartas
 			indiceResto: indiceTemas.filter((n) => n.tema_id != 10).sort((a, b) => (b.fechaDesde < a.fechaDesde ? -1 : 1)),
+			seccsListas: secciones.filter((n) => n.id < 4),
 		};
 
 		// Fin

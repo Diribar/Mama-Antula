@@ -14,33 +14,20 @@ window.addEventListener("load", async () => {
 		formatoTimer: () =>
 			(minutosDispon <= 15 && (DOM.timer.style.backgroundColor = "var(--rojoOscuro)")) ||
 			(minutosDispon <= 30 && (DOM.timer.style.backgroundColor = "var(--naranjaOscuro)")),
-		cartelDeAviso: () => {
-			// Mensaje
+		cartelDeAviso: async () => {
+			// Variables
 			const mensaje =
 				"Se detectaron " +
 				minutosPermitidos +
 				" min. sin guardado de novedades." +
 				"<br>" +
 				"Para poder volver a usar esta vista, necesitamos que la vuelvas a cargar.";
+			const cancelButtonText = "Salir de esta vista";
+			const confirmButtonText = "Recargar vista";
 
-			// Aviso
-			Swal.fire({
-				// General
-				...{background: "rgb(242,242,242)", title: "Atención", icon: "warning", html: mensaje}, // grisClaro
-
-				// Botón cancel
-				...{showCancelButton: true, reverseButtons: true},
-				...{cancelButtonText: "Salir de esta vista", cancelButtonColor: "firebrick"}, // rojoOscuro
-
-				// Botón confirm
-				...{confirmButtonText: "Recargar vista", confirmButtonColor: "rgb(79,98,40)"}, // verdeOscuro
-			}).then(async (n) => {
-				if (n.isConfirmed) location.reload();
-				else if (n.isDismissed) {
-					const redirigeLectura = await actualizaUrlLectura();
-					location.href = redirigeLectura;
-				}
-			});
+			// Aviso y acciones
+			const confirma = await cartelPregunta({mensaje, cancelButtonText, confirmButtonText});
+			confirma ? location.reload() : location.href = await actualizaUrlLectura();
 
 			// Fin
 			return;
