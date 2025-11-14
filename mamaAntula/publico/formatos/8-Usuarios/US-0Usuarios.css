@@ -1,5 +1,5 @@
 #cuerpo {
-	display: flex; flex-direction: row; align-items: center; justify-content: space-between;
+	flex-direction: row; align-items: center; justify-content: space-between;
 	flex-wrap: nowrap; flex-grow: 1;
 	width: 100%; max-width: 100%; max-height: 100%;
 
