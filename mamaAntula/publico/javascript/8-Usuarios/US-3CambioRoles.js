@@ -52,6 +52,9 @@ window.addEventListener("load", async () => {
 
 	// Guarda las novedades - mombreCompleto
 	DOM.nombre.addEventListener("change", async () => {
+		// Correcciones
+		DOM.nombre.value = inicialMayus(DOM.nombre.value);
+
 		// Variables
 		const usuario_id = DOM.usuario.value;
 		const nombreCompleto = DOM.nombre.value;
