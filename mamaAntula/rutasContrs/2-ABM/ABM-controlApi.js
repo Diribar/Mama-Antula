@@ -25,7 +25,7 @@ export default {
 
 			// Obtiene los encabezados
 			const condicion = {[pestana_id ? "pestana_id" : "tema_id"]: pestana_id || tema_id};
-			const encabezados = await procesos.obtieneEncabs({esCarta, conIndice, condicion, includes, usuario});
+			const encabezados = await procesos.obtieneEncabs({esCarta, conIndice, condicion, usuario});
 
 			// Fin
 			return res.json(encabezados);

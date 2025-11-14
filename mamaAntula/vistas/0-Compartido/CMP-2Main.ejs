@@ -2,10 +2,10 @@
 <% } else if (locals.informacion) { %><%- include("MN-CartelGenerico") %>
 <% } else if (locals.temaVista) { %>
 	<% if (false) { %>
-	<% } else if (temaVista == "secciones") { %><%- include("LT-1Cuerpo") %>
-	<% } else if (temaVista == "usuarios") { %><%- include("US-1Cuerpo") %>
-	<% } else if (temaVista == "abmContenido") { %><%- include("ABM-1Cuerpo") %>
-	<% } else if (temaVista == "miscelaneas") { %><%- include("MS-1Cuerpo") %>
+	<% } else if (locals.temaVista == "secciones") { %><%- include("LT-1Cuerpo") %>
+	<% } else if (locals.temaVista == "usuarios") { %><%- include("US-1Cuerpo") %>
+	<% } else if (locals.temaVista == "abmContenido") { %><%- include("ABM-1Cuerpo") %>
+	<% } else if (locals.temaVista == "miscelaneas") { %><%- include("MS-1Cuerpo") %>
 	<% } %>
 
 <% } %>
