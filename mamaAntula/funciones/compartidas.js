@@ -71,6 +71,23 @@ export default {
 			// Fin
 			return respuesta;
 		},
+		formatoMail: (email) => {
+			// Variables
+			const formato = /^\w+([\.-_]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+			const errorMail = !email
+				? "Necesitamos que escribas un correo electrónico"
+				: !formato.test(email)
+				? "Necesitamos que escribas un formato de correo válido"
+				: "";
+
+			// Variable error
+			const errores = {email: errorMail};
+			errores.hay = !!errores.email;
+
+			// Fin
+			return errores;
+		},
+		largoContr: (pw) => (pw && (pw.length < 6 || pw.length > 12) ? "La contraseña debe tener entre 6 y 12 caracteres" : ""),
 	},
 	gestionArchs: {
 		existe: (rutaNombre) => rutaNombre && fs.existsSync(rutaNombre),

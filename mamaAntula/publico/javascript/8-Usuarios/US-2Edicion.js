@@ -24,8 +24,8 @@ window.addEventListener("load", async () => {
 		entrada: ["dragenter", "dragover"],
 		salida: ["dragleave", "drop"],
 
-		rutaValidaCampo: "/usuarios/api/us-valida-campo-edicion",
-		rutaGuardar: "/usuarios/api/us-guarda-edicion-en-usuario",
+		rutaValidaCampo: "/usuarios/api/us-campo-edicion-de-usuario",
+		rutaGuardar: "/usuarios/api/us-edicion-de-usuario",
 		unInputCambio: false,
 		errores: {},
 		archivoImgSubido: null,

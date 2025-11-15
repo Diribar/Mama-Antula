@@ -36,19 +36,21 @@ export default {
 
 	// API- Guardar
 	altaOlvido: {
-		enviaMailContrasena: async ({usuario, email, contrasena}) => {
+		enviaMailContrasena: async (usuario) => {
 			// Variables
+			const {email, contrasena} = usuario;
 			const nombre = "Familia Mama Antula";
 			const asunto = "Contraseña para login";
 			const mensajeContrasena = "Podés hacer el login con tu mail y esta contraseña: ";
-			const comentario = (!usuario ? "Hemos creado tu usuario. " : "") + mensajeContrasena + contrasena;
+			const comentario = (!usuario.id ? "Hemos creado tu usuario. " : "") + mensajeContrasena + contrasena;
 
 			// Envía el mail
 			const mailEnviado = await comp.enviaMail({nombre, email, asunto, comentario});
 
 			// Genera el mensaje de respuesta
 			const mensajeFe = mailEnviado
-				? (!usuario ? "Hemos creado tu usuario y te" : "Te") + " hemos enviado un mail con la contraseña para loguearte."
+				? (!usuario.id ? "Hemos creado tu usuario y te" : "Te") +
+				  " hemos enviado un mail con la contraseña para loguearte."
 				: "No hemos podido enviar el mail";
 
 			// Fin

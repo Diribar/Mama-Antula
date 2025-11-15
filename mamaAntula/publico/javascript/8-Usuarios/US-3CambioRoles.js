@@ -16,7 +16,7 @@ window.addEventListener("load", async () => {
 		rol_id: domForm.querySelector("select[name='rol_id']"),
 		iconoRol: domForm.querySelector("select[name='rol_id'] + i"),
 	};
-	const rutaApi = "/usuarios/api/us-cambia-roles";
+	const rutaApi = "/usuarios/api/us-cambio-de-roles";
 
 	// Eventos - Filtros - Rol
 	DOM.rolFiltro.addEventListener("change", () => {

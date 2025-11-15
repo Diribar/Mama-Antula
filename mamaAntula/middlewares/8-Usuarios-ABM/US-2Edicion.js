@@ -11,7 +11,7 @@ export default async (req, res, next) => {
 	// Apodo - campo obligatorio
 	if (!campo || campo == "apodo")
 		errores.apodo =
-			(!apodo && FN.inputVacio("apodo")) ||
+			(!apodo && inputVacio("apodo")) ||
 			comp.validacs.castellano.basico(apodo) ||
 			comp.validacs.inicial.basico(apodo) ||
 			comp.validacs.longitud(apodo, 2, 30) ||
@@ -19,14 +19,18 @@ export default async (req, res, next) => {
 
 	// Campos opcionales
 	if (imagen) errores.imagen = comp.validacs.imagen(datos);
-	if (contrasena) errores.contrasena = FN.largoContr(contrasena) || "";
+	if (contrasena) errores.contrasena = comp.validacs.largoContr(contrasena) || "";
 
 	// Agrega el resumen
 	errores.hay = Object.values(errores).some((n) => !!n);
 
 	// Fin
-	if (campo || errores.hay) return res.json(errores); // si se consultó por un campo en particular, también devuelve la información
+	if (campo) return res.json(errores); // si se consultó por un campo en particular, devuelve la información
+	if (errores.hay) return res.json(errores);
 
 	// Fin
 	return next();
 };
+
+// Funciones
+const inputVacio = (campo) => "Necesitamos que completes el campo <em>" + campo + "</em>";

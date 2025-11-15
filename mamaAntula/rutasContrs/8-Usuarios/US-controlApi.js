@@ -1,71 +1,34 @@
 "use strict";
 import bcryptjs from "bcryptjs";
-import valida from "./US-FN-valida.js";
 import procesos from "./US-procesos.js";
 
 export default {
+	// ABM
 	altaOlvido: async (req, res) => {
 		// Variables
-		const {email} = req.query;
-
-		// Obtiene el usuario y valida si ya se le envió una contraseña
-		const {usuario, errores} = await valida.contrasenaYaEnviada(email);
-		if (errores.hay) return res.json(errores);
+		const {email, usuario} = req.body;
+		usuario.email = email;
 
 		// Nueva contraseña
 		const contrasena = Math.round(Math.random() * Math.pow(10, 6))
 			.toString()
 			.padStart(6, "0");
 		console.log("Contraseña: " + contrasena);
+		usuario.contrasena = contrasena;
 
 		// Envia el mail con la contraseña
-		const {mensajeFe, mailEnviado} = await procesos.altaOlvido.enviaMailContrasena({usuario, email, contrasena});
+		const {mensajeFe, mailEnviado} = await procesos.altaOlvido.enviaMailContrasena(usuario);
 
 		// Actualiza o crea el usuario
 		if (mailEnviado) {
 			const contrEncriptada = bcryptjs.hashSync(contrasena, 10);
-			usuario
+			usuario.id
 				? await baseDatos.actualizaPorId("usuarios", usuario.id, {contrasena: contrEncriptada})
 				: await procesos.altaOlvido.creaElUsuario({email, contrEncriptada});
 		}
 
 		// Fin
 		return res.json({mensaje: mensajeFe, hay: !mailEnviado});
-	},
-	login: async (req, res) => {
-		// Variables
-		const {email, contrasena} = req.body;
-
-		// Valida
-		const {errores, usuario} = await valida.login({email, contrasena});
-		if (errores.hay) return res.json(errores);
-
-		// Actualiza el usuario
-		const {cliente} = req.session;
-		const {cliente_id} = cliente;
-		const esVisita = !cliente_id.startsWith("U");
-		await procesos.login.actualizaUsuario({usuario, cliente, esVisita});
-
-		// Actualiza el usuario y la cookie - no se actualiza 'session'', para que se ejecute el middleware 'clientesSession'
-		res.cookie("email", email, {maxAge: unAno, path: "/"});
-		res.cookie("cliente_id", usuario.cliente_id, {maxAge: unAno, path: "/"}); // es crítico por seguridad, para cruzar email con cliente_id
-		delete req.session.cliente; // es crítico para que lo obtenga del cliente_id
-
-		// Actualiza datos en las estadísticas
-		// procesos.login.actualizaPersWebDia(usuario)
-		// if (esVisita) procesos.cambiaVisitaEnNavegsDia({cliente_id: usuario.cliente_id, cliente_idViejo: cliente_id});
-
-		// Fin
-		return res.json({hay: false});
-	},
-	logout: async (req, res) => {
-		// Desloguea al usuario
-		delete req.session.usuario;
-		res.clearCookie("email");
-		if (res.locals && res.locals.usuario) delete res.locals.usuario;
-
-		// Fin
-		return res.json({});
 	},
 	edicion: (req, res) => {
 		// Variables
@@ -91,6 +54,39 @@ export default {
 
 		// Actualiza el usuario
 		await baseDatos.actualizaPorId("usuarios", id, datos);
+
+		// Fin
+		return res.json({});
+	},
+
+	// Login
+	login: async (req, res) => {
+		// Variables
+		const {email, usuario} = req.body;
+
+		// Actualiza el usuario
+		const {cliente} = req.session;
+		const {cliente_id} = cliente;
+		const esVisita = !cliente_id.startsWith("U");
+		await procesos.login.actualizaUsuario({usuario, cliente, esVisita});
+
+		// Actualiza el usuario y la cookie - no se actualiza 'session'', para que se ejecute el middleware 'clientesSession'
+		res.cookie("email", email, {maxAge: unAno, path: "/"});
+		res.cookie("cliente_id", usuario.cliente_id, {maxAge: unAno, path: "/"}); // es crítico por seguridad, para cruzar email con cliente_id
+		delete req.session.cliente; // es crítico para que lo obtenga del cliente_id
+
+		// Actualiza datos en las estadísticas
+		// procesos.login.actualizaPersWebDia(usuario)
+		// if (esVisita) procesos.cambiaVisitaEnNavegsDia({cliente_id: usuario.cliente_id, cliente_idViejo: cliente_id});
+
+		// Fin
+		return res.json({hay: false});
+	},
+	logout: async (req, res) => {
+		// Desloguea al usuario
+		delete req.session.usuario;
+		res.clearCookie("email");
+		if (res.locals && res.locals.usuario) delete res.locals.usuario;
 
 		// Fin
 		return res.json({});

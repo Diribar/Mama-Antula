@@ -48,6 +48,21 @@ const carteles = {
 			// Botón confirm
 			...{confirmButtonText, confirmButtonColor: "rgb(79,98,40)"}, // verdeOscuro
 		}).then(async (n) => n.isConfirmed),
+	exito: (mensaje) =>
+		Swal.fire({
+			// Encabezado
+			icon: "success",
+			title: "Muy bien",
+			background: "rgb(242,242,242)", // grisClaro
+
+			// Contenido
+			html: mensaje, // Permite HTML
+			color: "rgb(79,98,40)", // verdeOscuro
+
+			// Botón
+			confirmButtonText: "Aceptar",
+			confirmButtonColor: "rgb(79,98,40)", // verdeOscuro
+		}),
 };
 
 // Funciones de uso general
