@@ -4,36 +4,13 @@ import bcryptjs from "bcryptjs";
 // const procesos = require("./US-FN-Procesos");
 
 export default {
-	contrasenaYaEnviada: async (email) => {
-		// Variables
-		let errores;
-
-		// Verifica el formato del mail
-		errores = FN.formatoMail(email);
-		if (errores.hay) return {errores};
-
-		// Obtiene la fecha de contraseña del usuario
-		const usuario = await baseDatos.obtienePorCondicion("usuarios", {email});
-		const {fechaContrasena} = usuario || {};
-
-		// Detecta si ya se le envió una contraseña en las últimas 24hs
-		const ahora = comp.fechaHora.ahora();
-		const diferencia = fechaContrasena && (ahora.getTime() - fechaContrasena.getTime()) / unaHora;
-		const envioReciente = diferencia && diferencia < 24;
-
-		// Mensaje de error
-		errores = envioReciente ? {email: mailYaEnviado, hay: true} : {};
-
-		// Fin
-		return {usuario, errores};
-	},
 	login: async (datos) => {
 		// Variables
 		const {email, contrasena} = datos;
 		let errores, usuario;
 
 		// Verifica el formato del mail
-		errores = FN.formatoMail(email);
+		errores = comp.formatoMail(email);
 		if (errores.hay) return {errores};
 
 		// Verifica la contraseña
@@ -76,26 +53,10 @@ export default {
 };
 
 // Variables y Funciones
-const mensMailVacio = "Necesitamos que escribas un correo electrónico";
-const mensMailFormato = "Necesitamos que escribas un formato de correo válido";
 const contrasenaVacia = "Necesitamos que escribas una contraseña";
-const mailYaEnviado =
-	"Ya te enviamos un mail con la contraseña. Para evitar <em>spam</em>, esperamos 24hs antes de enviarte una nueva.";
 
 // Funciones
 const FN = {
-	formatoMail: (email) => {
-		// Variables
-		const formato = /^\w+([\.-_]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-		const errorMail = !email ? mensMailVacio : !formato.test(email) ? mensMailFormato : "";
-
-		// Variable error
-		const errores = {email: errorMail};
-		errores.hay = !!errores.email;
-
-		// Fin
-		return errores;
-	},
 	largoContr: (pw) => (pw && (pw.length < 6 || pw.length > 12) ? "La contraseña debe tener entre 6 y 12 caracteres" : ""),
 	inputVacio: (campo) => "Necesitamos que completes el campo <em>" + campo + "</em>",
 };

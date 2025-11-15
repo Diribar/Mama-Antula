@@ -199,6 +199,22 @@ export default {
 		return mailEnviado;
 	},
 	inicialMayus: (texto) => texto.slice(0, 1).toUpperCase() + texto.slice(1),
+	formatoMail: (email) => {
+		// Variables
+		const formato = /^\w+([\.-_]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+		const errorMail = !email
+			? "Necesitamos que escribas un correo electrónico"
+			: !formato.test(email)
+			? "Necesitamos que escribas un formato de correo válido"
+			: "";
+
+		// Variable error
+		const errores = {email: errorMail};
+		errores.hay = !!errores.email;
+
+		// Fin
+		return errores;
+	},
 };
 
 // Funciones

@@ -6,25 +6,23 @@ import procesos from "./US-procesos.js";
 export default {
 	altaOlvido: async (req, res) => {
 		// Variables
-		const {email} = req.query;
-
-		// Obtiene el usuario y valida si ya se le envió una contraseña
-		const {usuario, errores} = await valida.contrasenaYaEnviada(email);
-		if (errores.hay) return res.json(errores);
+		const {email, usuario} = req.body;
+		usuario.email = email;
 
 		// Nueva contraseña
 		const contrasena = Math.round(Math.random() * Math.pow(10, 6))
 			.toString()
 			.padStart(6, "0");
 		console.log("Contraseña: " + contrasena);
+		usuario.contrasena = contrasena;
 
 		// Envia el mail con la contraseña
-		const {mensajeFe, mailEnviado} = await procesos.altaOlvido.enviaMailContrasena({usuario, email, contrasena});
+		const {mensajeFe, mailEnviado} = await procesos.altaOlvido.enviaMailContrasena(usuario);
 
 		// Actualiza o crea el usuario
 		if (mailEnviado) {
 			const contrEncriptada = bcryptjs.hashSync(contrasena, 10);
-			usuario
+			usuario.id
 				? await baseDatos.actualizaPorId("usuarios", usuario.id, {contrasena: contrEncriptada})
 				: await procesos.altaOlvido.creaElUsuario({email, contrEncriptada});
 		}

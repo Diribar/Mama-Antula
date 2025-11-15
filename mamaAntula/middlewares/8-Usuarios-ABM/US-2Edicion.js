@@ -25,7 +25,8 @@ export default async (req, res, next) => {
 	errores.hay = Object.values(errores).some((n) => !!n);
 
 	// Fin
-	if (campo || errores.hay) return res.json(errores); // si se consultó por un campo en particular, también devuelve la información
+	if (campo) return res.json(errores); // si se consultó por un campo en particular, devuelve la información
+	if (errores.hay) return res.json(errores);
 
 	// Fin
 	return next();

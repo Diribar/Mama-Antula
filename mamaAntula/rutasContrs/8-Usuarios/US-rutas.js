@@ -4,6 +4,7 @@ import API from "./US-controlApi.js";
 import vista from "./US-controlVista.js";
 
 // Middlewares - Validación de ABM
+import validaAlta from "../../middlewares/8-Usuarios-ABM/US-1AltaOlvido.js";
 import validaEdicion from "../../middlewares/8-Usuarios-ABM/US-2Edicion.js";
 import validaCambioRol from "../../middlewares/8-Usuarios-ABM/US-3CambioRol.js";
 
@@ -19,13 +20,15 @@ import imgEnReqBody from "../../middlewares/descargaImg/IMG-imgEnReqBody.js";
 // 🧩 Router
 const router = express.Router();
 
-// 📡 APIs
-router.get("/api/us-envia-contrasena-por-mail", API.altaOlvido);
-router.post("/api/us-realiza-login", API.login);
-router.get("/api/us-realiza-logout", API.logout);
+// 📡 APIs - ABM
+router.get("/api/us-envia-contrasena-por-mail", validaAlta, API.altaOlvido);
 router.post("/api/us-valida-campo-edicion", validaEdicion); // se responde con la API
 router.post("/api/us-guarda-edicion-en-usuario", descargaImg.single("archivo"), imgEnReqBody, validaEdicion, API.edicion);
 router.put("/api/us-cambia-roles", validaCambioRol, API.cambiaRoles);
+
+// APIs - Login
+router.post("/api/us-realiza-login", API.login);
+router.get("/api/us-realiza-logout", API.logout);
 
 // 🖥️ Vistas
 router.get(rutasUsuario.altaOlvido, soloVisitas, vista.altaOlvido);
