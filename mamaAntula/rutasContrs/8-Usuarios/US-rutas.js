@@ -28,8 +28,8 @@ router.post("/api/us-edicion-de-usuario", descargaImg.single("archivo"), imgEnRe
 router.put("/api/us-cambio-de-roles", validaCambioRol, API.cambiaRoles);
 
 // APIs - Login
-router.post("/api/us-realiza-login", validaLogin, API.login);
-router.get("/api/us-realiza-logout", API.logout);
+router.post("/api/us-login", validaLogin, API.login);
+router.get("/api/us-logout", API.logout);
 
 // 🖥️ Vistas
 router.get(rutasUsuario.altaOlvido, soloVisitas, vista.altaOlvido);
