@@ -1,64 +1,27 @@
 "use strict";
 
 window.addEventListener("load", async () => {
-	const DOM = {
-		form: document.querySelector("#cuerpo #formAltaOlvido"),
-		email: document.querySelector("#formAltaOlvido input[name='email']"),
-		mensaje: document.querySelector("#formAltaOlvido #mensaje"),
-		confirma: document.querySelector("#formAltaOlvido #confirma"),
-	};
-	const rutaApi = "/usuarios/api/us-alta-olvido-contrasena";
+	// Variables
+	const domEmail = document.querySelector("#formAltaOlvido input[name='email']");
+	const ruta = "/usuarios/api/us-alta-olvido-contrasena";
+	let respuesta;
 
-	const fnErrorMail = () => {
-		// Garantiza que el mail esté en minúsculas
-		const valor = DOM.email.value.toLowerCase();
-		DOM.email.value = valor;
-
-		// Averigua si hay un error simple
-		errorMail = !valor ? cartelMailVacio : !formatoMail.test(valor) ? cartelMailFormato : "";
-
-		// Acciones si hay un error
-		if (errorMail) {
-			colorMensaje(DOM, true, errorMail);
-			DOM.confirma.classList.add("inactivo");
-		}
-	};
-
-	// Eventos - input
-	DOM.form.addEventListener("input", () => {
-		DOM.mensaje.classList.add("invisible");
-		DOM.confirma.classList.remove("inactivo");
-	});
 	// Eventos - change
-	DOM.form.addEventListener("change", async () => fnErrorMail());
-	// Eventos - submit
-	DOM.form.addEventListener("submit", async (e) => {
-		// Evita el confirm
-		e.preventDefault();
+	domEmail.addEventListener("change", async () => {
+		// Garantiza que el mail esté en minúsculas
+		const valor = domEmail.value.toLowerCase().trim();
+		domEmail.value = valor;
 
-		// Si no se revisaron los errores, los revisa
-		if (errorMail === undefined) fnErrorMail();
+		// Valida
+		respuesta = await fetch(ruta, postJson({email: domEmail.value})).then((n) => n.json());
 
-		// Si existe un error, interrumpe la función
-		if (errorMail) return;
-		if (DOM.confirma.className.includes("inactivo")) return;
-		DOM.confirma.classList.add("inactivo");
+		// Respuesta de error
+		if (respuesta.error) return carteles.error(respuesta.error);
 
-		// Envía el mail
-		const email = DOM.email.value;
-		colorMensaje(DOM, false, "Estamos enviándote un mail con la contraseña...");
-		const respuesta = await fetch(rutaApi, postJson({email})).then((n) => n.json());
-
-		// Acciones en función de la respuesta recibida
-		colorMensaje(DOM, respuesta.hay, respuesta.email || respuesta.mensaje);
+		// Respuesta de OK
+		carteles.exito(respuesta.mensaje);
 
 		// Fin
 		return;
 	});
 });
-
-// Variables
-const cartelMailVacio = "Necesitamos que escribas un correo electrónico";
-const cartelMailFormato = "Debes escribir un formato de correo válido";
-const formatoMail = /^\w+([\.-_]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-let errorMail;
