@@ -4,7 +4,7 @@ window.addEventListener("load", async () => {
 	// Variables
 	const DOM = {
 		body: document.body,
-		imagenes: document.querySelectorAll(".imgLeyenda .imagen"),
+		imagenes: document.querySelectorAll("#cuerpo img:not(.noAgrandar)"),
 	};
 	if (!DOM.imagenes.length) return;
 

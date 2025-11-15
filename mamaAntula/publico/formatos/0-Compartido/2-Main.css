@@ -22,3 +22,9 @@ main {
 		overflow-y: hidden;
 	}
 }
+#fondoImg {
+	display: flex; justify-content: center; align-items: center;
+	width: 100%; height: 100%;
+	background: rgba(0,0,0,0.8); z-index: 1;
+	img {width: 90%; height: 90%; border-radius: 10px; object-fit: contain;}
+}
