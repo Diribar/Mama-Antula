@@ -2,23 +2,26 @@
 
 window.addEventListener("load", async () => {
 	// Variables
-	const domEmail = document.querySelector("#formAltaOlvido input[name='email']");
+	const DOM = {
+		form: document.querySelector("#formAltaOlvido"),
+		email: document.querySelector("#formAltaOlvido input[name='email']"),
+	};
 	const ruta = "/usuarios/api/us-alta-olvido-contrasena";
-	let respuesta;
+	let contador;
 
 	// Eventos - change
-	domEmail.addEventListener("change", async () => {
+	DOM.form.addEventListener("submit", (e) => e.preventDefault());
+	DOM.email.addEventListener("keydown", (e) => e.key == " " && e.preventDefault());
+	DOM.email.addEventListener("change", async () => {
 		// Garantiza que el mail esté en minúsculas
-		const valor = domEmail.value.toLowerCase().trim();
-		domEmail.value = valor;
+		const valor = DOM.email.value.toLowerCase().trim();
+		DOM.email.value = valor;
 
 		// Valida
-		respuesta = await fetch(ruta, postJson({email: domEmail.value})).then((n) => n.json());
+		const respuesta = await fetch(ruta, postJson({email: DOM.email.value})).then((n) => n.json());
 
-		// Respuesta de error
-		if (respuesta.error) return carteles.error(respuesta.error);
-
-		// Respuesta de OK
+		// Respuestas
+		if (respuesta.email) return carteles.error(respuesta.email);
 		carteles.exito(respuesta.mensaje);
 
 		// Fin
