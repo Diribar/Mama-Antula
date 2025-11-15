@@ -7,7 +7,7 @@ window.addEventListener("load", async () => {
 		mensaje: document.querySelector("#formAltaOlvido #mensaje"),
 		confirma: document.querySelector("#formAltaOlvido #confirma"),
 	};
-	const rutaApi = "/usuarios/api/us-envia-contrasena-por-mail";
+	const rutaApi = "/usuarios/api/us-alta-olvido-contrasena";
 
 	const fnErrorMail = () => {
 		// Garantiza que el mail esté en minúsculas

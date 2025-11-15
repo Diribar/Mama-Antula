@@ -22,10 +22,10 @@ import imgEnReqBody from "../../middlewares/descargaImg/IMG-imgEnReqBody.js";
 const router = express.Router();
 
 // 📡 APIs - ABM
-router.get("/api/us-envia-contrasena-por-mail", validaAltaOlvido, API.altaOlvido);
-router.post("/api/us-valida-campo-edicion", validaEdicion); // se responde con la API
-router.post("/api/us-guarda-edicion-en-usuario", descargaImg.single("archivo"), imgEnReqBody, validaEdicion, API.edicion);
-router.put("/api/us-cambia-roles", validaCambioRol, API.cambiaRoles);
+router.get("/api/us-alta-olvido-contrasena", validaAltaOlvido, API.altaOlvido);
+router.post("/api/us-campo-edicion-de-usuario", validaEdicion); // se responde con la API
+router.post("/api/us-edicion-de-usuario", descargaImg.single("archivo"), imgEnReqBody, validaEdicion, API.edicion);
+router.put("/api/us-cambio-de-roles", validaCambioRol, API.cambiaRoles);
 
 // APIs - Login
 router.post("/api/us-realiza-login", validaLogin, API.login);
