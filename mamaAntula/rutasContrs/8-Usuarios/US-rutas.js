@@ -4,7 +4,7 @@ import API from "./US-controlApi.js";
 import vista from "./US-controlVista.js";
 
 // Middlewares - Validación de ABM
-import validaAlta from "../../middlewares/8-Usuarios-ABM/US-1AltaOlvido.js";
+import validaAltaOlvido from "../../middlewares/8-Usuarios-ABM/US-1AltaOlvido.js";
 import validaEdicion from "../../middlewares/8-Usuarios-ABM/US-2Edicion.js";
 import validaCambioRol from "../../middlewares/8-Usuarios-ABM/US-3CambioRol.js";
 
@@ -21,7 +21,7 @@ import imgEnReqBody from "../../middlewares/descargaImg/IMG-imgEnReqBody.js";
 const router = express.Router();
 
 // 📡 APIs - ABM
-router.get("/api/us-envia-contrasena-por-mail", validaAlta, API.altaOlvido);
+router.get("/api/us-envia-contrasena-por-mail", validaAltaOlvido, API.altaOlvido);
 router.post("/api/us-valida-campo-edicion", validaEdicion); // se responde con la API
 router.post("/api/us-guarda-edicion-en-usuario", descargaImg.single("archivo"), imgEnReqBody, validaEdicion, API.edicion);
 router.put("/api/us-cambia-roles", validaCambioRol, API.cambiaRoles);
