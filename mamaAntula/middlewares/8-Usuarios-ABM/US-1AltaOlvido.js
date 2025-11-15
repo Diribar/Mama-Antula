@@ -6,7 +6,7 @@ export default async (req, res, next) => {
 	let errores;
 
 	// Verifica el formato del mail
-	errores = comp.formatoMail(email);
+	errores = comp.validacs.formatoMail(email);
 	if (errores.hay) return res.json(errores);
 
 	// Obtiene la fecha de contraseña del usuario

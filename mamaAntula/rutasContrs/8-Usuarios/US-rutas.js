@@ -7,6 +7,7 @@ import vista from "./US-controlVista.js";
 import validaAltaOlvido from "../../middlewares/8-Usuarios-ABM/US-1AltaOlvido.js";
 import validaEdicion from "../../middlewares/8-Usuarios-ABM/US-2Edicion.js";
 import validaCambioRol from "../../middlewares/8-Usuarios-ABM/US-3CambioRol.js";
+import validaLogin from "../../middlewares/8-Usuarios-ABM/US-Login.js";
 
 // Middlewares - Validación de Roles
 import soloVisitas from "../../middlewares/8-Usuarios-Roles/US-Solo1Visitas.js";
@@ -27,7 +28,7 @@ router.post("/api/us-guarda-edicion-en-usuario", descargaImg.single("archivo"), 
 router.put("/api/us-cambia-roles", validaCambioRol, API.cambiaRoles);
 
 // APIs - Login
-router.post("/api/us-realiza-login", API.login);
+router.post("/api/us-realiza-login", validaLogin, API.login);
 router.get("/api/us-realiza-logout", API.logout);
 
 // 🖥️ Vistas

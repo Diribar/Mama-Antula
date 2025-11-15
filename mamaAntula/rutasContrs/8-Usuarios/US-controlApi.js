@@ -1,6 +1,5 @@
 "use strict";
 import bcryptjs from "bcryptjs";
-import valida from "./US-FN-valida.js";
 import procesos from "./US-procesos.js";
 
 export default {
@@ -32,11 +31,7 @@ export default {
 	},
 	login: async (req, res) => {
 		// Variables
-		const {email, contrasena} = req.body;
-
-		// Valida
-		const {errores, usuario} = await valida.login({email, contrasena});
-		if (errores.hay) return res.json(errores);
+		const {email, usuario} = req.body;
 
 		// Actualiza el usuario
 		const {cliente} = req.session;
