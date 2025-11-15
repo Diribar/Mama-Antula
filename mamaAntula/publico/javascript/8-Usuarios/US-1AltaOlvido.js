@@ -7,7 +7,7 @@ window.addEventListener("load", async () => {
 		mensaje: document.querySelector("#formAltaOlvido #mensaje"),
 		confirma: document.querySelector("#formAltaOlvido #confirma"),
 	};
-	const rutaApi = "/usuarios/api/us-envia-contrasena-por-mail/?email=";
+	const rutaApi = "/usuarios/api/us-envia-contrasena-por-mail";
 
 	const fnErrorMail = () => {
 		// Garantiza que el mail esté en minúsculas
@@ -45,8 +45,9 @@ window.addEventListener("load", async () => {
 		DOM.confirma.classList.add("inactivo");
 
 		// Envía el mail
+		const email = DOM.email.value;
 		colorMensaje(DOM, false, "Estamos enviándote un mail con la contraseña...");
-		const respuesta = await fetch(rutaApi + DOM.email.value).then((n) => n.json());
+		const respuesta = await fetch(rutaApi, postJson({email})).then((n) => n.json());
 
 		// Acciones en función de la respuesta recibida
 		colorMensaje(DOM, respuesta.hay, respuesta.email || respuesta.mensaje);
