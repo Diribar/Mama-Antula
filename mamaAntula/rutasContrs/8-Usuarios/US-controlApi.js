@@ -67,23 +67,18 @@ export default {
 		// Fin
 		return res.json({});
 	},
-	edicion: {
-		validaCampo: (req, res) => res.json(valida.edicion(req.body)),
-		revisaGuarda: (req, res) => {
-			// Valida
-			const datos = req.body;
-			const errores = valida.edicion(datos);
-			if (errores.hay) return res.json(errores);
+	edicion: (req, res) => {
+		// Variables
+		const datos = req.body;
 
-			// Actualizaciones varias
-			const {usuario} = req.session;
-			const datosSession = procesos.actualizacsEdicion(datos, usuario);
-			req.session.usuario = {...req.session.usuario, ...datosSession};
-			if (req.file) comp.gestionArchs.descarga(carpUsuarios, datos.imagen, req.file); // sin 'await', porque en el FE se actualiza con el url
+		// Actualizaciones varias
+		const {usuario} = req.session;
+		const datosSession = procesos.actualizacsEdicion(datos, usuario);
+		req.session.usuario = {...req.session.usuario, ...datosSession};
+		if (req.file) comp.gestionArchs.descarga(carpUsuarios, datos.imagen, req.file); // sin 'await', porque en el FE se actualiza con el url
 
-			// Fin
-			return res.json({hay: false});
-		},
+		// Fin
+		return res.json({hay: false});
 	},
 	cambiaRoles: async (req, res) => {
 		// Variables

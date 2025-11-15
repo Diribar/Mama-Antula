@@ -3,11 +3,14 @@ import express from "express";
 import API from "./US-controlApi.js";
 import vista from "./US-controlVista.js";
 
-// Middlewares - Validaciones
-import soloVisitas from "../../middlewares/8-Usuarios/US-Solo1Visitas.js";
-import soloUsuarios from "../../middlewares/8-Usuarios/US-Solo2Usuarios.js";
-import soloAdmin from "../../middlewares/8-Usuarios/US-Solo4Admin.js";
-import cambioRoles from "../../middlewares/8-Usuarios/US-3CambioRoles.js";
+// Middlewares - Validación de ABM
+import validaEdicion from "../../middlewares/8-Usuarios-ABM/US-2Edicion.js";
+import validaCambioRol from "../../middlewares/8-Usuarios-ABM/US-3CambioRol.js";
+
+// Middlewares - Validación de Roles
+import soloVisitas from "../../middlewares/8-Usuarios-Roles/US-Solo1Visitas.js";
+import soloUsuarios from "../../middlewares/8-Usuarios-Roles/US-Solo2Usuarios.js";
+import soloAdmin from "../../middlewares/8-Usuarios-Roles/US-Solo4Admin.js";
 
 // Middlewares - Descarga imagenes
 import descargaImg from "../../middlewares/descargaImg/IMG-descargaImg.js";
@@ -20,9 +23,9 @@ const router = express.Router();
 router.get("/api/us-envia-contrasena-por-mail", API.altaOlvido);
 router.post("/api/us-realiza-login", API.login);
 router.get("/api/us-realiza-logout", API.logout);
-router.post("/api/us-valida-campo-edicion", API.edicion.validaCampo);
-router.post("/api/us-guarda-edicion-en-usuario", descargaImg.single("archivo"), imgEnReqBody, API.edicion.revisaGuarda);
-router.put("/api/us-cambia-roles", cambioRoles, API.cambiaRoles);
+router.post("/api/us-valida-campo-edicion", validaEdicion); // se responde con la API
+router.post("/api/us-guarda-edicion-en-usuario", descargaImg.single("archivo"), imgEnReqBody, validaEdicion, API.edicion);
+router.put("/api/us-cambia-roles", validaCambioRol, API.cambiaRoles);
 
 // 🖥️ Vistas
 router.get(rutasUsuario.altaOlvido, soloVisitas, vista.altaOlvido);
