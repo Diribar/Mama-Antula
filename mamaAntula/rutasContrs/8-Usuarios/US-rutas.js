@@ -3,10 +3,13 @@ import express from "express";
 import API from "./US-controlApi.js";
 import vista from "./US-controlVista.js";
 
-// Middlewares
-import soloVisitas from "../../middlewares/8-usuarios/US-1SoloVisitas.js";
-import soloUsuarios from "../../middlewares/8-usuarios/US-2SoloUsuarios.js";
-import soloAdmin from "../../middlewares/8-usuarios/US-4SoloAdmin.js";
+// Middlewares - Validaciones
+import soloVisitas from "../../middlewares/8-Usuarios/US-Solo1Visitas.js";
+import soloUsuarios from "../../middlewares/8-Usuarios/US-Solo2Usuarios.js";
+import soloAdmin from "../../middlewares/8-Usuarios/US-Solo4Admin.js";
+import cambioRoles from "../../middlewares/8-Usuarios/US-3CambioRoles.js";
+
+// Middlewares - Descarga imagenes
 import descargaImg from "../../middlewares/descargaImg/IMG-descargaImg.js";
 import imgEnReqBody from "../../middlewares/descargaImg/IMG-imgEnReqBody.js";
 
@@ -19,7 +22,7 @@ router.post("/api/us-realiza-login", API.login);
 router.get("/api/us-realiza-logout", API.logout);
 router.post("/api/us-valida-campo-edicion", API.edicion.validaCampo);
 router.post("/api/us-guarda-edicion-en-usuario", descargaImg.single("archivo"), imgEnReqBody, API.edicion.revisaGuarda);
-router.post("/api/us-cambio-roles", API.cambioRoles);
+router.put("/api/us-cambia-roles", cambioRoles, API.cambiaRoles);
 
 // 🖥️ Vistas
 router.get(rutasUsuario.altaOlvido, soloVisitas, vista.altaOlvido);

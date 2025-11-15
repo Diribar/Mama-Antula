@@ -4,35 +4,35 @@ import API from "./ABM-controlApi.js";
 import vista from "./ABM-controlVista.js";
 
 // Middlewares de Vista
-import soloEdicion from "../../middlewares/8-usuarios/US-3SoloEdicion.js";
+import soloEdicion from "../../middlewares/8-Usuarios/US-Solo3Edicion.js";
 import descargaImg from "../../middlewares/descargaImg/IMG-descargaImg.js";
 import imgEnReqBody from "../../middlewares/descargaImg/IMG-imgEnReqBody.js";
 
 // Middlewares de API - valida errores
-import erroresFiltros from "../../middlewares/2-ABM/errores-1Filtros.js";
-import erroresEncabGuarda from "../../middlewares/2-ABM/errores-2Encab1Guarda.js";
-import erroresEncabElimina from "../../middlewares/2-ABM/errores-2Encab2Elimina.js";
-import erroresContActual from "../../middlewares/2-ABM/errores-3ContActual.js";
+import validaFiltros from "../../middlewares/2-ABM/ABM-1Filtros.js";
+import validaEncabGuarda from "../../middlewares/2-ABM/ABM-2Encab1Guarda.js";
+import validaEncabElimina from "../../middlewares/2-ABM/ABM-2Encab2Elimina.js";
+import validaContActual from "../../middlewares/2-ABM/ABM-3ContActual.js";
 
 // Middlewares de API - captura
-import captura from "../../middlewares/2-ABM/captura.js";
+import captura from "../../middlewares/2-ABM/ABM-captura.js";
 
 // 🧩 Router
 const router = express.Router();
 
 // 📡 APIs - Filtros
 router.get("/api/abm-filtros-datos-inciales", API.filtros.datosIniciales);
-router.get("/api/abm-filtros-obtiene-encabezados", erroresFiltros, captura, API.filtros.obtieneEncabs);
+router.get("/api/abm-filtros-obtiene-encabezados", validaFiltros, captura, API.filtros.obtieneEncabs);
 
 // APIs - Encabezado
-router.post("/api/abm-encabezado-guarda", descargaImg.none(), erroresEncabGuarda, API.encabezado.guarda); // se usa multer para que procese el formData
-router.delete("/api/abm-encabezado-elimina", erroresEncabElimina, API.encabezado.elimina);
+router.post("/api/abm-encabezado-guarda", descargaImg.none(), validaEncabGuarda, API.encabezado.guarda); // se usa multer para que procese el formData
+router.delete("/api/abm-encabezado-elimina", validaEncabElimina, API.encabezado.elimina);
 
 // APIs - Contenido Actual
 router.get("/api/abm-contenido-obtiene", API.contActual.obtiene);
-router.put("/api/abm-contenido-baja", erroresContActual, API.contActual.baja);
-router.put("/api/abm-contenido-sube", erroresContActual, API.contActual.sube);
-router.delete("/api/abm-contenido-elimina", erroresContActual, API.contActual.elimina);
+router.put("/api/abm-contenido-baja", validaContActual, API.contActual.baja);
+router.put("/api/abm-contenido-sube", validaContActual, API.contActual.sube);
+router.delete("/api/abm-contenido-elimina", validaContActual, API.contActual.elimina);
 
 // APIs - Contenido Nuevo
 router.post("/api/abm-nuevo-contenido-guarda", descargaImg.single("archivo"), imgEnReqBody, API.guardaNuevo);

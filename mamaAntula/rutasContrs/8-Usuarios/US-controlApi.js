@@ -85,5 +85,19 @@ export default {
 			return res.json({hay: false});
 		},
 	},
-	cambioRoles: async (req, res) => {},
+	cambiaRoles: async (req, res) => {
+		// Variables
+		const {usuario_id: id, nombreCompleto, rol_id} = req.body;
+
+		// Arma los datos a actualizar
+		const datos = {};
+		if (nombreCompleto) datos.nombreCompleto = nombreCompleto;
+		if (rol_id) datos.rol_id = rol_id;
+
+		// Actualiza el usuario
+		await baseDatos.actualizaPorId("usuarios", id, datos);
+
+		// Fin
+		return res.json({});
+	},
 };

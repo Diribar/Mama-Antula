@@ -17,14 +17,20 @@ export default {
 		// Tema
 		const temasSeccion = temasSecciones.filter((n) => n.seccion_id == seccionActual.id);
 		const temaActual = temasSeccion.find((n) => n.url == urlTema);
-		const condicion = {tema_id: temaActual.id};
 		const esCarta = temaActual.codigo == "cartas";
 		const conIndice = !!temaActual.indices.length;
 
-		// Datos para la vista
+		// Condición - si el usuario no tiene el permiso de edición, no se le permite ver los contenidos que tengan status 'creado'
+		const condicion = {tema_id: temaActual.id};
+		const leeStatusCreado = (req.session.usuario && rolesEdicion_ids.includes(req.session.usuario.rol_id)) || false;
+		if (!leeStatusCreado) condicion.statusRegistro_id = {[Op.gt]: creado_id};
+
+		// Obtiene el encabezado y contenido
 		const encab_id = req.query.id;
 		const {encabezados, encabezado} = await procesos.encabezados({esCarta, conIndice, condicion, encab_id});
 		const contenidos = encabezado && (await procesos.contenidos(encabezado));
+
+		// Datos para la vista
 		const clase = temaActual.codigo == "libros" ? "libros" : "estandar";
 		if (clase == "libros") contenidos.sort((a, b) => (b.video < a.video ? -1 : 1)); // ordena los libros en forma descenente
 
@@ -51,15 +57,21 @@ export default {
 		// Pestaña
 		const pestanasTema = pestanasTemas.filter((n) => n.tema_id == temaActual.id);
 		const pestanaActual = pestanasTema.find((n) => n.url == urlPestana);
-		const condicion = {pestana_id: pestanaActual.id};
 
-		// Datos para la vista
-		const esCarta = null;
-		const conIndice = null;
+		// Condición - si el usuario no tiene el permiso de edición, no se le permite ver los contenidos que tengan status 'creado'
+		const condicion = {pestana_id: pestanaActual.id};
+		const leeStatusCreado = (req.session.usuario && rolesEdicion_ids.includes(req.session.usuario.rol_id)) || false;
+		if (!leeStatusCreado) condicion.statusRegistro_id = {[Op.gt]: creado_id};
+
+		// Obtiene el encabezado y contenido
 		const encab_id = req.query.id;
 		const {encabezados, encabezado} = await procesos.encabezados({condicion, encab_id});
 		const contenidos = encabezado && (await procesos.contenidos(encabezado));
+
+		// Datos para la vista
 		const clase = pestanaActual.codigo.startsWith("estampas") ? "estampas" : "estandar";
+		const esCarta = null;
+		const conIndice = null;
 
 		// Fin
 		return res.render("CMP-0Estructura", {
