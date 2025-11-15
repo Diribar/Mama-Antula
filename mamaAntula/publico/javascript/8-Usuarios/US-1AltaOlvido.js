@@ -7,7 +7,6 @@ window.addEventListener("load", async () => {
 		email: document.querySelector("#formAltaOlvido input[name='email']"),
 	};
 	const ruta = "/usuarios/api/us-alta-olvido-contrasena";
-	let contador;
 
 	// Eventos - change
 	DOM.form.addEventListener("submit", (e) => e.preventDefault());
