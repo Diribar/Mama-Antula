@@ -158,16 +158,17 @@ window.addEventListener("load", async () => {
 	});
 	// Eventos - change
 	DOM.form.addEventListener("change", async (e) => {
+		// Crea los datos a enviar
+		const campo = e.target.name;
+
 		// Correcciones
-		DOM.apodo.value = inicialMayus(DOM.apodo.value);
+		if (campo == "apodo") DOM.apodo.value = inicialMayus(DOM.apodo.value);
 
 		// Inactiva confirmar
 		DOM.confirma.classList.add("invisible");
 
-		// Crea los datos a enviar
-		const campo = e.target.name;
+		// Variables
 		v.datos = {campo, [campo]: e.target.value};
-
 		if (campo == "imagen") {
 			await FN.nuevaImagen(DOM.inputImagen.files, DOM.vistaImagen);
 			if (v.errores.hay) return;
