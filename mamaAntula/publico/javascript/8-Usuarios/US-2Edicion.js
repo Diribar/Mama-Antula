@@ -111,6 +111,7 @@ window.addEventListener("load", async () => {
 
 				// Actualiza el cartel
 				carteles[v.errores.hay ? "error" : "exito"](mensaje);
+				if (v.errores.hay) return;
 
 				// Actualiza la imagen en el header
 				if (v.archivoImgSubido && !v.errores.imagen) DOM.imagenHeader.src = URL.createObjectURL(v.archivoImgSubido);
@@ -164,6 +165,9 @@ window.addEventListener("load", async () => {
 	});
 	// Eventos - change
 	DOM.form.addEventListener("change", async (e) => {
+		// Correcciones
+		DOM.apodo.value = inicialMayus(DOM.apodo.value);
+
 		// Inactiva confirmar
 		DOM.confirma.classList.add("inactivo");
 
