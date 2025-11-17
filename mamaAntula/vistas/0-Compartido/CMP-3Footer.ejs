@@ -2,13 +2,14 @@
 <a href="/contactanos" tabindex="-1">Contactanos</a>
 
 <!-- Otros -->
+<% console.log(5, locals.usuario && usuario.rol) %>
 <% if (locals.usuario && usuario.rol.actualizac) { %>
 	<div id="iconosFooterOtros" class="iconosFooter">
 		<% for (const icono of iconosAgrupados.filter(n => n.codigo)) { %>
 			<% const muestraLectura = icono.codigo == "lectura" && locals.temaVista == "abmContenido" %>
 			<% const muestraEdicion = icono.codigo == "actualizar" && usuario.rol.actualizac && (locals.temaVista != "abmContenido" || codigoVista != "actualizar") %>
 			<% const muestraRevision = icono.codigo == "revisar" && usuario.rol.revision && (locals.temaVista != "abmContenido" || codigoVista != "revisar") %>
-			<% const muestraCambioRol = icono.codigo == "cambioRol" && usuario.rol.cambioRol && (locals.temaVista != "usuarios" || codigoVista != "cambioRoles") %>
+			<% const muestraCambioRol = icono.codigo == "cambiosRol" && usuario.rol.cambiosRol && (locals.temaVista != "usuarios" || codigoVista != "cambiosRol") %>
 			<% if (muestraLectura || muestraEdicion || muestraRevision || muestraCambioRol) { %>
 				<a href="<%= icono.link %>" id="<%= icono.codigo %>" title="<%= icono.nombre %>">
 					<i class="fa-solid <%= icono.clase %> scaleHover"></i>

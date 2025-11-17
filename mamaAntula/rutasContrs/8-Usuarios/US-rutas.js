@@ -34,7 +34,7 @@ router.get("/api/us-logout", API.logout);
 // 🖥️ Vistas
 router.get(rutasUsuario.altaOlvido, soloVisitas, vista.altaOlvido);
 router.get(rutasUsuario.edicion, soloUsuarios, vista.edicion);
-router.get(rutasUsuario.cambioRoles, soloAdmin, vista.cambioRoles);
+router.get(rutasUsuario.cambiosRol, soloAdmin, vista.cambiosRol);
 
 // ✅ Export
 export default router;
