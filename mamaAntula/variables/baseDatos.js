@@ -40,7 +40,7 @@ export default {
 			rolLectura_id: roles.find((n) => n.codigo == "lectura").id,
 			rolesEdicion_ids: roles.filter((n) => n.edicion).map((n) => n.id),
 			rolesRevision_ids: roles.filter((n) => n.revision).map((n) => n.id),
-			rolesAdmin_ids: roles.filter((n) => n.admin).map((n) => n.id),
+			rolesAdmin_ids: roles.filter((n) => n.cambioRol).map((n) => n.id),
 
 			// 2. Status de usuario
 			mailPendValidar_id: statusRegistrosUs.find((n) => n.codigo == "mailPendValidar").id,
