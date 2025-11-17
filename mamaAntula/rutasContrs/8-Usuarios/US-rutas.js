@@ -23,8 +23,9 @@ const router = express.Router();
 
 // 📡 APIs - ABM
 router.post("/api/us-alta-olvido-contrasena", validaAltaOlvido, API.altaOlvido);
-router.post("/api/us-campo-edicion-de-usuario", validaEdicion); // se responde con la API
-router.post("/api/us-edicion-de-usuario", descargaImg.single("archivo"), imgEnReqBody, validaEdicion, API.edicion);
+router.put("/api/us-edicion-de-usuario-campo", validaEdicion); // se responde con la API
+router.put("/api/us-edicion-de-usuario-elimina-imagen", API.edicion.eliminaImagen);
+router.put("/api/us-edicion-de-usuario-guarda", descargaImg.single("archivo"), imgEnReqBody, validaEdicion, API.edicion.guarda);
 router.put("/api/us-cambio-de-roles", validaCambioRol, API.cambiaRoles);
 
 // APIs - Login
