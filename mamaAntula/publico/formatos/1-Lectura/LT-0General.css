@@ -1,10 +1,4 @@
 body {
 	position: relative;
 	main #cuerpo {flex-direction: column; max-height: 100%; position: relative;}
-	#fondoImg {
-		display: flex; justify-content: center; align-items: center;
-		width: 100%; height: 100%;
-  		background: rgba(0,0,0,0.8); z-index: 1;
-		img {max-width: 90%; max-height: 90%; border-radius: 10px;}
-	}
 }

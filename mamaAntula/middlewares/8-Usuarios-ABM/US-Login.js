@@ -1,4 +1,5 @@
 "use strict";
+import bcryptjs from "bcryptjs";
 
 export default async (req, res, next) => {
 	// Variables
@@ -20,7 +21,7 @@ export default async (req, res, next) => {
 
 	// Revisa las credenciales
 	const email_BD = !usuario;
-	const contr_BD = usuario && !bcryptjs.compareSync(datos.contrasena, usuario.contrasena);
+	const contr_BD = usuario && !bcryptjs.compareSync(contrasena, usuario.contrasena);
 	errores.credenciales = email_BD || contr_BD ? "Credenciales erróneas" : "";
 	errores.hay = !!errores.credenciales;
 	if (errores.hay) return res.json(errores);
