@@ -112,7 +112,7 @@ window.addEventListener("load", async () => {
 				// Fin
 				return formData;
 			},
-			finSubmit: () => {
+			finSubmit: async () => {
 				// Actualiza el mensaje
 				const mensaje = v.errores.hay
 					? Object.values(v.errores)
@@ -121,21 +121,11 @@ window.addEventListener("load", async () => {
 					: "Los cambios fueron guardados";
 
 				// Actualiza el cartel
-				carteles[v.errores.hay ? "error" : "exito"](mensaje);
+				await carteles[v.errores.hay ? "error" : "exito"](mensaje);
 				if (v.errores.hay) return;
 
-				// Actualiza la imagen en el header
-				if (v.archivoImgSubido && !v.errores.imagen) DOM.imagenHeader.src = URL.createObjectURL(v.archivoImgSubido);
-
-				// Cambia el nombre en el encabezado
-				if (!v.errores.apodo) DOM.imagenHeader.setAttribute("title", "Hola " + DOM.apodo.value);
-
-				// Resetea variables
-				v.archivoImgSubido = null;
-				v.unInputCambio = false;
-
 				// Fin
-				return;
+				return location.reload();
 			},
 		},
 	};
@@ -152,7 +142,7 @@ window.addEventListener("load", async () => {
 			const respuesta = await carteles.pregunta({mensaje, cancelButtonText: "NO", confirmButtonText: "SI"});
 
 			// Elimina la imagen del backend
-			if (respuesta.isConfirmed) await fetch(v.eliminaImagen, putJson({}));
+			if (respuesta) await fetch(rutas.eliminaImagen, putJson({}));
 		}
 
 		// Recarga la vista
@@ -235,6 +225,6 @@ window.addEventListener("load", async () => {
 		return;
 	});
 
-	// Start-up
-	if (v.apodoOk) DOM.confirma.classList.remove("ocultar");
+	// Fin
+	return;
 });
