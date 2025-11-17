@@ -1,4 +1,4 @@
-#cuerpo form#cambiosRol {
+#cuerpo form#cambioRoles {
 	h2 {margin-bottom: 12px; font-size: 1.5rem; text-align: center;}
 	h3 {margin-bottom: 0.5rem;}
 	&:has(select[name="usuario"] option:checked[value=""]) #bloqueInputs {display: none;}

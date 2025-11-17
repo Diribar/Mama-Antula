@@ -1,7 +1,8 @@
 header #derecha {
 	position: relative; margin-right: 20px; line-height: 0;
 	width: calc(0.7 * var(--altoHeader)); height: calc(0.7 * var(--altoHeader));
-	color: var(--colorEscritura); display: grid; place-items: center;
+	color: var(--colorEscritura);
+	/* display: grid; place-items: center; */
 
 	#menuLogin, #menuLogout {
 		position: absolute; right: 0; bottom: 0; translate: 0 100%;

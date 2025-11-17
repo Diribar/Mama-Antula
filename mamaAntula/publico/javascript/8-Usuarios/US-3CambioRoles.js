@@ -2,7 +2,7 @@
 
 window.addEventListener("load", async () => {
 	// Variables
-	const domForm = document.querySelector("#cuerpo #cambiosRol");
+	const domForm = document.querySelector("#cuerpo #cambioRoles");
 	const DOM = {
 		// Filtros
 		rolFiltro: domForm.querySelector("select[name='rolFiltro']"),
