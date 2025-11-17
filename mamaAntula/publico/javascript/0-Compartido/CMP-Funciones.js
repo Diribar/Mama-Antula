@@ -66,16 +66,4 @@ const carteles = {
 };
 
 // Funciones de uso general
-const colorMensaje = (DOM, hay, mensaje) => {
-	// Cambia el color en la respuesta
-	DOM.mensaje.classList[!hay ? "add" : "remove"]("exito");
-	DOM.mensaje.classList[hay ? "add" : "remove"]("error");
-	DOM.mensaje.classList.remove("invisible");
-
-	// Mensaje
-	DOM.mensaje.innerHTML = mensaje;
-
-	// Fin
-	return;
-};
 const inicialMayus = (texto) => texto.slice(0, 1).toUpperCase() + texto.slice(1);
