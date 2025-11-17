@@ -36,18 +36,6 @@ const carteles = {
 			confirmButtonText: "Aceptar",
 			confirmButtonColor: "rgb(79,98,40)", // verdeOscuro
 		}),
-	pregunta: ({mensaje, cancelButtonText, confirmButtonText}) =>
-		Swal.fire({
-			// General
-			...{background: "rgb(242,242,242)", title: "Atención", icon: "warning", html: mensaje}, // grisClaro
-
-			// Botón cancel
-			...{showCancelButton: true, reverseButtons: true},
-			...{cancelButtonText, cancelButtonColor: "firebrick"}, // rojoOscuro
-
-			// Botón confirm
-			...{confirmButtonText, confirmButtonColor: "rgb(79,98,40)"}, // verdeOscuro
-		}).then(async (n) => n.isConfirmed),
 	exito: (mensaje) =>
 		Swal.fire({
 			// Encabezado
@@ -63,6 +51,18 @@ const carteles = {
 			confirmButtonText: "Aceptar",
 			confirmButtonColor: "rgb(79,98,40)", // verdeOscuro
 		}),
+	pregunta: ({mensaje, cancelButtonText, confirmButtonText}) =>
+		Swal.fire({
+			// General
+			...{background: "rgb(242,242,242)", title: "Atención", icon: "warning", html: mensaje}, // grisClaro
+
+			// Botón cancel
+			...{showCancelButton: true, reverseButtons: true},
+			...{cancelButtonText, cancelButtonColor: "firebrick"}, // rojoOscuro
+
+			// Botón confirm
+			...{confirmButtonText, confirmButtonColor: "rgb(79,98,40)"}, // verdeOscuro
+		}).then(async (n) => n.isConfirmed),
 };
 
 // Funciones de uso general

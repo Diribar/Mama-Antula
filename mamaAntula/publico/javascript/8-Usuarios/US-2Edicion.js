@@ -57,10 +57,8 @@ window.addEventListener("load", async () => {
 		},
 		respuestas: (campo) => {
 			// Respuestas
-			const mensaje = v.errores.hay
-				? v.errores[campo]
-				: (campo == "imagen" ? "La imagen" : "El valor del campo " + campo) + " se puede guardar";
-			colorMensaje(DOM, v.errores.hay, mensaje);
+			const mensaje = v.errores.hay && v.errores[campo];
+			if (mensaje) colorMensaje(DOM, mensaje);
 
 			// Acciones si no hay errores
 			if (!v.errores.hay) {
@@ -79,7 +77,7 @@ window.addEventListener("load", async () => {
 				// Acciones si no hay nada para guardar
 				if (!hayAlgoParaGuardar) {
 					v.errores = {mensaje: "No se hicieron cambios a guardar", hay: true};
-					colorMensaje(DOM, v.errores.hay, v.errores.mensaje);
+					colorMensaje(DOM, v.errores.mensaje);
 				}
 
 				// Fin
@@ -107,18 +105,18 @@ window.addEventListener("load", async () => {
 				// Actualiza el mensaje
 				const mensaje = v.errores.hay
 					? Object.values(v.errores)
-							.filter((n) => !!n && n !== true && n !== false)
-							.join(". ") // quita los 'no errores' y el 'hay'
+							.filter((n) => !!n && n !== true && n !== false) // quita los 'no errores' y el 'hay'
+							.join(". ")
 					: "Los cambios fueron guardados";
-				colorMensaje(DOM, v.errores.hay, mensaje);
+
+				// Actualiza el cartel
+				carteles[v.errores.hay ? "error" : "exito"](mensaje);
 
 				// Actualiza la imagen en el header
-				if (v.archivoImgSubido && !v.errores.imagen) {
-					DOM.imagenHeader.src = URL.createObjectURL(v.archivoImgSubido);
-				}
+				if (v.archivoImgSubido && !v.errores.imagen) DOM.imagenHeader.src = URL.createObjectURL(v.archivoImgSubido);
 
 				// Cambia el nombre en el encabezado
-				DOM.imagenHeader.setAttribute("title", "Hola " + DOM.apodo.value);
+				if (!v.errores.apodo) DOM.imagenHeader.setAttribute("title", "Hola " + DOM.apodo.value);
 
 				// Resetea variables
 				v.archivoImgSubido = null;
@@ -210,3 +208,15 @@ window.addEventListener("load", async () => {
 		return;
 	});
 });
+
+const colorMensaje = (DOM, mensaje) => {
+	// Cambia el color en la respuesta
+	DOM.mensaje.classList.add("error");
+	DOM.mensaje.classList.remove("invisible");
+
+	// Mensaje
+	DOM.mensaje.innerHTML = mensaje;
+
+	// Fin
+	return;
+};
