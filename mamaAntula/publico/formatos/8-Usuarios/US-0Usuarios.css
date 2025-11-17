@@ -24,12 +24,6 @@
 			optgroup, option {text-align: left;}
 		}
 
-		#mensaje {
-			text-align: center; text-wrap: balance; padding: 4px 10px;
-			border-radius: 10px; border: 2.5px solid currentColor;
-			&.error {background-color: var(--rojoClaro); color: var(--rojoOscuro);}
-		}
-
 		#fondoConfirma {
 			background-color: var(--fondoBlanco); backdrop-filter: blur(4px);
 			#confirma {border-radius: 5px; padding: 5px 10px; cursor: pointer;}
