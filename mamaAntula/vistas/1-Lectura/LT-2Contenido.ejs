@@ -25,7 +25,7 @@
 	<% } %>
 	<div id="contenido" class="fondo <%= clase %>">
 		<% if (encabezado) for (const contenido of contenidos) { %>
-			<% const subCarpeta = contenido.statusRegistro_id == creado_id ? '2-Revisar' : '1-Contenido' %>
+			<% const subCarpeta = contenido.statusRegistro_id == creado_id ? '2-Revisar' : '1-Final' %>
 			<div class="bloque">
 				<% if (false) { %>
 				<% } else if (clase == "libros") { %>
@@ -79,7 +79,7 @@
 						<!-- Carrusel -->
 						<div class="carrusel">
 							<% for (const carrusel of contenido.carrusel) { %>
-								<img src="/imgsEditables/<%- carrusel.statusRegistro_id == creado_id ? '2-Revisar' : '1-Contenido' %>/<%= carrusel.imagen %>">
+								<img src="/imgsEditables/<%- carrusel.statusRegistro_id == creado_id ? '2-Revisar' : '1-Final' %>/<%= carrusel.imagen %>">
 							<% } %>
 						</div>
 					<% } %>

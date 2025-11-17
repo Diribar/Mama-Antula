@@ -25,7 +25,7 @@ export default {
 	},
 
 	// Carpetas de imágenes
-	carpContenido: path.join(rutaHome, "..", "9-Imagenes", "1-Contenido"),
+	carpContenido: path.join(rutaHome, "..", "9-Imagenes", "1-Final"),
 	carpRevisar: path.join(rutaHome, "..", "9-Imagenes", "2-Revisar"),
 	carpUsuarios: path.join(rutaHome, "..", "9-Imagenes", "8-Usuarios"),
 	carpProvisorio: path.join(rutaHome, "..", "9-Imagenes", "9-Provisorio"), // carpeta donde se guardan las imágenes inicialmente

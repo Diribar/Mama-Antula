@@ -137,7 +137,7 @@ window.addEventListener("load", async () => {
 
 			// Crea la imagen
 			const domImagen = document.createElement("img");
-			const subCarpeta = contenido.statusRegistro_id == 1 ? "2-Revisar/" : "1-Contenido/";
+			const subCarpeta = contenido.statusRegistro_id == 1 ? "2-Revisar/" : "1-Final/";
 			domImagen.src = "/imgsEditables/" + subCarpeta + contenido.imagen;
 			domImagen.classList.add("imagen");
 			contenedor.appendChild(domImagen);
@@ -190,7 +190,7 @@ window.addEventListener("load", async () => {
 			// Recorre el carrusel
 			for (const registro of contenido.carrusel) {
 				// Variables
-				const subCarpeta = registro.statusRegistro_id == 1 ? "2-Revisar/" : "1-Contenido/";
+				const subCarpeta = registro.statusRegistro_id == 1 ? "2-Revisar/" : "1-Final/";
 
 				// Crea el domImagen
 				const img = document.createElement("img");
