@@ -1,7 +1,7 @@
 <!-- Formulario -->
 <form id="formEdicion">
 	<!-- Área donde soltar el archivo de imagen -->
-	<div id="areaSoltar">
+	<div id="areaSoltar" class="flexColAlign">
 		<p id="cartelImagen">Arrastrá o buscá tu imagen (opcional)</p>
 		<input name="imagen" type="file" accept="image/*" hidden><!-- el input no lleva class 'input', porque tiene un tratamiento diferente -->
 		<img id="vistaImagen" src="<%= imagen %>" class="noAgrandar">
@@ -27,13 +27,9 @@
 		<input type="checkbox" name="notificacs">
 		Deseo recibir las novedades por mail
 	</label>
-	<input class="input ocultar" type="text" name="nombreCompleto" placeholder="Nombre completo" autocomplete="off" value="<%= usuario.apodo %>">
-
-	<!-- Resultado -->
-	<p id="mensaje" class="invisible"></p>
 
 	<!-- Confirma -->
 	<div id="fondoConfirma">
-		<button type="submit" id="confirma" class="inactivo">Guardá los cambios</button>
+		<button type="submit" id="confirma" class="invisible">Guardá los cambios</button>
 	</div>
 </form>

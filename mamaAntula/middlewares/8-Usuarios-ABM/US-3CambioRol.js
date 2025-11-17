@@ -28,19 +28,19 @@ export default async (req, res, next) => {
 
 		// Averigua la cantidad de usuarios para cada rol
 		const revisores = usuarios.filter((n) => rolesRevision_ids.includes(n.rol_id));
-		const administradores = usuarios.filter((n) => rolesAdmin_ids.includes(n.rol_id));
+		const cambioRoles = usuarios.filter((n) => rolesCambioRoles_ids.includes(n.rol_id));
 
 		// Revisores - deben ser entre 1 y 2 usuarios
 		if (revisores.length < 1 && !rolesRevision_ids.includes(rol_id))
-			return res.json({error: "El rol Revisión debe tener al menos 1 usuario"});
+			return res.json({error: "El rol 'Revisión' debe tener al menos 1 usuario"});
 		if (revisores.length > 2 && rolesRevision_ids.includes(rol_id))
-			return res.json({error: "El rol Revisión no debe tener más de 2 usuarios"});
+			return res.json({error: "El rol 'Revisión' no debe tener más de 2 usuarios"});
 
 		// Administradores - deben ser entre 1 y 2 usuarios
-		if (administradores.length < 1 && !rolesAdmin_ids.includes(rol_id))
-			return res.json({error: "El rol Administrador debe tener al menos 1 usuario"});
-		if (administradores.length > 2 && rolesAdmin_ids.includes(rol_id))
-			return res.json({error: "El rol Administrador no debe tener más de 2 usuarios"});
+		if (cambioRoles.length < 1 && !rolesCambioRoles_ids.includes(rol_id))
+			return res.json({error: "El rol 'Cambio de Roles' debe tener al menos 1 usuario"});
+		if (cambioRoles.length > 2 && rolesCambioRoles_ids.includes(rol_id))
+			return res.json({error: "El rol 'Cambio de Roles' no debe tener más de 2 usuarios"});
 	}
 
 	// Fin

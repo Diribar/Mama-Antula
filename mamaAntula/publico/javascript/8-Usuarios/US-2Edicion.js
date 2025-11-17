@@ -57,16 +57,12 @@ window.addEventListener("load", async () => {
 		},
 		respuestas: (campo) => {
 			// Respuestas
-			const mensaje = v.errores.hay
-				? v.errores[campo]
-				: (campo == "imagen" ? "La imagen" : "El valor del campo " + campo) + " se puede guardar";
-			colorMensaje(DOM, v.errores.hay, mensaje);
+			const mensaje = v.errores.hay && v.errores[campo];
+			if (mensaje) return carteles.error(mensaje);
 
 			// Acciones si no hay errores
-			if (!v.errores.hay) {
-				DOM.confirma.classList.remove("inactivo");
-				v.unInputCambio = true;
-			}
+			DOM.confirma.classList.remove("invisible");
+			v.unInputCambio = true;
 
 			// Fin
 			return;
@@ -77,10 +73,7 @@ window.addEventListener("load", async () => {
 				const hayAlgoParaGuardar = v.archivoImgSubido || v.unInputCambio;
 
 				// Acciones si no hay nada para guardar
-				if (!hayAlgoParaGuardar) {
-					v.errores = {mensaje: "No se hicieron cambios a guardar", hay: true};
-					colorMensaje(DOM, v.errores.hay, v.errores.mensaje);
-				}
+				if (!hayAlgoParaGuardar) carteles.error("No se hicieron cambios a guardar");
 
 				// Fin
 				return hayAlgoParaGuardar;
@@ -107,18 +100,19 @@ window.addEventListener("load", async () => {
 				// Actualiza el mensaje
 				const mensaje = v.errores.hay
 					? Object.values(v.errores)
-							.filter((n) => !!n && n !== true && n !== false)
-							.join(". ") // quita los 'no errores' y el 'hay'
+							.filter((n) => !!n && n !== true && n !== false) // quita los 'no errores' y el 'hay'
+							.join(". ")
 					: "Los cambios fueron guardados";
-				colorMensaje(DOM, v.errores.hay, mensaje);
+
+				// Actualiza el cartel
+				carteles[v.errores.hay ? "error" : "exito"](mensaje);
+				if (v.errores.hay) return;
 
 				// Actualiza la imagen en el header
-				if (v.archivoImgSubido && !v.errores.imagen) {
-					DOM.imagenHeader.src = URL.createObjectURL(v.archivoImgSubido);
-				}
+				if (v.archivoImgSubido && !v.errores.imagen) DOM.imagenHeader.src = URL.createObjectURL(v.archivoImgSubido);
 
 				// Cambia el nombre en el encabezado
-				DOM.imagenHeader.setAttribute("title", "Hola " + DOM.apodo.value);
+				if (!v.errores.apodo) DOM.imagenHeader.setAttribute("title", "Hola " + DOM.apodo.value);
 
 				// Resetea variables
 				v.archivoImgSubido = null;
@@ -131,10 +125,8 @@ window.addEventListener("load", async () => {
 	};
 
 	// Eventos - input
-	DOM.form.addEventListener("input", () => {
-		DOM.mensaje.classList.add("invisible");
-		DOM.confirma.classList.remove("inactivo");
-	});
+	// DOM.form.addEventListener("input", () => DOM.confirma.classList.remove("invisible"));
+
 	// Eventos - Busca un archivo de imagen
 	DOM.areaSoltar.addEventListener("click", () => DOM.inputImagen.click());
 	// Eventos - Drag & Drop
@@ -166,8 +158,11 @@ window.addEventListener("load", async () => {
 	});
 	// Eventos - change
 	DOM.form.addEventListener("change", async (e) => {
+		// Correcciones
+		DOM.apodo.value = inicialMayus(DOM.apodo.value);
+
 		// Inactiva confirmar
-		DOM.confirma.classList.add("inactivo");
+		DOM.confirma.classList.add("invisible");
 
 		// Crea los datos a enviar
 		const campo = e.target.name;
@@ -189,10 +184,10 @@ window.addEventListener("load", async () => {
 	});
 	// Eventos - submit
 	DOM.form.addEventListener("submit", async (e) => {
-		// Si confirmar está inactivo, interrumpe la función
+		// Si confirmar está invisible, interrumpe la función
 		e.preventDefault();
-		if (DOM.confirma.className.includes("inactivo")) return;
-		DOM.confirma.classList.add("inactivo"); // se deja inactivo hasta que se vuelve a hacer un input en el formulario
+		if (DOM.confirma.className.includes("invisible")) return;
+		DOM.confirma.classList.add("invisible"); // se deja invisible hasta que se vuelve a hacer un input en el formulario
 
 		// Si no hay algo para guardar, interrumpe la función
 		if (!FN.accionesSubmit.hayAlgoParaGuardar()) return;

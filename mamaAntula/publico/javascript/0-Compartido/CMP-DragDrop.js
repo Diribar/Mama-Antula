@@ -32,7 +32,6 @@ const procesaArchImg = (file, vistaImagen) =>
 				// Si supera el tamaño maximo permitido, interrumpe la función
 				const tamMaxArch = 1024 * 1024; // 1 MB
 				if (file.size > tamMaxArch ) return resolve(console.log("El archivo es demasiado grande"));
-				console.log(file.size);
 
 				// Hace visible la imagen
 				vistaImagen.src = reader.result;
