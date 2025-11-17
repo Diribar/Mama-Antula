@@ -3,9 +3,17 @@ form {
 	#areaSoltar {
 		/* Medidas de lado */
 		--ladoCuadrado: 150px; width: var(--ladoCuadrado); height: var(--ladoCuadrado);
+
+		position: relative;
 		display: flex; flex-direction: column; align-items: center; justify-content: center;
 		border-radius: 5px;
+		#eliminaImg {
+			background-color: snow; color: var(--rojoOscuro); padding: 7px;
+			padding-right: 25px;
+			z-index: 1; border-radius: 50%;
+		}
 		img {border-radius: 50%;}
+		&:has(img[src=""]) #eliminaImg {display: none;}
 	}
 	#contNovs {
 		display: flex;

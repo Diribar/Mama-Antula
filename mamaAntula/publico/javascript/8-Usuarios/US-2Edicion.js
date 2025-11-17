@@ -19,16 +19,26 @@ window.addEventListener("load", async () => {
 		// Drag & Drop
 		areaSoltar: document.querySelector("#formEdicion #areaSoltar"),
 		vistaImagen: document.querySelector("#formEdicion #areaSoltar img"),
+		eliminaImg: document.querySelector("#formEdicion #areaSoltar #eliminaImg"),
+	};
+	const rutas = {
+		validaCampo: "/usuarios/api/us-edicion-de-usuario-campo",
+		eliminaImagen: "/usuarios/api/us-edicion-de-usuario-elimina-imagen",
+		guarda: "/usuarios/api/us-edicion-de-usuario-guarda",
 	};
 	const v = {
+		// Eventos
 		entrada: ["dragenter", "dragover"],
 		salida: ["dragleave", "drop"],
 
-		rutaValidaCampo: "/usuarios/api/us-campo-edicion-de-usuario",
-		rutaGuardar: "/usuarios/api/us-edicion-de-usuario",
+		// Imagen
+		archivoImgSubido: null,
+		imgInicial: !!DOM.vistaImagen.getAttribute("src"),
+
+		// Otros
 		unInputCambio: false,
 		errores: {},
-		archivoImgSubido: null,
+		apodoOk: DOM.apodo.value,
 	};
 
 	// Funciones
@@ -58,10 +68,16 @@ window.addEventListener("load", async () => {
 		respuestas: (campo) => {
 			// Respuestas
 			const mensaje = v.errores.hay && v.errores[campo];
-			if (mensaje) return carteles.error(mensaje);
+
+			// Acciones si hubieron errores
+			if (mensaje) {
+				if (campo == "apodo") v.apodoOk = false;
+				return carteles.error(mensaje);
+			}
 
 			// Acciones si no hay errores
-			DOM.confirma.classList.remove("invisible");
+			if (campo == "apodo") v.apodoOk = true;
+			if (v.apodoOk) DOM.confirma.classList.remove("ocultar");
 			v.unInputCambio = true;
 
 			// Fin
@@ -124,11 +140,24 @@ window.addEventListener("load", async () => {
 		},
 	};
 
-	// Eventos - input
-	// DOM.form.addEventListener("input", () => DOM.confirma.classList.remove("invisible"));
-
 	// Eventos - Busca un archivo de imagen
-	DOM.areaSoltar.addEventListener("click", () => DOM.inputImagen.click());
+	DOM.areaSoltar.addEventListener("click", async (e) => {
+		// Si no fue para eliminar, dispara el evento 'click'
+		if (e.target.id != "eliminaImg") return DOM.inputImagen.click();
+
+		// Si había una vista inicial, la elimina
+		if (v.imgInicial) {
+			// Pregunta al usuario si está seguro
+			const mensaje = "¿Estás seguro/a de que querés eliminar la imagen guardada?";
+			const respuesta = await carteles.pregunta({mensaje, cancelButtonText: "NO", confirmButtonText: "SI"});
+
+			// Elimina la imagen del backend
+			if (respuesta.isConfirmed) await fetch(v.eliminaImagen, putJson({}));
+		}
+
+		// Recarga la vista
+		return location.reload();
+	});
 	// Eventos - Drag & Drop
 	[...v.entrada, ...v.salida].forEach((evento) =>
 		DOM.areaSoltar.addEventListener(evento, (e) => {
@@ -148,7 +177,7 @@ window.addEventListener("load", async () => {
 		if (v.errores.hay) return;
 
 		// Averigua si hay un error
-		v.errores = await fetch(v.rutaValidaCampo, postJson(v.datos)).then((n) => n.json());
+		v.errores = await fetch(rutas.validaCampo, putJson(v.datos)).then((n) => n.json());
 
 		// Respuestas
 		FN.respuestas("imagen");
@@ -165,7 +194,7 @@ window.addEventListener("load", async () => {
 		if (campo == "apodo") DOM.apodo.value = inicialMayus(DOM.apodo.value);
 
 		// Inactiva confirmar
-		DOM.confirma.classList.add("invisible");
+		DOM.confirma.classList.add("ocultar");
 
 		// Variables
 		v.datos = {campo, [campo]: e.target.value};
@@ -175,7 +204,7 @@ window.addEventListener("load", async () => {
 		}
 
 		// Averigua si hay un error
-		v.errores = await fetch(v.rutaValidaCampo, postJson(v.datos)).then((n) => n.json());
+		v.errores = await fetch(rutas.validaCampo, putJson(v.datos)).then((n) => n.json());
 
 		// Respuestas
 		FN.respuestas(campo);
@@ -185,10 +214,10 @@ window.addEventListener("load", async () => {
 	});
 	// Eventos - submit
 	DOM.form.addEventListener("submit", async (e) => {
-		// Si confirmar está invisible, interrumpe la función
+		// Si confirmar está oculto, interrumpe la función
 		e.preventDefault();
-		if (DOM.confirma.className.includes("invisible")) return;
-		DOM.confirma.classList.add("invisible"); // se deja invisible hasta que se vuelve a hacer un input en el formulario
+		if (DOM.confirma.className.includes("ocultar")) return;
+		DOM.confirma.classList.add("ocultar"); // se deja ocultar hasta que se vuelve a hacer un input en el formulario
 
 		// Si no hay algo para guardar, interrumpe la función
 		if (!FN.accionesSubmit.hayAlgoParaGuardar()) return;
@@ -197,7 +226,7 @@ window.addEventListener("load", async () => {
 		const formData = FN.accionesSubmit.formData();
 
 		// Valida y guarda los cambios del form
-		v.errores = await fetch(v.rutaGuardar, postForm(formData)).then((n) => n.json());
+		v.errores = await fetch(rutas.guarda, putForm(formData)).then((n) => n.json());
 
 		// Acciones finales
 		FN.accionesSubmit.finSubmit();
@@ -205,4 +234,7 @@ window.addEventListener("load", async () => {
 		// Fin
 		return;
 	});
+
+	// Start-up
+	if (v.apodoOk) DOM.confirma.classList.remove("ocultar");
 });
