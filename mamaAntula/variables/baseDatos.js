@@ -10,11 +10,11 @@ export default {
 				.obtieneTodosPorCondicion("temasSecciones", {inactivo: false}, "indices")
 				.then((n) => n.sort((a, b) => a.orden - b.orden)),
 			pestanasTemas: baseDatos.obtieneTodosConOrden("pestanasTemas", "orden"),
-			indiceTemas: baseDatos.obtieneTodos("indiceTemas"),
+			indicesTemas: baseDatos.obtieneTodos("indicesTemas"),
 
 			// Cartas
 			idiomas: baseDatos.obtieneTodosConOrden("idiomas", "orden"),
-			lugares: baseDatos.obtieneTodosConOrden("lugares", "orden"),
+			lugares: baseDatos.obtieneTodosConOrden("lugares", "nombre"),
 			personajes: baseDatos.obtieneTodosConOrden("personajes", "orden"),
 
 			// Otros
@@ -54,8 +54,8 @@ export default {
 			inactivo_id: statusRegistros.find((n) => n.codigo == "inactivo").id,
 
 			// Otros
-			indiceCartas: indiceTemas.filter((n) => n.tema_id == 10).sort((a, b) => (a.fechaDesde < b.fechaDesde ? -1 : 1)), // el tema_id es el de cartas
-			indiceResto: indiceTemas.filter((n) => n.tema_id != 10).sort((a, b) => (b.fechaDesde < a.fechaDesde ? -1 : 1)),
+			indiceCartas: indicesTemas.filter((n) => n.tema_id == 10).sort((a, b) => (a.fechaDesde < b.fechaDesde ? -1 : 1)), // el tema_id es el de cartas
+			indiceResto: indicesTemas.filter((n) => n.tema_id != 10).sort((a, b) => (b.fechaDesde < a.fechaDesde ? -1 : 1)),
 			seccsListas: secciones.filter((n) => n.id < 4),
 		};
 

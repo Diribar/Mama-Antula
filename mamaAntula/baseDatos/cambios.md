@@ -1,2 +1,0 @@
-UPDATE aux_iconos_agrups SET nombre='Actualizar articulos', codigo='actualizar', link='/articulos/actualizar' WHERE id=6;
-UPDATE aux_iconos_agrups SET nombre='Revisar articulos', codigo='revisar', link='/articulos/revisar' WHERE id=7;
