@@ -5,7 +5,9 @@
 .contenidoCuerpo {
 	backdrop-filter: blur(4px);
 	/* background-color: var(--fondoBlanco); */
-	background-color: var(--amarilloMuyClaro);
+	/* background-color: var(--grisMuyClaro); */
+	/* background-color: var(--amarilloMuyClaro); */
+	background-color: var(--grisMuyClaro);
 	padding-left: 10px;
 
 	&:has(#filtroIndice) #tituloMasContenido {--margenIzq: 210px; margin-left: var(--margenIzq); max-width: calc(100% - var(--margenIzq));}

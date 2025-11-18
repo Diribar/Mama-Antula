@@ -24,8 +24,8 @@ window.addEventListener("load", async () => {
 		limpiarHTML: document.querySelectorAll("#video .limpiar"),
 	};
 	const rutas = {
-		guardaContenido: "/contenido/api/abm-nuevo-contenido-guarda",
-		guardaCarrusel: "/contenido/api/abm-nuevo-carrusel-guarda",
+		guardaContenido: "/articulos/api/abm-nuevo-contenido-guarda",
+		guardaCarrusel: "/articulos/api/abm-nuevo-carrusel-guarda",
 	};
 	const v = {};
 
