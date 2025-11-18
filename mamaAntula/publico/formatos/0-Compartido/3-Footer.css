@@ -2,7 +2,7 @@
 footer {
 	display: flex; flex-direction: row; justify-content: space-evenly; align-items: center;
 	height: var(--altoFooter); padding: .25em 5px;
-	border-top: 2px solid var(--colorHeader); background-color: var(--grisClaro); color: var(--colorHeader);
+	border-top: 2px solid var(--colorFooter); background-color: var(--grisClaro); color: var(--colorFooter);
 	a {font-weight: bold;}
 	.iconosFooter {display: flex; flex-direction: row; align-items: center; gap: 20px;}
 }

@@ -3,7 +3,11 @@
 	padding-left: 20px; padding-block: 10px;
 }
 .contenidoCuerpo {
-	background-image: linear-gradient(var(--fondoBlanco), var(--fondoBlanco)); backdrop-filter: blur(4px);
+	backdrop-filter: blur(4px);
+	/* background-color: var(--fondoBlanco); */
+	background-color: var(--amarilloMuyClaro);
+	padding-left: 10px;
+
 	&:has(#filtroIndice) #tituloMasContenido {--margenIzq: 210px; margin-left: var(--margenIzq); max-width: calc(100% - var(--margenIzq));}
 	&:not(:has(#filtroIndice)) #tituloMasContenido {max-width: 100%;}
 
