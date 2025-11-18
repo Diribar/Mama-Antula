@@ -1,9 +1,7 @@
 /* General */
 main {
 	/* Imagen del fondo */
-	background-image:
-		linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)),
-		url("/imgsEstables/Varios/logoOficial.jpg");
+	background-color: var(--fondoMain);
 	background-attachment: local; /* para que el fondo se mueva con el scroll */
 	background-size: auto 100%; /* ancho auto, alto 100% del contenedor */
 	background-repeat: no-repeat; background-position: center center;

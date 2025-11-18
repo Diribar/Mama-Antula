@@ -7,7 +7,7 @@
 	/* background-color: var(--fondoBlanco); */
 	/* background-color: var(--grisMuyClaro); */
 	/* background-color: var(--amarilloMuyClaro); */
-	background-color: var(--grisMuyClaro);
+	background-color: var(--grisMuyClaroFondo);
 	padding-left: 10px;
 
 	&:has(#filtroIndice) #tituloMasContenido {--margenIzq: 210px; margin-left: var(--margenIzq); max-width: calc(100% - var(--margenIzq));}
@@ -52,7 +52,7 @@
 						max-width: 100%; max-height: 60vh; cursor: pointer;
 						&:hover {scale: 1.05;}
 					}
-					iframe {height: 350px; width: auto; aspect-ratio: 16 / 9;}
+					iframe {height: 340px; width: auto; aspect-ratio: 16 / 9;}
 				}
 
 				.carrusel {
