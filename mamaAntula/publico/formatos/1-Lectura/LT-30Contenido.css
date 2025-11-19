@@ -57,7 +57,7 @@
 
 				.carrusel {
 					/* Variables */
-					anchor-name: var(--anchorName); --margenDebajo: 40px;
+					anchor-name: var(--anchorName); --margenDebajo: 50px;
 
 					/* General */
 					display: flex; flex-direction: row; gap: 20px; overflow-x: auto;
