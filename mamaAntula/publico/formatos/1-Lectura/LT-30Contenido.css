@@ -59,14 +59,13 @@
 					/* General */
 					display: flex; flex-direction: row; gap: 20px; overflow-x: auto;
 					max-width: min(90%, 600px); margin-inline: auto;
-					scroll-behavior: smooth; scroll-snap-type: x mandatory;
-					anchor-name: --carrusel;
+					scroll-behavior: smooth; scroll-snap-type: x mandatory; anchor-name: var(--anchorName);
 
 					&::-webkit-scrollbar {display: none;} /* oculta la barra de deslizamiento */
 
 					/* Botones izquierda y derecha */
 					&::scroll-button(*) {
-						position: fixed; position-anchor: --carrusel; border-radius: 50%;
+						position: fixed; position-anchor: var(--anchorName); border-radius: 50%;
 						height: 1.5rem; width: 1.5rem;
 					}
 					&::scroll-button(*):not(:disabled) {cursor: pointer;}
@@ -88,7 +87,8 @@
 						img {
 							width: 100%; max-width: 100%;
 							height: auto; max-height: 65vh;
-							object-fit: contain; cursor: pointer;
+							object-fit: contain;
+							cursor: pointer;
 						}
 					}
 				}
