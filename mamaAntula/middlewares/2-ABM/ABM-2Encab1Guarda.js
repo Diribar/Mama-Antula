@@ -33,7 +33,7 @@ export default async (req, res, next) => {
 		if (error) return res.json({error});
 	}
 	// Valida encabezado con índices
-	else if (tema_id && temasSecciones.find((n) => n.id == tema_id && n.indices.length)) {
+	else if (tema_id && temasSecciones.find((n) => n.id == tema_id && n.indicesFecha.length)) {
 		// Variables
 		const {titulo, lugar_id, fechaEvento} = req.body;
 

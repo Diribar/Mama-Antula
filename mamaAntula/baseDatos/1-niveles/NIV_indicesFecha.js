@@ -13,7 +13,7 @@ export default (sequelize, dt) => {
 		fechaHasta: {type: dt.DATE},
 	};
 	const config = {
-		tableName: "nivel_indices",
+		tableName: "nivel9_indices_fecha",
 		timestamps: false,
 	};
 	const entidad = sequelize.define(alias, columns, config);

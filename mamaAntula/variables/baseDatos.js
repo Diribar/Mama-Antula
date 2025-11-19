@@ -7,10 +7,11 @@ export default {
 			// Niveles
 			secciones: baseDatos.obtieneTodosConOrden("secciones", "orden"),
 			temasSecciones: baseDatos
-				.obtieneTodosPorCondicion("temasSecciones", {inactivo: false}, "indices")
+				.obtieneTodosPorCondicion("temasSecciones", {inactivo: false}, "indicesFecha")
 				.then((n) => n.sort((a, b) => a.orden - b.orden)),
 			pestanasTemas: baseDatos.obtieneTodosConOrden("pestanasTemas", "orden"),
 			indicesFecha: baseDatos.obtieneTodos("indicesFecha"),
+			indicesLugar: baseDatos.obtieneTodosConOrden("indicesLugar", "codigo"),
 
 			// Cartas
 			idiomas: baseDatos.obtieneTodosConOrden("idiomas", "orden"),
@@ -55,7 +56,9 @@ export default {
 
 			// Otros
 			indicesCartas: indicesFecha.filter((n) => n.tema_id == 10).sort((a, b) => (a.fechaDesde < b.fechaDesde ? -1 : 1)), // el tema_id es el de cartas
-			indicesRestoFechas: indicesFecha.filter((n) => n.tema_id != 10).sort((a, b) => (b.fechaDesde < a.fechaDesde ? -1 : 1)),
+			indicesRestoFechas: indicesFecha
+				.filter((n) => n.tema_id != 10)
+				.sort((a, b) => (b.fechaDesde < a.fechaDesde ? -1 : 1)),
 		};
 
 		// Fin
