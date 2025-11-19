@@ -20,7 +20,7 @@
 <% } %>
 
 <div id="tituloMasContenido">
-	<% const tituloDelContenido = locals.encabezado && (esCarta ? encabezado.tituloLectura : encabezado.titulo) %>
+	<% const tituloDelContenido = locals.encabezado && (conIndice ? encabezado.tituloElab : encabezado.titulo) %>
 	<% if (tituloDelContenido) { %>
 		<h2 id="tituloDelContenido" class="fondo"><%= tituloDelContenido %></h2>
 	<% } %>

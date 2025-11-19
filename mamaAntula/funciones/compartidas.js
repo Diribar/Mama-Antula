@@ -232,7 +232,7 @@ const diaMesAnoUTC = (fecha) => {
 const titulosElabs = {
 	cartas: (encabs) => {
 		for (const encab of encabs)
-			encab.tituloLectura = !encab.numero // para 'Introducción'
+			encab.tituloElab = !encab.numero // para 'Introducción'
 				? encab.titulo
 				: "Carta " +
 				  encab.numero +
@@ -251,12 +251,12 @@ const titulosElabs = {
 		return encabs;
 	},
 	lugares: (encabs) => {
-		for (const encab of encabs) encab.tituloLectura = encab.titulo + " - " + encab.lugarIndice.nombre;
+		for (const encab of encabs) encab.tituloElab = encab.titulo + " - " + encab.lugarIndice.nombre;
 		return encabs;
 	},
 	conIndice: (encabs) => {
 		for (const encab of encabs)
-			encab.tituloLectura = diaMesAnoUTC(encab.fechaEvento) + " - " + encab.titulo + " - " + encab.lugar.nombre;
+			encab.tituloElab = diaMesAnoUTC(encab.fechaEvento) + " - " + encab.titulo + " - " + encab.lugar.nombre;
 		return encabs;
 	},
 };
