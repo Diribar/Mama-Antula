@@ -81,6 +81,7 @@
 					.contenedorImg {
 						scroll-snap-align: start;
 						min-width: 100%;
+						display: flex; flex-direction: column; align-items: center; justify-content: center;
 						&::scroll-marker {content: ""; height: .5rem; width: .5rem; border-radius: 50%; border: 1px solid var(--grisOscuro);}
 						&::scroll-marker:target-current {background-color: var(--grisOscuro);}
 
