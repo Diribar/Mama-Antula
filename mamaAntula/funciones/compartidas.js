@@ -169,7 +169,7 @@ export default {
 			? titulosElabs.cartas(encabezados) // cartas
 			: esLugares
 			? titulosElabs.lugares(encabezados)
-			: titulosElabs.titulosConIndice(encabezados),
+			: titulosElabs.conIndice(encabezados),
 
 	// Funciones puntuales
 	obtieneUsuarioPorMail: (email) => {
