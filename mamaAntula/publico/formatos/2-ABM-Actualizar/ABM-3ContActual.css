@@ -18,7 +18,7 @@
 
 		/* Texto sin imagen */
 		:where(&.texto, .texto) {
-			blockquote {font-size: 1rem; margin-bottom: 20px; text-align: center; text-wrap: balance;}
+			blockquote {font-size: 1rem; text-align: center; text-wrap: balance;}
 			p {margin-bottom: 10px;}
 		}
 

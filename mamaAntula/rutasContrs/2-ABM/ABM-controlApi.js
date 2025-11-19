@@ -6,8 +6,9 @@ export default {
 		datosIniciales: (req, res) => {
 			// Variables
 			const datosIniciales = {
-				...{secciones, temasSecciones, pestanasTemas, indicesLugar},
-				...{personajes, idiomas, lugares, encabCartaIntro_id},
+				...{secciones, temasSecciones, pestanasTemas},
+				...{personajes, idiomas, lugares, indicesLugar},
+				...{encabCartaIntro_id, encabLugaresIntro_id},
 			};
 
 			// Fin
