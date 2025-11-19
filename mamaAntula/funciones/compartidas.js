@@ -164,7 +164,7 @@ export default {
 		descarga: (ruta, nombreArch, reqFile) => fs.promises.writeFile(path.join(ruta, nombreArch), reqFile.buffer), // descarga el archivo puesto en memoria por multer
 	},
 
-	titulosLectura: ({esCarta, esLugares, encabezados}) =>
+	titulosElabs: ({esCarta, esLugares, encabezados}) =>
 		esCarta
 			? titulosElabs.cartas(encabezados) // cartas
 			: esLugares
