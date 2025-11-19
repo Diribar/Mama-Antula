@@ -1,8 +1,8 @@
 <% if (conIndice && encabezado) { %>
 	<div id="filtroIndice">
-		<% if (esCarta) { %> <%- include("LT-IndiceCartas") %><% } %>
-		<% if (esLugares) { %> <%- include("LT-IndiceLugares") %><% } %>
-		<% if (!esCarta && !esLugares) { %><%- include("LT-IndiceResto") %><% } %>
+		<% if (esCarta) { %> <%- include("LT-Indice-1Cartas") %><% } %>
+		<% if (esLugares) { %> <%- include("LT-Indice-2Lugares") %><% } %>
+		<% if (!esCarta && !esLugares) { %><%- include("LT-Indice-3Resto") %><% } %>
 
 		<div id="flechas">
 			<% if (encabezado.ant_id) { %>
