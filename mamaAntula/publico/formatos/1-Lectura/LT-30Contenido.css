@@ -56,10 +56,13 @@
 				}
 
 				.carrusel {
+					/* Variables */
+					anchor-name: var(--anchorName); --margenDebajo: 40px;
+
 					/* General */
 					display: flex; flex-direction: row; gap: 20px; overflow-x: auto;
-					max-width: min(90%, 600px); margin-inline: auto;
-					scroll-behavior: smooth; scroll-snap-type: x mandatory; anchor-name: var(--anchorName);
+					max-width: min(90%, 600px); margin-inline: auto; margin-bottom: var(--margenDebajo);
+					scroll-behavior: smooth; scroll-snap-type: x mandatory;
 
 					&::-webkit-scrollbar {display: none;} /* oculta la barra de deslizamiento */
 
@@ -77,7 +80,7 @@
 					scroll-marker-group: after;
 					&::scroll-marker-group {
 						display: flex; justify-content: center; gap: 10px;
-						translate: 0 -20px;
+						translate: 0 calc(10px - var(--margenDebajo));
 					}
 
 					/* Imágenes */
