@@ -74,15 +74,19 @@
 
 					/* Botones de ubicación */
 					scroll-marker-group: after;
-					&::scroll-marker-group {display: flex; justify-content: center; gap: 10px;}
+					&::scroll-marker-group {
+						display: flex; justify-content: center; gap: 10px;
+						translate: 0 -20px;
+					}
 
 					/* Imágenes */
 					.contenedorImg {
 						scroll-snap-align: start;
 						min-width: 100%;
 						display: flex; flex-direction: column; align-items: center; justify-content: center;
-						&::scroll-marker {content: ""; height: .5rem; width: .5rem; border-radius: 50%; border: 1px solid var(--grisOscuro);}
-						&::scroll-marker:target-current {background-color: var(--grisOscuro);}
+						&::scroll-marker {content: ""; height: .5rem; width: .5rem; border-radius: 50%;}
+						&::scroll-marker:not(:target-current) {border: 1px solid var(--grisOscuro); background-color: snow;}
+						&::scroll-marker:target-current {border: 1px solid snow; background-color: var(--grisOscuro);}
 
 						img {
 							width: 100%; max-width: 100%;
