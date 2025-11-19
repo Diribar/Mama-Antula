@@ -134,8 +134,13 @@ window.addEventListener("load", async () => {
 		// Averigua si el tema es 'Cartas'
 		const temaActual = comp1234.temasSecciones.find((n) => n.id == tema_id);
 		comp1234.esCarta = temaActual.codigo == "cartas";
+		comp1234.esLugares = temaActual.codigo == "lugaresDevocion";
 		comp1234.conIndice = !!(temaActual.indicesFecha.length || temaActual.indicesLugar.length);
-		comp1234.tipoEncab = comp1234.esCarta ? "encabCartas" : comp1234.conIndice ? "encabConIndice" : "encabSinIndice";
+		comp1234.tipoEncab =
+			(comp1234.esCarta && "encabCartas") ||
+			(comp1234.esLugares && "encabLugares") ||
+			(comp1234.conIndice && "encabConIndice") ||
+			"encabSinIndice";
 
 		// PESTAÑA - Crea las opciones
 		comp1234.pestanasTema = comp1234.pestanasTemas.filter((n) => n.tema_id == tema_id);
