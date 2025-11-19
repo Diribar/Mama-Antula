@@ -1,12 +1,15 @@
 "use strict";
 
 export default {
-	encabezados: async ({esCarta, conIndice, condicion, encab_id}) => {
+	encabezados: async ({esCarta,esLugares, conIndice, condicion, encab_id}) => {
 		// Obtiene los encabezados
 		let encabezados = esCarta
 			? await baseDatos
 					.obtieneTodosPorCondicion("encabezados", condicion, includesEncabs.cartas)
 					.then((n) => n.sort((a, b) => (a.fechaEvento < b.fechaEvento ? -1 : 1)))
+			: esLugares
+			? await baseDatos
+					.obtieneTodosPorCondicion("encabezados", condicion, includesEncabs.lugares)
 			: conIndice
 			? await baseDatos
 					.obtieneTodosPorCondicion("encabezados", condicion, includesEncabs.conIndice)
