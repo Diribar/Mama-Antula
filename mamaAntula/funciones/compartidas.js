@@ -164,12 +164,28 @@ export default {
 		descarga: (ruta, nombreArch, reqFile) => fs.promises.writeFile(path.join(ruta, nombreArch), reqFile.buffer), // descarga el archivo puesto en memoria por multer
 	},
 
+	// Encabezados
 	titulosElabs: ({esCarta, esLugares, encabezados}) =>
 		esCarta
 			? titulosElabs.cartas(encabezados) // cartas
 			: esLugares
 			? titulosElabs.lugares(encabezados)
 			: titulosElabs.conIndice(encabezados),
+	obtieneEncabezados: ({esCarta, esLugares, conIndice, condicion}) => {
+		return esCarta
+			? baseDatos
+					.obtieneTodosPorCondicion("encabezados", condicion, includesEncabs.cartas)
+					.then((n) => n.sort((a, b) => (a.fechaEvento < b.fechaEvento ? -1 : 1)))
+			: esLugares
+			? baseDatos
+					.obtieneTodosPorCondicion("encabezados", condicion, includesEncabs.lugares)
+					.then((n) => n.sort((a, b) => (a.lugarIndice.codigo < b.lugarIndice.codigo ? -1 : 1)))
+			: conIndice
+			? baseDatos
+					.obtieneTodosPorCondicion("encabezados", condicion, includesEncabs.conIndice)
+					.then((n) => n.sort((a, b) => (b.fechaEvento < a.fechaEvento ? -1 : 1)))
+			: baseDatos.obtieneTodosPorCondicion("encabezados", condicion);
+	},
 
 	// Funciones puntuales
 	obtieneUsuarioPorMail: (email) => {
