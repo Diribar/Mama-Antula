@@ -6,7 +6,7 @@
 		#icono {margin-block: 0;}
 		#listadoTemas {
 			display: flex; flex-direction: column;
-			background-color: var(--amarilloInterm);
+			background-color: var(--amarilloClaro);
 			border: 1px solid var(--grisOscuro); border-radius: 5px;
 			position: absolute; bottom: 10px; translate: 0% 100%;
 			width: max-content;
