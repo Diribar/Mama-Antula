@@ -43,7 +43,7 @@ export default (req, res, next) => {
 		res.cookie(temaActual.codigo, pestanaActual.codigo, {maxAge: unDia, path: "/"});
 	} else if (urlPestana) return res.render("CMP-0Estructura", {informacion});
 
-	// Guarda cookies para interactuar con actualización
+	// ACTUALIZA - Guarda cookies para interactuar con actualización
 	if (usuario) {
 		res.cookie("actualizaSeccion_id", seccionActual.id, {maxAge: unDia, path: "/"});
 		res.cookie("actualizaTema_id", temaActual.id, {maxAge: unDia, path: "/"});

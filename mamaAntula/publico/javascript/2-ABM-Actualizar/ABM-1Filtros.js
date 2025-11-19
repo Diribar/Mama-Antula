@@ -73,8 +73,8 @@ window.addEventListener("load", async () => {
 
 			// ENCABEZADO - Si es start-up, elige la opción de la cookie
 			const valoresPosiblesOpciones = Array.from(DOM.encabezado.querySelectorAll("option")).map((n) => n.value);
-			const encab_id = cookie("actualizaEncabezado_id");
-			if (comp1234.startUp && encab_id && valoresPosiblesOpciones.includes(encab_id)) DOM.encabezado.value = encab_id;
+			v.encab_id = cookie("actualizaEncabezado_id");
+			if (comp1234.startUp && v.encab_id && valoresPosiblesOpciones.includes(v.encab_id)) DOM.encabezado.value = v.encab_id;
 
 			// ENCABEZADO - Dispara el evento
 			DOM.encabezado.dispatchEvent(new Event("change"));
@@ -88,7 +88,7 @@ window.addEventListener("load", async () => {
 			const urlTema = "/" + comp1234.temasSecciones.find((n) => n.id == comp1234.tema_id).url;
 			const urlPestana =
 				(comp1234.pestana_id && "/" + comp1234.pestanasTemas.find((n) => n.id == comp1234.pestana_id).url) || "";
-			const urlEncabezado = (v.encab_id && "/" + v.encab_id) || "";
+			const urlEncabezado = comp1234.conIndice ? "/?id=" + v.encab_id : "";
 
 			// Actualiza el DOM
 			DOM.anchorLectura.href = urlSeccion + urlTema + urlPestana + urlEncabezado;
@@ -184,6 +184,7 @@ window.addEventListener("load", async () => {
 		else delete comp1234.startUp;
 
 		// Actualiza el anchor de flitros
+		v.encab_id = DOM.encabezado.value;
 		FN.actualizaHref();
 
 		// Fin
