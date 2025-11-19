@@ -1,5 +1,5 @@
 export default (sequelize, dt) => {
-	const alias = "indicesTemas";
+	const alias = "indicesFecha";
 	const columns = {
 		// Referencias
 		tema_id: {type: dt.INTEGER},

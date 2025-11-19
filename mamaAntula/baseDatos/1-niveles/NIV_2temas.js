@@ -25,7 +25,7 @@ export default (sequelize, dt) => {
 		entidad.belongsTo(n.usuarios, {as: "capturadoPor", foreignKey: "capturadoPor_id"});
 
 		entidad.hasMany(n.pestanasTemas, {as: "pestanas", foreignKey: "tema_id"});
-		entidad.hasMany(n.indicesTemas, {as: "indices", foreignKey: "tema_id"});
+		entidad.hasMany(n.indicesFecha, {as: "indices", foreignKey: "tema_id"});
 	};
 	return entidad;
 };

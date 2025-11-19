@@ -91,7 +91,7 @@ const preparaLaRespuesta = (mensajes) => {
 };
 const validaLugarFecha = (lugar_id, fechaEvento, tema_id) => {
 	// Variables
-	const indicesTema = tema_id && indicesTemas.filter((n) => n.tema_id == tema_id).map();
+	const indicesTema = tema_id && indicesFecha.filter((n) => n.tema_id == tema_id).map();
 	let fechaMin, fechaMax;
 
 	// Busca el rango de fechas
