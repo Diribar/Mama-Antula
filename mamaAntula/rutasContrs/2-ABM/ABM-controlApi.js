@@ -22,7 +22,8 @@ export default {
 			// Averigua si es carta o con índice
 			const temaActual = tema_id && temasSecciones.find((n) => n.id == tema_id);
 			const esCarta = temaActual && temaActual.codigo == "cartas";
-			const conIndice = temaActual && temaActual.indicesFecha.length && !esCarta;
+			const esLugares = temaActual && temaActual.codigo == "lugaresDevocion";
+			const conIndice = (temaActual && temaActual.indicesFecha.length) || esLugares;
 
 			// Obtiene los encabezados
 			const condicion = {[pestana_id ? "pestana_id" : "tema_id"]: pestana_id || tema_id};
