@@ -232,26 +232,31 @@ const diaMesAnoUTC = (fecha) => {
 const titulosElabs = {
 	cartas: (encabs) => {
 		for (const encab of encabs)
-			encab.tituloElab = !encab.numero // para 'Introducción'
-				? encab.titulo
-				: "Carta " +
-				  encab.numero +
-				  " - De" +
-				  (encab.nombreDesde.nombre.startsWith("P.") ? "l " : " ") +
-				  encab.nombreDesde.nombre +
-				  " para " +
-				  (encab.nombreHacia.nombre.startsWith("P.") ? "el " : "") +
-				  encab.nombreHacia.nombre +
-				  " - " +
-				  encab.lugar.nombre +
-				  " - " +
-				  diaMesAnoUTC(encab.fechaEvento);
+			encab.tituloElab =
+				encab.id == encabCartaIntro_id // para 'Introducción'
+					? encab.titulo
+					: "Carta " +
+					  encab.numero +
+					  " - De" +
+					  (encab.nombreDesde.nombre.startsWith("P.") ? "l " : " ") +
+					  encab.nombreDesde.nombre +
+					  " para " +
+					  (encab.nombreHacia.nombre.startsWith("P.") ? "el " : "") +
+					  encab.nombreHacia.nombre +
+					  " - " +
+					  encab.lugar.nombre +
+					  " - " +
+					  diaMesAnoUTC(encab.fechaEvento);
 
 		// Fin
 		return encabs;
 	},
 	lugares: (encabs) => {
-		for (const encab of encabs) encab.tituloElab = encab.titulo + " - " + encab.lugarIndice.nombre;
+		for (const encab of encabs)
+			encab.tituloElab =
+				encab.id == encabLugaresIntro_id // para 'Introducción'
+					? encab.lugarIndice.nombre
+					: encab.titulo + " - " + encab.lugarIndice.nombre;
 		return encabs;
 	},
 	conIndice: (encabs) => {
