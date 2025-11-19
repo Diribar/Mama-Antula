@@ -198,7 +198,7 @@ window.addEventListener("load", async () => {
 let comp1234; // compartirActualizarContenidos
 const agregaOpciones = (opciones, domSelect, campoNombre) => {
 	// Averigua si tiene una opción sin valor, para conservarla
-	const opcSinValor = domSelect.querySelector(`option[value='']`);
+	const opcSinValor = domSelect.querySelector("option[value='']");
 
 	// Limpia las opciones del select
 	domSelect.innerHTML = "";

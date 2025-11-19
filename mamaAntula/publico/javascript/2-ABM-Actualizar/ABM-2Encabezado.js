@@ -46,7 +46,8 @@ window.addEventListener("load", async () => {
 		actualizaLaVisibilidadDelSector: () => {
 			if (
 				(!comp1234.conIndice && !DOM.filtroPestana.value) || // Si es 'sin índice' y viene de un tema, lo oculta porque sus campos no poseen ningún valor
-				DOM.filtroEncab.value == comp1234.encabCartaIntro_id // Si es la nota de introducción al tema cartas, oculta el encabezado
+				DOM.filtroEncab.value == comp1234.encabCartaIntro_id || // Si es la nota de introducción al tema cartas, oculta el encabezado
+				DOM.filtroEncab.value == comp1234.encabLugaresIntro_id // Si es la nota de introducción al tema cartas, oculta el encabezado
 			)
 				DOM.sectorEncabezado.classList.add("ocultar");
 			else DOM.sectorEncabezado.classList.remove("ocultar");
@@ -126,6 +127,7 @@ window.addEventListener("load", async () => {
 
 		// Si hubo un error, muestra el mensaje e interrumpe la función
 		if (respuesta.error) return carteles.error(respuesta.error);
+		else carteles.exito("Los cambios fueron guardados");
 
 		// Guarda el nuevo_id en la cookie y establece que se actualicen los filtros por las cookies
 		if (respuesta.id) {
