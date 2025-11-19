@@ -20,7 +20,7 @@ export default {
 		const indices = {
 			esCarta: temaActual.codigo == "cartas",
 			esLugares: temaActual.codigo == "lugaresDevocion",
-			conIndice: !!(temaActual.indicesFecha.length || temaActual.indicesLugares.length),
+			conIndice: !!(temaActual.indicesFecha.length || temaActual.indicesLugar.length),
 		};
 
 		// Condición - si el usuario no tiene el permiso de edición, no se le permite ver los contenidos que tengan status 'creado'

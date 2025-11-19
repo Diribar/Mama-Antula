@@ -43,8 +43,9 @@ export default {
 	mesesAbrev: ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"],
 	includesEncabs: {
 		cartas: ["nombreDesde", "nombreHacia", "idioma", "lugar"],
+		lugares: "lugarIndice",
 		conIndice: "lugar",
 	},
 	temaCarta_id: 10, // el id del tema "Cartas"
-	encabCartaIntro_id: 33,// el id del encabezado sobre Introducción a las cartas
+	encabCartaIntro_id: 33, // el id del encabezado sobre Introducción a las cartas
 };

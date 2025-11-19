@@ -10,6 +10,7 @@ export default {
 			: esLugares
 			? await baseDatos
 					.obtieneTodosPorCondicion("encabezados", condicion, includesEncabs.lugares)
+					.then((n) => n.sort((a, b) => (a.lugarIndice.codigo < b.lugarIndice.codigo ? -1 : 1)))
 			: conIndice
 			? await baseDatos
 					.obtieneTodosPorCondicion("encabezados", condicion, includesEncabs.conIndice)
@@ -18,13 +19,13 @@ export default {
 		if (!encabezados.length) return {};
 
 		// Les agrega los títulos
-		if (esCarta || conIndice) encabezados = comp.titulosLectura({esCarta, conIndice, encabezados});
+		if (conIndice) encabezados = comp.titulosElabs({esCarta, esLugares, encabezados});
 
 		// Obtiene el encabezado actual
 		const encabezado = encabezados.find((n) => n.id == encab_id) || encabezados[0];
 
 		// Si es una tema con índice, obtiene los encabezados anterior y posterior
-		if (esCarta || conIndice) {
+		if (conIndice) {
 			const indice = encabezados.indexOf(encabezado);
 			encabezado.ant_id = encabezados[indice - 1]?.id || null;
 			encabezado.sig_id = encabezados[indice + 1]?.id || null;

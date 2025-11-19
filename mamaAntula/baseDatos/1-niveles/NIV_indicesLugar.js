@@ -6,7 +6,7 @@ export default (sequelize, dt) => {
 
 		// Nombre y código
 		nombre: {type: dt.STRING(15)},
-		codigo: {type: dt.STRING(15)},
+		codigo: {type: dt.STRING(25)},
 	};
 	const config = {
 		tableName: "nivel9_indices_lugar",
