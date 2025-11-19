@@ -20,10 +20,8 @@
 --
 
 /*!40000 DROP DATABASE IF EXISTS `ma_bd`*/;
-
 DROP DATABASE IF EXISTS `ma_bd`;
 CREATE DATABASE /*!32312 IF NOT EXISTS*/ `ma_bd` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
-
 USE `ma_bd`;
 
 --
@@ -54,8 +52,8 @@ INSERT INTO `aux_iconos_agrups` VALUES (2,2,'Instagram',NULL,'fa-instagram','htt
 INSERT INTO `aux_iconos_agrups` VALUES (3,3,'Twitter',NULL,'fa-twitter','https://twitter.com/beatificaciona1');
 INSERT INTO `aux_iconos_agrups` VALUES (4,4,'TikTok',NULL,'fa-tiktok','https://www.tiktok.com/@mamaantula.com');
 INSERT INTO `aux_iconos_agrups` VALUES (5,1,'Lectura','lectura','fa-link',NULL);
-INSERT INTO `aux_iconos_agrups` VALUES (6,2,'Actualizar contenido','actualizar','fa-square-plus','/contenido/actualizar');
-INSERT INTO `aux_iconos_agrups` VALUES (7,3,'Revisar actualizaciones','revisar','fa-book','/contenido/revisar');
+INSERT INTO `aux_iconos_agrups` VALUES (6,2,'Actualizar articulos','actualizar','fa-square-plus','/articulos/actualizar');
+INSERT INTO `aux_iconos_agrups` VALUES (7,3,'Revisar articulos','revisar','fa-book','/articulos/revisar');
 INSERT INTO `aux_iconos_agrups` VALUES (8,4,'Cambio de roles','cambioRoles','fa-user','/usuarios/cambio-de-roles');
 /*!40000 ALTER TABLE `aux_iconos_agrups` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -68,10 +66,9 @@ UNLOCK TABLES;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `aux_lugares` (
   `id` tinyint(1) unsigned NOT NULL AUTO_INCREMENT,
-  `orden` tinyint(1) unsigned NOT NULL,
   `nombre` varchar(30) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -80,13 +77,14 @@ CREATE TABLE `aux_lugares` (
 
 LOCK TABLES `aux_lugares` WRITE;
 /*!40000 ALTER TABLE `aux_lugares` DISABLE KEYS */;
-INSERT INTO `aux_lugares` VALUES (1,1,'Córdoba');
-INSERT INTO `aux_lugares` VALUES (2,2,'Buenos Aires');
-INSERT INTO `aux_lugares` VALUES (3,3,'Basílica La Piedad, Bs. As.');
-INSERT INTO `aux_lugares` VALUES (4,4,'Basílica del Socorro, Bs. As.');
-INSERT INTO `aux_lugares` VALUES (5,5,'Santa Casa, Bs. As.');
-INSERT INTO `aux_lugares` VALUES (6,99,'Varios');
-INSERT INTO `aux_lugares` VALUES (7,6,'Vaticano');
+INSERT INTO `aux_lugares` VALUES (1,'Córdoba');
+INSERT INTO `aux_lugares` VALUES (2,'CABA');
+INSERT INTO `aux_lugares` VALUES (3,'CABA, Basílica La Piedad');
+INSERT INTO `aux_lugares` VALUES (4,'CABA, Basílica del Socorro');
+INSERT INTO `aux_lugares` VALUES (5,'CABA, Santa Casa');
+INSERT INTO `aux_lugares` VALUES (6,'Silípica, Stgo. del Estero');
+INSERT INTO `aux_lugares` VALUES (7,'Ciudad del Vaticano, Europa');
+INSERT INTO `aux_lugares` VALUES (8,'Santiago del Estero');
 /*!40000 ALTER TABLE `aux_lugares` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -102,7 +100,7 @@ CREATE TABLE `aux_novs_del_sitio` (
   `fecha` date NOT NULL DEFAULT utc_date(),
   `version` varchar(4) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -112,6 +110,7 @@ CREATE TABLE `aux_novs_del_sitio` (
 LOCK TABLES `aux_novs_del_sitio` WRITE;
 /*!40000 ALTER TABLE `aux_novs_del_sitio` DISABLE KEYS */;
 INSERT INTO `aux_novs_del_sitio` VALUES (1,'Subida a internet del primer borrador','2025-10-21','1.00');
+INSERT INTO `aux_novs_del_sitio` VALUES (2,'Subida a internet del segundo borrador','2025-11-18','1.01');
 /*!40000 ALTER TABLE `aux_novs_del_sitio` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -490,7 +489,7 @@ CREATE TABLE `cont_2contenidos` (
   PRIMARY KEY (`id`),
   KEY `encabezadoexperiencia` (`encab_id`),
   CONSTRAINT `encabezadoexperiencia` FOREIGN KEY (`encab_id`) REFERENCES `encab_1original` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -560,6 +559,10 @@ INSERT INTO `cont_2contenidos` VALUES (58,10,NULL,'El estandarte de la mujer fue
 INSERT INTO `cont_2contenidos` VALUES (59,5,3,'De la Santa Casa de Ejercicios Espirituales, Independencia 1190, CABA\r\n\r\n','1762872150449.jpg','1762872160637.jpg',NULL,1,'2025-11-11 14:42:30',1);
 INSERT INTO `cont_2contenidos` VALUES (60,5,4,'Oración a María Antonia de San José','1762872209467.jpg','1762872218165.jpg',NULL,1,'2025-11-11 14:43:29',1);
 INSERT INTO `cont_2contenidos` VALUES (61,28,2,'<p>Glorioso San José,<br>a vos Dios te encomendó<br>el cuidado de su Hijo unigénito<br>en medio de los muchos<br>peligros de este mundo.</p><p>Acudimos a vos<br>y te pedimos que<br>tomes bajo tu protección especial<br>a los niños que Dios nos ha dado.</p><p>A través del santo bautismo<br>se convirtieron en hijos de Dios<br>y en miembros de su Santa Iglesia.</p><p>Los consagramos hoy a vos,<br>para que a través de esta consagración<br>puedan convertirse en tus hijos de crianza.</p><p>Guardálos,<br>guiá sus pasos en la vida,<br>formá sus corazones<br>según los corazones<br>de Jesús y María.</p><p>San José,<br>que sentiste la tribulación<br>y la preocupación de un padre<br>cuando el niño Jesús se perdió,<br>protegé a nuestros queridos hijos<br>por el tiempo y la eternidad.</p><p>Que seas su padre y consejero.<br>Que ellos, como Jesús,<br>crezcan tanto en edad<br>como en sabiduría<br>y gracia ante Dios<br>y los hombres.</p><p>Preserválos de la corrupción del mundo<br>y danos la gracia<br>de estar unidos con ellos<br>en el cielo para siempre.</p>','1762832284430.jpg',NULL,NULL,1,'2025-11-11 15:43:36',1);
+INSERT INTO `cont_2contenidos` VALUES (64,22,10,NULL,'1763516489622.jpg',NULL,'Virgen viajera de Loreto, o Pura y Limpia Concepción del Buen Viaje, tallada por los Padres Jesuitas',1,'2025-11-19 01:41:29',1);
+INSERT INTO `cont_2contenidos` VALUES (65,22,4,'<blockquote>Te presentamos la imagen de Mama Antula de este antiguo templo dedicado a la Virgen del Buen Viaje, frente a la cual La Beata rezó de paso en su camino de Santiago a Buenos Aires.</blockquote>',NULL,NULL,NULL,1,'2025-11-19 01:30:49',1);
+INSERT INTO `cont_2contenidos` VALUES (66,22,7,'<p>En su peregrinar a pie desde Santiago del Estero hasta Buenos Aires Mama Antula pasó por la posta Morón: bajando por el camino Real los que venían del norte hacia Buenos Aires paraban en la posta de Luján y en la posta de Morón, últimas paradas obligadas en aquellos tiempos coloniales de largos y polvorientos viajes en mula y carretas. Viaje que Mama Antula realizó caminando descalza.</p><p>Manuel Belgrano se detuvo también en este sitio histórico, en 1812, rumbo al encuentro con el Ejército del Norte. Y el papa Juan Pablo II también rezó por aquí en una de sus visitas a la Argentina.</p><p>Desde la época de la colonia hasta el día de hoy (gran parada de las actuales peregrinaciones a Luján que salen del Santuario de San Cayetano de Liniers) miles de caminantes se detienen un momento en la Catedral de Morón a pedirle a la Virgen un «Buen Viaje». Poco antes de arribar a Buenos Aires Mama Antula seguramente se postró a rezar ante Ella encomendándole su singular empresa.</p><p>Rumbo a Buenos Aires, luego de parar en la posta de Luján, Mama Antula paró en la capillita de la posta Morón, donde desde 1776 los Padres de la Compañía de Jesús habían instalado una imagen de la Virgen Viajera de Loreto o Virgen de la Pura y Limpia Concepción del Buen Viaje, tallada por ellos mismos. Tiempo más tarde la imagen de esta virgencita fue trasladada de esa capillita originaria a la actual Catedral de Morón (1885), ubicada a pocas cuadras de la capilla.</p>','1763516134577.jpg',NULL,NULL,1,'2025-11-19 01:35:34',1);
+INSERT INTO `cont_2contenidos` VALUES (67,22,6,NULL,NULL,NULL,'Mama Antula abrazada al libro de los Ejercicios Espirituales de San Ignacio, con su estandarte, rostro enjuto y mirada aguda, en un retablo a la izquierda del altar mayor de la Catedral de Morón (en la pared este). En esta representación lleva también un morral, y está descalza, caminando',1,'2025-11-19 01:33:15',1);
 /*!40000 ALTER TABLE `cont_2contenidos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -594,6 +597,9 @@ INSERT INTO `cont_3carrusel` VALUES (3,13,3,'1762630631370.jpg',1,'2025-11-08 19
 INSERT INTO `cont_3carrusel` VALUES (4,13,4,'1762630631371.jpg',1,'2025-11-08 19:37:11',1);
 INSERT INTO `cont_3carrusel` VALUES (5,13,5,'1762630631372.jpg',1,'2025-11-08 19:37:11',1);
 INSERT INTO `cont_3carrusel` VALUES (6,13,6,'1762630631373.jpg',1,'2025-11-08 19:37:11',1);
+INSERT INTO `cont_3carrusel` VALUES (9,67,1,'1763515995301.jpg',1,'2025-11-19 01:33:15',1);
+INSERT INTO `cont_3carrusel` VALUES (10,67,2,'1763515995302.jpg',1,'2025-11-19 01:33:15',1);
+INSERT INTO `cont_3carrusel` VALUES (11,67,3,'1763515995303.jpg',1,'2025-11-19 01:33:15',1);
 /*!40000 ALTER TABLE `cont_3carrusel` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -646,6 +652,7 @@ CREATE TABLE `encab_1original` (
   `idioma_id` tinyint(1) unsigned DEFAULT NULL,
   `lugar_id` tinyint(1) unsigned DEFAULT NULL,
   `fechaEvento` date DEFAULT NULL,
+  `codigoLugar` varchar(25) DEFAULT NULL,
   `creadoPor_id` int(10) unsigned NOT NULL,
   `creadoEn` datetime NOT NULL DEFAULT utc_timestamp(),
   `statusRegistro_id` tinyint(1) unsigned NOT NULL DEFAULT 1,
@@ -653,10 +660,12 @@ CREATE TABLE `encab_1original` (
   KEY `cartasEncabezado_lugar` (`lugar_id`) USING BTREE,
   KEY `cartasEncabezado_statusRegistro` (`statusRegistro_id`) USING BTREE,
   KEY `cartasEncabezado_usuario` (`creadoPor_id`) USING BTREE,
+  KEY `encab_codigoLugar` (`codigoLugar`),
   CONSTRAINT `cartasEncabezado_lugar_copy` FOREIGN KEY (`lugar_id`) REFERENCES `aux_lugares` (`id`),
   CONSTRAINT `cartasEncabezado_statusRegistro_copy` FOREIGN KEY (`statusRegistro_id`) REFERENCES `aux_status_registros` (`id`),
-  CONSTRAINT `cartasEncabezado_usuario_copy` FOREIGN KEY (`creadoPor_id`) REFERENCES `us_usuarios` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4;
+  CONSTRAINT `cartasEncabezado_usuario_copy` FOREIGN KEY (`creadoPor_id`) REFERENCES `us_usuarios` (`id`),
+  CONSTRAINT `encab_codigoLugar` FOREIGN KEY (`codigoLugar`) REFERENCES `nivel9_indices_lugar` (`codigo`)
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -665,39 +674,40 @@ CREATE TABLE `encab_1original` (
 
 LOCK TABLES `encab_1original` WRITE;
 /*!40000 ALTER TABLE `encab_1original` DISABLE KEYS */;
-INSERT INTO `encab_1original` VALUES (1,5,NULL,NULL,'Santa Mama Antula: primera fiesta litúrgica','Primera celebración del 7 de marzo en Buenos Aires después de la canonización de la primera santa argentina.',NULL,NULL,NULL,3,'2024-03-07',1,'2025-10-28 22:42:00',1);
-INSERT INTO `encab_1original` VALUES (2,5,NULL,NULL,'Conferencia de Aldo Marcos de Castro Paz','',NULL,NULL,NULL,4,'2024-03-08',1,'2025-10-28 22:50:33',1);
-INSERT INTO `encab_1original` VALUES (3,5,NULL,NULL,'Actividades en el Subte','Nuevo nombre para la estación Independencia',NULL,NULL,NULL,2,'2024-03-07',1,'2025-11-03 16:20:34',1);
-INSERT INTO `encab_1original` VALUES (4,7,NULL,NULL,NULL,'',NULL,NULL,NULL,NULL,NULL,1,'2025-11-06 11:26:01',1);
-INSERT INTO `encab_1original` VALUES (5,NULL,6,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-11 02:28:29',1);
-INSERT INTO `encab_1original` VALUES (6,5,NULL,NULL,'Primera fiesta litúrgica como santa','',NULL,NULL,NULL,3,'2024-03-07',1,'2025-11-03 17:21:55',1);
-INSERT INTO `encab_1original` VALUES (7,6,NULL,NULL,'Misa en acción de gracias por la canonización de Mama Antula','',NULL,NULL,NULL,3,'2024-02-11',1,'2025-11-06 23:17:08',1);
-INSERT INTO `encab_1original` VALUES (8,2,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-10-17 16:55:50',1);
-INSERT INTO `encab_1original` VALUES (9,3,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-10-30 15:51:05',1);
-INSERT INTO `encab_1original` VALUES (10,13,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-10-31 19:10:17',1);
-INSERT INTO `encab_1original` VALUES (11,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-05 14:12:04',1);
-INSERT INTO `encab_1original` VALUES (12,NULL,5,NULL,'Oración a Mama Antula',NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-06 23:24:47',1);
-INSERT INTO `encab_1original` VALUES (13,9,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-06 11:14:15',1);
-INSERT INTO `encab_1original` VALUES (14,11,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-06 23:23:34',1);
-INSERT INTO `encab_1original` VALUES (15,12,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-06 23:23:39',1);
-INSERT INTO `encab_1original` VALUES (16,14,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-06 23:23:48',1);
-INSERT INTO `encab_1original` VALUES (17,NULL,8,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-11 10:12:03',1);
-INSERT INTO `encab_1original` VALUES (18,NULL,3,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-11 18:58:18',1);
-INSERT INTO `encab_1original` VALUES (19,20,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-06 23:25:30',1);
-INSERT INTO `encab_1original` VALUES (20,21,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-06 23:25:44',1);
-INSERT INTO `encab_1original` VALUES (21,NULL,2,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-12 19:44:37',1);
-INSERT INTO `encab_1original` VALUES (22,NULL,11,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-06 23:26:07',1);
-INSERT INTO `encab_1original` VALUES (23,6,NULL,NULL,'Proyección de la ceremonia de canonización en pantalla gigante','',NULL,NULL,NULL,2,'2024-02-11',1,'2025-11-08 21:03:45',1);
-INSERT INTO `encab_1original` VALUES (24,6,NULL,NULL,'Misa en el Vaticano','',NULL,NULL,NULL,7,'2024-02-11',1,'2025-11-08 21:26:37',1);
-INSERT INTO `encab_1original` VALUES (25,17,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-11 02:46:42',1);
-INSERT INTO `encab_1original` VALUES (26,18,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-11 03:08:54',1);
-INSERT INTO `encab_1original` VALUES (27,NULL,9,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-11 03:13:33',1);
-INSERT INTO `encab_1original` VALUES (28,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-11 03:36:21',1);
-INSERT INTO `encab_1original` VALUES (29,NULL,7,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-11 03:13:33',1);
-INSERT INTO `encab_1original` VALUES (30,10,NULL,1,NULL,NULL,1,2,2,1,'1778-01-06',1,'2025-10-17 16:56:11',1);
-INSERT INTO `encab_1original` VALUES (31,10,NULL,2,NULL,NULL,1,2,1,2,'1780-08-07',1,'2025-10-17 16:56:11',1);
-INSERT INTO `encab_1original` VALUES (32,10,NULL,3,NULL,NULL,1,2,1,2,'1780-10-09',1,'2025-11-10 18:04:13',1);
-INSERT INTO `encab_1original` VALUES (33,10,NULL,0,'Introducción',NULL,NULL,NULL,NULL,NULL,'1730-01-02',1,'2025-11-10 16:02:13',1);
+INSERT INTO `encab_1original` VALUES (1,5,NULL,NULL,'Santa Mama Antula: primera fiesta litúrgica','Primera celebración del 7 de marzo en Buenos Aires después de la canonización de la primera santa argentina.',NULL,NULL,NULL,3,'2024-03-07',NULL,1,'2025-10-28 22:42:00',1);
+INSERT INTO `encab_1original` VALUES (2,5,NULL,NULL,'Conferencia de Aldo Marcos de Castro Paz','',NULL,NULL,NULL,4,'2024-03-08',NULL,1,'2025-10-28 22:50:33',1);
+INSERT INTO `encab_1original` VALUES (3,5,NULL,NULL,'Actividades en el Subte','Nuevo nombre para la estación Independencia',NULL,NULL,NULL,2,'2024-03-07',NULL,1,'2025-11-03 16:20:34',1);
+INSERT INTO `encab_1original` VALUES (4,7,NULL,NULL,NULL,'',NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-06 11:26:01',1);
+INSERT INTO `encab_1original` VALUES (5,NULL,6,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-11 02:28:29',1);
+INSERT INTO `encab_1original` VALUES (6,5,NULL,NULL,'Primera fiesta litúrgica como santa','',NULL,NULL,NULL,3,'2024-03-07',NULL,1,'2025-11-03 17:21:55',1);
+INSERT INTO `encab_1original` VALUES (7,6,NULL,NULL,'Misa en acción de gracias por la canonización de Mama Antula','',NULL,NULL,NULL,3,'2024-02-11',NULL,1,'2025-11-06 23:17:08',1);
+INSERT INTO `encab_1original` VALUES (8,2,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-10-17 16:55:50',1);
+INSERT INTO `encab_1original` VALUES (9,3,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-10-30 15:51:05',1);
+INSERT INTO `encab_1original` VALUES (10,13,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-10-31 19:10:17',1);
+INSERT INTO `encab_1original` VALUES (11,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-05 14:12:04',1);
+INSERT INTO `encab_1original` VALUES (12,NULL,5,NULL,'Oración a Mama Antula',NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-06 23:24:47',1);
+INSERT INTO `encab_1original` VALUES (13,9,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-06 11:14:15',1);
+INSERT INTO `encab_1original` VALUES (14,11,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-06 23:23:34',1);
+INSERT INTO `encab_1original` VALUES (15,12,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-06 23:23:39',1);
+INSERT INTO `encab_1original` VALUES (16,14,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-06 23:23:48',1);
+INSERT INTO `encab_1original` VALUES (17,NULL,8,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-11 10:12:03',1);
+INSERT INTO `encab_1original` VALUES (18,NULL,3,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-11 18:58:18',1);
+INSERT INTO `encab_1original` VALUES (19,20,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-06 23:25:30',1);
+INSERT INTO `encab_1original` VALUES (20,21,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-06 23:25:44',1);
+INSERT INTO `encab_1original` VALUES (21,NULL,2,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-12 19:44:37',1);
+INSERT INTO `encab_1original` VALUES (22,17,NULL,NULL,'Catedral de Morón','El luga',NULL,NULL,NULL,NULL,NULL,'2caba',1,'2025-11-06 23:26:07',1);
+INSERT INTO `encab_1original` VALUES (23,6,NULL,NULL,'Proyección de la ceremonia de canonización en pantalla gigante','',NULL,NULL,NULL,2,'2024-02-11',NULL,1,'2025-11-08 21:03:45',1);
+INSERT INTO `encab_1original` VALUES (24,6,NULL,NULL,'Misa en el Vaticano','',NULL,NULL,NULL,7,'2024-02-11',NULL,1,'2025-11-08 21:26:37',1);
+INSERT INTO `encab_1original` VALUES (25,17,NULL,NULL,'Introducción',NULL,NULL,NULL,NULL,NULL,NULL,'1introduccion',1,'2025-11-11 02:46:42',1);
+INSERT INTO `encab_1original` VALUES (26,18,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-11 03:08:54',1);
+INSERT INTO `encab_1original` VALUES (27,NULL,9,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-11 03:13:33',1);
+INSERT INTO `encab_1original` VALUES (28,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-11 03:36:21',1);
+INSERT INTO `encab_1original` VALUES (29,NULL,7,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-11 03:13:33',1);
+INSERT INTO `encab_1original` VALUES (30,10,NULL,1,NULL,NULL,1,2,2,1,'1778-01-06',NULL,1,'2025-10-17 16:56:11',1);
+INSERT INTO `encab_1original` VALUES (31,10,NULL,2,NULL,NULL,1,2,1,2,'1780-08-07',NULL,1,'2025-10-17 16:56:11',1);
+INSERT INTO `encab_1original` VALUES (32,10,NULL,3,NULL,NULL,1,2,1,2,'1780-10-09',NULL,1,'2025-11-10 18:04:13',1);
+INSERT INTO `encab_1original` VALUES (33,10,NULL,0,'Introducción',NULL,NULL,NULL,NULL,NULL,'1730-01-01',NULL,1,'2025-11-10 16:02:13',1);
+INSERT INTO `encab_1original` VALUES (34,4,NULL,NULL,'Beatificación de Mama Antula','',NULL,NULL,NULL,6,'2016-04-27',NULL,1,'2025-11-18 23:39:54',1);
 /*!40000 ALTER TABLE `encab_1original` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -798,7 +808,7 @@ CREATE TABLE `nivel2_temas` (
   KEY `temas_capturadoPor` (`capturadoPor_id`),
   CONSTRAINT `nivel2_1` FOREIGN KEY (`seccion_id`) REFERENCES `nivel1_secciones` (`id`),
   CONSTRAINT `temas_capturadoPor` FOREIGN KEY (`capturadoPor_id`) REFERENCES `us_usuarios` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -813,7 +823,7 @@ INSERT INTO `nivel2_temas` VALUES (3,1,3,'Quiénes somos','quienesSomos','quiene
 INSERT INTO `nivel2_temas` VALUES (4,2,3,'Antes de la canonización','antesCanon','antes-de-la-canonizacion',0,NULL,NULL);
 INSERT INTO `nivel2_temas` VALUES (5,2,1,'Después de la canonización','despuesCanon','despues-de-la-canonizacion',0,NULL,NULL);
 INSERT INTO `nivel2_temas` VALUES (6,2,2,'Crónicas de la canonización','cronicasCanon','cronicas-de-la-canonizacion',0,NULL,NULL);
-INSERT INTO `nivel2_temas` VALUES (7,2,4,'Cronología de su causa','cronologia','cronologia-de-su-causa',0,NULL,NULL);
+INSERT INTO `nivel2_temas` VALUES (7,2,5,'Cronología de su causa','cronologia','cronologia-de-su-causa',0,NULL,NULL);
 INSERT INTO `nivel2_temas` VALUES (8,4,2,'Videos','videos','videos',0,NULL,NULL);
 INSERT INTO `nivel2_temas` VALUES (9,3,4,'Testamento','testamento','testamento',0,NULL,NULL);
 INSERT INTO `nivel2_temas` VALUES (10,3,2,'Cartas','cartas','cartas',0,NULL,NULL);
@@ -851,7 +861,7 @@ CREATE TABLE `nivel3_pestanas` (
   KEY `pestanas_capturadoPor` (`capturadoPor_id`),
   CONSTRAINT `nivel3_2` FOREIGN KEY (`tema_id`) REFERENCES `nivel2_temas` (`id`),
   CONSTRAINT `pestanas_capturadoPor` FOREIGN KEY (`capturadoPor_id`) REFERENCES `us_usuarios` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -873,12 +883,12 @@ INSERT INTO `nivel3_pestanas` VALUES (9,8,3,'Varios',NULL,'varios','varios',NULL
 UNLOCK TABLES;
 
 --
--- Table structure for table `nivel_indices`
+-- Table structure for table `nivel9_indices_fecha`
 --
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `nivel_indices` (
+CREATE TABLE `nivel9_indices_fecha` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `tema_id` int(10) unsigned NOT NULL,
   `nombre` varchar(15) NOT NULL,
@@ -892,32 +902,69 @@ CREATE TABLE `nivel_indices` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `nivel_indices`
+-- Dumping data for table `nivel9_indices_fecha`
 --
 
-LOCK TABLES `nivel_indices` WRITE;
-/*!40000 ALTER TABLE `nivel_indices` DISABLE KEYS */;
-INSERT INTO `nivel_indices` VALUES (1,10,'1778',NULL,'1778-01-01','1778-12-31');
-INSERT INTO `nivel_indices` VALUES (2,10,'1780 - 1784',NULL,'1780-01-01','1784-12-31');
-INSERT INTO `nivel_indices` VALUES (3,10,'1785 - 1789',NULL,'1785-01-01','1789-12-31');
-INSERT INTO `nivel_indices` VALUES (4,10,'1790 - 1794',NULL,'1790-01-01','1794-12-31');
-INSERT INTO `nivel_indices` VALUES (5,10,'1795 - 1799',NULL,'1795-01-01','1799-12-31');
-INSERT INTO `nivel_indices` VALUES (6,10,'1800 - 1816',NULL,'1800-01-01','1816-12-31');
-INSERT INTO `nivel_indices` VALUES (7,5,'2024',NULL,'2024-02-12','2024-12-31');
-INSERT INTO `nivel_indices` VALUES (8,5,'2025',NULL,'2025-01-01','2025-12-31');
-INSERT INTO `nivel_indices` VALUES (9,6,'Dom 11/feb',NULL,'2024-02-11','2024-02-11');
-INSERT INTO `nivel_indices` VALUES (10,6,'Sáb 10/feb',NULL,'2024-02-10','2024-02-10');
-INSERT INTO `nivel_indices` VALUES (11,6,'Vie 9/feb',NULL,'2024-02-09','2024-02-09');
-INSERT INTO `nivel_indices` VALUES (12,6,'Jue 8/feb',NULL,'2024-02-08','2024-02-08');
-INSERT INTO `nivel_indices` VALUES (13,6,'Mié 7/feb',NULL,'2024-02-07','2024-02-07');
-INSERT INTO `nivel_indices` VALUES (14,6,'Mar 6/feb',NULL,'2024-02-06','2024-02-06');
-INSERT INTO `nivel_indices` VALUES (15,6,'Lun 5/feb',NULL,'2024-02-05','2024-02-05');
-INSERT INTO `nivel_indices` VALUES (16,6,'Dom 4/feb',NULL,'2024-02-04','2024-02-04');
-INSERT INTO `nivel_indices` VALUES (17,6,'Sáb 3/feb',NULL,'2024-02-03','2024-02-03');
-INSERT INTO `nivel_indices` VALUES (18,4,'2021',NULL,'2021-01-01','2021-12-31');
-INSERT INTO `nivel_indices` VALUES (19,10,'Introducción','introduccion','1730-01-01','1730-01-01');
-INSERT INTO `nivel_indices` VALUES (22,4,'Cronología','cronologia','1730-01-01','1730-01-01');
-/*!40000 ALTER TABLE `nivel_indices` ENABLE KEYS */;
+LOCK TABLES `nivel9_indices_fecha` WRITE;
+/*!40000 ALTER TABLE `nivel9_indices_fecha` DISABLE KEYS */;
+INSERT INTO `nivel9_indices_fecha` VALUES (1,10,'1778',NULL,'1778-01-01','1778-12-31');
+INSERT INTO `nivel9_indices_fecha` VALUES (2,10,'1780 - 1784',NULL,'1780-01-01','1784-12-31');
+INSERT INTO `nivel9_indices_fecha` VALUES (3,10,'1785 - 1789',NULL,'1785-01-01','1789-12-31');
+INSERT INTO `nivel9_indices_fecha` VALUES (4,10,'1790 - 1794',NULL,'1790-01-01','1794-12-31');
+INSERT INTO `nivel9_indices_fecha` VALUES (5,10,'1795 - 1799',NULL,'1795-01-01','1799-12-31');
+INSERT INTO `nivel9_indices_fecha` VALUES (6,10,'1800 - 1816',NULL,'1800-01-01','1816-12-31');
+INSERT INTO `nivel9_indices_fecha` VALUES (7,5,'2024',NULL,'2024-02-12','2024-12-31');
+INSERT INTO `nivel9_indices_fecha` VALUES (8,5,'2025',NULL,'2025-01-01','2025-12-31');
+INSERT INTO `nivel9_indices_fecha` VALUES (9,6,'Dom 11/feb',NULL,'2024-02-11','2024-02-11');
+INSERT INTO `nivel9_indices_fecha` VALUES (10,6,'Sáb 10/feb',NULL,'2024-02-10','2024-02-10');
+INSERT INTO `nivel9_indices_fecha` VALUES (11,6,'Vie 9/feb',NULL,'2024-02-09','2024-02-09');
+INSERT INTO `nivel9_indices_fecha` VALUES (12,6,'Jue 8/feb',NULL,'2024-02-08','2024-02-08');
+INSERT INTO `nivel9_indices_fecha` VALUES (13,6,'Mié 7/feb',NULL,'2024-02-07','2024-02-07');
+INSERT INTO `nivel9_indices_fecha` VALUES (14,6,'Mar 6/feb',NULL,'2024-02-06','2024-02-06');
+INSERT INTO `nivel9_indices_fecha` VALUES (15,6,'Lun 5/feb',NULL,'2024-02-05','2024-02-05');
+INSERT INTO `nivel9_indices_fecha` VALUES (16,6,'Dom 4/feb',NULL,'2024-02-04','2024-02-04');
+INSERT INTO `nivel9_indices_fecha` VALUES (17,6,'Sáb 3/feb',NULL,'2024-02-03','2024-02-03');
+INSERT INTO `nivel9_indices_fecha` VALUES (18,10,'Introducción','introduccion','1730-01-01','1730-01-01');
+INSERT INTO `nivel9_indices_fecha` VALUES (19,4,'2016',NULL,'2016-01-01','2016-12-31');
+INSERT INTO `nivel9_indices_fecha` VALUES (20,4,'2017 - 2023',NULL,'2017-01-01','2023-12-31');
+INSERT INTO `nivel9_indices_fecha` VALUES (21,4,'2000 - 2015',NULL,'2000-01-01','2015-12-31');
+/*!40000 ALTER TABLE `nivel9_indices_fecha` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `nivel9_indices_lugar`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `nivel9_indices_lugar` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `tema_id` int(10) unsigned NOT NULL,
+  `nombre` varchar(25) NOT NULL,
+  `codigo` varchar(25) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `indices_codigoLugar` (`codigo`),
+  KEY `indice_tema` (`tema_id`) USING BTREE,
+  CONSTRAINT `indice_tema_copy` FOREIGN KEY (`tema_id`) REFERENCES `nivel2_temas` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `nivel9_indices_lugar`
+--
+
+LOCK TABLES `nivel9_indices_lugar` WRITE;
+/*!40000 ALTER TABLE `nivel9_indices_lugar` DISABLE KEYS */;
+INSERT INTO `nivel9_indices_lugar` VALUES (1,17,'Introducción','1introduccion');
+INSERT INTO `nivel9_indices_lugar` VALUES (2,17,'CABA','2caba');
+INSERT INTO `nivel9_indices_lugar` VALUES (3,17,'GBA','3gba');
+INSERT INTO `nivel9_indices_lugar` VALUES (4,17,'Prov. Buenos Aires','4buenosAires');
+INSERT INTO `nivel9_indices_lugar` VALUES (5,17,'Prov. Córdoba','6cordoba');
+INSERT INTO `nivel9_indices_lugar` VALUES (6,17,'Prov. Santa Fe','santaFe');
+INSERT INTO `nivel9_indices_lugar` VALUES (7,17,'Prov. Santiago del Estero','5santiagoDelEstero');
+INSERT INTO `nivel9_indices_lugar` VALUES (8,17,'Prov. Salta','salta');
+INSERT INTO `nivel9_indices_lugar` VALUES (9,17,'Prov. Jujuy','jujuy');
+/*!40000 ALTER TABLE `nivel9_indices_lugar` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -940,8 +987,7 @@ CREATE TABLE `sessions` (
 
 LOCK TABLES `sessions` WRITE;
 /*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
-INSERT INTO `sessions` VALUES ('2HcvUUh6do1iJHfLbDagF2IscoDVCXMh',1763499902,'{\"cookie\":{\"originalMaxAge\":86400000,\"expires\":\"2025-11-18T21:04:57.939Z\",\"httpOnly\":true,\"path\":\"/\"},\"cliente\":{\"id\":7,\"cliente_id\":\"U0000000007\",\"fechaUltNaveg\":\"2025-11-17\",\"diasNaveg\":1,\"visitaCreadaEn\":\"2025-11-17\",\"versionWeb\":\"1.00\",\"rol\":{\"id\":1,\"orden\":1,\"nombre\":\"Sólo lectura\",\"codigo\":\"lectura\",\"actualizac\":false,\"revision\":false,\"cambioRoles\":false}},\"usuario\":{\"id\":7,\"nombreCompleto\":null,\"email\":\"r@q.com\",\"apodo\":\"Hivi\",\"cliente_id\":\"U0000000007\",\"contrasena\":\"$2b$10$57reW4EaIAuKdebbT0fm0.sd9KGDuIG5EBdmtAug3W1sg/9DSL20u\",\"pais_id\":null,\"notificacs\":false,\"visitaCreadaEn\":\"2025-11-17T00:00:00.000Z\",\"fechaUltNaveg\":\"2025-11-17\",\"diasNaveg\":1,\"versionWeb\":\"1.00\",\"creadoEn\":\"2025-11-17T19:15:05.000Z\",\"fechaContrasena\":\"2025-11-17T19:15:05.000Z\",\"rol_id\":1,\"statusRegistro_id\":3,\"rol\":{\"id\":1,\"orden\":1,\"nombre\":\"Sólo lectura\",\"codigo\":\"lectura\",\"actualizac\":false,\"revision\":false,\"cambioRoles\":false},\"statusRegistro\":{\"id\":2,\"orden\":2,\"nombre\":\"Mail validado\",\"codigo\":\"mailValidado\"},\"imagen\":\"1763413497936.jpg\"}}');
-INSERT INTO `sessions` VALUES ('yFCEmG4wOobxUpQfvNvm0c03MmX14CnR',1763490050,'{\"cookie\":{\"originalMaxAge\":86400000,\"expires\":\"2025-11-18T17:43:38.851Z\",\"httpOnly\":true,\"path\":\"/\"},\"cliente\":{\"id\":1,\"cliente_id\":\"U0000000001\",\"fechaUltNaveg\":\"2025-10-21\",\"diasNaveg\":1,\"visitaCreadaEn\":\"2025-10-16\",\"versionWeb\":\"1.00\",\"rol\":{\"id\":5,\"orden\":5,\"nombre\":\"Completo\",\"codigo\":\"completo\",\"actualizac\":true,\"revision\":true,\"cambioRoles\":true}},\"usuario\":{\"id\":1,\"nombreCompleto\":\"Diego Iribarren\",\"email\":\"diegoiribarren2015@gmail.com\",\"apodo\":\"Diego\",\"cliente_id\":\"U0000000001\",\"contrasena\":\"$2a$10$B78JgfuFnMmfdC5MLci06.HGD3AtXGGHYqQcKCStrq5b3v.jpI/aO\",\"pais_id\":null,\"imagen\":\"1761491982343.jpg\",\"notificacs\":false,\"visitaCreadaEn\":\"2025-10-16T23:29:07.000Z\",\"fechaUltNaveg\":\"2025-10-21\",\"diasNaveg\":1,\"versionWeb\":\"1.00\",\"creadoEn\":\"2025-10-16T23:29:07.000Z\",\"fechaContrasena\":\"2025-10-16T23:29:07.000Z\",\"rol_id\":5,\"statusRegistro_id\":3,\"rol\":{\"id\":5,\"orden\":5,\"nombre\":\"Completo\",\"codigo\":\"completo\",\"actualizac\":true,\"revision\":true,\"cambioRoles\":true},\"statusRegistro\":{\"id\":3,\"orden\":3,\"nombre\":\"Con apodo\",\"codigo\":\"conApodo\"}}}');
+INSERT INTO `sessions` VALUES ('yFCEmG4wOobxUpQfvNvm0c03MmX14CnR',1763646685,'{\"cookie\":{\"originalMaxAge\":86400000,\"expires\":\"2025-11-19T20:43:39.845Z\",\"httpOnly\":true,\"path\":\"/\"},\"cliente\":{\"id\":1,\"cliente_id\":\"U0000000001\",\"fechaUltNaveg\":\"2025-10-21\",\"diasNaveg\":1,\"visitaCreadaEn\":\"2025-10-16\",\"versionWeb\":\"1.00\",\"rol\":{\"id\":5,\"orden\":5,\"nombre\":\"Completo\",\"codigo\":\"completo\",\"actualizac\":true,\"revision\":true,\"cambioRoles\":true}},\"usuario\":{\"id\":1,\"nombreCompleto\":\"Diego Iribarren\",\"email\":\"diegoiribarren2015@gmail.com\",\"apodo\":\"Diego\",\"cliente_id\":\"U0000000001\",\"contrasena\":\"$2a$10$B78JgfuFnMmfdC5MLci06.HGD3AtXGGHYqQcKCStrq5b3v.jpI/aO\",\"pais_id\":null,\"imagen\":\"1761491982343.jpg\",\"notificacs\":false,\"visitaCreadaEn\":\"2025-10-16T23:29:07.000Z\",\"fechaUltNaveg\":\"2025-10-21\",\"diasNaveg\":1,\"versionWeb\":\"1.00\",\"creadoEn\":\"2025-10-16T23:29:07.000Z\",\"fechaContrasena\":\"2025-10-16T23:29:07.000Z\",\"rol_id\":5,\"statusRegistro_id\":3,\"rol\":{\"id\":5,\"orden\":5,\"nombre\":\"Completo\",\"codigo\":\"completo\",\"actualizac\":true,\"revision\":true,\"cambioRoles\":true},\"statusRegistro\":{\"id\":3,\"orden\":3,\"nombre\":\"Con apodo\",\"codigo\":\"conApodo\"}}}');
 /*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1046,13 +1092,7 @@ CREATE TABLE `us_usuarios` (
 
 LOCK TABLES `us_usuarios` WRITE;
 /*!40000 ALTER TABLE `us_usuarios` DISABLE KEYS */;
-INSERT INTO `us_usuarios` VALUES (1,'Diego Iribarren','diegoiribarren2015@gmail.com\'','Diego','U0000000001','$2a$10$B78JgfuFnMmfdC5MLci06.HGD3AtXGGHYqQcKCStrq5b3v.jpI/aO',NULL,'1761491982343.jpg',0,'2025-10-16 23:29:07','2025-10-21',1,'1.00','2025-10-16 23:29:07','2025-10-16 23:29:07',5,3);
-INSERT INTO `us_usuarios` VALUES (2,'Prueba de Usuario','prueba@q.com','Prueba','U0000000002','$2b$10$wB2zeR.Yb9skDbyKDfLZg.lPBWRKdrzN/XFZyLbxUEuuZ1Wu/FJJ.',NULL,NULL,0,'2025-10-16 00:00:00','2025-11-17',1,'1.00','2025-11-17 16:11:21','2025-11-17 16:11:21',5,2);
-INSERT INTO `us_usuarios` VALUES (3,NULL,'diegoiribarren2015@gmail.com','Maderas','U0000000003','$2b$10$49K/zYUzLp0N19AqjkVOb.PKiDXREYukXD78pB2BJSs1Lz/bb5m.S',NULL,'1763401965429.jpg',0,'2025-11-17 00:00:00','2025-11-17',1,'1.00','2025-11-17 17:51:07','2025-11-17 17:51:07',1,3);
-INSERT INTO `us_usuarios` VALUES (4,NULL,'qqq@q.com','Este es mi apodo','U0000000004','$2b$10$g7d7WxnbDGUI/X5yWPL5Me3Gxisfws6fVld7hrguR1/Xu5ZYHqIC6',NULL,'1763404033864.jpg',0,'2025-11-17 00:00:00','2025-11-17',1,'1.00','2025-11-17 18:21:30','2025-11-17 18:21:30',1,3);
-INSERT INTO `us_usuarios` VALUES (5,NULL,'w@w.com','Eggege','U0000000005','$2b$10$3KUZpJK/K4IFke7SEj9M3.XygBmQgWDP.RwcMqVutmB0RUVyvGVHa',NULL,'1763405021250.jpg',0,'2025-11-17 00:00:00','2025-11-17',1,'1.00','2025-11-17 18:38:34','2025-11-17 18:38:34',1,3);
-INSERT INTO `us_usuarios` VALUES (6,NULL,'sdf@a.com','Buu','U0000000006','$2b$10$qjhP4DeKAZPT6Wn2T85FSeh1P89kb/C7uq1PBkIj4HOKlJap2Sdte',NULL,'1763406025448.jpg',0,'2025-11-17 00:00:00','2025-11-17',1,'1.00','2025-11-17 18:45:25','2025-11-17 18:45:25',1,3);
-INSERT INTO `us_usuarios` VALUES (7,NULL,'r@q.com','Hivi','U0000000007','$2b$10$57reW4EaIAuKdebbT0fm0.sd9KGDuIG5EBdmtAug3W1sg/9DSL20u',NULL,'1763413497936.jpg',0,'2025-11-17 00:00:00','2025-11-17',1,'1.00','2025-11-17 19:15:05','2025-11-17 19:15:05',1,3);
+INSERT INTO `us_usuarios` VALUES (1,'Diego Iribarren','diegoiribarren2015@gmail.com','Diego','U0000000001','$2a$10$B78JgfuFnMmfdC5MLci06.HGD3AtXGGHYqQcKCStrq5b3v.jpI/aO',NULL,'1761491982343.jpg',0,'2025-10-16 23:29:07','2025-10-21',1,'1.00','2025-10-16 23:29:07','2025-10-16 23:29:07',5,3);
 /*!40000 ALTER TABLE `us_usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1130,8 +1170,8 @@ INSERT INTO `aux_iconos_agrups` VALUES (2,2,'Instagram',NULL,'fa-instagram','htt
 INSERT INTO `aux_iconos_agrups` VALUES (3,3,'Twitter',NULL,'fa-twitter','https://twitter.com/beatificaciona1');
 INSERT INTO `aux_iconos_agrups` VALUES (4,4,'TikTok',NULL,'fa-tiktok','https://www.tiktok.com/@mamaantula.com');
 INSERT INTO `aux_iconos_agrups` VALUES (5,1,'Lectura','lectura','fa-link',NULL);
-INSERT INTO `aux_iconos_agrups` VALUES (6,2,'Actualizar contenido','actualizar','fa-square-plus','/contenido/actualizar');
-INSERT INTO `aux_iconos_agrups` VALUES (7,3,'Revisar actualizaciones','revisar','fa-book','/contenido/revisar');
+INSERT INTO `aux_iconos_agrups` VALUES (6,2,'Actualizar articulos','actualizar','fa-square-plus','/articulos/actualizar');
+INSERT INTO `aux_iconos_agrups` VALUES (7,3,'Revisar articulos','revisar','fa-book','/articulos/revisar');
 INSERT INTO `aux_iconos_agrups` VALUES (8,4,'Cambio de roles','cambioRoles','fa-user','/usuarios/cambio-de-roles');
 /*!40000 ALTER TABLE `aux_iconos_agrups` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1144,10 +1184,9 @@ UNLOCK TABLES;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `aux_lugares` (
   `id` tinyint(1) unsigned NOT NULL AUTO_INCREMENT,
-  `orden` tinyint(1) unsigned NOT NULL,
   `nombre` varchar(30) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1156,13 +1195,14 @@ CREATE TABLE `aux_lugares` (
 
 LOCK TABLES `aux_lugares` WRITE;
 /*!40000 ALTER TABLE `aux_lugares` DISABLE KEYS */;
-INSERT INTO `aux_lugares` VALUES (1,1,'Córdoba');
-INSERT INTO `aux_lugares` VALUES (2,2,'Buenos Aires');
-INSERT INTO `aux_lugares` VALUES (3,3,'Basílica La Piedad, Bs. As.');
-INSERT INTO `aux_lugares` VALUES (4,4,'Basílica del Socorro, Bs. As.');
-INSERT INTO `aux_lugares` VALUES (5,5,'Santa Casa, Bs. As.');
-INSERT INTO `aux_lugares` VALUES (6,99,'Varios');
-INSERT INTO `aux_lugares` VALUES (7,6,'Vaticano');
+INSERT INTO `aux_lugares` VALUES (1,'Córdoba');
+INSERT INTO `aux_lugares` VALUES (2,'CABA');
+INSERT INTO `aux_lugares` VALUES (3,'CABA, Basílica La Piedad');
+INSERT INTO `aux_lugares` VALUES (4,'CABA, Basílica del Socorro');
+INSERT INTO `aux_lugares` VALUES (5,'CABA, Santa Casa');
+INSERT INTO `aux_lugares` VALUES (6,'Silípica, Stgo. del Estero');
+INSERT INTO `aux_lugares` VALUES (7,'Ciudad del Vaticano, Europa');
+INSERT INTO `aux_lugares` VALUES (8,'Santiago del Estero');
 /*!40000 ALTER TABLE `aux_lugares` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1178,7 +1218,7 @@ CREATE TABLE `aux_novs_del_sitio` (
   `fecha` date NOT NULL DEFAULT utc_date(),
   `version` varchar(4) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1188,6 +1228,7 @@ CREATE TABLE `aux_novs_del_sitio` (
 LOCK TABLES `aux_novs_del_sitio` WRITE;
 /*!40000 ALTER TABLE `aux_novs_del_sitio` DISABLE KEYS */;
 INSERT INTO `aux_novs_del_sitio` VALUES (1,'Subida a internet del primer borrador','2025-10-21','1.00');
+INSERT INTO `aux_novs_del_sitio` VALUES (2,'Subida a internet del segundo borrador','2025-11-18','1.01');
 /*!40000 ALTER TABLE `aux_novs_del_sitio` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1566,7 +1607,7 @@ CREATE TABLE `cont_2contenidos` (
   PRIMARY KEY (`id`),
   KEY `encabezadoexperiencia` (`encab_id`),
   CONSTRAINT `encabezadoexperiencia` FOREIGN KEY (`encab_id`) REFERENCES `encab_1original` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1636,6 +1677,10 @@ INSERT INTO `cont_2contenidos` VALUES (58,10,NULL,'El estandarte de la mujer fue
 INSERT INTO `cont_2contenidos` VALUES (59,5,3,'De la Santa Casa de Ejercicios Espirituales, Independencia 1190, CABA\r\n\r\n','1762872150449.jpg','1762872160637.jpg',NULL,1,'2025-11-11 14:42:30',1);
 INSERT INTO `cont_2contenidos` VALUES (60,5,4,'Oración a María Antonia de San José','1762872209467.jpg','1762872218165.jpg',NULL,1,'2025-11-11 14:43:29',1);
 INSERT INTO `cont_2contenidos` VALUES (61,28,2,'<p>Glorioso San José,<br>a vos Dios te encomendó<br>el cuidado de su Hijo unigénito<br>en medio de los muchos<br>peligros de este mundo.</p><p>Acudimos a vos<br>y te pedimos que<br>tomes bajo tu protección especial<br>a los niños que Dios nos ha dado.</p><p>A través del santo bautismo<br>se convirtieron en hijos de Dios<br>y en miembros de su Santa Iglesia.</p><p>Los consagramos hoy a vos,<br>para que a través de esta consagración<br>puedan convertirse en tus hijos de crianza.</p><p>Guardálos,<br>guiá sus pasos en la vida,<br>formá sus corazones<br>según los corazones<br>de Jesús y María.</p><p>San José,<br>que sentiste la tribulación<br>y la preocupación de un padre<br>cuando el niño Jesús se perdió,<br>protegé a nuestros queridos hijos<br>por el tiempo y la eternidad.</p><p>Que seas su padre y consejero.<br>Que ellos, como Jesús,<br>crezcan tanto en edad<br>como en sabiduría<br>y gracia ante Dios<br>y los hombres.</p><p>Preserválos de la corrupción del mundo<br>y danos la gracia<br>de estar unidos con ellos<br>en el cielo para siempre.</p>','1762832284430.jpg',NULL,NULL,1,'2025-11-11 15:43:36',1);
+INSERT INTO `cont_2contenidos` VALUES (64,22,10,NULL,'1763516489622.jpg',NULL,'Virgen viajera de Loreto, o Pura y Limpia Concepción del Buen Viaje, tallada por los Padres Jesuitas',1,'2025-11-19 01:41:29',1);
+INSERT INTO `cont_2contenidos` VALUES (65,22,4,'<blockquote>Te presentamos la imagen de Mama Antula de este antiguo templo dedicado a la Virgen del Buen Viaje, frente a la cual La Beata rezó de paso en su camino de Santiago a Buenos Aires.</blockquote>',NULL,NULL,NULL,1,'2025-11-19 01:30:49',1);
+INSERT INTO `cont_2contenidos` VALUES (66,22,7,'<p>En su peregrinar a pie desde Santiago del Estero hasta Buenos Aires Mama Antula pasó por la posta Morón: bajando por el camino Real los que venían del norte hacia Buenos Aires paraban en la posta de Luján y en la posta de Morón, últimas paradas obligadas en aquellos tiempos coloniales de largos y polvorientos viajes en mula y carretas. Viaje que Mama Antula realizó caminando descalza.</p><p>Manuel Belgrano se detuvo también en este sitio histórico, en 1812, rumbo al encuentro con el Ejército del Norte. Y el papa Juan Pablo II también rezó por aquí en una de sus visitas a la Argentina.</p><p>Desde la época de la colonia hasta el día de hoy (gran parada de las actuales peregrinaciones a Luján que salen del Santuario de San Cayetano de Liniers) miles de caminantes se detienen un momento en la Catedral de Morón a pedirle a la Virgen un «Buen Viaje». Poco antes de arribar a Buenos Aires Mama Antula seguramente se postró a rezar ante Ella encomendándole su singular empresa.</p><p>Rumbo a Buenos Aires, luego de parar en la posta de Luján, Mama Antula paró en la capillita de la posta Morón, donde desde 1776 los Padres de la Compañía de Jesús habían instalado una imagen de la Virgen Viajera de Loreto o Virgen de la Pura y Limpia Concepción del Buen Viaje, tallada por ellos mismos. Tiempo más tarde la imagen de esta virgencita fue trasladada de esa capillita originaria a la actual Catedral de Morón (1885), ubicada a pocas cuadras de la capilla.</p>','1763516134577.jpg',NULL,NULL,1,'2025-11-19 01:35:34',1);
+INSERT INTO `cont_2contenidos` VALUES (67,22,6,NULL,NULL,NULL,'Mama Antula abrazada al libro de los Ejercicios Espirituales de San Ignacio, con su estandarte, rostro enjuto y mirada aguda, en un retablo a la izquierda del altar mayor de la Catedral de Morón (en la pared este). En esta representación lleva también un morral, y está descalza, caminando',1,'2025-11-19 01:33:15',1);
 /*!40000 ALTER TABLE `cont_2contenidos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1670,6 +1715,9 @@ INSERT INTO `cont_3carrusel` VALUES (3,13,3,'1762630631370.jpg',1,'2025-11-08 19
 INSERT INTO `cont_3carrusel` VALUES (4,13,4,'1762630631371.jpg',1,'2025-11-08 19:37:11',1);
 INSERT INTO `cont_3carrusel` VALUES (5,13,5,'1762630631372.jpg',1,'2025-11-08 19:37:11',1);
 INSERT INTO `cont_3carrusel` VALUES (6,13,6,'1762630631373.jpg',1,'2025-11-08 19:37:11',1);
+INSERT INTO `cont_3carrusel` VALUES (9,67,1,'1763515995301.jpg',1,'2025-11-19 01:33:15',1);
+INSERT INTO `cont_3carrusel` VALUES (10,67,2,'1763515995302.jpg',1,'2025-11-19 01:33:15',1);
+INSERT INTO `cont_3carrusel` VALUES (11,67,3,'1763515995303.jpg',1,'2025-11-19 01:33:15',1);
 /*!40000 ALTER TABLE `cont_3carrusel` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1722,6 +1770,7 @@ CREATE TABLE `encab_1original` (
   `idioma_id` tinyint(1) unsigned DEFAULT NULL,
   `lugar_id` tinyint(1) unsigned DEFAULT NULL,
   `fechaEvento` date DEFAULT NULL,
+  `codigoLugar` varchar(25) DEFAULT NULL,
   `creadoPor_id` int(10) unsigned NOT NULL,
   `creadoEn` datetime NOT NULL DEFAULT utc_timestamp(),
   `statusRegistro_id` tinyint(1) unsigned NOT NULL DEFAULT 1,
@@ -1729,10 +1778,12 @@ CREATE TABLE `encab_1original` (
   KEY `cartasEncabezado_lugar` (`lugar_id`) USING BTREE,
   KEY `cartasEncabezado_statusRegistro` (`statusRegistro_id`) USING BTREE,
   KEY `cartasEncabezado_usuario` (`creadoPor_id`) USING BTREE,
+  KEY `encab_codigoLugar` (`codigoLugar`),
   CONSTRAINT `cartasEncabezado_lugar_copy` FOREIGN KEY (`lugar_id`) REFERENCES `aux_lugares` (`id`),
   CONSTRAINT `cartasEncabezado_statusRegistro_copy` FOREIGN KEY (`statusRegistro_id`) REFERENCES `aux_status_registros` (`id`),
-  CONSTRAINT `cartasEncabezado_usuario_copy` FOREIGN KEY (`creadoPor_id`) REFERENCES `us_usuarios` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4;
+  CONSTRAINT `cartasEncabezado_usuario_copy` FOREIGN KEY (`creadoPor_id`) REFERENCES `us_usuarios` (`id`),
+  CONSTRAINT `encab_codigoLugar` FOREIGN KEY (`codigoLugar`) REFERENCES `nivel9_indices_lugar` (`codigo`)
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1741,39 +1792,40 @@ CREATE TABLE `encab_1original` (
 
 LOCK TABLES `encab_1original` WRITE;
 /*!40000 ALTER TABLE `encab_1original` DISABLE KEYS */;
-INSERT INTO `encab_1original` VALUES (1,5,NULL,NULL,'Santa Mama Antula: primera fiesta litúrgica','Primera celebración del 7 de marzo en Buenos Aires después de la canonización de la primera santa argentina.',NULL,NULL,NULL,3,'2024-03-07',1,'2025-10-28 22:42:00',1);
-INSERT INTO `encab_1original` VALUES (2,5,NULL,NULL,'Conferencia de Aldo Marcos de Castro Paz','',NULL,NULL,NULL,4,'2024-03-08',1,'2025-10-28 22:50:33',1);
-INSERT INTO `encab_1original` VALUES (3,5,NULL,NULL,'Actividades en el Subte','Nuevo nombre para la estación Independencia',NULL,NULL,NULL,2,'2024-03-07',1,'2025-11-03 16:20:34',1);
-INSERT INTO `encab_1original` VALUES (4,7,NULL,NULL,NULL,'',NULL,NULL,NULL,NULL,NULL,1,'2025-11-06 11:26:01',1);
-INSERT INTO `encab_1original` VALUES (5,NULL,6,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-11 02:28:29',1);
-INSERT INTO `encab_1original` VALUES (6,5,NULL,NULL,'Primera fiesta litúrgica como santa','',NULL,NULL,NULL,3,'2024-03-07',1,'2025-11-03 17:21:55',1);
-INSERT INTO `encab_1original` VALUES (7,6,NULL,NULL,'Misa en acción de gracias por la canonización de Mama Antula','',NULL,NULL,NULL,3,'2024-02-11',1,'2025-11-06 23:17:08',1);
-INSERT INTO `encab_1original` VALUES (8,2,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-10-17 16:55:50',1);
-INSERT INTO `encab_1original` VALUES (9,3,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-10-30 15:51:05',1);
-INSERT INTO `encab_1original` VALUES (10,13,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-10-31 19:10:17',1);
-INSERT INTO `encab_1original` VALUES (11,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-05 14:12:04',1);
-INSERT INTO `encab_1original` VALUES (12,NULL,5,NULL,'Oración a Mama Antula',NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-06 23:24:47',1);
-INSERT INTO `encab_1original` VALUES (13,9,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-06 11:14:15',1);
-INSERT INTO `encab_1original` VALUES (14,11,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-06 23:23:34',1);
-INSERT INTO `encab_1original` VALUES (15,12,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-06 23:23:39',1);
-INSERT INTO `encab_1original` VALUES (16,14,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-06 23:23:48',1);
-INSERT INTO `encab_1original` VALUES (17,NULL,8,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-11 10:12:03',1);
-INSERT INTO `encab_1original` VALUES (18,NULL,3,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-11 18:58:18',1);
-INSERT INTO `encab_1original` VALUES (19,20,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-06 23:25:30',1);
-INSERT INTO `encab_1original` VALUES (20,21,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-06 23:25:44',1);
-INSERT INTO `encab_1original` VALUES (21,NULL,2,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-12 19:44:37',1);
-INSERT INTO `encab_1original` VALUES (22,NULL,11,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-06 23:26:07',1);
-INSERT INTO `encab_1original` VALUES (23,6,NULL,NULL,'Proyección de la ceremonia de canonización en pantalla gigante','',NULL,NULL,NULL,2,'2024-02-11',1,'2025-11-08 21:03:45',1);
-INSERT INTO `encab_1original` VALUES (24,6,NULL,NULL,'Misa en el Vaticano','',NULL,NULL,NULL,7,'2024-02-11',1,'2025-11-08 21:26:37',1);
-INSERT INTO `encab_1original` VALUES (25,17,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-11 02:46:42',1);
-INSERT INTO `encab_1original` VALUES (26,18,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-11 03:08:54',1);
-INSERT INTO `encab_1original` VALUES (27,NULL,9,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-11 03:13:33',1);
-INSERT INTO `encab_1original` VALUES (28,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-11 03:36:21',1);
-INSERT INTO `encab_1original` VALUES (29,NULL,7,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-11 03:13:33',1);
-INSERT INTO `encab_1original` VALUES (30,10,NULL,1,NULL,NULL,1,2,2,1,'1778-01-06',1,'2025-10-17 16:56:11',1);
-INSERT INTO `encab_1original` VALUES (31,10,NULL,2,NULL,NULL,1,2,1,2,'1780-08-07',1,'2025-10-17 16:56:11',1);
-INSERT INTO `encab_1original` VALUES (32,10,NULL,3,NULL,NULL,1,2,1,2,'1780-10-09',1,'2025-11-10 18:04:13',1);
-INSERT INTO `encab_1original` VALUES (33,10,NULL,0,'Introducción',NULL,NULL,NULL,NULL,NULL,'1730-01-02',1,'2025-11-10 16:02:13',1);
+INSERT INTO `encab_1original` VALUES (1,5,NULL,NULL,'Santa Mama Antula: primera fiesta litúrgica','Primera celebración del 7 de marzo en Buenos Aires después de la canonización de la primera santa argentina.',NULL,NULL,NULL,3,'2024-03-07',NULL,1,'2025-10-28 22:42:00',1);
+INSERT INTO `encab_1original` VALUES (2,5,NULL,NULL,'Conferencia de Aldo Marcos de Castro Paz','',NULL,NULL,NULL,4,'2024-03-08',NULL,1,'2025-10-28 22:50:33',1);
+INSERT INTO `encab_1original` VALUES (3,5,NULL,NULL,'Actividades en el Subte','Nuevo nombre para la estación Independencia',NULL,NULL,NULL,2,'2024-03-07',NULL,1,'2025-11-03 16:20:34',1);
+INSERT INTO `encab_1original` VALUES (4,7,NULL,NULL,NULL,'',NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-06 11:26:01',1);
+INSERT INTO `encab_1original` VALUES (5,NULL,6,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-11 02:28:29',1);
+INSERT INTO `encab_1original` VALUES (6,5,NULL,NULL,'Primera fiesta litúrgica como santa','',NULL,NULL,NULL,3,'2024-03-07',NULL,1,'2025-11-03 17:21:55',1);
+INSERT INTO `encab_1original` VALUES (7,6,NULL,NULL,'Misa en acción de gracias por la canonización de Mama Antula','',NULL,NULL,NULL,3,'2024-02-11',NULL,1,'2025-11-06 23:17:08',1);
+INSERT INTO `encab_1original` VALUES (8,2,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-10-17 16:55:50',1);
+INSERT INTO `encab_1original` VALUES (9,3,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-10-30 15:51:05',1);
+INSERT INTO `encab_1original` VALUES (10,13,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-10-31 19:10:17',1);
+INSERT INTO `encab_1original` VALUES (11,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-05 14:12:04',1);
+INSERT INTO `encab_1original` VALUES (12,NULL,5,NULL,'Oración a Mama Antula',NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-06 23:24:47',1);
+INSERT INTO `encab_1original` VALUES (13,9,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-06 11:14:15',1);
+INSERT INTO `encab_1original` VALUES (14,11,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-06 23:23:34',1);
+INSERT INTO `encab_1original` VALUES (15,12,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-06 23:23:39',1);
+INSERT INTO `encab_1original` VALUES (16,14,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-06 23:23:48',1);
+INSERT INTO `encab_1original` VALUES (17,NULL,8,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-11 10:12:03',1);
+INSERT INTO `encab_1original` VALUES (18,NULL,3,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-11 18:58:18',1);
+INSERT INTO `encab_1original` VALUES (19,20,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-06 23:25:30',1);
+INSERT INTO `encab_1original` VALUES (20,21,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-06 23:25:44',1);
+INSERT INTO `encab_1original` VALUES (21,NULL,2,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-12 19:44:37',1);
+INSERT INTO `encab_1original` VALUES (22,17,NULL,NULL,'Catedral de Morón','El luga',NULL,NULL,NULL,NULL,NULL,'2caba',1,'2025-11-06 23:26:07',1);
+INSERT INTO `encab_1original` VALUES (23,6,NULL,NULL,'Proyección de la ceremonia de canonización en pantalla gigante','',NULL,NULL,NULL,2,'2024-02-11',NULL,1,'2025-11-08 21:03:45',1);
+INSERT INTO `encab_1original` VALUES (24,6,NULL,NULL,'Misa en el Vaticano','',NULL,NULL,NULL,7,'2024-02-11',NULL,1,'2025-11-08 21:26:37',1);
+INSERT INTO `encab_1original` VALUES (25,17,NULL,NULL,'Introducción',NULL,NULL,NULL,NULL,NULL,NULL,'1introduccion',1,'2025-11-11 02:46:42',1);
+INSERT INTO `encab_1original` VALUES (26,18,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-11 03:08:54',1);
+INSERT INTO `encab_1original` VALUES (27,NULL,9,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-11 03:13:33',1);
+INSERT INTO `encab_1original` VALUES (28,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-11 03:36:21',1);
+INSERT INTO `encab_1original` VALUES (29,NULL,7,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2025-11-11 03:13:33',1);
+INSERT INTO `encab_1original` VALUES (30,10,NULL,1,NULL,NULL,1,2,2,1,'1778-01-06',NULL,1,'2025-10-17 16:56:11',1);
+INSERT INTO `encab_1original` VALUES (31,10,NULL,2,NULL,NULL,1,2,1,2,'1780-08-07',NULL,1,'2025-10-17 16:56:11',1);
+INSERT INTO `encab_1original` VALUES (32,10,NULL,3,NULL,NULL,1,2,1,2,'1780-10-09',NULL,1,'2025-11-10 18:04:13',1);
+INSERT INTO `encab_1original` VALUES (33,10,NULL,0,'Introducción',NULL,NULL,NULL,NULL,NULL,'1730-01-01',NULL,1,'2025-11-10 16:02:13',1);
+INSERT INTO `encab_1original` VALUES (34,4,NULL,NULL,'Beatificación de Mama Antula','',NULL,NULL,NULL,6,'2016-04-27',NULL,1,'2025-11-18 23:39:54',1);
 /*!40000 ALTER TABLE `encab_1original` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1874,7 +1926,7 @@ CREATE TABLE `nivel2_temas` (
   KEY `temas_capturadoPor` (`capturadoPor_id`),
   CONSTRAINT `nivel2_1` FOREIGN KEY (`seccion_id`) REFERENCES `nivel1_secciones` (`id`),
   CONSTRAINT `temas_capturadoPor` FOREIGN KEY (`capturadoPor_id`) REFERENCES `us_usuarios` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1889,7 +1941,7 @@ INSERT INTO `nivel2_temas` VALUES (3,1,3,'Quiénes somos','quienesSomos','quiene
 INSERT INTO `nivel2_temas` VALUES (4,2,3,'Antes de la canonización','antesCanon','antes-de-la-canonizacion',0,NULL,NULL);
 INSERT INTO `nivel2_temas` VALUES (5,2,1,'Después de la canonización','despuesCanon','despues-de-la-canonizacion',0,NULL,NULL);
 INSERT INTO `nivel2_temas` VALUES (6,2,2,'Crónicas de la canonización','cronicasCanon','cronicas-de-la-canonizacion',0,NULL,NULL);
-INSERT INTO `nivel2_temas` VALUES (7,2,4,'Cronología de su causa','cronologia','cronologia-de-su-causa',0,NULL,NULL);
+INSERT INTO `nivel2_temas` VALUES (7,2,5,'Cronología de su causa','cronologia','cronologia-de-su-causa',0,NULL,NULL);
 INSERT INTO `nivel2_temas` VALUES (8,4,2,'Videos','videos','videos',0,NULL,NULL);
 INSERT INTO `nivel2_temas` VALUES (9,3,4,'Testamento','testamento','testamento',0,NULL,NULL);
 INSERT INTO `nivel2_temas` VALUES (10,3,2,'Cartas','cartas','cartas',0,NULL,NULL);
@@ -1927,7 +1979,7 @@ CREATE TABLE `nivel3_pestanas` (
   KEY `pestanas_capturadoPor` (`capturadoPor_id`),
   CONSTRAINT `nivel3_2` FOREIGN KEY (`tema_id`) REFERENCES `nivel2_temas` (`id`),
   CONSTRAINT `pestanas_capturadoPor` FOREIGN KEY (`capturadoPor_id`) REFERENCES `us_usuarios` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1949,12 +2001,12 @@ INSERT INTO `nivel3_pestanas` VALUES (9,8,3,'Varios',NULL,'varios','varios',NULL
 UNLOCK TABLES;
 
 --
--- Table structure for table `nivel_indices`
+-- Table structure for table `nivel9_indices_fecha`
 --
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `nivel_indices` (
+CREATE TABLE `nivel9_indices_fecha` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `tema_id` int(10) unsigned NOT NULL,
   `nombre` varchar(15) NOT NULL,
@@ -1968,32 +2020,69 @@ CREATE TABLE `nivel_indices` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `nivel_indices`
+-- Dumping data for table `nivel9_indices_fecha`
 --
 
-LOCK TABLES `nivel_indices` WRITE;
-/*!40000 ALTER TABLE `nivel_indices` DISABLE KEYS */;
-INSERT INTO `nivel_indices` VALUES (1,10,'1778',NULL,'1778-01-01','1778-12-31');
-INSERT INTO `nivel_indices` VALUES (2,10,'1780 - 1784',NULL,'1780-01-01','1784-12-31');
-INSERT INTO `nivel_indices` VALUES (3,10,'1785 - 1789',NULL,'1785-01-01','1789-12-31');
-INSERT INTO `nivel_indices` VALUES (4,10,'1790 - 1794',NULL,'1790-01-01','1794-12-31');
-INSERT INTO `nivel_indices` VALUES (5,10,'1795 - 1799',NULL,'1795-01-01','1799-12-31');
-INSERT INTO `nivel_indices` VALUES (6,10,'1800 - 1816',NULL,'1800-01-01','1816-12-31');
-INSERT INTO `nivel_indices` VALUES (7,5,'2024',NULL,'2024-02-12','2024-12-31');
-INSERT INTO `nivel_indices` VALUES (8,5,'2025',NULL,'2025-01-01','2025-12-31');
-INSERT INTO `nivel_indices` VALUES (9,6,'Dom 11/feb',NULL,'2024-02-11','2024-02-11');
-INSERT INTO `nivel_indices` VALUES (10,6,'Sáb 10/feb',NULL,'2024-02-10','2024-02-10');
-INSERT INTO `nivel_indices` VALUES (11,6,'Vie 9/feb',NULL,'2024-02-09','2024-02-09');
-INSERT INTO `nivel_indices` VALUES (12,6,'Jue 8/feb',NULL,'2024-02-08','2024-02-08');
-INSERT INTO `nivel_indices` VALUES (13,6,'Mié 7/feb',NULL,'2024-02-07','2024-02-07');
-INSERT INTO `nivel_indices` VALUES (14,6,'Mar 6/feb',NULL,'2024-02-06','2024-02-06');
-INSERT INTO `nivel_indices` VALUES (15,6,'Lun 5/feb',NULL,'2024-02-05','2024-02-05');
-INSERT INTO `nivel_indices` VALUES (16,6,'Dom 4/feb',NULL,'2024-02-04','2024-02-04');
-INSERT INTO `nivel_indices` VALUES (17,6,'Sáb 3/feb',NULL,'2024-02-03','2024-02-03');
-INSERT INTO `nivel_indices` VALUES (18,4,'2021',NULL,'2021-01-01','2021-12-31');
-INSERT INTO `nivel_indices` VALUES (19,10,'Introducción','introduccion','1730-01-01','1730-01-01');
-INSERT INTO `nivel_indices` VALUES (22,4,'Cronología','cronologia','1730-01-01','1730-01-01');
-/*!40000 ALTER TABLE `nivel_indices` ENABLE KEYS */;
+LOCK TABLES `nivel9_indices_fecha` WRITE;
+/*!40000 ALTER TABLE `nivel9_indices_fecha` DISABLE KEYS */;
+INSERT INTO `nivel9_indices_fecha` VALUES (1,10,'1778',NULL,'1778-01-01','1778-12-31');
+INSERT INTO `nivel9_indices_fecha` VALUES (2,10,'1780 - 1784',NULL,'1780-01-01','1784-12-31');
+INSERT INTO `nivel9_indices_fecha` VALUES (3,10,'1785 - 1789',NULL,'1785-01-01','1789-12-31');
+INSERT INTO `nivel9_indices_fecha` VALUES (4,10,'1790 - 1794',NULL,'1790-01-01','1794-12-31');
+INSERT INTO `nivel9_indices_fecha` VALUES (5,10,'1795 - 1799',NULL,'1795-01-01','1799-12-31');
+INSERT INTO `nivel9_indices_fecha` VALUES (6,10,'1800 - 1816',NULL,'1800-01-01','1816-12-31');
+INSERT INTO `nivel9_indices_fecha` VALUES (7,5,'2024',NULL,'2024-02-12','2024-12-31');
+INSERT INTO `nivel9_indices_fecha` VALUES (8,5,'2025',NULL,'2025-01-01','2025-12-31');
+INSERT INTO `nivel9_indices_fecha` VALUES (9,6,'Dom 11/feb',NULL,'2024-02-11','2024-02-11');
+INSERT INTO `nivel9_indices_fecha` VALUES (10,6,'Sáb 10/feb',NULL,'2024-02-10','2024-02-10');
+INSERT INTO `nivel9_indices_fecha` VALUES (11,6,'Vie 9/feb',NULL,'2024-02-09','2024-02-09');
+INSERT INTO `nivel9_indices_fecha` VALUES (12,6,'Jue 8/feb',NULL,'2024-02-08','2024-02-08');
+INSERT INTO `nivel9_indices_fecha` VALUES (13,6,'Mié 7/feb',NULL,'2024-02-07','2024-02-07');
+INSERT INTO `nivel9_indices_fecha` VALUES (14,6,'Mar 6/feb',NULL,'2024-02-06','2024-02-06');
+INSERT INTO `nivel9_indices_fecha` VALUES (15,6,'Lun 5/feb',NULL,'2024-02-05','2024-02-05');
+INSERT INTO `nivel9_indices_fecha` VALUES (16,6,'Dom 4/feb',NULL,'2024-02-04','2024-02-04');
+INSERT INTO `nivel9_indices_fecha` VALUES (17,6,'Sáb 3/feb',NULL,'2024-02-03','2024-02-03');
+INSERT INTO `nivel9_indices_fecha` VALUES (18,10,'Introducción','introduccion','1730-01-01','1730-01-01');
+INSERT INTO `nivel9_indices_fecha` VALUES (19,4,'2016',NULL,'2016-01-01','2016-12-31');
+INSERT INTO `nivel9_indices_fecha` VALUES (20,4,'2017 - 2023',NULL,'2017-01-01','2023-12-31');
+INSERT INTO `nivel9_indices_fecha` VALUES (21,4,'2000 - 2015',NULL,'2000-01-01','2015-12-31');
+/*!40000 ALTER TABLE `nivel9_indices_fecha` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `nivel9_indices_lugar`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `nivel9_indices_lugar` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `tema_id` int(10) unsigned NOT NULL,
+  `nombre` varchar(25) NOT NULL,
+  `codigo` varchar(25) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `indices_codigoLugar` (`codigo`),
+  KEY `indice_tema` (`tema_id`) USING BTREE,
+  CONSTRAINT `indice_tema_copy` FOREIGN KEY (`tema_id`) REFERENCES `nivel2_temas` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `nivel9_indices_lugar`
+--
+
+LOCK TABLES `nivel9_indices_lugar` WRITE;
+/*!40000 ALTER TABLE `nivel9_indices_lugar` DISABLE KEYS */;
+INSERT INTO `nivel9_indices_lugar` VALUES (1,17,'Introducción','1introduccion');
+INSERT INTO `nivel9_indices_lugar` VALUES (2,17,'CABA','2caba');
+INSERT INTO `nivel9_indices_lugar` VALUES (3,17,'GBA','3gba');
+INSERT INTO `nivel9_indices_lugar` VALUES (4,17,'Prov. Buenos Aires','4buenosAires');
+INSERT INTO `nivel9_indices_lugar` VALUES (5,17,'Prov. Córdoba','6cordoba');
+INSERT INTO `nivel9_indices_lugar` VALUES (6,17,'Prov. Santa Fe','santaFe');
+INSERT INTO `nivel9_indices_lugar` VALUES (7,17,'Prov. Santiago del Estero','5santiagoDelEstero');
+INSERT INTO `nivel9_indices_lugar` VALUES (8,17,'Prov. Salta','salta');
+INSERT INTO `nivel9_indices_lugar` VALUES (9,17,'Prov. Jujuy','jujuy');
+/*!40000 ALTER TABLE `nivel9_indices_lugar` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -2016,8 +2105,7 @@ CREATE TABLE `sessions` (
 
 LOCK TABLES `sessions` WRITE;
 /*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
-INSERT INTO `sessions` VALUES ('2HcvUUh6do1iJHfLbDagF2IscoDVCXMh',1763499902,'{\"cookie\":{\"originalMaxAge\":86400000,\"expires\":\"2025-11-18T21:04:57.939Z\",\"httpOnly\":true,\"path\":\"/\"},\"cliente\":{\"id\":7,\"cliente_id\":\"U0000000007\",\"fechaUltNaveg\":\"2025-11-17\",\"diasNaveg\":1,\"visitaCreadaEn\":\"2025-11-17\",\"versionWeb\":\"1.00\",\"rol\":{\"id\":1,\"orden\":1,\"nombre\":\"Sólo lectura\",\"codigo\":\"lectura\",\"actualizac\":false,\"revision\":false,\"cambioRoles\":false}},\"usuario\":{\"id\":7,\"nombreCompleto\":null,\"email\":\"r@q.com\",\"apodo\":\"Hivi\",\"cliente_id\":\"U0000000007\",\"contrasena\":\"$2b$10$57reW4EaIAuKdebbT0fm0.sd9KGDuIG5EBdmtAug3W1sg/9DSL20u\",\"pais_id\":null,\"notificacs\":false,\"visitaCreadaEn\":\"2025-11-17T00:00:00.000Z\",\"fechaUltNaveg\":\"2025-11-17\",\"diasNaveg\":1,\"versionWeb\":\"1.00\",\"creadoEn\":\"2025-11-17T19:15:05.000Z\",\"fechaContrasena\":\"2025-11-17T19:15:05.000Z\",\"rol_id\":1,\"statusRegistro_id\":3,\"rol\":{\"id\":1,\"orden\":1,\"nombre\":\"Sólo lectura\",\"codigo\":\"lectura\",\"actualizac\":false,\"revision\":false,\"cambioRoles\":false},\"statusRegistro\":{\"id\":2,\"orden\":2,\"nombre\":\"Mail validado\",\"codigo\":\"mailValidado\"},\"imagen\":\"1763413497936.jpg\"}}');
-INSERT INTO `sessions` VALUES ('yFCEmG4wOobxUpQfvNvm0c03MmX14CnR',1763490050,'{\"cookie\":{\"originalMaxAge\":86400000,\"expires\":\"2025-11-18T17:43:38.851Z\",\"httpOnly\":true,\"path\":\"/\"},\"cliente\":{\"id\":1,\"cliente_id\":\"U0000000001\",\"fechaUltNaveg\":\"2025-10-21\",\"diasNaveg\":1,\"visitaCreadaEn\":\"2025-10-16\",\"versionWeb\":\"1.00\",\"rol\":{\"id\":5,\"orden\":5,\"nombre\":\"Completo\",\"codigo\":\"completo\",\"actualizac\":true,\"revision\":true,\"cambioRoles\":true}},\"usuario\":{\"id\":1,\"nombreCompleto\":\"Diego Iribarren\",\"email\":\"diegoiribarren2015@gmail.com\",\"apodo\":\"Diego\",\"cliente_id\":\"U0000000001\",\"contrasena\":\"$2a$10$B78JgfuFnMmfdC5MLci06.HGD3AtXGGHYqQcKCStrq5b3v.jpI/aO\",\"pais_id\":null,\"imagen\":\"1761491982343.jpg\",\"notificacs\":false,\"visitaCreadaEn\":\"2025-10-16T23:29:07.000Z\",\"fechaUltNaveg\":\"2025-10-21\",\"diasNaveg\":1,\"versionWeb\":\"1.00\",\"creadoEn\":\"2025-10-16T23:29:07.000Z\",\"fechaContrasena\":\"2025-10-16T23:29:07.000Z\",\"rol_id\":5,\"statusRegistro_id\":3,\"rol\":{\"id\":5,\"orden\":5,\"nombre\":\"Completo\",\"codigo\":\"completo\",\"actualizac\":true,\"revision\":true,\"cambioRoles\":true},\"statusRegistro\":{\"id\":3,\"orden\":3,\"nombre\":\"Con apodo\",\"codigo\":\"conApodo\"}}}');
+INSERT INTO `sessions` VALUES ('yFCEmG4wOobxUpQfvNvm0c03MmX14CnR',1763646685,'{\"cookie\":{\"originalMaxAge\":86400000,\"expires\":\"2025-11-19T20:43:39.845Z\",\"httpOnly\":true,\"path\":\"/\"},\"cliente\":{\"id\":1,\"cliente_id\":\"U0000000001\",\"fechaUltNaveg\":\"2025-10-21\",\"diasNaveg\":1,\"visitaCreadaEn\":\"2025-10-16\",\"versionWeb\":\"1.00\",\"rol\":{\"id\":5,\"orden\":5,\"nombre\":\"Completo\",\"codigo\":\"completo\",\"actualizac\":true,\"revision\":true,\"cambioRoles\":true}},\"usuario\":{\"id\":1,\"nombreCompleto\":\"Diego Iribarren\",\"email\":\"diegoiribarren2015@gmail.com\",\"apodo\":\"Diego\",\"cliente_id\":\"U0000000001\",\"contrasena\":\"$2a$10$B78JgfuFnMmfdC5MLci06.HGD3AtXGGHYqQcKCStrq5b3v.jpI/aO\",\"pais_id\":null,\"imagen\":\"1761491982343.jpg\",\"notificacs\":false,\"visitaCreadaEn\":\"2025-10-16T23:29:07.000Z\",\"fechaUltNaveg\":\"2025-10-21\",\"diasNaveg\":1,\"versionWeb\":\"1.00\",\"creadoEn\":\"2025-10-16T23:29:07.000Z\",\"fechaContrasena\":\"2025-10-16T23:29:07.000Z\",\"rol_id\":5,\"statusRegistro_id\":3,\"rol\":{\"id\":5,\"orden\":5,\"nombre\":\"Completo\",\"codigo\":\"completo\",\"actualizac\":true,\"revision\":true,\"cambioRoles\":true},\"statusRegistro\":{\"id\":3,\"orden\":3,\"nombre\":\"Con apodo\",\"codigo\":\"conApodo\"}}}');
 /*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2122,13 +2210,7 @@ CREATE TABLE `us_usuarios` (
 
 LOCK TABLES `us_usuarios` WRITE;
 /*!40000 ALTER TABLE `us_usuarios` DISABLE KEYS */;
-INSERT INTO `us_usuarios` VALUES (1,'Diego Iribarren','diegoiribarren2015@gmail.com\'','Diego','U0000000001','$2a$10$B78JgfuFnMmfdC5MLci06.HGD3AtXGGHYqQcKCStrq5b3v.jpI/aO',NULL,'1761491982343.jpg',0,'2025-10-16 23:29:07','2025-10-21',1,'1.00','2025-10-16 23:29:07','2025-10-16 23:29:07',5,3);
-INSERT INTO `us_usuarios` VALUES (2,'Prueba de Usuario','prueba@q.com','Prueba','U0000000002','$2b$10$wB2zeR.Yb9skDbyKDfLZg.lPBWRKdrzN/XFZyLbxUEuuZ1Wu/FJJ.',NULL,NULL,0,'2025-10-16 00:00:00','2025-11-17',1,'1.00','2025-11-17 16:11:21','2025-11-17 16:11:21',5,2);
-INSERT INTO `us_usuarios` VALUES (3,NULL,'diegoiribarren2015@gmail.com','Maderas','U0000000003','$2b$10$49K/zYUzLp0N19AqjkVOb.PKiDXREYukXD78pB2BJSs1Lz/bb5m.S',NULL,'1763401965429.jpg',0,'2025-11-17 00:00:00','2025-11-17',1,'1.00','2025-11-17 17:51:07','2025-11-17 17:51:07',1,3);
-INSERT INTO `us_usuarios` VALUES (4,NULL,'qqq@q.com','Este es mi apodo','U0000000004','$2b$10$g7d7WxnbDGUI/X5yWPL5Me3Gxisfws6fVld7hrguR1/Xu5ZYHqIC6',NULL,'1763404033864.jpg',0,'2025-11-17 00:00:00','2025-11-17',1,'1.00','2025-11-17 18:21:30','2025-11-17 18:21:30',1,3);
-INSERT INTO `us_usuarios` VALUES (5,NULL,'w@w.com','Eggege','U0000000005','$2b$10$3KUZpJK/K4IFke7SEj9M3.XygBmQgWDP.RwcMqVutmB0RUVyvGVHa',NULL,'1763405021250.jpg',0,'2025-11-17 00:00:00','2025-11-17',1,'1.00','2025-11-17 18:38:34','2025-11-17 18:38:34',1,3);
-INSERT INTO `us_usuarios` VALUES (6,NULL,'sdf@a.com','Buu','U0000000006','$2b$10$qjhP4DeKAZPT6Wn2T85FSeh1P89kb/C7uq1PBkIj4HOKlJap2Sdte',NULL,'1763406025448.jpg',0,'2025-11-17 00:00:00','2025-11-17',1,'1.00','2025-11-17 18:45:25','2025-11-17 18:45:25',1,3);
-INSERT INTO `us_usuarios` VALUES (7,NULL,'r@q.com','Hivi','U0000000007','$2b$10$57reW4EaIAuKdebbT0fm0.sd9KGDuIG5EBdmtAug3W1sg/9DSL20u',NULL,'1763413497936.jpg',0,'2025-11-17 00:00:00','2025-11-17',1,'1.00','2025-11-17 19:15:05','2025-11-17 19:15:05',1,3);
+INSERT INTO `us_usuarios` VALUES (1,'Diego Iribarren','diegoiribarren2015@gmail.com','Diego','U0000000001','$2a$10$B78JgfuFnMmfdC5MLci06.HGD3AtXGGHYqQcKCStrq5b3v.jpI/aO',NULL,'1761491982343.jpg',0,'2025-10-16 23:29:07','2025-10-21',1,'1.00','2025-10-16 23:29:07','2025-10-16 23:29:07',5,3);
 /*!40000 ALTER TABLE `us_usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2177,4 +2259,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-11-17 18:08:13
+-- Dump completed on 2025-11-19 11:15:51
