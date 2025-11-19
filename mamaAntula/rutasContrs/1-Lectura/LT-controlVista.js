@@ -74,11 +74,7 @@ export default {
 
 		// Datos para la vista
 		const clase = pestanaActual.codigo.startsWith("estampas") ? "estampas" : "estandar";
-		const indices = {
-			esCarta: temaActual.codigo == "cartas",
-			esLugares: temaActual.codigo == "lugaresDevocion",
-			conIndice: !!(temaActual.indicesFecha.length || temaActual.indicesLugares.length),
-		};
+		const indices = {esCarta: null, esLugares: null, conIndice: null};
 
 		// Fin
 		return res.render("CMP-0Estructura", {
