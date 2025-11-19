@@ -206,9 +206,15 @@ const agregaOpciones = (opciones, domSelect, campoNombre) => {
 
 	// Agrega las opciones
 	for (const opcion of opciones) {
+		// Si corresponde, saltea la rutina
+		if (opcion.codigo == "1introduccion") continue;
+
+		// Crea la opción
 		const domOpcion = document.createElement("option");
 		domOpcion.value = opcion.id;
 		domOpcion.textContent = opcion[campoNombre] || "Sin título";
+
+		// Agrega la opción
 		domSelect.appendChild(domOpcion);
 	}
 
