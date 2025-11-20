@@ -69,4 +69,18 @@
 		#muestraVideo {width: 100%; height: 150px; border: 1px solid gray;}
 		#muestraLeyenda {text-align: center;}
 	}
+	#libro {
+		flex-direction: row; align-items: center; gap: 10px;
+		.inputs, .outputs {
+			display: flex; flex-direction: column; align-items: center;
+			* {width: 200px;}
+		}
+		.inputs {
+			gap: 10px;
+			input[name="url"] {text-align: center;}
+		}
+		#muestraVideo {width: 100%; height: 150px; border: 1px solid gray;}
+		#muestraLeyenda {text-align: center;}
+
+	}
 }
