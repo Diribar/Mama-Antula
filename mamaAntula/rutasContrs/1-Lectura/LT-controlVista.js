@@ -35,7 +35,7 @@ export default {
 
 		// Datos para la vista
 		const clase = temaActual.codigo == "libros" ? "libros" : "estandar";
-		if (clase == "libros" && contenidos) contenidos.sort((a, b) => (b.video < a.video ? -1 : 1)); // ordena los libros en forma descenente
+		if (clase == "libros" && contenidos) contenidos.sort((a, b) => (b.anoLanzam < a.anoLanzam ? -1 : 1)); // ordena los libros en forma descenente
 
 		// Fin
 		return res.render("CMP-0Estructura", {

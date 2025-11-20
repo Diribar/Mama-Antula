@@ -6,6 +6,9 @@
 	.contenido {
 		a {color: var(--terracota); text-decoration: underline;}
 
+		/* Imagen, Carrusel, Video */
+		&:has(.carrImgs, iframe), :where(&.contImagenLeyenda, .contImagenLeyenda) {display: flex; flex-direction: column; align-items: center; width: 100%;}
+
 		/* Texto con imagen */
 		&.textoImagen {
 			width: 100%;
@@ -24,17 +27,20 @@
 
 		/* Imagen sola o con texto */
 		:where(&.contImagenLeyenda, .contImagenLeyenda) {
-			display: flex; flex-direction: column; align-items: center;
 			.imagen {max-height: 300px; max-width: 100%;}
+			.tituloLibro {
+				margin-block: 6px; max-width: 350px;
+				font-weight: bold; font-size: 1rem; color: var(--azulOscuro);
+				text-wrap: balance; text-align: center;
+			}
+			/* .autorLibro, .anoEditorial {color: var(--grisOscuro);} */
 		}
 
-		/* Imagen, Carrusel, Video */
-		&:has(.carrImgs, iframe), &.contImagenLeyenda {display: flex; flex-direction: column; align-items: center; width: 100%;}
+		/* Carrusel */
 		&:has(.carrImgs) {
 			overflow-x: auto;
 			.carrImgs {
-				display: flex; flex-direction: row; gap: 20px;
-				max-width: 100%;
+				display: flex; flex-direction: row; gap: 20px; max-width: 100%;
 				img {max-height: 300px;}
 			}
 		}

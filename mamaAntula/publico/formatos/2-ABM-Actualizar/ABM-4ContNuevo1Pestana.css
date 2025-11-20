@@ -14,6 +14,7 @@
 		#iconoGuardar {
 			cursor: pointer;
 			&:not(.inactivo):hover {scale: 1.5;}
+			&.inactivo {color: var(--rojoOscuro);}
 		}
 	}
 
@@ -24,4 +25,5 @@
 	&:has(#imagen.pestana.activo) {#imagen {display: flex;}}
 	&:has(#carrusel.pestana.activo) {#carrusel {display: flex;}}
 	&:has(#video.pestana.activo) {#video {display: flex;}}
+	&:has(#libro.pestana.activo) {#libro {display: flex;}}
 }

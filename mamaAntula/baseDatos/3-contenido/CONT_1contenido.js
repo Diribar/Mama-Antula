@@ -11,6 +11,14 @@ export default (sequelize, dt) => {
 		video: {type: dt.TEXT("medium")},
 		leyenda: {type: dt.TEXT("medium")},
 
+		// Libros / Estampas
+		titulo: {type: dt.STRING(100)},
+
+		// Libros
+		autor: {type: dt.STRING(30)},
+		anoLanzam: {type: dt.INTEGER},
+		editorial: {type: dt.STRING(50)},
+
 		// Control
 		creadoPor_id: {type: dt.INTEGER},
 		creadoEn: {type: dt.DATE},
