@@ -73,12 +73,10 @@ window.addEventListener("load", async () => {
 	// Funciones - Inicializamos Quill
 	const input = DOM.input; // el tag donde se pega el texto con formato
 	const toolbar = DOM.barraHerrams; // el tag que contiene los botones
+	const modules = {toolbar: {container: toolbar, handlers: {pastePlain: () => pastePlainText(quill)}}};
 	const formats = [...new Set(nombreEtiquetas)]; // los botones
 	const placeholder = "Escribí acá tu contenido...";
-	const quill = new Quill(input, {
-		modules: {toolbar: {container: toolbar, handlers: {pastePlain: () => pastePlainText(quill)}}},
-		...{formats, placeholder, theme: "snow"},
-	});
+	const quill = new Quill(input, {modules, formats, placeholder, theme: "snow"});
 
 	// Pule el input y lo pega en el output
 	const actualizaContenido = () =>
