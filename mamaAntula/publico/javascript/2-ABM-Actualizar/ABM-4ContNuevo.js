@@ -153,12 +153,12 @@ window.addEventListener("load", async () => {
 		// Guarda la información en la BD
 		const ruta = v.nombrePestanaActiva == "carrusel" ? "guardaCarrusel" : "guardaContenido"; // la diferencia es por el multer
 		const respuesta = await fetch(rutas[ruta], postForm(v.formData)).then((n) => n.json());
+		DOM.iconoGuardar.classList.remove("inactivo");
 
 		// Si hubo un error, muestra el mensaje e interrumpe la función
 		if (respuesta.error) return carteles.error(respuesta.error);
 
 		// Recarga la vista, para que limpie todo
-		DOM.iconoGuardar.classList.remove("inactivo");
 		location.reload();
 
 		// Fin
