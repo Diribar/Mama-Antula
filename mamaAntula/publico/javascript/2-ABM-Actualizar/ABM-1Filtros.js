@@ -117,7 +117,7 @@ window.addEventListener("load", async () => {
 
 		// TEMA - Elige el tema
 		v.temasPosibles = comp1234.temasSecciones.filter((n) => n.seccion_id == DOM.seccion.value);
-		let tema_id = cookie("actualizaTema_id");
+		const tema_id = cookie("actualizaTema_id");
 
 		// TEMA - Si es start-up, elige la opción de la cookie
 		if (comp1234.startUp && tema_id && v.temasPosibles.find((n) => n.id == tema_id)) DOM.tema.value = tema_id;
@@ -132,7 +132,7 @@ window.addEventListener("load", async () => {
 	});
 	DOM.tema.addEventListener("change", () => {
 		// TEMA -  Guarda la cookie
-		tema_id = DOM.tema.value;
+		const tema_id = DOM.tema.value;
 		if (!comp1234.startUp) document.cookie = "actualizaTema_id=" + tema_id + "; path=/";
 
 		// Averigua si el tema es 'Cartas'
@@ -153,7 +153,7 @@ window.addEventListener("load", async () => {
 			agregaOpciones(comp1234.pestanasTema, DOM.pestana, "titulo");
 
 			// PESTAÑA - Si es start-up, elige la opción de la cookie
-			let pestana_id = cookie("actualizaPestana_id");
+			const pestana_id = cookie("actualizaPestana_id");
 			const pestanasPosibles = comp1234.pestanasTema.filter((n) => n.tema_id == DOM.tema.value);
 			if (comp1234.startUp && pestana_id && pestanasPosibles.find((n) => n.id == pestana_id))
 				DOM.pestana.value = pestana_id;
@@ -176,7 +176,7 @@ window.addEventListener("load", async () => {
 	});
 	DOM.pestana.addEventListener("change", () => {
 		// PESTAÑA -  Guarda la cookie
-		pestana_id = DOM.pestana.value;
+		const pestana_id = DOM.pestana.value;
 		if (!comp1234.startUp) document.cookie = "actualizaPestana_id=" + pestana_id + "; path=/";
 
 		// ENCABEZADO - Los obtiene y genera el evento 'change'
