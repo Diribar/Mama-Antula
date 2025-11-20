@@ -109,7 +109,7 @@ window.addEventListener("load", async () => {
 
 			if (false) null;
 			// Libros
-			else if (comp1234.temaActual.codigo == "libros")  v.domContenido = this.libro(contenido);
+			else if (comp1234.temaActual.codigo == "libros") v.domContenido = this.libro(contenido);
 			// Sólo texto
 			else if (contenido.texto && !contenido.imagen) v.domContenido = this.texto(contenido).cloneNode(true);
 			// Sólo una imagen
