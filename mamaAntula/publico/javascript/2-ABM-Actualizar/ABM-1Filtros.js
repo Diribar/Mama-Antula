@@ -60,7 +60,7 @@ window.addEventListener("load", async () => {
 			comp1234.encabezados = respuesta;
 
 			// ENCABEZADO - Crea las opciones
-			agregaOpciones(comp1234.encabezados, DOM.encabezado, "tituloLectura");
+			agregaOpciones(comp1234.encabezados, DOM.encabezado, "tituloElab");
 
 			// ENCABEZADO - Si 'conIndice', crea la opción NUEVO - sin indice siempre tiene un encabezado creado y no puede tener más de uno
 			if (comp1234.conIndice) {

@@ -34,6 +34,12 @@ export default {
 	LP_urlSeccion: "inicio",
 	LP_urlTema: "quien-es-mama-antula",
 
+	// Temas y encabezados
+	temaCarta_id: 10, // el id del tema "Cartas"
+	encabCartaIntro_id: 33, // el id del encabezado sobre Introducción a las cartas
+	temaLugares_id: 17, // el id del tema "Lugares"
+	encabLugaresIntro_id: 25, // el id del encabezado sobre Introducción a los lugares
+
 	// Otras
 	requestsTriviales: ["WhatsApp", "Postman", "TelegramBot", "TwitterBot", "Zabbix"], // evita que se cuenten como visitas
 	continentes: ["América", "Europa", "Africa", "Asia", "Oceanía"],
@@ -43,8 +49,7 @@ export default {
 	mesesAbrev: ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"],
 	includesEncabs: {
 		cartas: ["nombreDesde", "nombreHacia", "idioma", "lugar"],
+		lugares: "lugarIndice",
 		conIndice: "lugar",
 	},
-	temaCarta_id: 10, // el id del tema "Cartas"
-	encabCartaIntro_id: 33,// el id del encabezado sobre Introducción a las cartas
 };

@@ -17,8 +17,11 @@ export default {
 		// Tema
 		const temasSeccion = temasSecciones.filter((n) => n.seccion_id == seccionActual.id);
 		const temaActual = temasSeccion.find((n) => n.url == urlTema);
-		const esCarta = temaActual.codigo == "cartas";
-		const conIndice = !!temaActual.indicesFecha.length;
+		const indices = {
+			esCarta: temaActual.codigo == "cartas",
+			esLugares: temaActual.codigo == "lugaresDevocion",
+			conIndice: !!(temaActual.indicesFecha.length || temaActual.indicesLugar.length),
+		};
 
 		// Condición - si el usuario no tiene el permiso de edición, no se le permite ver los contenidos que tengan status 'creado'
 		const condicion = {tema_id: temaActual.id};
@@ -27,7 +30,7 @@ export default {
 
 		// Obtiene el encabezado y contenido
 		const encab_id = req.query.id;
-		const {encabezados, encabezado} = await procesos.encabezados({esCarta, conIndice, condicion, encab_id});
+		const {encabezados, encabezado} = await procesos.encabezados({encab_id, condicion, ...indices});
 		const contenidos = encabezado && (await procesos.contenidos(encabezado));
 
 		// Datos para la vista
@@ -37,8 +40,9 @@ export default {
 		// Fin
 		return res.render("CMP-0Estructura", {
 			...{tituloPagina, temaVista, codigoVista, temasSeccion},
-			...{seccionActual, temaActual, esCarta, conIndice, clase},
+			...{seccionActual, temaActual, clase},
 			...{encabezado, contenidos, encabezados},
+			...indices,
 		});
 	},
 	pestanas: async (req, res) => {
@@ -65,19 +69,19 @@ export default {
 
 		// Obtiene el encabezado y contenido
 		const encab_id = req.query.id;
-		const {encabezados, encabezado} = await procesos.encabezados({condicion, encab_id});
+		const {encabezados, encabezado} = await procesos.encabezados({encab_id, condicion});
 		const contenidos = encabezado && (await procesos.contenidos(encabezado));
 
 		// Datos para la vista
 		const clase = pestanaActual.codigo.startsWith("estampas") ? "estampas" : "estandar";
-		const esCarta = null;
-		const conIndice = null;
+		const indices = {esCarta: null, esLugares: null, conIndice: null};
 
 		// Fin
 		return res.render("CMP-0Estructura", {
 			...{tituloPagina, temaVista, codigoVista, temasSeccion, pestanasTema},
-			...{seccionActual, temaActual, pestanaActual, esCarta, conIndice, clase},
+			...{seccionActual, temaActual, pestanaActual, clase},
 			...{encabezado, contenidos, encabezados},
+			...indices,
 		});
 	},
 };

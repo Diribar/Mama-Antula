@@ -31,7 +31,7 @@ export default {
 		}
 
 		// Les agrega los títulos
-		if (esCarta || conIndice) encabezados = comp.titulosLectura({esCarta, conIndice, encabezados});
+		if (conIndice) encabezados = comp.titulosElabs({esCarta, esLugares, encabezados});
 
 		// Fin
 		return encabezados;

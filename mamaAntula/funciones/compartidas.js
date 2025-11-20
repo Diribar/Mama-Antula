@@ -10,9 +10,9 @@ export default {
 		// En uso
 		anoMesDia: (fecha) => new Date(fecha).toISOString().slice(0, 10),
 		ahora: () => new Date(new Date().toUTCString()), // <-- para convertir en horario 'UTC'
-		diaMesAnoUTC: (fecha) => FN.diaMesAnoUTC(fecha),
-		horarioUTC: (fecha) => {
-			const horario = fecha ? new Date(fecha) : FN.ahora();
+		diaMesAnoUTC: (fecha) => diaMesAnoUTC(fecha),
+		horarioUTC: function (fecha) {
+			const horario = fecha ? new Date(fecha) : this.ahora();
 			const hora = horario.getUTCHours();
 			const minutos = String(horario.getUTCMinutes()).padStart(2, "0");
 			const horaResp = hora + ":" + minutos + "hs (UTC)";
@@ -164,12 +164,12 @@ export default {
 		descarga: (ruta, nombreArch, reqFile) => fs.promises.writeFile(path.join(ruta, nombreArch), reqFile.buffer), // descarga el archivo puesto en memoria por multer
 	},
 
-	titulosLectura: ({esCarta, conIndice, temaActual, encabezados}) =>
-		esCarta || (temaActual && temaActual.codigo == "cartas") // cartas
-			? FN.tituloCartas(encabezados)
-			: conIndice || (temaActual && temaActual.indicesFecha.length) // conIndice
-			? FN.titulosConIndice(encabezados)
-			: encabezados, // sinIndice
+	titulosElabs: ({esCarta, esLugares, encabezados}) =>
+		esCarta
+			? titulosElabs.cartas(encabezados) // cartas
+			: esLugares
+			? titulosElabs.lugares(encabezados)
+			: titulosElabs.conIndice(encabezados),
 
 	// Funciones puntuales
 	obtieneUsuarioPorMail: (email) => {
@@ -219,53 +219,49 @@ export default {
 };
 
 // Funciones
-const FN = {
-	diaMesAnoUTC: (fecha) => {
-		// Variables
-		fecha = new Date(fecha);
-		const dia = fecha.getUTCDate();
-		const mes = mesesAbrev[fecha.getUTCMonth()];
-		const año = fecha.getUTCFullYear().toString();
+const diaMesAnoUTC = (fecha) => {
+	// Variables
+	fecha = new Date(fecha);
+	const dia = fecha.getUTCDate();
+	const mes = mesesAbrev[fecha.getUTCMonth()];
+	const año = fecha.getUTCFullYear().toString();
 
-		// Fin
-		return dia + "/" + mes + "/" + año;
-	},
-
-	// Títulos para lectura
-	tituloCartas: function (encabs) {
-		for (const encab of encabs) encab.tituloLectura = this.tituloCarta(encab);
+	// Fin
+	return dia + "/" + mes + "/" + año;
+};
+const titulosElabs = {
+	cartas: (encabs) => {
+		for (const encab of encabs)
+			encab.tituloElab =
+				encab.id == encabCartaIntro_id // para 'Introducción'
+					? encab.titulo
+					: "Carta " +
+					  encab.numero +
+					  " - De" +
+					  (encab.nombreDesde.nombre.startsWith("P.") ? "l " : " ") +
+					  encab.nombreDesde.nombre +
+					  " para " +
+					  (encab.nombreHacia.nombre.startsWith("P.") ? "el " : "") +
+					  encab.nombreHacia.nombre +
+					  " - " +
+					  encab.lugar.nombre +
+					  " - " +
+					  diaMesAnoUTC(encab.fechaEvento);
 
 		// Fin
 		return encabs;
 	},
-	tituloCarta: (encab) => {
-		if (!encab) return "";
-		const tituloLectura = !encab.numero // para 'Introducción'
-			? encab.titulo
-			: "Carta " +
-			  encab.numero +
-			  " - De" +
-			  (encab.nombreDesde.nombre.startsWith("P.") ? "l " : " ") +
-			  encab.nombreDesde.nombre +
-			  " para " +
-			  (encab.nombreHacia.nombre.startsWith("P.") ? "el " : "") +
-			  encab.nombreHacia.nombre +
-			  " - " +
-			  encab.lugar.nombre +
-			  " - " +
-			  FN.diaMesAnoUTC(encab.fechaEvento);
-
-		// Fin
-		return tituloLectura;
-	},
-	titulosConIndice: (encabs) => {
+	lugares: (encabs) => {
 		for (const encab of encabs)
-			encab.tituloLectura =
-				encab.titulo && encab.encab_id != temaCarta_id
-					? FN.diaMesAnoUTC(encab.fechaEvento) + " - " + encab.titulo + " - " + encab.lugar.nombre
-					: "";
-
-		// Fin
+			encab.tituloElab =
+				encab.id == encabLugaresIntro_id // para 'Introducción'
+					? encab.lugarIndice.nombre
+					: encab.titulo + " - " + encab.lugarIndice.nombre;
+		return encabs;
+	},
+	conIndice: (encabs) => {
+		for (const encab of encabs)
+			encab.tituloElab = diaMesAnoUTC(encab.fechaEvento) + " - " + encab.titulo + " - " + encab.lugar.nombre;
 		return encabs;
 	},
 };

@@ -16,6 +16,7 @@ export default (sequelize, dt) => {
 		nombreHacia_id: {type: dt.INTEGER},
 		idioma_id: {type: dt.INTEGER},
 		lugar_id: {type: dt.INTEGER},
+		codigoLugar: {type: dt.STRING(25)},
 
 		// Control
 		creadoPor_id: {type: dt.INTEGER},
@@ -34,13 +35,16 @@ export default (sequelize, dt) => {
 		entidad.belongsTo(n.usuarios, {as: "creadoPor", foreignKey: "creadoPor_id"});
 		entidad.belongsTo(n.statusRegistros, {as: "statusRegistro", foreignKey: "statusRegistro_id"});
 
-		// Comunes a conIndice
+		// Comunes a índices por fecha
 		entidad.belongsTo(n.lugares, {as: "lugar", foreignKey: "lugar_id"});
 
 		// Exclusivo de cartas
 		entidad.belongsTo(n.personajes, {as: "nombreDesde", foreignKey: "nombreDesde_id"});
 		entidad.belongsTo(n.personajes, {as: "nombreHacia", foreignKey: "nombreHacia_id"});
 		entidad.belongsTo(n.idiomas, {as: "idioma", foreignKey: "idioma_id"});
+
+		// Exclusivo de índices por lugar
+		entidad.belongsTo(n.indicesLugar, {as: "lugarIndice", foreignKey: "codigoLugar"});
 
 		// Has many
 		entidad.hasMany(n.encabEdics, {as: "ediciones", foreignKey: "encab_id"});
