@@ -179,6 +179,7 @@ export default {
 			: esLugares
 			? baseDatos
 					.obtieneTodosPorCondicion("encabezados", condicion, includesEncabs.lugares)
+					.then((n) => n.sort((a, b) => (a.titulo < b.titulo ? -1 : 1)))
 					.then((n) => n.sort((a, b) => (a.lugarIndice.codigo < b.lugarIndice.codigo ? -1 : 1)))
 			: conIndice
 			? baseDatos
@@ -268,11 +269,19 @@ const titulosElabs = {
 		return encabs;
 	},
 	lugares: (encabs) => {
-		for (const encab of encabs)
+		// Rutina
+		for (const encab of encabs) {
 			encab.tituloElab =
 				encab.id == encabLugaresIntro_id // para 'Introducción'
 					? encab.lugarIndice.nombre
 					: encab.titulo + " - " + encab.lugarIndice.nombre;
+			encab.tituloAbm =
+				encab.id == encabLugaresIntro_id // para 'Introducción'
+					? encab.lugarIndice.nombre
+					: encab.lugarIndice.nombre + " - " + encab.titulo;
+		}
+
+		// Fin
 		return encabs;
 	},
 	conIndice: (encabs) => {
