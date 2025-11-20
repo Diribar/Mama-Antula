@@ -10,11 +10,11 @@ const procesaArchImg = (file, vistaImagen) =>
 		const [familia, tipo] = file.type.split("/");
 
 		// Si no es un archivo de imagen, interrumpe la función
-		if (familia != "image") return resolve(console.log("La familia '" + familia + "' del archivo no es una imagen"));
+		if (familia != "image") return resolve(carteles.error("El archivo no es una imagen"));
 
 		// Valida el tipo de archivo
 		const frase = "El tipo de imagen '" + tipo + "' no es admitido (sólo se aceptan tipos " + tiposAdmitidos.join(", ") + ")";
-		if (!tiposAdmitidos.includes(tipo)) return resolve(console.log(frase));
+		if (!tiposAdmitidos.includes(tipo)) return resolve(carteles.error(frase));
 
 		// Lee el archivo
 		const reader = new FileReader();
@@ -31,7 +31,7 @@ const procesaArchImg = (file, vistaImagen) =>
 
 				// Si supera el tamaño maximo permitido, interrumpe la función
 				const tamMaxArch = 1024 * 1024; // 1 MB
-				if (file.size > tamMaxArch ) return resolve(console.log("El archivo es demasiado grande"));
+				if (file.size > tamMaxArch) return resolve(carteles.error("El archivo es demasiado grande"));
 
 				// Hace visible la imagen
 				vistaImagen.src = reader.result;
