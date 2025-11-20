@@ -12,13 +12,14 @@ window.addEventListener("load", async () => {
 		// Formulario
 		inputLeyenda: domLayout.querySelector("[name='leyenda']"),
 	};
-	const v = {};
 
-	// Eventos nueva imagen
+	// Eventos drag & drop
 	DOM.areaSoltar.addEventListener("drop", async (e) => (archImagen = await nuevaImg(e.dataTransfer.files, DOM.vistaImagen)));
+	otrosEventos(DOM);
+
+	// Eventos del formulario
 	DOM.inputImagen.addEventListener("change", async () => (archImagen = await nuevaImg(DOM.inputImagen.files, DOM.vistaImagen)));
 	DOM.inputLeyenda.addEventListener("change", () => (DOM.inputLeyenda.value = inicialMayus(DOM.inputLeyenda.value)));
-	otrosEventos(DOM);
 
 	// Fin
 	return;
