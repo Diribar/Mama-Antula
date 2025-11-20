@@ -2,25 +2,64 @@
 
 window.addEventListener("load", async () => {
 	// Variables
+	const domFiltros = document.querySelector("#filtros");
+	const contPestanas = document.querySelector("#pestanasGuardar");
 	const DOM = {
-		contPestanas: document.querySelector("#pestanasGuardar"),
-		pestanas: domPestsGuardar.querySelectorAll("#pestanasGuardar .pestana"),
+		// Filtros
+		temaFiltro: domFiltros.querySelector("select[name='tema_id']"),
+
+		// Contenido nuevo
+		pestanas: contPestanas.querySelectorAll(".pestana"),
 	};
 	const pestanaActiva = cookie("actualizaContNuevo_id") || "textoImagen";
-	const pestanasOcasionales = [
+	const filtrosNoEstandar = {
+		libros: ["libro"],
+		videos: ["texto", "video"],
+		estampas: ["estampa"],
+	};
+	const pestanasNoEstandar = [
 		"texto", // videos
-		"libros", // libros
-		"estampas", // estampas
+		"libro", // libros
+		"estampa", // estampas
 	];
-	const filtrosSinPestanasStd = {
-		libros: ["libros"],
-		videos: ["texto", "videos"],
-		estampas: ["estampas"],
+
+	// Funciones
+	const particsPestanas = () => {
+		// Variables
+		const tema_id = DOM.temaFiltro.value;
+		const temaCodigo = comp1234.temasSecciones.find((n) => n.id == tema_id)?.codigo;
+		if (!temaCodigo) return;
+		console.log(filtrosNoEstandar[temaCodigo],temaCodigo,tema_id);
+
+		// Deja las pestañas que corresponden
+		for (const pestana of DOM.pestanas) {
+			// Averigua si la pestaña debe estar visible
+			const mostrar =
+				(!filtrosNoEstandar[temaCodigo] && !pestanasNoEstandar.includes(pestana.id)) || // el filtro es estándar y la pestaña también
+				(filtrosNoEstandar[temaCodigo] && filtrosNoEstandar[temaCodigo].includes(pestana.id)); // el filtro no es estandar e incluye la pestaña
+
+			// Muestra u Oculta la pestaña
+			pestana.classList[mostrar ? "remove" : "add"]("ocultar");
+			console.log(mostrar, pestana.id);
+		}
+
+		// Se asegura de que la pestaña activa esté visible
+		const domActiva = contPestanas.querySelector(".pestana.activo");
+		if (!domActiva || domActiva.classList.contains("ocultar")) {
+			// Inactiva la pestaña oculta
+			if (domActiva) domActiva.classList.remove("activo");
+
+			// Activa la primera pestaña visible
+			const domVisible = contPestanas.querySelector(".pestana:not(.ocultar)");
+			domVisible.classList.add("activo");
+
+			// Guarda la cookie
+			document.cookie = "actualizaContNuevo_id=" + domVisible.id + "; path=/";
+		}
 	};
 
-	// Rutina por pestaña
-	for (const pestana of DOM.pestanas) {
-		// Eventos
+	// Eventos - click en una pestaña
+	for (const pestana of DOM.pestanas)
 		pestana.addEventListener("click", () => {
 			// Guarda la cookie
 			document.cookie = "actualizaContNuevo_id=" + pestana.id + "; path=/";
@@ -32,12 +71,12 @@ window.addEventListener("load", async () => {
 			}
 		});
 
-		// Start-up - elige la pestaña activa
-		if (pestana.id == pestanaActiva) pestana.classList.add("activo");
-	}
+	// Eventos por cambio de tema
+	DOM.temaFiltro.addEventListener("change", () => particsPestanas());
 
 	// Start-up
-	DOM.contPestanas.classList.remove("invisible");
+	for (const pestana of DOM.pestanas) if (pestana.id == pestanaActiva) pestana.classList.add("activo"); // elige la pestaña activa
+	contPestanas.classList.remove("invisible"); // muestra la barra de herramientas
 
 	// Fin
 	return;
