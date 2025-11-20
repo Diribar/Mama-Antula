@@ -2,7 +2,7 @@ header #derecha {
 	position: relative;
 	display: flex; flex-direction: column; justify-content: center; align-items: center;
 	margin-right: 20px; width: calc(0.7 * var(--altoHeader)); height: calc(0.7 * var(--altoHeader));
-	line-height: 0; color: var(--colorEscritura);
+	line-height: 0; color: var(--colorMain);
 	/* display: grid; place-items: center; */
 
 	#menuLogin, #menuLogout {
@@ -24,7 +24,7 @@ header #derecha {
 
 		input {
 			width: 150px; padding-inline: 2px;
-			text-align: center; color: var(--colorEscritura);
+			text-align: center; color: var(--colorMain);
 			border-radius: 5px; border-width: 1px;
 		}
 		#eye {
@@ -37,7 +37,7 @@ header #derecha {
 			display: flex; flex-direction: row; justify-content: space-between;
 			i {
 				font-size: 1rem; width: 1rem; cursor: pointer;
-				&#altaOlvido {color: var(--colorEscritura);}
+				&#altaOlvido {color: var(--colorMain);}
 			}
 		}
 	}

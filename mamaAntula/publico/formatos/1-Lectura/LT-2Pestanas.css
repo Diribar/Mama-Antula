@@ -5,7 +5,7 @@
 			border: 1px solid var(--grisOscuro); border-bottom: none; border-radius: 5px 5px 0 0;
 			padding: 2px 10px; cursor: pointer; line-height: 1.2;
 			&.activo {background-color: var(--grisOscuro); color: snow;}
-			&:not(.activo) {background-color: var(--grisMuyClaro);}
+			&:not(.activo) {background-color: var(--amarilloMuyClaro);}
 		}
 	}
 }

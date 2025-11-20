@@ -20,8 +20,8 @@ window.addEventListener("load", async () => {
 	};
 	const rutas = {
 		// Encabezado
-		guardaEncabezado: "/contenido/api/abm-encabezado-guarda",
-		eliminaEncabezado: "/contenido/api/abm-encabezado-elimina/?id=",
+		guardaEncabezado: "/articulos/api/abm-encabezado-guarda",
+		eliminaEncabezado: "/articulos/api/abm-encabezado-elimina/?id=",
 	};
 
 	// Funciones

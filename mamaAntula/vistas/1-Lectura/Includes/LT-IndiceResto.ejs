@@ -11,9 +11,11 @@
 
 <!-- Ficha técnica -->
 <div id="fichaTecnica">
-	<h3>Ficha técnica:</h3>
-	<ul type="disc">
-		<li>Fecha: <%= comp.fechaHora.diaMesAnoUTC(encabezado.fechaEvento) %></li>
-		<li>Lugar: <%= encabezado.lugar.nombre %></li>
-	</ul>
+	<% if (encabezado.fechaEvento) { %>
+		<h3>Ficha técnica</h3>
+		<ul type="disc">
+			<li>Fecha: <%= comp.fechaHora.diaMesAnoUTC(encabezado.fechaEvento) %></li>
+			<li>Lugar: <%= encabezado.lugar.nombre %></li>
+		</ul>
+	<% } %>
 </div>

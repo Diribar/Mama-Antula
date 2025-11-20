@@ -25,7 +25,7 @@ const actualizaUrlLectura = async () => {
 	const encab_id = cookie("actualizaEncabezado_id");
 
 	// Obtiene los datos iniciales
-	const v = await fetch("/contenido/api/abm-filtros-datos-inciales").then((n) => n.json());
+	const v = await fetch("/articulos/api/abm-filtros-datos-inciales").then((n) => n.json());
 
 	// Obtiene los url
 	const urlSeccion = v.secciones.find((n) => n.id == seccion_id)?.url || "";

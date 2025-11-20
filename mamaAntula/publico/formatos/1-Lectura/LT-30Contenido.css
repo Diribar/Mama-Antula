@@ -5,7 +5,9 @@
 .contenidoCuerpo {
 	backdrop-filter: blur(4px);
 	/* background-color: var(--fondoBlanco); */
-	background-color: var(--amarilloMuyClaro);
+	/* background-color: var(--grisMuyClaro); */
+	/* background-color: var(--amarilloMuyClaro); */
+	background-color: var(--grisMuyClaroFondo);
 	padding-left: 10px;
 
 	&:has(#filtroIndice) #tituloMasContenido {--margenIzq: 210px; margin-left: var(--margenIzq); max-width: calc(100% - var(--margenIzq));}
@@ -50,7 +52,7 @@
 						max-width: 100%; max-height: 60vh; cursor: pointer;
 						&:hover {scale: 1.05;}
 					}
-					iframe {height: 350px; width: auto; aspect-ratio: 16 / 9;}
+					iframe {height: 340px; width: auto; aspect-ratio: 16 / 9;}
 				}
 
 				.carrusel {
@@ -79,6 +81,7 @@
 					.contenedorImg {
 						scroll-snap-align: start;
 						min-width: 100%;
+						display: flex; flex-direction: column; align-items: center; justify-content: center;
 						&::scroll-marker {content: ""; height: .5rem; width: .5rem; border-radius: 50%; border: 1px solid var(--grisOscuro);}
 						&::scroll-marker:target-current {background-color: var(--grisOscuro);}
 

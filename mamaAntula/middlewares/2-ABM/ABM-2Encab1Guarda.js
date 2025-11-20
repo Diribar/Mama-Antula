@@ -9,7 +9,6 @@ export default async (req, res, next) => {
 	if (tema_id == temaCarta_id) {
 		// Variables
 		const {numero, nombreDesde_id, nombreHacia_id, lugar_id, idioma_id, fechaEvento} = req.body;
-		const mensajes = [];
 
 		// Valida cada variable - numero
 		(!numero && mensajes.push("El campo <em>Número</em> es obligatorio")) ||
@@ -23,17 +22,11 @@ export default async (req, res, next) => {
 		(!nombreHacia_id && mensajes.push("El campo <em>Destinatario</em> es obligatorio")) ||
 			(!personajes.find((n) => n.id == nombreHacia_id) && mensajes.push("El destinatario no existe"));
 
-		// Valida cada variable - lugar_id
-		(!lugar_id && mensajes.push("El campo <em>Lugar</em> es obligatorio")) ||
-			(!lugares.find((n) => n.id == lugar_id) && mensajes.push("El lugar no existe"));
+		validaLugarFecha(lugar_id, fechaEvento);
 
 		// Valida cada variable - idioma_id
 		(!idioma_id && mensajes.push("El campo <em>Idioma</em> es obligatorio")) ||
 			(!idiomas.find((n) => n.id == idioma_id) && mensajes.push("El idioma no existe"));
-
-		// Valida cada variable - fechaEvento
-		(!fechaEvento && mensajes.push("El campo <em>Fecha</em> es obligatorio")) ||
-			((fechaEvento < "1778-01-06" || fechaEvento > "1816-02-20") && mensajes.push("La fecha está fuera de rango"));
 
 		// Fin
 		const error = preparaLaRespuesta(mensajes);
@@ -43,19 +36,12 @@ export default async (req, res, next) => {
 	else if (tema_id && temasSecciones.find((n) => n.id == tema_id && n.indices.length)) {
 		// Variables
 		const {titulo, lugar_id, fechaEvento} = req.body;
-		const mensajes = [];
 
 		// Valida cada variable - titulo
 		!titulo && mensajes.push("El campo <em>Título</em> es obligatorio");
 
-		// Valida cada variable - lugar_id
-		(!lugar_id && mensajes.push("El campo <em>Lugar</em> es obligatorio")) ||
-			(!lugares.find((n) => n.id == lugar_id) && mensajes.push("El lugar no existe"));
-
-		// Valida cada variable - fechaEvento
-		(!fechaEvento && mensajes.push("El campo <em>Fecha</em> es obligatorio")) ||
-			((fechaEvento < "2024" || fechaEvento > String(new Date().getFullYear())) &&
-				mensajes.push("La fecha está fuera de rango"));
+		// Valida lugar y fechas
+		validaLugarFecha(lugar_id, fechaEvento);
 
 		// Fin
 		const error = preparaLaRespuesta(mensajes);
@@ -65,7 +51,6 @@ export default async (req, res, next) => {
 	else {
 		// Variables
 		const {titulo, pestana_id} = req.body;
-		const mensajes = [];
 
 		// Valida cada variable - tema_id y pestana_id
 		(!tema_id && !pestana_id && mensajes.push("Tenés que elegir un tema o una pestaña")) ||
@@ -84,7 +69,10 @@ export default async (req, res, next) => {
 	return next();
 };
 
-// Función
+// Variables
+const mensajes = [];
+
+// Funciones
 const preparaLaRespuesta = (mensajes) => {
 	// Variables
 	let error;
@@ -100,4 +88,26 @@ const preparaLaRespuesta = (mensajes) => {
 
 	// Fin
 	return error;
+};
+const validaLugarFecha = (lugar_id, fechaEvento, tema_id) => {
+	// Variables
+	const indicesTema = tema_id && indicesTemas.filter((n) => n.tema_id == tema_id).map();
+	let fechaMin, fechaMax;
+
+	// Busca el rango de fechas
+	if (indicesTema && indicesTema.length) {
+		fechaMin = indicesTema.sort((a, b) => (a.fechaDesde < b.fechaDesde ? -1 : 1))[0].fechaDesde;
+		fechaMax = indicesTema.sort((a, b) => (b.fechaDesde < a.fechaDesde ? -1 : 1))[0].fechaDesde;
+	}
+
+	// Valida cada variable - lugar_id
+	(!lugar_id && mensajes.push("El campo <em>Lugar</em> es obligatorio")) ||
+		(!lugares.find((n) => n.id == lugar_id) && mensajes.push("El lugar no existe"));
+
+	// Valida cada variable - fechaEvento
+	(!fechaEvento && mensajes.push("El campo <em>Fecha</em> es obligatorio")) ||
+		((fechaEvento < fechaMin || fechaEvento > fechaMax) && mensajes.push("La fecha está fuera de rango"));
+
+	// Fin
+	return;
 };
