@@ -172,7 +172,7 @@ let urlsCrsl = [];
 let archLibro;
 
 // Funciones
-const nuevaImg = async (archsImagen, vistaImagen) => archsImagen.length && procesaArchImg(archsImagen[0], vistaImagen);
+const obtieneNuevaImagen = async (archsImagen, vistaImagen) => archsImagen.length && procesaArchImg(archsImagen[0], vistaImagen);
 const otrosEventos = (DOM) => {
 	// Variables
 	const eventos = {entrada: ["dragenter", "dragover"], salida: ["dragleave", "drop"]};
