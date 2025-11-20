@@ -17,7 +17,6 @@ window.addEventListener("load", async () => {
 		// Carrusel de imágenes
 		carrImgs: domLayout.querySelector("#carrImgs"),
 	};
-	const v = {};
 
 	// Funciones
 	const obtieneNuevasImagenes = async function (archsCrsl) {

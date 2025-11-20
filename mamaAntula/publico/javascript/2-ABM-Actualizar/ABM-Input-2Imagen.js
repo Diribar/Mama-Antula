@@ -14,14 +14,17 @@ window.addEventListener("load", async () => {
 	};
 
 	// Eventos drag & drop
-	DOM.areaSoltar.addEventListener("drop", async (e) => {
-		archImagen = await obtieneNuevaImagen(e.dataTransfer.files, DOM.vistaImagen);
-		DOM.inputImagen.dispatchEvent(new Event("input"))
-	});
+	DOM.areaSoltar.addEventListener(
+		"drop",
+		async (e) => (archImagen = await obtieneNuevaImagen(e.dataTransfer.files, DOM.vistaImagen))
+	);
 	otrosEventos(DOM);
 
 	// Eventos del formulario
-	DOM.inputImagen.addEventListener("change", async () => (archImagen = await obtieneNuevaImagen(DOM.inputImagen.files, DOM.vistaImagen)));
+	DOM.inputImagen.addEventListener(
+		"change",
+		async () => (archImagen = await obtieneNuevaImagen(DOM.inputImagen.files, DOM.vistaImagen))
+	);
 	DOM.inputLeyenda.addEventListener("change", () => (DOM.inputLeyenda.value = inicialMayus(DOM.inputLeyenda.value)));
 
 	// Fin
