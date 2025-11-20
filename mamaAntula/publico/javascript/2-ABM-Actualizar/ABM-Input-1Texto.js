@@ -10,17 +10,20 @@ window.addEventListener("load", async () => {
 	};
 	const barraHerrams = {
 		grupo1: [
-			{codigo: "negrita", clase: "ql-bold", title: "Negrita"},
-			{codigo: "cursiva", clase: "ql-italic", title: "Cursiva"},
 			{codigo: "titulo", clase: "ql-header", valor: "2", title: "Título"},
+			{codigo: "pegarPlano", clase: "ql-pastePlain", title: "Pegar texto sin formato"},
+			{codigo: "limpiar", clase: "ql-clean", title: "Quitar formato"},
 		],
 		grupo2: [
-			{codigo: "listaNum", clase: "ql-list", valor: "ordered", title: "Lista numerada"},
-			{codigo: "dots", clase: "ql-list", valor: "bullet", title: "Lista con viñetas"},
+			{codigo: "negrita", clase: "ql-bold", title: "Negrita"},
+			{codigo: "cursiva", clase: "ql-italic", title: "Cursiva"},
 			{codigo: "cita", clase: "ql-blockquote", title: "Cita"},
 		],
+		grupo4: [
+			{codigo: "listaNum", clase: "ql-list", valor: "ordered", title: "Lista numerada"},
+			{codigo: "dots", clase: "ql-list", valor: "bullet", title: "Lista con viñetas"},
+		],
 		grupo3: [{codigo: "link", clase: "ql-link", title: "Insertar enlace"}],
-		grupo4: [{codigo: "limpiar", clase: "ql-clean", title: "Quitar formato"}],
 	};
 
 	// Obtiene el nombre de las etiquetas
@@ -48,12 +51,34 @@ window.addEventListener("load", async () => {
 		}
 	}
 
+	// ⭐ ICONO PARA EL BOTÓN "PEGAR PLANO"
+	const icons = Quill.import("ui/icons");
+	icons["pastePlain"] = `
+		<svg viewBox="0 0 18 18">
+			<rect x="5" y="1" width="8" height="3" rx="1" ry="1" fill="none" stroke="currentColor" stroke-width="2"/>
+			<rect x="3" y="4" width="12" height="13" rx="2" ry="2" fill="none" stroke="currentColor" stroke-width="2"/>
+			<line x1="6" y1="9" x2="12" y2="9" stroke="currentColor" stroke-width="2"/>
+			<line x1="6" y1="12" x2="12" y2="12" stroke="currentColor" stroke-width="2"/>
+		</svg>
+	`;
+
+	// Función para pegar solo texto puro
+	const pastePlainText = async (quill) => {
+		const texto = await navigator.clipboard.readText();
+		const limpio = texto.replace(/<[^>]+>/g, "").trim();
+		const pos = quill.getSelection(true).index;
+		quill.insertText(pos, limpio);
+	};
+
 	// Funciones - Inicializamos Quill
 	const input = DOM.input; // el tag donde se pega el texto con formato
 	const toolbar = DOM.barraHerrams; // el tag que contiene los botones
 	const formats = [...new Set(nombreEtiquetas)]; // los botones
 	const placeholder = "Escribí acá tu contenido...";
-	const quill = new Quill(input, {modules: {toolbar}, formats, placeholder, theme: "snow"});
+	const quill = new Quill(input, {
+		modules: {toolbar: {container: toolbar, handlers: {pastePlain: () => pastePlainText(quill)}}},
+		...{formats, placeholder, theme: "snow"},
+	});
 
 	// Pule el input y lo pega en el output
 	const actualizaContenido = () =>
