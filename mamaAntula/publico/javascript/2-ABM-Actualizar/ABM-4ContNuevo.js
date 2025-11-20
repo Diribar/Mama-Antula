@@ -172,4 +172,22 @@ let urlsCrsl = [];
 let archLibro;
 
 // Funciones
-const obtieneNuevaImagen = async (archsImagen) => (archsImagen.length ? procesaArchImg(archsImagen[0], DOM.vistaImagen) : null);
+const nuevaImg = async (archsImagen, vistaImagen) => archsImagen.length && procesaArchImg(archsImagen[0], vistaImagen);
+const otrosEventos = (DOM) => {
+	// Variables
+	const eventos = {entrada: ["dragenter", "dragover"], salida: ["dragleave", "drop"]};
+
+	// Eventos preventivos - Drag & Drop
+	for (const evento of [...eventos.entrada, ...eventos.salida])
+		DOM.areaSoltar.addEventListener(evento, (e) => e.preventDefault());
+
+	// Eventos - Efectos visuales
+	for (const evento of eventos.entrada) DOM.areaSoltar.addEventListener(evento, () => DOM.areaSoltar.classList.add("encima"));
+	for (const evento of eventos.salida) DOM.areaSoltar.addEventListener(evento, () => DOM.areaSoltar.classList.remove("encima"));
+
+	// Evento click en el input - Busca un archivo de imagen
+	DOM.areaSoltar.addEventListener("click", () => DOM.inputImagen.click());
+
+	// Fin
+	return;
+};
