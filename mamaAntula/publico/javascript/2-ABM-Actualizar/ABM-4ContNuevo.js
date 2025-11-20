@@ -139,7 +139,6 @@ window.addEventListener("load", async () => {
 	});
 
 	// Guarda los cambios
-	DOM.sectorContNuevo.addEventListener("input", () => DOM.iconoGuardar.classList.remove("inactivo"));
 	DOM.iconoGuardar.addEventListener("click", async () => {
 		// Si confirmar está inactivo, interrumpe la función
 		if (DOM.iconoGuardar.className.includes("inactivo")) return;
@@ -152,10 +151,14 @@ window.addEventListener("load", async () => {
 		creaElForm.consolidado();
 
 		// Guarda la información en la BD
-		const ruta = v.nombrePestanaActiva == "carrusel" ? "guardaCarrusel" : "guardaContenido";
-		await fetch(rutas[ruta], postForm(v.formData)).then((n) => n.json());
+		const ruta = v.nombrePestanaActiva == "carrusel" ? "guardaCarrusel" : "guardaContenido"; // la diferencia es por el multer
+		const respuesta = await fetch(rutas[ruta], postForm(v.formData)).then((n) => n.json());
+
+		// Si hubo un error, muestra el mensaje e interrumpe la función
+		if (respuesta.error) return carteles.error(respuesta.error);
 
 		// Recarga la vista, para que limpie todo
+		DOM.iconoGuardar.classList.remove("inactivo");
 		location.reload();
 
 		// Fin
