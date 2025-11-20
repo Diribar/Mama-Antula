@@ -36,11 +36,8 @@ window.addEventListener("load", async () => {
 			v.formData = new FormData();
 			this.encabezado();
 
-			// Le agrega info en función de la pestaña
-			if (["textoImagen", "texto"].includes(v.nombrePestanaActiva)) v.formData.append("texto", DOM.textoOutput.value);
-			if (["textoImagen", "imagen"].includes(v.nombrePestanaActiva)) this.imagen();
-			if (v.nombrePestanaActiva == "carrusel") this.carrusel();
-			if (v.nombrePestanaActiva == "video") this.video();
+			// Le agrega info en función de la pestaña activa
+			this[v.nombrePestanaActiva]();
 
 			// Fin
 			return;
@@ -57,16 +54,19 @@ window.addEventListener("load", async () => {
 			// Fin
 			return;
 		},
-		imagen: function () {
+		// Funciones a usar según la pestaña activa
+		textoImagen: function () {
+			// Texto
+			if (DOM.textoOutput.value) v.formData.append("texto", DOM.textoOutput.value);
+
 			// Si no se subió un archivo, interrumpe la función
 			if (!archImagen) return;
 
 			// Agrega el archivo de la imagen
 			this.archImg(archImagen, "");
-			// archImagen = null;
 
 			// Agrega la leyenda de la imagen
-			v.formData.append("leyenda", DOM.leyendaImagen.value);
+			if (DOM.leyendaImagen.value) v.formData.append("leyenda", DOM.leyendaImagen.value);
 
 			// Fin
 			return;
