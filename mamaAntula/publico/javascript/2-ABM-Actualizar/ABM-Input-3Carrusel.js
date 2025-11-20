@@ -17,10 +17,7 @@ window.addEventListener("load", async () => {
 		// Carrusel de imágenes
 		carrImgs: domLayout.querySelector("#carrImgs"),
 	};
-	const v = {
-		entrada: ["dragenter", "dragover"],
-		salida: ["dragleave", "drop"],
-	};
+	const v = {};
 
 	// Funciones
 	const obtieneNuevasImagenes = async function (archsCrsl) {
@@ -65,21 +62,7 @@ window.addEventListener("load", async () => {
 	DOM.areaSoltar.addEventListener("drop", async (e) => await obtieneNuevasImagenes(e.dataTransfer.files));
 	DOM.inputImagen.addEventListener("change", async () => await obtieneNuevasImagenes(DOM.inputImagen.files));
 	DOM.inputLeyenda.addEventListener("change", () => (DOM.inputLeyenda.value = inicialMayus(DOM.inputLeyenda.value)));
-
-	// Evento click en el input - Busca un archivo de imagen
-	DOM.areaSoltar.addEventListener("click", () => DOM.inputImagen.click());
-	// Eventos preventivos - Drag & Drop
-	[...v.entrada, ...v.salida].forEach((evento) =>
-		DOM.areaSoltar.addEventListener(evento, (e) => {
-			e.preventDefault();
-
-			// Eventos - Efectos visuales
-			v.entrada.forEach((evento) => DOM.areaSoltar.addEventListener(evento, () => DOM.areaSoltar.classList.add("encima")));
-			v.salida.forEach((evento) =>
-				DOM.areaSoltar.addEventListener(evento, () => DOM.areaSoltar.classList.remove("encima"))
-			);
-		})
-	);
+	otrosEventos(DOM);
 
 	// Fin
 	return;
