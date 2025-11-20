@@ -188,6 +188,12 @@ window.addEventListener("load", async () => {
 		v.encab_id = DOM.encabezado.value;
 		FN.actualizaHref();
 
+		// Hace scroll hacia abajo
+		setTimeout(() => {
+			const domEditables = document.querySelector("#editables");
+			domEditables.scrollTo({top: domEditables.scrollHeight, behavior: "smooth"});
+		}, 100);
+
 		// Fin
 		return;
 	});
