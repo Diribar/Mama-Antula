@@ -19,6 +19,7 @@ window.addEventListener("load", async () => {
 		async (e) => (archImagen = await obtieneNuevaImagen(e.dataTransfer.files, DOM.vistaImagen))
 	);
 	otrosEventos(DOM);
+	eventoDragDrop(DOM, archImagen);
 
 	// Eventos del formulario
 	DOM.inputImagen.addEventListener(

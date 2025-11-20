@@ -194,3 +194,8 @@ const otrosEventos = (DOM) => {
 	// Fin
 	return;
 };
+const eventoDragDrop = (DOM, arch) => {
+	// Evento drop
+	const vistaImagen = DOM.vistaImagen;
+	DOM.areaSoltar.addEventListener("drop", async (e) => (arch = await obtieneNuevaImagen(e.dataTransfer.files, vistaImagen)));
+};
