@@ -143,7 +143,7 @@ window.addEventListener("load", async () => {
 
 	// Elimina en la BD
 	DOM.iconoEliminar.addEventListener("click", async () => {
-		const mensaje = "Estas a punto de eliminar el encabezado y su contenido";
+		const mensaje = "¿Estás seguro/a de que querés eliminar este encabezado y su contenido?";
 		const cancelButtonText = "Conservar";
 		const confirmButtonText = "Eliminar";
 

@@ -50,7 +50,12 @@ window.addEventListener("load", async () => {
 					const id = domIcono.parentNode.dataset.id;
 
 					// Si es para eliminar, pide la confirmación del usuario
-					if (crud == "elimina" && !confirm("¿Estás seguro/a de que querés eliminar este contenido?")) return;
+					if (crud == "elimina") {
+						const mensaje = "¿Estás seguro/a de que querés eliminar este contenido?";
+						const cancelButtonText = "Conservar";
+						const confirmButtonText = "Eliminar";
+						if (!(await carteles.pregunta({mensaje, cancelButtonText, confirmButtonText}))) return;
+					}
 
 					// Crud del contenido
 					const respuesta = await fetch(rutasContenido[crud], v.funcsComps[crud]({id})).then((n) => n.json());
