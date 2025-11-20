@@ -8,36 +8,35 @@ window.addEventListener("load", async () => {
 		input: domLayout.querySelector(".input"),
 		output: domLayout.querySelector("#output"),
 	};
-	const v = {
-		barraHerrams: {
-			grupo1: [
-				{codigo: "negrita", clase: "ql-bold", title: "Negrita"},
-				{codigo: "cursiva", clase: "ql-italic", title: "Cursiva"},
-			],
-			grupo2: [
-				{codigo: "listaNum", clase: "ql-list", valor: "ordered", title: "Lista numerada"},
-				{codigo: "dots", clase: "ql-list", valor: "bullet", title: "Lista con viñetas"},
-				{codigo: "cita", clase: "ql-blockquote", title: "Cita"},
-			],
-			grupo3: [{codigo: "link", clase: "ql-link", title: "Insertar enlace"}],
-			grupo4: [{codigo: "limpiar", clase: "ql-clean", title: "Quitar formato"}],
-		},
+	const barraHerrams = {
+		grupo1: [
+			{codigo: "negrita", clase: "ql-bold", title: "Negrita"},
+			{codigo: "cursiva", clase: "ql-italic", title: "Cursiva"},
+			{codigo: "titulo", clase: "ql-header", valor: "2", title: "Título"},
+		],
+		grupo2: [
+			{codigo: "listaNum", clase: "ql-list", valor: "ordered", title: "Lista numerada"},
+			{codigo: "dots", clase: "ql-list", valor: "bullet", title: "Lista con viñetas"},
+			{codigo: "cita", clase: "ql-blockquote", title: "Cita"},
+		],
+		grupo3: [{codigo: "link", clase: "ql-link", title: "Insertar enlace"}],
+		grupo4: [{codigo: "limpiar", clase: "ql-clean", title: "Quitar formato"}],
 	};
 
 	// Obtiene el nombre de las etiquetas
-	const nombreEtiquetas = Object.values(v.barraHerrams)
+	const nombreEtiquetas = Object.values(barraHerrams)
 		.flat()
 		.map((n) => n.clase.replace("ql-", ""));
 
 	// Arma la barra de herramientas
-	for (const grupo in v.barraHerrams) {
+	for (const grupo in barraHerrams) {
 		// Agrega el contenedor
 		const span = document.createElement("span");
 		span.classList.add("ql-formats");
 		DOM.barraHerrams.appendChild(span);
 
 		// Crea los botones
-		for (const herramienta of v.barraHerrams[grupo]) {
+		for (const herramienta of barraHerrams[grupo]) {
 			// Crea el botón
 			const button = document.createElement("button");
 			button.classList.add(herramienta.clase);

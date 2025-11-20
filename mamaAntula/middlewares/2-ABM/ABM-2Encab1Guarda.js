@@ -5,8 +5,11 @@ export default async (req, res, next) => {
 	// Variables
 	const {tema_id} = req.body;
 
+	// Validaciones
+	if (false) {
+	}
 	// Valida encabezado de cartas
-	if (tema_id == temaCarta_id) {
+	else if (tema_id == temaCarta_id) {
 		// Variables
 		const {numero, nombreDesde_id, nombreHacia_id, lugar_id, idioma_id, fechaEvento} = req.body;
 
@@ -27,6 +30,22 @@ export default async (req, res, next) => {
 		// Valida cada variable - idioma_id
 		(!idioma_id && mensajes.push("El campo <em>Idioma</em> es obligatorio")) ||
 			(!idiomas.find((n) => n.id == idioma_id) && mensajes.push("El idioma no existe"));
+
+		// Fin
+		const error = preparaLaRespuesta(mensajes);
+		if (error) return res.json({error});
+	}
+	// Valida encabezado de lugares
+	else if (tema_id == temaLugares_id) {
+		// Variables
+		const {titulo, lugarIndice_id} = req.body;
+
+		// Valida cada variable - titulo
+		!titulo && mensajes.push("El campo <em>Título</em> es obligatorio");
+
+		// Valida el códigoLugar
+		!lugarIndice_id && mensajes.push("El campo <em>Lugar geográfico</em> es obligatorio")||
+		!indicesLugar.find((n) => n.id == lugarIndice_id) && mensajes.push("El lugar geográfico no existe");
 
 		// Fin
 		const error = preparaLaRespuesta(mensajes);

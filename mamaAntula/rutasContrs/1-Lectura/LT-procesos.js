@@ -1,21 +1,9 @@
 "use strict";
 
 export default {
-	encabezados: async ({esCarta,esLugares, conIndice, condicion, encab_id}) => {
+	encabezados: async ({esCarta, esLugares, conIndice, condicion, encab_id}) => {
 		// Obtiene los encabezados
-		let encabezados = esCarta
-			? await baseDatos
-					.obtieneTodosPorCondicion("encabezados", condicion, includesEncabs.cartas)
-					.then((n) => n.sort((a, b) => (a.fechaEvento < b.fechaEvento ? -1 : 1)))
-			: esLugares
-			? await baseDatos
-					.obtieneTodosPorCondicion("encabezados", condicion, includesEncabs.lugares)
-					.then((n) => n.sort((a, b) => (a.lugarIndice.codigo < b.lugarIndice.codigo ? -1 : 1)))
-			: conIndice
-			? await baseDatos
-					.obtieneTodosPorCondicion("encabezados", condicion, includesEncabs.conIndice)
-					.then((n) => n.sort((a, b) => (b.fechaEvento < a.fechaEvento ? -1 : 1)))
-			: await baseDatos.obtieneTodosPorCondicion("encabezados", condicion);
+		let encabezados = await comp.obtieneEncabezados({esCarta, esLugares, conIndice, condicion});
 		if (!encabezados.length) return {};
 
 		// Les agrega los títulos

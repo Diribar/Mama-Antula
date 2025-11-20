@@ -60,21 +60,22 @@ window.addEventListener("load", async () => {
 			comp1234.encabezados = respuesta;
 
 			// ENCABEZADO - Crea las opciones
-			agregaOpciones(comp1234.encabezados, DOM.encabezado, "tituloElab");
+			const campo = comp1234.esLugares ? "tituloAbm" : "tituloElab";
+			agregaOpciones(comp1234.encabezados, DOM.encabezado, campo);
 
 			// ENCABEZADO - Si 'conIndice', crea la opción NUEVO - sin indice siempre tiene un encabezado creado y no puede tener más de uno
 			if (comp1234.conIndice) {
 				const option = document.createElement("option");
 				option.value = "nuevo";
 				option.textContent = "Encabezado nuevo";
-				DOM.encabezado.appendChild(option);
+				DOM.encabezado.prepend(option);
 				DOM.encabezado.classList.remove("ocultar");
 			}
 
 			// ENCABEZADO - Si es start-up, elige la opción de la cookie
 			const valoresPosiblesOpciones = Array.from(DOM.encabezado.querySelectorAll("option")).map((n) => n.value);
-			const encab_id = cookie("actualizaEncabezado_id");
-			if (comp1234.startUp && encab_id && valoresPosiblesOpciones.includes(encab_id)) DOM.encabezado.value = encab_id;
+			v.encab_id = cookie("actualizaEncabezado_id");
+			if (comp1234.startUp && v.encab_id && valoresPosiblesOpciones.includes(v.encab_id)) DOM.encabezado.value = v.encab_id;
 
 			// ENCABEZADO - Dispara el evento
 			DOM.encabezado.dispatchEvent(new Event("change"));
@@ -88,7 +89,7 @@ window.addEventListener("load", async () => {
 			const urlTema = "/" + comp1234.temasSecciones.find((n) => n.id == comp1234.tema_id).url;
 			const urlPestana =
 				(comp1234.pestana_id && "/" + comp1234.pestanasTemas.find((n) => n.id == comp1234.pestana_id).url) || "";
-			const urlEncabezado = (v.encab_id && "/" + v.encab_id) || "";
+			const urlEncabezado = comp1234.conIndice ? "/?id=" + v.encab_id : "";
 
 			// Actualiza el DOM
 			DOM.anchorLectura.href = urlSeccion + urlTema + urlPestana + urlEncabezado;
@@ -134,8 +135,13 @@ window.addEventListener("load", async () => {
 		// Averigua si el tema es 'Cartas'
 		const temaActual = comp1234.temasSecciones.find((n) => n.id == tema_id);
 		comp1234.esCarta = temaActual.codigo == "cartas";
-		comp1234.conIndice = !!temaActual.indicesFecha.length;
-		comp1234.tipoEncab = comp1234.esCarta ? "encabCartas" : comp1234.conIndice ? "encabConIndice" : "encabSinIndice";
+		comp1234.esLugares = temaActual.codigo == "lugaresDevocion";
+		comp1234.conIndice = !!(temaActual.indicesFecha.length || temaActual.indicesLugar.length);
+		comp1234.tipoEncab =
+			(comp1234.esCarta && "encabCartas") ||
+			(comp1234.esLugares && "encabLugares") ||
+			(comp1234.conIndice && "encabConIndice") ||
+			"encabSinIndice";
 
 		// PESTAÑA - Crea las opciones
 		comp1234.pestanasTema = comp1234.pestanasTemas.filter((n) => n.tema_id == tema_id);
@@ -179,6 +185,7 @@ window.addEventListener("load", async () => {
 		else delete comp1234.startUp;
 
 		// Actualiza el anchor de flitros
+		v.encab_id = DOM.encabezado.value;
 		FN.actualizaHref();
 
 		// Fin
@@ -193,7 +200,7 @@ window.addEventListener("load", async () => {
 let comp1234; // compartirActualizarContenidos
 const agregaOpciones = (opciones, domSelect, campoNombre) => {
 	// Averigua si tiene una opción sin valor, para conservarla
-	const opcSinValor = domSelect.querySelector(`option[value='']`);
+	const opcSinValor = domSelect.querySelector("option[value='']");
 
 	// Limpia las opciones del select
 	domSelect.innerHTML = "";
@@ -201,9 +208,15 @@ const agregaOpciones = (opciones, domSelect, campoNombre) => {
 
 	// Agrega las opciones
 	for (const opcion of opciones) {
+		// Si corresponde, saltea la rutina
+		if (opcion.codigo == "1introduccion") continue;
+
+		// Crea la opción
 		const domOpcion = document.createElement("option");
 		domOpcion.value = opcion.id;
 		domOpcion.textContent = opcion[campoNombre] || "Sin título";
+
+		// Agrega la opción
 		domSelect.appendChild(domOpcion);
 	}
 

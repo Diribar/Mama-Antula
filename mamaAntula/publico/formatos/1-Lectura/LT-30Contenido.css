@@ -56,39 +56,47 @@
 				}
 
 				.carrusel {
+					/* Variables */
+					anchor-name: var(--anchorName); --margenDebajo: 50px;
+
 					/* General */
 					display: flex; flex-direction: row; gap: 20px; overflow-x: auto;
-					max-width: min(90%, 600px); margin-inline: auto;
+					max-width: min(90%, 600px); margin-inline: auto; margin-bottom: var(--margenDebajo);
 					scroll-behavior: smooth; scroll-snap-type: x mandatory;
-					anchor-name: --carrusel;
 
 					&::-webkit-scrollbar {display: none;} /* oculta la barra de deslizamiento */
 
 					/* Botones izquierda y derecha */
 					&::scroll-button(*) {
-						position: fixed; position-anchor: --carrusel; border-radius: 50%;
+						content: "➜";
+						position: fixed; position-anchor: var(--anchorName); border-radius: 50%;
 						height: 1.5rem; width: 1.5rem;
 					}
 					&::scroll-button(*):not(:disabled) {cursor: pointer;}
-					&::scroll-button(left) {content: "➜"; position-area: left center; translate: 50%; rotate: 180deg;}
-					&::scroll-button(right) {content: "➜"; position-area: right center; translate: -50%;} /* font-family: "Font Awesome 6 Free"; font-weight: 900; */
+					&::scroll-button(left) {position-area: left center; translate: 50%; rotate: 180deg;}
+					&::scroll-button(right) {position-area: right center; translate: -50%;} /* font-family: "Font Awesome 6 Free"; font-weight: 900; */
 
 					/* Botones de ubicación */
 					scroll-marker-group: after;
-					&::scroll-marker-group {display: flex; justify-content: center; gap: 10px;}
+					&::scroll-marker-group {
+						display: flex; justify-content: center; gap: 10px;
+						translate: 0 calc(10px - var(--margenDebajo));
+					}
 
 					/* Imágenes */
 					.contenedorImg {
 						scroll-snap-align: start;
 						min-width: 100%;
 						display: flex; flex-direction: column; align-items: center; justify-content: center;
-						&::scroll-marker {content: ""; height: .5rem; width: .5rem; border-radius: 50%; border: 1px solid var(--grisOscuro);}
-						&::scroll-marker:target-current {background-color: var(--grisOscuro);}
+						&::scroll-marker {content: ""; height: .5rem; width: .5rem; border-radius: 50%;}
+						&::scroll-marker:not(:target-current) {border: 1px solid var(--grisOscuro); background-color: snow;}
+						&::scroll-marker:target-current {border: 1px solid snow; background-color: var(--grisOscuro);}
 
 						img {
 							width: 100%; max-width: 100%;
 							height: auto; max-height: 65vh;
-							object-fit: contain; cursor: pointer;
+							object-fit: contain;
+							cursor: pointer;
 						}
 					}
 				}
