@@ -1,5 +1,5 @@
 export default (sequelize, dt) => {
-	const alias = "indicesTemas";
+	const alias = "indicesFecha";
 	const columns = {
 		// Referencias
 		tema_id: {type: dt.INTEGER},
@@ -13,7 +13,7 @@ export default (sequelize, dt) => {
 		fechaHasta: {type: dt.DATE},
 	};
 	const config = {
-		tableName: "nivel_indices",
+		tableName: "nivel9_indices_fecha",
 		timestamps: false,
 	};
 	const entidad = sequelize.define(alias, columns, config);

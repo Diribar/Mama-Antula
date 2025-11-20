@@ -167,7 +167,7 @@ export default {
 	titulosLectura: ({esCarta, conIndice, temaActual, encabezados}) =>
 		esCarta || (temaActual && temaActual.codigo == "cartas") // cartas
 			? FN.tituloCartas(encabezados)
-			: conIndice || (temaActual && temaActual.indices.length) // conIndice
+			: conIndice || (temaActual && temaActual.indicesFecha.length) // conIndice
 			? FN.titulosConIndice(encabezados)
 			: encabezados, // sinIndice
 

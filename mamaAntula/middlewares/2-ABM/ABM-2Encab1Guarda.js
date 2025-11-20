@@ -33,7 +33,7 @@ export default async (req, res, next) => {
 		if (error) return res.json({error});
 	}
 	// Valida encabezado con índices
-	else if (tema_id && temasSecciones.find((n) => n.id == tema_id && n.indices.length)) {
+	else if (tema_id && temasSecciones.find((n) => n.id == tema_id && n.indicesFecha.length)) {
 		// Variables
 		const {titulo, lugar_id, fechaEvento} = req.body;
 
@@ -91,7 +91,7 @@ const preparaLaRespuesta = (mensajes) => {
 };
 const validaLugarFecha = (lugar_id, fechaEvento, tema_id) => {
 	// Variables
-	const indicesTema = tema_id && indicesTemas.filter((n) => n.tema_id == tema_id).map();
+	const indicesTema = tema_id && indicesFecha.filter((n) => n.tema_id == tema_id).map();
 	let fechaMin, fechaMax;
 
 	// Busca el rango de fechas

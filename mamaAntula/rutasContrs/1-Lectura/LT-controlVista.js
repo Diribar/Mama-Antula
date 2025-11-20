@@ -18,7 +18,7 @@ export default {
 		const temasSeccion = temasSecciones.filter((n) => n.seccion_id == seccionActual.id);
 		const temaActual = temasSeccion.find((n) => n.url == urlTema);
 		const esCarta = temaActual.codigo == "cartas";
-		const conIndice = !!temaActual.indices.length;
+		const conIndice = !!temaActual.indicesFecha.length;
 
 		// Condición - si el usuario no tiene el permiso de edición, no se le permite ver los contenidos que tengan status 'creado'
 		const condicion = {tema_id: temaActual.id};
