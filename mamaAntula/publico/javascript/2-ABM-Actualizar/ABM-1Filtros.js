@@ -68,7 +68,7 @@ window.addEventListener("load", async () => {
 				const option = document.createElement("option");
 				option.value = "nuevo";
 				option.textContent = "Encabezado nuevo";
-				DOM.encabezado.appendChild(option);
+				DOM.encabezado.prepend(option);
 				DOM.encabezado.classList.remove("ocultar");
 			}
 
