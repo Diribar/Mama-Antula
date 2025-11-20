@@ -23,23 +23,23 @@ window.addEventListener("load", async () => {
 	};
 
 	// Funciones
-	const obtieneNuevaImagen = async function (archsImagen) {
+	const obtieneNuevasImagenes = async function (archsCrsl) {
 		// Si no existen archivos, interrumpe la función
-		if (!archsImagen.length) return;
+		if (!archsCrsl.length) return;
 
 		// Recorre los archivos
-		for (const archImagen of archsImagen) {
+		for (const archCrsl of archsCrsl) {
 			// CRSL - Crea un nuevo hijo
 			const nuevoModeloVista = DOM.modeloVista.cloneNode(true);
 			nuevoModeloVista.removeAttribute("id");
 			const nuevaImg = nuevoModeloVista.querySelector("img");
 
 			// Obtiene el url de la imagen
-			const urlImagen = await procesaArchImg(archImagen, nuevaImg);
+			const urlImagen = await procesaArchImg(archCrsl, nuevaImg);
 			if (!urlImagen) return;
 
 			// CRSL - Actualiza la variable donde se almacenan los url de cada imagen
-			urlsCarrusel.push(urlImagen);
+			urlsCrsl.push(urlImagen);
 
 			// CRSL - Actualiza vista
 			DOM.carrImgs.appendChild(nuevoModeloVista);
@@ -58,12 +58,12 @@ window.addEventListener("load", async () => {
 
 		// Elimina el hijo
 		DOM.carrImgs.removeChild(domEliminar[indice].parentNode);
-		urlsCarrusel.splice(indice, 1);
+		urlsCrsl.splice(indice, 1);
 	});
 
 	// Eventos nueva imagen
-	DOM.areaSoltar.addEventListener("drop", async (e) => await obtieneNuevaImagen(e.dataTransfer.files));
-	DOM.inputImagen.addEventListener("change", async () => await obtieneNuevaImagen(DOM.inputImagen.files));
+	DOM.areaSoltar.addEventListener("drop", async (e) => await obtieneNuevasImagenes(e.dataTransfer.files));
+	DOM.inputImagen.addEventListener("change", async () => await obtieneNuevasImagenes(DOM.inputImagen.files));
 	DOM.inputLeyenda.addEventListener("change", () => (DOM.inputLeyenda.value = inicialMayus(DOM.inputLeyenda.value)));
 
 	// Evento click en el input - Busca un archivo de imagen
@@ -84,6 +84,3 @@ window.addEventListener("load", async () => {
 	// Fin
 	return;
 });
-
-// Variables
-let urlsCarrusel = [];

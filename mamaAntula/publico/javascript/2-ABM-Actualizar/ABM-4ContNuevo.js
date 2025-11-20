@@ -73,10 +73,10 @@ window.addEventListener("load", async () => {
 		},
 		carrusel: function () {
 			// Si no se subieron por lo menos 2 archivos, interrumpe la función
-			if (!urlsCarrusel || urlsCarrusel.length < 2) return;
+			if (!urlsCrsl || urlsCrsl.length < 2) return;
 
 			// Agrega las imágenes
-			for (const urlCarrusel of urlsCarrusel) this.archImg(urlCarrusel, "s");
+			for (const urlCrsl of urlsCrsl) this.archImg(urlCrsl, "s");
 
 			// Agrega la leyenda del carrusel
 			v.formData.append("leyenda", DOM.leyendaCarrusel.value);
@@ -92,8 +92,23 @@ window.addEventListener("load", async () => {
 			// Fin
 			return;
 		},
+		libro: function () {
+			// Si no se subió un archivo, interrumpe la función
+			if (!archLibro) return;
 
-		// Varios
+			// Agrega el archivo del libro
+			this.archImg(archLibro, "");
+
+			// Agrega los demás datos del libro
+			v.formData.append("imagen", archivo.name);
+			v.formData.append("tamano", archivo.size);
+			v.formData.append("tipo", archivo.type);
+
+			// Fin
+			return;
+		},
+
+		// Auxiliares
 		archImg: (archivo, s) => {
 			// El archivo de imagen
 			v.formData.append("archivo" + s, archivo);
@@ -150,3 +165,11 @@ window.addEventListener("load", async () => {
 	// Fin
 	return;
 });
+
+// Variables
+let archImagen;
+let urlsCrsl = [];
+let archLibro;
+
+// Funciones
+const obtieneNuevaImagen = async (archsImagen) => (archsImagen.length ? procesaArchImg(archsImagen[0], DOM.vistaImagen) : null);

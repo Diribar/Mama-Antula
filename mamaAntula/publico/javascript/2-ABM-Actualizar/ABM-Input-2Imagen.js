@@ -17,25 +17,9 @@ window.addEventListener("load", async () => {
 		salida: ["dragleave", "drop"],
 	};
 
-	// Funciones
-	const obtieneNuevaImagen = async function (archsImagen) {
-		// Si no existen archivos, interrumpe la función
-		if (!archsImagen.length) return;
-
-		// Obtiene el url de la imagen
-		const urlImagen = await procesaArchImg(archsImagen[0], DOM.vistaImagen);
-		if (!urlImagen) return;
-
-		// IMG - Actualiza la variable donde se almacena el url de la imagen
-		archImagen = urlImagen;
-
-		// Fin
-		return;
-	};
-
 	// Eventos nueva imagen
-	DOM.areaSoltar.addEventListener("drop", async (e) => await obtieneNuevaImagen(e.dataTransfer.files));
-	DOM.inputImagen.addEventListener("change", async () => await obtieneNuevaImagen(DOM.inputImagen.files));
+	DOM.areaSoltar.addEventListener("drop", async (e) => (archImagen = await obtieneNuevaImagen(e.dataTransfer.files)));
+	DOM.inputImagen.addEventListener("change", async () => (archImagen = await obtieneNuevaImagen(DOM.inputImagen.files)));
 	DOM.inputLeyenda.addEventListener("change", () => (DOM.inputLeyenda.value = inicialMayus(DOM.inputLeyenda.value)));
 
 	// Evento click en el input - Busca un archivo de imagen
@@ -56,6 +40,3 @@ window.addEventListener("load", async () => {
 	// Fin
 	return;
 });
-
-// Variables
-let archImagen;
