@@ -4,6 +4,7 @@
 export default async (req, res, next) => {
 	// Variables
 	const {tema_id} = req.body;
+	mensajes = [];
 
 	// Validaciones
 	if (false) {
@@ -29,11 +30,11 @@ export default async (req, res, next) => {
 		(!nombreHacia_id && mensajes.push("El campo <em>Destinatario</em> es obligatorio")) ||
 			(!personajes.find((n) => n.id == nombreHacia_id) && mensajes.push("El destinatario no existe"));
 
-		validaLugarFecha(lugar_id, fechaEvento);
-
 		// Valida variable - idioma_id
 		(!idioma_id && mensajes.push("El campo <em>Idioma</em> es obligatorio")) ||
 			(!idiomas.find((n) => n.id == idioma_id) && mensajes.push("El idioma no existe"));
+
+		validaLugarFecha(lugar_id, fechaEvento);
 
 		// Fin
 		const error = preparaLaRespuesta(mensajes);
@@ -93,7 +94,7 @@ export default async (req, res, next) => {
 };
 
 // Variables
-const mensajes = [];
+let mensajes;
 
 // Funciones
 const preparaLaRespuesta = (mensajes) => {
