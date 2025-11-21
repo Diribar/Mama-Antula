@@ -40,7 +40,7 @@ export default {
 			const ruta = contenido.statusRegiastro_id == creado_id ? carpRevisar : carpContenido;
 
 			// Carruseles
-			for (const registro of contenido.carrusel) comp.gestionArchs.elimina(ruta, registro.imagen);
+			for (const carrusel of contenido.carrusel) comp.gestionArchs.elimina(ruta, carrusel.imagen);
 			await baseDatos.eliminaPorCondicion("carrusel", {contenido_id: contenido.id});
 
 			// Contenidos

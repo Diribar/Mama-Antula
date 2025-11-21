@@ -1,6 +1,10 @@
 /* Sector contenido actual */
-.bloque {
+#sectorContActual .bloque.sector {
 	display: flex; flex-direction: row; gap: 15px;
 	padding-block: 15px;
+	.contenido {
+		flex-grow: 1;
+		a {color: var(--terracota); text-decoration: underline;}
+	}
 	.iconos .fa-trash-can {color: var(--rojoOscuro)}
 }
