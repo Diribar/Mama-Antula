@@ -25,8 +25,8 @@
 		&:not(:has(#tituloDelContenido)) #contenido {height: calc(100% - 6px);} /* 6px es el alto del padding */
 		#contenido {
 			display: flex; padding-right: 20px; overflow-y: auto;
-			&:has(.libro, .estampa) {flex-direction: row; flex-wrap: wrap; justify-content: space-evenly; column-gap: 50px;}
-			&:not(:has(.libro, .estampa)) {flex-direction: column; --margenVertical: 30px;}
+			&:has(.bloque-libro, .bloque-estampa) {flex-direction: row; flex-wrap: wrap; justify-content: space-evenly; column-gap: 50px;}
+			&:not(:has(.bloque-libro, .bloque-estampa)) {flex-direction: column; --margenVertical: 20px;}
 		}
 
 		/* Temas de los bloques */
@@ -44,10 +44,13 @@
 			}
 			/* COMBINADOS: Texto con imagen, Texto sólo */
 			.bloque-textoImagen, .bloque-texto {
-				width: fit-content;
+				width: 100%;
 				blockquote {font-size: 1.1rem; margin-block: 10px 20px; text-align: center; text-wrap: balance;}
 				ul, ol {margin-left: 24px;}
-				p, :where(ul, ol) li {margin-bottom: 12px; line-height: 1.5;}
+				:is(p, :where(ul, ol) li) {
+					line-height: 1.5;
+					&:not(:last-child) {margin-bottom: 12px;}
+				}
 				p {width: fit-content;}
 			}
 			/* COMBINADOS: Texto con imagen, Imagen sola */
@@ -57,11 +60,11 @@
 			}
 			/* COMBINADOS: Imagen sola, video, carrusel */
 			.bloque-imagen, .bloque-video, .bloque-carrusel {
-				margin-bottom: var(--margenVertical);
+				margin-block: var(--margenVertical);
 				.leyenda {max-width: 70%;}
 			}
 			/* COMBINADOS: Libros, Estampas */
-			:is(.bloque-libros, .bloque-estampas) img {height: 370px;}
+			:is(.bloque-libro, .bloque-estampa) img {height: 370px;}
 
 
 			/* SOLOS */
@@ -71,7 +74,9 @@
 					.imagen, .leyenda {max-width: 100%;}
 				}
 			}
-			.bloque-imagen .imagen {max-width: 90%;}
+			.bloque-imagen {
+				.imagen {max-width: 90%;}
+			}
 			.bloque-carrusel {
 				margin-bottom: var(--margenVertical);
 				.carrusel {
@@ -122,7 +127,7 @@
 			.bloque-video {
 				iframe {height: 340px; width: auto; aspect-ratio: 16 / 9;}
 			}
-			.bloque-libros {
+			.bloque-libro {
 				row-gap: 200px; /* entre filas */
 				position: relative;
 				.texto {
@@ -133,7 +138,7 @@
 					.autor {font-style: italic;}
 				}
 			}
-			.bloque-estampas {
+			.bloque-estampa {
 				align-items: flex-start; /* por el título */
 				row-gap: 70px; /* entre filas */
 				.imagenes {gap: 20px;}
