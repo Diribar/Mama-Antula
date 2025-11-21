@@ -40,27 +40,30 @@ export default {
 			const {id} = req.body;
 			delete req.body.id;
 
-			// Obtiene el original
-			const original = await baseDatos.obtienePorId("encabezados", id);
-
-			// Si no existe el original, lo crea
-			if (!original) {
+			// Si es nuevo, lo crea e interrumpe la función
+			if (id == "nuevo") {
 				// Variables
 				const creadoPor_id = req.session.usuario.id;
 				const datos = {...req.body, creadoPor_id};
 				delete datos.id;
 
-				// Crea el original
-				const nuevoRegistro = await baseDatos.agregaRegistroIdCorrel("encabezados", datos);
-				return res.json({id: nuevoRegistro.id, hay: false});
+				// Crea el encabezado y guarda la cookie
+				const encabezado = await baseDatos.agregaRegistroIdCorrel("encabezados", datos);
+				res.cookie("actualizaEncabezado_id", encabezado.id, {maxAge: unDia, path: "/"});
+
+				// Fin
+				return res.json({id: encabezado.id, hay: false});
 			}
 
+			// Obtiene el encabezado
+			const encabezado = await baseDatos.obtienePorId("encabezados", id);
+
 			// Si no es propio y no está en status aprobado, interrumpe la función
-			if (original.creadoPor_id != req.session.usuario.id && original.statusRegistro_id != aprobado_id)
+			if (encabezado.creadoPor_id != req.session.usuario.id && encabezado.statusRegistro_id != aprobado_id)
 				return res.json({mensaje: "No tenés permiso para editar este encabezado", hay: true});
 
-			// Si está en status creado y por este usuario, actualiza el original
-			if (original.statusRegistro_id == creado_id && original.creadoPor_id == req.session.usuario.id) {
+			// Si está en status creado y por este usuario, actualiza el encabezado
+			if (encabezado.statusRegistro_id == creado_id && encabezado.creadoPor_id == req.session.usuario.id) {
 				await baseDatos.actualizaPorId("encabezados", id, req.body);
 				return res.json({hay: false});
 			}
@@ -69,7 +72,7 @@ export default {
 			const condicion = {encab_id: id, editadoPor_id: req.session.usuario.id};
 			const edicion = await baseDatos.obtienePorCondicion("encabEdics", condicion);
 
-			// Averigua si hay novedades con el original
+			// Averigua si hay novedades con el encabezado
 			// En caso que si, si hay una edición la actualiza, si no la crea
 			// En caso que no, si hay una edición la elimina
 

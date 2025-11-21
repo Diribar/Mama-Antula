@@ -6,6 +6,10 @@ export default async (req, res, next) => {
 	const {tema_id} = req.body;
 	mensajes = [];
 
+	// General - encab_id
+	if (!encab_id) mensajes.push("El encabezado no se identifica");
+	else if (!(await baseDatos.obtienePorId("encabezados", encab_id))) mensajes.push("El encabezado no se identifica");
+
 	// Validaciones
 	if (false) {
 	}
