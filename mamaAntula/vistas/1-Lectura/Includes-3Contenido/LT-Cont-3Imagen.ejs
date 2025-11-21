@@ -1,6 +1,6 @@
-<!-- Video -->
+<!-- Sólo Imagen -->
 <div class="bloque <%= contenido.layout.codigo %> imgLeyenda">
-	<iframe src="https://www.youtube.com/embed/<%= contenido.video %>?autoplay=1"></iframe>
+	<img class="imagen" src="/imgsEditables/<%= subCarpeta %>/<%= contenido.imagen %>">
 	<% if (contenido.leyenda) { %>
 		<div class="leyenda" class="fondo"><%= contenido.leyenda %></div>
 	<% } %>

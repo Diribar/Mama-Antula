@@ -1,15 +1,13 @@
-<% if (contenido.carrusel.length) { %>
-	<div class="crslLeyenda">
-		<!-- Carrusel -->
-		<div class="carrusel" style="--anchorName: --carrusel-<%= contenido.id %>;">
-			<% for (const carrusel of contenido.carrusel) { %>
-				<div class="contenedorImg">
-					<img src="/imgsEditables/<%- carrusel.statusRegistro_id == creado_id ? '2-Revisar' : '1-Final' %>/<%= carrusel.imagen %>">
-				</div>
-			<% } %>
-		</div>
-		<% if (contenido.leyenda) { %>
-			<div class="leyenda" class="fondo"><%= contenido.leyenda %></div>
+<!-- Carrusel -->
+<div class="bloque <%= contenido.layout.codigo %>">
+	<div class="carrusel" style="--anchorName: --carrusel-<%= contenido.id %>;">
+		<% for (const carrusel of contenido.carrusel) { %>
+			<div class="contenedorImg">
+				<img src="/imgsEditables/<%- carrusel.statusRegistro_id == creado_id ? '2-Revisar' : '1-Final' %>/<%= carrusel.imagen %>">
+			</div>
 		<% } %>
 	</div>
-<% } %>
+	<% if (contenido.leyenda) { %>
+		<div class="leyenda" class="fondo"><%= contenido.leyenda %></div>
+	<% } %>
+</div>
