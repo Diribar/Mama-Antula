@@ -77,30 +77,24 @@ window.addEventListener("load", async () => {
 	const auxCci = {
 		agregaBloque: function (contenido) {
 			// Crea el DOM contenedor
-			const domBloqueLectura = document.createElement("div");
-			domBloqueLectura.classList.add("bloque", "sector");
+			const domBloque = document.createElement("div");
+			domBloque.classList.add("bloque", "sector");
 
-			// Crea el DOM contenido
-			this.creaElContenido(contenido); // puede ser: div (para texto, texto-imagen, carrusel), img, video
+			// Crea y agrega el contenido
+			this.creaElContenido(contenido);
 			v.domContenido.classList.add("contenido");
-			domBloqueLectura.appendChild(v.domContenido);
+			domBloque.appendChild(v.domContenido);
 
-			// Crea el DOM íconos
+			// Crea y agrega los íconos
 			const domIconos = DOM.iconos.cloneNode(true);
 			domIconos.dataset.id = contenido.id;
 			domIconos.dataset.statusRegistro_id = contenido.statusRegistro_id;
-
-			// Si corresponde, elimina los íconos de subir y/o bajar
 			if (v.final_id == contenido.id || contenido.statusRegistro_id != 1) domIconos.querySelector(".baja").remove();
 			if (v.inicial_id == contenido.id || contenido.statusRegistro_id != 1) domIconos.querySelector(".sube").remove();
+			domBloque.appendChild(domIconos);
 
-			// Agrega el DOM de los íconos
-			domBloqueLectura.appendChild(domIconos);
-
-			// Agrega el DOM contenedor al DOM sector
-			DOM.sectorContenido.appendChild(domBloqueLectura);
-
-			// Fin
+			// Agrega el bloque al sector
+			DOM.sectorContenido.appendChild(domBloque);
 			return;
 		},
 		creaElContenido: function (contenido) {
@@ -108,22 +102,22 @@ window.addEventListener("load", async () => {
 			v.domContenido = document.createElement("div");
 
 			if (false) null;
-			// Libros
-			else if (comp1234.temaActual.codigo == "libros") v.domContenido = this.libro(contenido);
-			// Sólo texto
-			else if (contenido.texto && !contenido.imagen) v.domContenido = this.texto(contenido).cloneNode(true);
-			// Sólo una imagen
-			else if (contenido.imagen && !contenido.texto) v.domContenido = this.imagen(contenido).cloneNode(true);
 			// Texto e imagen
-			else if (contenido.texto && contenido.imagen) {
+			else if (contenido.layout.codigo == "textoImagen") {
 				v.domContenido.appendChild(this.imagen(contenido));
 				v.domContenido.appendChild(this.texto(contenido));
 				v.domContenido.classList.add("textoImagen");
 			}
+			// Sólo texto
+			else if (contenido.layout.codigo == "texto") v.domContenido = this.texto(contenido).cloneNode(true);
+			// Sólo una imagen
+			else if (contenido.layout.codigo == "imagen") v.domContenido = this.imagen(contenido).cloneNode(true);
 			// Carrusel
-			else if (contenido.carrusel.length) this.carrusel(contenido);
+			else if (contenido.layout.codigo == "carrusel") this.carrusel(contenido);
 			// Video
-			else if (contenido.video) this.video(contenido);
+			else if (contenido.layout.codigo == "video") this.video(contenido);
+			// Libros
+			else if (contenido.layout.codigo == "libro") v.domContenido = this.libro(contenido);
 
 			// Fin
 			return;
