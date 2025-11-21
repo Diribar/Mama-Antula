@@ -4,8 +4,10 @@
 export default async (req, res, next) => {
 	// Variables
 	const {encab_id, layoutCodigo} = req.body;
-	const {texto, imagen, imagen2, video, leyenda, titulo, autor, anoLanzam, editorial} = req.body;
+	const {texto, imagen, imagen2, video, titulo, autor, anoLanzam, editorial} = req.body;
 	const mensajes = [];
+	console.log(9,layoutCodigo);
+
 
 	// GENERAL - encab_id
 	if (!encab_id) mensajes.push("Necesitamos un valor para el encabezado");
@@ -23,7 +25,7 @@ export default async (req, res, next) => {
 	// Texto
 	else if (layoutCodigo == "texto" && !texto) mensajes.push("Necesitamos un texto");
 	// Video
-	else if (layoutCodigo == "video" && !video) mensajes.push("Necesitamos un video de Youtube");
+	else if (layoutCodigo == "video" && !video) mensajes.push("Necesitamos un link de video de Youtube");
 	// Libro
 	else if (layoutCodigo == "libro") {
 		if (!titulo || !autor || !anoLanzam || !editorial) mensajes.push("Necesitamos un libro con todos los datos");
