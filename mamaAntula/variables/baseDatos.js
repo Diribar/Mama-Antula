@@ -10,6 +10,7 @@ export default {
 				.obtieneTodosPorCondicion("temasSecciones", {inactivo: false}, ["indicesFecha", "indicesLugar"])
 				.then((n) => n.sort((a, b) => a.orden - b.orden)),
 			pestanasTemas: baseDatos.obtieneTodosConOrden("pestanasTemas", "orden"),
+			layouts: baseDatos.obtieneTodosConOrden("layouts", "orden"),
 			indicesFecha: baseDatos.obtieneTodos("indicesFecha"),
 			indicesLugar: baseDatos.obtieneTodosConOrden("indicesLugar", "codigo"),
 
@@ -18,10 +19,12 @@ export default {
 			lugares: baseDatos.obtieneTodosConOrden("lugares", "nombre"),
 			personajes: baseDatos.obtieneTodosConOrden("personajes", "orden"),
 
-			// Otros
-			iconosAgrupados: baseDatos.obtieneTodosConOrden("iconosAgrupados", "orden"),
+			// Usuarios
 			roles: baseDatos.obtieneTodosConOrden("roles", "orden"),
 			statusRegistrosUs: baseDatos.obtieneTodosConOrden("statusRegistrosUs", "orden"),
+
+			// Otros
+			iconosAgrupados: baseDatos.obtieneTodosConOrden("iconosAgrupados", "orden"),
 			statusRegistros: baseDatos.obtieneTodosConOrden("statusRegistros", "orden"),
 			paises: baseDatos.obtieneTodos("paises"),
 			versionWeb: baseDatos.obtieneTodosConOrden("novsDelSitio", "fecha").then((n) => n.at(-1).version),

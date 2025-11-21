@@ -1,13 +1,11 @@
 <div id="pestanasGuardar" class="invisible">
-	<div id="textoImagen" class="pestana">Texto + Imagen</div>
-	<% for (const layout of layouts) { %>
-		<% if (layout == "imagen") continue %>
-		<div id="<%= layout %>" class="pestana"><%= comp.inicialMayus(layout) %></div>
+	<% for (const layout of layouts) if (!layout.ocultarSiempre) { %>
+		<div id="<%= layout.codigo %>" class="pestana"><%= layout.nombre %></div>
 	<% } %>
 	<i id="iconoGuardar" class="fa-solid fa-floppy-disk"></i><!-- guardar -->
 </div>
 <div id="layouts">
-	<% layouts.forEach((layout, i) => { %>
-		<div id="<%= layout %>" class="layout"><%- include("ABM-4Nuevo-" + (i + 1) + comp.inicialMayus(layout)) %></div>
-	<% }) %>
+	<% for (const layout of layouts) if (layout.archVista) { %>
+		<div id="<%= layout.codigo %>" class="layout"><%- include("ABM-4Nuevo-" + layout.archVista) %></div>
+	<% } %>
 </div>

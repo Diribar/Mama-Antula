@@ -6,11 +6,10 @@ export default {
 		// Variables
 		const codigoVista = "actualizar";
 		const tituloPagina = iconosAgrupados.find((n) => n.codigo == codigoVista)?.nombre;
-		const layouts = ["texto", "imagen", "carrusel", "video", "libro", "estampa"];
 
 		// Fin
 		return res.render("CMP-0Estructura", {
-			...{tituloPagina, temaVista, codigoVista, layouts},
+			...{tituloPagina, temaVista, codigoVista},
 		});
 	},
 	revisar: async (req, res) => {
