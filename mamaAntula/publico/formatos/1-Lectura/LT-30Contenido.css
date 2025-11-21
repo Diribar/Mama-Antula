@@ -37,7 +37,12 @@
 				img {cursor: pointer;}
 			}
 
-			/* COMBINADOS: Texto con imagen o Texto sólo */
+			/* COMBINADOS: Texto con imagen, Imagen sola, Video, Carrusel */
+			:is(.bloque-textoImagen, .bloque-imagen, .bloque-video, .bloque-carrusel) .leyenda {
+				font-style: italic; color: var(--grisInterm); text-align: center; text-wrap: balance;
+				padding-top: 6px; line-height: 1.2;
+			}
+			/* COMBINADOS: Texto con imagen, Texto sólo */
 			.bloque-textoImagen, .bloque-texto {
 				width: fit-content;
 				blockquote {font-size: 1.1rem; margin-block: 10px 20px; text-align: center; text-wrap: balance;}
@@ -45,23 +50,17 @@
 				p, :where(ul, ol) li {margin-bottom: 12px; line-height: 1.5;}
 				p {width: fit-content;}
 			}
-			/* COMBINADOS: Imagen con texto o Imagen sola */
+			/* COMBINADOS: Texto con imagen, Imagen sola */
 			:is(.bloque-textoImagen, .bloque-imagen) .imagen {
 				max-height: 60vh;
 				&:hover {scale: 1.02;}
 			}
-
-			/* COMBINADOS: Texto con imagen, Imagen sola, Video o Carrusel */
-			:is(.bloque-textoImagen, .bloque-imagen, .bloque-video, .bloque-carrusel) .leyenda {
-				font-style: italic; color: var(--grisInterm); text-align: center; text-wrap: balance;
-				padding-top: 6px; line-height: 1.2;
-			}
-			/* COMBINADOS: Imagen sola, video o carrusel */
+			/* COMBINADOS: Imagen sola, video, carrusel */
 			.bloque-imagen, .bloque-video, .bloque-carrusel {
 				margin-bottom: var(--margenVertical);
 				.leyenda {max-width: 70%;}
 			}
-			/* COMBINADOS: Libros y Estampas */
+			/* COMBINADOS: Libros, Estampas */
 			:is(.bloque-libros, .bloque-estampas) img {height: 370px;}
 
 
@@ -119,6 +118,9 @@
 						}
 					}
 				}
+			}
+			.bloque-video {
+				iframe {height: 340px; width: auto; aspect-ratio: 16 / 9;}
 			}
 			.bloque-libros {
 				row-gap: 200px; /* entre filas */
