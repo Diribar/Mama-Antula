@@ -36,11 +36,8 @@ window.addEventListener("load", async () => {
 			v.formData = new FormData();
 			this.encabezado();
 
-			// Le agrega info en función de la pestaña
-			if (["textoImagen", "texto"].includes(v.nombrePestanaActiva)) v.formData.append("texto", DOM.textoOutput.value);
-			if (["textoImagen", "imagen"].includes(v.nombrePestanaActiva)) this.imagen();
-			if (v.nombrePestanaActiva == "carrusel") this.carrusel();
-			if (v.nombrePestanaActiva == "video") this.video();
+			// Le agrega info en función de la pestaña activa
+			this[v.nombrePestanaActiva]();
 
 			// Fin
 			return;
@@ -57,26 +54,29 @@ window.addEventListener("load", async () => {
 			// Fin
 			return;
 		},
-		imagen: function () {
+		// Funciones a usar según la pestaña activa
+		textoImagen: function () {
+			// Texto
+			if (DOM.textoOutput.value) v.formData.append("texto", DOM.textoOutput.value);
+
 			// Si no se subió un archivo, interrumpe la función
 			if (!archImagen) return;
 
 			// Agrega el archivo de la imagen
 			this.archImg(archImagen, "");
-			// archImagen = null;
 
 			// Agrega la leyenda de la imagen
-			v.formData.append("leyenda", DOM.leyendaImagen.value);
+			if (DOM.leyendaImagen.value) v.formData.append("leyenda", DOM.leyendaImagen.value);
 
 			// Fin
 			return;
 		},
 		carrusel: function () {
 			// Si no se subieron por lo menos 2 archivos, interrumpe la función
-			if (!urlsCarrusel || urlsCarrusel.length < 2) return;
+			if (!urlsCrsl || urlsCrsl.length < 2) return;
 
 			// Agrega las imágenes
-			for (const urlCarrusel of urlsCarrusel) this.archImg(urlCarrusel, "s");
+			for (const urlCrsl of urlsCrsl) this.archImg(urlCrsl, "s");
 
 			// Agrega la leyenda del carrusel
 			v.formData.append("leyenda", DOM.leyendaCarrusel.value);
@@ -92,8 +92,23 @@ window.addEventListener("load", async () => {
 			// Fin
 			return;
 		},
+		libro: function () {
+			// Si no se subió un archivo, interrumpe la función
+			if (!archLibro) return;
 
-		// Varios
+			// Agrega el archivo del libro
+			this.archImg(archLibro, "");
+
+			// Agrega los demás datos del libro
+			v.formData.append("imagen", archivo.name);
+			v.formData.append("tamano", archivo.size);
+			v.formData.append("tipo", archivo.type);
+
+			// Fin
+			return;
+		},
+
+		// Auxiliares
 		archImg: (archivo, s) => {
 			// El archivo de imagen
 			v.formData.append("archivo" + s, archivo);
@@ -124,7 +139,6 @@ window.addEventListener("load", async () => {
 	});
 
 	// Guarda los cambios
-	DOM.sectorContNuevo.addEventListener("input", () => DOM.iconoGuardar.classList.remove("inactivo"));
 	DOM.iconoGuardar.addEventListener("click", async () => {
 		// Si confirmar está inactivo, interrumpe la función
 		if (DOM.iconoGuardar.className.includes("inactivo")) return;
@@ -137,8 +151,12 @@ window.addEventListener("load", async () => {
 		creaElForm.consolidado();
 
 		// Guarda la información en la BD
-		const ruta = v.nombrePestanaActiva == "carrusel" ? "guardaCarrusel" : "guardaContenido";
-		await fetch(rutas[ruta], postForm(v.formData)).then((n) => n.json());
+		const ruta = v.nombrePestanaActiva == "carrusel" ? "guardaCarrusel" : "guardaContenido"; // la diferencia es por el multer
+		const respuesta = await fetch(rutas[ruta], postForm(v.formData)).then((n) => n.json());
+		DOM.iconoGuardar.classList.remove("inactivo");
+
+		// Si hubo un error, muestra el mensaje e interrumpe la función
+		if (respuesta.error) return carteles.error(respuesta.error);
 
 		// Recarga la vista, para que limpie todo
 		location.reload();
@@ -150,3 +168,29 @@ window.addEventListener("load", async () => {
 	// Fin
 	return;
 });
+
+// Variables
+let archImagen;
+let urlsCrsl = [];
+let archLibro;
+
+// Funciones
+const obtieneNuevaImagen = async (archsImagen, vistaImagen) => archsImagen.length && procesaArchImg(archsImagen[0], vistaImagen);
+const otrosEventos = (DOM) => {
+	// Variables
+	const eventos = {entrada: ["dragenter", "dragover"], salida: ["dragleave", "drop"]};
+
+	// Eventos preventivos - Drag & Drop
+	for (const evento of [...eventos.entrada, ...eventos.salida])
+		DOM.areaSoltar.addEventListener(evento, (e) => e.preventDefault());
+
+	// Eventos - Efectos visuales
+	for (const evento of eventos.entrada) DOM.areaSoltar.addEventListener(evento, () => DOM.areaSoltar.classList.add("encima"));
+	for (const evento of eventos.salida) DOM.areaSoltar.addEventListener(evento, () => DOM.areaSoltar.classList.remove("encima"));
+
+	// Evento click en el input - Busca un archivo de imagen
+	DOM.areaSoltar.addEventListener("click", () => DOM.inputImagen.click());
+
+	// Fin
+	return;
+};

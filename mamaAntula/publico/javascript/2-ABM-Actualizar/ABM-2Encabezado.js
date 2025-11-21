@@ -2,21 +2,22 @@
 
 window.addEventListener("load", async () => {
 	// Variables
+	const domFiltros = document.querySelector("#filtros");
+	const domEncabezado = document.querySelector("#sectorEncabezado");
 	const DOM = {
 		// Filtros
-		filtroTema: document.querySelector("#filtros select[name='tema_id']"),
-		filtroPestana: document.querySelector("#filtros select[name='pestana_id']"),
-		filtroEncab: document.querySelector("#filtros select[name='encabezado']"),
+		filtroTema: domFiltros.querySelector("select[name='tema_id']"),
+		filtroPestana: domFiltros.querySelector("select[name='pestana_id']"),
+		filtroEncab: domFiltros.querySelector("select[name='encabezado']"),
 
 		// Inputs del encabezado
-		sectorEncabezado: document.querySelector("#sectorEncabezado"),
-		encabezados: document.querySelectorAll("#sectorEncabezado .encabezado"),
-		inputs: document.querySelectorAll("#sectorEncabezado .input"),
+		encabezados: domEncabezado.querySelectorAll(".encabezado"),
+		inputs: domEncabezado.querySelectorAll(".input"),
 
 		// Íconos
-		encabIconos: document.querySelector("#sectorEncabezado .iconos"),
-		iconoGuardar: document.querySelector("#sectorEncabezado .iconos #guardar"),
-		iconoEliminar: document.querySelector("#sectorEncabezado .iconos #eliminar"),
+		encabIconos: domEncabezado.querySelector(".iconos"),
+		iconoGuardar: domEncabezado.querySelector(".iconos #guardar"),
+		iconoEliminar: domEncabezado.querySelector(".iconos #eliminar"),
 	};
 	const rutas = {
 		// Encabezado
@@ -29,7 +30,7 @@ window.addEventListener("load", async () => {
 		consolidado: function () {
 			// Muestra u oculta el sector
 			this.actualizaLaVisibilidadDelSector();
-			if (DOM.sectorEncabezado.classList.contains("ocultar")) return;
+			if (domEncabezado.classList.contains("ocultar")) return;
 
 			// Muestra el encabezado que corresponde, y oculta los demás
 			for (const encabezado of DOM.encabezados)
@@ -49,8 +50,8 @@ window.addEventListener("load", async () => {
 				DOM.filtroEncab.value == comp1234.encabCartaIntro_id || // Si es la nota de introducción al tema cartas, oculta el encabezado
 				DOM.filtroEncab.value == comp1234.encabLugaresIntro_id // Si es la nota de introducción al tema lugares, oculta el encabezado
 			)
-				DOM.sectorEncabezado.classList.add("ocultar");
-			else DOM.sectorEncabezado.classList.remove("ocultar");
+				domEncabezado.classList.add("ocultar");
+			else domEncabezado.classList.remove("ocultar");
 
 			// Fin
 			return;
