@@ -36,7 +36,6 @@ export default async (req, res, next) => {
 	// Consolida los errores
 	const error = preparaLaRespuesta(mensajes);
 	if (error) return res.json({error});
-	else return res.json({});
 
 	// Fin
 	return next();
