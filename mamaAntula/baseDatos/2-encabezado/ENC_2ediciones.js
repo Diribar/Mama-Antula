@@ -6,7 +6,6 @@ export default (sequelize, dt) => {
 
 		// Experiencias y Sin índice
 		titulo: {type: dt.STRING(100)},
-		subTitulo: {type: dt.STRING(100)},
 
 		// Exclusivo cartas
 		numero: {type: dt.INTEGER},
