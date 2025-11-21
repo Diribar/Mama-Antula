@@ -12,10 +12,10 @@ export default async (req, res, next) => {
 		(pestana_id && !pestanasTemas.find((n) => n.id == pestana_id) && mensajes.push("La pestaña no existe"));
 
 	// GENERAL - encab_id
-	if (!encab_id) mensajes.push("El encabezado no se identifica");
+	if (!encab_id) mensajes.push("Necesitamos un valor para el encabezado");
 	else if (encab_id != "nuevo") {
 		const encabezado = await baseDatos.obtienePorId("encabezados", encab_id);
-		if (!encabezado) mensajes.push("El encabezado no se identifica");
+		if (!encabezado) mensajes.push("No tenemos ese encabezado");
 		else if (encabezado.creadoPor_id != req.session.usuario.id && encabezado.statusRegistro_id != aprobado_id)
 			mensajes.push("No tenés permiso para editar este encabezado");
 	}
