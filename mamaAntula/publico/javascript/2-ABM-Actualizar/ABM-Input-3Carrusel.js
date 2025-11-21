@@ -3,6 +3,14 @@
 window.addEventListener("load", async () => {
 	// Variables
 	const domLayout = document.querySelector("#sectorContNuevo #layouts #carrusel");
+	crslEstampa({domLayout, cantMax: 10});
+
+	// Fin
+	return;
+});
+
+// Funciones
+const crslEstampa = ({domLayout, cantMax}) => {
 	const DOM = {
 		// Drag & Drop
 		dragDrop: domLayout.querySelector("#dragDrop"),
@@ -25,6 +33,9 @@ window.addEventListener("load", async () => {
 
 		// Recorre los archivos
 		for (const archCrsl of archsCrsl) {
+			// Si ya se alcanzó la cantidad máxima, interrumpe la rutina
+			if (urlsCrsl.length >= cantMax) break;
+
 			// CRSL - Crea un nuevo hijo
 			const nuevoModeloVista = DOM.modeloVista.cloneNode(true);
 			nuevoModeloVista.removeAttribute("id");
@@ -65,4 +76,4 @@ window.addEventListener("load", async () => {
 
 	// Fin
 	return;
-});
+};
