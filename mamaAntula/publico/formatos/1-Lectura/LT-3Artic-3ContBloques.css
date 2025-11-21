@@ -42,7 +42,7 @@
 	}
 	.bloque-carrusel {
 		margin-bottom: var(--margenVertical);
-		.carrusel {
+		.contenedorImgs {
 			/* Variables */
 			anchor-name: var(--anchorName);
 

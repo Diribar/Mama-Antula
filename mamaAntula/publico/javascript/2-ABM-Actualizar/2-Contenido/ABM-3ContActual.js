@@ -93,25 +93,19 @@ window.addEventListener("load", async () => {
 			return;
 		},
 		creaElContenido: function (contenido) {
-			// Crea el DOM
-			v.domContenido = document.createElement("div");
-
-			if (false) null;
-			// Texto e imagen
-			else if (contenido.layout.codigo == "textoImagen") {
+			// Agrega el contenido
+			if (contenido.layout.codigo == "textoImagen") {
+				v.domContenido = document.createElement("div");
 				v.domContenido.appendChild(this.imagen(contenido));
 				v.domContenido.appendChild(this.texto(contenido));
-			}
-			// Sólo texto
-			else if (contenido.layout.codigo == "texto") v.domContenido = this.texto(contenido).cloneNode(true);
-			// Sólo una imagen
-			else if (contenido.layout.codigo == "imagen") v.domContenido = this.imagen(contenido).cloneNode(true);
-			// Carrusel
-			else if (contenido.layout.codigo == "carrusel") this.carrusel(contenido);
-			// Video
-			else if (contenido.layout.codigo == "video") this.video(contenido);
-			// Libros
-			else if (contenido.layout.codigo == "libro") v.domContenido = this.libro(contenido);
+			} else
+				v.domContenido =
+					(contenido.layout.codigo == "texto" && this.texto(contenido).cloneNode(true)) ||
+					(contenido.layout.codigo == "imagen" && this.imagen(contenido).cloneNode(true)) ||
+					(contenido.layout.codigo == "carrusel" && this.carrusel(contenido)) ||
+					(contenido.layout.codigo == "video" && this.video(contenido)) ||
+					(contenido.layout.codigo == "libro" && this.libro(contenido)) ||
+					(contenido.layout.codigo == "estampa" && this.estampa(contenido));
 
 			// Agrega las clases
 			v.domContenido.classList.add("contenido", "bloque-" + contenido.layout.codigo);
@@ -159,82 +153,104 @@ window.addEventListener("load", async () => {
 			return contenedor;
 		},
 		carrusel: function (contenido) {
-			// Crea el contenedor
+			// Crea el contenedor global
 			const contenedor = document.createElement("div");
-			contenedor.classList.add("contImagenLeyenda");
+			contenedor.classList.add("flexColAlign");
 
-			// Crea el carrusel
-			v.carrImgs = document.createElement("div");
-			v.carrImgs.classList.add("carrImgs");
-			this.agregaImgsCrsl(contenido);
-			v.domContenido.appendChild(v.carrImgs);
+			// Crea el contenedor de las imagenes
+			const contenedorImgs = document.createElement("div");
+			contenedorImgs.classList.add("contenedorImgs", "flexRow");
+			contenedorImgs.style.setProperty("--anchorName", "--carrusel-" + contenido.id);
+
+			// Recorre el carrusel
+			for (const carrusel of contenido.carrusel) contenedorImgs.appendChild(this.imgsCrsl(carrusel));
+			contenedor.appendChild(contenedorImgs);
 
 			// Crea la leyenda
-			if (contenido.leyenda) {
-				const domLeyenda = this.leyenda(contenido);
-				v.domContenido.appendChild(domLeyenda);
-			}
+			if (contenido.leyenda) contenedor.appendChild(this.leyenda(contenido));
 
 			// Fin
-			return;
+			return contenedor;
 		},
 		video: function (contenido) {
+			// Crea el contenedor
+			const contenedor = document.createElement("div");
+			contenedor.classList.add("flexColAlign", "imgLeyenda");
+
 			// Crea el iframe
 			const iframe = document.createElement("iframe");
 			iframe.src = "https://www.youtube.com/embed/" + contenido.video + "?autoplay=1";
-			v.domContenido.appendChild(iframe);
+			contenedor.appendChild(iframe);
 
 			// Crea la leyenda
-			if (contenido.leyenda) {
-				const domLeyenda = this.leyenda(contenido);
-				v.domContenido.appendChild(domLeyenda);
-			}
+			if (contenido.leyenda) contenedor.appendChild(this.leyenda(contenido));
 
 			// Fin
-			return;
+			return contenedor;
 		},
 		libro: function (contenido) {
 			// Crea el contenedor
 			const contenedor = document.createElement("div");
-			contenedor.classList.add("contImagenLeyenda");
 
 			// Crea la imagen
-			const domImagen = document.createElement("img");
+			const img = document.createElement("img");
 			const subCarpeta = contenido.statusRegistro_id == 1 ? "2-Revisar/" : "1-Final/";
-			domImagen.src = "/imgsEditables/" + subCarpeta + contenido.imagen;
-			domImagen.classList.add("imagen");
-			contenedor.appendChild(domImagen);
+			img.src = "/imgsEditables/" + subCarpeta + contenido.imagen;
+			contenedor.appendChild(img);
 
 			// Agrega la información del libro
-			contenedor.appendChild(this.infoLibro(contenido.titulo, "tituloLibro"));
-			contenedor.appendChild(this.infoLibro(contenido.autor, "autorLibro"));
+			const texto = document.createElement("img");
+			texto.classList.add("texto");
+			texto.appendChild(this.textoLibro(contenido.titulo, "tituloLibro"));
+			texto.appendChild(this.textoLibro(contenido.autor, "autorLibro"));
 			const anoEditorial =
 				(contenido.anoLanzam || "") +
 				(contenido.anoLanzam && contenido.editorial ? " - " : "") +
 				(contenido.editorial || "");
-			contenedor.appendChild(this.infoLibro(anoEditorial, "anoEditorial"));
+			texto.appendChild(this.textoLibro(anoEditorial, "anoEditorial"));
+			contenedor.appendChild(texto);
+
+			// Fin
+			return contenedor;
+		},
+		estampa: function (contenido) {
+			// Crea el contenedor
+			const contenedor = document.createElement("div");
+			contenedor.classList.add("flexCol");
+
+			// Le agrega el título
+			if (contenido.titulo) {
+				const h3 = document.createElement("h3");
+				h3.classList.add("titulo");
+				h3.innerText = contenido.titulo;
+				contenedor.appendChild(h3);
+			}
+
+			// Le agrega la imágenes
+			contenedor.appendChild(this.imgsEstampa(contenido));
 
 			// Fin
 			return contenedor;
 		},
 
 		// Auxiliares
-		agregaImgsCrsl: (contenido) => {
-			// Recorre el carrusel
-			for (const registro of contenido.carrusel) {
-				// Variables
-				const subCarpeta = registro.statusRegistro_id == 1 ? "2-Revisar/" : "1-Final/";
+		imgsCrsl: (carrusel) => {
+			// Variables
+			const subCarpeta = carrusel.statusRegistro_id == 1 ? "2-Revisar/" : "1-Final/";
 
-				// Crea el domImagen
-				const img = document.createElement("img");
-				img.src = "/imgsEditables/" + subCarpeta + registro.imagen;
+			// Crea el contenedor de cada imagen
+			const contenedorImg = document.createElement("div");
+			contenedorImg.classList.add("contenedorImg", "flexColAlign");
 
-				// La agrega al padre
-				v.carrImgs.appendChild(img);
-			}
+			// Crea el domImagen
+			const img = document.createElement("img");
+			img.src = "/imgsEditables/" + subCarpeta + carrusel.imagen;
+
+			// La agrega al padre
+			contenedorImg.appendChild(img);
 
 			// Fin
-			return;
+			return contenedorImg;
 		},
 		leyenda: (contenido) => {
 			// Crea el contenedor
@@ -245,7 +261,7 @@ window.addEventListener("load", async () => {
 			// Fin
 			return domLeyenda;
 		},
-		infoLibro: (texto, formato) => {
+		textoLibro: (texto, formato) => {
 			// Crea el contenedor
 			const div = document.createElement("div");
 			div.classList.add(formato);
@@ -253,6 +269,27 @@ window.addEventListener("load", async () => {
 
 			// Fin
 			return div;
+		},
+		imgsEstampa: (contenido) => {
+			// Variables
+			const subCarpeta = contenido.statusRegistro_id == 1 ? "2-Revisar/" : "1-Final/";
+
+			// Crea el contenedor de cada imagen
+			const imagenes = document.createElement("div");
+			imagenes.classList.add("imagenes", "flexRow");
+
+			// Crea las imágenes
+			const img1 = document.createElement("img");
+			const img2 = document.createElement("img");
+			img1.src = "/imgsEditables/" + subCarpeta + contenido.imagen;
+			img2.src = "/imgsEditables/" + subCarpeta + contenido.imagen2;
+
+			// Las agrega al padre
+			imagenes.appendChild(img1);
+			imagenes.appendChild(img2);
+
+			// Fin
+			return imagenes;
 		},
 	};
 

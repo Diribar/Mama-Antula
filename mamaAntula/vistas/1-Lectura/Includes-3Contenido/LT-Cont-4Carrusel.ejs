@@ -1,6 +1,6 @@
 <!-- Carrusel -->
 <div class="bloque bloque-<%= contenido.layout.codigo %> flexColAlign">
-	<div class="carrusel flexRow" style="--anchorName: --carrusel-<%= contenido.id %>;">
+	<div class="contenedorImgs flexRow" style="--anchorName: --carrusel-<%= contenido.id %>;">
 		<% for (const carrusel of contenido.carrusel) { %>
 			<div class="contenedorImg flexColAlign">
 				<img src="/imgsEditables/<%- carrusel.statusRegistro_id == creado_id ? '2-Revisar' : '1-Final' %>/<%= carrusel.imagen %>">
