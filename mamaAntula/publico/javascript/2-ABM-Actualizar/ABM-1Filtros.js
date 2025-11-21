@@ -131,7 +131,7 @@ window.addEventListener("load", async () => {
 		return;
 	});
 	DOM.tema.addEventListener("change", () => {
-		// TEMA -  Guarda la cookie
+		// TEMA - Guarda la cookie
 		const tema_id = DOM.tema.value;
 		if (!comp1234.startUp) document.cookie = "actualizaTema_id=" + tema_id + "; path=/";
 
@@ -175,7 +175,7 @@ window.addEventListener("load", async () => {
 		return;
 	});
 	DOM.pestana.addEventListener("change", () => {
-		// PESTAÑA -  Guarda la cookie
+		// PESTAÑA - Guarda la cookie
 		const pestana_id = DOM.pestana.value;
 		if (!comp1234.startUp) document.cookie = "actualizaPestana_id=" + pestana_id + "; path=/";
 

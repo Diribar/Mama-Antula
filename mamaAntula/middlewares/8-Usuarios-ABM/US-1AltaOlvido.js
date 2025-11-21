@@ -18,7 +18,7 @@ export default async (req, res, next) => {
 	if (fechaContrasena) {
 		// Variables
 		const ahora = comp.fechaHora.ahora();
-		const diferencia =  (ahora.getTime() - fechaContrasena.getTime()) / unaHora;
+		const diferencia = (ahora.getTime() - fechaContrasena.getTime()) / unaHora;
 		const envioReciente = diferencia < 24;
 
 		// Mensaje de error

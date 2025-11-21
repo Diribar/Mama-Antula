@@ -3,7 +3,7 @@
 		<!-- Rutina por indice -->
 		<% const encabsIndice = encabezados.filter((n) => n.fechaEvento >= indice.fechaDesde && n.fechaEvento <= indice.fechaHasta); %>
 
-		<% if (!encabsIndice.length) continue  %>
+		<% if (!encabsIndice.length) continue; %>
 
 		<% if (encabsIndice.length == 1) { %>
 			<!-- Indice con un solo encabezado -->

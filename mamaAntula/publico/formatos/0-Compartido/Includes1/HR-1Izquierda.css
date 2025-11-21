@@ -2,8 +2,6 @@ header #izquierda {
 	flex-grow: 1;
 	#tituloSitio {
 		padding-inline: 30px; text-wrap: nowrap;
-		/* padding-block: 5px 0;  */
-		/* font-family: "Monotype Corsiva", MTCORSVA; */
 		a {font-size: 1.5rem; font-weight: bold;}
 		h4 {font-style: italic; font-weight: normal; font-size: 0.79rem;}
 

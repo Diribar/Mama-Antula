@@ -29,7 +29,7 @@ export default {
 			.then((n) => n.sort((a, b) => a.orden - b.orden))
 			.then((n) => n.sort((a, b) => b.anoLanzam - a.anoLanzam));
 
-		// Obtiene los registros del carrusel y los  vincula a su contenido
+		// Obtiene los registros del carrusel y los vincula a su contenido
 		const contenidos_ids = contenidos.map((n) => n.id);
 		const carrusel = await baseDatos.obtieneTodosPorCondicion("carrusel", {contenido_id: contenidos_ids});
 		for (const contenido of contenidos)
