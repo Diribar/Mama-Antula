@@ -98,7 +98,7 @@ export default {
 		// Fin
 		return orden;
 	},
-	guardaRegsCarrusel: async (imagenes, contenido_id, creadoPor_id) => {
+	guardaRegsCarrusel: async ({imagenes, contenido_id, creadoPor_id}) => {
 		// Si no hay imagenes, interrumpe la función
 		if (!imagenes) return;
 
