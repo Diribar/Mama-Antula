@@ -82,16 +82,11 @@ window.addEventListener("load", async () => {
 
 			// Crea y agrega el contenido
 			this.creaElContenido(contenido);
-			v.domContenido.classList.add("contenido");
 			domBloque.appendChild(v.domContenido);
 
 			// Crea y agrega los íconos
-			const domIconos = DOM.iconos.cloneNode(true);
-			domIconos.dataset.id = contenido.id;
-			domIconos.dataset.statusRegistro_id = contenido.statusRegistro_id;
-			if (v.final_id == contenido.id || contenido.statusRegistro_id != 1) domIconos.querySelector(".baja").remove();
-			if (v.inicial_id == contenido.id || contenido.statusRegistro_id != 1) domIconos.querySelector(".sube").remove();
-			domBloque.appendChild(domIconos);
+			this.creaLosIconos(contenido);
+			domBloque.appendChild(v.domIconos);
 
 			// Agrega el bloque al sector
 			DOM.sectorContenido.appendChild(domBloque);
@@ -100,6 +95,7 @@ window.addEventListener("load", async () => {
 		creaElContenido: function (contenido) {
 			// Crea el DOM
 			v.domContenido = document.createElement("div");
+			v.domContenido.classList.add("contenido");
 
 			if (false) null;
 			// Texto e imagen
@@ -118,6 +114,17 @@ window.addEventListener("load", async () => {
 			else if (contenido.layout.codigo == "video") this.video(contenido);
 			// Libros
 			else if (contenido.layout.codigo == "libro") v.domContenido = this.libro(contenido);
+
+			// Fin
+			return;
+		},
+		creaLosIconos:(contenido)=>{
+			// Crea el DOM
+			v.domIconos = DOM.iconos.cloneNode(true);
+			v.domIconos.dataset.id = contenido.id;
+			v.domIconos.dataset.statusRegistro_id = contenido.statusRegistro_id;
+			if (v.final_id == contenido.id || contenido.statusRegistro_id != 1) v.domIconos.querySelector(".baja").remove();
+			if (v.inicial_id == contenido.id || contenido.statusRegistro_id != 1) v.domIconos.querySelector(".sube").remove();
 
 			// Fin
 			return;
