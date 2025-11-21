@@ -13,6 +13,7 @@ window.addEventListener("load", async () => {
 		leyendaImagen: document.querySelector("#imagen [name='leyenda']"),
 		leyendaCarrusel: document.querySelector("#carrusel [name='leyenda']"),
 		leyendaVideo: document.querySelector("#video [name='leyenda']"),
+		tituloEstampas: document.querySelector("#estampa [name='leyenda']"),
 
 		// Ouputs
 		iconoGuardar: document.querySelector("#pestanasGuardar #iconoGuardar"),
@@ -61,7 +62,7 @@ window.addEventListener("load", async () => {
 		},
 		carrusel: function () {
 			// Agrega las imágenes
-			for (const urlCrsl of urlsCrsl) this.archImg(urlCrsl, "s");
+			for (const url of urlsCrsl) this.archImg(url, "s");
 
 			// Agrega la leyenda del carrusel
 			v.formData.append("leyenda", DOM.leyendaCarrusel.value);
@@ -87,7 +88,13 @@ window.addEventListener("load", async () => {
 			// Fin
 			return;
 		},
-		estampa:function(){
+		estampa: function () {
+			// Agrega las imágenes
+			for (const url of urlsEstampa) this.archImg(url, "s");
+
+			// Agrega la leyenda
+			v.formData.append("titulo", DOM.tituloEstampas.value);
+
 			// Fin
 			return;
 		},
