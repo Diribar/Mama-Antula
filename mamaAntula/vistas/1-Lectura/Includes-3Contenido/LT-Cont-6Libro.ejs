@@ -6,7 +6,7 @@
 		<div class="autor"><%= contenido.autor %></div>
 		<div class="editorialAno">
 			<%= contenido.anoLanzam || "" %>
-			<%- contenido.anoLanzam && contenido.editorial ? " - " : ""  %>
+			<%- contenido.anoLanzam && contenido.editorial ? " - " : "" %>
 			<%= contenido.editorial || "" %>
 			<% if (contenido.editorial && contenido.editorial.toLowerCase().includes("descarga")) { %>
 				<!-- Particular para el download -->
