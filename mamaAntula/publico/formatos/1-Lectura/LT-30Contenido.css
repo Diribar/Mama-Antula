@@ -25,8 +25,13 @@
 		&:not(:has(#tituloDelContenido)) #contenido {height: calc(100% - 6px);} /* 6px es el alto del padding */
 		#contenido {
 			display: flex; padding-right: 20px; overflow-y: auto;
-			&:has(.bloque-libro, .bloque-estampa) {flex-direction: row; flex-wrap: wrap; justify-content: space-evenly; column-gap: 50px;}
-			&:not(:has(.bloque-libro, .bloque-estampa)) {flex-direction: column; --margenVertical: 20px;}
+			--margenVertical: 20px;
+			&:has(.bloque-libro, .bloque-estampa) {
+				flex-direction: row; justify-content: space-evenly; flex-wrap: wrap; column-gap: 50px;
+				&:has(.bloque-libro) {row-gap: var(--margenVertical);}
+				&:has(.bloque-estampa) {row-gap: calc(var(--margenVertical) * 2);}
+			}
+			&:not(:has(.bloque-libro, .bloque-estampa)) {flex-direction: column;}
 		}
 
 		/* Temas de los bloques */
@@ -128,19 +133,16 @@
 				iframe {height: 340px; width: auto; aspect-ratio: 16 / 9;}
 			}
 			.bloque-libro {
-				row-gap: 200px; /* entre filas */
-				position: relative;
 				.texto {
-					position: absolute; left: 50%; bottom: 0px; translate: -50% 100%;
-					width: 100%; padding-block: 6px;
+					max-width: 260px; padding-block: 6px;
 					* {line-height: 1.2;}
 					.nombre {font-weight: bold; margin-bottom: 6px;}
 					.autor {font-style: italic;}
 				}
 			}
 			.bloque-estampa {
-				align-items: flex-start; /* por el título */
-				row-gap: 70px; /* entre filas */
+				justify-content: flex-end;
+				.titulo {margin-bottom: 6px; align-self: flex-start;}
 				.imagenes {gap: 20px;}
 			}
 		}

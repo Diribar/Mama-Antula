@@ -1,7 +1,7 @@
 <!-- Estampa -->
 <div class="bloque bloque-<%= contenido.layout.codigo %> flexCol">
-	<% if (contenido.texto) { %>
-		<h3><%= contenido.texto %></h3>
+	<% if (contenido.titulo) { %>
+		<h3 class="titulo"><%= contenido.titulo %></h3>
 	<% } %>
 	<div class="imagenes flexRow">
 		<img src="/imgsEditables/<%= subCarpeta %>/<%= contenido.imagen %>">
