@@ -34,7 +34,10 @@ const crslEstampa = ({domLayout, cantMax, urls}) => {
 		// Recorre los archivos
 		for (const archCrsl of archsCrsl) {
 			// Si ya se alcanzó la cantidad máxima, interrumpe la rutina
-			if (urls.length >= cantMax) break;
+			if (urls.length >= cantMax) {
+				carteles.error("Se alcanzó la cantidad máxima de imagenes");
+				break;
+			}
 
 			// CRSL - Crea un nuevo hijo
 			const nuevoModeloVista = DOM.modeloVista.cloneNode(true);
@@ -52,6 +55,9 @@ const crslEstampa = ({domLayout, cantMax, urls}) => {
 			DOM.carrImgs.appendChild(nuevoModeloVista);
 		}
 
+		// Si se alcanzó la cantidad máxima, oculta el drag & drop
+		if (urls.length >= cantMax) DOM.dragDrop.classList.add("ocultar");
+
 		// Fin
 		return;
 	};
@@ -66,6 +72,9 @@ const crslEstampa = ({domLayout, cantMax, urls}) => {
 		// Elimina el hijo
 		DOM.carrImgs.removeChild(domEliminar[indice].parentNode);
 		urls.splice(indice, 1);
+
+		// Si está debajo de la cantidad máxima, muestra el drag & drop
+		if (urls.length < cantMax) DOM.dragDrop.classList.remove("ocultar");
 
 		// Fin
 		return;

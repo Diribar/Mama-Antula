@@ -12,14 +12,14 @@
 			&.activo {background-color: var(--grisOscuro); color: snow;}
 		}
 		#iconoGuardar {
-			cursor: pointer;
+			cursor: pointer; font-size: 1.2rem; color: var(--verdeOscuro);
 			&:not(.inactivo):hover {scale: 1.5;}
 			&.inactivo {color: var(--rojoOscuro);}
 		}
 	}
 
 	/* Condicionado por las pestañas */
-	&:has(#textoImagen.pestana.activo, #texto.pestana.activo, #carrusel.pestana.activo) #layouts {align-self: stretch;}
+	&:has(#textoImagen.activo, #texto.activo, #carrusel.activo, #estampa.activo) #layouts {align-self: stretch;}
 	&:has(#textoImagen.pestana.activo) {#layouts :is(#texto, #imagen) {display: flex;}}
 	&:has(#texto.pestana.activo) {#layouts #texto {display: flex;}}
 	&:has(#carrusel.pestana.activo) {#layouts #carrusel {display: flex;}}
