@@ -95,14 +95,12 @@ window.addEventListener("load", async () => {
 		creaElContenido: function (contenido) {
 			// Crea el DOM
 			v.domContenido = document.createElement("div");
-			v.domContenido.classList.add("contenido");
 
 			if (false) null;
 			// Texto e imagen
 			else if (contenido.layout.codigo == "textoImagen") {
 				v.domContenido.appendChild(this.imagen(contenido));
 				v.domContenido.appendChild(this.texto(contenido));
-				v.domContenido.classList.add("textoImagen");
 			}
 			// Sólo texto
 			else if (contenido.layout.codigo == "texto") v.domContenido = this.texto(contenido).cloneNode(true);
@@ -115,10 +113,13 @@ window.addEventListener("load", async () => {
 			// Libros
 			else if (contenido.layout.codigo == "libro") v.domContenido = this.libro(contenido);
 
+			// Agrega las clases
+			v.domContenido.classList.add("contenido", "bloque-" + contenido.layout.codigo);
+
 			// Fin
 			return;
 		},
-		creaLosIconos:(contenido)=>{
+		creaLosIconos: (contenido) => {
 			// Crea el DOM
 			v.domIconos = DOM.iconos.cloneNode(true);
 			v.domIconos.dataset.id = contenido.id;
@@ -134,7 +135,6 @@ window.addEventListener("load", async () => {
 		texto: (contenido) => {
 			// Crea el contenedor
 			const domTexto = document.createElement("div");
-			domTexto.classList.add("texto");
 			domTexto.innerHTML = contenido.texto;
 
 			// Fin
@@ -143,20 +143,17 @@ window.addEventListener("load", async () => {
 		imagen: function (contenido) {
 			// Crea el contenedor
 			const contenedor = document.createElement("div");
-			contenedor.classList.add("contImagenLeyenda");
+			contenedor.classList.add("imgLeyenda", "flexColAlign");
 
-			// Crea la imagen
+			// Crea la imagen y la agrega al contenedor
 			const domImagen = document.createElement("img");
 			const subCarpeta = contenido.statusRegistro_id == 1 ? "2-Revisar/" : "1-Final/";
 			domImagen.src = "/imgsEditables/" + subCarpeta + contenido.imagen;
 			domImagen.classList.add("imagen");
 			contenedor.appendChild(domImagen);
 
-			// Crea la leyenda
-			if (contenido.leyenda) {
-				const domLeyenda = this.leyenda(contenido);
-				contenedor.appendChild(domLeyenda);
-			}
+			// Crea la leyenda y la agrega al contenedor
+			if (contenido.leyenda) contenedor.appendChild(this.leyenda(contenido));
 
 			// Fin
 			return contenedor;
