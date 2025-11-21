@@ -32,10 +32,12 @@ export default async (req, res, next) => {
 		if (titulo && titulo.length > 100) mensajes.push("El campo <em>Título</em> debe tener hasta 100 caracteres");
 	}
 
-	// Fin
+	// Consolida los errores
 	const error = preparaLaRespuesta(mensajes);
 	if (error) return res.json({error});
-	else return res.json({});
+	else return res.json({})
+
+	// Fin
 	return next();
 };
 
