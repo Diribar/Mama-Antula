@@ -6,11 +6,9 @@ export default (sequelize, dt) => {
 		codigo: {type: dt.STRING(20)},
 		archVista: {type: dt.STRING(20)},
 
-		// Booleans
+		// Otros
 		particular: {type: dt.BOOLEAN},
-		videos: {type: dt.BOOLEAN},
-		libros: {type: dt.BOOLEAN},
-		estampas: {type: dt.BOOLEAN},
+		usarConTema: {type: dt.STRING(20)},
 		ocultarPestana: {type: dt.BOOLEAN},
 	};
 	const config = {

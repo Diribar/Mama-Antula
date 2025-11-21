@@ -20,8 +20,8 @@ window.addEventListener("load", async () => {
 		// Temas particulares
 		const {contLayouts: layouts} = comp1234;
 		const pestanasPartics = layouts.filter((n) => n.particular).map((n) => n.codigo);
-		const temaPartic = ["videos", "libros", "estampas"].includes(temaCodigo);
-		const pestanasDelTema = temaPartic && layouts.filter((n) => n[temaCodigo]).map((n) => n.codigo);
+		const temaPartic = layouts.find((n) => n.usarConTema == temaCodigo);
+		const pestanasDelTema = temaPartic && layouts.filter((n) => n.usarConTema == temaCodigo).map((n) => n.codigo);
 
 		// Deja las pestañas que corresponden
 		for (const pestana of DOM.pestanas) {
