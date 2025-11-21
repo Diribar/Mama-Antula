@@ -2,8 +2,8 @@
 
 export default (req, res, next) => {
 	// Le agrega el nombre de la/s imagenes a req.body
-	if (req.file || req.files.length == 1) req.body.imagen = Date.now() + path.extname((req.file || req.files[0]).originalname);
-	else if (req.files) {
+	if (req.file) req.body.imagen = Date.now() + path.extname(req.file.originalname);
+	else if (req.files && req.files.length > 1) {
 		// Variables
 		const contador = Date.now();
 
