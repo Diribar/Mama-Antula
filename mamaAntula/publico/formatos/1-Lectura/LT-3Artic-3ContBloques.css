@@ -1,4 +1,4 @@
-#contenido {
+#tituloMasContenido #contenido, #sectorContActual .bloque.sector {
 	/* COMBINADOS: Texto con imagen, Imagen sola, Video, Carrusel */
 	:is(.bloque-textoImagen, .bloque-imagen, .bloque-video, .bloque-carrusel) .leyenda {
 		font-style: italic; color: var(--grisInterm); text-align: center; text-wrap: balance;
