@@ -4,7 +4,8 @@ export default (sequelize, dt) => {
 		orden: {type: dt.INTEGER},
 		nombre: {type: dt.STRING(20)},
 		codigo: {type: dt.STRING(20)},
-		archVista: {type: dt.STRING(20)},
+		archVistaAbm: {type: dt.STRING(20)},
+		archVistaLt: {type: dt.STRING(20)},
 
 		// Otros
 		particular: {type: dt.BOOLEAN},
