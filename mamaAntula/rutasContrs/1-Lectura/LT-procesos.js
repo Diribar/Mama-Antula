@@ -25,7 +25,7 @@ export default {
 	contenidos: async (encabezado) => {
 		// Obtiene los contenidos
 		const contenidos = await baseDatos
-			.obtieneTodosPorCondicion("contenidos", {encab_id: encabezado.id})
+			.obtieneTodosPorCondicion("contenidos", {encab_id: encabezado.id}, "layout")
 			.then((n) => n.sort((a, b) => a.orden - b.orden));
 
 		// Obtiene los registros del carrusel y los  vincula a su contenido

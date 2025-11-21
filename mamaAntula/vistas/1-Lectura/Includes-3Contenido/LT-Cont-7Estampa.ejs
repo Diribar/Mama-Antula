@@ -1,0 +1,10 @@
+<!-- Estampa -->
+<div class="bloque <%= contenido.layout.codigo %>">
+	<% if (contenido.texto) { %>
+		<h3><%= contenido.texto %></h3>
+	<% } %>
+	<div class="imagenes">
+		<img src="/imgsEditables/<%= subCarpeta %>/<%= contenido.imagen %>">
+		<img src="/imgsEditables/<%= subCarpeta %>/<%= contenido.imagen2 %>">
+	</div>
+</div>

@@ -5,7 +5,7 @@
 	<i id="iconoGuardar" class="fa-solid fa-floppy-disk"></i><!-- guardar -->
 </div>
 <div id="layouts">
-	<% for (const layout of contLayouts) if (layout.archVista) { %>
-		<div id="<%= layout.codigo %>" class="layout"><%- include("ABM-4Nuevo-" + layout.archVista) %></div>
+	<% for (const layout of contLayouts) if (layout.archVistaAbm) { %>
+		<div id="<%= layout.codigo %>" class="layout"><%- include("ABM-4Nuevo-" + layout.archVistaAbm) %></div>
 	<% } %>
 </div>

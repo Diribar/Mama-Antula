@@ -3,6 +3,7 @@ export default (sequelize, dt) => {
 	const columns = {
 		// Referencias
 		encab_id: {type: dt.INTEGER},
+		layout_id: {type: dt.INTEGER},
 		orden: {type: dt.INTEGER},
 
 		// Otros
@@ -32,6 +33,7 @@ export default (sequelize, dt) => {
 	const entidad = sequelize.define(alias, columns, config);
 	entidad.associate = (n) => {
 		entidad.belongsTo(n.encabezados, {as: "encab", foreignKey: "encab_id"});
+		entidad.belongsTo(n.contLayouts, {as: "layout", foreignKey: "layout_id"});
 		entidad.belongsTo(n.usuarios, {as: "creadoPor", foreignKey: "creadoPor_id"});
 		entidad.belongsTo(n.statusRegistros, {as: "statusRegistro", foreignKey: "statusRegistro_id"});
 

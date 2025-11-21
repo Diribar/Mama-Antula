@@ -1,0 +1,7 @@
+<!-- Sólo Imagen -->
+<div class="bloque <%= contenido.layout.codigo %> imgLeyenda">
+	<img class="imagen" src="/imgsEditables/<%= subCarpeta %>/<%= contenido.imagen %>">
+	<% if (contenido.leyenda) { %>
+		<div class="leyenda" class="fondo"><%= contenido.leyenda %></div>
+	<% } %>
+</div>

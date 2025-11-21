@@ -1,0 +1,19 @@
+<!-- Libro -->
+<div class="bloque <%= contenido.layout.codigo %>">
+	<img src="/imgsEditables/<%= subCarpeta %>/<%= contenido.imagen %>">
+	<div class="texto">
+		<div class="nombre"><%= contenido.titulo %></div>
+		<div class="autor"><%= contenido.autor %></div>
+		<div class="editorialAno">
+			<%= contenido.anoLanzam || "" %>
+			<%- contenido.anoLanzam && contenido.editorial ? " - " : ""  %>
+			<%= contenido.editorial || "" %>
+			<% if (contenido.editorial && contenido.editorial.toLowerCase().includes("descarga")) { %>
+				<!-- Particular para el download -->
+				<a href="/descargas/El-estandarte-de-la-mujer-fuerte.pdf" download>
+					<i class="fa-solid fa-download"></i>
+				</a>
+			<% } %>
+		</div>
+	</div>
+</div>
