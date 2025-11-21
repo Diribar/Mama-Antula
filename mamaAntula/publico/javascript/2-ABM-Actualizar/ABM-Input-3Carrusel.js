@@ -66,6 +66,9 @@ const crslEstampa = ({domLayout, cantMax, urls}) => {
 		// Elimina el hijo
 		DOM.carrImgs.removeChild(domEliminar[indice].parentNode);
 		urls.splice(indice, 1);
+
+		// Fin
+		return;
 	});
 
 	// Eventos nueva imagen
