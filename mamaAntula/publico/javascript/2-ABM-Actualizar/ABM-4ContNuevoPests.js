@@ -29,7 +29,6 @@ window.addEventListener("load", async () => {
 		const tema_id = DOM.temaFiltro.value;
 		const temaCodigo = comp1234.temasSecciones.find((n) => n.id == tema_id)?.codigo;
 		if (!temaCodigo) return;
-		console.log(filtrosNoEstandar[temaCodigo],temaCodigo,tema_id);
 
 		// Deja las pestañas que corresponden
 		for (const pestana of DOM.pestanas) {
@@ -40,7 +39,6 @@ window.addEventListener("load", async () => {
 
 			// Muestra u Oculta la pestaña
 			pestana.classList[mostrar ? "remove" : "add"]("ocultar");
-			console.log(mostrar, pestana.id);
 		}
 
 		// Se asegura de que la pestaña activa esté visible
