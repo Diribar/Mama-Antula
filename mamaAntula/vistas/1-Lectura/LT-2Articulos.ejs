@@ -1,4 +1,5 @@
 <% if (conIndice && encabezado) { %>
+	<!-- Filtros e Índice -->
 	<div id="filtroIndice">
 		<% if (esCarta) { %> <%- include("LT-Indice-1Cartas") %><% } %>
 		<% if (esLugares) { %> <%- include("LT-Indice-2Lugares") %><% } %>
@@ -19,12 +20,21 @@
 	</div>
 <% } %>
 
+<!-- Artículo -->
 <div id="tituloMasContenido">
+
 	<% const tituloDelContenido = locals.encabezado && (conIndice ? encabezado.tituloElab : encabezado.titulo) %>
 	<% if (tituloDelContenido) { %>
+		<!-- Título del contenido -->
 		<h2 id="tituloDelContenido" class="fondo"><%= tituloDelContenido %></h2>
 	<% } %>
+
+	<!-- Contenido -->
 	<div id="contenido" class="fondo">
-		<%- include("LT-Contenido") %>
+		<% if (encabezado) for (const contenido of contenidos) { %>
+			<% const subCarpeta = contenido.statusRegistro_id == creado_id ? '2-Revisar' : '1-Final' %>
+			<%- include("LT-Cont-" + contenido.layout.archVistaLt, {contenido, subCarpeta}) %>
+		<% } %>
 	</div>
+
 </div>
