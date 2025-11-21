@@ -99,7 +99,6 @@ window.addEventListener("load", async () => {
 		estampa: function () {
 			// Agrega las imágenes
 			for (const url of urlsEstampa) this.archImg(url, "s");
-			console.log(urlsEstampa);
 
 			// Agrega la leyenda
 			v.formData.append("titulo", DOM.tituloEstampas.value);
