@@ -1,0 +1,8 @@
+<% if (contenido.video) { %>
+	<div class="imgLeyenda">
+		<iframe src="https://www.youtube.com/embed/<%= contenido.video %>?autoplay=1"></iframe>
+		<% if (contenido.leyenda) { %>
+			<div class="leyenda" class="fondo"><%= contenido.leyenda %></div>
+		<% } %>
+	</div>
+<% } %>
