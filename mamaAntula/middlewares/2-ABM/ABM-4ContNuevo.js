@@ -20,7 +20,8 @@ export default async (req, res, next) => {
 	// POR LAYOUT
 	if (layoutCodigo == "textoImagen" && !texto && !imagen) mensajes.push("Necesitamos un texto y/o una imagen");
 	else if (layoutCodigo == "texto" && !texto) mensajes.push("Necesitamos un texto");
-	else if (layoutCodigo == "carrusel" && (!imagens || imagens.length < 2)) mensajes.push("Necesitamos al menos dos imágenes");
+	else if (layoutCodigo == "carrusel" && (!req.files || req.files.length < 2))
+		mensajes.push("Necesitamos al menos dos imágenes");
 	else if (layoutCodigo == "video" && !video) mensajes.push("Necesitamos un link de video de Youtube");
 	else if (layoutCodigo == "libro") {
 		if (!titulo || !autor || !anoLanzam || !editorial) mensajes.push("Necesitamos un libro con todos los datos");
@@ -35,7 +36,7 @@ export default async (req, res, next) => {
 	// Consolida los errores
 	const error = preparaLaRespuesta(mensajes);
 	if (error) return res.json({error});
-	else return res.json({})
+	else return res.json({});
 
 	// Fin
 	return next();
