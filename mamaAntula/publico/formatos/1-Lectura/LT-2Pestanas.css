@@ -8,4 +8,9 @@
 			&:not(.activo) {background-color: var(--amarilloMuyClaro);}
 		}
 	}
+	.contenidoCuerpo {
+		height: calc(100% - 30px); /* 30px es el alto de las pestañas */
+		display: flex;
+		overflow-y: hidden;
+	}
 }
