@@ -1,4 +1,4 @@
-export default  (sequelize, dt) => {
+export default (sequelize, dt) => {
 	const alias = "paises";
 	const columns = {
 		id: {type: dt.STRING(2), primaryKey: true},

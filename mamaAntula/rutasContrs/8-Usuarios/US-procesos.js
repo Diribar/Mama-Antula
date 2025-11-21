@@ -50,7 +50,9 @@ export default {
 			// Genera el mensaje de respuesta
 			const mensajeFe = mailEnviado
 				? (!usuario.id ? "Hemos creado tu usuario y te" : "Te") +
-				  " hemos enviado un mensaje al mail <b><em>" + email + "</em></b> con la contraseña para loguearte."
+				  " hemos enviado un mensaje al mail <b><em>" +
+				  email +
+				  "</em></b> con la contraseña para loguearte."
 				: "No hemos podido enviar el mail";
 
 			// Fin

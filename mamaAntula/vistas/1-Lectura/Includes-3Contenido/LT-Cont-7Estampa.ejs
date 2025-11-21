@@ -1,9 +1,9 @@
 <!-- Estampa -->
-<div class="bloque <%= contenido.layout.codigo %>">
-	<% if (contenido.texto) { %>
-		<h3><%= contenido.texto %></h3>
+<div class="bloque bloque-<%= contenido.layout.codigo %> flexCol">
+	<% if (contenido.titulo) { %>
+		<h3 class="titulo"><%= contenido.titulo %></h3>
 	<% } %>
-	<div class="imagenes">
+	<div class="imagenes flexRow">
 		<img src="/imgsEditables/<%= subCarpeta %>/<%= contenido.imagen %>">
 		<img src="/imgsEditables/<%= subCarpeta %>/<%= contenido.imagen2 %>">
 	</div>

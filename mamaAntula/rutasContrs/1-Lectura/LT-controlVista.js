@@ -33,14 +33,10 @@ export default {
 		const {encabezados, encabezado} = await procesos.encabezados({encab_id, condicion, ...indices});
 		const contenidos = encabezado && (await procesos.contenidos(encabezado));
 
-		// Datos para la vista
-		const clase = temaActual.codigo == "libros" ? "libros" : "estandar";
-		if (clase == "libros" && contenidos) contenidos.sort((a, b) => (b.anoLanzam < a.anoLanzam ? -1 : 1)); // ordena los libros en forma descenente
-
 		// Fin
 		return res.render("CMP-0Estructura", {
 			...{tituloPagina, temaVista, codigoVista, temasSeccion},
-			...{seccionActual, temaActual, clase},
+			...{seccionActual, temaActual},
 			...{encabezado, contenidos, encabezados},
 			...indices,
 		});
@@ -73,13 +69,12 @@ export default {
 		const contenidos = encabezado && (await procesos.contenidos(encabezado));
 
 		// Datos para la vista
-		const clase = pestanaActual.codigo.startsWith("estampas") ? "estampas" : "estandar";
 		const indices = {esCarta: null, esLugares: null, conIndice: null};
 
 		// Fin
 		return res.render("CMP-0Estructura", {
 			...{tituloPagina, temaVista, codigoVista, temasSeccion, pestanasTema},
-			...{seccionActual, temaActual, pestanaActual, clase},
+			...{seccionActual, temaActual, pestanaActual},
 			...{encabezado, contenidos, encabezados},
 			...indices,
 		});
