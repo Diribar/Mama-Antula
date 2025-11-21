@@ -30,13 +30,15 @@
 		}
 
 		/* Temas de los bloques */
-		#contenido .bloque {
+		#contenido {
 			/* COMPARTIDOS */
-			a {color: var(--terracota); text-decoration: underline;}
-			img {cursor: pointer;}
+			.bloque {
+				a {color: var(--terracota); text-decoration: underline;}
+				img {cursor: pointer;}
+			}
 
 			/* COMBINADOS: Texto con imagen o Texto sólo */
-			&.bloque-textoImagen, &.bloque-texto {
+			.bloque-textoImagen, .bloque-texto {
 				width: fit-content;
 				blockquote {font-size: 1.1rem; margin-block: 10px 20px; text-align: center; text-wrap: balance;}
 				ul, ol {margin-left: 24px;}
@@ -44,36 +46,34 @@
 				p {width: fit-content;}
 			}
 			/* COMBINADOS: Imagen con texto o Imagen sola */
-			:is(&.bloque-textoImagen, &.bloque-imagen) .imagen {
+			:is(.bloque-textoImagen, .bloque-imagen) .imagen {
 				max-height: 60vh;
 				&:hover {scale: 1.02;}
 			}
 
 			/* COMBINADOS: Texto con imagen, Imagen sola, Video o Carrusel */
-			:is(&.bloque-textoImagen, &.bloque-imagen, &.bloque-video, &.bloque-carrusel) .leyenda {
+			:is(.bloque-textoImagen, .bloque-imagen, .bloque-video, .bloque-carrusel) .leyenda {
 				font-style: italic; color: var(--grisInterm); text-align: center; text-wrap: balance;
 				padding-top: 6px; line-height: 1.2;
 			}
 			/* COMBINADOS: Imagen sola, video o carrusel */
-			&.bloque-imagen, &.bloque-video, &.bloque-carrusel {
+			.bloque-imagen, .bloque-video, .bloque-carrusel {
 				margin-bottom: var(--margenVertical);
 				.leyenda {max-width: 70%;}
 			}
 			/* COMBINADOS: Libros y Estampas */
-			:is(&.libros, &.estampas) img {height: 370px;}
+			:is(.bloque-libros, .bloque-estampas) img {height: 370px;}
 
 
 			/* SOLOS */
-			&.bloque-textoImagen {
+			.bloque-textoImagen {
 				.imgLeyenda {
 					float: right; margin-left: 30px; margin-bottom: 15px; max-width: 33%;
-					.leyenda {max-width: 100%;}
+					.imagen, .leyenda {max-width: 100%;}
 				}
 			}
-			&.bloque-imagen {
-				.imagen {max-width: 90%;}
-			}
-			&.bloque-carrusel {
+			.bloque-imagen .imagen {max-width: 90%;}
+			.bloque-carrusel {
 				margin-bottom: var(--margenVertical);
 				.carrusel {
 					/* Variables */
@@ -106,9 +106,7 @@
 
 					/* Imágenes */
 					.contenedorImg {
-						scroll-snap-align: start;
-						min-width: 100%;
-						display: flex; flex-direction: column; align-items: center; justify-content: center;
+						scroll-snap-align: start; width: 100%; justify-content: center;
 						&::scroll-marker {content: ""; height: .5rem; width: .5rem; border-radius: 50%; border: 1px solid var(--grisOscuro);}
 						&::scroll-marker:not(:target-current) {background-color: snow;}
 						&::scroll-marker:target-current {background-color: var(--grisOscuro);}
@@ -122,7 +120,7 @@
 					}
 				}
 			}
-			&.bloque-libros {
+			.bloque-libros {
 				row-gap: 200px; /* entre filas */
 				position: relative;
 				.texto {
@@ -133,12 +131,15 @@
 					.autor {font-style: italic;}
 				}
 			}
-			&.bloque-estampas {
-				display: flex; flex-direction: column; align-items: flex-start; padding-block: 20px;
+			.bloque-estampas {
+				align-items: flex-start; /* por el título */
 				row-gap: 70px; /* entre filas */
-				.imagenes {display: flex; flex-direction: row; gap: 20px;}
+				.imagenes {gap: 20px;}
 			}
-
 		}
+
+
+
+
 	}
 }
