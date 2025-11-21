@@ -45,7 +45,7 @@ export default async (req, res, next) => {
 		const {titulo, lugarIndice_id} = req.body;
 
 		// Valida variable - titulo
-		validaTitulo(titulo)
+		validaTitulo(titulo);
 
 		// Valida el códigoLugar
 		(!lugarIndice_id && mensajes.push("El campo <em>Lugar geográfico</em> es obligatorio")) ||
@@ -61,7 +61,7 @@ export default async (req, res, next) => {
 		const {titulo, lugar_id, fechaEvento} = req.body;
 
 		// Valida cada variable - titulo
-		validaTitulo(titulo)
+		validaTitulo(titulo);
 
 		// Valida lugar y fechas
 		validaLugarFecha(lugar_id, fechaEvento);
