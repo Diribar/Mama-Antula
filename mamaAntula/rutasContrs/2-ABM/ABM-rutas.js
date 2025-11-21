@@ -13,6 +13,8 @@ import validaFiltros from "../../middlewares/2-ABM/ABM-1Filtros.js";
 import validaEncabGuarda from "../../middlewares/2-ABM/ABM-2Encab1Guarda.js";
 import validaEncabElimina from "../../middlewares/2-ABM/ABM-2Encab2Elimina.js";
 import validaContActual from "../../middlewares/2-ABM/ABM-3ContActual.js";
+import validaContNuevo from "../../middlewares/2-ABM/ABM-4ContNuevo.js";
+import validaCarrusel from "../../middlewares/2-ABM/ABM-5Carrusel.js";
 
 // Middlewares de API - captura
 import captura from "../../middlewares/2-ABM/ABM-captura.js";
@@ -35,8 +37,8 @@ router.put("/api/abm-contenido-sube", validaContActual, API.contActual.sube);
 router.delete("/api/abm-contenido-elimina", validaContActual, API.contActual.elimina);
 
 // APIs - Contenido Nuevo
-router.post("/api/abm-nuevo-contenido-guarda", descargaImg.single("archivo"), imgEnReqBody, API.guardaNuevo);
-router.post("/api/abm-nuevo-carrusel-guarda", descargaImg.array("archivos"), imgEnReqBody, API.guardaNuevo);
+router.post("/api/abm-nuevo-contenido-guarda", descargaImg.single("archivo"), imgEnReqBody, validaContNuevo, API.guardaNuevo);
+router.post("/api/abm-nuevo-carrusel-guarda", descargaImg.array("archivos"), imgEnReqBody, validaCarrusel, API.guardaNuevo);
 
 // 🖥️ Vistas
 router.get("/actualizar", soloEdicion, vista.actualizar);
