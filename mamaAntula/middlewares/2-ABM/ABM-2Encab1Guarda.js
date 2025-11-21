@@ -13,21 +13,25 @@ export default async (req, res, next) => {
 		// Variables
 		const {numero, nombreDesde_id, nombreHacia_id, lugar_id, idioma_id, fechaEvento} = req.body;
 
-		// Valida cada variable - numero
-		(!numero && mensajes.push("El campo <em>Número</em> es obligatorio")) ||
-			((numero < 1 || numero > 108) && mensajes.push("El campo <em>Número</em> está fuera de rango"));
+		// Valida variable - numero
+		if (!numero) mensajes.push("El campo <em>Número</em> es obligatorio");
+		else {
+			const num = Number(numero);
+			if (isNaN(num)) mensajes.push("El campo <em>Número</em> debe ser un número");
+			else if (numero < 1 || numero > 108) mensajes.push("El campo <em>Número</em> está fuera de rango");
+		}
 
-		// Valida cada variable - nombreDesde_id
+		// Valida variable - nombreDesde_id
 		(!nombreDesde_id && mensajes.push("El campo <em>Remitente</em> es obligatorio")) ||
 			(!personajes.find((n) => n.id == nombreDesde_id) && mensajes.push("El remitente no existe"));
 
-		// Valida cada variable - nombreHacia_id
+		// Valida variable - nombreHacia_id
 		(!nombreHacia_id && mensajes.push("El campo <em>Destinatario</em> es obligatorio")) ||
 			(!personajes.find((n) => n.id == nombreHacia_id) && mensajes.push("El destinatario no existe"));
 
 		validaLugarFecha(lugar_id, fechaEvento);
 
-		// Valida cada variable - idioma_id
+		// Valida variable - idioma_id
 		(!idioma_id && mensajes.push("El campo <em>Idioma</em> es obligatorio")) ||
 			(!idiomas.find((n) => n.id == idioma_id) && mensajes.push("El idioma no existe"));
 
@@ -40,12 +44,12 @@ export default async (req, res, next) => {
 		// Variables
 		const {titulo, lugarIndice_id} = req.body;
 
-		// Valida cada variable - titulo
-		!titulo && mensajes.push("El campo <em>Título</em> es obligatorio");
+		// Valida variable - titulo
+		validaTitulo(titulo)
 
 		// Valida el códigoLugar
-		!lugarIndice_id && mensajes.push("El campo <em>Lugar geográfico</em> es obligatorio")||
-		!indicesLugar.find((n) => n.id == lugarIndice_id) && mensajes.push("El lugar geográfico no existe");
+		(!lugarIndice_id && mensajes.push("El campo <em>Lugar geográfico</em> es obligatorio")) ||
+			(!indicesLugar.find((n) => n.id == lugarIndice_id) && mensajes.push("El lugar geográfico no existe"));
 
 		// Fin
 		const error = preparaLaRespuesta(mensajes);
@@ -57,7 +61,7 @@ export default async (req, res, next) => {
 		const {titulo, lugar_id, fechaEvento} = req.body;
 
 		// Valida cada variable - titulo
-		!titulo && mensajes.push("El campo <em>Título</em> es obligatorio");
+		validaTitulo(titulo)
 
 		// Valida lugar y fechas
 		validaLugarFecha(lugar_id, fechaEvento);
@@ -77,7 +81,7 @@ export default async (req, res, next) => {
 			(pestana_id && !pestanasTemas.find((n) => n.id == pestana_id) && mensajes.push("La pestaña no existe"));
 
 		// Valida cada variable - titulo
-		pestana_id && !titulo && mensajes.push("El campo <em>Título</em> es obligatorio");
+		pestana_id && validaTitulo(titulo);
 
 		// Fin
 		const error = preparaLaRespuesta(mensajes);
@@ -128,5 +132,10 @@ const validaLugarFecha = (lugar_id, fechaEvento, tema_id) => {
 		((fechaEvento < fechaMin || fechaEvento > fechaMax) && mensajes.push("La fecha está fuera de rango"));
 
 	// Fin
+	return;
+};
+const validaTitulo = (titulo) => {
+	if (!titulo) mensajes.push("El campo <em>Título</em> es obligatorio");
+	else if (titulo.length > 100) mensajes.push("El campo <em>Título</em> debe tener menos de 100 caracteres");
 	return;
 };
