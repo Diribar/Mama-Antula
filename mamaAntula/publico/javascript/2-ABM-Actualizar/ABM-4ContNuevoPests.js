@@ -5,10 +5,7 @@ window.addEventListener("load", async () => {
 	const domFiltros = document.querySelector("#filtros");
 	const contPestanas = document.querySelector("#pestanasGuardar");
 	const DOM = {
-		// Filtros
 		temaFiltro: domFiltros.querySelector("select[name='tema_id']"),
-
-		// Contenido nuevo
 		pestanas: contPestanas.querySelectorAll(".pestana"),
 	};
 	const pestanaActiva = cookie("actualizaContNuevo_id") || "textoImagen";
@@ -22,9 +19,9 @@ window.addEventListener("load", async () => {
 
 		// Temas particulares
 		const {contLayouts: layouts} = comp1234;
-		const pestanasPartics = layouts.filter((n) => n.noEstandar).map((n) => n.codigo);
-		const temaPartic = layouts.find((n) => n.usarConTema == temaCodigo);
-		const pestanasDelTema = temaPartic && layouts.filter((n) => n.usarConTema == temaCodigo).map((n) => n.codigo);
+		const pestanasPartics = layouts.filter((n) => n.particular).map((n) => n.codigo);
+		const temaPartic = ["videos", "libros", "estampas"].includes(temaCodigo);
+		const pestanasDelTema = temaPartic && layouts.filter((n) => n[temaCodigo]).map((n) => n.codigo);
 
 		// Deja las pestañas que corresponden
 		for (const pestana of DOM.pestanas) {

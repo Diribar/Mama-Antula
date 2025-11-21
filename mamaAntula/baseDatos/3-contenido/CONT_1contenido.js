@@ -8,6 +8,7 @@ export default (sequelize, dt) => {
 		// Otros
 		texto: {type: dt.TEXT("long")},
 		imagen: {type: dt.STRING(17)},
+		imagen2: {type: dt.STRING(17)},
 		video: {type: dt.TEXT("medium")},
 		leyenda: {type: dt.TEXT("medium")},
 
