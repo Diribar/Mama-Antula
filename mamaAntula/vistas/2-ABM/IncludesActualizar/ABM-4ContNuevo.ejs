@@ -1,5 +1,5 @@
 <div id="pestanasGuardar" class="invisible">
-	<% for (const layout of contLayouts) if (!layout.ocultarSiempre) { %>
+	<% for (const layout of contLayouts) if (!layout.ocultarPestana) { %>
 		<div id="<%= layout.codigo %>" class="pestana"><%= layout.nombre %></div>
 	<% } %>
 	<i id="iconoGuardar" class="fa-solid fa-floppy-disk"></i><!-- guardar -->
