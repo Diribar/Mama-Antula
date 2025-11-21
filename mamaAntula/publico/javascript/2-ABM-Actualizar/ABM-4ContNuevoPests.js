@@ -12,30 +12,26 @@ window.addEventListener("load", async () => {
 		pestanas: contPestanas.querySelectorAll(".pestana"),
 	};
 	const pestanaActiva = cookie("actualizaContNuevo_id") || "textoImagen";
-	const filtrosNoEstandar = {
-		libros: ["libro"],
-		videos: ["texto", "video"],
-		estampas: ["estampa"],
-	};
-	const pestanasNoEstandar = [
-		"texto", // videos
-		"libro", // libros
-		"estampa", // estampas
-	];
 
 	// Funciones
 	const particsPestanas = () => {
-		// Variables
+		// Temas
 		const tema_id = DOM.temaFiltro.value;
 		const temaCodigo = comp1234.temasSecciones.find((n) => n.id == tema_id)?.codigo;
 		if (!temaCodigo) return;
+
+		// Temas particulares
+		const {contLayouts: layouts} = comp1234;
+		const pestanasPartics = layouts.filter((n) => n.noEstandar).map((n) => n.codigo);
+		const temaPartic = layouts.find((n) => n.usarConTema == temaCodigo);
+		const pestanasDelTema = temaPartic && layouts.filter((n) => n.usarConTema == temaCodigo).map((n) => n.codigo);
 
 		// Deja las pestañas que corresponden
 		for (const pestana of DOM.pestanas) {
 			// Averigua si la pestaña debe estar visible
 			const mostrar =
-				(!filtrosNoEstandar[temaCodigo] && !pestanasNoEstandar.includes(pestana.id)) || // el filtro es estándar y la pestaña también
-				(filtrosNoEstandar[temaCodigo] && filtrosNoEstandar[temaCodigo].includes(pestana.id)); // el filtro no es estandar e incluye la pestaña
+				(!temaPartic && !pestanasPartics.includes(pestana.id)) || // el tema es estándar y la pestaña también
+				(temaPartic && pestanasDelTema.includes(pestana.id)); // el tema es particular e incluye la pestaña
 
 			// Muestra u Oculta la pestaña
 			pestana.classList[mostrar ? "remove" : "add"]("ocultar");

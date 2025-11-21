@@ -10,7 +10,7 @@ export default {
 				.obtieneTodosPorCondicion("temasSecciones", {inactivo: false}, ["indicesFecha", "indicesLugar"])
 				.then((n) => n.sort((a, b) => a.orden - b.orden)),
 			pestanasTemas: baseDatos.obtieneTodosConOrden("pestanasTemas", "orden"),
-			layouts: baseDatos.obtieneTodosConOrden("layouts", "orden"),
+			contLayouts: baseDatos.obtieneTodosConOrden("contLayouts", "orden"),
 			indicesFecha: baseDatos.obtieneTodos("indicesFecha"),
 			indicesLugar: baseDatos.obtieneTodosConOrden("indicesLugar", "codigo"),
 

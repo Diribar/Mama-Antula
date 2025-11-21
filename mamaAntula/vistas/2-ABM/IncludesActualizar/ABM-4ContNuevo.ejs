@@ -1,11 +1,11 @@
 <div id="pestanasGuardar" class="invisible">
-	<% for (const layout of layouts) if (!layout.ocultarSiempre) { %>
+	<% for (const layout of contLayouts) if (!layout.ocultarSiempre) { %>
 		<div id="<%= layout.codigo %>" class="pestana"><%= layout.nombre %></div>
 	<% } %>
 	<i id="iconoGuardar" class="fa-solid fa-floppy-disk"></i><!-- guardar -->
 </div>
 <div id="layouts">
-	<% for (const layout of layouts) if (layout.archVista) { %>
+	<% for (const layout of contLayouts) if (layout.archVista) { %>
 		<div id="<%= layout.codigo %>" class="layout"><%- include("ABM-4Nuevo-" + layout.archVista) %></div>
 	<% } %>
 </div>
