@@ -6,9 +6,10 @@ export default (sequelize, dt) => {
 		codigo: {type: dt.STRING(20)},
 		archVista: {type: dt.STRING(20)},
 
+		// Otros
+		particular: {type: dt.BOOLEAN},
 		usarConTema: {type: dt.STRING(20)},
-		noEstandar: {type: dt.BOOLEAN},
-		ocultarSiempre: {type: dt.BOOLEAN},
+		ocultarPestana: {type: dt.BOOLEAN},
 	};
 	const config = {
 		tableName: "cont_layouts",

@@ -170,8 +170,9 @@ window.addEventListener("load", async () => {
 });
 
 // Variables
+const urlsCrsl = [];
+const urlsEstampa = [];
 let archImagen;
-let urlsCrsl = [];
 let archLibro;
 
 // Funciones
