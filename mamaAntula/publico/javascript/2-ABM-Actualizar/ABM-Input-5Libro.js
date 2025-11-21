@@ -17,11 +17,8 @@ window.addEventListener("load", async () => {
 	};
 
 	// Eventos drag & drop
-	DOM.areaSoltar.addEventListener(
-		"drop",
-		async (e) => (archLibro = await obtieneNuevaImagen(e.dataTransfer.files, DOM.vistaImagen))
-	);
 	otrosEventos(DOM);
+	eventoDragDrop(DOM, archLibro);
 
 	// Eventos del formulario
 	DOM.inputImagen.addEventListener(

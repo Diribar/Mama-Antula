@@ -72,14 +72,14 @@
 	#libro {
 		flex-direction: row; align-items: center; gap: 30px;
 		.inputs, #areaSoltar {
-			display: flex; flex-direction: column; align-items: center;
-			* {width: 200px;}
+			display: flex; flex-direction: column; align-items: center; justify-content: center;
+			width: 200px;
 		}
 		.inputs {
 			gap: 10px;
 			input {text-align: left;}
 		}
-		#areaSoltar {width: 100%; height: 162px; border-radius: 5px;}
+		#areaSoltar {height: 162px; border-radius: 5px;}
 
 	}
 }

@@ -1,7 +1,7 @@
-<div id="pestanasGuardar">
+<div id="pestanasGuardar" class="invisible">
 	<div id="textoImagen" class="pestana">Texto + Imagen</div>
 	<% for (const layout of layouts) { %>
-		<% if (["texto", "imagen"].includes(layout)) continue %>
+		<% if (layout == "imagen") continue %>
 		<div id="<%= layout %>" class="pestana"><%= comp.inicialMayus(layout) %></div>
 	<% } %>
 	<i id="iconoGuardar" class="fa-solid fa-floppy-disk"></i><!-- guardar -->
