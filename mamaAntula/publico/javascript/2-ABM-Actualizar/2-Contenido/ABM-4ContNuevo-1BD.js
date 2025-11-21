@@ -12,14 +12,14 @@ window.addEventListener("load", async () => {
 		videoInput: document.querySelector("#video .input"),
 		leyendaImagen: document.querySelector("#imagen [name='leyenda']"),
 		leyendaCarrusel: document.querySelector("#carrusel [name='leyenda']"),
+		leyendaVideo: document.querySelector("#video [name='leyenda']"),
 
 		// Ouputs
 		iconoGuardar: document.querySelector("#pestanasGuardar #iconoGuardar"),
 		textoOutput: document.querySelector("#texto #output"),
 
 		// Video
-		outputVideoId: document.querySelector("#video [name='video']"),
-		muestraLeyendaVideo: document.querySelector("#video #muestraLeyenda"),
+		videoId: document.querySelector("#video [name='video']"),
 		limpiarValue: document.querySelectorAll("#video .input"),
 		limpiarHTML: document.querySelectorAll("#video .limpiar"),
 	};
@@ -34,22 +34,10 @@ window.addEventListener("load", async () => {
 		consolidado: function () {
 			// Crea el form
 			v.formData = new FormData();
-			this.encabezado();
+			v.formData.append("encab_id", DOM.filtroEncab.value);
 
 			// Le agrega info en función de la pestaña activa
 			this[v.nombrePestanaActiva]();
-
-			// Fin
-			return;
-		},
-		// Partes del form
-		encabezado: () => {
-			// Encabezado
-			const encab_id = DOM.filtroEncab.value;
-			v.formData.append("encab_id", encab_id);
-
-			// Campo_id
-			v.formData.append("encab_id", encab_id);
 
 			// Fin
 			return;
@@ -66,15 +54,12 @@ window.addEventListener("load", async () => {
 			this.archImg(archImagen, "");
 
 			// Agrega la leyenda de la imagen
-			if (DOM.leyendaImagen.value) v.formData.append("leyenda", DOM.leyendaImagen.value);
+			v.formData.append("leyenda", DOM.leyendaImagen.value);
 
 			// Fin
 			return;
 		},
 		carrusel: function () {
-			// Si no se subieron por lo menos 2 archivos, interrumpe la función
-			if (!urlsCrsl || urlsCrsl.length < 2) return;
-
 			// Agrega las imágenes
 			for (const urlCrsl of urlsCrsl) this.archImg(urlCrsl, "s");
 
@@ -86,8 +71,8 @@ window.addEventListener("load", async () => {
 		},
 		video: () => {
 			// Video y leyenda
-			v.formData.append("video", DOM.outputVideoId.value);
-			v.formData.append("leyenda", DOM.muestraLeyendaVideo.innerText);
+			v.formData.append("video", DOM.videoId.value);
+			v.formData.append("leyenda", DOM.leyendaVideo.value);
 
 			// Fin
 			return;
@@ -99,11 +84,10 @@ window.addEventListener("load", async () => {
 			// Agrega el archivo del libro
 			this.archImg(archLibro, "");
 
-			// Agrega los demás datos del libro
-			v.formData.append("imagen", archivo.name);
-			v.formData.append("tamano", archivo.size);
-			v.formData.append("tipo", archivo.type);
-
+			// Fin
+			return;
+		},
+		estampa:function(){
 			// Fin
 			return;
 		},
