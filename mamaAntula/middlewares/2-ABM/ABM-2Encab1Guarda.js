@@ -3,17 +3,27 @@
 
 export default async (req, res, next) => {
 	// Variables
-	const {tema_id} = req.body;
+	const {tema_id, pestana_id, encab_id} = req.body;
 	mensajes = [];
 
-	// General - encab_id
+	// GENERAL - tema_id y pestana_id
+	(!tema_id && !pestana_id && mensajes.push("Tenés que elegir un tema o una pestaña")) ||
+		(tema_id && !temasSecciones.find((n) => n.id == tema_id) && mensajes.push("El tema no existe")) ||
+		(pestana_id && !pestanasTemas.find((n) => n.id == pestana_id) && mensajes.push("La pestaña no existe"));
+
+	// GENERAL - encab_id
 	if (!encab_id) mensajes.push("El encabezado no se identifica");
-	else if (!(await baseDatos.obtienePorId("encabezados", encab_id))) mensajes.push("El encabezado no se identifica");
+	else if (encab_id != "nuevo") {
+		const encabezado = await baseDatos.obtienePorId("encabezados", encab_id);
+		if (!encabezado) mensajes.push("El encabezado no se identifica");
+		else if (encabezado.creadoPor_id != req.session.usuario.id && encabezado.statusRegistro_id != aprobado_id)
+			mensajes.push("No tenés permiso para editar este encabezado");
+	}
 
 	// Validaciones
 	if (false) {
 	}
-	// Valida encabezado de cartas
+	// CARTAS
 	else if (tema_id == temaCarta_id) {
 		// Variables
 		const {numero, nombreDesde_id, nombreHacia_id, lugar_id, idioma_id, fechaEvento} = req.body;
@@ -44,7 +54,7 @@ export default async (req, res, next) => {
 		const error = preparaLaRespuesta(mensajes);
 		if (error) return res.json({error});
 	}
-	// Valida encabezado de lugares
+	// LUGARES
 	else if (tema_id == temaLugares_id) {
 		// Variables
 		const {titulo, lugarIndice_id} = req.body;
@@ -60,7 +70,7 @@ export default async (req, res, next) => {
 		const error = preparaLaRespuesta(mensajes);
 		if (error) return res.json({error});
 	}
-	// Valida encabezado con índices
+	// ENCABEZADOS CON ÍNDICES
 	else if (tema_id && temasSecciones.find((n) => n.id == tema_id && n.indicesFecha.length)) {
 		// Variables
 		const {titulo, lugar_id, fechaEvento} = req.body;
@@ -75,17 +85,10 @@ export default async (req, res, next) => {
 		const error = preparaLaRespuesta(mensajes);
 		if (error) return res.json({error});
 	}
-	// Valida encabezado de los demás
+	// ENCABEZADOS SIN ÍNDICES
 	else {
-		// Variables
-		const {titulo, pestana_id} = req.body;
-
-		// Valida cada variable - tema_id y pestana_id
-		(!tema_id && !pestana_id && mensajes.push("Tenés que elegir un tema o una pestaña")) ||
-			(tema_id && !temasSecciones.find((n) => n.id == tema_id) && mensajes.push("El tema no existe")) ||
-			(pestana_id && !pestanasTemas.find((n) => n.id == pestana_id) && mensajes.push("La pestaña no existe"));
-
-		// Valida cada variable - titulo
+		// Valida titulo
+		const {titulo} = req.body;
 		pestana_id && validaTitulo(titulo);
 
 		// Fin

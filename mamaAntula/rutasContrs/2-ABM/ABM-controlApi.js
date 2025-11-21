@@ -37,7 +37,7 @@ export default {
 	encabezado: {
 		guarda: async (req, res) => {
 			// Variables
-			const {id} = req.body;
+			const {encab_id: id} = req.body;
 			delete req.body.id;
 
 			// Si es nuevo, lo crea e interrumpe la función
@@ -57,10 +57,6 @@ export default {
 
 			// Obtiene el encabezado
 			const encabezado = await baseDatos.obtienePorId("encabezados", id);
-
-			// Si no es propio y no está en status aprobado, interrumpe la función
-			if (encabezado.creadoPor_id != req.session.usuario.id && encabezado.statusRegistro_id != aprobado_id)
-				return res.json({mensaje: "No tenés permiso para editar este encabezado", hay: true});
 
 			// Si está en status creado y por este usuario, actualiza el encabezado
 			if (encabezado.statusRegistro_id == creado_id && encabezado.creadoPor_id == req.session.usuario.id) {

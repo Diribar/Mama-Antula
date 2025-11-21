@@ -112,7 +112,7 @@ window.addEventListener("load", async () => {
 		// Arma el feedback
 		const formVisible = document.querySelector("#sectorEncabezado form:not(.ocultar)"); // elige el unico formulario visible
 		const formData = new FormData(formVisible);
-		formData.append("id", DOM.filtroEncab.value);
+		formData.append("encab_id", DOM.filtroEncab.value);
 
 		// Si no es una carta, le agrega el tema_id o pestana_id, según corresponda
 		const campo_id = comp1234.pestana_id ? "pestana_id" : "tema_id";
