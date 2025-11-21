@@ -3,14 +3,14 @@
 window.addEventListener("load", async () => {
 	// Variables
 	const domLayout = document.querySelector("#sectorContNuevo #layouts #carrusel");
-	crslEstampa({domLayout, cantMax: 10});
+	crslEstampa({domLayout, cantMax: 10, urls: urlsCrsl});
 
 	// Fin
 	return;
 });
 
 // Funciones
-const crslEstampa = ({domLayout, cantMax}) => {
+const crslEstampa = ({domLayout, cantMax, urls}) => {
 	const DOM = {
 		// Drag & Drop
 		dragDrop: domLayout.querySelector("#dragDrop"),
@@ -34,7 +34,7 @@ const crslEstampa = ({domLayout, cantMax}) => {
 		// Recorre los archivos
 		for (const archCrsl of archsCrsl) {
 			// Si ya se alcanzó la cantidad máxima, interrumpe la rutina
-			if (urlsCrsl.length >= cantMax) break;
+			if (urls.length >= cantMax) break;
 
 			// CRSL - Crea un nuevo hijo
 			const nuevoModeloVista = DOM.modeloVista.cloneNode(true);
@@ -46,7 +46,7 @@ const crslEstampa = ({domLayout, cantMax}) => {
 			if (!urlImagen) return;
 
 			// CRSL - Actualiza la variable donde se almacenan los url de cada imagen
-			urlsCrsl.push(urlImagen);
+			urls.push(urlImagen);
 
 			// CRSL - Actualiza vista
 			DOM.carrImgs.appendChild(nuevoModeloVista);
@@ -65,7 +65,7 @@ const crslEstampa = ({domLayout, cantMax}) => {
 
 		// Elimina el hijo
 		DOM.carrImgs.removeChild(domEliminar[indice].parentNode);
-		urlsCrsl.splice(indice, 1);
+		urls.splice(indice, 1);
 	});
 
 	// Eventos nueva imagen

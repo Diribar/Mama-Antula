@@ -3,7 +3,7 @@
 window.addEventListener("load", async () => {
 	// Variables
 	const domLayout = document.querySelector("#sectorContNuevo #layouts #estampa");
-	crslEstampa({domLayout, cantMax: 2});
+	crslEstampa({domLayout, cantMax: 2, urls: urlsEstampa});
 
 	// Fin
 	return;
