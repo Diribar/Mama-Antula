@@ -28,7 +28,10 @@ export default {
 		const codigoVista = "cambioRoles";
 		const tituloPagina = iconosAgrupados.find((n) => n.codigo == codigoVista).nombre;
 		const imagenes = procesos.obtieneImagenesAlAzar();
-		const usuarios = await baseDatos.obtieneTodos("usuarios").then((n) => n.filter((m) => m.id > 1));
+
+		// Usuarios
+		const {id: userId} = req.session.usuario;
+		const usuarios = await baseDatos.obtieneTodos("usuarios").then((n) => n.filter((m) => m.id > 1 && m.id != userId));
 
 		// Fin
 		return res.render("CMP-0Estructura", {tituloPagina, temaVista, codigoVista, imagenes, usuarios});
