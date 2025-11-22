@@ -161,9 +161,14 @@ export default {
 		},
 	},
 
-	guardaNuevo: async (req, res) => {
+	guardaContNuevo: async (req, res) => {
 		// Variables
-		const {encab_id, layoutCodigo, imagens} = req.body;
+		const {encab_id, imagen, texto, imagens} = req.body;
+
+		// Pule el layout
+		let {layoutCodigo} = req.body;
+		const textoImagen = layoutCodigo == "textoImagen";
+		layoutCodigo = (textoImagen && !imagen && "texto") || (textoImagen && !texto && "imagen") || layoutCodigo;
 
 		// Empieza a armar la información a guardar
 		const layout_id = contLayouts.find((n) => n.codigo == layoutCodigo).id;
