@@ -123,6 +123,8 @@ window.addEventListener("load", async () => {
 
 		// Si hubo un error, muestra el mensaje e interrumpe la función
 		if (respuesta.error) return carteles.error(respuesta.error);
+		// Si no hubo error y es una edición, muestra el mensaje de exito
+		else if (DOM.filtroEncab.value != "nuevo") carteles.exito("El encabezado fue actualizado");
 
 		// Guarda el nuevo_id en la cookie y establece que se actualicen los filtros por las cookies
 		if (respuesta.id) {
