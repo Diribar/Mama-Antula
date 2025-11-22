@@ -59,6 +59,7 @@
 				position: fixed; position-anchor: var(--anchorName); border-radius: 50%;
 				height: 1.5rem; width: 1.5rem;
 			}
+			&::scroll-button(block-start), &::scroll-button(block-end) {display: none;}
 			&::scroll-button(*):not(:disabled) {cursor: pointer;}
 			&::scroll-button(left) {position-area: left center; translate: 50%; rotate: 180deg;}
 			&::scroll-button(right) {position-area: right center; translate: -50%;} /* font-family: "Font Awesome 6 Free"; font-weight: 900; */
