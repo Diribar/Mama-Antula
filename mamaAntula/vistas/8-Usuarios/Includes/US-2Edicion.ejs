@@ -11,19 +11,6 @@
 	<!-- Inputs y select -->
 	<input type="text" name="apodo" placeholder="Escribí tu apodo + Enter" autocomplete="off" value="<%= usuario.apodo %>" autofocus>
 	<input type="password" name="contrasena" placeholder="Nueva contrasena (opcional)" autocomplete="new-password">
-	<select name="paisResidencia" class="ocultar">
-		<option value="">País de residencia</option>
-		<option value="AR">Argentina</option>
-		</optgroup>
-		<% for (const continente of continentes) { %>
-			<optgroup label="<%= continente %>">
-				<% for (const pais of paises.filter(n => n.continente == continente)) { %>
-					<option value="<%= pais.id %>" <% if (pais.id == usuario.pais_id) { %>selected<% } %>><%= pais.nombre %></option>
-				<% } %>
-			</optgroup>
-		<% } %>
-
-	</select>
 	<label id="contNovs">
 		<input type="checkbox" name="notificacs">
 		Deseo recibir las novedades por mail
