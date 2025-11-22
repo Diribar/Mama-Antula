@@ -123,7 +123,6 @@ window.addEventListener("load", async () => {
 
 		// Si hubo un error, muestra el mensaje e interrumpe la función
 		if (respuesta.error) return carteles.error(respuesta.error);
-		else carteles.exito("Los cambios fueron guardados");
 
 		// Guarda el nuevo_id en la cookie y establece que se actualicen los filtros por las cookies
 		if (respuesta.id) {
