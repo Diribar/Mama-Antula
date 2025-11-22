@@ -79,13 +79,42 @@ window.addEventListener("load", async () => {
 	const quill = new Quill(input, {modules, formats, placeholder, theme: "snow"});
 
 	// Pule el input y lo pega en el output
-	const actualizaContenido = () =>
-		(DOM.output.value = quill.root.innerHTML
-			.replaceAll("&nbsp;", " ") // reemplaza por espacios normales;
-			.replaceAll("  ", " ") // reemplaza espacios duplicados
-			.replaceAll("<p><br></p>", "")
-			.replaceAll("<p></p>", "")
-			.trim()); // reemplaza espacios al final
+	const actualizaContenido = (delta, oldDelta, source) =>
+		// ACTUALIZA EL INPUT - si el cambio no fue hecho por el usuario, interrumpe la función
+
+		setTimeout(() => {
+			console.log(source);
+			if (source !== "user") return;
+
+			const parrafos = quill.root.querySelectorAll("p");
+			for (let i = parrafos.length - 1; i >= 0; i--) {
+				// ACTUALIZA EL INPUT - si el parrafo es <p><br></p> lo elimina del editor
+				const parrafo = parrafos[i];
+				if (["<br>", ""].includes(parrafo.innerHTML)) {
+					const blot = Quill.find(parrafo);
+					if (blot) blot.remove();
+					continue;
+				}
+
+				// ACTUALIZA EL INPUT - elimina saltos de línea innecesarios
+				if (!i) continue;
+				const p1 = parrafos[i - 1];
+				const p2 = parrafos[i];
+
+				// Si corresponde, une los párrafos
+				const textoP2 = p2.innerText.trim();
+				if (textoP2.startsWith(",")) {
+					p1.innerHTML = p1.innerHTML + p2.innerHTML;
+					p2.remove();
+				}
+			}
+
+			// ACTUALIZA EL OUTPUT -
+			DOM.output.value = quill.root.innerHTML
+				.replaceAll("&nbsp;", " ") // reemplaza por espacios normales;
+				.replaceAll("  ", " ") // reemplaza espacios duplicados
+				.trim(); // reemplaza espacios al final
+		}, 100);
 
 	// EVENTO - Cambios en el input actualizan el output
 	quill.on("text-change", actualizaContenido);
