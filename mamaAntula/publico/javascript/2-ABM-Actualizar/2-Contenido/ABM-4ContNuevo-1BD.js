@@ -33,9 +33,13 @@ window.addEventListener("load", async () => {
 	// Funciones
 	const creaElForm = {
 		consolidado: function () {
+			// Obtiene la pestaña activa
+			v.nombrePestanaActiva = document.querySelector("#pestanasGuardar .pestana.activo")?.id;
+
 			// Crea el form
 			v.formData = new FormData();
 			v.formData.append("encab_id", DOM.filtroEncab.value);
+			v.formData.append("layoutCodigo", v.nombrePestanaActiva);
 
 			// Le agrega info en función de la pestaña activa
 			this[v.nombrePestanaActiva]();
@@ -48,11 +52,8 @@ window.addEventListener("load", async () => {
 			// Texto
 			if (DOM.textoOutput.value) v.formData.append("texto", DOM.textoOutput.value);
 
-			// Si no se subió un archivo, interrumpe la función
-			if (!archImagen) return;
-
 			// Agrega el archivo de la imagen
-			this.archImg(archImagen, "");
+			if (archImagen) this.archImg(archImagen, "");
 
 			// Agrega la leyenda de la imagen
 			v.formData.append("leyenda", DOM.leyendaImagen.value);
@@ -134,9 +135,6 @@ window.addEventListener("load", async () => {
 		// Si confirmar está inactivo, interrumpe la función
 		if (DOM.iconoGuardar.className.includes("inactivo")) return;
 		DOM.iconoGuardar.classList.add("inactivo"); // se deja inactivo hasta que se vuelve a hacer un input en el formulario
-
-		// Obtiene la pestaña activa
-		v.nombrePestanaActiva = document.querySelector("#pestanasGuardar .pestana.activo")?.id;
 
 		// Crea el form
 		creaElForm.consolidado();
