@@ -5,9 +5,11 @@
 
 	/* Layouts */
 	.layout {
-		display: none; flex-direction: column;
-		min-width: 200px; min-height: 200px; max-height: 300px;
-		[name="leyenda"] {text-align: center;}
+		--lado: 200px;
+		display: none;
+		/* flex-direction: column; */
+		min-width: var(--lado); min-height: var(--lado); max-height: 300px;
+		[name="leyenda"], [name="comentario"] {text-align: center;}
 	}
 	#texto {
 		flex-grow: 1;
@@ -26,30 +28,31 @@
 		}
 	}
 	#carrusel, #estampa {
-		--lado: 200px; --gap: 20px;
+		--gap: 20px;
 		flex-direction: row !important; gap: var(--gap);
 
 		/* Carrusel de imágenes */
-		&:not(:has(#dragDrop.ocultar)) #carrImgs {max-width: calc(100% - var(--gap) - var(--lado));}
+		/* &:not(:has(#dragDrop.ocultar)) #carrImgs {max-width: calc(100% - var(--gap) - var(--lado));} */
 		&:has(#dragDrop.ocultar) #carrImgs {max-width: 100%;}
-		#carrImgs {
-			overflow-x: auto;
-			display: flex; flex-direction: row; gap: var(--gap);
-			&:empty {display: none;}
+		#crslComentario {
+			justify-content: flex-end; min-width: var(--lado);
+			#carrImgs {
+				overflow-x: auto;
+				display: flex; flex-direction: row; gap: var(--gap);
+				&:empty {display: none;}
 
-			img.imgAgreg {height: var(--lado); &[src=""] {display: none;}}
-			i {
-				position: absolute; top: 50%; left: 50%; translate: -50% -50%;
-				color: var(--rojoOscuro); background-color: var(--fondoBlanco);
-				width: 2rem; padding-inline: 9px;
-				height: 2rem; padding-block: 10px 9px;
-				border-radius: 50%; cursor: pointer;
-				&:hover {scale: 1.5;}
+				img.imgAgreg {height: var(--lado); &[src=""] {display: none;}}
+				i {
+					position: absolute; top: 50%; left: 50%; translate: -50% -50%;
+					color: var(--rojoOscuro); background-color: var(--fondoBlanco);
+					width: 2rem; padding-inline: 9px;
+					height: 2rem; padding-block: 10px 9px;
+					border-radius: 50%; cursor: pointer;
+					&:hover {scale: 1.5;}
+				}
 			}
 		}
 		#modeloVista {display: none;}
-
-		/* Drag & Drop */
 		#dragDrop {
 			display: flex; flex-direction: column; align-items: stretch; justify-content: space-between; gap: 5px;
 			width: var(--lado); height: var(--lado);
@@ -61,7 +64,7 @@
 		flex-direction: row; align-items: center; gap: 10px;
 		.inputs, .outputs {
 			display: flex; flex-direction: column; align-items: center;
-			* {width: 200px;}
+			* {width: var(--lado);}
 		}
 		.inputs {
 			gap: 10px;
@@ -74,7 +77,7 @@
 		flex-direction: row; align-items: center; gap: 30px;
 		.inputs, #areaSoltar {
 			display: flex; flex-direction: column; align-items: center; justify-content: center;
-			width: 200px;
+			width: var(--lado);
 		}
 		.inputs {
 			gap: 10px;

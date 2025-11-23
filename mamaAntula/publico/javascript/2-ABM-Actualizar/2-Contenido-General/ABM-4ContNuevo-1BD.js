@@ -9,7 +9,7 @@ window.addEventListener("load", async () => {
 
 		// Texto, Imagen, Carrousel
 		leyendaImagen: domSector.querySelector("#imagen [name='leyenda']"),
-		leyendaCarrusel: domSector.querySelector("#carrusel [name='leyenda']"),
+		leyendaCarrusel: domSector.querySelector("#carrusel [name='comentario']"),
 
 		// Video
 		leyendaVideo: domSector.querySelector("#video [name='leyenda']"),
@@ -17,7 +17,7 @@ window.addEventListener("load", async () => {
 
 		// Libros, Estampas
 		inputsLibro: domSector.querySelectorAll("#libro .inputs .input"),
-		tituloEstampas: domSector.querySelector("#estampa [name='leyenda']"),
+		tituloEstampa: domSector.querySelector("#estampa [name='comentario']"),
 
 		// Ouputs
 		iconoGuardar: domSector.querySelector("#pestanasGuardar #iconoGuardar"),
@@ -103,7 +103,7 @@ window.addEventListener("load", async () => {
 			for (const url of urlsEstampa) this.archImg(url, "s");
 
 			// Agrega la leyenda
-			v.formData.append("titulo", DOM.tituloEstampas.value);
+			v.formData.append("titulo", DOM.tituloEstampa.value);
 
 			// Fin
 			return;

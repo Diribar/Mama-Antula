@@ -1,5 +1,9 @@
-<!-- Carrusel de imágenes -->
-<div id="carrImgs"></div>
+<!-- Carrusel y comentario -->
+<div id="crslComentario" class="flexColAlign">
+	<!-- Carrusel de imágenes -->
+	<div id="carrImgs"></div>
+	<input name="comentario" class="input" placeholder="Pegá el comentario">
+</div>
 
 <!-- Vista Previa -->
 <div id="modeloVista" class="relative">
@@ -14,5 +18,4 @@
 		<input name="imagen" type="file" accept="image/*" hidden multiple><!-- el input no lleva class '.input', porque tiene un tratamiento diferente -->
 		<img src="" class="noAgrandar"><!-- presente para que funcione el css de #areaSoltar -->
 	</div>
-	<textarea name="leyenda" class="input" placeholder="Pegá la leyenda"></textarea>
 </div>

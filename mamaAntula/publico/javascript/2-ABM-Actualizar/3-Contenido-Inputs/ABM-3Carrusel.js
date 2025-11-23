@@ -16,7 +16,6 @@ const crslEstampa = ({domLayout, cantMax, urls}) => {
 		dragDrop: domLayout.querySelector("#dragDrop"),
 		areaSoltar: domLayout.querySelector("#areaSoltar"),
 		inputImagen: domLayout.querySelector("#areaSoltar [name='imagen']"),
-		inputLeyenda: domLayout.querySelector("[name='leyenda']"),
 
 		// Modelo Vista
 		modeloVista: domLayout.querySelector("#modeloVista"),
@@ -24,6 +23,7 @@ const crslEstampa = ({domLayout, cantMax, urls}) => {
 
 		// Carrusel de imágenes
 		carrImgs: domLayout.querySelector("#carrImgs"),
+		inputComentario: domLayout.querySelector("[name='comentario']"),
 	};
 
 	// Funciones
@@ -83,7 +83,7 @@ const crslEstampa = ({domLayout, cantMax, urls}) => {
 	// Eventos nueva imagen
 	DOM.areaSoltar.addEventListener("drop", async (e) => await obtieneNuevasImagenes(e.dataTransfer.files));
 	DOM.inputImagen.addEventListener("change", async () => await obtieneNuevasImagenes(DOM.inputImagen.files));
-	DOM.inputLeyenda.addEventListener("change", () => (DOM.inputLeyenda.value = inicialMayus(DOM.inputLeyenda.value)));
+	DOM.inputComentario.addEventListener("change", () => (DOM.inputComentario.value = inicialMayus(DOM.inputComentario.value)));
 	otrosEventos(DOM);
 
 	// Fin
