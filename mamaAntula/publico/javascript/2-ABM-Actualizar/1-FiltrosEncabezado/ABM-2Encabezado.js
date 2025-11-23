@@ -18,9 +18,6 @@ window.addEventListener("load", async () => {
 		iconos: domSectorEncabezado.querySelector(".iconos"),
 		iconoGuardar: domSectorEncabezado.querySelector(".iconos #guardar"),
 		iconoEliminar: domSectorEncabezado.querySelector(".iconos #eliminar"),
-
-		// Imagen
-		img: domSectorEncabezado.querySelector("img"),
 	};
 	const rutas = {
 		// Encabezado
