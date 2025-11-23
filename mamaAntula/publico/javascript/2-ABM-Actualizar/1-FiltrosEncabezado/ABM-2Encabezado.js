@@ -3,7 +3,7 @@
 window.addEventListener("load", async () => {
 	// Variables
 	const domFiltros = document.querySelector("#filtros");
-	const domEncabezado = document.querySelector("#sectorEncabezado");
+	const domSectorEncabezado = document.querySelector("#sectorEncabezado");
 	const DOM = {
 		// Filtros
 		filtroTema: domFiltros.querySelector("select[name='tema_id']"),
@@ -11,58 +11,41 @@ window.addEventListener("load", async () => {
 		filtroEncab: domFiltros.querySelector("select[name='encabezado']"),
 
 		// Inputs del encabezado
-		encabezados: domEncabezado.querySelectorAll(".encabezado"),
-		inputs: domEncabezado.querySelectorAll(".input"),
+		encabezados: domSectorEncabezado.querySelectorAll(".encabezado"),
+		inputs: domSectorEncabezado.querySelectorAll(".input"),
 
 		// Íconos
-		encabIconos: domEncabezado.querySelector(".iconos"),
-		iconoGuardar: domEncabezado.querySelector(".iconos #guardar"),
-		iconoEliminar: domEncabezado.querySelector(".iconos #eliminar"),
+		iconos: domSectorEncabezado.querySelector(".iconos"),
+		iconoGuardar: domSectorEncabezado.querySelector(".iconos #guardar"),
+		iconoEliminar: domSectorEncabezado.querySelector(".iconos #eliminar"),
+
+		// Imagen
+		img: domSectorEncabezado.querySelector("img"),
 	};
 	const rutas = {
 		// Encabezado
 		guardaEncabezado: "/articulos/api/abm-encabezado-guarda",
 		eliminaEncabezado: "/articulos/api/abm-encabezado-elimina/?id=",
 	};
+	const v = {};
 
 	// Funciones
-	const actualizaElEncabezado = {
-		consolidado: function () {
-			// Muestra u oculta el sector
-			this.actualizaLaVisibilidadDelSector();
-			if (domEncabezado.classList.contains("ocultar")) return;
-
-			// Muestra el encabezado que corresponde, y oculta los demás
-			for (const encabezado of DOM.encabezados)
-				encabezado.classList[encabezado.id == comp1234.tipoEncab ? "remove" : "add"]("ocultar");
-
-			// Si el encabezado está visible, actualiza sus valores
-			this.actualizaSusValores();
-
-			// Fin
-			return;
-		},
-
-		// Auxiliares
+	const FN = {
 		actualizaLaVisibilidadDelSector: () => {
-			if (
+			const oculta =
 				(!comp1234.conIndice && !DOM.filtroPestana.value) || // Si es 'sin índice' y viene de un tema, lo oculta porque sus campos no poseen ningún valor
 				DOM.filtroEncab.value == comp1234.encabCartaIntro_id || // Si es la nota de introducción al tema cartas, oculta el encabezado
-				DOM.filtroEncab.value == comp1234.encabLugaresIntro_id // Si es la nota de introducción al tema lugares, oculta el encabezado
-			)
-				domEncabezado.classList.add("ocultar");
-			else domEncabezado.classList.remove("ocultar");
+				DOM.filtroEncab.value == comp1234.encabLugaresIntro_id; // Si es la nota de introducción al tema lugares, oculta el encabezado
+
+			domSectorEncabezado.classList[oculta ? "add" : "remove"]("ocultar");
 
 			// Fin
 			return;
 		},
 		actualizaSusValores: () => {
-			// Variables
-			DOM.encabezado = document.querySelector("#sectorEncabezado .encabezado:not(.ocultar)");
-			DOM.inputs = DOM.encabezado.querySelectorAll(".input");
-			const encabezado = comp1234.encabezados.find((n) => n.id == DOM.filtroEncab.value);
-
 			// Agrega los valores
+			DOM.inputs = DOM.encabezado.querySelectorAll(".input");
+			v.encabezado = comp1234.encabezados.find((n) => n.id == DOM.filtroEncab.value);
 			for (const input of DOM.inputs) {
 				// Agrega las opciones
 				const {tabla} = input.dataset;
@@ -70,21 +53,54 @@ window.addEventListener("load", async () => {
 
 				// Actualiza el valor elegido de todos los inputs
 				const campo = input.name;
-				input.value = encabezado && (encabezado[campo] || encabezado[campo] === 0) ? encabezado[campo] : "";
+				input.value = v.encabezado && (v.encabezado[campo] || v.encabezado[campo] === 0) ? v.encabezado[campo] : "";
 			}
 
 			// Fin
 			return;
+		},
+		actualizaLosIconos: () => {
+			// Muestra la imagen del usuario
+			if (
+				v.encabezado &&
+				v.encabezado.statusRegistro.codigo != "aprobado" && // no está en status aprobado
+				v.encabezado.statusSugeridoPor_id != usuario_id // el status fue sugerido por otro usuario
+			) {
+				// Muestra la imagen del usuario y oculta los íconos
+				const {imagen} = v.encabezado.statusSugeridoPor;
+				DOM.img.src = imagen ? "/imgsEditables/8-Usuarios/" + imagen : "/imgsEstables/Varios/usuarioGenerico.jpg";
+				DOM.title = v.encabezado.statusSugeridoPor.nombreCompleto;
+				DOM.iconos.classList.add("ocultar");
+			}
+			// Muestra los íconos
+			else {
+				// Muestra los íconos y oculta la imagen del usuario
+				DOM.iconos.classList.remove("ocultar");
+				DOM.img.src = "";
+
+				// Si es un encabezado nuevo, oculta el ícono de eliminar
+				DOM.iconoEliminar.classList[DOM.filtroEncab.value == "nuevo" ? "add" : "remove"]("ocultar");
+			}
 		},
 	};
 
 	// Impactos del filtro - Actualiza el encabezado
 	DOM.filtroEncab.addEventListener("change", () => {
 		// Muestra el encabezado que corresponde, y oculta los demás
-		actualizaElEncabezado.consolidado();
+		FN.actualizaLaVisibilidadDelSector();
+		if (domSectorEncabezado.classList.contains("ocultar")) return;
+
+		// Muestra el encabezado que corresponde, y oculta los demás
+		for (const domEncabezado of DOM.encabezados)
+			domEncabezado.classList[domEncabezado.id == comp1234.tipoEncab ? "remove" : "add"]("ocultar");
+
+		// Actualiza los valores del encabezado
+		DOM.encabezado = document.querySelector("#sectorEncabezado .encabezado:not(.ocultar)");
+		if (!DOM.encabezado) return;
+		FN.actualizaSusValores();
 
 		// Actualiza los íconos
-		DOM.encabIconos.querySelector("#eliminar").classList[DOM.filtroEncab.value == "nuevo" ? "add" : "remove"]("ocultar");
+		FN.actualizaLosIconos();
 
 		// Fin
 		return;

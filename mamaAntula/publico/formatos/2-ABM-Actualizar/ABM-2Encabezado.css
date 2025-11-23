@@ -1,6 +1,8 @@
 /* Sector encabezados */
 #sectorEncabezado {
 	width: fit-content;
+
+	/* Encabezado */
 	.encabezado {
 		input[type="text"] {
 			width: 300px;
@@ -9,4 +11,7 @@
 		input[type="date"] {width: 130px;}
 		select[name="orden"], select[name="numero"] {width: 70px;}
 	}
+
+	/* Imagen del usuario */
+	img[src=""] {display: none;}
 }
