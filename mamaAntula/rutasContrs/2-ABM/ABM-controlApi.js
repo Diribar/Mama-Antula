@@ -2,19 +2,20 @@
 import procesos from "./ABM-procesos.js";
 
 export default {
-	filtros: {
-		datosIniciales: (req, res) => {
-			// Variables
-			const datosIniciales = {
-				...{secciones, temasSecciones, pestanasTemas},
-				...{personajes, idiomas, lugares, indicesLugar},
-				...{encabCartaIntro_id, encabLugaresIntro_id, contLayouts},
-			};
+	datosIniciales: (req, res) => {
+		// Variables
+		const datosIniciales = {
+			...{secciones, temasSecciones, pestanasTemas},
+			...{personajes, idiomas, lugares, indicesLugar},
+			...{encabCartaIntro_id, encabLugaresIntro_id, contLayouts},
+		};
 
-			// Fin
-			return res.json(datosIniciales);
-		},
-		obtieneEncabs: async (req, res) => {
+		// Fin
+		return res.json(datosIniciales);
+	},
+
+	encabezado: {
+		obtiene: async (req, res) => {
 			// Variables
 			const {tema_id, pestana_id} = req.query;
 			const {usuario} = req.session;
@@ -26,15 +27,14 @@ export default {
 			const conIndice = (temaActual && temaActual.indicesFecha.length) || esLugares;
 
 			// Obtiene los encabezados
-			const condicion = {[pestana_id ? "pestana_id" : "tema_id"]: pestana_id || tema_id, statusSugeridoPor_id: usuario.id};
+			const campo_id = [pestana_id ? "pestana_id" : "tema_id"];
+			const statusSugeridoRegistro = {[Op.or]: [{statusSugeridoPor_id: usuario.id}, {statusRegistro_id: aprobado_id}]}; // sugerido por el usuario y en status creado
+			const condicion = {[campo_id]: pestana_id || tema_id, ...statusSugeridoRegistro};
 			const encabezados = await procesos.obtieneEncabs({esCarta, esLugares, conIndice, condicion, usuario});
 
 			// Fin
 			return res.json(encabezados);
 		},
-	},
-
-	encabezado: {
 		guarda: async (req, res) => {
 			// Variables
 			const {encab_id: id} = req.body;
