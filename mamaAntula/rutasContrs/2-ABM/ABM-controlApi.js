@@ -26,7 +26,7 @@ export default {
 			const conIndice = (temaActual && temaActual.indicesFecha.length) || esLugares;
 
 			// Obtiene los encabezados
-			const condicion = {[pestana_id ? "pestana_id" : "tema_id"]: pestana_id || tema_id};
+			const condicion = {[pestana_id ? "pestana_id" : "tema_id"]: pestana_id || tema_id, statusSugeridoPor_id: usuario.id};
 			const encabezados = await procesos.obtieneEncabs({esCarta, esLugares, conIndice, condicion, usuario});
 
 			// Fin
