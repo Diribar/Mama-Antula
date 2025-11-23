@@ -28,7 +28,7 @@ export default {
 
 			// Obtiene los encabezados
 			const campo_id = [pestana_id ? "pestana_id" : "tema_id"];
-			const statusSugeridoRegistro = {[Op.or]: [{statusSugeridoPor_id: usuario.id}, {statusRegistro_id: aprobado_id}]}; // sugerido por el usuario y en status creado
+			const statusSugeridoRegistro = {[Op.or]: [{statusSugeridoPor_id: usuario.id}, {statusRegistro_id: aprobado_id}]}; // sugerido por el usuario y en status aprobado
 			const condicion = {[campo_id]: pestana_id || tema_id, ...statusSugeridoRegistro};
 			const encabezados = await procesos.obtieneEncabs({esCarta, esLugares, conIndice, condicion, usuario});
 
