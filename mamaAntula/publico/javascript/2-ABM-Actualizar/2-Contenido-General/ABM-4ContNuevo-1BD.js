@@ -2,26 +2,26 @@
 
 window.addEventListener("load", async () => {
 	// Variables
+	const domSector = document.querySelector("#sectorContNuevo");
 	const DOM = {
 		// Form
-		filtroEncab: document.querySelector("#filtros select[name='encabezado']"),
+		filtroEncab: domSector.querySelector("#filtros select[name='encabezado']"),
 
-		// Inputs
-		textoInput: document.querySelector("#texto .input"),
-		leyendaImagen: document.querySelector("#imagen [name='leyenda']"),
-		leyendaCarrusel: document.querySelector("#carrusel [name='leyenda']"),
-		videoInput: document.querySelector("#video .input"),
-		leyendaVideo: document.querySelector("#video [name='leyenda']"),
-		tituloEstampas: document.querySelector("#estampa [name='leyenda']"),
-
-		// Ouputs
-		iconoGuardar: document.querySelector("#pestanasGuardar #iconoGuardar"),
-		textoOutput: document.querySelector("#texto #output"),
+		// Texto, Imagen, Carrousel
+		leyendaImagen: domSector.querySelector("#imagen [name='leyenda']"),
+		leyendaCarrusel: domSector.querySelector("#carrusel [name='leyenda']"),
 
 		// Video
-		videoId: document.querySelector("#video [name='video']"),
-		limpiarValue: document.querySelectorAll("#video .input"),
-		limpiarHTML: document.querySelectorAll("#video .limpiar"),
+		leyendaVideo: domSector.querySelector("#video [name='leyenda']"),
+		videoId: domSector.querySelector("#video [name='video']"),
+
+		// Libros, Estampas
+		inputsLibro: domSector.querySelectorAll("#libro .inputs .input"),
+		tituloEstampas: domSector.querySelector("#estampa [name='leyenda']"),
+
+		// Ouputs
+		iconoGuardar: domSector.querySelector("#pestanasGuardar #iconoGuardar"),
+		textoOutput: domSector.querySelector("#texto #output"),
 	};
 	const rutas = {
 		guardaUnaImagen: "/articulos/api/abm-nuevo-contenido-guarda",
