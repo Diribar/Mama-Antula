@@ -99,9 +99,6 @@ export default {
 		return orden;
 	},
 	guardaRegsCarrusel: async ({imagenes, contenido_id, creadoPor_id}) => {
-		// Si no hay imagenes, interrumpe la función
-		if (!imagenes) return;
-
 		// Guarda las imágenes
 		for (let i = 0; i < imagenes.length; i++) {
 			const imagen = imagenes[i];
