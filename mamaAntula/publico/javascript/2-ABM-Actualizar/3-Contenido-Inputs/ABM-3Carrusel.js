@@ -14,7 +14,7 @@ const crslEstampa = ({domLayout, cantMax, urls}) => {
 	const DOM = {
 		// Drag & Drop
 		dragDrop: domLayout.querySelector("#dragDrop"),
-		areaSoltar: domLayout.querySelector("#areaSoltar"),
+		areaSoltar: domLayout.querySelector("#dragDrop #areaSoltar"),
 		inputImagen: domLayout.querySelector("#areaSoltar [name='imagen']"),
 
 		// Modelo Vista

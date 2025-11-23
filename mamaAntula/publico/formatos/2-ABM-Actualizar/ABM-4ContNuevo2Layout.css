@@ -31,11 +31,14 @@
 		--gap: 20px;
 		flex-direction: row !important; gap: var(--gap);
 
-		/* Carrusel de imágenes */
-		/* &:not(:has(#dragDrop.ocultar)) #carrImgs {max-width: calc(100% - var(--gap) - var(--lado));} */
-		&:has(#dragDrop.ocultar) #carrImgs {max-width: 100%;}
+		/* Contenedor de carrusel de imágenes */
+		&:not(:has(#dragDrop.ocultar)) #crslComentario {max-width: calc(100% - var(--gap) - var(--lado));}
+		&:has(#dragDrop.ocultar) #crslComentario {max-width: 100%;}
 		#crslComentario {
 			justify-content: flex-end; min-width: var(--lado);
+			&:has(#carrImgs:empty) {display: none;}
+
+			/* Carrusel de imágenes */
 			#carrImgs {
 				overflow-x: auto;
 				display: flex; flex-direction: row; gap: var(--gap);
