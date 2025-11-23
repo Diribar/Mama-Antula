@@ -24,10 +24,11 @@ export default async (req, res, next) => {
 		mensajes.push("Necesitamos al menos dos imágenes");
 	else if (layoutCodigo == "video" && !video) mensajes.push("Necesitamos un link de video de Youtube");
 	else if (layoutCodigo == "libro") {
+		if (!imagen) mensajes.push("Necesitamos una imagen");
 		(!titulo && mensajes.push("Necesitamos el título del libro")) ||
 			(titulo.length > 100 && mensajes.push("El campo <em>Título</em> debe tener hasta 100 caracteres"));
 		(!autor && mensajes.push("Necesitamos el dato del autor")) ||
-			(autor.length > 30 && mensajes.push("El campo <em>Autor</em> debe tener hasta 30 caracteres"));
+			(autor.length > 50 && mensajes.push("El campo <em>Autor</em> debe tener hasta 50 caracteres"));
 		(!anoLanzam && mensajes.push("Necesitamos el año de lanzamiento")) ||
 			(anoLanzam.length > new Date().getFullYear() && mensajes.push("El año no puede ser mayor al actual"));
 		(!editorial && mensajes.push("Necesitamos saber la editorial")) ||

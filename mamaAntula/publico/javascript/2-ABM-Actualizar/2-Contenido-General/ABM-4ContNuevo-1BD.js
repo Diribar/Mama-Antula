@@ -5,7 +5,7 @@ window.addEventListener("load", async () => {
 	const domSector = document.querySelector("#sectorContNuevo");
 	const DOM = {
 		// Form
-		filtroEncab: domSector.querySelector("#filtros select[name='encabezado']"),
+		filtroEncab: document.querySelector("#filtros select[name='encabezado']"),
 
 		// Texto, Imagen, Carrousel
 		leyendaImagen: domSector.querySelector("#imagen [name='leyenda']"),
@@ -91,6 +91,9 @@ window.addEventListener("load", async () => {
 
 			// Agrega el archivo del libro
 			this.archImg(archLibro, "");
+
+			// Agrega los demás datos del libro
+			for (const input of DOM.inputsLibro) v.formData.append(input.name, input.value);
 
 			// Fin
 			return;

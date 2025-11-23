@@ -17,7 +17,7 @@ export default (sequelize, dt) => {
 		titulo: {type: dt.STRING(100)},
 
 		// Libros
-		autor: {type: dt.STRING(30)},
+		autor: {type: dt.STRING(50)},
 		anoLanzam: {type: dt.INTEGER},
 		editorial: {type: dt.STRING(50)},
 
