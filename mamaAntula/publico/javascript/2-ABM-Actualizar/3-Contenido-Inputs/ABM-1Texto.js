@@ -90,8 +90,6 @@ window.addEventListener("load", async () => {
 			for (let i = parrafos.length - 1; i >= 0; i--) {
 				// ACTUALIZA EL INPUT - 1. Si el parrafo es <p><br></p> lo elimina del editor
 				const parrafo = parrafos[i];
-				console.log(i, ["<br>", ""].includes(parrafo.innerHTML), i < parrafos.length - 1);
-
 				if (["<br>", ""].includes(parrafo.innerHTML) && i < parrafos.length - 1) {
 					const blot = Quill.find(parrafo);
 					if (blot) blot.remove();
