@@ -7,7 +7,6 @@ export default (sequelize, dt) => {
 		apodo: {type: dt.STRING(30)},
 		cliente_id: {type: dt.STRING(11)},
 		contrasena: {type: dt.STRING(50)},
-		pais_id: {type: dt.STRING(2)},
 		imagen: {type: dt.STRING(100)},
 		notificacs: {type: dt.BOOLEAN},
 
@@ -28,7 +27,6 @@ export default (sequelize, dt) => {
 	};
 	const entidad = sequelize.define(alias, columns, config);
 	entidad.associate = (n) => {
-		entidad.belongsTo(n.paises, {as: "pais", foreignKey: "pais_id"});
 		entidad.belongsTo(n.roles, {as: "rol", foreignKey: "rol_id"});
 		entidad.belongsTo(n.statusRegistrosUs, {as: "statusRegistro", foreignKey: "statusRegistro_id"});
 

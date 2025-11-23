@@ -36,8 +36,8 @@ router.put("/api/abm-contenido-sube", validaContActual, API.contActual.sube);
 router.delete("/api/abm-contenido-elimina", validaContActual, API.contActual.elimina);
 
 // APIs - Contenido Nuevo
-router.post("/api/abm-nuevo-contenido-guarda", descargaImg.single("archivo"), imgEnReqBody, validaContNuevo, API.guardaNuevo);
-router.post("/api/abm-nuevo-carrusel-guarda", descargaImg.array("archivos"), imgEnReqBody, validaContNuevo, API.guardaNuevo);
+router.post("/api/abm-nuevo-contenido-guarda", descargaImg.single("archivo"), imgEnReqBody, validaContNuevo, API.guardaContNuevo);
+router.post("/api/abm-nuevo-carrusel-guarda", descargaImg.array("archivos"), imgEnReqBody, validaContNuevo, API.guardaContNuevo);
 
 // 🖥️ Vistas
 router.get("/actualizar", soloEdicion, vista.actualizar);

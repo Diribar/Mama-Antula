@@ -9,7 +9,7 @@
 	/* COMBINADOS: Texto con imagen, Texto sólo */
 	.bloque-textoImagen, .bloque-texto {
 		width: 100%;
-		blockquote {font-size: 1.1rem; margin-block: 10px 20px; text-align: center; text-wrap: balance;}
+		blockquote {font-size: 1.1rem; text-align: center; text-wrap: balance;}
 		ul, ol {margin-left: 24px;}
 		:is(p, :where(ul, ol) li) {
 			line-height: 1.5;
