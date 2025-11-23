@@ -55,29 +55,6 @@ window.addEventListener("load", async () => {
 			// Fin
 			return;
 		},
-		actualizaLosIconos: () => {
-			// Muestra la imagen del usuario
-			if (
-				v.encabezado &&
-				v.encabezado.statusRegistro.codigo != "aprobado" && // no está en status aprobado
-				v.encabezado.statusSugeridoPor_id != usuario_id // el status fue sugerido por otro usuario
-			) {
-				// Muestra la imagen del usuario y oculta los íconos
-				const {imagen} = v.encabezado.statusSugeridoPor;
-				DOM.img.src = imagen ? "/imgsEditables/8-Usuarios/" + imagen : "/imgsEstables/Varios/usuarioGenerico.jpg";
-				DOM.title = v.encabezado.statusSugeridoPor.nombreCompleto;
-				DOM.iconos.classList.add("ocultar");
-			}
-			// Muestra los íconos
-			else {
-				// Muestra los íconos y oculta la imagen del usuario
-				DOM.iconos.classList.remove("ocultar");
-				DOM.img.src = "";
-
-				// Si es un encabezado nuevo, oculta el ícono de eliminar
-				DOM.iconoEliminar.classList[DOM.filtroEncab.value == "nuevo" ? "add" : "remove"]("ocultar");
-			}
-		},
 	};
 
 	// Impactos del filtro - Actualiza el encabezado
@@ -95,8 +72,8 @@ window.addEventListener("load", async () => {
 		if (!DOM.encabezado) return;
 		FN.actualizaSusValores();
 
-		// Actualiza los íconos
-		FN.actualizaLosIconos();
+		// Si es un encabezado nuevo, oculta el ícono de eliminar
+		DOM.iconoEliminar.classList[DOM.filtroEncab.value == "nuevo" ? "add" : "remove"]("ocultar");
 
 		// Fin
 		return;
