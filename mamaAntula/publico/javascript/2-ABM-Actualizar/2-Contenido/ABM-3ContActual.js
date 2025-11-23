@@ -191,6 +191,7 @@ window.addEventListener("load", async () => {
 		libro: function (contenido) {
 			// Crea el contenedor
 			const contenedor = document.createElement("div");
+			contenedor.classList.add("flexColAlign");
 
 			// Crea la imagen
 			const img = document.createElement("img");
@@ -199,10 +200,10 @@ window.addEventListener("load", async () => {
 			contenedor.appendChild(img);
 
 			// Agrega la información del libro
-			const texto = document.createElement("img");
+			const texto = document.createElement("div");
 			texto.classList.add("texto");
-			texto.appendChild(this.textoLibro(contenido.titulo, "tituloLibro"));
-			texto.appendChild(this.textoLibro(contenido.autor, "autorLibro"));
+			texto.appendChild(this.textoLibro(contenido.titulo, "titulo"));
+			texto.appendChild(this.textoLibro(contenido.autor, "autor"));
 			const anoEditorial =
 				(contenido.anoLanzam || "") +
 				(contenido.anoLanzam && contenido.editorial ? " - " : "") +
@@ -216,7 +217,7 @@ window.addEventListener("load", async () => {
 		estampa: function (contenido) {
 			// Crea el contenedor
 			const contenedor = document.createElement("div");
-			contenedor.classList.add("flexCol");
+			contenedor.classList.add("flexColAlign");
 
 			// Le agrega el título
 			if (contenido.titulo) {

@@ -25,8 +25,8 @@ window.addEventListener("load", async () => {
 		limpiarHTML: document.querySelectorAll("#video .limpiar"),
 	};
 	const rutas = {
-		guardaContenido: "/articulos/api/abm-nuevo-contenido-guarda",
-		guardaCarrusel: "/articulos/api/abm-nuevo-carrusel-guarda",
+		guardaUnaImagen: "/articulos/api/abm-nuevo-contenido-guarda",
+		guardaImagenes: "/articulos/api/abm-nuevo-carrusel-guarda",
 	};
 	const v = {};
 
@@ -57,6 +57,13 @@ window.addEventListener("load", async () => {
 
 			// Agrega la leyenda de la imagen
 			v.formData.append("leyenda", DOM.leyendaImagen.value);
+
+			// Fin
+			return;
+		},
+		texto: function () {
+			// Texto
+			if (DOM.textoOutput.value) v.formData.append("texto", DOM.textoOutput.value);
 
 			// Fin
 			return;
@@ -140,7 +147,7 @@ window.addEventListener("load", async () => {
 		creaElForm.consolidado();
 
 		// Guarda la información en la BD
-		const ruta = v.nombrePestanaActiva == "carrusel" ? "guardaCarrusel" : "guardaContenido"; // la diferencia es por el multer
+		const ruta = ["carrusel", "estampa"].includes(v.nombrePestanaActiva) ? "guardaImagenes" : "guardaUnaImagen"; // la diferencia es por el multer
 		const respuesta = await fetch(rutas[ruta], postForm(v.formData)).then((n) => n.json());
 		DOM.iconoGuardar.classList.remove("inactivo");
 

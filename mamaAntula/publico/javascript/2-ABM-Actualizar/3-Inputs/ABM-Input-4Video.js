@@ -13,7 +13,6 @@ window.addEventListener("load", async () => {
 		muestraLeyenda: domLayout.querySelector("#muestraLeyenda"),
 		outputVideoId: domLayout.querySelector("[name='video']"),
 	};
-	const v = {};
 
 	// Funciones
 	const getYouTubeId = (url) => {

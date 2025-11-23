@@ -4,32 +4,40 @@
 export default async (req, res, next) => {
 	// Variables
 	const {encab_id, layoutCodigo} = req.body;
+	const {texto, imagen, imagen2, imagens, video, titulo, autor, anoLanzam, editorial} = req.body;
 	const mensajes = [];
 
-	// General - encab_id
-	if (!encab_id) mensajes.push("El encabezado no se identifica");
-	else if (!(await baseDatos.obtienePorId("encabezados", encab_id))) mensajes.push("El encabezado no se identifica");
+	// GENERAL - encab_id
+	if (!encab_id) mensajes.push("Necesitamos un valor para el encabezado");
+	else {
+		const encabezado = await baseDatos.obtienePorId("encabezados", encab_id);
+		if (!encabezado) mensajes.push("No tenemos ese encabezado");
+	}
+	// GENERAL - layoutCodigo
+	if (!layoutCodigo) mensajes.push("Necesitamos un valor para el layout");
+	else if (!contLayouts.find((n) => n.codigo == layoutCodigo)) mensajes.push("No tenemos ese layout");
 
-	// General - layoutCodigo
-	if (!layoutCodigo) mensajes.push("El layout no se identifica");
-	else if (!contLayouts.find((n) => n.codigo == layoutCodigo)) mensajes.push("El layout no se identifica");
+	// POR LAYOUT
+	if (layoutCodigo == "textoImagen" && !texto && !imagen) mensajes.push("Necesitamos un texto y/o una imagen");
+	else if (layoutCodigo == "texto" && !texto) mensajes.push("Necesitamos un texto");
+	else if (layoutCodigo == "carrusel" && (!req.files || req.files.length < 2))
+		mensajes.push("Necesitamos al menos dos imágenes");
+	else if (layoutCodigo == "video" && !video) mensajes.push("Necesitamos un link de video de Youtube");
+	else if (layoutCodigo == "libro") {
+		if (!titulo || !autor || !anoLanzam || !editorial) mensajes.push("Necesitamos un libro con todos los datos");
+		if (titulo && titulo.length > 100) mensajes.push("El campo <em>Título</em> debe tener hasta 100 caracteres");
+		if (autor && autor.length > 30) mensajes.push("El campo <em>Autor</em> debe tener hasta 30 caracteres");
+		if (editorial && editorial.length > 50) mensajes.push("El campo <em>Editorial</em> debe tener hasta 50 caracteres");
+	} else if (layoutCodigo == "estampa") {
+		if (!imagen || !imagen2) mensajes.push("Necesitamos los 2 archivos de imagen");
+		if (titulo && titulo.length > 100) mensajes.push("El campo <em>Título</em> debe tener hasta 100 caracteres");
+	}
 
-	// Texto + Imagen
-
-	// Texto
-
-	// Carrusel
-
-	// Video
-
-	// Libro
-
-	// Estampa
-
-	// Fin
+	// Consolida los errores
 	const error = preparaLaRespuesta(mensajes);
 	if (error) return res.json({error});
-	else return res.json({});
+
+	// Fin
 	return next();
 };
 

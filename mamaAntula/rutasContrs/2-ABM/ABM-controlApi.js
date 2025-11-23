@@ -37,7 +37,7 @@ export default {
 	encabezado: {
 		guarda: async (req, res) => {
 			// Variables
-			const {id} = req.body;
+			const {encab_id: id} = req.body;
 			delete req.body.id;
 
 			// Si es nuevo, lo crea e interrumpe la función
@@ -57,10 +57,6 @@ export default {
 
 			// Obtiene el encabezado
 			const encabezado = await baseDatos.obtienePorId("encabezados", id);
-
-			// Si no es propio y no está en status aprobado, interrumpe la función
-			if (encabezado.creadoPor_id != req.session.usuario.id && encabezado.statusRegistro_id != aprobado_id)
-				return res.json({mensaje: "No tenés permiso para editar este encabezado", hay: true});
 
 			// Si está en status creado y por este usuario, actualiza el encabezado
 			if (encabezado.statusRegistro_id == creado_id && encabezado.creadoPor_id == req.session.usuario.id) {
@@ -167,13 +163,16 @@ export default {
 
 	guardaNuevo: async (req, res) => {
 		// Variables
-		const {encab_id} = req.body;
-		const creadoPor_id = req.session.usuario.id;
-		const datos = {creadoPor_id};
-		const {imagens} = req.body;
+		const {encab_id, layoutCodigo, imagens} = req.body;
+
+		// Empieza a armar la información a guardar
+		const layout_id = contLayouts.find((n) => n.codigo == layoutCodigo).id;
+		const {id: creadoPor_id} = req.session.usuario;
+		const datos = {encab_id, layout_id, creadoPor_id};
 
 		// Obtiene los datos útiles
-		const camposGuardar = ["carta_id", "encab_id", "texto", "imagen", "video", "leyenda"];
+		const camposGuardar = ["texto", "imagen", "imagen2", "video", "leyenda"];
+		camposGuardar.push("titulo", "autor", "anoLanzam", "editorial");
 		for (const campo of camposGuardar) if (req.body[campo]) datos[campo] = req.body[campo];
 
 		// Descarga la/s imagen/es
@@ -185,7 +184,7 @@ export default {
 		const {id: contenido_id} = await baseDatos.agregaRegistroIdCorrel("contenidos", datos);
 
 		// Guarda los registros de carrusel
-		await procesos.guardaRegsCarrusel(imagens, contenido_id, creadoPor_id);
+		await procesos.guardaRegsCarrusel({imagenes: imagens, contenido_id, creadoPor_id});
 
 		// Fin
 		return res.json({});
