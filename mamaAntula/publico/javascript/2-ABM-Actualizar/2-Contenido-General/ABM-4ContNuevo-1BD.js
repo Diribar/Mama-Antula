@@ -7,7 +7,7 @@ window.addEventListener("load", async () => {
 		// Form
 		filtroEncab: document.querySelector("#filtros select[name='encabezado']"),
 
-		// Texto, Imagen, Carrousel
+		// Imagen, Carrousel
 		leyendaImagen: domSector.querySelector("#imagen [name='leyenda']"),
 		leyendaCarrusel: domSector.querySelector("#carrusel [name='comentario']"),
 
