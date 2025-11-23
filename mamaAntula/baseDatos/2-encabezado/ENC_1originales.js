@@ -8,7 +8,6 @@ export default (sequelize, dt) => {
 		// Otros
 		numero: {type: dt.INTEGER},
 		titulo: {type: dt.STRING(100)},
-		subTitulo: {type: dt.STRING(100)},
 		fechaEvento: {type: dt.DATE},
 
 		// Referencias

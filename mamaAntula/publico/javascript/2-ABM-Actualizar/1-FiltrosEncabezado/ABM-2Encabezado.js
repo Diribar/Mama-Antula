@@ -104,12 +104,7 @@ window.addEventListener("load", async () => {
 			// Fin
 			return;
 		});
-		input.addEventListener("change", () => {
-			if (["titulo", "subTitulo"].includes(input.name)) input.value = inicialMayus(input.value);
-
-			// Fin
-			return;
-		});
+		input.addEventListener("change", () => input.name == "titulo" && (input.value = inicialMayus(input.value)));
 	}
 
 	// Guarda/Actualiza en la BD

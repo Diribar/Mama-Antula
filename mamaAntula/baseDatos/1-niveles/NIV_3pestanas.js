@@ -7,7 +7,6 @@ export default (sequelize, dt) => {
 
 		// Nombres
 		titulo: {type: dt.STRING(30)},
-		subTitulo: {type: dt.TEXT('medium')},
 		codigo: {type: dt.STRING(20)},
 		url: {type: dt.STRING(30)},
 
