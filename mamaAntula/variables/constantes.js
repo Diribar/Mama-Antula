@@ -46,9 +46,4 @@ export default {
 	tamMaxArch: 1024 * 1024, // 1Mb
 	Mb1: 1024 * 1024,
 	mesesAbrev: ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"],
-	includesEncabs: {
-		cartas: ["nombreDesde", "nombreHacia", "idioma", "lugar", "statusSugeridoPor"],
-		lugares: ["lugarIndice", "statusSugeridoPor"],
-		conIndice: ["lugar", "statusSugeridoPor"],
-	},
 };
