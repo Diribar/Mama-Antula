@@ -31,7 +31,7 @@
 
 		/* Carrusel de imágenes */
 		&:not(:has(#dragDrop.ocultar)) #carrImgs {max-width: calc(100% - var(--gap) - var(--lado));}
-		&:has(#dragDrop.ocultar) #carrImgs {max-width: calc(100% - var(--gap));}
+		&:has(#dragDrop.ocultar) #carrImgs {max-width: 100%;}
 		#carrImgs {
 			overflow-x: auto;
 			display: flex; flex-direction: row; gap: var(--gap);
