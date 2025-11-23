@@ -4,14 +4,13 @@ window.addEventListener("load", async () => {
 	// Variables
 	const DOM = {
 		// Form
-		sectorContNuevo: document.querySelector("#sectorContNuevo"),
 		filtroEncab: document.querySelector("#filtros select[name='encabezado']"),
 
 		// Inputs
 		textoInput: document.querySelector("#texto .input"),
-		videoInput: document.querySelector("#video .input"),
 		leyendaImagen: document.querySelector("#imagen [name='leyenda']"),
 		leyendaCarrusel: document.querySelector("#carrusel [name='leyenda']"),
+		videoInput: document.querySelector("#video .input"),
 		leyendaVideo: document.querySelector("#video [name='leyenda']"),
 		tituloEstampas: document.querySelector("#estampa [name='leyenda']"),
 
@@ -121,21 +120,6 @@ window.addEventListener("load", async () => {
 			return;
 		},
 	};
-
-	// Actualiza el sector por cambio en el encabezado
-	DOM.filtroEncab.addEventListener("change", async () => {
-		// Texto
-		DOM.textoInput.querySelector(".ql-editor").innerHTML = "";
-
-		// Imagen
-
-		// Video
-		for (const limpiar of DOM.limpiarValue) limpiar.value = "";
-		for (const limpiar of DOM.limpiarHTML) limpiar.innerHTML = "";
-
-		// Fin
-		return;
-	});
 
 	// Guarda los cambios
 	DOM.iconoGuardar.addEventListener("click", async () => {
