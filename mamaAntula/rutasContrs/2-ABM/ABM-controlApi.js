@@ -44,7 +44,7 @@ export default {
 			if (id == "nuevo") {
 				// Variables
 				const creadoPor_id = req.session.usuario.id;
-				const datos = {...req.body, creadoPor_id};
+				const datos = {...req.body, creadoPor_id, statusSugeridoPor_id: creadoPor_id};
 				delete datos.id;
 
 				// Crea el encabezado y guarda la cookie
@@ -174,7 +174,7 @@ export default {
 		// Empieza a armar la información a guardar
 		const layout_id = contLayouts.find((n) => n.codigo == layoutCodigo).id;
 		const {id: creadoPor_id} = req.session.usuario;
-		const datos = {encab_id, layout_id, creadoPor_id};
+		const datos = {encab_id, layout_id, creadoPor_id, statusSugeridoPor_id: creadoPor_id};
 
 		// Obtiene los datos útiles
 		const camposGuardar = ["texto", "imagen", "video", "leyenda"];

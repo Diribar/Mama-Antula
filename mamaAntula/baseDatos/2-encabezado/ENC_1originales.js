@@ -20,6 +20,7 @@ export default (sequelize, dt) => {
 		// Control
 		creadoPor_id: {type: dt.INTEGER},
 		creadoEn: {type: dt.DATE},
+		statusSugeridoPor_id: {type: dt.INTEGER},
 		statusRegistro_id: {type: dt.INTEGER},
 	};
 	const config = {
@@ -32,6 +33,7 @@ export default (sequelize, dt) => {
 		entidad.belongsTo(n.temasSecciones, {as: "tema", foreignKey: "tema_id"});
 		entidad.belongsTo(n.pestanasTemas, {as: "pestana", foreignKey: "pestana_id"});
 		entidad.belongsTo(n.usuarios, {as: "creadoPor", foreignKey: "creadoPor_id"});
+		entidad.belongsTo(n.usuarios, {as: "statusSugeridoPor", foreignKey: "statusSugeridoPor_id"});
 		entidad.belongsTo(n.statusRegistros, {as: "statusRegistro", foreignKey: "statusRegistro_id"});
 
 		// Comunes a índices por fecha
