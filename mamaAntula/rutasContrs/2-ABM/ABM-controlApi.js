@@ -95,7 +95,7 @@ export default {
 
 			// Obtiene los contenidos
 			const contenidos = await baseDatos
-				.obtieneTodosPorCondicion("contenidos", {encab_id}, ["carrusel", "layout", "creadoPor", "statusRegistro"])
+				.obtieneTodosPorCondicion("contenidos", {encab_id}, ["carrusel", "layout", "statusSugeridoPor", "statusRegistro"])
 				.then((n) => n.sort((a, b) => b.anoLanzam - a.anoLanzam))
 				.then((n) => n.sort((a, b) => a.orden - b.orden))
 				.then((n) => n.map((m) => ({...m, carrusel: m.carrusel.sort((a, b) => a.orden - b.orden)})));
