@@ -6,9 +6,9 @@ export default (sequelize, dt) => {
 		orden: {type: dt.INTEGER},
 
 		// Nombres
-		titulo: {type: dt.STRING(20)},
+		titulo: {type: dt.STRING(50)},
 		codigo: {type: dt.STRING(20)},
-		url: {type: dt.STRING(30)},
+		url: {type: dt.STRING(50)},
 
 		// Otros
 		inactivo: {type: dt.BOOLEAN},

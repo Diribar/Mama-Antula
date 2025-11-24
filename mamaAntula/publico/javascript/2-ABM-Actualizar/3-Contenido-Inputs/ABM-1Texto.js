@@ -88,15 +88,15 @@ window.addEventListener("load", async () => {
 
 			const parrafos = quill.root.querySelectorAll("p");
 			for (let i = parrafos.length - 1; i >= 0; i--) {
-				// ACTUALIZA EL INPUT - si el parrafo es <p><br></p> lo elimina del editor
+				// ACTUALIZA EL INPUT - 1. Si el parrafo es <p><br></p> lo elimina del editor
 				const parrafo = parrafos[i];
-				if (["<br>", ""].includes(parrafo.innerHTML)) {
+				if (["<br>", ""].includes(parrafo.innerHTML) && i < parrafos.length - 1) {
 					const blot = Quill.find(parrafo);
 					if (blot) blot.remove();
 					continue;
 				}
 
-				// ACTUALIZA EL INPUT - elimina saltos de línea innecesarios
+				// ACTUALIZA EL INPUT - 2. Elimina saltos de línea innecesarios
 				if (!i) continue;
 				const p1 = parrafos[i - 1];
 				const p2 = parrafos[i];
@@ -113,6 +113,7 @@ window.addEventListener("load", async () => {
 			DOM.output.value = quill.root.innerHTML
 				.replaceAll("&nbsp;", " ") // reemplaza por espacios normales;
 				.replaceAll("  ", " ") // reemplaza espacios duplicados
+				.replace("<p><br></p>", "") // reemplaza el último, porque los demás ya fueron quitados
 				.trim(); // reemplaza espacios al final
 		}, 100);
 

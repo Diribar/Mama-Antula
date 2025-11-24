@@ -2,27 +2,26 @@
 
 window.addEventListener("load", async () => {
 	// Variables
+	const domSector = document.querySelector("#sectorContNuevo");
 	const DOM = {
 		// Form
-		sectorContNuevo: document.querySelector("#sectorContNuevo"),
 		filtroEncab: document.querySelector("#filtros select[name='encabezado']"),
 
-		// Inputs
-		textoInput: document.querySelector("#texto .input"),
-		videoInput: document.querySelector("#video .input"),
-		leyendaImagen: document.querySelector("#imagen [name='leyenda']"),
-		leyendaCarrusel: document.querySelector("#carrusel [name='leyenda']"),
-		leyendaVideo: document.querySelector("#video [name='leyenda']"),
-		tituloEstampas: document.querySelector("#estampa [name='leyenda']"),
-
-		// Ouputs
-		iconoGuardar: document.querySelector("#pestanasGuardar #iconoGuardar"),
-		textoOutput: document.querySelector("#texto #output"),
+		// Imagen, Carrousel
+		leyendaImagen: domSector.querySelector("#imagen [name='leyenda']"),
+		leyendaCarrusel: domSector.querySelector("#carrusel [name='comentario']"),
 
 		// Video
-		videoId: document.querySelector("#video [name='video']"),
-		limpiarValue: document.querySelectorAll("#video .input"),
-		limpiarHTML: document.querySelectorAll("#video .limpiar"),
+		leyendaVideo: domSector.querySelector("#video [name='leyenda']"),
+		videoId: domSector.querySelector("#video [name='video']"),
+
+		// Libros, Estampas
+		inputsLibro: domSector.querySelectorAll("#libro .inputs .input"),
+		tituloEstampa: domSector.querySelector("#estampa [name='comentario']"),
+
+		// Ouputs
+		iconoGuardar: domSector.querySelector("#pestanasGuardar #iconoGuardar"),
+		textoOutput: domSector.querySelector("#texto #output"),
 	};
 	const rutas = {
 		guardaUnaImagen: "/articulos/api/abm-nuevo-contenido-guarda",
@@ -93,6 +92,9 @@ window.addEventListener("load", async () => {
 			// Agrega el archivo del libro
 			this.archImg(archLibro, "");
 
+			// Agrega los demás datos del libro
+			for (const input of DOM.inputsLibro) v.formData.append(input.name, input.value);
+
 			// Fin
 			return;
 		},
@@ -101,7 +103,7 @@ window.addEventListener("load", async () => {
 			for (const url of urlsEstampa) this.archImg(url, "s");
 
 			// Agrega la leyenda
-			v.formData.append("titulo", DOM.tituloEstampas.value);
+			v.formData.append("titulo", DOM.tituloEstampa.value);
 
 			// Fin
 			return;
@@ -121,21 +123,6 @@ window.addEventListener("load", async () => {
 			return;
 		},
 	};
-
-	// Actualiza el sector por cambio en el encabezado
-	DOM.filtroEncab.addEventListener("change", async () => {
-		// Texto
-		DOM.textoInput.querySelector(".ql-editor").innerHTML = "";
-
-		// Imagen
-
-		// Video
-		for (const limpiar of DOM.limpiarValue) limpiar.value = "";
-		for (const limpiar of DOM.limpiarHTML) limpiar.innerHTML = "";
-
-		// Fin
-		return;
-	});
 
 	// Guarda los cambios
 	DOM.iconoGuardar.addEventListener("click", async () => {

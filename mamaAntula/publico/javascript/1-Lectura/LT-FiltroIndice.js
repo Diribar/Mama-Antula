@@ -7,7 +7,7 @@ window.addEventListener("load", async () => {
 		titulos: domFiltroIndice.querySelectorAll(".titulo"),
 	};
 
-	// Eventos
+	// Eventos - click en el agrupador de encabezados
 	for (const titulo of DOM.titulos)
 		titulo.addEventListener("click", () => {
 			// Alterna entre girar o no el ícono

@@ -19,19 +19,23 @@ export default async (req, res, next) => {
 
 	// POR LAYOUT
 	if (layoutCodigo == "textoImagen" && !texto && !imagen) mensajes.push("Necesitamos un texto y/o una imagen");
-	else if (layoutCodigo == "texto" && !texto) mensajes.push("Necesitamos un texto");
-	else if (layoutCodigo == "carrusel" && (!req.files || req.files.length < 2))
+	if (layoutCodigo == "texto" && !texto) mensajes.push("Necesitamos un texto");
+	if (["carrusel", "estampa"].includes(layoutCodigo) && (!req.files || req.files.length < 2))
 		mensajes.push("Necesitamos al menos dos imágenes");
-	else if (layoutCodigo == "video" && !video) mensajes.push("Necesitamos un link de video de Youtube");
-	else if (layoutCodigo == "libro") {
-		if (!titulo || !autor || !anoLanzam || !editorial) mensajes.push("Necesitamos un libro con todos los datos");
-		if (titulo && titulo.length > 100) mensajes.push("El campo <em>Título</em> debe tener hasta 100 caracteres");
-		if (autor && autor.length > 30) mensajes.push("El campo <em>Autor</em> debe tener hasta 30 caracteres");
-		if (editorial && editorial.length > 50) mensajes.push("El campo <em>Editorial</em> debe tener hasta 50 caracteres");
-	} else if (layoutCodigo == "estampa") {
-		if (!imagen || !imagen2) mensajes.push("Necesitamos los 2 archivos de imagen");
-		if (titulo && titulo.length > 100) mensajes.push("El campo <em>Título</em> debe tener hasta 100 caracteres");
+	if (layoutCodigo == "video" && !video) mensajes.push("Necesitamos un link de video de Youtube");
+	if (layoutCodigo == "libro") {
+		if (!imagen) mensajes.push("Necesitamos una imagen");
+		(!titulo && mensajes.push("Necesitamos el título del libro")) ||
+			(titulo.length > 100 && mensajes.push("El campo <em>Título</em> debe tener hasta 100 caracteres"));
+		(!autor && mensajes.push("Necesitamos el dato del autor")) ||
+			(autor.length > 50 && mensajes.push("El campo <em>Autor</em> debe tener hasta 50 caracteres"));
+		(!anoLanzam && mensajes.push("Necesitamos el año de lanzamiento")) ||
+			(anoLanzam.length > new Date().getFullYear() && mensajes.push("El año no puede ser mayor al actual"));
+		(!editorial && mensajes.push("Necesitamos saber la editorial")) ||
+			(editorial && editorial.length > 50 && mensajes.push("El campo <em>Editorial</em> debe tener hasta 50 caracteres"));
 	}
+	if (layoutCodigo == "estampa" && titulo && titulo.length > 100)
+		mensajes.push("El campo <em>Título</em> debe tener hasta 100 caracteres");
 
 	// Consolida los errores
 	const error = preparaLaRespuesta(mensajes);
