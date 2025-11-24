@@ -57,11 +57,6 @@ window.addEventListener("load", async () => {
 			return;
 		},
 		actualizaIconos: () => {
-			console.log(
-				v.encabezado.statusRegistro_id != comp1234.aprobado_id,
-				v.encabezado.statusSugeridoPor_id != comp1234.usuario.id
-			);
-
 			// Si no está en status aprobado y la sugerencia fue de otro usuario, muestra la imagen de ese usuario
 			if (
 				v.encabezado.statusRegistro_id != comp1234.aprobado_id &&

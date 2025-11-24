@@ -135,8 +135,6 @@ export default {
 			// Si no es el primero, intercambia el orden con el anterior
 			if (indice > 0) {
 				const anterior = contenidos[indice - 1];
-				// console.log(140, {anterior, contenidos});
-
 				await baseDatos.actualizaPorId("contenidos", anterior.id, {orden: contenido.orden});
 				await baseDatos.actualizaPorId("contenidos", contenido.id, {orden: anterior.orden});
 			}
