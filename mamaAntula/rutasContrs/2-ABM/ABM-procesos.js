@@ -8,8 +8,7 @@ export default {
 		// Si es sin indice y no existe un registro, lo crea
 		if (!conIndice && !encabezados.length) {
 			// Crea los datos a guardar
-			const creadoPor_id = usuario.id;
-			const datos = {creadoPor_id};
+			const datos = {statusSugeridoPor_id: usuario.id, creadoPor_id: usuario.id};
 
 			// Le agrega la referencia
 			const {tema_id, pestana_id} = condicion;

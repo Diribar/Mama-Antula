@@ -4,9 +4,10 @@ import procesos from "./ABM-procesos.js";
 export default {
 	datosIniciales: (req, res) => {
 		// Variables
+		const {usuario} = req.session;
 		const datosIniciales = {
 			...{secciones, temasSecciones, pestanasTemas},
-			...{personajes, idiomas, lugares, indicesLugar},
+			...{personajes, idiomas, lugares, indicesLugar, usuario},
 			...{encabCartaIntro_id, encabLugaresIntro_id, contLayouts},
 		};
 
@@ -28,8 +29,7 @@ export default {
 
 			// Obtiene los encabezados
 			const campo_id = [pestana_id ? "pestana_id" : "tema_id"];
-			const statusSugeridoRegistro = {[Op.or]: [{statusSugeridoPor_id: usuario.id}, {statusRegistro_id: aprobado_id}]}; // sugerido por el usuario y en status aprobado
-			const condicion = {[campo_id]: pestana_id || tema_id, ...statusSugeridoRegistro};
+			const condicion = {[campo_id]: pestana_id || tema_id};
 			const encabezados = await procesos.obtieneEncabs({esCarta, esLugares, conIndice, condicion, usuario});
 
 			// Fin
