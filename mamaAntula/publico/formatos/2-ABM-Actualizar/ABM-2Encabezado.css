@@ -10,4 +10,9 @@
 		input[type="date"] {width: 130px;}
 		select[name="orden"], select[name="numero"] {width: 70px;}
 	}
+	img {
+		width: 30px; height: 30px; border-radius: 50%; object-fit: cover;
+		cursor: pointer;
+		&[src=""] {display: none;}
+	}
 }
