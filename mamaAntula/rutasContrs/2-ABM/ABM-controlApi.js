@@ -8,7 +8,7 @@ export default {
 		const datosIniciales = {
 			...{secciones, temasSecciones, pestanasTemas},
 			...{personajes, idiomas, lugares, indicesLugar},
-			...{usuario, aprobado_id},
+			...{usuario, creado_id, aprobado_id},
 			...{encabCartaIntro_id, encabLugaresIntro_id, contLayouts},
 		};
 
@@ -95,8 +95,9 @@ export default {
 			const {encab_id} = req.query;
 
 			// Obtiene los contenidos
+			const include = ["carrusel", "layout", "statusSugeridoPor"];
 			const contenidos = await baseDatos
-				.obtieneTodosPorCondicion("contenidos", {encab_id}, ["carrusel", "layout", "statusSugeridoPor", "statusRegistro"])
+				.obtieneTodosPorCondicion("contenidos", {encab_id}, include)
 				.then((n) => n.sort((a, b) => b.anoLanzam - a.anoLanzam))
 				.then((n) => n.sort((a, b) => a.orden - b.orden))
 				.then((n) => n.map((m) => ({...m, carrusel: m.carrusel.sort((a, b) => a.orden - b.orden)})));
