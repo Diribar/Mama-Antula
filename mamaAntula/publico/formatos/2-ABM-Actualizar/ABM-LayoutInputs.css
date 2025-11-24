@@ -1,13 +1,11 @@
 /* Layouts + Ícono Guardar */
-edicion, #layouts {
+.edicion, #layouts {
 	display: flex; flex-direction: row; justify-content: center; gap: 30px;
-	/* :is(&#layouts) {
-		position: relative;
-	}
-	.edicion {
-		width: 100%; gap: 30px;
-	} */
+	width: 100%;
+	/* align-self: stretch;  */
 
+	:is(&.edicion) {align-items: center;}
+	:is(&#layouts) #texto .input {border-top-left-radius: 0;}
 
 	/* Layouts */
 	.layout {
@@ -20,7 +18,7 @@ edicion, #layouts {
 		flex-direction: column; flex-grow: 1;
 		.barraHerrams {border-radius: 10px 10px 0 0; max-width: fit-content;}
 		.input {
-			border-top: 1px solid #ccc; border-radius: 15px; border-top-left-radius: 0; font-size: 1rem;
+			border-top: 1px solid #ccc; border-radius: 15px; font-size: 1rem;
 			max-height: 172px; overflow: hidden;
 			.ql-editor p {margin-bottom: 15px;}
 		}
