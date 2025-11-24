@@ -22,10 +22,10 @@ import captura from "../../middlewares/2-ABM/ABM-captura.js";
 const router = express.Router();
 
 // 📡 APIs - Filtros
-router.get("/api/abm-filtros-datos-inciales", API.filtros.datosIniciales);
-router.get("/api/abm-filtros-obtiene-encabezados", validaFiltros, captura, API.filtros.obtieneEncabs);
+router.get("/api/abm-filtros-datos-inciales", API.datosIniciales);
 
 // APIs - Encabezado
+router.get("/api/abm-filtros-obtiene-encabezados", validaFiltros, captura, API.encabezado.obtiene);
 router.post("/api/abm-encabezado-guarda", descargaImg.none(), validaEncabGuarda, API.encabezado.guarda); // se usa multer para que procese el formData
 router.delete("/api/abm-encabezado-elimina", validaEncabElimina, API.encabezado.elimina);
 

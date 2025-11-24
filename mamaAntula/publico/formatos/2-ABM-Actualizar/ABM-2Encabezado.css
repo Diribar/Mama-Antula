@@ -1,6 +1,7 @@
 /* Sector encabezados */
 #sectorEncabezado {
 	width: fit-content;
+
 	.encabezado {
 		input[type="text"] {
 			width: 300px;

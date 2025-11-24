@@ -2,19 +2,20 @@
 import procesos from "./ABM-procesos.js";
 
 export default {
-	filtros: {
-		datosIniciales: (req, res) => {
-			// Variables
-			const datosIniciales = {
-				...{secciones, temasSecciones, pestanasTemas},
-				...{personajes, idiomas, lugares, indicesLugar},
-				...{encabCartaIntro_id, encabLugaresIntro_id, contLayouts},
-			};
+	datosIniciales: (req, res) => {
+		// Variables
+		const datosIniciales = {
+			...{secciones, temasSecciones, pestanasTemas},
+			...{personajes, idiomas, lugares, indicesLugar},
+			...{encabCartaIntro_id, encabLugaresIntro_id, contLayouts},
+		};
 
-			// Fin
-			return res.json(datosIniciales);
-		},
-		obtieneEncabs: async (req, res) => {
+		// Fin
+		return res.json(datosIniciales);
+	},
+
+	encabezado: {
+		obtiene: async (req, res) => {
 			// Variables
 			const {tema_id, pestana_id} = req.query;
 			const {usuario} = req.session;
@@ -26,15 +27,14 @@ export default {
 			const conIndice = (temaActual && temaActual.indicesFecha.length) || esLugares;
 
 			// Obtiene los encabezados
-			const condicion = {[pestana_id ? "pestana_id" : "tema_id"]: pestana_id || tema_id};
+			const campo_id = [pestana_id ? "pestana_id" : "tema_id"];
+			const statusSugeridoRegistro = {[Op.or]: [{statusSugeridoPor_id: usuario.id}, {statusRegistro_id: aprobado_id}]}; // sugerido por el usuario y en status aprobado
+			const condicion = {[campo_id]: pestana_id || tema_id, ...statusSugeridoRegistro};
 			const encabezados = await procesos.obtieneEncabs({esCarta, esLugares, conIndice, condicion, usuario});
 
 			// Fin
 			return res.json(encabezados);
 		},
-	},
-
-	encabezado: {
 		guarda: async (req, res) => {
 			// Variables
 			const {encab_id: id} = req.body;
@@ -44,7 +44,7 @@ export default {
 			if (id == "nuevo") {
 				// Variables
 				const creadoPor_id = req.session.usuario.id;
-				const datos = {...req.body, creadoPor_id};
+				const datos = {...req.body, creadoPor_id, statusSugeridoPor_id: creadoPor_id};
 				delete datos.id;
 
 				// Crea el encabezado y guarda la cookie
@@ -95,7 +95,7 @@ export default {
 
 			// Obtiene los contenidos
 			const contenidos = await baseDatos
-				.obtieneTodosPorCondicion("contenidos", {encab_id}, ["carrusel", "layout"])
+				.obtieneTodosPorCondicion("contenidos", {encab_id}, ["carrusel", "layout", "statusSugeridoPor", "statusRegistro"])
 				.then((n) => n.sort((a, b) => b.anoLanzam - a.anoLanzam))
 				.then((n) => n.sort((a, b) => a.orden - b.orden))
 				.then((n) => n.map((m) => ({...m, carrusel: m.carrusel.sort((a, b) => a.orden - b.orden)})));
@@ -174,7 +174,7 @@ export default {
 		// Empieza a armar la información a guardar
 		const layout_id = contLayouts.find((n) => n.codigo == layoutCodigo).id;
 		const {id: creadoPor_id} = req.session.usuario;
-		const datos = {encab_id, layout_id, creadoPor_id};
+		const datos = {encab_id, layout_id, creadoPor_id, statusSugeridoPor_id: creadoPor_id};
 
 		// Obtiene los datos útiles
 		const camposGuardar = ["texto", "imagen", "video", "leyenda"];
