@@ -116,10 +116,33 @@ window.addEventListener("load", async () => {
 		creaLosIconos: (contenido) => {
 			// Crea el DOM
 			v.domIconos = DOM.iconos.cloneNode(true);
-			v.domIconos.dataset.id = contenido.id;
-			v.domIconos.dataset.statusRegistro_id = contenido.statusRegistro_id;
-			if (v.final_id == contenido.id || contenido.statusRegistro_id != 1) v.domIconos.querySelector(".baja").remove();
-			if (v.inicial_id == contenido.id || contenido.statusRegistro_id != 1) v.domIconos.querySelector(".sube").remove();
+
+			// Determina si muestra la imagen o los íconos
+			const muestraImagen =
+				contenido.statusRegistro_id != comp1234.aprobado_id && // el contenido no está aprobado
+				contenido.statusSugeridoPor_id != comp1234.usuario.id; // el staus fue generado por otro usuario
+
+			// Muestra la imagen
+			if (muestraImagen) {
+				// Muestra la imagen
+				v.domIconos.querySelector("img").src = "/imgsEditables/8-Usuarios/" + contenido.statusSugeridoPor.imagen;
+				v.domIconos.querySelector("img").title = contenido.statusSugeridoPor.nombreCompleto;
+
+				// Oculta los íconos
+				const iconos = v.domIconos.querySelectorAll("i");
+				for (const icono of iconos) icono.classList.add("ocultar");
+			}
+
+			// Muestra los íconos
+			else {
+				// Muestra los íconos
+				v.domIconos.dataset.id = contenido.id;
+				if (v.final_id == contenido.id || contenido.statusRegistro_id != 1) v.domIconos.querySelector(".baja").remove();
+				if (v.inicial_id == contenido.id || contenido.statusRegistro_id != 1) v.domIconos.querySelector(".sube").remove();
+
+				// Oculta la imagen
+				v.domIconos.querySelector("img").src = "";
+			}
 
 			// Fin
 			return;
