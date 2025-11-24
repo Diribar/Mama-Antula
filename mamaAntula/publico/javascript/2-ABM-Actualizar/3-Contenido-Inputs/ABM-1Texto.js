@@ -6,7 +6,7 @@ window.addEventListener("load", async () => {
 	const DOM = {
 		barraHerrams: domLayout.querySelector(".barraHerrams"),
 		input: domLayout.querySelector(".input"),
-		output: domLayout.querySelector("#output"),
+		output: domLayout.querySelector("name=['texto'].output"),
 	};
 	const barraHerrams = {
 		grupo1: [

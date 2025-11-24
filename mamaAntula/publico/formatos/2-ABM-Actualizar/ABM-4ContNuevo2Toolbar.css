@@ -20,5 +20,5 @@
 		.ql-editor {font-size: 1rem !important;}
 	} */
 
-	#output {display: none; height: 200px;}
+	.output {display: none; height: 200px;}
 }
