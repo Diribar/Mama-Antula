@@ -83,7 +83,6 @@ window.addEventListener("load", async () => {
 		// ACTUALIZA EL INPUT - si el cambio no fue hecho por el usuario, interrumpe la función
 
 		setTimeout(() => {
-			console.log(source);
 			if (source !== "user") return;
 
 			const parrafos = quill.root.querySelectorAll("p");
