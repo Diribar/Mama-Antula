@@ -137,8 +137,10 @@ window.addEventListener("load", async () => {
 			else {
 				// Muestra los íconos
 				v.domIconos.dataset.id = contenido.id;
-				if (v.final_id == contenido.id || contenido.statusRegistro_id != 1) v.domIconos.querySelector(".baja").remove();
-				if (v.inicial_id == contenido.id || contenido.statusRegistro_id != 1) v.domIconos.querySelector(".sube").remove();
+				if (v.final_id == contenido.id || contenido.statusRegistro_id != comp1234.creado_id)
+					v.domIconos.querySelector(".baja").remove();
+				if (v.inicial_id == contenido.id || contenido.statusRegistro_id != comp1234.creado_id)
+					v.domIconos.querySelector(".sube").remove();
 
 				// Oculta la imagen
 				v.domIconos.querySelector("img").src = "";
