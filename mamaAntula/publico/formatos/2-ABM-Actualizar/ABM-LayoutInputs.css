@@ -1,7 +1,13 @@
 /* Layouts + Ícono Guardar */
-#layouts {
+edicion, #layouts {
 	display: flex; flex-direction: row; justify-content: center; gap: 30px;
-	position: relative;
+	/* :is(&#layouts) {
+		position: relative;
+	}
+	.edicion {
+		width: 100%; gap: 30px;
+	} */
+
 
 	/* Layouts */
 	.layout {
