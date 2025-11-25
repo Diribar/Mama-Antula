@@ -356,8 +356,8 @@ window.addEventListener("load", async () => {
 		}
 
 		// Obtiene todos los íconos 'entraEnEdicion'
-		const domIconos = document.querySelectorAll("#sectorContActual .iconos .entraEnEdicion");
-		for (const entraEnEdicion of domIconos)
+		const iconosEntra = document.querySelectorAll("#sectorContActual .iconos .entraEnEdicion");
+		for (const entraEnEdicion of iconosEntra)
 			entraEnEdicion.addEventListener("click", () => {
 				// Alterna el muestra/oculta de los íconos
 				const iconos = entraEnEdicion.parentNode;
@@ -369,6 +369,23 @@ window.addEventListener("load", async () => {
 				bloqueSector.querySelector(".contenido").classList.add("ocultar");
 
 			});
+
+
+		// Obtiene todos los íconos 'saleDeEdicion'
+		const iconosSale = document.querySelectorAll("#sectorContActual .iconos .saleDeEdicion");
+		for (const saleDeEdicion of iconosSale)
+			saleDeEdicion.addEventListener("click", () => {
+				// Alterna el muestra/oculta de los íconos
+				const iconos = saleDeEdicion.parentNode;
+				for (const icono of iconos.querySelectorAll("i")) icono.classList.toggle("ocultar");
+
+				// Muestra edición y oculta lectura
+				const bloqueSector = iconos.parentNode;
+				bloqueSector.querySelector(".contenido").classList.remove("ocultar");
+				bloqueSector.querySelector(".edicion").classList.add("ocultar");
+
+			});
+
 	};
 	// Actualiza por cambio en el encabezado
 	DOM.filtroEncab.addEventListener("change", async () => {
