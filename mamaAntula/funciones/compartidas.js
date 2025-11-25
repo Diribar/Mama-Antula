@@ -237,9 +237,9 @@ export default {
 
 // Variables
 const includesEncabs = {
-	cartas: ["nombreDesde", "nombreHacia", "idioma", "lugar"],
-	lugares: "lugarIndice",
-	conIndice: "lugar",
+	cartas: ["nombreDesde", "nombreHacia", "idioma", "lugar", "statusSugeridoPor"],
+	lugares: ["lugarIndice", "statusSugeridoPor"],
+	conIndice: ["lugar", "statusSugeridoPor"],
 };
 
 // Funciones

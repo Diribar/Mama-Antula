@@ -15,9 +15,10 @@ window.addEventListener("load", async () => {
 		inputs: domSectorEncabezado.querySelectorAll(".input"),
 
 		// Íconos
-		iconos: domSectorEncabezado.querySelector(".iconos"),
+		iconos: domSectorEncabezado.querySelectorAll(".iconos i"),
 		iconoGuardar: domSectorEncabezado.querySelector(".iconos #guardar"),
 		iconoEliminar: domSectorEncabezado.querySelector(".iconos #eliminar"),
+		img: domSectorEncabezado.querySelector(".iconos img"),
 	};
 	const rutas = {
 		// Encabezado
@@ -55,6 +56,25 @@ window.addEventListener("load", async () => {
 			// Fin
 			return;
 		},
+		actualizaIconos: () => {
+			// Si no está en status aprobado y la sugerencia fue de otro usuario, muestra la imagen de ese usuario
+			if (
+				v.encabezado.statusRegistro_id != comp1234.aprobado_id &&
+				v.encabezado.statusSugeridoPor_id != comp1234.usuario.id
+			) {
+				// Muestra la imagen y oculta los íconos
+				DOM.img.src = "/imgsEditables/8-Usuarios/" + v.encabezado.statusSugeridoPor.imagen;
+				DOM.img.title = v.encabezado.statusSugeridoPor.nombreCompleto;
+				for (const iconos of DOM.iconos) iconos.classList.add("ocultar");
+			} else {
+				// Oculta la imagen y muestra los íconos
+				DOM.img.src = "";
+				for (const iconos of DOM.iconos) iconos.classList.remove("ocultar");
+
+				// Si es un encabezado nuevo, oculta el ícono de eliminar
+				DOM.iconoEliminar.classList[DOM.filtroEncab.value == "nuevo" ? "add" : "remove"]("ocultar");
+			}
+		},
 	};
 
 	// Impactos del filtro - Actualiza el encabezado
@@ -72,8 +92,8 @@ window.addEventListener("load", async () => {
 		if (!DOM.encabezado) return;
 		FN.actualizaSusValores();
 
-		// Si es un encabezado nuevo, oculta el ícono de eliminar
-		DOM.iconoEliminar.classList[DOM.filtroEncab.value == "nuevo" ? "add" : "remove"]("ocultar");
+		// Actualiza los íconos
+		FN.actualizaIconos();
 
 		// Fin
 		return;
