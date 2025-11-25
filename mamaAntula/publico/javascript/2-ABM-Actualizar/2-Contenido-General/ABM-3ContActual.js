@@ -111,7 +111,6 @@ window.addEventListener("load", async () => {
 				edicionImagen.classList.add("oculta");
 				edicionImagen.style.display = "flex";
 				v.domEdicion.appendChild(edicionImagen);
-
 			}
 
 			// Agrega las clases
@@ -360,10 +359,15 @@ window.addEventListener("load", async () => {
 		const domIconos = document.querySelectorAll("#sectorContActual .iconos .entraEnEdicion");
 		for (const entraEnEdicion of domIconos)
 			entraEnEdicion.addEventListener("click", () => {
-				// Variables
-				const id = domIcono.parentNode.dataset.id;
+				// Alterna el muestra/oculta de los íconos
+				const iconos = entraEnEdicion.parentNode;
+				for (const icono of iconos.querySelectorAll("i")) icono.classList.toggle("ocultar");
 
-				// Muestra
+				// Muestra edición y oculta lectura
+				const bloqueSector = iconos.parentNode;
+				bloqueSector.querySelector(".edicion").classList.remove("ocultar");
+				bloqueSector.querySelector(".contenido").classList.add("ocultar");
+
 			});
 	};
 	// Actualiza por cambio en el encabezado
