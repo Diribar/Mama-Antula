@@ -114,7 +114,7 @@ window.addEventListener("load", async () => {
 			}
 
 			// Agrega las clases
-			v.domEdicion.classList.add("edicion");
+			v.domEdicion.classList.add("edicion", "ocultar");
 
 			// Fin
 			return;
