@@ -32,9 +32,9 @@ window.addEventListener("load", async () => {
 			// Agrega los contenidos
 			for (const contenido of v.contenidos) {
 				// Determina si muestra la imagen o los íconos
-				v.aptoEliminar =
-					contenido.statusRegistro_id == comp1234.aprobado_id || // el contenido está aprobado
-					contenido.statusSugeridoPor_id == comp1234.usuario.id; // el status fue generado por este usuario
+				v.aptoMover =
+					contenido.statusRegistro_id == comp1234.creado_id && contenido.statusSugeridoPor_id == comp1234.usuario.id;
+				v.aptoEliminar = v.aptoMover || contenido.statusRegistro_id == comp1234.aprobado_id; // el contenido está aprobado
 
 				// Agrega el bloque
 				this.agregaBloque(contenido);
@@ -90,10 +90,12 @@ window.addEventListener("load", async () => {
 
 			// Muestra la imagen
 			if (v.aptoEliminar) {
-				// Muestra los íconos
+				// Asigna el id
 				v.domIconos.dataset.id = contenido.id;
-				if (v.inicial_id == contenido.id) v.domIconos.querySelector(".sube").remove();
-				if (v.final_id == contenido.id) v.domIconos.querySelector(".baja").remove();
+
+				// Muestra los íconos
+				if (v.inicial_id == contenido.id || !v.aptoMover) v.domIconos.querySelector(".sube").remove();
+				if (v.final_id == contenido.id || !v.aptoMover) v.domIconos.querySelector(".baja").remove();
 
 				// Oculta la imagen
 				v.domIconos.querySelector("img").remove();
@@ -316,7 +318,6 @@ window.addEventListener("load", async () => {
 					return;
 				});
 		}
-
 	};
 
 	// Actualiza por cambio en el encabezado
