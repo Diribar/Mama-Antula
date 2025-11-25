@@ -12,6 +12,7 @@ window.addEventListener("load", async () => {
 	};
 	const v = {
 		cruds: ["baja", "sube", "elimina"],
+		mostrar: ["entraEnEdicion", "saleDeEdicion"],
 		funcsComps: {
 			baja: (datos) => putJson(datos),
 			sube: (datos) => putJson(datos),
@@ -38,18 +39,15 @@ window.addEventListener("load", async () => {
 			auxCci.agregaBloque(contenido);
 		}
 
-		// Genera los eventos de los íconos
-		eventosIconos();
-
 		// Fin
 		return;
 	};
 
 	// Eventos de íconos
 	const eventosIconos = () => {
-		// Rutina por evento
+		// Rutina por evento crud
 		for (const crud of v.cruds) {
-			// Obtiene los íconos
+			// Obtiene todos los íconos de este crud
 			const domIconos = document.querySelectorAll("#sectorContActual .iconos ." + crud);
 
 			// Les asigna el evento a c/u
@@ -80,12 +78,22 @@ window.addEventListener("load", async () => {
 					return;
 				});
 		}
+
+		// Obtiene todos los íconos 'entraEnEdicion'
+		const domIconos = document.querySelectorAll("#sectorContActual .iconos .entraEnEdicion");
+		for (const entraEnEdicion of domIconos)
+			entraEnEdicion.addEventListener("click", () => {
+				// Variables
+				const id = domIcono.parentNode.dataset.id;
+
+				// Muestra
+			});
 	};
 
 	// Funciones auxiliares de crea contenido e íconos
 	const auxCci = {
 		agregaBloque: function (contenido) {
-			// Crea el DOM contenedor
+			// Crea el DOM bloque
 			const domBloque = document.createElement("div");
 			domBloque.classList.add("bloque", "sector");
 
@@ -93,12 +101,20 @@ window.addEventListener("load", async () => {
 			this.creaElContenido(contenido);
 			domBloque.appendChild(v.domContenido);
 
+			// Agrega la edición
+			if (v.aptoEdicion) {
+				this.creaLaEdicion(contenido);
+				domBloque.appendChild(v.domEdicion);
+			}
+
 			// Crea y agrega los íconos
 			this.creaLosIconos(contenido);
 			domBloque.appendChild(v.domIconos);
 
 			// Agrega el bloque al sector
 			DOM.sectorContenido.appendChild(domBloque);
+
+			// Fin
 			return;
 		},
 		creaElContenido: function (contenido) {
@@ -117,32 +133,35 @@ window.addEventListener("load", async () => {
 					(contenido.layout.codigo == "libro" && this.libro(contenido)) ||
 					(contenido.layout.codigo == "estampa" && this.estampa(contenido));
 
+			// Agrega las clases
+			v.domContenido.classList.add("contenido", "bloque-" + contenido.layout.codigo);
+
+			// Fin
+			return;
+		},
+		creaLaEdicion: (contenido) => {
+			// Crea el DOM
+			v.domEdicion = document.createElement("div");
+			v.domEdicion.classList.add("edicion");
+
 			// Agrega la edición
 			if (["textoImagen", "texto", "imagen"].includes(contenido.layout.codigo)) {
-				// Crea el sector edición
-				const edicion = document.createElement("div");
-				edicion.classList.add("edicion");
-				v.domContenido.appendChild(edicion);
-
 				// Copia la edición del texto
 				const edicionTexto = document.querySelector("#sectorContNuevo #layouts #texto").cloneNode(true);
 				edicionTexto.classList.add("oculta");
 				const qlEditor = edicionTexto.querySelector(".ql-editor");
 				qlEditor.removeAttribute("data-placeholder");
 				qlEditor.innerHTML = contenido.texto;
-				edicion.appendChild(edicionTexto);
+				v.domEdicion.appendChild(edicionTexto);
 
 				// Agrega la edición de la imagen
 				const edicionImagen = document.querySelector("#sectorContNuevo #layouts #imagen").cloneNode(true);
 				edicionImagen.classList.add("oculta");
-				edicion.appendChild(edicionImagen);
+				v.domEdicion.appendChild(edicionImagen);
 
-				edicion.children[0].style.display = "flex";
-				edicion.children[1].style.display = "flex";
+				v.domEdicion.children[0].style.display = "flex";
+				v.domEdicion.children[1].style.display = "flex";
 			}
-
-			// Agrega las clases
-			v.domContenido.classList.add("contenido", "bloque-" + contenido.layout.codigo);
 
 			// Fin
 			return;
@@ -366,6 +385,9 @@ window.addEventListener("load", async () => {
 
 		// Actualiza el DOM
 		creaContenidoIconos();
+
+		// Genera los eventos de los íconos
+		eventosIconos();
 
 		// Fin
 		return;
