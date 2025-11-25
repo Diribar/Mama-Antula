@@ -48,7 +48,7 @@ window.addEventListener("load", async () => {
 			const domBloque = document.createElement("div");
 			domBloque.classList.add("bloque", "sector");
 			if ([comp1234.inactivar_id, comp1234.inactivo_id].includes(contenido.statusRegistro_id))
-				domBloque.classList.add("inactivar");
+				domBloque.classList.add("inactivo");
 
 			// Crea y agrega el contenido
 			this.creaElContenido(contenido);
