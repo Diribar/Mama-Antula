@@ -19,7 +19,7 @@
 	}
 
 	/* Condicionado por las pestañas */
-	&:has(#textoImagen.activo, #texto.activo, #carrusel.activo, #estampa.activo) #layouts {align-self: stretch;}
+	/* &:has(#textoImagen.activo, #texto.activo, #carrusel.activo, #estampa.activo) #layouts {align-self: stretch;} */
 	&:has(#textoImagen.pestana.activo) {#layouts :is(#texto, #imagen) {display: flex;}}
 	&:has(#texto.pestana.activo) {#layouts #texto {display: flex;}}
 	&:has(#carrusel.pestana.activo) {#layouts #carrusel {display: flex;}}

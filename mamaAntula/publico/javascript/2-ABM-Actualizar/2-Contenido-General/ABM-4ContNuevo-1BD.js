@@ -21,7 +21,7 @@ window.addEventListener("load", async () => {
 
 		// Ouputs
 		iconoGuardar: domSector.querySelector("#pestanasGuardar #iconoGuardar"),
-		textoOutput: domSector.querySelector("#texto #output"),
+		textoOutput: domSector.querySelector("#texto [name='texto'].output"),
 	};
 	const rutas = {
 		guardaUnaImagen: "/articulos/api/abm-nuevo-contenido-guarda",

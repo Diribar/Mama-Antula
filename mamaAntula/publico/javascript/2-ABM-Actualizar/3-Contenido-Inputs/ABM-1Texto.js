@@ -6,7 +6,7 @@ window.addEventListener("load", async () => {
 	const DOM = {
 		barraHerrams: domLayout.querySelector(".barraHerrams"),
 		input: domLayout.querySelector(".input"),
-		output: domLayout.querySelector("#output"),
+		output: domLayout.querySelector("[name='texto'].output"),
 	};
 	const barraHerrams = {
 		grupo1: [
@@ -83,7 +83,6 @@ window.addEventListener("load", async () => {
 		// ACTUALIZA EL INPUT - si el cambio no fue hecho por el usuario, interrumpe la función
 
 		setTimeout(() => {
-			console.log(source);
 			if (source !== "user") return;
 
 			const parrafos = quill.root.querySelectorAll("p");

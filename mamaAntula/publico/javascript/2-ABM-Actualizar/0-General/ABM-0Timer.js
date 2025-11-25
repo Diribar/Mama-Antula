@@ -17,7 +17,7 @@ window.addEventListener("load", async () => {
 		cartelDeAviso: async () => {
 			// Variables
 			const mensaje =
-				"Se detectaron " +
+				"Transcurrieron " +
 				minutosPermitidos +
 				" min. sin guardado de novedades." +
 				"<br>" +

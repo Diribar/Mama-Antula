@@ -28,7 +28,15 @@ window.addEventListener("load", async () => {
 		v.final_id = v.contenidos.at(-1)?.id;
 
 		// Agrega los contenidos
-		for (const contenido of v.contenidos) auxCci.agregaBloque(contenido);
+		for (const contenido of v.contenidos) {
+			// Determina si muestra la imagen o los íconos
+			v.aptoEdicion =
+				contenido.statusRegistro_id == comp1234.aprobado_id || // el contenido está aprobado
+				contenido.statusSugeridoPor_id == comp1234.usuario.id; // el status fue generado por este usuario
+
+			// Agrega el bloque
+			auxCci.agregaBloque(contenido);
+		}
 
 		// Genera los eventos de los íconos
 		eventosIconos();
@@ -37,6 +45,7 @@ window.addEventListener("load", async () => {
 		return;
 	};
 
+	// Eventos de íconos
 	const eventosIconos = () => {
 		// Rutina por evento
 		for (const crud of v.cruds) {
@@ -44,10 +53,11 @@ window.addEventListener("load", async () => {
 			const domIconos = document.querySelectorAll("#sectorContActual .iconos ." + crud);
 
 			// Les asigna el evento a c/u
-			for (const domIcono of domIconos) {
+			for (const domIcono of domIconos)
 				domIcono.addEventListener("click", async () => {
 					// Variables
 					const id = domIcono.parentNode.dataset.id;
+					console.log(id);
 
 					// Si es para eliminar, pide la confirmación del usuario
 					if (crud == "elimina") {
@@ -69,7 +79,6 @@ window.addEventListener("load", async () => {
 					// Fin
 					return;
 				});
-			}
 		}
 	};
 
@@ -95,6 +104,7 @@ window.addEventListener("load", async () => {
 		creaElContenido: function (contenido) {
 			// Agrega el contenido
 			if (contenido.layout.codigo == "textoImagen") {
+				// Agrega la lectura
 				v.domContenido = document.createElement("div");
 				v.domContenido.appendChild(this.imagen(contenido));
 				v.domContenido.appendChild(this.texto(contenido));
@@ -107,6 +117,30 @@ window.addEventListener("load", async () => {
 					(contenido.layout.codigo == "libro" && this.libro(contenido)) ||
 					(contenido.layout.codigo == "estampa" && this.estampa(contenido));
 
+			// Agrega la edición
+			if (["textoImagen", "texto", "imagen"].includes(contenido.layout.codigo)) {
+				// Crea el sector edición
+				const edicion = document.createElement("div");
+				edicion.classList.add("edicion");
+				v.domContenido.appendChild(edicion);
+
+				// Copia la edición del texto
+				const edicionTexto = document.querySelector("#sectorContNuevo #layouts #texto").cloneNode(true);
+				edicionTexto.classList.add("oculta");
+				const qlEditor = edicionTexto.querySelector(".ql-editor");
+				qlEditor.removeAttribute("data-placeholder");
+				qlEditor.innerHTML = contenido.texto;
+				edicion.appendChild(edicionTexto);
+
+				// Agrega la edición de la imagen
+				const edicionImagen = document.querySelector("#sectorContNuevo #layouts #imagen").cloneNode(true);
+				edicionImagen.classList.add("oculta");
+				edicion.appendChild(edicionImagen);
+
+				edicion.children[0].style.display = "flex";
+				edicion.children[1].style.display = "flex";
+			}
+
 			// Agrega las clases
 			v.domContenido.classList.add("contenido", "bloque-" + contenido.layout.codigo);
 
@@ -117,24 +151,8 @@ window.addEventListener("load", async () => {
 			// Crea el DOM
 			v.domIconos = DOM.iconos.cloneNode(true);
 
-			// Determina si muestra la imagen o los íconos
-			const muestraImagen =
-				contenido.statusRegistro_id != comp1234.aprobado_id && // el contenido no está aprobado
-				contenido.statusSugeridoPor_id != comp1234.usuario.id; // el staus fue generado por otro usuario
-
 			// Muestra la imagen
-			if (muestraImagen) {
-				// Muestra la imagen
-				v.domIconos.querySelector("img").src = "/imgsEditables/8-Usuarios/" + contenido.statusSugeridoPor.imagen;
-				v.domIconos.querySelector("img").title = contenido.statusSugeridoPor.nombreCompleto;
-
-				// Oculta los íconos
-				const iconos = v.domIconos.querySelectorAll("i");
-				for (const icono of iconos) icono.classList.add("ocultar");
-			}
-
-			// Muestra los íconos
-			else {
+			if (v.aptoEdicion) {
 				// Muestra los íconos
 				v.domIconos.dataset.id = contenido.id;
 				if (v.final_id == contenido.id || contenido.statusRegistro_id != comp1234.creado_id)
@@ -144,6 +162,16 @@ window.addEventListener("load", async () => {
 
 				// Oculta la imagen
 				v.domIconos.querySelector("img").src = "";
+			}
+
+			// Muestra la imagen
+			else {
+				v.domIconos.querySelector("img").src = "/imgsEditables/8-Usuarios/" + contenido.statusSugeridoPor.imagen;
+				v.domIconos.querySelector("img").title = contenido.statusSugeridoPor.nombreCompleto;
+
+				// Oculta los íconos
+				const iconos = v.domIconos.querySelectorAll("i");
+				for (const icono of iconos) icono.classList.add("ocultar");
 			}
 
 			// Fin
