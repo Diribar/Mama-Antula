@@ -140,15 +140,15 @@ window.addEventListener("load", async () => {
 			return;
 		},
 		creaLaEdicion: (contenido) => {
-			// Crea el DOM
-			v.domEdicion = document.createElement("div");
-			v.domEdicion.classList.add("edicion");
-
 			// Agrega la edición
 			if (["textoImagen", "texto", "imagen"].includes(contenido.layout.codigo)) {
+				// Crea el DOM
+				v.domEdicion = document.createElement("div");
+
 				// Copia la edición del texto
 				const edicionTexto = document.querySelector("#sectorContNuevo #layouts #texto").cloneNode(true);
 				edicionTexto.classList.add("oculta");
+				edicionTexto.style.display = "flex";
 				const qlEditor = edicionTexto.querySelector(".ql-editor");
 				qlEditor.removeAttribute("data-placeholder");
 				qlEditor.innerHTML = contenido.texto;
@@ -157,11 +157,13 @@ window.addEventListener("load", async () => {
 				// Agrega la edición de la imagen
 				const edicionImagen = document.querySelector("#sectorContNuevo #layouts #imagen").cloneNode(true);
 				edicionImagen.classList.add("oculta");
+				edicionImagen.style.display = "flex";
 				v.domEdicion.appendChild(edicionImagen);
 
-				v.domEdicion.children[0].style.display = "flex";
-				v.domEdicion.children[1].style.display = "flex";
 			}
+
+			// Agrega las clases
+			v.domEdicion.classList.add("edicion");
 
 			// Fin
 			return;
