@@ -126,7 +126,6 @@ window.addEventListener("load", async () => {
 				// Copia la edición del texto
 				const edicionTexto = document.querySelector("#sectorContNuevo #layouts #texto").cloneNode(true);
 				edicionTexto.classList.add("oculta");
-				edicionTexto.querySelector(".barraHerrams").remove();
 				const qlEditor = edicionTexto.querySelector(".ql-editor");
 				qlEditor.removeAttribute("data-placeholder");
 				qlEditor.innerHTML = contenido.texto;

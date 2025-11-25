@@ -4,22 +4,23 @@
 	width: 100%;
 	/* align-self: stretch;  */
 
-	:is(&.edicion) {align-items: center;}
-	:is(&#layouts) #texto .input {border-top-left-radius: 0;}
+	:is(&.edicion) #texto .input {width: 100%;}
+	:is(&#layouts) #texto {}
 
 	/* Layouts */
 	.layout {
 		--lado: 200px;
 		display: none;
-		min-width: var(--lado); min-height: var(--lado); max-height: 300px;
+		min-width: var(--lado); min-height: var(--lado);
+		/* max-height: 300px; */
 		[name="leyenda"], [name="comentario"] {text-align: center;}
 	}
 	#texto {
 		flex-direction: column; flex-grow: 1;
 		.barraHerrams {border-radius: 10px 10px 0 0; max-width: fit-content;}
 		.input {
-			border-top: 1px solid #ccc; border-radius: 15px; font-size: 1rem;
-			max-height: 172px; overflow: hidden;
+			border-top: 1px solid #ccc; font-size: 1rem; border-radius: 15px; border-top-left-radius: 0;
+			/* max-height: 172px; overflow: hidden; */
 			.ql-editor p {margin-bottom: 15px;}
 		}
 	}
@@ -33,10 +34,10 @@
 	}
 	#carrusel, #estampa {
 		--gap: 20px;
-		flex-direction: row; gap: var(--gap);
+		flex-direction: row; gap: calc(var(--gap) * 2); justify-content: center;
 
 		/* Contenedor de carrusel de imágenes */
-		&:not(:has(#dragDrop.ocultar)) #crslComentario {max-width: calc(100% - var(--gap) - var(--lado));}
+		&:not(:has(#dragDrop.ocultar)) #crslComentario {max-width: calc(100% - var(--gap) * 2 - var(--lado));}
 		&:has(#dragDrop.ocultar) #crslComentario {max-width: 100%;}
 		#crslComentario {
 			justify-content: flex-end; min-width: var(--lado);
@@ -46,6 +47,7 @@
 			#carrImgs {
 				overflow-x: auto;
 				display: flex; flex-direction: row; gap: var(--gap);
+				max-width: 100%;
 				&:empty {display: none;}
 
 				img.imgAgreg {height: var(--lado); &[src=""] {display: none;}}
