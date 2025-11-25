@@ -32,7 +32,7 @@ window.addEventListener("load", async () => {
 			// Determina si muestra la imagen o los íconos
 			v.aptoEdicion =
 				contenido.statusRegistro_id == comp1234.aprobado_id || // el contenido está aprobado
-				contenido.statusSugeridoPor_id != comp1234.usuario.id; // el status fue generado por este usuario
+				contenido.statusSugeridoPor_id == comp1234.usuario.id; // el status fue generado por este usuario
 
 			// Agrega el bloque
 			auxCci.agregaBloque(contenido);
@@ -45,6 +45,7 @@ window.addEventListener("load", async () => {
 		return;
 	};
 
+	// Eventos de íconos
 	const eventosIconos = () => {
 		// Rutina por evento
 		for (const crud of v.cruds) {
@@ -52,10 +53,11 @@ window.addEventListener("load", async () => {
 			const domIconos = document.querySelectorAll("#sectorContActual .iconos ." + crud);
 
 			// Les asigna el evento a c/u
-			for (const domIcono of domIconos) {
+			for (const domIcono of domIconos)
 				domIcono.addEventListener("click", async () => {
 					// Variables
 					const id = domIcono.parentNode.dataset.id;
+					console.log(id);
 
 					// Si es para eliminar, pide la confirmación del usuario
 					if (crud == "elimina") {
@@ -77,7 +79,6 @@ window.addEventListener("load", async () => {
 					// Fin
 					return;
 				});
-			}
 		}
 	};
 

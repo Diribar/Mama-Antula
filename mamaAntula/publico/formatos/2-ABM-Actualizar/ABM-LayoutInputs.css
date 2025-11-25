@@ -5,7 +5,7 @@
 	/* align-self: stretch;  */
 
 	:is(&.edicion) #texto .input {width: 100%;}
-	:is(&#layouts) #texto {}
+	/* :is(&#layouts) #texto {} */
 
 	/* Layouts */
 	.layout {
