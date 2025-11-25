@@ -9,7 +9,7 @@ export default {
 			...{secciones, temasSecciones, pestanasTemas},
 			...{personajes, idiomas, lugares, indicesLugar},
 			...{encabCartaIntro_id, encabLugaresIntro_id, contLayouts},
-			...{creado_id, aprobado_id, inactivar_id, inactivo_id},
+			...{creado_id, aprobado_id, rechazar_id, rechazado_id},
 			usuario,
 		};
 
@@ -162,7 +162,7 @@ export default {
 
 			// Acciones si el contenido esta en status aprobado
 			if (contenido.statusRegistro_id == aprobado_id)
-				await baseDatos.actualizaPorId("contenidos", id, {statusRegistro_id: inactivar_id});
+				await baseDatos.actualizaPorId("contenidos", id, {statusRegistro_id: rechazar_id});
 
 			// Fin
 			return res.json({});
