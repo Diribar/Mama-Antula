@@ -36,7 +36,7 @@ export default {
 		const espera = [];
 		for (const contenido of contenidos) {
 			// Obtiene la ruta del archivo
-			const ruta = contenido.statusRegiastro_id == creado_id ? carpRevisar : carpContenido;
+			const ruta = contenido.statusRegiastro_id == creado_id ? carpRevisar : carpFinal;
 
 			// Carruseles
 			for (const carrusel of contenido.carrusel) comp.gestionArchs.elimina(ruta, carrusel.imagen);
