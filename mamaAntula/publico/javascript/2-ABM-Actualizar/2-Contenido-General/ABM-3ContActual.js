@@ -32,7 +32,7 @@ window.addEventListener("load", async () => {
 			// Agrega los contenidos
 			for (const contenido of v.contenidos) {
 				// Determina si muestra la imagen o los íconos
-				v.aptoEdicion =
+				v.aptoEliminar =
 					contenido.statusRegistro_id == comp1234.aprobado_id || // el contenido está aprobado
 					contenido.statusSugeridoPor_id == comp1234.usuario.id; // el status fue generado por este usuario
 
@@ -89,14 +89,14 @@ window.addEventListener("load", async () => {
 			v.domIconos = DOM.iconos.cloneNode(true);
 
 			// Muestra la imagen
-			if (v.aptoEdicion) {
+			if (v.aptoEliminar) {
 				// Muestra los íconos
 				v.domIconos.dataset.id = contenido.id;
 				if (v.inicial_id == contenido.id) v.domIconos.querySelector(".sube").remove();
 				if (v.final_id == contenido.id) v.domIconos.querySelector(".baja").remove();
 
 				// Oculta la imagen
-				v.domIconos.querySelector("img").src = "";
+				v.domIconos.querySelector("img").remove();
 			}
 
 			// Muestra la imagen
@@ -106,7 +106,7 @@ window.addEventListener("load", async () => {
 
 				// Oculta los íconos
 				const iconos = v.domIconos.querySelectorAll("i");
-				for (const icono of iconos) icono.classList.add("ocultar");
+				for (const icono of iconos) icono.remove();
 			}
 
 			// Fin
