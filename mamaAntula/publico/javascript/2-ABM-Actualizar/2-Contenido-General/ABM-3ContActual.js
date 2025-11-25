@@ -12,38 +12,37 @@ window.addEventListener("load", async () => {
 	};
 	const v = {
 		cruds: ["baja", "sube", "elimina"],
-		mostrar: ["entraEnEdicion", "saleDeEdicion"],
 		funcsComps: {
 			baja: (datos) => putJson(datos),
 			sube: (datos) => putJson(datos),
 			elimina: (datos) => deleteJson(datos),
 		},
 	};
-	const rutasContenido = {obtiene: "/articulos/api/abm-contenido-obtiene/?"};
-	for (const crud of v.cruds) rutasContenido[crud] = "/articulos/api/abm-contenido-" + crud;
+	const rutasContenido = {obtiene: "/articulos/api/abm-contenido-actual-obtiene/?"};
+	for (const crud of v.cruds) rutasContenido[crud] = "/articulos/api/abm-contenido-actual-" + crud;
 
 	// Funciones
-	const creaContenidoIconos = () => {
-		// Variables
-		v.inicial_id = v.contenidos[0]?.id;
-		v.final_id = v.contenidos.at(-1)?.id;
-
-		// Agrega los contenidos
-		for (const contenido of v.contenidos) {
-			// Determina si muestra la imagen o los íconos
-			v.aptoEdicion =
-				contenido.statusRegistro_id == comp1234.aprobado_id || // el contenido está aprobado
-				contenido.statusSugeridoPor_id == comp1234.usuario.id; // el status fue generado por este usuario
-
-			// Agrega el bloque
-			auxCci.agregaBloque(contenido);
-		}
-
-		// Fin
-		return;
-	};
 	// Funciones auxiliares de crea contenido e íconos
-	const auxCci = {
+	const creaContenidoIconos = {
+		consolidado: function () {
+			// Variables
+			v.inicial_id = v.contenidos[0]?.id;
+			v.final_id = v.contenidos.at(-1)?.id;
+
+			// Agrega los contenidos
+			for (const contenido of v.contenidos) {
+				// Determina si muestra la imagen o los íconos
+				v.aptoEdicion =
+					contenido.statusRegistro_id == comp1234.aprobado_id || // el contenido está aprobado
+					contenido.statusSugeridoPor_id == comp1234.usuario.id; // el status fue generado por este usuario
+
+				// Agrega el bloque
+				this.agregaBloque(contenido);
+			}
+
+			// Fin
+			return;
+		},
 		agregaBloque: function (contenido) {
 			// Crea el DOM bloque
 			const domBloque = document.createElement("div");
@@ -52,12 +51,6 @@ window.addEventListener("load", async () => {
 			// Crea y agrega el contenido
 			this.creaElContenido(contenido);
 			domBloque.appendChild(v.domContenido);
-
-			// Agrega la edición
-			if (v.aptoEdicion) {
-				this.creaLaEdicion(contenido);
-				domBloque.appendChild(v.domEdicion);
-			}
 
 			// Crea y agrega los íconos
 			this.creaLosIconos(contenido);
@@ -91,34 +84,6 @@ window.addEventListener("load", async () => {
 			// Fin
 			return;
 		},
-		creaLaEdicion: (contenido) => {
-			// Agrega la edición
-			if (["textoImagen", "texto", "imagen"].includes(contenido.layout.codigo)) {
-				// Crea el DOM
-				v.domEdicion = document.createElement("div");
-
-				// Copia la edición del texto
-				const edicionTexto = document.querySelector("#sectorContNuevo #layouts #texto").cloneNode(true);
-				edicionTexto.classList.add("oculta");
-				edicionTexto.style.display = "flex";
-				const qlEditor = edicionTexto.querySelector(".ql-editor");
-				qlEditor.removeAttribute("data-placeholder");
-				qlEditor.innerHTML = contenido.texto;
-				v.domEdicion.appendChild(edicionTexto);
-
-				// Agrega la edición de la imagen
-				const edicionImagen = document.querySelector("#sectorContNuevo #layouts #imagen").cloneNode(true);
-				edicionImagen.classList.add("oculta");
-				edicionImagen.style.display = "flex";
-				v.domEdicion.appendChild(edicionImagen);
-			}
-
-			// Agrega las clases
-			v.domEdicion.classList.add("edicion", "ocultar");
-
-			// Fin
-			return;
-		},
 		creaLosIconos: (contenido) => {
 			// Crea el DOM
 			v.domIconos = DOM.iconos.cloneNode(true);
@@ -127,10 +92,8 @@ window.addEventListener("load", async () => {
 			if (v.aptoEdicion) {
 				// Muestra los íconos
 				v.domIconos.dataset.id = contenido.id;
-				if (v.final_id == contenido.id || contenido.statusRegistro_id != comp1234.creado_id)
-					v.domIconos.querySelector(".baja").remove();
-				if (v.inicial_id == contenido.id || contenido.statusRegistro_id != comp1234.creado_id)
-					v.domIconos.querySelector(".sube").remove();
+				if (v.inicial_id == contenido.id) v.domIconos.querySelector(".sube").remove();
+				if (v.final_id == contenido.id) v.domIconos.querySelector(".baja").remove();
 
 				// Oculta la imagen
 				v.domIconos.querySelector("img").src = "";
@@ -331,7 +294,6 @@ window.addEventListener("load", async () => {
 				domIcono.addEventListener("click", async () => {
 					// Variables
 					const id = domIcono.parentNode.dataset.id;
-					console.log(id);
 
 					// Si es para eliminar, pide la confirmación del usuario
 					if (crud == "elimina") {
@@ -355,38 +317,8 @@ window.addEventListener("load", async () => {
 				});
 		}
 
-		// Obtiene todos los íconos 'entraEnEdicion'
-		const iconosEntra = document.querySelectorAll("#sectorContActual .iconos .entraEnEdicion");
-		for (const entraEnEdicion of iconosEntra)
-			entraEnEdicion.addEventListener("click", () => {
-				// Alterna el muestra/oculta de los íconos
-				const iconos = entraEnEdicion.parentNode;
-				for (const icono of iconos.querySelectorAll("i")) icono.classList.toggle("ocultar");
-
-				// Muestra edición y oculta lectura
-				const bloqueSector = iconos.parentNode;
-				bloqueSector.querySelector(".edicion").classList.remove("ocultar");
-				bloqueSector.querySelector(".contenido").classList.add("ocultar");
-
-			});
-
-
-		// Obtiene todos los íconos 'saleDeEdicion'
-		const iconosSale = document.querySelectorAll("#sectorContActual .iconos .saleDeEdicion");
-		for (const saleDeEdicion of iconosSale)
-			saleDeEdicion.addEventListener("click", () => {
-				// Alterna el muestra/oculta de los íconos
-				const iconos = saleDeEdicion.parentNode;
-				for (const icono of iconos.querySelectorAll("i")) icono.classList.toggle("ocultar");
-
-				// Muestra edición y oculta lectura
-				const bloqueSector = iconos.parentNode;
-				bloqueSector.querySelector(".contenido").classList.remove("ocultar");
-				bloqueSector.querySelector(".edicion").classList.add("ocultar");
-
-			});
-
 	};
+
 	// Actualiza por cambio en el encabezado
 	DOM.filtroEncab.addEventListener("change", async () => {
 		// Variables
@@ -405,7 +337,7 @@ window.addEventListener("load", async () => {
 		else DOM.sectorContenido.classList.remove("ocultar");
 
 		// Actualiza el DOM
-		creaContenidoIconos();
+		creaContenidoIconos.consolidado();
 
 		// Genera los eventos de los íconos
 		eventosIconos();
