@@ -22,9 +22,10 @@ export default {
 		// Fin
 		return {encabezados, encabezado};
 	},
-	contenidos: async (encabezado) => {
+	contenidos: async ({encabezado, soloStatusAprob}) => {
 		// Variables
-		const condicion = {encab_id: encabezado.id, statusRegistro_id: [creado_id, aprobado_id]};
+		const condicion = {encab_id: encabezado.id};
+		condicion.statusRegistro_id = soloStatusAprob ? aprobado_id : {[Op.ne]: rechazado_id};
 
 		// Obtiene los contenidos
 		const contenidos = await baseDatos
