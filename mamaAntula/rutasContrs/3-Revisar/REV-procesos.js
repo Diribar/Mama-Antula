@@ -48,16 +48,9 @@ export default {
 		const capturadoPor_id = {[Op.ne]: usuario.id};
 		const capturadoEn = {[Op.gt]: new Date(Date.now() - unaHora)};
 		const capturas = await baseDatos.obtieneTodosPorCondicion("capturas", {[Op.and]: [{capturadoPor_id}, {capturadoEn}]});
-		console.log(57, encabezados.length);
 		encabezados = encabezados.filter(
-			(n) =>
-				!capturas.find(
-					(m) =>
-						(n.tema_id && m.tema_id == n.tema_id) || // el encabezado tiene tema y no está capturado
-						(n.pestana_id && m.pestana_id == n.pestana_id) // el encabezado tiene pestaña y no está capturada
-				)
+			(n) => !capturas.find((m) => (n.tema_id && m.tema_id == n.tema_id) || (n.pestana_id && m.pestana_id == n.pestana_id)) // el encabezado tiene tema/pestaña y no está capturada
 		);
-		console.log(61, encabezados.length);
 
 		// Fin
 		return encabezados;

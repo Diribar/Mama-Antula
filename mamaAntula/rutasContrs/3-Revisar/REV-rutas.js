@@ -7,6 +7,7 @@ import vista from "./REV-controlVista.js";
 import soloRevisor from "../../middlewares/8-Usuarios-Roles/US-Solo4Revisor.js";
 
 // Middlewares de API - valida errores
+import encabStatus from "../../middlewares/2-Revisar/REV-Encab-Status.js";
 
 // Middlewares de API - captura
 
@@ -15,7 +16,7 @@ const router = express.Router();
 
 // 📡 APIs
 router.get("/api/rev-datos-inciales", API.encabezado.datosIniciales);
-router.put("/api/rev-encabezado-cambios-status", API.encabezado.cambiosStatus);
+router.put("/api/rev-encabezado-cambios-status", encabStatus, API.encabezado.cambiosStatus);
 
 // 🖥️ Vistas
 router.get("/", soloRevisor, vista.revisar);
