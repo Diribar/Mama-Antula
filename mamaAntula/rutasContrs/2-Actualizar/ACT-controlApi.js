@@ -1,5 +1,5 @@
 "use strict";
-import procesos from "./ABM-procesos.js";
+import procesos from "./ACT-procesos.js";
 
 export default {
 	datosIniciales: (req, res) => {

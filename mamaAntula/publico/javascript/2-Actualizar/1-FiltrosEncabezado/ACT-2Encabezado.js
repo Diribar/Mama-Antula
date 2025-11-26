@@ -22,8 +22,8 @@ window.addEventListener("load", async () => {
 	};
 	const rutas = {
 		// Encabezado
-		guardaEncabezado: "/articulos/api/abm-encabezado-guarda",
-		eliminaEncabezado: "/articulos/api/abm-encabezado-elimina/?id=",
+		guardaEncabezado: "/actualizar/api/act-encabezado-guarda",
+		eliminaEncabezado: "/actualizar/api/act-encabezado-elimina/?id=",
 	};
 	const v = {};
 
