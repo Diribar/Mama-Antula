@@ -22,7 +22,7 @@
 
 		/* Temas generales del contenido */
 		&:has(#tituloDelContenido) #contenido {height: calc(100% - 22px - 16px);} /* 22px es el alto de #tituloDelContenido sin el padding, y 16px es el padding */
-		&:not(:has(#tituloDelContenido)) #contenido {height: calc(100% - 6px);} /* 6px es el alto del padding */
+		/* &:not(:has(#tituloDelContenido)) #contenido {height: calc(100% - 6px);}  *//* 6px es el alto del padding */
 		#contenido {
 			display: flex; padding-right: 20px; overflow-y: auto;
 			--margenVertical: 20px;

@@ -1,6 +1,6 @@
 // Imports
 import express from "express";
-// import API from "./REV-controlApi.js";
+import API from "./REV-controlApi.js";
 import vista from "./REV-controlVista.js";
 
 // Middlewares de Vista
@@ -13,6 +13,7 @@ import vista from "./REV-controlVista.js";
 const router = express.Router();
 
 // 📡 APIs
+router.put("/api/rev-encabezado-cambios-status", API.encabezado.cambiosStatus);
 
 // 🖥️ Vistas
 router.get("/", vista.revisar);

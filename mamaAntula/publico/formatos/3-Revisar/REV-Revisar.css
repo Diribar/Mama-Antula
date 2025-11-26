@@ -1,6 +1,8 @@
 #cuerpo {
-	border: 1px solid red;
+	/* border: 1px solid red; */
 	flex-direction: column; overflow-y: auto !important;
+	background-color: var(--amarilloMuyClaro);
+	padding-block: 6px; padding-inline: 10px 20px;
 	#encabezado {
 		display: flex; flex-direction: row; justify-content: flex-start; align-items: center; gap: 20px;
 		padding-block: 6px 15px; position: relative; line-height: 0;
