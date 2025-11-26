@@ -26,7 +26,7 @@ window.addEventListener("load", async () => {
 			const confirmButtonText = "Recargar vista";
 
 			// Aviso y acciones
-			const confirma = await carteles.pregunta({mensaje, cancelButtonText, confirmButtonText});
+			const confirma = await carteles.confirmar({mensaje, cancelButtonText, confirmButtonText});
 			confirma ? location.reload() : location.href = await actualizaUrlLectura();
 
 			// Fin

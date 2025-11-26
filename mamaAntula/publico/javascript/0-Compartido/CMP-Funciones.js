@@ -52,7 +52,7 @@ const carteles = {
 			confirmButtonText: "Aceptar",
 			confirmButtonColor: "rgb(79,98,40)", // verdeOscuro
 		}),
-	pregunta: ({mensaje, cancelButtonText, confirmButtonText}) =>
+	confirmar: ({mensaje, cancelButtonText, confirmButtonText}) =>
 		Swal.fire({
 			// General
 			...{background: "rgb(242,242,242)", title: "Atención", icon: "warning", html: mensaje}, // grisClaro

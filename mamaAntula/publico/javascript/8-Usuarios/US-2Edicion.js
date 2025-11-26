@@ -139,7 +139,7 @@ window.addEventListener("load", () => {
 		if (v.imgInicial) {
 			// Pregunta al usuario si está seguro
 			const mensaje = "¿Estás seguro/a de que querés eliminar la imagen guardada?";
-			const respuesta = await carteles.pregunta({mensaje, cancelButtonText: "NO", confirmButtonText: "SI"});
+			const respuesta = await carteles.confirmar({mensaje, cancelButtonText: "NO", confirmButtonText: "SI"});
 
 			// Elimina la imagen del backend
 			if (respuesta) await fetch(rutas.eliminaImagen, putJson({}));
