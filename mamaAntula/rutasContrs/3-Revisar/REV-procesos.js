@@ -54,12 +54,11 @@ export default {
 		}
 
 		// Quita los encabezados capturados por terceros
+		const capturadoPor_id = {[Op.ne]: usuario.id};
+		const capturadoEn = {[Op.lt]: new Date(Date.now() - unaHora)};
+		const capturas = await baseDatos.obtieneTodosPorCondicion("capturas", {[Op.or]: [{capturadoPor_id}, {capturadoEn}]});
 		console.log(57, encabezados.length);
-		encabezados = encabezados.filter(
-			(n) =>
-				[null, usuario.id].includes(n.tema.capturadoPor_id)
-				// ||new Date(n.tema.capturadoEn).getTime() < Date.now() - unaHora
-		);
+		encabezados = encabezados.filter((n) => !capturas.find((m) => m.tema_id == n.tema_id || m.pestana_id == n.pestana_id));
 		console.log(61, encabezados.length);
 
 		// Fin
