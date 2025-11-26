@@ -34,7 +34,7 @@ export default {
 	},
 
 	// Vista
-	obtieneEncabsRevisar: async (usuario) => {
+	obtieneEncabezados: async (usuario) => {
 		// Variables
 		const statusRegistro_id = [creado_id, rechazar_id];
 
@@ -53,7 +53,7 @@ export default {
 		// Fin
 		return encabezados;
 	},
-	obtieneEncabRevisar: (encabezados) => {
+	obtieneEncabezado: (encabezados) => {
 		// Casos que interrumpen la función
 		if (!encabezados.length) return {};
 		if (encabezados.length == 1) return encabezados[0];
@@ -75,6 +75,10 @@ export default {
 			encabezados = encabezados.filter((n) => n.pestana.id == encabezados[0].pestana.id);
 			if (encabezados.length == 1) return encabezados[0];
 		}
+
+		// Los ordena por fecha
+		encabezados.sort((a, b) => a.fechaEvento - b.fechaEvento);
+		if (encabezados.length == 1) return encabezados[0];
 
 		// Fin
 		return encabezados[0];

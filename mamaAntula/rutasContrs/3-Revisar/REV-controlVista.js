@@ -10,8 +10,8 @@ export default {
 		const {id: capturadoPor_id} = usuario;
 
 		// Obtiene el encabezado a revisar
-		const encabsRevisar = await procesos.obtieneEncabsRevisar(usuario);
-		const encabezado = procesos.obtieneEncabRevisar(encabsRevisar);
+		const encabsRevisar = await procesos.obtieneEncabezados(usuario);
+		const encabezado = procesos.obtieneEncabezado(encabsRevisar);
 
 		// Acciones si no existe el encabezado
 		if (!encabezado) return res.redirect("/");
