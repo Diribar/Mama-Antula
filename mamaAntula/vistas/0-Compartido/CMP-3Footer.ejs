@@ -8,7 +8,7 @@
 			<% const muestraLectura = icono.codigo == "lectura" && ["actualizar", "revisar"].includes(locals.temaVista) %>
 			<% const muestraEdicion = icono.codigo == "actualizar" && usuario.rol.actualizac && locals.temaVista != "actualizar" %>
 			<% const muestraRevision = icono.codigo == "revisar" && usuario.rol.revision && locals.temaVista != "revisar" %>
-			<% const muestraCambioRoles = icono.codigo == "cambioRoles" && usuario.rol.cambioRoles && codigoVista != "cambioRoles" %>
+			<% const muestraCambioRoles = icono.codigo == "cambioRoles" && usuario.rol.cambioRoles && locals.codigoVista != "cambioRoles" %>
 			<% if (muestraLectura || muestraEdicion || muestraRevision || muestraCambioRoles) { %>
 				<a href="<%= icono.link %>" id="<%= icono.codigo %>" title="<%= icono.nombre %>">
 					<i class="fa-solid <%= icono.clase %> scaleHover"></i>
