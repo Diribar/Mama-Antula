@@ -25,11 +25,21 @@ export default {
 			(encabsRevisar.length == 1 && encabsRevisar[0]) ||
 			{};
 
-		// Obtiene el primer encabezado
-		const usuario = await baseDatos.obtienePorId("usuarios", encabezado.statusSugeridoPor_id);
-		encabezado.statusSugeridoPor = usuario;
+		// Completa el encabezado
+		encabezado.statusSugeridoPor = await baseDatos.obtienePorId("usuarios", encabezado.statusSugeridoPor_id);
+		encabezado.contenidos = await baseDatos
+			.obtieneTodosPorCondicion("contenidos", {encab_id: encabezado.id})
+			.then((n) => n.sort((a, b) => a.orden - b.orden));
+
+		// Variables para la vista
+		const {seccion, tema, pestana} = encabezado;
+		console.log(tema);
+		const seccionTema = seccion.nombre + " - " + tema.titulo + (pestana ? " - " + pestana.nombre : "");
 
 		// Fin
-		return res.render("CMP-0Estructura", {tituloPagina, temaVista, codigoVista, encabezado});
+		return res.render("CMP-0Estructura", {
+			...{tituloPagina, temaVista, codigoVista, encabezado},
+			...{seccionTema},
+		});
 	},
 };
