@@ -1,0 +1,26 @@
+<%- include('MN-Timer') %>
+<h1 id="tituloPrincipal"><%= tituloPagina %></h1>
+
+<section id="cuerpo">
+	<!-- Filtros -->
+	<%- include("ABM-1Filtros") %>
+
+	<!-- Editables -->
+	<section id="editables">
+		<!-- Encabezado -->
+		<div id="sectorEncabezado" class="sector">
+			<%- include("ABM-2Encabezado") %>
+		</div>
+
+		<!-- Contenido actual -->
+		<div id="sectorContActual">
+			<%- include("ABM-3ContActual") %>
+		</div>
+
+		<!-- Contenido nuevo -->
+		<form id="sectorContNuevo" class="sector">
+			<%- include("ABM-4ContNuevo") %>
+		</form>
+	</section>
+
+</section>

@@ -18,8 +18,8 @@ window.addEventListener("load", async () => {
 			elimina: (datos) => deleteJson(datos),
 		},
 	};
-	const rutasContenido = {obtiene: "/articulos/api/abm-contenido-actual-obtiene/?"};
-	for (const crud of v.cruds) rutasContenido[crud] = "/articulos/api/abm-contenido-actual-" + crud;
+	const rutasContenido = {obtiene: "/actualizar/api/act-contenido-actual-obtiene/?"};
+	for (const crud of v.cruds) rutasContenido[crud] = "/actualizar/api/act-contenido-actual-" + crud;
 
 	// Funciones
 	// Funciones auxiliares de crea contenido e íconos

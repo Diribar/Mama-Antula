@@ -24,8 +24,8 @@ window.addEventListener("load", async () => {
 		textoOutput: domSector.querySelector("#texto [name='texto'].output"),
 	};
 	const rutas = {
-		guardaUnaImagen: "/articulos/api/abm-nuevo-contenido-guarda",
-		guardaImagenes: "/articulos/api/abm-nuevo-carrusel-guarda",
+		guardaUnaImagen: "/actualizar/api/act-nuevo-contenido-guarda",
+		guardaImagenes: "/actualizar/api/act-nuevo-carrusel-guarda",
 	};
 	const v = {};
 

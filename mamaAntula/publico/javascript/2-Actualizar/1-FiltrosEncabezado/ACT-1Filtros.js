@@ -11,8 +11,8 @@ window.addEventListener("load", async () => {
 		anchorLectura: document.querySelector("footer #iconosFooterOtros a#lectura"),
 	};
 	const rutas = {
-		datosIniciales: "/articulos/api/abm-filtros-datos-inciales",
-		obtieneEncabs: "/articulos/api/abm-filtros-obtiene-encabezados/?",
+		datosIniciales: "/actualizar/api/act-filtros-datos-inciales",
+		obtieneEncabs: "/actualizar/api/act-filtros-obtiene-encabezados/?",
 	};
 	comp1234 = {startUp: true, ...(await fetch(rutas.datosIniciales).then((n) => n.json()))};
 	const v = {};
