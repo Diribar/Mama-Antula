@@ -6,8 +6,8 @@ export default {
 		// Obtiene los encabezados
 		let encabezados = await comp.obtieneEncabezados({esCarta, esLugares, conIndice, condicion});
 
-		// Si es sin indice y no existe un registro, lo crea
-		if (!conIndice && !encabezados.length) {
+		// Si es sin indice, no existe un registro, y la condición tiene un tema, crea el encabezado
+		if (!conIndice && !encabezados.length && condicion.tema_id) {
 			// Crea los datos a guardar
 			const datos = {statusSugeridoPor_id: usuario.id, creadoPor_id: usuario.id};
 
@@ -136,7 +136,7 @@ export default {
 		// Fin
 		return encabezados;
 	},
-	obtieneEncabRevisar:  (encabezados) => {
+	obtieneEncabRevisar: (encabezados) => {
 		// Los ordena por sección
 		encabezados.sort((a, b) => a.seccion.orden - b.seccion.orden);
 		encabezados = encabezados.filter((n) => n.seccion.id == encabezados[0].seccion.id);

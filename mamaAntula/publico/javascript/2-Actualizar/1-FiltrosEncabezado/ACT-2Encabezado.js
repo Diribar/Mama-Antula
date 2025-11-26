@@ -57,11 +57,14 @@ window.addEventListener("load", async () => {
 			return;
 		},
 		actualizaIconos: () => {
-			// Si no está en status aprobado y la sugerencia fue de otro usuario, muestra la imagen de ese usuario
-			if (
+			// Variables
+			const ocultaIconos =
+				v.encabezado &&
 				v.encabezado.statusRegistro_id != comp1234.aprobado_id &&
-				v.encabezado.statusSugeridoPor_id != comp1234.usuario.id
-			) {
+				v.encabezado.statusSugeridoPor_id != comp1234.usuario.id;
+
+			// Si no está en status aprobado y la sugerencia fue de otro usuario, muestra la imagen de ese usuario
+			if (ocultaIconos) {
 				// Muestra la imagen y oculta los íconos
 				DOM.img.src = "/imgsEditables/8-Usuarios/" + v.encabezado.statusSugeridoPor.imagen;
 				DOM.img.title = v.encabezado.statusSugeridoPor.nombreCompleto;
