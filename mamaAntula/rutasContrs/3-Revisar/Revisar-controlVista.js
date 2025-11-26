@@ -1,12 +1,11 @@
 "use strict";
 import procesos from "./Revisar-procesos.js";
-const temaVista = "abmContenido";
+const temaVista = "revisar";
 
 export default {
 	revisar: async (req, res) => {
 		// Variables
-		const codigoVista = "revisar";
-		const tituloPagina = iconosAgrupados.find((n) => n.codigo == codigoVista)?.nombre;
+		const tituloPagina = iconosAgrupados.find((n) => n.codigo == temaVista)?.nombre;
 
 		// Obtiene el encabezado a revisar
 		const encabsRevisar = await procesos.obtieneEncabsRevisar();
@@ -30,7 +29,7 @@ export default {
 
 		// Fin
 		return res.render("CMP-0Estructura", {
-			...{tituloPagina, temaVista, codigoVista},
+			...{tituloPagina, temaVista},
 			...{seccionTema, encabezado},
 		});
 	},
