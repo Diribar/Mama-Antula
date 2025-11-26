@@ -1,7 +1,7 @@
 // Imports
 import express from "express";
 // import API from "./Revisar-controlApi.js";
-// import vista from "./Revisar-controlVista.js";
+import vista from "./Revisar-controlVista.js";
 
 // Middlewares de Vista
 
@@ -15,7 +15,7 @@ const router = express.Router();
 // 📡 APIs
 
 // 🖥️ Vistas
-// router.get("/revisar", vista.revisar);
+router.get("/", vista.revisar);
 
 // ✅ Export
 export default router;
