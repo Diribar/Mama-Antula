@@ -9,7 +9,7 @@ export default {
 		const {usuario} = req.session;
 
 		// Obtiene el encabezado a revisar
-		const encabsRevisar = await procesos.obtieneEncabsRevisar();
+		const encabsRevisar = await procesos.obtieneEncabsRevisar(usuario);
 		const encabezado =
 			(encabsRevisar.length > 1 && procesos.obtieneEncabRevisar(encabsRevisar)) ||
 			(encabsRevisar.length == 1 && encabsRevisar[0]) ||

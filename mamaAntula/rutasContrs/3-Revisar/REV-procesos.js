@@ -34,7 +34,7 @@ export default {
 	},
 
 	// Vista
-	obtieneEncabsRevisar: async () => {
+	obtieneEncabsRevisar: async (usuario) => {
 		// Variables
 		const statusRegistro_id = [creado_id, rechazar_id];
 
@@ -50,9 +50,17 @@ export default {
 			// Obtiene los datos de niveles
 			if (pestana_id) encabezado.pestana = pestanasTemas.find((n) => n.id == pestana_id);
 			encabezado.tema = temasSecciones.find((n) => n.id == (tema_id || encabezado.pestana.tema_id));
-			// console.log(127, pestana_id, tema_id);
 			encabezado.seccion = secciones.find((n) => n.id == encabezado.tema.seccion_id);
 		}
+
+		// Quita los encabezados capturados por terceros
+		console.log(57, encabezados.length);
+		encabezados = encabezados.filter(
+			(n) =>
+				[null, usuario.id].includes(n.tema.capturadoPor_id)
+				// ||new Date(n.tema.capturadoEn).getTime() < Date.now() - unaHora
+		);
+		console.log(61, encabezados.length);
 
 		// Fin
 		return encabezados;
