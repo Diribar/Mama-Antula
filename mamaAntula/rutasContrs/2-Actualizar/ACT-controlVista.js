@@ -1,6 +1,5 @@
 "use strict";
-import procesos from "./ACT-procesos.js";
-const temaVista = "abmContenido";
+const temaVista = "actualizar";
 
 export default {
 	actualizar: async (req, res) => {
