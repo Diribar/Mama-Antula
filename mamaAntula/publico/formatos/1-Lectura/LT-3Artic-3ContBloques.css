@@ -1,4 +1,4 @@
-#tituloMasContenido #contenido, #sectorContActual .bloque.sector {
+#tituloMasContenido #contenido, #sectorContActual .bloque.sector, #contenidoRevisar {
 	--margenVertical: 20px;
 
 	/* COMBINADOS: Texto con imagen, Imagen sola, Video, Carrusel */

@@ -53,8 +53,8 @@ export default {
 			// 3. Status de contenido
 			creado_id: statusRegistros.find((n) => n.codigo == "creado").id,
 			aprobado_id: statusRegistros.find((n) => n.codigo == "aprobado").id,
-			inactivar_id: statusRegistros.find((n) => n.codigo == "inactivar").id,
-			inactivo_id: statusRegistros.find((n) => n.codigo == "inactivo").id,
+			rechazar_id: statusRegistros.find((n) => n.codigo == "rechazar").id,
+			rechazado_id: statusRegistros.find((n) => n.codigo == "rechazado").id,
 
 			// Otros
 			indicesCartas: indicesFecha.filter((n) => n.tema_id == 10).sort((a, b) => (a.fechaDesde < b.fechaDesde ? -1 : 1)), // el tema_id es el de cartas
