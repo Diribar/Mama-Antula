@@ -1,11 +1,13 @@
 "use strict";
-import procesos from "./Revisar-procesos.js";
+import procesos from "./REV-procesos.js";
 const temaVista = "revisar";
 
 export default {
 	revisar: async (req, res) => {
 		// Variables
 		const tituloPagina = iconosAgrupados.find((n) => n.codigo == temaVista)?.nombre;
+		console.log(9,tituloPagina);
+
 
 		// Obtiene el encabezado a revisar
 		const encabsRevisar = await procesos.obtieneEncabsRevisar();
