@@ -3,7 +3,6 @@
 
 export default async (req, res, next) => {
 	// Variables
-	console.log(6, req.body);
 	const {encab_id, aprueba, rechaza} = req.body;
 
 	// Validaciones iniciales
