@@ -1,5 +1,5 @@
 "use strict";
-import procesos from "./Revisar-procesos.js";
+import procesos from "./REV-procesos.js";
 const temaVista = "revisar";
 
 export default {

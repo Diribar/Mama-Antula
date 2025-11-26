@@ -1,0 +1,14 @@
+#cuerpo {
+	border: 1px solid red;
+	flex-direction: column; overflow-y: auto !important;
+	#encabezado {
+		display: flex; flex-direction: row; justify-content: flex-start; align-items: center; gap: 20px;
+		padding-block: 6px 15px; position: relative; line-height: 0;
+		h2 {font-size: 1.4rem;}
+		i {
+			cursor: pointer;
+			&:hover {scale: 1.4;}
+		}
+		img {max-height: 100%; border-radius: 50%; position: absolute; right: 0px; top: 0px;}
+	}
+}

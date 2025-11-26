@@ -2,5 +2,22 @@
 <h1 id="tituloPrincipal"><%= tituloPagina %></h1>
 
 <section id="cuerpo">
+	<div id="encabezado">
+		<div class="flexCol">
+			<h2><%= seccionTema %></h2>
+			<% if (encabezado.titulo) { %><h2 id="tituloDelContenido"><%= encabezado.titulo %></h2><% } %>
+		</div>
+		<i class="<%= iconos.faSolid %> <%= iconos.check %>"></i>
+		<i class="<%= iconos.faSolid %> <%= iconos.eliminar %>"></i>
+		<img src="<%= encabezado.imagenUsuario %>" title="<%= encabezado.usuario.nombreCompleto %>" class="noAgrandar">
+	</div>
+
+	<!-- Contenido -->
+	<div id="contenidoRevisar">
+		<% if (encabezado) for (const contenido of encabezado.contenidos) { %>
+			<% const subCarpeta = contenido.statusRegistro_id == creado_id ? '2-Revisar' : '1-Final' %>
+			<%- include("LT-Cont-" + contenido.layout.archVistaLt, {contenido, subCarpeta}) %>
+		<% } %>
+	</div>
 
 </section>
