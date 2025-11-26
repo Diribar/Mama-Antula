@@ -26,13 +26,11 @@ export default {
 		// Condición - si el usuario no tiene el permiso de edición, no se le permite ver los contenidos que tengan status 'creado'
 		const condicion = {tema_id: temaActual.id};
 		const soloStatusAprob = !req.session.usuario || !rolesActualizac_ids.includes(req.session.usuario.rol_id);
-		if (soloStatusAprob) condicion.statusRegistro_id = aprobado_id;
+		condicion.statusRegistro_id = soloStatusAprob ? aprobado_id : {[Op.ne]: rechazado_id};
 
 		// Obtiene el encabezado y contenido
 		const encab_id = req.query.id;
-
 		const {encabezados, encabezado} = await procesos.encabezados({encab_id, condicion, ...indices});
-		console.log(33, condicion, encabezado);
 		const contenidos = encabezado && (await procesos.contenidos({encabezado, soloStatusAprob}));
 
 		// Fin
@@ -63,7 +61,7 @@ export default {
 		// Condición - si el usuario no tiene el permiso de edición, no se le permite ver los contenidos que tengan status 'creado'
 		const condicion = {pestana_id: pestanaActual.id};
 		const soloStatusAprob = !req.session.usuario || !rolesActualizac_ids.includes(req.session.usuario.rol_id);
-		if (soloStatusAprob) condicion.statusRegistro_id = aprobado_id;
+		condicion.statusRegistro_id = soloStatusAprob ? aprobado_id : {[Op.ne]: rechazado_id};
 
 		// Obtiene el encabezado y contenido
 		const encab_id = req.query.id;
