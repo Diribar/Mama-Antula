@@ -28,7 +28,7 @@ export default {
 		// Completa el encabezado
 		encabezado.statusSugeridoPor = await baseDatos.obtienePorId("usuarios", encabezado.statusSugeridoPor_id);
 		encabezado.contenidos = await baseDatos
-			.obtieneTodosPorCondicion("contenidos", {encab_id: encabezado.id})
+			.obtieneTodosPorCondicion("contenidos", {encab_id: encabezado.id}, ["layout", "carrusel"])
 			.then((n) => n.sort((a, b) => a.orden - b.orden));
 
 		// Variables para la vista

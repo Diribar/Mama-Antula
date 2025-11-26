@@ -1,0 +1,13 @@
+<h2><%= seccionTema %></h2>
+<% if (encabezado.titulo) { %>
+	<!-- Título del contenido -->
+	<h2 id="tituloDelContenido"><%= encabezado.titulo %></h2>
+<% } %>
+
+<!-- Contenido -->
+<div id="contenido">
+	<% if (encabezado) for (const contenido of encabezado.contenidos) { %>
+		<% const subCarpeta = contenido.statusRegistro_id == creado_id ? '2-Revisar' : '1-Final' %>
+		<%- include("LT-Cont-" + contenido.layout.archVistaLt, {contenido, subCarpeta}) %>
+	<% } %>
+</div>
