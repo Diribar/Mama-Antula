@@ -1,5 +1,5 @@
 /* Layouts + Ícono Guardar */
-.edicion, #layouts {
+#layouts {
 	display: flex; flex-direction: row; justify-content: center; gap: 30px;
 	width: 100%;
 	/* align-self: stretch;  */
