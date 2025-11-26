@@ -34,7 +34,7 @@ window.addEventListener("load", async () => {
 			if (domEvento.classList.contains("inactivo")) return;
 
 			// Pide que confirme
-			if (domEvento.id == "rechazar") {
+			if (domEvento.id == "rechaza") {
 				const mensaje = "¿Estás seguro/a de que querés eliminar este encabezado y su contenido?";
 				const cancelButtonText = "Conservar";
 				const confirmButtonText = "Eliminar";
@@ -46,7 +46,7 @@ window.addEventListener("load", async () => {
 			for (const icono of DOM.eventos) icono.classList.add("inactivo");
 
 			// Guarda la información en la BD
-			const datos = {encab_id, aprueba: domEvento.id == "aprobar", rechaza: domEvento.id == "rechazar"};
+			const datos = {encab_id, [domEvento.id]: true};
 			const respuesta = await fetch(rutas.cambioStatus, putJson(datos)).then((n) => n.json());
 			for (const icono of DOM.eventos) icono.classList.remove("inactivo");
 
