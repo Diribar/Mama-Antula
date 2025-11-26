@@ -26,20 +26,22 @@ export default {
 			{};
 
 		// Completa el encabezado
-		encabezado.statusSugeridoPor = await baseDatos.obtienePorId("usuarios", encabezado.statusSugeridoPor_id);
+		encabezado.usuario = await baseDatos.obtienePorId("usuarios", encabezado.statusSugeridoPor_id);
 		encabezado.contenidos = await baseDatos
 			.obtieneTodosPorCondicion("contenidos", {encab_id: encabezado.id}, ["layout", "carrusel"])
 			.then((n) => n.sort((a, b) => a.orden - b.orden));
 
 		// Variables para la vista
 		const {seccion, tema, pestana} = encabezado;
-		console.log(tema);
 		const seccionTema = seccion.nombre + " - " + tema.titulo + (pestana ? " - " + pestana.nombre : "");
+		encabezado.imagenUsuario = encabezado.usuario.imagen
+			? "/imgsEditables/8-Usuarios/" + encabezado.usuario.imagen
+			: "/imgsEstables/Varios/usuarioGenerico.jpg";
 
 		// Fin
 		return res.render("CMP-0Estructura", {
-			...{tituloPagina, temaVista, codigoVista, encabezado},
-			...{seccionTema},
+			...{tituloPagina, temaVista, codigoVista},
+			...{seccionTema, encabezado},
 		});
 	},
 };

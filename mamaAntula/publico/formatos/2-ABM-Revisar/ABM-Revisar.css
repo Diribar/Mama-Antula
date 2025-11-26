@@ -1,1 +1,11 @@
-#cuerpo {border: 1px solid red}
+#cuerpo {
+	border: 1px solid red; flex-direction: column;
+	#encabezado {
+		display: flex; flex-direction: row; justify-content: flex-start; align-items: center; gap: 20px;
+		i {
+			cursor: pointer;
+			&:hover {scale: 1.4;}
+		}
+		img {max-height: 30px; border-radius: 50%;}
+	}
+}
