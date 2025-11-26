@@ -59,7 +59,7 @@ export default {
 			// Otros
 			indicesCartas: indicesFecha
 				.filter((n) => n.tema_id == temaCarta_id)
-				.sort((a, b) => (a.fechaDesde < b.fechaDesde ? -1 : 1)), // el tema_id es el de cartas
+				.sort((a, b) => (a.fechaDesde < b.fechaDesde ? -1 : 1)),
 			indicesRestoFechas: indicesFecha
 				.filter((n) => n.tema_id != temaCarta_id)
 				.sort((a, b) => (b.fechaDesde < a.fechaDesde ? -1 : 1)),
