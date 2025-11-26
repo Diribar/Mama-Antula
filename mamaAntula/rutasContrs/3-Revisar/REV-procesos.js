@@ -1,5 +1,7 @@
 "use strict";
 
+import e from "express";
+
 export default {
 	// API
 	cambiosStatus: async ({encab_id, ...cambioStatus}) => {
@@ -42,30 +44,31 @@ export default {
 		let encabezados = await baseDatos.obtieneTodosPorCondicion("encabezados", {statusRegistro_id}, includesEncabs.cartas);
 		if (!encabezados.length) return {};
 
-		// Les agrega la pestaña, tema y seccion
-		for (const encabezado of encabezados) {
-			// Variables
-			const {pestana_id, tema_id} = encabezado;
-
-			// Obtiene los datos de niveles
-			if (pestana_id) encabezado.pestana = pestanasTemas.find((n) => n.id == pestana_id);
-			encabezado.tema = temasSecciones.find((n) => n.id == (tema_id || encabezado.pestana.tema_id));
-			encabezado.seccion = secciones.find((n) => n.id == encabezado.tema.seccion_id);
-		}
-
 		// Quita los encabezados capturados por terceros
 		const capturadoPor_id = {[Op.ne]: usuario.id};
-		const capturadoEn = {[Op.lt]: new Date(Date.now() - unaHora)};
-		const capturas = await baseDatos.obtieneTodosPorCondicion("capturas", {[Op.or]: [{capturadoPor_id}, {capturadoEn}]});
+		const capturadoEn = {[Op.gt]: new Date(Date.now() - unaHora)};
+		const capturas = await baseDatos.obtieneTodosPorCondicion("capturas", {[Op.and]: [{capturadoPor_id}, {capturadoEn}]});
 		console.log(57, encabezados.length);
-		encabezados = encabezados.filter((n) => !capturas.find((m) => m.tema_id == n.tema_id || m.pestana_id == n.pestana_id));
+		encabezados = encabezados.filter(
+			(n) =>
+				!capturas.find(
+					(m) =>
+						(n.tema_id && m.tema_id == n.tema_id) || // el encabezado tiene tema y no está capturado
+						(n.pestana_id && m.pestana_id == n.pestana_id) // el encabezado tiene pestaña y no está capturada
+				)
+		);
 		console.log(61, encabezados.length);
 
 		// Fin
 		return encabezados;
 	},
 	obtieneEncabRevisar: (encabezados) => {
+		// Casos que interrumpen la función
+		if (!encabezados.length) return {};
+		if (encabezados.length == 1) return encabezados[0];
+
 		// Los ordena por sección
+		encabezados = encabezados.map((n) => agregaTemaPestana(n));
 		encabezados.sort((a, b) => a.seccion.orden - b.seccion.orden);
 		encabezados = encabezados.filter((n) => n.seccion.id == encabezados[0].seccion.id);
 		if (encabezados.length == 1) return encabezados[0];
@@ -106,4 +109,17 @@ export default {
 		// Fin
 		return;
 	},
+};
+
+const agregaTemaPestana = (encabezado) => {
+	// Variables
+	const {pestana_id, tema_id} = encabezado;
+
+	// Obtiene los datos de niveles
+	if (pestana_id) encabezado.pestana = pestanasTemas.find((n) => n.id == pestana_id);
+	encabezado.tema = temasSecciones.find((n) => n.id == (tema_id || encabezado.pestana.tema_id));
+	encabezado.seccion = secciones.find((n) => n.id == encabezado.tema.seccion_id);
+
+	// Fin
+	return encabezado;
 };
