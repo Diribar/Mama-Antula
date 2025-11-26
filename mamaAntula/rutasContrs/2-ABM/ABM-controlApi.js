@@ -16,7 +16,6 @@ export default {
 		// Fin
 		return res.json(datosIniciales);
 	},
-
 	encabezado: {
 		obtiene: async (req, res) => {
 			// Variables
@@ -89,7 +88,6 @@ export default {
 			return res.json({});
 		},
 	},
-
 	contActual: {
 		obtiene: async (req, res) => {
 			// Variables
@@ -168,7 +166,6 @@ export default {
 			return res.json({});
 		},
 	},
-
 	guardaContNuevo: async (req, res) => {
 		// Variables
 		const {encab_id, imagen, texto, imagens} = req.body;
