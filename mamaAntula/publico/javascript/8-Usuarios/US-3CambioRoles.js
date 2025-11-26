@@ -1,6 +1,6 @@
 "use strict";
 
-window.addEventListener("load", async () => {
+window.addEventListener("load", () => {
 	// Variables
 	const domForm = document.querySelector("#cuerpo #cambioRoles");
 	const DOM = {

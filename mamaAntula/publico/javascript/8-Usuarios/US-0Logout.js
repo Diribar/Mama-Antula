@@ -1,6 +1,6 @@
 "use strict";
 
-window.addEventListener("load", async () => {
+window.addEventListener("load", () => {
 	// Variables
 	const DOM = {logout: document.querySelector("#menuLogout #logout")};
 	const rutaApi = "/usuarios/api/us-logout";

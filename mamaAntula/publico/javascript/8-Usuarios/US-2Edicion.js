@@ -1,6 +1,6 @@
 "use strict";
 
-window.addEventListener("load", async () => {
+window.addEventListener("load", () => {
 	const DOM = {
 		// Avatar del encabezado
 		imagenHeader: document.querySelector("header #imagenUsuario"),
