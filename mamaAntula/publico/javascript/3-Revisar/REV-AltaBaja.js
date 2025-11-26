@@ -48,6 +48,10 @@ window.addEventListener("load", async () => {
 			// Guarda la información en la BD
 			const datos = {encab_id, aprueba: domEvento.id == "aprobar", rechaza: domEvento.id == "rechazar"};
 			const respuesta = await fetch(rutas.cambioStatus, putJson(datos)).then((n) => n.json());
+			for (const icono of DOM.eventos) icono.classList.remove("inactivo");
+
+			// Si hubo un error, muestra el mensaje e interrumpe la función
+			if (respuesta.error) return carteles.error(respuesta.error);
 
 			// Fin
 			location.reload();
