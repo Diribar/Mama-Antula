@@ -2,7 +2,7 @@
 
 export default {
 	// API
-	altaEncabezado: async ({encab_id, ...cambioStatus}) => {
+	cambiosStatus: async ({encab_id, ...cambioStatus}) => {
 		// Variables
 		const espera = [];
 
