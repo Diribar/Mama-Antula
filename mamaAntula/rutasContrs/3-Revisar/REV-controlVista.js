@@ -15,19 +15,17 @@ export default {
 			{};
 
 		// Completa el encabezado
-		encabezado.usuario = await baseDatos.obtienePorId("usuarios", encabezado.statusSugeridoPor_id);
-		encabezado.contenidos = await baseDatos
-			.obtieneTodosPorCondicion("contenidos", {encab_id: encabezado.id}, ["layout", "carrusel"])
-			.then((n) => n.sort((a, b) => a.orden - b.orden));
+		await procesos.completaEncabezado(encabezado);
+
+		// Actualiza las cookies de 'actualiza'
+		const {seccion, tema, pestana} = encabezado;
+		res.cookie("actualizaSeccion_id", seccion.id, {maxAge: unDia, path: "/"});
+		res.cookie("actualizaTema_id", tema.id, {maxAge: unDia, path: "/"});
+		if (pestana) res.cookie("actualizaPestana_id", pestana.id, {maxAge: unDia, path: "/"});
+		res.cookie("actualizaEncabezado_id", encabezado.id, {maxAge: unDia, path: "/"});
 
 		// Variables para la vista
-		const {seccion, tema, pestana} = encabezado;
 		const seccionTema = seccion.nombre + " - " + tema.titulo + (pestana ? " - " + pestana.nombre : "");
-		encabezado.imagenUsuario = encabezado.usuario.imagen
-			? "/imgsEditables/8-Usuarios/" + encabezado.usuario.imagen
-			: "/imgsEstables/Varios/usuarioGenerico.jpg";
-		if (tema.id == temaCarta_id)
-			encabezado.titulo = comp.titulosElabs({esCarta: true, encabezados: [encabezado]})[0].tituloElab;
 
 		// Fin
 		return res.render("CMP-0Estructura", {

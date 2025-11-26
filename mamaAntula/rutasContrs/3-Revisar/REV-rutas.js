@@ -13,6 +13,7 @@ import vista from "./REV-controlVista.js";
 const router = express.Router();
 
 // 📡 APIs
+router.get("/api/rev-datos-inciales", API.encabezado.datosIniciales);
 router.put("/api/rev-encabezado-cambios-status", API.encabezado.cambiosStatus);
 
 // 🖥️ Vistas
