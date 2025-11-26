@@ -29,11 +29,11 @@ router.get("/api/abm-filtros-obtiene-encabezados", validaFiltros, captura, API.e
 router.post("/api/abm-encabezado-guarda", descargaImg.none(), validaEncabGuarda, API.encabezado.guarda); // se usa multer para que procese el formData
 router.delete("/api/abm-encabezado-elimina", validaEncabElimina, API.encabezado.elimina);
 
-// APIs - Contenido Actual
-router.get("/api/abm-contenido-obtiene", API.contActual.obtiene);
-router.put("/api/abm-contenido-baja", validaContActual, API.contActual.baja);
-router.put("/api/abm-contenido-sube", validaContActual, API.contActual.sube);
-router.delete("/api/abm-contenido-elimina", validaContActual, API.contActual.elimina);
+// APIs - Contenido Actual - CRUD
+router.get("/api/abm-contenido-actual-obtiene", API.contActual.obtiene);
+router.put("/api/abm-contenido-actual-baja", validaContActual, API.contActual.baja);
+router.put("/api/abm-contenido-actual-sube", validaContActual, API.contActual.sube);
+router.delete("/api/abm-contenido-actual-elimina", validaContActual, API.contActual.elimina);
 
 // APIs - Contenido Nuevo
 router.post("/api/abm-nuevo-contenido-guarda", descargaImg.single("archivo"), imgEnReqBody, validaContNuevo, API.guardaContNuevo);
