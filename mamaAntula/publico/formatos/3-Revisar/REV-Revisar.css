@@ -3,9 +3,8 @@
 	flex-direction: column; overflow-y: auto !important;
 	#encabezado {
 		display: flex; flex-direction: row; justify-content: flex-start; align-items: center; gap: 20px;
-		padding-bottom: 15px;
-		position: relative;
-		h2 {margin-top: 3px; font-size: 1.3rem;}
+		padding-block: 6px 15px; position: relative; line-height: 0;
+		h2 {font-size: 1.4rem;}
 		i {
 			cursor: pointer;
 			&:hover {scale: 1.4;}
