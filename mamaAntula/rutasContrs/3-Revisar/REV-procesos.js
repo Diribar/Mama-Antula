@@ -1,7 +1,39 @@
 "use strict";
 
 export default {
-	// Vista revisar
+	// API
+	altaEncabezado: async ({encab_id, ...cambioStatus}) => {
+		// Variables
+		const espera = [];
+
+		// Cambia el status del encabezado
+		espera.push(baseDatos.actualizaPorId("encabezados", encab_id, cambioStatus));
+
+		// Obtiene todas las dependencias
+		const contenidos = await baseDatos.obtieneTodosPorCondicion("contenidos", {encab_id}, "carrusel");
+		espera.push(baseDatos.actualizaPorCondicion("contenidos", {encab_id}, cambioStatus)); // contenido
+
+		// Cambia el status de sus dependencias
+		for (const contenido of contenidos)
+			espera.push(baseDatos.actualizaPorCondicion("carrusel", {contenido_id: contenido.id}, cambioStatus)); // carrusel
+
+		// Obtiene todas las imágenes a mover
+		const imagenes = [];
+		for (const contenido of contenidos) {
+			if (contenido.imagen) imagenes.push(contenido.imagen); // contenido
+			if (contenido.imagen2) imagenes.push(contenido.imagen2); // contenido
+			imagenes.push(...contenido.carrusel.map((n) => n.imagen)); // carrusel
+		}
+
+		// Mueve la imagen a la carpeta de aprobados
+		for (const imagen of imagenes) comp.gestionArchs.mueve(carpRevisar, carpFinal, imagen); // imagen
+
+		// Fin
+		await Promise.all(espera);
+		return;
+	},
+
+	// Vista
 	obtieneEncabsRevisar: async () => {
 		// Variables
 		const statusRegistro_id = [creado_id, rechazar_id];
