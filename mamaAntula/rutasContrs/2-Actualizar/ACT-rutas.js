@@ -9,14 +9,14 @@ import descargaImg from "../../middlewares/descargaImg/IMG-descargaImg.js";
 import imgEnReqBody from "../../middlewares/descargaImg/IMG-imgEnReqBody.js";
 
 // Middlewares de API - valida errores
-import validaFiltros from "../../middlewares/2-ABM/ABM-1Filtros.js";
-import validaEncabGuarda from "../../middlewares/2-ABM/ABM-2Encab1Guarda.js";
-import validaEncabElimina from "../../middlewares/2-ABM/ABM-2Encab2Elimina.js";
-import validaContActual from "../../middlewares/2-ABM/ABM-3ContActual.js";
-import validaContNuevo from "../../middlewares/2-ABM/ABM-4ContNuevo.js";
+import validaFiltros from "../../middlewares/2-Actualizar/ACT-1Filtros.js";
+import validaEncabGuarda from "../../middlewares/2-Actualizar/ACT-2Encab1Guarda.js";
+import validaEncabElimina from "../../middlewares/2-Actualizar/ACT-2Encab2Elimina.js";
+import validaContActual from "../../middlewares/2-Actualizar/ACT-3ContActual.js";
+import validaContNuevo from "../../middlewares/2-Actualizar/ACT-4ContNuevo.js";
 
 // Middlewares de API - captura
-import captura from "../../middlewares/2-ABM/ABM-captura.js";
+import captura from "../../middlewares/2-Actualizar/ACT-captura.js";
 
 // 🧩 Router
 const router = express.Router();

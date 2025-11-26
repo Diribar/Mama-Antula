@@ -1,7 +1,7 @@
 // Imports
 import express from "express";
-import API from "./ABM-controlApi.js";
-import vista from "./ABM-controlVista.js";
+import API from "./Revisar-controlApi.js";
+import vista from "./Revisar-controlVista.js";
 
 // Middlewares de Vista
 
