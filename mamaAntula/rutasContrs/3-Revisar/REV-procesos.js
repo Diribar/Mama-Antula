@@ -1,7 +1,5 @@
 "use strict";
 
-import e from "express";
-
 export default {
 	// API
 	cambiosStatus: async ({encab_id, ...cambioStatus}) => {
