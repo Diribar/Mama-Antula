@@ -36,7 +36,7 @@ window.addEventListener("load", async () => {
 		},
 	};
 
-	// Función para iniciar el timer (solución al problema 3)
+	// Función para iniciar el timer
 	const iniciarTimer = () =>
 		setInterval(() => {
 			minutosDispon--;
@@ -49,11 +49,12 @@ window.addEventListener("load", async () => {
 			} else {
 				FN.formatoTimer();
 			}
-		}, unMinuto );
+		}, unMinuto);
 
 	// Inicia el timer por primera vez
 	timer = iniciarTimer();
 
+	// Reinicia el timer al cambiar de encabezado
 	DOM.filtroEncab &&
 		DOM.filtroEncab.addEventListener("change", () => {
 			// Si el encabezado no tiene un valor, interrumpe la función
@@ -63,7 +64,7 @@ window.addEventListener("load", async () => {
 			clearInterval(timer);
 			minutosDispon = minutosPermitidos;
 			DOM.timer.innerText = minutosDispon + " min.";
-			DOM.timer.style.backgroundColor = ""
+			DOM.timer.style.backgroundColor = "";
 
 			// Vuelve a arrancar
 			timer = iniciarTimer();
@@ -72,5 +73,9 @@ window.addEventListener("load", async () => {
 			return;
 		});
 
+	// Start-up
+	DOM.timer.innerText = minutosDispon + " min.";
+
+	// Fin
 	return;
 });
