@@ -21,13 +21,11 @@ window.addEventListener("load", async () => {
 	const temaActual = v.temasSecciones.find((n) => n.id == tema_id);
 	const conIndice = temaActual.indicesFecha.length || temaActual.indicesLugar.length;
 
-	// Obtiene los url
+	// Actualiza el anchorLectura
 	const urlSeccion = "/" + v.secciones.find((n) => n.id == seccion_id).url;
 	const urlTema = "/" + v.temasSecciones.find((n) => n.id == tema_id).url;
 	const urlPestana = (pestana_id && "/" + v.pestanasTemas.find((n) => n.id == pestana_id).url) || "";
 	const urlEncabezado = conIndice ? "/?id=" + encab_id : "";
-
-	// Actualiza el DOM
 	DOM.anchorLectura.href = urlSeccion + urlTema + urlPestana + urlEncabezado;
 
 	// Eventos
