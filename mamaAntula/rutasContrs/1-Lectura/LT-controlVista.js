@@ -26,8 +26,6 @@ export default {
 		// Condición - si el usuario no tiene el permiso de edición, no se le permite ver los contenidos que tengan status 'creado'
 		const condicion = {tema_id: temaActual.id};
 		const leeStatusCreado = (req.session.usuario && rolesActualizac_ids.includes(req.session.usuario.rol_id)) || false;
-		console.log(29,{leeStatusCreado});
-
 		if (!leeStatusCreado) condicion.statusRegistro_id = aprobado_id;
 
 		// Obtiene el encabezado y contenido
