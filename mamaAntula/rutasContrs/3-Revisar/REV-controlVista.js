@@ -6,6 +6,7 @@ export default {
 	revisar: async (req, res) => {
 		// Variables
 		const tituloPagina = iconosAgrupados.find((n) => n.codigo == temaVista)?.nombre;
+		const {usuario} = req.session;
 
 		// Obtiene el encabezado a revisar
 		const encabsRevisar = await procesos.obtieneEncabsRevisar();

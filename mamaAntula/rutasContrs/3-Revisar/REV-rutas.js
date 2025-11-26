@@ -4,6 +4,7 @@ import API from "./REV-controlApi.js";
 import vista from "./REV-controlVista.js";
 
 // Middlewares de Vista
+import soloRevisor from "../../middlewares/8-Usuarios-Roles/US-Solo4Revisor.js";
 
 // Middlewares de API - valida errores
 
@@ -17,7 +18,7 @@ router.get("/api/rev-datos-inciales", API.encabezado.datosIniciales);
 router.put("/api/rev-encabezado-cambios-status", API.encabezado.cambiosStatus);
 
 // 🖥️ Vistas
-router.get("/", vista.revisar);
+router.get("/", soloRevisor, vista.revisar);
 
 // ✅ Export
 export default router;

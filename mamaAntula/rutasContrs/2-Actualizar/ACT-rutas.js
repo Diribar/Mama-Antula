@@ -4,7 +4,7 @@ import API from "./ACT-controlApi.js";
 import vista from "./ACT-controlVista.js";
 
 // Middlewares de Vista
-import soloEdicion from "../../middlewares/8-Usuarios-Roles/US-Solo3Edicion.js";
+import soloActualiz from "../../middlewares/8-Usuarios-Roles/US-Solo3Actualiz.js";
 import descargaImg from "../../middlewares/descargaImg/IMG-descargaImg.js";
 import imgEnReqBody from "../../middlewares/descargaImg/IMG-imgEnReqBody.js";
 
@@ -40,7 +40,7 @@ router.post("/api/act-nuevo-contenido-guarda", descargaImg.single("archivo"), im
 router.post("/api/act-nuevo-carrusel-guarda", descargaImg.array("archivos"), imgEnReqBody, validaContNuevo, API.guardaContNuevo);
 
 // 🖥️ Vistas
-router.get("/", soloEdicion, vista.actualizar);
+router.get("/", soloActualiz, vista.actualizar);
 
 // ✅ Export
 export default router;
