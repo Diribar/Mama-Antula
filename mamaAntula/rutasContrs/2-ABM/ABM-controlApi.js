@@ -8,8 +8,9 @@ export default {
 		const datosIniciales = {
 			...{secciones, temasSecciones, pestanasTemas},
 			...{personajes, idiomas, lugares, indicesLugar},
-			...{usuario, creado_id, aprobado_id},
 			...{encabCartaIntro_id, encabLugaresIntro_id, contLayouts},
+			...{creado_id, aprobado_id, inactivar_id, inactivo_id},
+			usuario,
 		};
 
 		// Fin
@@ -147,15 +148,21 @@ export default {
 			// Variables
 			const {id} = req.body;
 			const contenido = await baseDatos.obtienePorId("contenidos", id, "carrusel");
-			const ruta = contenido.statusRegistro_id == creado_id ? carpRevisar : carpContenido;
 
-			// Elimina los archivos del carrusel más los registros
-			for (const registro of contenido.carrusel) comp.gestionArchs.elimina(ruta, registro.imagen, true);
-			await baseDatos.eliminaPorCondicion("carrusel", {contenido_id: id});
+			// Acciones si el contenido está en status creado
+			if (contenido.statusRegistro_id == creado_id) {
+				// Elimina los archivos del carrusel más los registros
+				for (const registro of contenido.carrusel) comp.gestionArchs.elimina(carpRevisar, registro.imagen, true);
+				await baseDatos.eliminaPorCondicion("carrusel", {contenido_id: id});
 
-			// Contenidos
-			if (contenido.imagen) comp.gestionArchs.elimina(ruta, contenido.imagen, true);
-			await baseDatos.eliminaPorId("contenidos", id);
+				// Contenidos
+				if (contenido.imagen) comp.gestionArchs.elimina(carpRevisar, contenido.imagen, true);
+				await baseDatos.eliminaPorId("contenidos", id);
+			}
+
+			// Acciones si el contenido esta en status aprobado
+			if (contenido.statusRegistro_id == aprobado_id)
+				await baseDatos.actualizaPorId("contenidos", id, {statusRegistro_id: inactivar_id});
 
 			// Fin
 			return res.json({});

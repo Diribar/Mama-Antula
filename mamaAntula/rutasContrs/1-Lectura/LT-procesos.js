@@ -23,9 +23,12 @@ export default {
 		return {encabezados, encabezado};
 	},
 	contenidos: async (encabezado) => {
+		// Variables
+		const condicion = {encab_id: encabezado.id, statusRegistro_id: [creado_id, aprobado_id]};
+
 		// Obtiene los contenidos
 		const contenidos = await baseDatos
-			.obtieneTodosPorCondicion("contenidos", {encab_id: encabezado.id}, "layout")
+			.obtieneTodosPorCondicion("contenidos", condicion, "layout")
 			.then((n) => n.sort((a, b) => a.orden - b.orden))
 			.then((n) => n.sort((a, b) => b.anoLanzam - a.anoLanzam));
 
