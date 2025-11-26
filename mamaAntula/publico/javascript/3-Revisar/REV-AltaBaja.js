@@ -6,18 +6,21 @@ window.addEventListener("load", async () => {
 		aprobar: domEncabezado.querySelector("i#aprobar"),
 		rechazar: domEncabezado.querySelector("i#rechazar"),
 	};
-	const rutas = {
-		aprobar: "/revisar/api/rev-aprueba-encabezado",
-		rechazar: "/revisar/api/rev-rechaza-encabezado",
-	};
+	const ruta = "/revisar/api/rev-encabezado-cambios-status";
+
 	const encab_id = domEncabezado.dataset.encab_id;
 
 	// Eventos
 	DOM.aprobar.addEventListener("click", async () => {
-		const respuesta = await fetch(rutas.aprobar, putJson({encab_id})).then((n) => n.json());
-		console.log(respuesta);
+		const datos = {encab_id, aprueba: true};
+		const respuesta = await fetch(ruta, putJson(datos)).then((n) => n.json());
+		location.reload();
 	});
-	DOM.rechazar.addEventListener("click", async () => await fetch(rutas.rechazar, putJson({encab_id})));
+	DOM.rechazar.addEventListener("click", async () => {
+		const datos = {encab_id, rechaza: true};
+		const respuesta = await fetch(ruta, putJson(datos)).then((n) => n.json());
+		location.reload();
+	});
 
 	// Fin
 	return;

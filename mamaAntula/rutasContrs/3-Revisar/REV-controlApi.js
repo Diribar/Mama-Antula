@@ -3,10 +3,10 @@ import procesos from "./REV-procesos.js";
 
 export default {
 	encabezado: {
-		aprueba: async (req, res) => {
+		cambiosStatus: async (req, res) => {
 			// Variables
-			const {encab_id} = req.body;
-			const statusRegistro_id = aprobado_id;
+			const {encab_id, aprueba, rechaza} = req.body;
+			const statusRegistro_id = (aprueba && aprobado_id) || (rechaza && rechazado_id);
 			const statusSugeridoPor_id = req.session.usuario.id;
 
 			// Cambia el status de sus dependencias y mueve los archivos de imagen
@@ -15,6 +15,5 @@ export default {
 			// Fin
 			return res.json({});
 		},
-		rechaza: (req, res) => {},
 	},
 };
