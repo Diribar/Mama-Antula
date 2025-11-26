@@ -5,8 +5,8 @@
 	padding-block: 6px; padding-inline: 10px 20px;
 	#encabezado {
 		display: flex; flex-direction: row; justify-content: flex-start; align-items: center; gap: 20px;
-		padding-block: 6px 15px; position: relative; line-height: 0;
-		h2 {font-size: 1.4rem;}
+		padding-block: 6px 15px; position: relative;
+		h2 {font-size: 1.4rem; max-width: calc(100% - 250px);}
 		i {
 			cursor: pointer;
 			&:hover {scale: 1.4;}

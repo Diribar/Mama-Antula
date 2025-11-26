@@ -157,7 +157,7 @@ window.addEventListener("load", async () => {
 		const confirmButtonText = "Eliminar";
 
 		// Aviso y acciones
-		const confirma = await carteles.pregunta({mensaje, cancelButtonText, confirmButtonText});
+		const confirma = await carteles.confirmar({mensaje, cancelButtonText, confirmButtonText});
 		if (!confirma) return;
 
 		// Limpia el FE

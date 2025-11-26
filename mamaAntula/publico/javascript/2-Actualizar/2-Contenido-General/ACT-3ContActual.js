@@ -304,7 +304,7 @@ window.addEventListener("load", async () => {
 						const mensaje = "¿Estás seguro/a de que querés eliminar este contenido?";
 						const cancelButtonText = "Conservar";
 						const confirmButtonText = "Eliminar";
-						if (!(await carteles.pregunta({mensaje, cancelButtonText, confirmButtonText}))) return;
+						if (!(await carteles.confirmar({mensaje, cancelButtonText, confirmButtonText}))) return;
 					}
 
 					// Crud del contenido

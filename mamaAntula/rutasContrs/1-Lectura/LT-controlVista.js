@@ -25,13 +25,13 @@ export default {
 
 		// Condición - si el usuario no tiene el permiso de edición, no se le permite ver los contenidos que tengan status 'creado'
 		const condicion = {tema_id: temaActual.id};
-		const leeStatusCreado = (req.session.usuario && rolesActualizac_ids.includes(req.session.usuario.rol_id)) || false;
-		if (!leeStatusCreado) condicion.statusRegistro_id = aprobado_id;
+		const soloStatusAprob = !req.session.usuario || !rolesActualizac_ids.includes(req.session.usuario.rol_id);
+		condicion.statusRegistro_id = soloStatusAprob ? aprobado_id : {[Op.ne]: rechazado_id};
 
 		// Obtiene el encabezado y contenido
 		const encab_id = req.query.id;
 		const {encabezados, encabezado} = await procesos.encabezados({encab_id, condicion, ...indices});
-		const contenidos = encabezado && (await procesos.contenidos(encabezado));
+		const contenidos = encabezado && (await procesos.contenidos({encabezado, soloStatusAprob}));
 
 		// Fin
 		return res.render("CMP-0Estructura", {
@@ -60,13 +60,13 @@ export default {
 
 		// Condición - si el usuario no tiene el permiso de edición, no se le permite ver los contenidos que tengan status 'creado'
 		const condicion = {pestana_id: pestanaActual.id};
-		const leeStatusCreado = (req.session.usuario && rolesActualizac_ids.includes(req.session.usuario.rol_id)) || false;
-		if (!leeStatusCreado) condicion.statusRegistro_id = aprobado_id;
+		const soloStatusAprob = !req.session.usuario || !rolesActualizac_ids.includes(req.session.usuario.rol_id);
+		condicion.statusRegistro_id = soloStatusAprob ? aprobado_id : {[Op.ne]: rechazado_id};
 
 		// Obtiene el encabezado y contenido
 		const encab_id = req.query.id;
 		const {encabezados, encabezado} = await procesos.encabezados({encab_id, condicion});
-		const contenidos = encabezado && (await procesos.contenidos(encabezado));
+		const contenidos = encabezado && (await procesos.contenidos({encabezado, soloStatusAprob}));
 
 		// Datos para la vista
 		const indices = {esCarta: null, esLugares: null, conIndice: null};
