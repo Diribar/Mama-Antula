@@ -39,6 +39,13 @@ export default {
 	temaLugares_id: 17, // el id del tema "Lugares"
 	encabLugaresIntro_id: 25, // el id del encabezado sobre Introducción a los lugares
 
+	// Includes de encabezados
+	includesEncabs: {
+		cartas: ["nombreDesde", "nombreHacia", "idioma", "lugar", "statusSugeridoPor"],
+		lugares: ["lugarIndice", "statusSugeridoPor"],
+		conIndice: ["lugar", "statusSugeridoPor"],
+	},
+
 	// Otras
 	requestsTriviales: ["WhatsApp", "Postman", "TelegramBot", "TwitterBot", "Zabbix"], // evita que se cuenten como visitas
 	continentes: ["América", "Europa", "Africa", "Asia", "Oceanía"],

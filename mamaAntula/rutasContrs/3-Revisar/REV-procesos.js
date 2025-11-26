@@ -39,7 +39,7 @@ export default {
 		const statusRegistro_id = [creado_id, rechazar_id];
 
 		// Obtiene los encabezados
-		let encabezados = await baseDatos.obtieneTodosPorCondicion("encabezados", {statusRegistro_id});
+		let encabezados = await baseDatos.obtieneTodosPorCondicion("encabezados", {statusRegistro_id}, includesEncabs.cartas);
 		if (!encabezados.length) return {};
 
 		// Les agrega la pestaña, tema y seccion

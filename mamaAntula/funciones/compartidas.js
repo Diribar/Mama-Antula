@@ -235,13 +235,6 @@ export default {
 	inicialMayus: (texto) => texto.slice(0, 1).toUpperCase() + texto.slice(1),
 };
 
-// Variables
-const includesEncabs = {
-	cartas: ["nombreDesde", "nombreHacia", "idioma", "lugar", "statusSugeridoPor"],
-	lugares: ["lugarIndice", "statusSugeridoPor"],
-	conIndice: ["lugar", "statusSugeridoPor"],
-};
-
 // Funciones
 const diaMesAnoUTC = (fecha) => {
 	// Variables

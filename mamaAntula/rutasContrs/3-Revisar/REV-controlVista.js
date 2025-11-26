@@ -26,6 +26,8 @@ export default {
 		encabezado.imagenUsuario = encabezado.usuario.imagen
 			? "/imgsEditables/8-Usuarios/" + encabezado.usuario.imagen
 			: "/imgsEstables/Varios/usuarioGenerico.jpg";
+		if (tema.id == temaCarta_id)
+			encabezado.titulo = comp.titulosElabs({esCarta: true, encabezados: [encabezado]})[0].tituloElab;
 
 		// Fin
 		return res.render("CMP-0Estructura", {

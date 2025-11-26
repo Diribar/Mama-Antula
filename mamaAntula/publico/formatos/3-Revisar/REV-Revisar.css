@@ -4,13 +4,17 @@
 	background-color: var(--amarilloMuyClaro);
 	padding-block: 6px; padding-inline: 10px 20px;
 	#encabezado {
-		display: flex; flex-direction: row; justify-content: flex-start; align-items: center; gap: 20px;
+		display: flex; flex-direction: row; justify-content: flex-start; gap: 20px;
 		padding-block: 6px 15px; position: relative;
-		h2 {font-size: 1.4rem; max-width: calc(100% - 250px);}
+		h2 {font-size: 1.4rem; max-width: calc(100% - 200px);}
 		i {
-			cursor: pointer;
+			cursor: pointer; margin-top: 3px;
 			&:hover {scale: 1.4;}
 		}
 		img {max-height: 100%; border-radius: 50%; position: absolute; right: 0px; top: 0px;}
 	}
+	#contenidoRevisar {
+		.bloque-textoImagen, .bloque-texto blockquote {margin-top: 10px;}
+	}
+
 }
