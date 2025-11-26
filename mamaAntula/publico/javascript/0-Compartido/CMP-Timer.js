@@ -7,8 +7,9 @@ window.addEventListener("load", async () => {
 		filtroEncab: document.querySelector("#filtros select[name='encabezado']"),
 	};
 	const unMinuto = 60 * 1000;
-	const minutosPermitidos = 2;
+	const minutosPermitidos = 60;
 	let minutosDispon = minutosPermitidos;
+	let timer; // ← Necesario para reiniciar después
 
 	// Funciones
 	const FN = {
@@ -34,39 +35,42 @@ window.addEventListener("load", async () => {
 			return;
 		},
 	};
-	const timer = setInterval(() => {
-		// Actualiza los minutos disponibles
-		minutosDispon--;
-		console.log(minutosDispon);
 
-		if (minutosDispon < 0) minutosDispon = 0;
-		DOM.timer.innerText = minutosDispon + " min.";
+	// Función para iniciar el timer (solución al problema 3)
+	const iniciarTimer = () =>
+		setInterval(() => {
+			minutosDispon--;
+			if (minutosDispon < 0) minutosDispon = 0;
+			DOM.timer.innerText = minutosDispon + " min.";
 
-		// Acciones si se acabó el tiempo
-		if (minutosDispon == 0) {
-			clearInterval(timer);
-			return FN.cartelDeAviso();
-		}
+			if (minutosDispon == 0) {
+				clearInterval(timer);
+				return FN.cartelDeAviso();
+			} else {
+				FN.formatoTimer();
+			}
+		}, unMinuto );
 
-		// Si sigue habiendo tiempo, actualiza el formato
-		else FN.formatoTimer();
-	}, unMinuto / 60);
+	// Inicia el timer por primera vez
+	timer = iniciarTimer();
 
 	DOM.filtroEncab &&
 		DOM.filtroEncab.addEventListener("change", () => {
 			// Si el encabezado no tiene un valor, interrumpe la función
 			if (!DOM.filtroEncab.value) return;
 
-			// Actualiza el timer
+			// Reinicia el timer
 			clearInterval(timer);
 			minutosDispon = minutosPermitidos;
 			DOM.timer.innerText = minutosDispon + " min.";
 			DOM.timer.style.backgroundColor = ""
 
+			// Vuelve a arrancar
+			timer = iniciarTimer();
+
 			// Fin
 			return;
 		});
 
-	// Fin
 	return;
 });
