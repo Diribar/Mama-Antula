@@ -26,7 +26,7 @@ export default {
 		}
 
 		// Mueve la imagen a la carpeta de aprobados
-		for (const imagen of imagenes) comp.gestionArchs.mueve(carpRevisar, carpFinal, imagen); // imagen
+		for (const imagen of imagenes) espera.push(comp.gestionArchs.mueve(carpRevisar, carpFinal, imagen)); // imagen
 
 		// Fin
 		await Promise.all(espera);

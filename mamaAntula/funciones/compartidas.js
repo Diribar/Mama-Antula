@@ -113,7 +113,7 @@ export default {
 			return;
 		},
 
-		mueve: function (nombreArch, carpOrigen, carpDestino) {
+		mueve: function (carpOrigen, carpDestino, nombreArch) {
 			// Variables
 			const rutaNombreOrigen = path.join(carpOrigen, nombreArch);
 			const rutaNombreDestino = path.join(carpDestino, nombreArch);
