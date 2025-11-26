@@ -7,7 +7,6 @@ window.addEventListener("load", async () => {
 		rechazar: domEncabezado.querySelector("i#rechazar"),
 	};
 	const ruta = "/revisar/api/rev-encabezado-cambios-status";
-
 	const encab_id = domEncabezado.dataset.encab_id;
 
 	// Eventos
