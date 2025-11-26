@@ -42,54 +42,6 @@ window.addEventListener("load", async () => {
 		// Fin
 		return;
 	};
-
-	// Eventos de íconos
-	const eventosIconos = () => {
-		// Rutina por evento crud
-		for (const crud of v.cruds) {
-			// Obtiene todos los íconos de este crud
-			const domIconos = document.querySelectorAll("#sectorContActual .iconos ." + crud);
-
-			// Les asigna el evento a c/u
-			for (const domIcono of domIconos)
-				domIcono.addEventListener("click", async () => {
-					// Variables
-					const id = domIcono.parentNode.dataset.id;
-					console.log(id);
-
-					// Si es para eliminar, pide la confirmación del usuario
-					if (crud == "elimina") {
-						const mensaje = "¿Estás seguro/a de que querés eliminar este contenido?";
-						const cancelButtonText = "Conservar";
-						const confirmButtonText = "Eliminar";
-						if (!(await carteles.pregunta({mensaje, cancelButtonText, confirmButtonText}))) return;
-					}
-
-					// Crud del contenido
-					const respuesta = await fetch(rutasContenido[crud], v.funcsComps[crud]({id})).then((n) => n.json());
-
-					// Si hubo un error, muestra el mensaje e interrumpe la función
-					if (respuesta.error) return carteles.error(respuesta.error);
-
-					// Actualiza el DOM
-					DOM.filtroEncab.dispatchEvent(new Event("change"));
-
-					// Fin
-					return;
-				});
-		}
-
-		// Obtiene todos los íconos 'entraEnEdicion'
-		const domIconos = document.querySelectorAll("#sectorContActual .iconos .entraEnEdicion");
-		for (const entraEnEdicion of domIconos)
-			entraEnEdicion.addEventListener("click", () => {
-				// Variables
-				const id = domIcono.parentNode.dataset.id;
-
-				// Muestra
-			});
-	};
-
 	// Funciones auxiliares de crea contenido e íconos
 	const auxCci = {
 		agregaBloque: function (contenido) {
@@ -159,7 +111,6 @@ window.addEventListener("load", async () => {
 				edicionImagen.classList.add("oculta");
 				edicionImagen.style.display = "flex";
 				v.domEdicion.appendChild(edicionImagen);
-
 			}
 
 			// Agrega las clases
@@ -368,7 +319,58 @@ window.addEventListener("load", async () => {
 		},
 	};
 
-	// Lo actualiza por cambio en el encabezado
+	// Eventos de íconos
+	const eventosIconos = () => {
+		// Rutina por evento crud
+		for (const crud of v.cruds) {
+			// Obtiene todos los íconos de este crud
+			const domIconos = document.querySelectorAll("#sectorContActual .iconos ." + crud);
+
+			// Les asigna el evento a c/u
+			for (const domIcono of domIconos)
+				domIcono.addEventListener("click", async () => {
+					// Variables
+					const id = domIcono.parentNode.dataset.id;
+					console.log(id);
+
+					// Si es para eliminar, pide la confirmación del usuario
+					if (crud == "elimina") {
+						const mensaje = "¿Estás seguro/a de que querés eliminar este contenido?";
+						const cancelButtonText = "Conservar";
+						const confirmButtonText = "Eliminar";
+						if (!(await carteles.pregunta({mensaje, cancelButtonText, confirmButtonText}))) return;
+					}
+
+					// Crud del contenido
+					const respuesta = await fetch(rutasContenido[crud], v.funcsComps[crud]({id})).then((n) => n.json());
+
+					// Si hubo un error, muestra el mensaje e interrumpe la función
+					if (respuesta.error) return carteles.error(respuesta.error);
+
+					// Actualiza el DOM
+					DOM.filtroEncab.dispatchEvent(new Event("change"));
+
+					// Fin
+					return;
+				});
+		}
+
+		// Obtiene todos los íconos 'entraEnEdicion'
+		const domIconos = document.querySelectorAll("#sectorContActual .iconos .entraEnEdicion");
+		for (const entraEnEdicion of domIconos)
+			entraEnEdicion.addEventListener("click", () => {
+				// Alterna el muestra/oculta de los íconos
+				const iconos = entraEnEdicion.parentNode;
+				for (const icono of iconos.querySelectorAll("i")) icono.classList.toggle("ocultar");
+
+				// Muestra edición y oculta lectura
+				const bloqueSector = iconos.parentNode;
+				bloqueSector.querySelector(".edicion").classList.remove("ocultar");
+				bloqueSector.querySelector(".contenido").classList.add("ocultar");
+
+			});
+	};
+	// Actualiza por cambio en el encabezado
 	DOM.filtroEncab.addEventListener("change", async () => {
 		// Variables
 		const encab_id = DOM.filtroEncab.value;
