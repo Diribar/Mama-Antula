@@ -125,7 +125,7 @@ export default {
 		res.cookie("actualizaEncabezado_id", encabezado.id, {maxAge: unDia, path: "/"});
 
 		// Fin
-		return ;
+		return;
 	},
 	anchorLectura: (encabezado) => {
 		// Variables
@@ -140,8 +140,11 @@ export default {
 		const urlEncabezado = conIndice ? "/?id=" + encabezado.id : "";
 		const anchorLectura = urlSeccion + urlTema + urlPestana + urlEncabezado;
 
+		// Obtiene el seccionTema
+		const seccionTema = seccion.nombre + " - " + tema.titulo + (pestana ? " - " + pestana.titulo : "");
+
 		// Fin
-		return anchorLectura;
+		return {anchorLectura, seccionTema};
 	},
 };
 
