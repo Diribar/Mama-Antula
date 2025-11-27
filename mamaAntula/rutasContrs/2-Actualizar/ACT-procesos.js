@@ -2,9 +2,12 @@
 
 export default {
 	// API - Encabezado
-	obtieneEncabs: async ({esCarta, esLugares, conIndice, condicion, usuario}) => {
+	obtieneEncabezados: async ({tema_id, condicion, usuario}) => {
+		// Variables
+		const {conIndice} = comp.tipoDeTema(tema_id);
+
 		// Obtiene los encabezados
-		let encabezados = await comp.obtieneEncabezados({esCarta, esLugares, conIndice, condicion});
+		let encabezados = await comp.obtieneEncabezados({tema_id, condicion});
 
 		// Si es sin indice, no existe un registro, y la condición tiene un tema, crea el encabezado
 		if (!conIndice && !encabezados.length && condicion.tema_id) {
@@ -20,11 +23,11 @@ export default {
 			await baseDatos.agregaRegistroIdCorrel("encabezados", datos);
 
 			// Lee de nuevo los encabezados
-			encabezados = await comp.obtieneEncabezados({esCarta, esLugares, conIndice, condicion});
+			encabezados = await comp.obtieneEncabezados({tema_id, condicion});
 		}
 
 		// Les agrega los títulos
-		if (conIndice) encabezados = comp.titulosElabs({esCarta, esLugares, encabezados});
+		encabezados = comp.titulosElabs({tema_id, encabezados});
 
 		// Los fusiona con su edición del usuario
 		const ediciones = await baseDatos.obtieneTodosPorCondicion("encabEdics", {editadoPor_id: usuario.id});
