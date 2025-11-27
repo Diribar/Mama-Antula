@@ -2,32 +2,13 @@
 <h1 id="tituloPrincipal"><%= tituloPagina %></h1>
 
 <section id="cuerpo">
-	<div id="encabezado" class="<%= encabezado.statusRegistro.codigo %>" data-encab_id="<%= encabezado.id %>">
-		<% if (!edicion) { %>
-			<!-- Íconos de aprueba / rechaza -->
-			<i id="aprueba" class="<%= iconos.faSolid %> <%= iconos.check %>"></i>
-			<i id="rechaza" class="<%= iconos.faSolid %> <%= iconos.eliminar %>"></i>
-		<% } %>
-			<!-- Ruta -->
-			<h2><%= ruta %></h2>
-		<% if (!edicion) { %>
-			<!-- Imagen del usuario que sugirió el status -->
-			<img src="<%= encabezado.imagenUsuario %>" title="<%= encabezado.usuario.nombreCompleto %>" class="noAgrandar">
-		<% } %>
-	</div>
-	<% if (encabezado.titulo) { %>
-		<div>
-			<h3><%= encabezado.titulo %></h3>
-			<h3><%= edicion.titulo %></h3>
-		</div>
-	<% } %>
+	<!-- Encabezado -->
+	<%- include("REV-1Encabezado") %>
+
+	<!-- Ediciones -->
+	<% if (edicion) { %><%- include("REV-2Edicion") %><% } %>
 
 	<!-- Contenido -->
-	<div id="contenidoRevisar">
-		<% if (encabezado) for (const contenido of encabezado.contenidos) { %>
-			<% const subCarpeta = contenido.statusRegistro_id == creado_id ? '2-Revisar' : '1-Final' %>
-			<%- include("LT-Cont-" + contenido.layout.archVistaLt, {contenido, subCarpeta}) %>
-		<% } %>
-	</div>
+	<%- include("REV-3Contenido") %>
 
 </section>

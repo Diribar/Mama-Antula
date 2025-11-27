@@ -9,10 +9,12 @@ export default {
 		const {usuario} = req.session;
 
 		// Obtiene el encabezado a revisar
-		const {encabezado, edicion, ruta} = await procesos.obtieneEncabezado.consolidado(usuario);
+		const {encabezado, edicion} = await procesos.obtieneEncabezado.consolidado(usuario);
 
 		// Si no hay encabezado, redirige a la lectura del artículo según cookies de actualizar
 		if (!encabezado) return res.redirect(procesos.anchorLectura(req));
+
+		const ruta = procesos.capturaObtieneRuta(encabezado, usuario);
 
 		// Actualiza las cookies de 'actualiza'
 		procesos.actualizaCookies({encabezado, res});
