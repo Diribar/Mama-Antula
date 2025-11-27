@@ -5,17 +5,17 @@ export default (sequelize, dt) => {
 		tema_id: {type: dt.INTEGER},
 		pestana_id: {type: dt.INTEGER},
 
-		// Otros
-		numero: {type: dt.INTEGER},
-		titulo: {type: dt.STRING(100)},
-		fechaEvento: {type: dt.DATE},
-
 		// Referencias
 		nombreDesde_id: {type: dt.INTEGER},
 		nombreHacia_id: {type: dt.INTEGER},
 		idioma_id: {type: dt.INTEGER},
 		lugar_id: {type: dt.INTEGER},
 		lugarIndice_id: {type: dt.STRING(25)},
+
+		// Otros
+		numero: {type: dt.INTEGER},
+		titulo: {type: dt.STRING(100)},
+		fechaEvento: {type: dt.DATE},
 
 		// Control
 		creadoPor_id: {type: dt.INTEGER},
