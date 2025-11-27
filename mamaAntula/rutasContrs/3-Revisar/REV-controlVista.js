@@ -17,7 +17,6 @@ export default {
 
 		// Variables para la vista
 		const anchorLectura = procesos.anchorLectura(req);
-		console.log(20, edicion);
 
 		// Fin
 		return res.render("CMP-0Estructura", {
