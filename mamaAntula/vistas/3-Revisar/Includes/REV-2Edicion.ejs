@@ -1,4 +1,4 @@
-<section id="sectorEdicion" class="flexRow" data-encab_id="<%= encabezado.id %>">
+<section id="sectorEdicion" class="flexRow">
 	<% const {imagen, nombreCompleto} = encabezado.editadoPor %>
 	<% const imagenUsuario = imagen ? ("/imgsEditables/8-Usuarios/" + imagen) : "/imgsEstables/Varios/usuarioGenerico.jpg" %>
 	<img src="<%= imagenUsuario %>" title="<%= nombreCompleto %>" class="noAgrandar">
