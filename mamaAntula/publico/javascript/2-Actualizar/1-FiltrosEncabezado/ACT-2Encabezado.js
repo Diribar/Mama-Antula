@@ -63,7 +63,7 @@ window.addEventListener("load", async () => {
 			const ocultaIconos =
 				comp1234.encabezado &&
 				((comp1234.encabezado.statusRegistro_id == comp1234.creado_id &&
-					comp1234.encabezado.statusSugeridoPor_id != comp1234.usuario.id) || // el encabezado está en status creado y no fue creado por el usuario actual
+					comp1234.encabezado.statusSugeridoPor_id != comp1234.usuario.id) || // el encabezado está en status creado y fue creado por otro usuario
 					[comp1234.rechazar_id, comp1234.rechazado_id].includes(comp1234.encabezado.statusRegistro_id)); // el encabezado está en status rechazar/rechazado
 
 			// Si oculta íconos, muestra la imagen del usuario
