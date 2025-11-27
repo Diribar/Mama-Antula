@@ -26,7 +26,6 @@ window.addEventListener("load", async () => {
 		guardaEncabezado: "/actualizar/api/act-encabezado-guarda",
 		eliminaEncabezado: "/actualizar/api/act-encabezado-elimina/?id=",
 	};
-	const v = {};
 
 	// Funciones
 	const FN = {
@@ -61,14 +60,14 @@ window.addEventListener("load", async () => {
 			return;
 		},
 		actualizaIconos: () => {
-			// Variables
+			// Averigua si se deben ocultar los íconos
 			const ocultaIconos =
-				(comp1234.encabezado &&
-					comp1234.encabezado.statusRegistro_id != comp1234.aprobado_id &&
-					comp1234.encabezado.statusSugeridoPor_id != comp1234.usuario.id) ||
-				comp1234.encabezado.statusRegistro_id == comp1234.rechazar_id;
+				comp1234.encabezado &&
+				((comp1234.encabezado.statusRegistro_id == comp1234.creado_id &&
+					comp1234.encabezado.statusSugeridoPor_id != comp1234.usuario.id) || // el encabezado está en status creado y no fue creado por el usuario actual
+					[comp1234.rechazar_id, comp1234.rechazado_id].includes(comp1234.encabezado.statusRegistro_id)); // el encabezado está en status rechazar/rechazado
 
-			// Si no está en status aprobado y la sugerencia fue de otro usuario, muestra la imagen de ese usuario
+			// Si oculta íconos, muestra la imagen del usuario
 			if (ocultaIconos) {
 				// Muestra la imagen y oculta los íconos
 				DOM.img.src = "/imgsEditables/8-Usuarios/" + comp1234.encabezado.statusSugeridoPor.imagen;
@@ -77,10 +76,15 @@ window.addEventListener("load", async () => {
 			} else {
 				// Oculta la imagen y muestra los íconos
 				DOM.img.src = "";
-				for (const iconos of DOM.iconos) iconos.classList.remove("ocultar");
 
-				// Si es un encabezado nuevo, oculta el ícono de eliminar
-				DOM.iconoEliminar.classList[DOM.filtroEncab.value == "nuevo" ? "add" : "remove"]("ocultar");
+				// Acciones si es un encabezado nuevo
+				if (DOM.filtroEncab.value == "nuevo") {
+					DOM.iconoGuardar.classList.remove("ocultar");
+					DOM.iconoEliminar.classList.add("ocultar");
+				} else {
+					DOM.iconoGuardar.classList.add("ocultar");
+					DOM.iconoEliminar.classList.remove("ocultar");
+				}
 			}
 		},
 	};
@@ -90,6 +94,13 @@ window.addEventListener("load", async () => {
 		// Muestra el encabezado que corresponde, y oculta los demás
 		FN.actualizaLaVisibilidadDelSector();
 		if (domSectorEncabezado.classList.contains("ocultar")) return;
+
+		// Le agrega una clase en función del status del encabezado
+		console.log(comp1234.encabezado);
+
+		const status = comp1234.encabezados.find((n) => n.id == DOM.filtroEncab.value).statusRegistro_id;
+		domSectorEncabezado.classList[status == comp1234.aprobado_id ? "add" : "remove"]("aprobado");
+		domSectorEncabezado.classList[status == comp1234.rechazar_id ? "add" : "remove"]("rechazado");
 
 		// Muestra el encabezado que corresponde, y oculta los demás
 		for (const domEncabezado of DOM.encabezados)
