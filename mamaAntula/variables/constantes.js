@@ -41,9 +41,9 @@ export default {
 
 	// Includes de encabezados
 	includesEncabs: {
-		cartas: ["nombreDesde", "nombreHacia", "idioma", "lugar", "statusSugeridoPor"],
-		lugares: ["lugarIndice", "statusSugeridoPor"],
-		conIndice: ["lugar", "statusSugeridoPor"],
+		cartas: ["nombreDesde", "nombreHacia", "idioma", "lugar"],
+		lugares: ["lugarIndice"],
+		conIndice: ["lugar"],
 	},
 
 	// Otras
