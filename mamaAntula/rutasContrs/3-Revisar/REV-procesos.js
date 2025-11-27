@@ -115,7 +115,6 @@ export default {
 const agregaTemaPestana = (encabezado) => {
 	// Variables
 	const {tema_id, pestana_id} = encabezado;
-	console.log(116, tema_id, pestana_id);
 
 	// Obtiene los datos de niveles
 	if (pestana_id) encabezado.pestana = pestanasTemas.find((n) => n.id == pestana_id);
