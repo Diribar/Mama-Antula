@@ -89,15 +89,17 @@ window.addEventListener("load", async () => {
 	DOM.filtroEncab.addEventListener("change", () => {
 		// Le agrega la clase del status del encabezado
 		v.encabezado = comp1234.encabezados.find((n) => n.id == DOM.filtroEncab.value);
-		const statusRegistro = v.encabezado.statusRegistro.codigo;
-		for (const status of ["creado", "aprobado", "rechazar", "rechazado"])
-			domSectorEncabezado.classList[status == statusRegistro ? "add" : "remove"](status);
+		if (v.encabezado){
+			const statusRegistro = v.encabezado.statusRegistro.codigo;
+			for (const status of ["creado", "aprobado", "rechazar", "rechazado"])
+				domSectorEncabezado.classList[status == statusRegistro ? "add" : "remove"](status);
+		}
 
 		// Muestra el encabezado que corresponde, y oculta los demás
 		FN.actualizaLaVisibilidadDelSector();
 		if (domSectorEncabezado.classList.contains("ocultar")) return;
 
-		// Muestra el encabezado que corresponde, y oculta los demás
+		// Muestra el tipo de encabezado que corresponde, y oculta los demás
 		for (const domEncabezado of DOM.encabezados)
 			domEncabezado.classList[domEncabezado.id == comp1234.tipoEncab ? "remove" : "add"]("ocultar");
 

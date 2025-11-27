@@ -25,6 +25,18 @@ export default {
 		// Les agrega los títulos
 		if (conIndice) encabezados = comp.titulosElabs({esCarta, esLugares, encabezados});
 
+		// Los fusiona con su edición del usuario
+		const ediciones = await baseDatos.obtieneTodosPorCondicion("encabEdics", {editadoPor_id: usuario.id});
+		for (const edicion of ediciones) {
+			delete edicion.id;
+			const indice = encabezados.findIndex((n) => n.id == edicion.encab_id);
+			if (indice == -1) continue;
+
+			// Los fusiona
+			for (const prop in edicion)
+				if (encabezados[indice][prop]) encabezados[indice][prop] = edicion[prop] || encabezados[indice][prop];
+		}
+
 		// Fin
 		return encabezados;
 	},
