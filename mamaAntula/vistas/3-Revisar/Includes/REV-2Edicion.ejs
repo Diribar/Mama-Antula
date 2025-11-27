@@ -1,15 +1,18 @@
-<section id="edicion" class="flexCol">
-	<% for (const prop in edicion) { %>
-		<div class="flexRow">
-			<div><%= prop %>: </div>
-			<% const esUnObjeto = edicion[prop] !== null && typeof edicion[prop] == "object" && !(edicion[prop] instanceof Date); %>
-			<% if (esUnObjeto) { %>
-				<div id="original" data-campo="<%= prop %>_id"><%= encabezado[prop].nombre %> - </div>
-				<div id="edicion" data-campo="<%= prop %>_id"><%= edicion[prop].nombre %></div>
-			<% } else { %>
-				<div id="original" data-campo="<%= prop %>"><%= encabezado[prop] %> - </div>
-				<div id="edicion" data-campo="<%= prop %>"><%= edicion[prop] %></div>
-			<% } %>
-		</div>
-	<% } %>
+<section id="sectorEdicion" class="flexRow" data-encab_id="<%= encabezado.id %>">
+	<img src="" alt="" title="">
+	<div class="flexCol">
+		<% for (const prop in edicion) { %>
+			<div class="flexRow">
+				<div class="campo"><%= prop %>: </div>
+				<% const esUnObjeto = edicion[prop] !== null && typeof edicion[prop] == "object" && !(edicion[prop] instanceof Date); %>
+				<% if (esUnObjeto) { %>
+					<div class="opcion original" data-campo="<%= prop %>_id"><%= encabezado[prop].nombre %> - </div>
+					<div class="opcion edicion" data-campo="<%= prop %>_id"><%= edicion[prop].nombre %></div>
+				<% } else { %>
+					<div class="opcion original" data-campo="<%= prop %>"><%= encabezado[prop] %> - </div>
+					<div class="opcion edicion" data-campo="<%= prop %>"><%= edicion[prop] %></div>
+				<% } %>
+			</div>
+		<% } %>
+	</div>
 </section>

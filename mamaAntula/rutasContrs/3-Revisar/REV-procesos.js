@@ -111,7 +111,7 @@ export default {
 		},
 		obtieneEdicion: async (usuario) => {
 			// Obtiene las ediciones del usuario
-			const includes = [...includesEncabs.cartas, "lugarIndice"];
+			const includes = [...includesEncabs.cartas, "lugarIndice", "editadoPor"];
 			const edicion = await baseDatos.obtienePorCondicion("encabEdics", {id: {[Op.ne]: null}}, includes);
 			if (!edicion) return {};
 
@@ -145,6 +145,9 @@ export default {
 
 			// Le agrega el título elaborado
 			encabezado = comp.titulosElabs({tema_id: encabezado.tema.id, encabezados: [encabezado]})[0];
+
+			// Le agrega el editadoPor
+			if (edicion) encabezado.editadoPor = edicion.editadoPor;
 
 			// Fin
 			return;
