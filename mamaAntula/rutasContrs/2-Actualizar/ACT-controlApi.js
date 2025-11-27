@@ -65,7 +65,7 @@ export default {
 				return res.json({});
 			}
 
-			// Si está en status aprobado, crea o actualiza la edicion
+			// Si está en status aprobado, crea o actualiza la edicion (pendiente)
 			const condicion = {encab_id: id, editadoPor_id: req.session.usuario.id};
 			const edicion = await baseDatos.obtienePorCondicion("encabEdics", condicion);
 
