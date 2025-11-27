@@ -1,6 +1,14 @@
 /* Sector encabezados */
 #sectorEncabezado {
 	width: fit-content;
+	&.aprobado {
+		background-color: var(--verdeClaro) !important;
+		select, input {background-color: var(--verdeMuyClaro);}
+	}
+	&.rechazar, &.rechazado {
+		background-color: var(--rojoClaro) !important;
+		select, input {background-color: var(--rojoMuyClaro);}
+	}
 
 	.encabezado {
 		input[type="text"] {

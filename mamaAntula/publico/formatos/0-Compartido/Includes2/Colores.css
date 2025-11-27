@@ -4,6 +4,8 @@ body {
 	/* --amarilloMuyClaro: rgb(255,247,220); */
 	--amarilloMuyClaro: rgb(255,255,235);
 	--celesteMuyClaro: rgb(242, 246, 252);
+	--rojoMuyClaro: #ffe5e5;
+	--verdeMuyClaro: rgb(240, 250, 240);
 
 	/* Claro */
 	--amarilloClaro:rgb(255,242,204);

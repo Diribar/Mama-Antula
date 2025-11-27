@@ -174,16 +174,16 @@ export default {
 	obtieneEncabezados: ({esCarta, esLugares, conIndice, condicion}) => {
 		return esCarta
 			? baseDatos
-					.obtieneTodosPorCondicion("encabezados", condicion, includesEncabs.cartas)
+					.obtieneTodosPorCondicion("encabezados", condicion, [...includesEncabs.cartas, "statusRegistro"])
 					.then((n) => n.sort((a, b) => (a.fechaEvento < b.fechaEvento ? -1 : 1)))
 			: esLugares
 			? baseDatos
-					.obtieneTodosPorCondicion("encabezados", condicion, includesEncabs.lugares)
+					.obtieneTodosPorCondicion("encabezados", condicion, [...includesEncabs.lugares, "statusRegistro"])
 					.then((n) => n.sort((a, b) => (a.titulo < b.titulo ? -1 : 1)))
 					.then((n) => n.sort((a, b) => (a.lugarIndice.orden < b.lugarIndice.orden ? -1 : 1)))
 			: conIndice
 			? baseDatos
-					.obtieneTodosPorCondicion("encabezados", condicion, includesEncabs.conIndice)
+					.obtieneTodosPorCondicion("encabezados", condicion, [...includesEncabs.conIndice, "statusRegistro"])
 					.then((n) => n.sort((a, b) => (b.fechaEvento < a.fechaEvento ? -1 : 1)))
 			: baseDatos.obtieneTodosPorCondicion("encabezados", condicion);
 	},
@@ -272,7 +272,7 @@ const titulosElabs = {
 					  (encab.nombreDesde.nombre.startsWith("P.") ? "l " : " ") +
 					  encab.nombreDesde.nombre +
 					  " para " +
-					//   (encab.nombreHacia.nombre.startsWith("P.") ? "el " : "") +
+					  //   (encab.nombreHacia.nombre.startsWith("P.") ? "el " : "") +
 					  encab.nombreHacia.nombre +
 					  " - " +
 					  encab.lugar.nombre +

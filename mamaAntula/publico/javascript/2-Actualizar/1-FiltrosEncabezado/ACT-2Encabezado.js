@@ -25,6 +25,7 @@ window.addEventListener("load", async () => {
 		guardaEncabezado: "/actualizar/api/act-encabezado-guarda",
 		eliminaEncabezado: "/actualizar/api/act-encabezado-elimina/?id=",
 	};
+	let v = {};
 
 	// Funciones
 	const FN = {
@@ -41,7 +42,6 @@ window.addEventListener("load", async () => {
 		actualizaSusValores: () => {
 			// Agrega los valores
 			DOM.inputs = DOM.encabezado.querySelectorAll(".input");
-			comp1234.encabezado = comp1234.encabezados.find((n) => n.id == DOM.filtroEncab.value);
 			for (const input of DOM.inputs) {
 				// Agrega las opciones
 				const {tabla} = input.dataset;
@@ -49,10 +49,7 @@ window.addEventListener("load", async () => {
 
 				// Actualiza el valor elegido de todos los inputs
 				const campo = input.name;
-				input.value =
-					comp1234.encabezado && (comp1234.encabezado[campo] || comp1234.encabezado[campo] === 0)
-						? comp1234.encabezado[campo]
-						: "";
+				input.value = v.encabezado && (v.encabezado[campo] || v.encabezado[campo] === 0) ? v.encabezado[campo] : "";
 			}
 
 			// Fin
@@ -61,16 +58,16 @@ window.addEventListener("load", async () => {
 		actualizaIconos: () => {
 			// Averigua si se deben ocultar los íconos
 			const ocultaIconos =
-				comp1234.encabezado &&
-				((comp1234.encabezado.statusRegistro_id == comp1234.creado_id &&
-					comp1234.encabezado.statusSugeridoPor_id != comp1234.usuario.id) || // el encabezado está en status creado y fue creado por otro usuario
-					[comp1234.rechazar_id, comp1234.rechazado_id].includes(comp1234.encabezado.statusRegistro_id)); // el encabezado está en status rechazar/rechazado
+				v.encabezado &&
+				((v.encabezado.statusRegistro_id == comp1234.creado_id &&
+					v.encabezado.statusSugeridoPor_id != comp1234.usuario.id) || // el encabezado está en status creado y fue creado por otro usuario
+					[comp1234.rechazar_id, comp1234.rechazado_id].includes(v.encabezado.statusRegistro_id)); // el encabezado está en status rechazar/rechazado
 
 			// Si oculta íconos, muestra la imagen del usuario
 			if (ocultaIconos) {
 				// Muestra la imagen y oculta los íconos
-				DOM.img.src = "/imgsEditables/8-Usuarios/" + comp1234.encabezado.statusSugeridoPor.imagen;
-				DOM.img.title = comp1234.encabezado.statusSugeridoPor.nombreCompleto;
+				DOM.img.src = "/imgsEditables/8-Usuarios/" + v.encabezado.statusSugeridoPor.imagen;
+				DOM.img.title = v.encabezado.statusSugeridoPor.nombreCompleto;
 				for (const iconos of DOM.iconos) iconos.classList.add("ocultar");
 			} else {
 				// Oculta la imagen y muestra los íconos
@@ -94,12 +91,11 @@ window.addEventListener("load", async () => {
 		FN.actualizaLaVisibilidadDelSector();
 		if (domSectorEncabezado.classList.contains("ocultar")) return;
 
-		// Le agrega una clase en función del status del encabezado
-		console.log(comp1234.encabezado);
-
-		const status = comp1234.encabezados.find((n) => n.id == DOM.filtroEncab.value).statusRegistro_id;
-		domSectorEncabezado.classList[status == comp1234.aprobado_id ? "add" : "remove"]("aprobado");
-		domSectorEncabezado.classList[status == comp1234.rechazar_id ? "add" : "remove"]("rechazado");
+		// Le agrega la clase del status del encabezado
+		v.encabezado = comp1234.encabezados.find((n) => n.id == DOM.filtroEncab.value);
+		const statusRegistro = v.encabezado.statusRegistro.codigo;
+		for (const status of ["creado", "aprobado", "rechazar", "rechazado"])
+			domSectorEncabezado.classList[status == statusRegistro ? "add" : "remove"](status);
 
 		// Muestra el encabezado que corresponde, y oculta los demás
 		for (const domEncabezado of DOM.encabezados)
