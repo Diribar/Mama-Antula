@@ -9,23 +9,7 @@ window.addEventListener("load", async () => {
 		// Otros
 		anchorLectura: document.querySelector("footer #iconosFooterOtros a#lectura"),
 	};
-	const rutas = {
-		datosIniciales: "/revisar/api/rev-datos-inciales",
-		cambioStatus: "/revisar/api/rev-encabezado-cambios-status",
-	};
-	const v = {
-		encab_id: domEncabezado.dataset.encab_id,
-		...(await fetch(rutas.datosIniciales).then((n) => n.json())),
-	};
-	const temaActual = v.temasSecciones.find((n) => n.id == tema_id);
-	const conIndice = temaActual.indicesFecha.length || temaActual.indicesLugar.length;
-
-	// Actualiza el anchorLectura
-	const urlSeccion = "/" + v.secciones.find((n) => n.id == seccion_id).url;
-	const urlTema = "/" + v.temasSecciones.find((n) => n.id == tema_id).url;
-	const urlPestana = (pestana_id && "/" + v.pestanasTemas.find((n) => n.id == pestana_id).url) || "";
-	const urlEncabezado = conIndice ? "/?id=" + encab_id : "";
-	DOM.anchorLectura.href = urlSeccion + urlTema + urlPestana + urlEncabezado;
+	const rutaCambioStatus = "/revisar/api/rev-encabezado-cambios-status";
 
 	// Eventos
 	for (const domEvento of DOM.eventos)
@@ -47,7 +31,7 @@ window.addEventListener("load", async () => {
 
 			// Guarda la información en la BD
 			const datos = {encab_id, [domEvento.id]: true};
-			const respuesta = await fetch(rutas.cambioStatus, putJson(datos)).then((n) => n.json());
+			const respuesta = await fetch(rutaCambioStatus, putJson(datos)).then((n) => n.json());
 			for (const icono of DOM.eventos) icono.classList.remove("inactivo");
 
 			// Si hubo un error, muestra el mensaje e interrumpe la función
@@ -62,7 +46,4 @@ window.addEventListener("load", async () => {
 });
 
 // Variables
-const seccion_id = cookie("actualizaSeccion_id");
-const tema_id = cookie("actualizaTema_id");
-const pestana_id = cookie("actualizaPestana_id");
 const encab_id = cookie("actualizaEncabezado_id");
