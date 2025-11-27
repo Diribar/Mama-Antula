@@ -46,16 +46,16 @@ export default {
 			if (!encabezado) return;
 			await this.completaEncabezado(encabezado);
 
-			// Obtiene la seccionTema
+			// Obtiene la ruta
 			const {seccion, tema, pestana} = encabezado;
-			const seccionTema = seccion.nombre + " - " + tema.titulo + (pestana ? " - " + pestana.titulo : "");
+			const ruta = seccion.nombre + " - " + tema.titulo + (pestana ? " - " + pestana.titulo : "");
 
 			// Actualiza la captura
 			const {tema_id, pestana_id} = encabezado;
 			comp.captura({tema_id, pestana_id, capturadoPor_id: usuario.id});
 
 			// Fin
-			return {encabezado, edicion, seccionTema};
+			return {encabezado, edicion, ruta};
 		},
 		obtieneEncabezados: async (usuario) => {
 			// Variables
