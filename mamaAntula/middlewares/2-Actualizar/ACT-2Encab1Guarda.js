@@ -7,17 +7,47 @@ export default async (req, res, next) => {
 	mensajes = [];
 
 	// GENERAL - tema_id y pestana_id
-	(!tema_id && !pestana_id && mensajes.push("Tenés que elegir un tema o una pestaña")) ||
-		(tema_id && !temasSecciones.find((n) => n.id == tema_id) && mensajes.push("El tema no existe")) ||
-		(pestana_id && !pestanasTemas.find((n) => n.id == pestana_id) && mensajes.push("La pestaña no existe"));
+	if (!tema_id && !pestana_id) return res.json({error: "Tenés que elegir un tema o una pestaña"});
+	if (tema_id && !temasSecciones.find((n) => n.id == tema_id)) return res.json({error: "El tema no existe"});
+	if (pestana_id && !pestanasTemas.find((n) => n.id == pestana_id)) return res.json({error: "La pestaña no existe"});
 
 	// GENERAL - encab_id
-	if (!encab_id) mensajes.push("Necesitamos un valor para el encabezado");
-	else if (encab_id != "nuevo") {
+	if (!encab_id) return res.json({error: "Necesitamos un valor para el encabezado"});
+	if (encab_id != "nuevo") {
+		// Obtiene el encabezado
 		const encabezado = await baseDatos.obtienePorId("encabezados", encab_id);
-		if (!encabezado) mensajes.push("No tenemos ese encabezado");
-		else if (encabezado.creadoPor_id != req.session.usuario.id && encabezado.statusRegistro_id != aprobado_id)
-			mensajes.push("No tenés permiso para editar este encabezado");
+		req.encabezado = encabezado;
+
+		// El encabezado no existe
+		if (!encabezado) return res.json({error: "No tenemos ese encabezado"});
+
+		// Sin permiso de edición
+		if (
+			(encabezado.statusRegistro_id == creado_id && encabezado.creadoPor_id != req.session.usuario.id) ||
+			[rechazar_id, rechazado_id].includes(encabezado.statusRegistro_id)
+		)
+			return res.json({error: "No tenés permiso para editar este encabezado"});
+
+		// Averigua si hubieron novedades
+		let novedad = false;
+		for (const prop in req.body) if (encabezado[prop] && req.body[prop] && encabezado[prop] != req.body[prop]) novedad = true;
+		req.novedad = novedad;
+
+		// Sin cambios
+		if (!novedad) {
+			// Variables
+			const mensajeSinCambios = {error: "No hay cambios que guardar"};
+
+			// En status creado
+			if (encabezado.statusRegistro_id == creado_id) return res.json(mensajeSinCambios);
+			// En status aprobado
+			else if (encabezado.statusRegistro_id == aprobado_id) {
+				const condicion = {encab_id, editadoPor_id: req.session.usuario.id};
+				const edicion = await baseDatos.obtienePorCondicion("encabEdics", condicion);
+				req.edicion = edicion;
+				if (!edicion) return res.json(mensajeSinCambios);
+			}
+		}
 	}
 
 	// Validaciones
