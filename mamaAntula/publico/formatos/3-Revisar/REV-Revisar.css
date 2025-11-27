@@ -1,5 +1,5 @@
 #cuerpo {
-	/* border: 1px solid red; */
+	border-radius: 15px;
 	flex-direction: column; overflow-y: auto !important;
 	background-color: var(--amarilloMuyClaro);
 	padding-block: 6px; padding-inline: 10px 20px;
@@ -8,7 +8,7 @@
 		padding-block: 6px 15px; position: relative;
 		h2 {font-size: 1.4rem; max-width: calc(100% - 200px);}
 		i {
-			cursor: pointer; margin-top: 3px;
+			cursor: pointer; font-size: 1.3rem; margin-top: 1px;
 			&:hover {scale: 1.4;}
 		}
 		img {max-height: 100%; border-radius: 50%; position: absolute; right: 0px; top: 0px;}
@@ -27,5 +27,8 @@
 			img {cursor: pointer;}
 		}
 	}
+
+	/* Si el encabezado está en status rechazar/rechazado, cambia el color de fondo */
+	&:has(#encabezado.rechazar, #encabezado.rechazado) {background-color: var(--rojoMuyClaro);}
 
 }

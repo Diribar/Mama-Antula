@@ -10,7 +10,7 @@
 			<% const muestraRevision = icono.codigo == "revisar" && usuario.rol.revision && locals.temaVista != "revisar" %>
 			<% const muestraCambioRoles = icono.codigo == "cambioRoles" && usuario.rol.cambioRoles && locals.codigoVista != "cambioRoles" %>
 			<% if (muestraLectura || muestraEdicion || muestraRevision || muestraCambioRoles) { %>
-				<a href="<%= icono.link %>" id="<%= icono.codigo %>" title="<%= icono.nombre %>">
+				<a href="<%= icono.link || locals.anchorLectura || '' %>" id="<%= icono.codigo %>" title="<%= icono.nombre %>">
 					<i class="fa-solid <%= icono.clase %> scaleHover"></i>
 				</a>
 			<% } %>

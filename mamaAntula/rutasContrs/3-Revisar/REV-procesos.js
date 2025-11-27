@@ -97,9 +97,8 @@ export default {
 			? "/imgsEditables/8-Usuarios/" + encabezado.usuario.imagen
 			: "/imgsEstables/Varios/usuarioGenerico.jpg";
 
-		// Si es una carta, le agrega el título
-		if (encabezado.tema.id == temaCarta_id)
-			encabezado.titulo = comp.titulosElabs({esCarta: true, encabezados: [encabezado]})[0].tituloElab;
+		// Le agrega el statusRegistro
+		encabezado.statusRegistro = statusRegistros.find((n) => n.id == encabezado.statusRegistro_id);
 
 		// Le agrega los contenidos
 		encabezado.contenidos = await baseDatos
@@ -107,8 +106,45 @@ export default {
 			.then((n) => n.sort((a, b) => a.orden - b.orden))
 			.then((n) => n.sort((a, b) => b.anoLanzam - a.anoLanzam));
 
+		// Si es una carta, le agrega el título
+		if (encabezado.tema.id == temaCarta_id)
+			encabezado.titulo = comp.titulosElabs({esCarta: true, encabezados: [encabezado]})[0].tituloElab;
+
 		// Fin
 		return;
+	},
+	actualizaCookies: ({encabezado, res}) => {
+		// Variables
+		const {seccion, tema, pestana} = encabezado;
+
+		// Actualiza las cookies de 'actualiza'
+		res.cookie("actualizaSeccion_id", seccion.id, {maxAge: unDia, path: "/"});
+		res.cookie("actualizaTema_id", tema.id, {maxAge: unDia, path: "/"});
+		if (pestana) res.cookie("actualizaPestana_id", pestana.id, {maxAge: unDia, path: "/"});
+		else res.clearCookie("actualizaPestana_id");
+		res.cookie("actualizaEncabezado_id", encabezado.id, {maxAge: unDia, path: "/"});
+
+		// Fin
+		return;
+	},
+	anchorLectura: (encabezado) => {
+		// Variables
+		const {seccion, tema, pestana} = encabezado;
+
+		// Obtiene el anchorLectura
+		const temaActual = temasSecciones.find((n) => n.id == tema.id);
+		const conIndice = temaActual.indicesFecha.length || temaActual.indicesLugar.length;
+		const urlSeccion = "/" + secciones.find((n) => n.id == seccion.id).url;
+		const urlTema = "/" + temasSecciones.find((n) => n.id == tema.id).url;
+		const urlPestana = (pestana && "/" + v.pestanasTemas.find((n) => n.id == pestana.id).url) || "";
+		const urlEncabezado = conIndice ? "/?id=" + encabezado.id : "";
+		const anchorLectura = urlSeccion + urlTema + urlPestana + urlEncabezado;
+
+		// Obtiene el seccionTema
+		const seccionTema = seccion.nombre + " - " + tema.titulo + (pestana ? " - " + pestana.titulo : "");
+
+		// Fin
+		return {anchorLectura, seccionTema};
 	},
 };
 

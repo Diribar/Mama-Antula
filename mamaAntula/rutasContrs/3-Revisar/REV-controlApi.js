@@ -3,7 +3,6 @@ import procesos from "./REV-procesos.js";
 
 export default {
 	encabezado: {
-		datosIniciales: async (req, res) => res.json({secciones,temasSecciones,pestanasTemas}),
 		cambiosStatus: async (req, res) => {
 			// Variables
 			const {encab_id, aprueba, rechaza} = req.body;

@@ -22,20 +22,16 @@ export default {
 		await procesos.completaEncabezado(encabezado);
 
 		// Actualiza las cookies de 'actualiza'
-		const {seccion, tema, pestana} = encabezado;
-		res.cookie("actualizaSeccion_id", seccion.id, {maxAge: unDia, path: "/"});
-		res.cookie("actualizaTema_id", tema.id, {maxAge: unDia, path: "/"});
-		if (pestana) res.cookie("actualizaPestana_id", pestana.id, {maxAge: unDia, path: "/"});
-		else res.clearCookie("actualizaPestana_id");
-		res.cookie("actualizaEncabezado_id", encabezado.id, {maxAge: unDia, path: "/"});
+		procesos.actualizaCookies({encabezado, res});
 
 		// Variables para la vista
-		const seccionTema = seccion.nombre + " - " + tema.titulo + (pestana ? " - " + pestana.titulo : "");
+		const {anchorLectura, seccionTema} = procesos.anchorLectura(encabezado);
 
 		// Fin
 		return res.render("CMP-0Estructura", {
 			...{tituloPagina, temaVista},
 			...{seccionTema, encabezado},
+			anchorLectura,
 		});
 	},
 };

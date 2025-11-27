@@ -15,7 +15,6 @@ import encabStatus from "../../middlewares/2-Revisar/REV-Encab-Status.js";
 const router = express.Router();
 
 // 📡 APIs
-router.get("/api/rev-datos-inciales", API.encabezado.datosIniciales);
 router.put("/api/rev-encabezado-cambios-status", encabStatus, API.encabezado.cambiosStatus);
 
 // 🖥️ Vistas
