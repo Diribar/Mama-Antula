@@ -22,7 +22,10 @@
 			&:has(.bloque-libro) {row-gap: var(--margenVertical);}
 			&:has(.bloque-estampa) {row-gap: calc(var(--margenVertical) * 2);}
 		}
-
+		.bloque {
+			a {color: var(--terracota); text-decoration: underline;}
+			img {cursor: pointer;}
+		}
 	}
 
 }

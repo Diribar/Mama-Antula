@@ -55,12 +55,14 @@ export default {
 		return encabezados;
 	},
 	obtieneEncabezado: (encabezados) => {
-		// Casos que interrumpen la función
+		// Si no hay encabezados, interrumpe la función
 		if (!encabezados.length) return {};
+
+		// Si hay un sólo encabezado, lo completa e interrumpe la función
+		encabezados = encabezados.map((n) => agregaTemaPestana(n));
 		if (encabezados.length == 1) return encabezados[0];
 
 		// Los ordena por sección
-		encabezados = encabezados.map((n) => agregaTemaPestana(n));
 		encabezados.sort((a, b) => a.seccion.orden - b.seccion.orden);
 		encabezados = encabezados.filter((n) => n.seccion.id == encabezados[0].seccion.id);
 		if (encabezados.length == 1) return encabezados[0];
@@ -81,8 +83,7 @@ export default {
 		encabezados
 			.sort((a, b) => (a.titulo < b.titulo ? -1 : 1))
 			.sort((a, b) => a.fechaEvento - b.fechaEvento)
-			.sort((a, b) => (a.lugarIndice.orden < b.lugarIndice.orden ? -1 : 1))
-			;
+			.sort((a, b) => (a.lugarIndice.orden < b.lugarIndice.orden ? -1 : 1));
 
 		// Fin
 		return encabezados[0];
@@ -113,7 +114,8 @@ export default {
 
 const agregaTemaPestana = (encabezado) => {
 	// Variables
-	const {pestana_id, tema_id} = encabezado;
+	const {tema_id, pestana_id} = encabezado;
+	console.log(116, tema_id, pestana_id);
 
 	// Obtiene los datos de niveles
 	if (pestana_id) encabezado.pestana = pestanasTemas.find((n) => n.id == pestana_id);
