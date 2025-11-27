@@ -2,7 +2,7 @@
 <h1 id="tituloPrincipal"><%= tituloPagina %></h1>
 
 <section id="cuerpo">
-	<div id="encabezado" data-encab_id="<%= encabezado.id %>">
+	<div id="encabezado" class="<%= encabezado.statusRegistro.codigo %>" data-encab_id="<%= encabezado.id %>">
 		<i id="aprueba" class="<%= iconos.faSolid %> <%= iconos.check %>"></i>
 		<i id="rechaza" class="<%= iconos.faSolid %> <%= iconos.eliminar %>"></i>
 		<h2><%= seccionTema %><% if (encabezado.titulo) { %>: <em><%= encabezado.titulo %></em><% } %></h2>
