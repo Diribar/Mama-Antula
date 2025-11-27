@@ -30,6 +30,7 @@ export default {
 		for (const edicion of ediciones) {
 			delete edicion.id;
 			const indice = encabezados.findIndex((n) => n.id == edicion.encab_id);
+			if (indice == -1) continue;
 
 			// Los fusiona
 			for (const prop in edicion)
