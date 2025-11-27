@@ -17,9 +17,10 @@ export default {
 			if (pestana_id) datos.pestana_id = pestana_id;
 
 			// Guarda el encabezado
-			const encabezado = await baseDatos.agregaRegistroIdCorrel("encabezados", datos);
-			// encabezado.ediciones = [];
-			encabezados = [encabezado];
+			await baseDatos.agregaRegistroIdCorrel("encabezados", datos);
+
+			// Lee de nuevo los encabezados
+			encabezados = await comp.obtieneEncabezados({esCarta, esLugares, conIndice, condicion});
 		}
 
 		// Les agrega los títulos

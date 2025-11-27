@@ -189,7 +189,7 @@ export default {
 			? baseDatos
 					.obtieneTodosPorCondicion("encabezados", condicion, [...includesEncabs.conIndice, ...includesAdics])
 					.then((n) => n.sort((a, b) => (b.fechaEvento < a.fechaEvento ? -1 : 1)))
-			: baseDatos.obtieneTodosPorCondicion("encabezados", condicion);
+			: baseDatos.obtieneTodosPorCondicion("encabezados", condicion, includesAdics);
 	},
 
 	// Funciones puntuales
