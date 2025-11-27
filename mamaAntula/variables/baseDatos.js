@@ -24,7 +24,7 @@ export default {
 			statusRegistrosUs: baseDatos.obtieneTodosConOrden("statusRegistrosUs", "orden"),
 
 			// Otros
-			iconosAgrupados: baseDatos.obtieneTodosConOrden("iconosAgrupados", "orden"),
+			iconosAgrupados: baseDatos.obtieneTodosConOrden("iconosAgrupados", "orden").then((n) => n.filter((m) => m.activo)),
 			statusRegistros: baseDatos.obtieneTodosConOrden("statusRegistros", "orden"),
 			versionWeb: baseDatos.obtieneTodosConOrden("novsDelSitio", "fecha").then((n) => n.at(-1).version),
 		};

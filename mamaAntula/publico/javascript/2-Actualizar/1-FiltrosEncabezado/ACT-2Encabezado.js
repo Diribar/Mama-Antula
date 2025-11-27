@@ -137,11 +137,8 @@ window.addEventListener("load", async () => {
 		if (respuesta.error) return carteles.error(respuesta.error);
 		// Si no hubo error y es una edición, muestra el mensaje de exito
 		else if (DOM.filtroEncab.value != "nuevo") carteles.exito("El encabezado fue actualizado");
-
-		// Guarda el nuevo_id en la cookie y establece que se actualicen los filtros por las cookies
-		if (respuesta.id) {
-			// Guarda la nueva cookie y se genera un change en el tema, para que se reinicie el filtro del encabezado
-			document.cookie = "actualizaEncabezado_id=" + respuesta.id + "; path=/";
+		// Como es un encabezado nuevo, establece que se actualicen los filtros por las cookies
+		else {
 			comp1234.startUp = true;
 			DOM.filtroTema.dispatchEvent(new Event("change"));
 		}

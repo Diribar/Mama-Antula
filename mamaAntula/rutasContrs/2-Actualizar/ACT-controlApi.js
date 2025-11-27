@@ -53,7 +53,7 @@ export default {
 				res.cookie("actualizaEncabezado_id", encabezado.id, {maxAge: unDia, path: "/"});
 
 				// Fin
-				return res.json({id: encabezado.id});
+				return res.json({});
 			}
 
 			// Obtiene el encabezado
