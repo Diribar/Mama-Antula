@@ -109,10 +109,10 @@ export default {
 			// Fin
 			return encabezados[0];
 		},
-		obtieneEdicion: async (usuario) => {
+		obtieneEdicion: async () => {
 			// Obtiene las ediciones del usuario
-			const includes = [...includesEncabs.cartas, "lugarIndice", "editadoPor"];
-			const edicion = await baseDatos.obtienePorCondicion("encabEdics", {id: {[Op.ne]: null}}, includes);
+			const includes = [...includesEncabs.cartas, "lugarIndice"];
+			const edicion = await baseDatos.obtienePorCondicion("encabEdics", {id: {[Op.ne]: null}}, [...includes, "editadoPor"]);
 			if (!edicion) return {};
 
 			// Obtiene el encabezado de la edición
