@@ -12,7 +12,7 @@ export default {
 			pestanasTemas: baseDatos.obtieneTodosConOrden("pestanasTemas", "orden"),
 			contLayouts: baseDatos.obtieneTodosConOrden("contLayouts", "orden"),
 			indicesFecha: baseDatos.obtieneTodos("indicesFecha"),
-			indicesLugar: baseDatos.obtieneTodosConOrden("indicesLugar", "codigo"),
+			indicesLugar: baseDatos.obtieneTodosConOrden("indicesLugar", "orden"),
 
 			// Cartas
 			idiomas: baseDatos.obtieneTodosConOrden("idiomas", "orden"),

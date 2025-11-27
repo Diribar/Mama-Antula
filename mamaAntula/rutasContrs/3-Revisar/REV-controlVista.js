@@ -28,11 +28,10 @@ export default {
 		res.cookie("actualizaSeccion_id", seccion.id, {maxAge: unDia, path: "/"});
 		res.cookie("actualizaTema_id", tema.id, {maxAge: unDia, path: "/"});
 		if (pestana) res.cookie("actualizaPestana_id", pestana.id, {maxAge: unDia, path: "/"});
+		else res.clearCookie("actualizaPestana_id");
 		res.cookie("actualizaEncabezado_id", encabezado.id, {maxAge: unDia, path: "/"});
 
 		// Variables para la vista
-		console.log(34, pestana);
-
 		const seccionTema = seccion.nombre + " - " + tema.titulo + (pestana ? " - " + pestana.titulo : "");
 
 		// Fin

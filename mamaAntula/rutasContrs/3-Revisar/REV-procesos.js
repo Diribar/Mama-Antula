@@ -39,7 +39,8 @@ export default {
 		const statusRegistro_id = [creado_id, rechazar_id];
 
 		// Obtiene los encabezados
-		let encabezados = await baseDatos.obtieneTodosPorCondicion("encabezados", {statusRegistro_id}, includesEncabs.cartas);
+		const includes = [...includesEncabs.cartas, "lugarIndice"];
+		let encabezados = await baseDatos.obtieneTodosPorCondicion("encabezados", {statusRegistro_id}, includes);
 		if (!encabezados.length) return {};
 
 		// Quita los encabezados capturados por terceros
@@ -76,9 +77,12 @@ export default {
 			if (encabezados.length == 1) return encabezados[0];
 		}
 
-		// Los ordena por fecha
-		encabezados.sort((a, b) => a.fechaEvento - b.fechaEvento);
-		if (encabezados.length == 1) return encabezados[0];
+		// Los ordena por fecha y por lugarIndice
+		encabezados
+			.sort((a, b) => (a.titulo < b.titulo ? -1 : 1))
+			.sort((a, b) => a.fechaEvento - b.fechaEvento)
+			.sort((a, b) => (a.lugarIndice.orden < b.lugarIndice.orden ? -1 : 1))
+			;
 
 		// Fin
 		return encabezados[0];
@@ -100,8 +104,7 @@ export default {
 		encabezado.contenidos = await baseDatos
 			.obtieneTodosPorCondicion("contenidos", {encab_id: encabezado.id}, ["layout", "carrusel"])
 			.then((n) => n.sort((a, b) => a.orden - b.orden))
-			.then((n) => n.sort((a, b) => b.anoLanzam - a.anoLanzam))
-			;
+			.then((n) => n.sort((a, b) => b.anoLanzam - a.anoLanzam));
 
 		// Fin
 		return;
