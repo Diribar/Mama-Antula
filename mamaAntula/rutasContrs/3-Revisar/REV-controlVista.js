@@ -12,7 +12,10 @@ export default {
 		// Obtiene el encabezado a revisar
 		const encabsRevisar = await procesos.obtieneEncabezados(usuario);
 		const encabezado = procesos.obtieneEncabezado(encabsRevisar);
-		if (!encabezado) return res.redirect("/");
+		if (!encabezado) {
+			const anchorLectura = procesos.anchorLectura(req);
+			return res.redirect(anchorLectura);
+		}
 
 		// Actualiza la captura
 		const {tema_id, pestana_id} = encabezado;
@@ -24,8 +27,12 @@ export default {
 		// Actualiza las cookies de 'actualiza'
 		procesos.actualizaCookies({encabezado, res});
 
+		// Obtiene el seccionTema
+		const {seccion, tema, pestana} = encabezado;
+		const seccionTema = seccion.nombre + " - " + tema.titulo + (pestana ? " - " + pestana.titulo : "");
+
 		// Variables para la vista
-		const anchorLectura = procesos.anchorLectura();
+		const anchorLectura = procesos.anchorLectura(req);
 
 		// Fin
 		return res.render("CMP-0Estructura", {

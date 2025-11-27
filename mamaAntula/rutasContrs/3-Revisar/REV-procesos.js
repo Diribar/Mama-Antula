@@ -127,7 +127,7 @@ export default {
 		// Fin
 		return;
 	},
-	anchorLectura: (encabezado) => {
+	anchorLectura: (req) => {
 		// Variables
 		const {actualizaSeccion_id, actualizaTema_id, actualizaPestana_id, actualizaEncabezado_id} = req.cookies;
 
@@ -136,14 +136,14 @@ export default {
 
 		// Le agrega el tema
 		const temaActual = temasSecciones.find((n) => n.id == actualizaTema_id);
-		anchorLectura += "/" + temasSecciones.find((n) => n.id == tema.id).url;
+		anchorLectura += "/" + temasSecciones.find((n) => n.id == actualizaTema_id).url;
 
 		// Le agrega la pestaña
 		anchorLectura += (actualizaPestana_id && "/" + v.pestanasTemas.find((n) => n.id == actualizaPestana_id).url) || "";
 
 		// Le agrega el encabezado
 		const conIndice = temaActual.indicesFecha.length || temaActual.indicesLugar.length;
-		anchorLectura += conIndice ? "/?id=" + encabezado.id : "";
+		anchorLectura += conIndice ? "/?id=" + actualizaEncabezado_id : "";
 
 		// Fin
 		return anchorLectura;
