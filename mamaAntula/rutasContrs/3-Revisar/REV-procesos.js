@@ -34,84 +34,121 @@ export default {
 	},
 
 	// Vista
-	obtieneEncabezados: async (usuario) => {
-		// Variables
-		const statusRegistro_id = [creado_id, rechazar_id];
+	obtieneEncabezado: {
+		consolidado: async function (usuario) {
+			// Variables
+			let encabezado, edicion;
 
-		// Obtiene los encabezados
-		const includes = [...includesEncabs.cartas, "lugarIndice"];
-		let encabezados = await baseDatos.obtieneTodosPorCondicion("encabezados", {statusRegistro_id}, includes);
-		if (!encabezados.length) return [];
+			// Obtiene el encabezado
+			const encabsRevisar = await this.obtieneEncabezados(usuario);
+			encabezado = this.obtieneEncabezado(encabsRevisar);
+			if (!encabezado) ({encabezado, edicion} = await this.obtieneEdicion(usuario));
+			if (!encabezado) return;
+			await this.completaEncabezado(encabezado);
 
-		// Quita los encabezados capturados por terceros
-		const capturadoPor_id = {[Op.ne]: usuario.id};
-		const capturadoEn = {[Op.gt]: new Date(Date.now() - unaHora)};
-		const capturas = await baseDatos.obtieneTodosPorCondicion("capturas", {[Op.and]: [{capturadoPor_id}, {capturadoEn}]});
-		encabezados = encabezados.filter(
-			(n) => !capturas.find((m) => (n.tema_id && m.tema_id == n.tema_id) || (n.pestana_id && m.pestana_id == n.pestana_id)) // el encabezado tiene tema/pestaña y no está capturada
-		);
+			// Obtiene la seccionTema
+			const {seccion, tema, pestana} = encabezado;
+			const seccionTema = seccion.nombre + " - " + tema.titulo + (pestana ? " - " + pestana.titulo : "");
 
-		// Fin
-		return encabezados;
-	},
-	obtieneEncabezado: (encabezados) => {
-		// Si no hay encabezados, interrumpe la función
-		if (!encabezados.length) return;
+			// Actualiza la captura
+			const {tema_id, pestana_id} = encabezado;
+			comp.captura({tema_id, pestana_id, capturadoPor_id: usuario.id});
 
-		// Si hay un sólo encabezado, lo completa e interrumpe la función
-		encabezados = encabezados.map((n) => agregaTemaPestana(n));
-		if (encabezados.length == 1) return encabezados[0];
+			// Fin
+			return {encabezado, edicion, seccionTema};
+		},
+		obtieneEncabezados: async (usuario) => {
+			// Variables
+			const statusRegistro_id = [creado_id, rechazar_id];
 
-		// Los ordena por sección
-		encabezados.sort((a, b) => a.seccion.orden - b.seccion.orden);
-		encabezados = encabezados.filter((n) => n.seccion.id == encabezados[0].seccion.id);
-		if (encabezados.length == 1) return encabezados[0];
+			// Obtiene los encabezados
+			const includes = [...includesEncabs.cartas, "lugarIndice"];
+			let encabezados = await baseDatos.obtieneTodosPorCondicion("encabezados", {statusRegistro_id}, includes);
+			if (!encabezados.length) return [];
 
-		// Los ordena por tema
-		encabezados.sort((a, b) => a.tema.orden - b.tema.orden);
-		encabezados = encabezados.filter((n) => n.tema.id == encabezados[0].tema.id);
-		if (encabezados.length == 1) return encabezados[0];
+			// Quita los encabezados capturados por terceros
+			const capturadoPor_id = {[Op.ne]: usuario.id};
+			const capturadoEn = {[Op.gt]: new Date(Date.now() - unaHora)};
+			const capturas = await baseDatos.obtieneTodosPorCondicion("capturas", {[Op.and]: [{capturadoPor_id}, {capturadoEn}]});
+			encabezados = encabezados.filter(
+				(n) =>
+					!capturas.find((m) => (n.tema_id && m.tema_id == n.tema_id) || (n.pestana_id && m.pestana_id == n.pestana_id)) // el encabezado tiene tema/pestaña y no está capturada
+			);
 
-		// Los ordena por pestaña
-		if (encabezados[0].pestana) {
-			encabezados.sort((a, b) => a.pestana.orden - b.pestana.orden);
-			encabezados = encabezados.filter((n) => n.pestana.id == encabezados[0].pestana.id);
+			// Fin
+			return encabezados;
+		},
+		obtieneEncabezado: function (encabezados) {
+			// Si no hay encabezados, interrumpe la función
+			if (!encabezados.length) return;
+
+			// Si hay un sólo encabezado, lo completa e interrumpe la función
+			encabezados = encabezados.map((n) => agregaTemaPestana(n));
 			if (encabezados.length == 1) return encabezados[0];
-		}
 
-		// Los ordena por fecha y por lugarIndice
-		encabezados
-			.sort((a, b) => (a.titulo < b.titulo ? -1 : 1))
-			.sort((a, b) => (a.fechaEvento && b.fechaEvento ? new Date(a.fechaEvento) - new Date(b.fechaEvento) : 0))
-			.sort((a, b) => (a.lugarIndice && b.lugarIndice ? (a.lugarIndice.orden < b.lugarIndice.orden ? -1 : 1) : 0));
+			// Los ordena por sección
+			encabezados.sort((a, b) => a.seccion.orden - b.seccion.orden);
+			encabezados = encabezados.filter((n) => n.seccion.id == encabezados[0].seccion.id);
+			if (encabezados.length == 1) return encabezados[0];
 
-		// Fin
-		return encabezados[0];
-	},
-	completaEncabezado: async (encabezado) => {
-		// Le agrega el usuario
-		encabezado.usuario = await baseDatos.obtienePorId("usuarios", encabezado.statusSugeridoPor_id);
+			// Los ordena por tema
+			encabezados.sort((a, b) => a.tema.orden - b.tema.orden);
+			encabezados = encabezados.filter((n) => n.tema.id == encabezados[0].tema.id);
+			if (encabezados.length == 1) return encabezados[0];
 
-		// Le agrega la imagen del usuario
-		encabezado.imagenUsuario = encabezado.usuario.imagen
-			? "/imgsEditables/8-Usuarios/" + encabezado.usuario.imagen
-			: "/imgsEstables/Varios/usuarioGenerico.jpg";
+			// Los ordena por pestaña
+			if (encabezados[0].pestana) {
+				encabezados.sort((a, b) => a.pestana.orden - b.pestana.orden);
+				encabezados = encabezados.filter((n) => n.pestana.id == encabezados[0].pestana.id);
+				if (encabezados.length == 1) return encabezados[0];
+			}
 
-		// Le agrega el statusRegistro
-		encabezado.statusRegistro = statusRegistros.find((n) => n.id == encabezado.statusRegistro_id);
+			// Los ordena por fecha y por lugarIndice
+			encabezados
+				.sort((a, b) => (a.titulo < b.titulo ? -1 : 1))
+				.sort((a, b) => (a.fechaEvento && b.fechaEvento ? new Date(a.fechaEvento) - new Date(b.fechaEvento) : 0))
+				.sort((a, b) => (a.lugarIndice && b.lugarIndice ? (a.lugarIndice.orden < b.lugarIndice.orden ? -1 : 1) : 0));
 
-		// Le agrega los contenidos
-		encabezado.contenidos = await baseDatos
-			.obtieneTodosPorCondicion("contenidos", {encab_id: encabezado.id}, ["layout", "carrusel"])
-			.then((n) => n.sort((a, b) => a.orden - b.orden))
-			.then((n) => n.sort((a, b) => b.anoLanzam - a.anoLanzam));
+			// Fin
+			return encabezados[0];
+		},
+		obtieneEdicion: async (usuario) => {
+			// Obtiene las ediciones del usuario
+			const includes = [...includesEncabs.cartas, "lugarIndice"];
+			const edicion = await baseDatos.obtienePorCondicion("encabEdics", {id: {[Op.ne]: null}}, includes);
+			if (!edicion) return {};
 
-		// Si es una carta, le agrega el título
-		if (encabezado.tema.id == temaCarta_id)
-			encabezado.titulo = comp.titulosElabs({esCarta: true, encabezados: [encabezado]})[0].tituloElab;
+			// Obtiene el encabezado de la edición
+			const encabezado = await baseDatos.obtienePorId("encabezados", ediciones[0].encab_id);
 
-		// Fin
-		return;
+			// Fin
+			return {encabezado, edicion};
+		},
+		completaEncabezado: async (encabezado) => {
+			// Le agrega el usuario
+			encabezado.usuario = await baseDatos.obtienePorId("usuarios", encabezado.statusSugeridoPor_id);
+
+			// Le agrega la imagen del usuario
+			encabezado.imagenUsuario = encabezado.usuario.imagen
+				? "/imgsEditables/8-Usuarios/" + encabezado.usuario.imagen
+				: "/imgsEstables/Varios/usuarioGenerico.jpg";
+
+			// Le agrega el statusRegistro
+			encabezado.statusRegistro = statusRegistros.find((n) => n.id == encabezado.statusRegistro_id);
+
+			// Le agrega los contenidos
+			encabezado.contenidos = await baseDatos
+				.obtieneTodosPorCondicion("contenidos", {encab_id: encabezado.id}, ["layout", "carrusel"])
+				.then((n) => n.sort((a, b) => a.orden - b.orden))
+				.then((n) => n.sort((a, b) => b.anoLanzam - a.anoLanzam));
+
+			// Si es una carta, le agrega el título
+			if (encabezado.tema.id == temaCarta_id)
+				encabezado.titulo = comp.titulosElabs({esCarta: true, encabezados: [encabezado]})[0].tituloElab;
+
+			// Fin
+			return;
+		},
 	},
 	actualizaCookies: ({encabezado, res}) => {
 		// Variables

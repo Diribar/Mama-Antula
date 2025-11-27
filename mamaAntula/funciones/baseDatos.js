@@ -15,6 +15,11 @@ export default {
 	obtienePorId: (entidad, id, include) => bd[entidad].findByPk(id, {include}).then((n) => (n ? n.toJSON() : null)),
 	obtienePorCondicion: (entidad, condicion, include) =>
 		bd[entidad].findOne({where: condicion, include}).then((n) => (n ? n.toJSON() : null)),
+	obtienePorCondicionElPrimero: (entidad, condicion, campoOrden) =>
+		bd[entidad]
+			.findAll({where: condicion, order: [[campoOrden ? campoOrden : "id", "ASC"]]})
+			.then((n) => n.map((m) => m.toJSON()))
+			.then((n) => (n.length ? n[0] : null)),
 	obtienePorCondicionElUltimo: (entidad, condicion, campoOrden) =>
 		bd[entidad]
 			.findAll({where: condicion, order: [[campoOrden ? campoOrden : "id", "DESC"]]})
