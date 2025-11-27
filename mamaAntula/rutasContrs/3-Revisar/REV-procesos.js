@@ -151,8 +151,10 @@ export default {
 
 			// Si es una carta, le agrega el título
 			encabezado = comp.titulosElabs({tema_id: encabezado.tema.id, encabezados: [encabezado]})[0];
-			if (edicion)
-				edicion = comp.titulosElabs({tema_id: encabezado.tema.id, encabezados: [{...encabezado, ...edicion}]})[0];
+			if (edicion) {
+				const aux = comp.titulosElabs({tema_id: encabezado.tema.id, encabezados: [{...encabezado, ...edicion}]})[0];
+				if (aux.tituloElab) edicion.tituloElab = aux.tituloElab;
+			}
 
 			// Fin
 			return;
