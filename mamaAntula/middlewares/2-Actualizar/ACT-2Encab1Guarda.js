@@ -28,7 +28,7 @@ export default async (req, res, next) => {
 		// Variables
 		const {numero, nombreDesde_id, nombreHacia_id, lugar_id, idioma_id, fechaEvento} = req.body;
 
-		// Valida variable - numero
+		// numero
 		if (!numero) mensajes.push("El campo <em>Número</em> es obligatorio");
 		else {
 			const num = Number(numero);
@@ -38,15 +38,19 @@ export default async (req, res, next) => {
 				mensajes.push("Ya tenemos una carta con ese número");
 		}
 
-		// Valida variable - nombreDesde_id
+		// nombreDesde_id
 		(!nombreDesde_id && mensajes.push("El campo <em>Remitente</em> es obligatorio")) ||
 			(!personajes.find((n) => n.id == nombreDesde_id) && mensajes.push("El remitente no existe"));
 
-		// Valida variable - nombreHacia_id
+		// nombreHacia_id
 		(!nombreHacia_id && mensajes.push("El campo <em>Destinatario</em> es obligatorio")) ||
 			(!personajes.find((n) => n.id == nombreHacia_id) && mensajes.push("El destinatario no existe"));
 
-		// Valida variable - idioma_id
+		// nombreDesde_id y nombreHacia_id
+		if (nombreDesde_id && nombreDesde_id == nombreHacia_id)
+			mensajes.push("El remitente y el destinatario deben ser distintos");
+
+		// idioma_id
 		(!idioma_id && mensajes.push("El campo <em>Idioma</em> es obligatorio")) ||
 			(!idiomas.find((n) => n.id == idioma_id) && mensajes.push("El idioma no existe"));
 
@@ -61,7 +65,7 @@ export default async (req, res, next) => {
 		// Variables
 		const {titulo, lugarIndice_id} = req.body;
 
-		// Valida variable - titulo
+		// titulo
 		validaTitulo(titulo);
 
 		// Valida el códigoLugar

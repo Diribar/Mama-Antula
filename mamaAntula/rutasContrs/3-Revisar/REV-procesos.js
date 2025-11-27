@@ -127,24 +127,26 @@ export default {
 		// Fin
 		return;
 	},
-	anchorLectura: (encabezado) => {
+	anchorLectura: (req) => {
 		// Variables
-		const {seccion, tema, pestana} = encabezado;
+		const {actualizaSeccion_id, actualizaTema_id, actualizaPestana_id, actualizaEncabezado_id} = req.cookies;
 
-		// Obtiene el anchorLectura
-		const temaActual = temasSecciones.find((n) => n.id == tema.id);
+		// Le agrega la sección
+		let anchorLectura = "/" + secciones.find((n) => n.id == actualizaSeccion_id).url;
+
+		// Le agrega el tema
+		const temaActual = temasSecciones.find((n) => n.id == actualizaTema_id);
+		anchorLectura += "/" + temasSecciones.find((n) => n.id == actualizaTema_id).url;
+
+		// Le agrega la pestaña
+		anchorLectura += (actualizaPestana_id && "/" + v.pestanasTemas.find((n) => n.id == actualizaPestana_id).url) || "";
+
+		// Le agrega el encabezado
 		const conIndice = temaActual.indicesFecha.length || temaActual.indicesLugar.length;
-		const urlSeccion = "/" + secciones.find((n) => n.id == seccion.id).url;
-		const urlTema = "/" + temasSecciones.find((n) => n.id == tema.id).url;
-		const urlPestana = (pestana && "/" + v.pestanasTemas.find((n) => n.id == pestana.id).url) || "";
-		const urlEncabezado = conIndice ? "/?id=" + encabezado.id : "";
-		const anchorLectura = urlSeccion + urlTema + urlPestana + urlEncabezado;
-
-		// Obtiene el seccionTema
-		const seccionTema = seccion.nombre + " - " + tema.titulo + (pestana ? " - " + pestana.titulo : "");
+		anchorLectura += conIndice ? "/?id=" + actualizaEncabezado_id : "";
 
 		// Fin
-		return {anchorLectura, seccionTema};
+		return anchorLectura;
 	},
 };
 
