@@ -41,4 +41,7 @@
 
 	/* Si el encabezado es nuevo, oculta el sectorContNuevo */
 	&:has(#filtros select[name="encabezado"] option[value="nuevo"]:checked) #sectorContNuevo {display: none;}
+
+	/* Si el encabezado está en status rechazar/rechazado, oculta el sectorContNuevo */
+	&:has(#sectorEncabezado.rechazar, #sectorEncabezado.rechazado) #sectorContNuevo {display: none;}
 }

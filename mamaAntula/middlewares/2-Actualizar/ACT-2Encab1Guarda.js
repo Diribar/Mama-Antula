@@ -34,6 +34,8 @@ export default async (req, res, next) => {
 			const num = Number(numero);
 			if (isNaN(num)) mensajes.push("El campo <em>Número</em> debe ser un número");
 			else if (numero < 1 || numero > 108) mensajes.push("El campo <em>Número</em> está fuera de rango");
+			else if (await baseDatos.obtienePorCondicion("encabezados", {id: {[Op.ne]: encab_id}, numero: num}))
+				mensajes.push("Ya tenemos una carta con ese número");
 		}
 
 		// Valida variable - nombreDesde_id

@@ -55,8 +55,11 @@ window.addEventListener("load", async () => {
 			domBloque.appendChild(v.domContenido);
 
 			// Crea y agrega los íconos
-			this.creaLosIconos(contenido);
-			domBloque.appendChild(v.domIconos);
+			v.encabezado = comp1234.encabezados.find((n) => n.id == DOM.filtroEncab.value);
+			if ([comp1234.creado_id, comp1234.aprobado_id].includes(v.encabezado.statusRegistro_id)) {
+				this.creaLosIconos(contenido);
+				domBloque.appendChild(v.domIconos);
+			}
 
 			// Agrega el bloque al sector
 			DOM.sectorContenido.appendChild(domBloque);

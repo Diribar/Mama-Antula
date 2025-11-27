@@ -42,7 +42,6 @@ window.addEventListener("load", async () => {
 		actualizaSusValores: () => {
 			// Agrega los valores
 			DOM.inputs = DOM.encabezado.querySelectorAll(".input");
-			v.encabezado = comp1234.encabezados.find((n) => n.id == DOM.filtroEncab.value);
 			for (const input of DOM.inputs) {
 				// Agrega las opciones
 				const {tabla} = input.dataset;
@@ -57,13 +56,14 @@ window.addEventListener("load", async () => {
 			return;
 		},
 		actualizaIconos: () => {
-			// Variables
+			// Averigua si se deben ocultar los íconos
 			const ocultaIconos =
 				v.encabezado &&
-				v.encabezado.statusRegistro_id != comp1234.aprobado_id &&
-				v.encabezado.statusSugeridoPor_id != comp1234.usuario.id;
+				((v.encabezado.statusRegistro_id == comp1234.creado_id &&
+					v.encabezado.statusSugeridoPor_id != comp1234.usuario.id) || // el encabezado está en status creado y fue creado por otro usuario
+					[comp1234.rechazar_id, comp1234.rechazado_id].includes(v.encabezado.statusRegistro_id)); // el encabezado está en status rechazar/rechazado
 
-			// Si no está en status aprobado y la sugerencia fue de otro usuario, muestra la imagen de ese usuario
+			// Si oculta íconos, muestra la imagen del usuario
 			if (ocultaIconos) {
 				// Muestra la imagen y oculta los íconos
 				DOM.img.src = "/imgsEditables/8-Usuarios/" + v.encabezado.statusSugeridoPor.imagen;
@@ -72,16 +72,27 @@ window.addEventListener("load", async () => {
 			} else {
 				// Oculta la imagen y muestra los íconos
 				DOM.img.src = "";
-				for (const iconos of DOM.iconos) iconos.classList.remove("ocultar");
 
-				// Si es un encabezado nuevo, oculta el ícono de eliminar
-				DOM.iconoEliminar.classList[DOM.filtroEncab.value == "nuevo" ? "add" : "remove"]("ocultar");
+				// Acciones si es un encabezado nuevo
+				if (DOM.filtroEncab.value == "nuevo") {
+					DOM.iconoGuardar.classList.remove("ocultar");
+					DOM.iconoEliminar.classList.add("ocultar");
+				} else {
+					DOM.iconoGuardar.classList.add("ocultar");
+					DOM.iconoEliminar.classList.remove("ocultar");
+				}
 			}
 		},
 	};
 
 	// Impactos del filtro - Actualiza el encabezado
 	DOM.filtroEncab.addEventListener("change", () => {
+		// Le agrega la clase del status del encabezado
+		v.encabezado = comp1234.encabezados.find((n) => n.id == DOM.filtroEncab.value);
+		const statusRegistro = v.encabezado.statusRegistro.codigo;
+		for (const status of ["creado", "aprobado", "rechazar", "rechazado"])
+			domSectorEncabezado.classList[status == statusRegistro ? "add" : "remove"](status);
+
 		// Muestra el encabezado que corresponde, y oculta los demás
 		FN.actualizaLaVisibilidadDelSector();
 		if (domSectorEncabezado.classList.contains("ocultar")) return;
@@ -137,11 +148,8 @@ window.addEventListener("load", async () => {
 		if (respuesta.error) return carteles.error(respuesta.error);
 		// Si no hubo error y es una edición, muestra el mensaje de exito
 		else if (DOM.filtroEncab.value != "nuevo") carteles.exito("El encabezado fue actualizado");
-
-		// Guarda el nuevo_id en la cookie y establece que se actualicen los filtros por las cookies
-		if (respuesta.id) {
-			// Guarda la nueva cookie y se genera un change en el tema, para que se reinicie el filtro del encabezado
-			document.cookie = "actualizaEncabezado_id=" + respuesta.id + "; path=/";
+		// Como es un encabezado nuevo, establece que se actualicen los filtros por las cookies
+		else {
 			comp1234.startUp = true;
 			DOM.filtroTema.dispatchEvent(new Event("change"));
 		}

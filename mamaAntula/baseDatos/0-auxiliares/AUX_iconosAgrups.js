@@ -9,6 +9,7 @@ export default (sequelize, dt) => {
 		codigo: {type: dt.STRING(20)},
 		clase: {type: dt.STRING(20)},
 		link: {type: dt.STRING(100)},
+		activo: {type: dt.BOOLEAN},
 	};
 	const config = {
 		tableName: "aux_iconos_agrups",
