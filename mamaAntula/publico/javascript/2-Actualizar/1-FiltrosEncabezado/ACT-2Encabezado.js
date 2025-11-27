@@ -15,7 +15,6 @@ window.addEventListener("load", async () => {
 		inputs: domSectorEncabezado.querySelectorAll(".input"),
 
 		// Íconos
-		contIconos: domSectorEncabezado.querySelector(".iconos"),
 		iconos: domSectorEncabezado.querySelectorAll(".iconos i"),
 		iconoGuardar: domSectorEncabezado.querySelector(".iconos #guardar"),
 		iconoEliminar: domSectorEncabezado.querySelector(".iconos #eliminar"),
