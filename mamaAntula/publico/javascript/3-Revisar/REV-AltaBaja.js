@@ -4,8 +4,7 @@ window.addEventListener("load", async () => {
 	const domEncabezado = document.querySelector("#cuerpo #encabezado");
 	const DOM = {
 		// Cambios de status
-		aprobar: domEncabezado.querySelector("i#aprobar"),
-		rechazar: domEncabezado.querySelector("i#rechazar"),
+		eventos: domEncabezado.querySelectorAll("i"),
 
 		// Otros
 		anchorLectura: document.querySelector("footer #iconosFooterOtros a#lectura"),
@@ -29,43 +28,34 @@ window.addEventListener("load", async () => {
 	DOM.anchorLectura.href = urlSeccion + urlTema + urlPestana + urlEncabezado;
 
 	// Eventos
-	DOM.aprobar.addEventListener("click", async () => {
-		// Si confirmar está inactivo, interrumpe la función
-		if (DOM.aprobar.classList.contains("inactivo")) return;
+	for (const domEvento of DOM.eventos)
+		domEvento.addEventListener("click", async () => {
+			// Si confirmar está inactivo, interrumpe la función
+			if (domEvento.classList.contains("inactivo")) return;
 
-		// Inactiva los botones para impedir confusiones
-		DOM.aprobar.classList.add("inactivo");
-		DOM.rechazar.classList.add("inactivo");
+			// Pide que confirme
+			if (domEvento.id == "rechaza") {
+				const mensaje = "¿Estás seguro/a de que querés eliminar este encabezado y su contenido?";
+				const cancelButtonText = "Conservar";
+				const confirmButtonText = "Eliminar";
+				const confirma = await carteles.confirmar({mensaje, cancelButtonText, confirmButtonText});
+				if (!confirma) return;
+			}
 
-		// Guarda la información en la BD
-		const datos = {encab_id, aprueba: true};
-		const respuesta = await fetch(rutas.cambioStatus, putJson(datos)).then((n) => n.json());
+			// Inactiva los botones para impedir confusiones
+			for (const icono of DOM.eventos) icono.classList.add("inactivo");
 
-		// Fin
-		location.reload();
-	});
-	DOM.rechazar.addEventListener("click", async () => {
-		// Si confirmar está inactivo, interrumpe la función
-		if (DOM.rechazar.classList.contains("inactivo")) return;
+			// Guarda la información en la BD
+			const datos = {encab_id, [domEvento.id]: true};
+			const respuesta = await fetch(rutas.cambioStatus, putJson(datos)).then((n) => n.json());
+			for (const icono of DOM.eventos) icono.classList.remove("inactivo");
 
-		// Pide que confirme
-		const mensaje = "¿Estás seguro/a de que querés eliminar este encabezado y su contenido?";
-		const cancelButtonText = "Conservar";
-		const confirmButtonText = "Eliminar";
-		const confirma = await carteles.confirmar({mensaje, cancelButtonText, confirmButtonText});
-		if (!confirma) return;
+			// Si hubo un error, muestra el mensaje e interrumpe la función
+			if (respuesta.error) return carteles.error(respuesta.error);
 
-		// Inactiva los botones para impedir confusiones
-		DOM.aprobar.classList.add("inactivo");
-		DOM.rechazar.classList.add("inactivo");
-
-		// Guarda la información en la BD
-		const datos = {encab_id, rechaza: true};
-		const respuesta = await fetch(rutas.cambioStatus, putJson(datos)).then((n) => n.json());
-
-		// Fin
-		location.reload();
-	});
+			// Fin
+			location.reload();
+		});
 
 	// Fin
 	return;

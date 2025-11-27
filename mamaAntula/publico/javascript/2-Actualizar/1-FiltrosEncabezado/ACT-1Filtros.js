@@ -60,7 +60,7 @@ window.addEventListener("load", async () => {
 			comp1234.encabezados = respuesta;
 
 			// ENCABEZADO - Crea las opciones
-			const campo = comp1234.esLugares ? "tituloAbm" : "tituloElab";
+			const campo = comp1234.esLugares ? "tituloActualizar" : comp1234.conIndice ? "tituloElab" : "titulo";
 			agregaOpciones(comp1234.encabezados, DOM.encabezado, campo);
 
 			// ENCABEZADO - Si 'conIndice' o no existen encabezados, crea la opción NUEVO - sin indice no puede tener más de uno

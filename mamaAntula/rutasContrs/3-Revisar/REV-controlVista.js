@@ -10,8 +10,8 @@ export default {
 		const {id: capturadoPor_id} = usuario;
 
 		// Obtiene el encabezado a revisar
-		const encabsRevisar = await procesos.obtieneEncabsRevisar(usuario);
-		const encabezado = procesos.obtieneEncabRevisar(encabsRevisar);
+		const encabsRevisar = await procesos.obtieneEncabezados(usuario);
+		const encabezado = procesos.obtieneEncabezado(encabsRevisar);
 
 		// Acciones si no existe el encabezado
 		if (!encabezado) return res.redirect("/");
@@ -28,10 +28,11 @@ export default {
 		res.cookie("actualizaSeccion_id", seccion.id, {maxAge: unDia, path: "/"});
 		res.cookie("actualizaTema_id", tema.id, {maxAge: unDia, path: "/"});
 		if (pestana) res.cookie("actualizaPestana_id", pestana.id, {maxAge: unDia, path: "/"});
+		else res.clearCookie("actualizaPestana_id");
 		res.cookie("actualizaEncabezado_id", encabezado.id, {maxAge: unDia, path: "/"});
 
 		// Variables para la vista
-		const seccionTema = seccion.nombre + " - " + tema.titulo + (pestana ? " - " + pestana.nombre : "");
+		const seccionTema = seccion.nombre + " - " + tema.titulo + (pestana ? " - " + pestana.titulo : "");
 
 		// Fin
 		return res.render("CMP-0Estructura", {

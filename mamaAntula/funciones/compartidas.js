@@ -180,7 +180,7 @@ export default {
 			? baseDatos
 					.obtieneTodosPorCondicion("encabezados", condicion, includesEncabs.lugares)
 					.then((n) => n.sort((a, b) => (a.titulo < b.titulo ? -1 : 1)))
-					.then((n) => n.sort((a, b) => (a.lugarIndice.codigo < b.lugarIndice.codigo ? -1 : 1)))
+					.then((n) => n.sort((a, b) => (a.lugarIndice.orden < b.lugarIndice.orden ? -1 : 1)))
 			: conIndice
 			? baseDatos
 					.obtieneTodosPorCondicion("encabezados", condicion, includesEncabs.conIndice)
@@ -289,7 +289,7 @@ const titulosElabs = {
 				encab.id == encabLugaresIntro_id // para 'Introducción'
 					? encab.lugarIndice.nombre
 					: encab.titulo + " - " + encab.lugarIndice.nombre;
-			encab.tituloAbm =
+			encab.tituloActualizar =
 				encab.id == encabLugaresIntro_id // para 'Introducción'
 					? encab.lugarIndice.nombre
 					: encab.lugarIndice.nombre + " - " + encab.titulo;

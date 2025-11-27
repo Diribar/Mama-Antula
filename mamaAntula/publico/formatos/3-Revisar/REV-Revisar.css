@@ -14,7 +14,18 @@
 		img {max-height: 100%; border-radius: 50%; position: absolute; right: 0px; top: 0px;}
 	}
 	#contenidoRevisar {
+		display: flex;
 		.bloque-textoImagen, .bloque-texto blockquote {margin-top: 10px;}
+		&:not(:has(.bloque-libro, .bloque-estampa)) {flex-direction: column;}
+		&:has(.bloque-libro, .bloque-estampa) {
+			flex-direction: row; justify-content: space-evenly; flex-wrap: wrap; column-gap: 50px;
+			&:has(.bloque-libro) {row-gap: var(--margenVertical);}
+			&:has(.bloque-estampa) {row-gap: calc(var(--margenVertical) * 2);}
+		}
+		.bloque {
+			a {color: var(--terracota); text-decoration: underline;}
+			img {cursor: pointer;}
+		}
 	}
 
 }

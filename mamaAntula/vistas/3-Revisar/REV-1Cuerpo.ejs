@@ -3,8 +3,8 @@
 
 <section id="cuerpo">
 	<div id="encabezado" data-encab_id="<%= encabezado.id %>">
-		<i id="aprobar" class="<%= iconos.faSolid %> <%= iconos.check %>"></i>
-		<i id="rechazar" class="<%= iconos.faSolid %> <%= iconos.eliminar %>"></i>
+		<i id="aprueba" class="<%= iconos.faSolid %> <%= iconos.check %>"></i>
+		<i id="rechaza" class="<%= iconos.faSolid %> <%= iconos.eliminar %>"></i>
 		<h2><%= seccionTema %><% if (encabezado.titulo) { %>: <em><%= encabezado.titulo %></em><% } %></h2>
 		<img src="<%= encabezado.imagenUsuario %>" title="<%= encabezado.usuario.nombreCompleto %>" class="noAgrandar">
 	</div>

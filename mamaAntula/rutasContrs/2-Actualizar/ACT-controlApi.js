@@ -53,16 +53,16 @@ export default {
 				res.cookie("actualizaEncabezado_id", encabezado.id, {maxAge: unDia, path: "/"});
 
 				// Fin
-				return res.json({id: encabezado.id, hay: false});
+				return res.json({id: encabezado.id});
 			}
 
 			// Obtiene el encabezado
 			const encabezado = await baseDatos.obtienePorId("encabezados", id);
 
-			// Si está en status creado y por este usuario, actualiza el encabezado
-			if (encabezado.statusRegistro_id == creado_id && encabezado.creadoPor_id == req.session.usuario.id) {
+			// Si está en status creado, actualiza el encabezado
+			if (encabezado.statusRegistro_id == creado_id) {
 				await baseDatos.actualizaPorId("encabezados", id, req.body);
-				return res.json({hay: false});
+				return res.json({});
 			}
 
 			// Si está en status aprobado, crea o actualiza la edicion (pendiente)
@@ -74,7 +74,7 @@ export default {
 			// En caso que no, si hay una edición la elimina
 
 			// Fin
-			return res.json({hay: false});
+			return res.json({});
 		},
 		elimina: async (req, res) => {
 			// Variables

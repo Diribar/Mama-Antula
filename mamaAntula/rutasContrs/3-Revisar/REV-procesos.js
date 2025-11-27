@@ -34,13 +34,14 @@ export default {
 	},
 
 	// Vista
-	obtieneEncabsRevisar: async (usuario) => {
+	obtieneEncabezados: async (usuario) => {
 		// Variables
 		const statusRegistro_id = [creado_id, rechazar_id];
 
 		// Obtiene los encabezados
-		let encabezados = await baseDatos.obtieneTodosPorCondicion("encabezados", {statusRegistro_id}, includesEncabs.cartas);
-		if (!encabezados.length) return {};
+		const includes = [...includesEncabs.cartas, "lugarIndice"];
+		let encabezados = await baseDatos.obtieneTodosPorCondicion("encabezados", {statusRegistro_id}, includes);
+		if (!encabezados.length) return [];
 
 		// Quita los encabezados capturados por terceros
 		const capturadoPor_id = {[Op.ne]: usuario.id};
@@ -53,13 +54,15 @@ export default {
 		// Fin
 		return encabezados;
 	},
-	obtieneEncabRevisar: (encabezados) => {
-		// Casos que interrumpen la función
-		if (!encabezados.length) return {};
+	obtieneEncabezado: (encabezados) => {
+		// Si no hay encabezados, interrumpe la función
+		if (!encabezados.length) return;
+
+		// Si hay un sólo encabezado, lo completa e interrumpe la función
+		encabezados = encabezados.map((n) => agregaTemaPestana(n));
 		if (encabezados.length == 1) return encabezados[0];
 
 		// Los ordena por sección
-		encabezados = encabezados.map((n) => agregaTemaPestana(n));
 		encabezados.sort((a, b) => a.seccion.orden - b.seccion.orden);
 		encabezados = encabezados.filter((n) => n.seccion.id == encabezados[0].seccion.id);
 		if (encabezados.length == 1) return encabezados[0];
@@ -75,6 +78,12 @@ export default {
 			encabezados = encabezados.filter((n) => n.pestana.id == encabezados[0].pestana.id);
 			if (encabezados.length == 1) return encabezados[0];
 		}
+
+		// Los ordena por fecha y por lugarIndice
+		encabezados
+			.sort((a, b) => (a.titulo < b.titulo ? -1 : 1))
+			.sort((a, b) => a.fechaEvento - b.fechaEvento)
+			.sort((a, b) => (a.lugarIndice.orden < b.lugarIndice.orden ? -1 : 1));
 
 		// Fin
 		return encabezados[0];
@@ -95,7 +104,8 @@ export default {
 		// Le agrega los contenidos
 		encabezado.contenidos = await baseDatos
 			.obtieneTodosPorCondicion("contenidos", {encab_id: encabezado.id}, ["layout", "carrusel"])
-			.then((n) => n.sort((a, b) => a.orden - b.orden));
+			.then((n) => n.sort((a, b) => a.orden - b.orden))
+			.then((n) => n.sort((a, b) => b.anoLanzam - a.anoLanzam));
 
 		// Fin
 		return;
@@ -104,7 +114,7 @@ export default {
 
 const agregaTemaPestana = (encabezado) => {
 	// Variables
-	const {pestana_id, tema_id} = encabezado;
+	const {tema_id, pestana_id} = encabezado;
 
 	// Obtiene los datos de niveles
 	if (pestana_id) encabezado.pestana = pestanasTemas.find((n) => n.id == pestana_id);
