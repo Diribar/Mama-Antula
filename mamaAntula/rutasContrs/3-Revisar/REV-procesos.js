@@ -99,7 +99,9 @@ export default {
 		// Le agrega los contenidos
 		encabezado.contenidos = await baseDatos
 			.obtieneTodosPorCondicion("contenidos", {encab_id: encabezado.id}, ["layout", "carrusel"])
-			.then((n) => n.sort((a, b) => a.orden - b.orden));
+			.then((n) => n.sort((a, b) => a.orden - b.orden))
+			.then((n) => n.sort((a, b) => b.anoLanzam - a.anoLanzam))
+			;
 
 		// Fin
 		return;
