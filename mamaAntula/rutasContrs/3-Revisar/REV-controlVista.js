@@ -14,7 +14,7 @@ export default {
 		const encabezado = procesos.obtieneEncabezado(encabsRevisar);
 
 		// Acciones si no existe el encabezado
-		if (!encabezado.id) return res.redirect("/");
+		if (!encabezado) return res.redirect("/");
 
 		// Actualiza la captura
 		const {tema_id, pestana_id} = encabezado;

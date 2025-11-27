@@ -41,7 +41,7 @@ export default {
 		// Obtiene los encabezados
 		const includes = [...includesEncabs.cartas, "lugarIndice"];
 		let encabezados = await baseDatos.obtieneTodosPorCondicion("encabezados", {statusRegistro_id}, includes);
-		if (!encabezados.length) return {};
+		if (!encabezados.length) return [];
 
 		// Quita los encabezados capturados por terceros
 		const capturadoPor_id = {[Op.ne]: usuario.id};
@@ -56,7 +56,7 @@ export default {
 	},
 	obtieneEncabezado: (encabezados) => {
 		// Si no hay encabezados, interrumpe la función
-		if (!encabezados.length) return {};
+		if (!encabezados.length) return;
 
 		// Si hay un sólo encabezado, lo completa e interrumpe la función
 		encabezados = encabezados.map((n) => agregaTemaPestana(n));
