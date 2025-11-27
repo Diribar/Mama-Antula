@@ -2,12 +2,16 @@
 <h1 id="tituloPrincipal"><%= tituloPagina %></h1>
 
 <section id="cuerpo">
-	<div id="encabezado" class="<%= encabezado.statusRegistro.codigo %>" data-encab_id="<%= encabezado.id %>">
-		<i id="aprueba" class="<%= iconos.faSolid %> <%= iconos.check %>"></i>
-		<i id="rechaza" class="<%= iconos.faSolid %> <%= iconos.eliminar %>"></i>
-		<h2><%= seccionTema %><% if (encabezado.titulo) { %>: <em><%= encabezado.titulo %></em><% } %></h2>
-		<img src="<%= encabezado.imagenUsuario %>" title="<%= encabezado.usuario.nombreCompleto %>" class="noAgrandar">
+	<div id="encabezado" class="<%= encabezado.statusRegistro.codigo %> <%- edicion && false ? 'conEdicion' : 'sinEdicion' %>" data-encab_id="<%= encabezado.id %>">
+		<% if (edicion) { %>
+			<i id="aprueba" class="<%= iconos.faSolid %> <%= iconos.check %>"></i>
+			<i id="rechaza" class="<%= iconos.faSolid %> <%= iconos.eliminar %>"></i>
+			<h2><%= seccionTema %></h2>
+			<img src="<%= encabezado.imagenUsuario %>" title="<%= encabezado.usuario.nombreCompleto %>" class="noAgrandar">
+		<% } else { %>
+		<% } %>
 	</div>
+	<% if (encabezado.titulo) { %><h3><%= encabezado.titulo %></h3><% } %>
 
 	<!-- Contenido -->
 	<div id="contenidoRevisar">
