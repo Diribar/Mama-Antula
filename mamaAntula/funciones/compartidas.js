@@ -289,7 +289,7 @@ const titulosElabs = {
 				encab.id == encabLugaresIntro_id // para 'Introducción'
 					? encab.lugarIndice.nombre
 					: encab.titulo + " - " + encab.lugarIndice.nombre;
-			encab.tituloAbm =
+			encab.tituloActualizar =
 				encab.id == encabLugaresIntro_id // para 'Introducción'
 					? encab.lugarIndice.nombre
 					: encab.lugarIndice.nombre + " - " + encab.titulo;

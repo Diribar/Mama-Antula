@@ -31,7 +31,9 @@ export default {
 		res.cookie("actualizaEncabezado_id", encabezado.id, {maxAge: unDia, path: "/"});
 
 		// Variables para la vista
-		const seccionTema = seccion.nombre + " - " + tema.titulo + (pestana ? " - " + pestana.nombre : "");
+		console.log(34, pestana);
+
+		const seccionTema = seccion.nombre + " - " + tema.titulo + (pestana ? " - " + pestana.titulo : "");
 
 		// Fin
 		return res.render("CMP-0Estructura", {
