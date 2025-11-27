@@ -4,9 +4,6 @@
 }
 .contenidoCuerpo {
 	backdrop-filter: blur(4px);
-	/* background-color: var(--fondoBlanco); */
-	/* background-color: var(--grisMuyClaro); */
-	/* background-color: var(--amarilloMuyClaro); */
 	background-color: var(--grisMuyClaroFondo);
 	padding-left: 10px;
 

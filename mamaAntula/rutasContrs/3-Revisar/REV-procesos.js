@@ -39,7 +39,7 @@ export default {
 		const statusRegistro_id = [creado_id, rechazar_id];
 
 		// Obtiene los encabezados
-		let encabezados = await baseDatos.obtieneTodosPorCondicion("encabezados", {statusRegistro_id});
+		let encabezados = await baseDatos.obtieneTodosPorCondicion("encabezados", {statusRegistro_id}, includesEncabs.cartas);
 		if (!encabezados.length) return {};
 
 		// Les agrega la pestaña, tema y seccion
@@ -77,5 +77,26 @@ export default {
 
 		// Fin
 		return encabezados[0];
+	},
+	completaEncabezado: async (encabezado) => {
+		// Le agrega el usuario
+		encabezado.usuario = await baseDatos.obtienePorId("usuarios", encabezado.statusSugeridoPor_id);
+
+		// Le agrega la imagen del usuario
+		encabezado.imagenUsuario = encabezado.usuario.imagen
+			? "/imgsEditables/8-Usuarios/" + encabezado.usuario.imagen
+			: "/imgsEstables/Varios/usuarioGenerico.jpg";
+
+		// Si es una carta, le agrega el título
+		if (encabezado.tema.id == temaCarta_id)
+			encabezado.titulo = comp.titulosElabs({esCarta: true, encabezados: [encabezado]})[0].tituloElab;
+
+		// Le agrega los contenidos
+		encabezado.contenidos = await baseDatos
+			.obtieneTodosPorCondicion("contenidos", {encab_id: encabezado.id}, ["layout", "carrusel"])
+			.then((n) => n.sort((a, b) => a.orden - b.orden));
+
+		// Fin
+		return;
 	},
 };

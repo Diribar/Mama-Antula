@@ -13,7 +13,8 @@
 		ul, ol {margin-left: 24px;}
 		:is(p, :where(ul, ol) li) {
 			line-height: 1.5;
-			&:not(:last-child) {margin-bottom: 12px;}
+			margin-bottom: 12px;
+			/* &:not(:last-child) {margin-bottom: 12px;} */
 		}
 		p {width: fit-content;}
 	}
