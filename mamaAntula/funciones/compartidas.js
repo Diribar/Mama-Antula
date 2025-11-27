@@ -165,14 +165,34 @@ export default {
 	},
 
 	// Encabezados
-	titulosElabs: ({esCarta, esLugares, encabezados}) =>
-		esCarta
+	tipoDeTema: (tema_id) => {
+		// Obtiene el tema actual
+		const temaActual = tema_id && temasSecciones.find((n) => n.id == tema_id);
+
+		// Averigua el tipo de tema
+		const esCarta = temaActual && temaActual.codigo == "cartas";
+		const esLugares = temaActual && temaActual.codigo == "lugaresDevocion";
+		const conIndice = (temaActual && temaActual.indicesFecha.length) || esLugares;
+
+		// Fin
+		return {esCarta, esLugares, conIndice};
+	},
+	titulosElabs: function ({tema_id, encabezados}) {
+		// Variables
+		const {esCarta, esLugares, conIndice} = this.tipoDeTema(tema_id);
+
+		// fin
+		return esCarta
 			? titulosElabs.cartas(encabezados) // cartas
 			: esLugares
 			? titulosElabs.lugares(encabezados)
-			: titulosElabs.conIndice(encabezados),
-	obtieneEncabezados: ({esCarta, esLugares, conIndice, condicion}) => {
+			: conIndice
+			? titulosElabs.conIndice(encabezados)
+			: encabezados;
+	},
+	obtieneEncabezados: function ({tema_id, condicion}) {
 		// Variables
+		const {esCarta, esLugares, conIndice} = this.tipoDeTema(tema_id);
 		const includesAdics = ["statusSugeridoPor", "statusRegistro"];
 
 		// Fin
