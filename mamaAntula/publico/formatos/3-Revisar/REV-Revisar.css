@@ -15,9 +15,7 @@
 			}
 			img {max-height: 100%; border-radius: 50%; position: absolute; right: 0px; top: 0px;}
 		}
-		&.conEdicion {
-
-		}
+		/* &.conEdicion {} */
 	}
 	h3 {font-style: italic;}
 	#contenidoRevisar {
