@@ -25,13 +25,12 @@ export default {
 		procesos.actualizaCookies({encabezado, res});
 
 		// Variables para la vista
-		const {anchorLectura, seccionTema} = procesos.anchorLectura(encabezado);
+		const anchorLectura = procesos.anchorLectura();
 
 		// Fin
 		return res.render("CMP-0Estructura", {
 			...{tituloPagina, temaVista},
-			...{seccionTema, encabezado},
-			anchorLectura,
+			...{encabezado, seccionTema, anchorLectura},
 		});
 	},
 };
