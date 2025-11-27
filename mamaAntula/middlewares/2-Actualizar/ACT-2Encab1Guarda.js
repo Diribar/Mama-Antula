@@ -14,10 +14,28 @@ export default async (req, res, next) => {
 	// GENERAL - encab_id
 	if (!encab_id) mensajes.push("Necesitamos un valor para el encabezado");
 	else if (encab_id != "nuevo") {
+		// Obtiene el encabezado
 		const encabezado = await baseDatos.obtienePorId("encabezados", encab_id);
+		req.encabezado = encabezado;
+
+		// El encabezado no existe
 		if (!encabezado) mensajes.push("No tenemos ese encabezado");
-		else if (encabezado.creadoPor_id != req.session.usuario.id && encabezado.statusRegistro_id != aprobado_id)
-			mensajes.push("No tenés permiso para editar este encabezado");
+		else {
+			// No tienes permiso de edición
+			if (
+				(encabezado.statusRegistro_id == creado_id && encabezado.creadoPor_id != req.session.usuario.id) ||
+				[rechazar_id, rechazado_id].includes(encabezado.statusRegistro_id)
+			)
+				mensajes.push("No tenés permiso para editar este encabezado");
+			else {
+				// Averigua si hubieron novedades
+				let novedad = false;
+				for (const prop in req.body)
+					if (encabezado[prop] && req.body[prop] && encabezado[prop] != req.body[prop]) novedad = true;
+				req.novedad = novedad;
+				if (encabezado.statusRegistro_id == creado_id && !novedad) mensajes.push("No hay cambios en el encabezado");
+			}
+		}
 	}
 
 	// Validaciones

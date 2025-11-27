@@ -3,10 +3,10 @@
 
 export default async (req, res, next) => {
 	// Variables
-	const {id} = req.body;
+	const {encab_id} = req.body;
 
 	// Valida
-	if (!id) return res.json({error: "El encabezado no está identificado, no lo podemos eliminar"});
+	if (!encab_id) return res.json({error: "El encabezado no está identificado, no lo podemos eliminar"});
 
 	// Fin
 	return next();

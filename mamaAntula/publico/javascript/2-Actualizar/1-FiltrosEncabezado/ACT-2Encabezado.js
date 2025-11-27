@@ -175,7 +175,7 @@ window.addEventListener("load", async () => {
 		for (const input of DOM.inputs) input.value = "";
 
 		// Elimina de la BD, el encabezado y sus contenidos
-		const datos = {id: DOM.filtroEncab.value};
+		const datos = {encab_id: DOM.filtroEncab.value};
 		const respuesta = await fetch(rutas.eliminaEncabezado, deleteJson(datos)).then((n) => n.json());
 
 		// Si hubo un error, muestra el mensaje e interrumpe la función
