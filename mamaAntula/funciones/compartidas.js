@@ -172,18 +172,22 @@ export default {
 			? titulosElabs.lugares(encabezados)
 			: titulosElabs.conIndice(encabezados),
 	obtieneEncabezados: ({esCarta, esLugares, conIndice, condicion}) => {
+		// Variables
+		const includesAdics = ["statusSugeridoPor", "statusRegistro"];
+
+		// Fin
 		return esCarta
 			? baseDatos
-					.obtieneTodosPorCondicion("encabezados", condicion, [...includesEncabs.cartas, "statusRegistro"])
+					.obtieneTodosPorCondicion("encabezados", condicion, [...includesEncabs.cartas, ...includesAdics])
 					.then((n) => n.sort((a, b) => (a.fechaEvento < b.fechaEvento ? -1 : 1)))
 			: esLugares
 			? baseDatos
-					.obtieneTodosPorCondicion("encabezados", condicion, [...includesEncabs.lugares, "statusRegistro"])
+					.obtieneTodosPorCondicion("encabezados", condicion, [...includesEncabs.lugares, ...includesAdics])
 					.then((n) => n.sort((a, b) => (a.titulo < b.titulo ? -1 : 1)))
 					.then((n) => n.sort((a, b) => (a.lugarIndice.orden < b.lugarIndice.orden ? -1 : 1)))
 			: conIndice
 			? baseDatos
-					.obtieneTodosPorCondicion("encabezados", condicion, [...includesEncabs.conIndice, "statusRegistro"])
+					.obtieneTodosPorCondicion("encabezados", condicion, [...includesEncabs.conIndice, ...includesAdics])
 					.then((n) => n.sort((a, b) => (b.fechaEvento < a.fechaEvento ? -1 : 1)))
 			: baseDatos.obtieneTodosPorCondicion("encabezados", condicion);
 	},

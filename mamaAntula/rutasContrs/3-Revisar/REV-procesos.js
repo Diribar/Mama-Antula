@@ -119,7 +119,9 @@ export default {
 			if (!edicion) return {};
 
 			// Obtiene el encabezado de la edición
-			const encabezado = await baseDatos.obtienePorId("encabezados", ediciones[0].encab_id);
+			const encabezado = await baseDatos
+				.obtienePorId("encabezados", edicion.encab_id, includes)
+				.then((n) => n && agregaTemaPestana(n));
 
 			// Fin
 			return {encabezado, edicion};

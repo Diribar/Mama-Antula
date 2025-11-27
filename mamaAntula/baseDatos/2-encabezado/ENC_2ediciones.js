@@ -27,12 +27,17 @@ export default (sequelize, dt) => {
 	const entidad = sequelize.define(alias, columns, config);
 	entidad.associate = (n) => {
 		entidad.belongsTo(n.encabezados, {as: "encab", foreignKey: "encab_id"});
+		entidad.belongsTo(n.usuarios, {as: "editadoPor", foreignKey: "editadoPor_id"});
 
+		// Exclusivo de cartas
 		entidad.belongsTo(n.personajes, {as: "nombreDesde", foreignKey: "nombreDesde_id"});
 		entidad.belongsTo(n.personajes, {as: "nombreHacia", foreignKey: "nombreHacia_id"});
-		entidad.belongsTo(n.lugares, {as: "lugar", foreignKey: "lugar_id"});
 		entidad.belongsTo(n.idiomas, {as: "idioma", foreignKey: "idioma_id"});
-		entidad.belongsTo(n.usuarios, {as: "editadoPor", foreignKey: "editadoPor_id"});
+
+		// Otros
+		entidad.belongsTo(n.lugares, {as: "lugar", foreignKey: "lugar_id"});
+		entidad.belongsTo(n.indicesLugar, {as: "lugarIndice", foreignKey: "lugarIndice_id"});
+
 	};
 	return entidad;
 };
