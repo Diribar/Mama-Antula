@@ -25,7 +25,7 @@ window.addEventListener("load", async () => {
 		guardaEncabezado: "/actualizar/api/act-encabezado-guarda",
 		eliminaEncabezado: "/actualizar/api/act-encabezado-elimina/?id=",
 	};
-	let v = {};
+	const v = {};
 
 	// Funciones
 	const FN = {
