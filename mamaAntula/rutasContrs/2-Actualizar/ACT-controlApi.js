@@ -80,9 +80,18 @@ export default {
 			// Variables
 			const {id} = req.body;
 
-			// Elimina los dependientes y el encabezado
-			await procesos.eliminaDependsEncab(id);
-			await baseDatos.eliminaPorId("encabezados", id);
+			// Obtiene el encabezado
+			const encabezado = await baseDatos.obtienePorId("encabezados", id);
+
+			// Si el status es creado, elimina los dependientes y el encabezado
+			if (encabezado.statusRegistro_id == creado_id) {
+				await procesos.eliminaDependsEncab(id);
+				await baseDatos.eliminaPorId("encabezados", id);
+			}
+
+			// Si el status es aprobado, lo cambia a 'rechazar'
+			if (encabezado.statusRegistro_id == aprobado_id)
+				await baseDatos.actualizaPorId("encabezados", id, {statusRegistro_id: rechazar_id});
 
 			// Fin
 			return res.json({});

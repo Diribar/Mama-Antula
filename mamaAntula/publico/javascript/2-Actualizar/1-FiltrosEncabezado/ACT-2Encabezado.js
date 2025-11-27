@@ -15,6 +15,7 @@ window.addEventListener("load", async () => {
 		inputs: domSectorEncabezado.querySelectorAll(".input"),
 
 		// Íconos
+		contIconos: domSectorEncabezado.querySelector(".iconos"),
 		iconos: domSectorEncabezado.querySelectorAll(".iconos i"),
 		iconoGuardar: domSectorEncabezado.querySelector(".iconos #guardar"),
 		iconoEliminar: domSectorEncabezado.querySelector(".iconos #eliminar"),
@@ -42,7 +43,7 @@ window.addEventListener("load", async () => {
 		actualizaSusValores: () => {
 			// Agrega los valores
 			DOM.inputs = DOM.encabezado.querySelectorAll(".input");
-			v.encabezado = comp1234.encabezados.find((n) => n.id == DOM.filtroEncab.value);
+			comp1234.encabezado = comp1234.encabezados.find((n) => n.id == DOM.filtroEncab.value);
 			for (const input of DOM.inputs) {
 				// Agrega las opciones
 				const {tabla} = input.dataset;
@@ -50,7 +51,10 @@ window.addEventListener("load", async () => {
 
 				// Actualiza el valor elegido de todos los inputs
 				const campo = input.name;
-				input.value = v.encabezado && (v.encabezado[campo] || v.encabezado[campo] === 0) ? v.encabezado[campo] : "";
+				input.value =
+					comp1234.encabezado && (comp1234.encabezado[campo] || comp1234.encabezado[campo] === 0)
+						? comp1234.encabezado[campo]
+						: "";
 			}
 
 			// Fin
@@ -59,15 +63,16 @@ window.addEventListener("load", async () => {
 		actualizaIconos: () => {
 			// Variables
 			const ocultaIconos =
-				v.encabezado &&
-				v.encabezado.statusRegistro_id != comp1234.aprobado_id &&
-				v.encabezado.statusSugeridoPor_id != comp1234.usuario.id;
+				(comp1234.encabezado &&
+					comp1234.encabezado.statusRegistro_id != comp1234.aprobado_id &&
+					comp1234.encabezado.statusSugeridoPor_id != comp1234.usuario.id) ||
+				comp1234.encabezado.statusRegistro_id == comp1234.rechazar_id;
 
 			// Si no está en status aprobado y la sugerencia fue de otro usuario, muestra la imagen de ese usuario
 			if (ocultaIconos) {
 				// Muestra la imagen y oculta los íconos
-				DOM.img.src = "/imgsEditables/8-Usuarios/" + v.encabezado.statusSugeridoPor.imagen;
-				DOM.img.title = v.encabezado.statusSugeridoPor.nombreCompleto;
+				DOM.img.src = "/imgsEditables/8-Usuarios/" + comp1234.encabezado.statusSugeridoPor.imagen;
+				DOM.img.title = comp1234.encabezado.statusSugeridoPor.nombreCompleto;
 				for (const iconos of DOM.iconos) iconos.classList.add("ocultar");
 			} else {
 				// Oculta la imagen y muestra los íconos
