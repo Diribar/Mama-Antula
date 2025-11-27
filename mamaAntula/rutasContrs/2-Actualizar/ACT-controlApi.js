@@ -39,7 +39,7 @@ export default {
 		guarda: async (req, res) => {
 			// Variables
 			const {encab_id} = req.body;
-			const {encabezado, novedad} = req;
+			const {encabezado, edicion, novedad} = req;
 
 			// 0-NUEVO: lo crea e interrumpe la función
 			if (encab_id == "nuevo") {
@@ -62,8 +62,6 @@ export default {
 			}
 
 			// 3-APROBADO: crea o actualiza la edicion
-			const condicion = {encab_id, editadoPor_id: req.session.usuario.id};
-			const edicion = await baseDatos.obtienePorCondicion("encabEdics", condicion);
 			// Si no hay novedades, elimina la edición
 			if (!novedad) edicion && baseDatos.eliminaPorId("encabEdics", edicion.id);
 			// Acciones si hay novedades

@@ -33,7 +33,22 @@ export default async (req, res, next) => {
 				for (const prop in req.body)
 					if (encabezado[prop] && req.body[prop] && encabezado[prop] != req.body[prop]) novedad = true;
 				req.novedad = novedad;
-				if (encabezado.statusRegistro_id == creado_id && !novedad) mensajes.push("No hay cambios en el encabezado");
+
+				// Sin cambios
+				if (!novedad) {
+					// Variables
+					const mensajeSinCambios = "No hay cambios que guardar";
+
+					// En status creado
+					if (encabezado.statusRegistro_id == creado_id) mensajes.push(mensajeSinCambios);
+					// En status aprobado
+					else if (encabezado.statusRegistro_id == aprobado_id) {
+						const condicion = {encab_id, editadoPor_id: req.session.usuario.id};
+						const edicion = await baseDatos.obtienePorCondicion("encabEdics", condicion);
+						req.edicion = edicion;
+						if (!edicion) mensajes.push(mensajeSinCambios);
+					}
+				}
 			}
 		}
 	}

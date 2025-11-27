@@ -135,6 +135,9 @@ window.addEventListener("load", async () => {
 
 	// Guarda/Actualiza en la BD
 	DOM.iconoGuardar.addEventListener("click", async () => {
+		// Oculta el ícono
+		DOM.iconoGuardar.classList.add("ocultar");
+
 		// Arma el feedback
 		const formVisible = document.querySelector("#sectorEncabezado form:not(.ocultar)"); // elige el unico formulario visible
 		const formData = new FormData(formVisible);
@@ -151,7 +154,7 @@ window.addEventListener("load", async () => {
 		if (respuesta.error) return carteles.error(respuesta.error);
 		// Si no hubo error y es una edición, muestra el mensaje de exito
 		else if (DOM.filtroEncab.value != "nuevo") carteles.exito("El encabezado fue actualizado");
-		// Como es un encabezado nuevo, establece que se actualicen los filtros por las cookies
+		// Como es un encabezado nuevo, se genera un change en el tema, para que se reinicie el filtro del encabezado
 		else {
 			comp1234.startUp = true;
 			DOM.filtroTema.dispatchEvent(new Event("change"));
@@ -163,13 +166,15 @@ window.addEventListener("load", async () => {
 
 	// Elimina en la BD
 	DOM.iconoEliminar.addEventListener("click", async () => {
+		// Oculta el ícono
+		DOM.iconoEliminar.classList.add("ocultar");
+
+		// Aviso y acciones
 		const mensaje = "¿Estás seguro/a de que querés eliminar este encabezado y su contenido?";
 		const cancelButtonText = "Conservar";
 		const confirmButtonText = "Eliminar";
-
-		// Aviso y acciones
 		const confirma = await carteles.confirmar({mensaje, cancelButtonText, confirmButtonText});
-		if (!confirma) return;
+		if (!confirma) return DOM.iconoEliminar.classList.remove("ocultar");
 
 		// Limpia el FE
 		for (const input of DOM.inputs) input.value = "";
@@ -181,8 +186,10 @@ window.addEventListener("load", async () => {
 		// Si hubo un error, muestra el mensaje e interrumpe la función
 		if (respuesta.error) return carteles.error(respuesta.error);
 
-		// Elimina la cookie y se genera un change en el tema o pestaña, para que se reinicie el filtro del encabezado
+		// Elimina la cookie
 		document.cookie = "actualizaEncabezado_id=; path=/";
+
+		// Se genera un change en el tema, para que se reinicie el filtro del encabezado
 		comp1234.startUp = true;
 		DOM.filtroTema.dispatchEvent(new Event("change"));
 
