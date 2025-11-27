@@ -6,13 +6,19 @@ export default {
 	revisar: async (req, res) => {
 		// Variables
 		const tituloPagina = iconosAgrupados.find((n) => n.codigo == temaVista)?.nombre;
+		const {usuario} = req.session;
+		const {id: capturadoPor_id} = usuario;
 
 		// Obtiene el encabezado a revisar
-		const encabsRevisar = await procesos.obtieneEncabsRevisar();
-		const encabezado =
-			(encabsRevisar.length > 1 && procesos.obtieneEncabRevisar(encabsRevisar)) ||
-			(encabsRevisar.length == 1 && encabsRevisar[0]) ||
-			{};
+		const encabsRevisar = await procesos.obtieneEncabsRevisar(usuario);
+		const encabezado = procesos.obtieneEncabRevisar(encabsRevisar);
+
+		// Acciones si no existe el encabezado
+		if (!encabezado) return res.redirect("/");
+
+		// Actualiza la captura
+		const {tema_id, pestana_id} = encabezado;
+		comp.captura({tema_id, pestana_id, capturadoPor_id});
 
 		// Completa el encabezado
 		await procesos.completaEncabezado(encabezado);

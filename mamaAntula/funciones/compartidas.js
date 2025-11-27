@@ -232,6 +232,20 @@ export default {
 		// Fin
 		return mailEnviado;
 	},
+	captura: async ({tema_id, pestana_id, capturadoPor_id}) => {
+		// Variables
+		const capturadoEn = new Date();
+		const captura = {capturadoPor_id, capturadoEn};
+		const campo_id = pestana_id ? "pestana_id" : "tema_id";
+
+		// Actualiza las capturas
+		baseDatos
+			.eliminaPorCondicion("capturas", {capturadoPor_id})
+			.then(() => baseDatos.agregaRegistroIdCorrel("capturas", {[campo_id]: pestana_id || tema_id, ...captura}));
+
+		// Fin
+		return;
+	},
 	inicialMayus: (texto) => texto.slice(0, 1).toUpperCase() + texto.slice(1),
 };
 

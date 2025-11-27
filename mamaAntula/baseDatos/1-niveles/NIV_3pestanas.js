@@ -9,10 +9,6 @@ export default (sequelize, dt) => {
 		titulo: {type: dt.STRING(30)},
 		codigo: {type: dt.STRING(20)},
 		url: {type: dt.STRING(30)},
-
-		// Otros
-		capturadoPor_id: {type: dt.INTEGER},
-		capturadoEn: {type: dt.DATE},
 	};
 	const config = {
 		tableName: "nivel3_pestanas",
@@ -21,7 +17,6 @@ export default (sequelize, dt) => {
 	const entidad = sequelize.define(alias, columns, config);
 	entidad.associate = (n) => {
 		entidad.belongsTo(n.temasSecciones, {as: "tema", foreignKey: "tema_id"});
-		entidad.belongsTo(n.usuarios, {as: "capturadoPor", foreignKey: "capturadoPor_id"});
 	};
 	return entidad;
 };

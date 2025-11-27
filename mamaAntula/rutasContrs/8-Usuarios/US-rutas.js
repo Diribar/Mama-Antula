@@ -12,7 +12,7 @@ import validaLogin from "../../middlewares/8-Usuarios-ABM/US-Login.js";
 // Middlewares - Validación de Roles
 import soloVisitas from "../../middlewares/8-Usuarios-Roles/US-Solo1Visitas.js";
 import soloUsuarios from "../../middlewares/8-Usuarios-Roles/US-Solo2Usuarios.js";
-import soloAdmin from "../../middlewares/8-Usuarios-Roles/US-Solo4Admin.js";
+import soloAdmin from "../../middlewares/8-Usuarios-Roles/US-Solo5Admin.js";
 
 // Middlewares - Descarga imagenes
 import descargaImg from "../../middlewares/descargaImg/IMG-descargaImg.js";
