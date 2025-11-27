@@ -57,14 +57,14 @@ window.addEventListener("load", async () => {
 		},
 		actualizaIconos: () => {
 			// Averigua si se deben ocultar los íconos
-			const ocultaIconos =
+			v.ocultaIconos =
 				v.encabezado &&
 				((v.encabezado.statusRegistro_id == comp1234.creado_id &&
 					v.encabezado.statusSugeridoPor_id != comp1234.usuario.id) || // el encabezado está en status creado y fue creado por otro usuario
 					[comp1234.rechazar_id, comp1234.rechazado_id].includes(v.encabezado.statusRegistro_id)); // el encabezado está en status rechazar/rechazado
 
 			// Si oculta íconos, muestra la imagen del usuario
-			if (ocultaIconos) {
+			if (v.ocultaIconos) {
 				// Muestra la imagen y oculta los íconos
 				DOM.img.src = "/imgsEditables/8-Usuarios/" + v.encabezado.statusSugeridoPor.imagen;
 				DOM.img.title = v.encabezado.statusSugeridoPor.nombreCompleto;
@@ -116,13 +116,16 @@ window.addEventListener("load", async () => {
 	// Novedades en algún input - Muestra el botón de guardar
 	for (const input of DOM.inputs) {
 		input.addEventListener("input", () => {
+			// Si los íconos están ocultos, interrumpe la función
+			if (v.ocultaIconos) return;
+
 			// Muestra el botón de guardar
 			DOM.iconoGuardar.classList.remove("ocultar");
 
 			// Les actualiza el título a guardar y eliminar
 			const leyenda = DOM.filtroEncab.value == "nuevo" ? "Encabezado nuevo" : "Edición del encabezado";
 			DOM.iconoGuardar.title = leyenda;
-			DOM.iconoGuardar.title = leyenda;
+			DOM.iconoEliminar.title = leyenda;
 
 			// Fin
 			return;
