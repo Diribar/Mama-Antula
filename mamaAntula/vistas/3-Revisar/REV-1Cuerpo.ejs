@@ -15,7 +15,12 @@
 			<img src="<%= encabezado.imagenUsuario %>" title="<%= encabezado.usuario.nombreCompleto %>" class="noAgrandar">
 		<% } %>
 	</div>
-	<% if (encabezado.titulo) { %><h3><%= encabezado.titulo %></h3><% } %>
+	<% if (encabezado.titulo) { %>
+		<div>
+			<h3><%= encabezado.titulo %></h3>
+			<h3><%= edicion.titulo %></h3>
+		</div>
+	<% } %>
 
 	<!-- Contenido -->
 	<div id="contenidoRevisar">

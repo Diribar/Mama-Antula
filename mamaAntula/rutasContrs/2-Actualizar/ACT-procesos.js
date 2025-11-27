@@ -111,17 +111,4 @@ export default {
 		// Fin
 		return orden;
 	},
-	guardaRegsCarrusel: async ({imagenes, contenido_id, creadoPor_id}) => {
-		// Guarda las imágenes
-		for (let i = 0; i < imagenes.length; i++) {
-			const imagen = imagenes[i];
-			const orden = i + 1;
-			const registro = {contenido_id, orden, imagen, creadoPor_id};
-
-			await baseDatos.agregaRegistroIdCorrel("carrusel", registro);
-		}
-
-		// Fin
-		return;
-	},
 };

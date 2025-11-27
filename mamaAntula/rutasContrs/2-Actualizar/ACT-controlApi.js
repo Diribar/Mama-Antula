@@ -112,8 +112,7 @@ export default {
 			const contenidos = await baseDatos
 				.obtieneTodosPorCondicion("contenidos", {encab_id}, include)
 				.then((n) => n.sort((a, b) => b.anoLanzam - a.anoLanzam))
-				.then((n) => n.sort((a, b) => a.orden - b.orden))
-				.then((n) => n.map((m) => ({...m, carrusel: m.carrusel.sort((a, b) => a.orden - b.orden)})));
+				.then((n) => n.sort((a, b) => a.orden - b.orden));
 
 			// Fin
 			return res.json(contenidos);
@@ -214,7 +213,9 @@ export default {
 		const {id: contenido_id} = await baseDatos.agregaRegistroIdCorrel("contenidos", datos);
 
 		// Guarda los registros de carrusel
-		if (layoutCodigo == "carrusel") await procesos.guardaRegsCarrusel({imagenes: imagens, contenido_id, creadoPor_id});
+		if (layoutCodigo == "carrusel")
+			for (const imagen of imagens)
+				await baseDatos.agregaRegistroIdCorrel("carrusel", {contenido_id, imagen, creadoPor_id});
 
 		// Fin
 		return res.json({});

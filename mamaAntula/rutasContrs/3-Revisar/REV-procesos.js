@@ -44,7 +44,7 @@ export default {
 			encabezado = this.obtieneEncabezado(encabsRevisar);
 			if (!encabezado) ({encabezado, edicion} = await this.obtieneEdicion(usuario));
 			if (!encabezado) return;
-			await this.completaEncabezado(encabezado);
+			await this.completaEncabezado({encabezado, edicion});
 
 			// Obtiene la ruta
 			const {seccion, tema, pestana} = encabezado;
@@ -126,14 +126,16 @@ export default {
 			// Fin
 			return {encabezado, edicion};
 		},
-		completaEncabezado: async (encabezado) => {
-			// Le agrega el usuario
-			encabezado.usuario = await baseDatos.obtienePorId("usuarios", encabezado.statusSugeridoPor_id);
+		completaEncabezado: async ({encabezado, edicion}) => {
+			// Si es un cambio de status, le agrega el usuario
+			if (!edicion){
+				encabezado.usuario = await baseDatos.obtienePorId("usuarios", encabezado.statusSugeridoPor_id);
 
-			// Le agrega la imagen del usuario
-			encabezado.imagenUsuario = encabezado.usuario.imagen
-				? "/imgsEditables/8-Usuarios/" + encabezado.usuario.imagen
-				: "/imgsEstables/Varios/usuarioGenerico.jpg";
+				// Le agrega la imagen del usuario
+				encabezado.imagenUsuario = encabezado.usuario.imagen
+					? "/imgsEditables/8-Usuarios/" + encabezado.usuario.imagen
+					: "/imgsEstables/Varios/usuarioGenerico.jpg";
+			}
 
 			// Le agrega el statusRegistro
 			encabezado.statusRegistro = statusRegistros.find((n) => n.id == encabezado.statusRegistro_id);
@@ -145,8 +147,8 @@ export default {
 				.then((n) => n.sort((a, b) => b.anoLanzam - a.anoLanzam));
 
 			// Si es una carta, le agrega el título
-			if (encabezado.tema.id == temaCarta_id)
-				encabezado.titulo = comp.titulosElabs({esCarta: true, encabezados: [encabezado]})[0].tituloElab;
+			encabezado = comp.titulosElabs({esCarta: true, encabezados: [encabezado]})[0];
+			if (edicion) edicion = comp.titulosElabs({esCarta: true, encabezados: [{...encabezado, ...edicion}]})[0];
 
 			// Fin
 			return;

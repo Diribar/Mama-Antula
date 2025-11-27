@@ -36,8 +36,7 @@ export default {
 		// Obtiene los registros del carrusel y los vincula a su contenido
 		const contenidos_ids = contenidos.map((n) => n.id);
 		const carrusel = await baseDatos.obtieneTodosPorCondicion("carrusel", {contenido_id: contenidos_ids});
-		for (const contenido of contenidos)
-			contenido.carrusel = carrusel.filter((m) => m.contenido_id == contenido.id).sort((a, b) => a.orden - b.orden);
+		for (const contenido of contenidos) contenido.carrusel = carrusel.filter((m) => m.contenido_id == contenido.id);
 
 		// Fin
 		return contenidos;
