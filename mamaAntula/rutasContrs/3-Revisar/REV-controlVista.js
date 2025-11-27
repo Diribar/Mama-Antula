@@ -12,8 +12,6 @@ export default {
 		// Obtiene el encabezado a revisar
 		const encabsRevisar = await procesos.obtieneEncabezados(usuario);
 		const encabezado = procesos.obtieneEncabezado(encabsRevisar);
-
-		// Acciones si no existe el encabezado
 		if (!encabezado) return res.redirect("/");
 
 		// Actualiza la captura

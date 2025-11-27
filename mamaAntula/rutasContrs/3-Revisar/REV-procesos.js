@@ -82,8 +82,8 @@ export default {
 		// Los ordena por fecha y por lugarIndice
 		encabezados
 			.sort((a, b) => (a.titulo < b.titulo ? -1 : 1))
-			.sort((a, b) => a.fechaEvento - b.fechaEvento)
-			.sort((a, b) => (a.lugarIndice.orden < b.lugarIndice.orden ? -1 : 1));
+			.sort((a, b) => (a.fechaEvento && b.fechaEvento ? new Date(a.fechaEvento) - new Date(b.fechaEvento) : 0))
+			.sort((a, b) => (a.lugarIndice && b.lugarIndice ? (a.lugarIndice.orden < b.lugarIndice.orden ? -1 : 1) : 0));
 
 		// Fin
 		return encabezados[0];
