@@ -1,13 +1,16 @@
 "use strict";
 
 export default {
-	encabezados: async ({esCarta, esLugares, conIndice, condicion, encab_id}) => {
+	obtieneEncabezados: async ({tema_id, condicion, encab_id}) => {
+		// Variables
+		const {conIndice} = comp.tipoDeTema(tema_id)
+
 		// Obtiene los encabezados
-		let encabezados = await comp.obtieneEncabezados({esCarta, esLugares, conIndice, condicion});
+		let encabezados = await comp.obtieneEncabezados({tema_id, condicion});
 		if (!encabezados.length) return {};
 
 		// Les agrega los títulos
-		if (conIndice) encabezados = comp.titulosElabs({esCarta, esLugares, encabezados});
+		encabezados = comp.titulosElabs({tema_id, encabezados});
 
 		// Obtiene el encabezado actual
 		const encabezado = encabezados.find((n) => n.id == encab_id) || encabezados[0];
