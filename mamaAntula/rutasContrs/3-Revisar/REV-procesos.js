@@ -42,20 +42,17 @@ export default {
 			// Obtiene el encabezado
 			const encabsRevisar = await this.obtieneEncabezados(usuario);
 			encabezado = this.obtieneEncabezado(encabsRevisar);
+
+			// Si no obtuvo un encabezado, lo obtiene de la edición
 			if (!encabezado) ({encabezado, edicion} = await this.obtieneEdicion(usuario));
 			if (!encabezado) return {};
+
+			// Completa el encabezado y pule la edición
 			await this.completaEncabezado({encabezado, edicion});
-
-			// Obtiene la ruta
-			const {seccion, tema, pestana} = encabezado;
-			const ruta = seccion.nombre + " - " + tema.titulo + (pestana ? " - " + pestana.titulo : "");
-
-			// Actualiza la captura
-			const {tema_id, pestana_id} = encabezado;
-			comp.captura({tema_id, pestana_id, capturadoPor_id: usuario.id});
+			this.puleLaEdicion(edicion);
 
 			// Fin
-			return {encabezado, edicion, ruta};
+			return {encabezado, edicion};
 		},
 		obtieneEncabezados: async (usuario) => {
 			// Variables
@@ -118,9 +115,6 @@ export default {
 			const edicion = await baseDatos.obtienePorCondicion("encabEdics", {id: {[Op.ne]: null}}, includes);
 			if (!edicion) return {};
 
-			// Quita los campos sin valor
-			for (const key in edicion) if (!edicion[key]) delete edicion[key];
-
 			// Obtiene el encabezado de la edición
 			const encabezado = await baseDatos
 				.obtienePorId("encabezados", edicion.encab_id, includes)
@@ -149,16 +143,37 @@ export default {
 				.then((n) => n.sort((a, b) => a.orden - b.orden))
 				.then((n) => n.sort((a, b) => b.anoLanzam - a.anoLanzam));
 
-			// Si es una carta, le agrega el título
+			// Le agrega el título elaborado
 			encabezado = comp.titulosElabs({tema_id: encabezado.tema.id, encabezados: [encabezado]})[0];
-			if (edicion) {
-				const aux = comp.titulosElabs({tema_id: encabezado.tema.id, encabezados: [{...encabezado, ...edicion}]})[0];
-				if (aux.tituloElab) edicion.tituloElab = aux.tituloElab;
-			}
 
 			// Fin
 			return;
 		},
+		puleLaEdicion: (edicion) => {
+			// Quita los campos sin valor
+			for (const key in edicion) if (!edicion[key]) delete edicion[key];
+
+			// Elimina campos puntuales
+			delete edicion.id;
+			delete edicion.encab_id;
+			delete edicion.editadoPor_id;
+			delete edicion.editadoEn;
+
+			// Fin
+			return;
+		},
+	},
+	capturaObtieneRuta: (encabezado, usuario) => {
+		// Actualiza la captura
+		const {tema_id, pestana_id} = encabezado;
+		comp.captura({tema_id, pestana_id, capturadoPor_id: usuario.id});
+
+		// Obtiene la ruta
+		const {seccion, tema, pestana} = encabezado;
+		const ruta = seccion.nombre + " - " + tema.titulo + (pestana ? " - " + pestana.titulo : "");
+
+		// Fin
+		return ruta;
 	},
 	actualizaCookies: ({encabezado, res}) => {
 		// Variables
