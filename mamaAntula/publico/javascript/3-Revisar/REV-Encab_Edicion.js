@@ -27,8 +27,10 @@ window.addEventListener("load", () => {
 			const respuesta = await fetch(rutaEdicion, putJson(datos)).then((n) => n.json());
 
 			// Si hubo un error, muestra el mensaje e interrumpe la función
-			domCampoEdicion.classList.remove("ocultar");
-			if (respuesta.error) return carteles.error(respuesta.error);
+			if (respuesta.error) {
+				domCampoEdicion.classList.remove("ocultar");
+				return carteles.error(respuesta.error);
+			}
 
 			// Remueve las opciones
 			domCampoEdicion.remove();
