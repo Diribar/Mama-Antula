@@ -40,13 +40,14 @@ export default async (req, res, next) => {
 
 			// En status creado
 			if (encabezado.statusRegistro_id == creado_id) return res.json(mensajeSinCambios);
-			// En status aprobado
-			else if (encabezado.statusRegistro_id == aprobado_id) {
-				const condicion = {encab_id, editadoPor_id: req.session.usuario.id};
-				const edicion = await baseDatos.obtienePorCondicion("encabEdics", condicion);
-				req.edicion = edicion;
-				if (!edicion) return res.json(mensajeSinCambios);
-			}
+		}
+
+		// En status aprobado
+		if (encabezado.statusRegistro_id == aprobado_id) {
+			const condicion = {encab_id, editadoPor_id: req.session.usuario.id};
+			const edicion = await baseDatos.obtienePorCondicion("encabEdics", condicion);
+			req.edicion = edicion;
+			if (!edicion && !novedad) return res.json(mensajeSinCambios);
 		}
 	}
 

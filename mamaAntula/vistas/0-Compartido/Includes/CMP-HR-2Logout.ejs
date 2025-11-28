@@ -1,6 +1,6 @@
 <!-- Ícono -->
-<% const avatarUsuario = usuario.imagen ? ("/imgsEditables/8-Usuarios/" + usuario.imagen) : "/imgsEstables/Varios/usuarioGenerico.jpg" %>
-<img id="imagenUsuario" <% if (usuario.apodo) { %>title="Hola <%= usuario.apodo %>"<% } %> src="<%= avatarUsuario %>" class="mostrarClick pointer">
+<% const imagenUsuario = usuario.imagen ? ("/imgsEditables/8-Usuarios/" + usuario.imagen) : "/imgsEstables/Varios/usuarioGenerico.jpg" %>
+<img id="imagenUsuario" <% if (usuario.apodo) { %>title="Hola <%= usuario.apodo %>"<% } %> src="<%= imagenUsuario %>" class="mostrarClick pointer">
 
 <!-- Menu de usuario -->
 <div id="menuLogout" class="mostrarToggle ocultar">

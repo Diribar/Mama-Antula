@@ -109,10 +109,10 @@ export default {
 			// Fin
 			return encabezados[0];
 		},
-		obtieneEdicion: async (usuario) => {
+		obtieneEdicion: async () => {
 			// Obtiene las ediciones del usuario
 			const includes = [...includesEncabs.cartas, "lugarIndice"];
-			const edicion = await baseDatos.obtienePorCondicion("encabEdics", {id: {[Op.ne]: null}}, includes);
+			const edicion = await baseDatos.obtienePorCondicion("encabEdics", {id: {[Op.ne]: null}}, [...includes, "editadoPor"]);
 			if (!edicion) return {};
 
 			// Obtiene el encabezado de la edición
@@ -146,6 +146,9 @@ export default {
 			// Le agrega el título elaborado
 			encabezado = comp.titulosElabs({tema_id: encabezado.tema.id, encabezados: [encabezado]})[0];
 
+			// Le agrega el editadoPor
+			if (edicion) encabezado.editadoPor = edicion.editadoPor;
+
 			// Fin
 			return;
 		},
@@ -154,10 +157,11 @@ export default {
 			for (const key in edicion) if (!edicion[key]) delete edicion[key];
 
 			// Elimina campos puntuales
-			delete edicion.id;
-			delete edicion.encab_id;
-			delete edicion.editadoPor_id;
-			delete edicion.editadoEn;
+			const camposEliminar1 = ["id", "encab_id", "editadoPor_id", "editadoEn"];
+			const camposEliminar2 = ["nombreDesde_id", "nombreHacia_id", "idioma_id", "lugar_id", "lugarIndice_id"];
+			for (const prop of [...camposEliminar1, ...camposEliminar2]) delete edicion[prop];
+
+			//
 
 			// Fin
 			return;
