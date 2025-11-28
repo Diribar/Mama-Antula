@@ -7,9 +7,11 @@ export default {
 		// Variables
 		const tituloPagina = iconosAgrupados.find((n) => n.codigo == temaVista)?.nombre;
 		const {usuario} = req.session;
+		let encabezado, edicion;
 
 		// Obtiene el encabezado a revisar
-		const {encabezado, edicion} = await procesos.obtieneEncabezado.consolidado(usuario);
+		encabezado = await procesos.obtieneEncabezado.consolidado(usuario);
+		if (!encabezado) ({encabezado, edicion} = await procesos.obtieneEncabConEdic.consolidado());
 
 		// Si no hay encabezado, redirige a la lectura del artículo según cookies de actualizar
 		if (!encabezado) return res.redirect(procesos.anchorLectura(req));

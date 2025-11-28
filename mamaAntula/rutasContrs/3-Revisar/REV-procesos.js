@@ -36,23 +36,12 @@ export default {
 	// Vista
 	obtieneEncabezado: {
 		consolidado: async function (usuario) {
-			// Variables
-			let encabezado, edicion;
-
 			// Obtiene el encabezado
 			const encabsRevisar = await this.obtieneEncabezados(usuario);
-			encabezado = this.obtieneEncabezado(encabsRevisar);
-
-			// Si no obtuvo un encabezado, lo obtiene de la edición
-			if (!encabezado) ({encabezado, edicion} = await this.obtieneEdicion(usuario));
-			if (!encabezado) return {};
-
-			// Completa el encabezado y pule la edición
-			await this.completaEncabezado({encabezado, edicion});
-			this.puleLaEdicion(edicion);
+			const encabezado = this.obtieneEncabezado(encabsRevisar);
 
 			// Fin
-			return {encabezado, edicion};
+			return encabezado;
 		},
 		obtieneEncabezados: async (usuario) => {
 			// Variables
@@ -75,7 +64,7 @@ export default {
 			// Fin
 			return encabezados;
 		},
-		obtieneEncabezado: function (encabezados) {
+		obtieneEncabezado: (encabezados) => {
 			// Si no hay encabezados, interrumpe la función
 			if (!encabezados.length) return;
 
@@ -108,6 +97,20 @@ export default {
 
 			// Fin
 			return encabezados[0];
+		},
+	},
+	obtieneEncabConEdic: {
+		consolidado: async () => {
+			// Si no obtuvo un encabezado, lo obtiene de la edición
+			let {encabezado, edicion} = await this.obtieneEdicion();
+			if (!encabezado) return {};
+
+			// Completa el encabezado y pule la edición
+			await this.completaEncabezado({encabezado, edicion});
+			this.puleLaEdicion(edicion);
+
+			// Fin
+			return {encabezado, edicion};
 		},
 		obtieneEdicion: async () => {
 			// Obtiene las ediciones del usuario
