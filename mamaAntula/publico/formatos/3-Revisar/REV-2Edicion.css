@@ -8,10 +8,10 @@
 	#ediciones {
 		display: flex; flex-direction: column; gap: 10px;
 		.campoEdicion {
-			flex-direction: row; align-items: center; gap: 10px;
+			flex-direction: row; align-items: center; gap: 20px;
 			&:first-child {display: flex;}
 			&:not(:first-child) {display: flex;}
-			& > * {font-size: 1.3rem; font-weight: bold;}
+			& > * {font-size: 1.2rem; font-weight: bold;}
 			.campo {color: var(--azulOscuro);}
 			.opcion {
 				color: snow; border-radius: 10px; padding: 5px 10px; cursor: pointer;
