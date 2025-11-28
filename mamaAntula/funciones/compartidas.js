@@ -173,19 +173,6 @@ export default {
 		// Fin
 		return {esCarta, esLugares, conIndice};
 	},
-	titulosElabs: function ({tema_id, encabezados}) {
-		// Variables
-		const {esCarta, esLugares, conIndice} = this.tipoDeTema(tema_id);
-
-		// fin
-		return esCarta
-			? titulosElabs.cartas(encabezados) // cartas
-			: esLugares
-			? titulosElabs.lugares(encabezados)
-			: conIndice
-			? titulosElabs.conIndice(encabezados)
-			: encabezados;
-	},
 	obtieneEncabezados: function ({tema_id, condicion}) {
 		// Variables
 		const {esCarta, esLugares, conIndice} = this.tipoDeTema(tema_id);
@@ -206,6 +193,32 @@ export default {
 					.obtieneTodosPorCondicion("encabezados", condicion, [...includesEncabs.conIndice, ...includesAdics])
 					.then((n) => n.sort((a, b) => (b.fechaEvento < a.fechaEvento ? -1 : 1)))
 			: baseDatos.obtieneTodosPorCondicion("encabezados", condicion, includesAdics);
+	},
+	titulosElabs: function ({tema_id, encabezados}) {
+		// Variables
+		const {esCarta, esLugares, conIndice} = this.tipoDeTema(tema_id);
+
+		// Fin
+		return esCarta
+			? titulosElabs.cartas(encabezados) // cartas
+			: esLugares
+			? titulosElabs.lugares(encabezados)
+			: conIndice
+			? titulosElabs.conIndice(encabezados)
+			: encabezados;
+	},
+	tituloElab: function (encabezado) {
+		// Variables
+		const {esCarta, esLugares, conIndice} = this.tipoDeTema(encabezado.tema_id);
+
+		// Fin
+		return esCarta
+			? titulosElabs.cartas([encabezado])[0] // cartas
+			: esLugares
+			? titulosElabs.lugares([encabezado])[0]
+			: conIndice
+			? titulosElabs.conIndice([encabezado])[0]
+			: encabezado;
 	},
 
 	// Funciones puntuales

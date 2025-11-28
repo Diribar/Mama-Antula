@@ -253,14 +253,13 @@ export default {
 			return;
 		},
 	},
-	capturaObtieneRuta: (encabezado, usuario) => {
+	captura: (encabezado, usuario) => {
 		// Actualiza la captura
 		const {tema_id, pestana_id} = encabezado;
 		comp.captura({tema_id, pestana_id, capturadoPor_id: usuario.id});
 
 		// Obtiene la ruta
-		const {seccion, tema, pestana} = encabezado;
-		const ruta = seccion.nombre + " - " + tema.titulo + (pestana ? " - " + pestana.titulo : "");
+		const ruta = FN.obtieneRuta(encabezado);
 
 		// Fin
 		return ruta;
@@ -317,23 +316,57 @@ export default {
 			// Fin
 			return encabezados;
 		},
-		obtieneRutas: (encabs) => {
+		obtieneRutas: function (encabezados) {
 			// Variables
-			const pestanas = pestanasTemas.map((n) => ({...n, encabs: encabs.filter((m) => m.pestana_id == n.id)}));
-			const temas = temasSecciones
-				.map((n) => ({
-					...n,
-					encabezados: encabs.filter((m) => m.tema_id == n.id),
-					pestanas: pestanas.filter((m) => m.tema_id == n.id),
-				}))
-				.filter((n) => n.encabezados.length || n.pestanas.length);
-			const
+			const rutas = {};
 
-			// Le agrega el tema a todos los encabezados
-			encabezados = encabezados.map((n) => FN.agregaTemaPestana(n));
+			// Agrega el tema y la pestaña
+			for (let encabezado of encabezados) {
+				// Obtiene la ruta
+				encabezado = FN.agregaTemaPestana(encabezado);
+				const ruta = FN.obtieneRuta(encabezado);
+
+				// Completa el encabezado
+				encabezado = comp.tituloElab(encabezado);
+				encabezado.anchor = this.anchorLectura(encabezado);
+
+				// Agrega a la ruta
+				if (rutas[ruta]) rutas[ruta].encabezados.push(encabezado);
+				else {
+					// Crea el orden
+					const {seccion, tema, pestana} = encabezado;
+					const orden = seccion.orden + "-" + tema.orden + (pestana ? "-" + pestana.orden : "");
+
+					// Crea la ruta
+					rutas[ruta] = {orden, encabezados: [encabezado]};
+				}
+			}
+
+			// Ordena las rutas
+			const entries = Object.entries(rutas);
+			entries.sort((a, b) => (a[1].orden < b[1].orden ? -1 : 1));
+			const ordered = Object.fromEntries(entries);
 
 			// Fin
-			return rutas;
+			return ordered;
+		},
+		anchorLectura: (encabezado) => {
+			// Variables
+			const {seccion, tema, pestana} = encabezado;
+
+			// Le agrega la sección
+			let anchorLectura = "/" + seccion.url + "/" + tema.url;
+
+			// Le agrega la pestaña
+			anchorLectura += (pestana && "/" + pestana.url) || "";
+
+			// Le agrega el encabezado
+			const temaActual = temasSecciones.find((n) => n.id == tema.id);
+			const conIndice = temaActual.indicesFecha.length || temaActual.indicesLugar.length;
+			anchorLectura += conIndice ? "/?id=" + encabezado.id : "";
+
+			// Fin
+			return anchorLectura;
 		},
 	},
 };
@@ -382,5 +415,13 @@ const FN = {
 
 		// Fin
 		return;
+	},
+	obtieneRuta: (encabezado) => {
+		// Obtiene la ruta
+		const {seccion, tema, pestana} = encabezado;
+		const ruta = seccion.nombre + " - " + tema.titulo + (pestana ? " - " + pestana.titulo : "");
+
+		// Fin
+		return ruta;
 	},
 };

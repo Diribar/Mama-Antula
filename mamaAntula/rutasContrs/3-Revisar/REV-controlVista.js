@@ -40,17 +40,18 @@ export default {
 		const anchorLectura = procesos.anchorLectura(req);
 
 		// Obtiene todos los encabezados en papelera o con contenido en papelera
-		const encabezados = procesos.papelera.obtieneEncabezados();
+		const encabezados = await procesos.papelera.obtieneEncabezados();
+		console.log(44, encabezados.length);
+
 		if (!encabezados.length) return res.redirect(anchorLectura);
 
 		// Obtiene las rutas
 		const rutas = procesos.papelera.obtieneRutas(encabezados);
 
 		// Fin
-		return res.send(encabezados);
 		return res.render("CMP-0Estructura", {
 			...{tituloPagina: "Papelera", temaVista, codigoVista},
-			...{encabezados, anchorLectura},
+			...{rutas, anchorLectura, },
 		});
 	},
 };
