@@ -8,8 +8,8 @@ import soloRevisor from "../../middlewares/8-Usuarios-Roles/US-Solo4Revisor.js";
 
 // Middlewares de API - valida errores
 import encabStatus from "../../middlewares/2-Revisar/REV-1Status-Encab.js";
-import edicion from "../../middlewares/2-Revisar/REV-2Edicion.js";
-import contStatus from "../../middlewares/2-Revisar/REV-3Status-Cont.js";
+import contStatus from "../../middlewares/2-Revisar/REV-2Status-Cont.js";
+import edicion from "../../middlewares/2-Revisar/REV-3Edicion.js";
 
 // Middlewares de API - captura
 
