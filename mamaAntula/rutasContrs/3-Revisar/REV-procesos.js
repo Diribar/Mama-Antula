@@ -227,11 +227,8 @@ export default {
 					: "/imgsEstables/Varios/usuarioGenerico.jpg";
 			}
 
-			// Le agrega el statusRegistro
-			encabezado.statusRegistro = statusRegistros.find((n) => n.id == encabezado.statusRegistro_id);
-
-			// Le agrega el título elaborado
-			encabezado = comp.titulosElabs({tema_id: encabezado.tema.id, encabezados: [encabezado]})[0];
+			// Completa el encabezado
+			await FN.completaEncabezado(encabezado);
 
 			// Fin
 			return;
