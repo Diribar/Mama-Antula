@@ -23,9 +23,9 @@ export default {
 		// Fin
 		return res.render("CMP-0Estructura", {tituloPagina, temaVista, codigoVista, imagenes, apodo, imagen});
 	},
-	cambioRoles: async (req, res) => {
+	cambioRol: async (req, res) => {
 		// Variables
-		const codigoVista = "cambioRoles";
+		const codigoVista = "cambioRol";
 		const tituloPagina = iconosAgrupados.find((n) => n.codigo == codigoVista).nombre;
 		const imagenes = procesos.obtieneImagenesAlAzar();
 
