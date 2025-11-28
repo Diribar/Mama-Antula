@@ -17,6 +17,7 @@ const router = express.Router();
 
 // 📡 APIs
 router.put("/api/rev-encabezado-cambios-status", encabStatus, API.encabezado.cambiosStatus);
+router.put("/api/rev-contenido-cambios-status", API.cambiosStatus);
 router.put("/api/rev-encabezado-edicion", encabEdicion, API.encabezado.edicion);
 
 // 🖥️ Vistas

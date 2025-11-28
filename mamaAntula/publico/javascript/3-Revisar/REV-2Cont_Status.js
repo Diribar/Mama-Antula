@@ -24,15 +24,17 @@ window.addEventListener("load", async () => {
 
 			// Inactiva los botones para impedir confusiones
 			const domApruebaRechaza = domEvento.parentNode;
-			for (const icono of domApruebaRechaza) icono.classList.add("inactivo");
+			console.log(domApruebaRechaza.children);
+
+			for (const icono of domApruebaRechaza.children) icono.classList.add("inactivo");
 
 			// Guarda la información en la BD
 			const contenido_id = domApruebaRechaza.dataset.contenido_id;
-			const datos = {contenido_id, [domApruebaRechaza.id]: true};
+			const datos = {contenido_id, [domEvento.id]: true};
 			const respuesta = await fetch(rutaCambioStatus, putJson(datos)).then((n) => n.json());
 
 			// Si hubo un error, muestra el mensaje e interrumpe la función
-			for (const icono of domApruebaRechaza) icono.classList.remove("inactivo");
+			for (const icono of domApruebaRechaza.children) icono.classList.remove("inactivo");
 			if (respuesta.error) return carteles.error(respuesta.error);
 
 			// Fin

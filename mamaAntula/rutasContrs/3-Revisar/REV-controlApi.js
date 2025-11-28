@@ -36,4 +36,8 @@ export default {
 			return res.json({});
 		},
 	},
+	cambiosStatus:(req, res) => {
+		console.log(40, req.body);
+		return res.json({});
+	},
 };
