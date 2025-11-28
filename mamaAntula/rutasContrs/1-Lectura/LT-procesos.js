@@ -3,7 +3,7 @@
 export default {
 	obtieneEncabezados: async ({tema_id, condicion, encab_id}) => {
 		// Variables
-		const {conIndice} = comp.tipoDeTema(tema_id);
+		const {conIndice} = comp.tipoDeTema(tema_id)
 
 		// Obtiene los encabezados
 		let encabezados = await comp.obtieneEncabezados({tema_id, condicion});
@@ -32,7 +32,7 @@ export default {
 
 		// Obtiene los contenidos
 		const contenidos = await baseDatos
-			.obtieneTodosPorCondicion("contenidos", condicion, ["layout", "statusRegistro"])
+			.obtieneTodosPorCondicion("contenidos", condicion, "layout")
 			.then((n) => n.sort((a, b) => a.orden - b.orden))
 			.then((n) => n.sort((a, b) => b.anoLanzam - a.anoLanzam));
 

@@ -158,7 +158,7 @@ window.addEventListener("load", async () => {
 			contenedorImgs.style.setProperty("--anchorName", "--carrusel-" + contenido.id);
 
 			// Recorre el carrusel
-			for (const carrusel of contenido.carrusel) contenedorImgs.appendChild(this.imgsCrsl(carrusel));
+			for (const carrusel of contenido.carrusel) contenedorImgs.appendChild(this.imgsCrsl({carrusel, contenido}));
 			contenedor.appendChild(contenedorImgs);
 
 			// Crea la leyenda
@@ -230,9 +230,9 @@ window.addEventListener("load", async () => {
 		},
 
 		// Auxiliares
-		imgsCrsl: (carrusel) => {
+		imgsCrsl: ({carrusel, contenido}) => {
 			// Variables
-			const subCarpeta = carrusel.statusRegistro_id == 1 ? "2-Revisar/" : "1-Final/";
+			const subCarpeta = contenido.statusRegistro_id == creado_id ? "2-Revisar/" : "1-Final/";
 
 			// Crea el contenedor de cada imagen
 			const contenedorImg = document.createElement("div");

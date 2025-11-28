@@ -13,10 +13,6 @@ export default {
 		const contenidos = await baseDatos.obtieneTodosPorCondicion("contenidos", {encab_id}, "carrusel");
 		espera.push(baseDatos.actualizaPorCondicion("contenidos", {encab_id}, cambioStatus)); // contenido
 
-		// Cambia el status de sus dependencias
-		for (const contenido of contenidos)
-			espera.push(baseDatos.actualizaPorCondicion("carrusel", {contenido_id: contenido.id}, cambioStatus)); // carrusel
-
 		// Obtiene todas las imágenes a mover
 		const imagenes = [];
 		for (const contenido of contenidos) {
@@ -43,7 +39,7 @@ export default {
 			await this.completaEncabezado(encabezado);
 
 			// Fin
-			return {encabezado, cambioStatus: true};
+			return {encabezado, cambioStatusEncab: true};
 		},
 		obtieneEncabezados: async (usuario) => {
 			// Variables
@@ -94,7 +90,7 @@ export default {
 			// Fin
 			return encabezados[0];
 		},
-		completaEncabezado: async ({encabezado}) => {
+		completaEncabezado: async (encabezado) => {
 			// Le agrega el usuario
 			encabezado.usuario = await baseDatos.obtienePorId("usuarios", encabezado.statusSugeridoPor_id);
 
@@ -189,7 +185,7 @@ export default {
 			await this.completaEncabezado(encabezado);
 
 			// Fin
-			return {encabezado, cambioContenido: true};
+			return {encabezado, cambioStatusCont: true};
 		},
 		obtieneEncabezado: async (usuario) => {
 			// Variables
@@ -325,8 +321,9 @@ const FN = {
 		encabezado.statusRegistro = statusRegistros.find((n) => n.id == encabezado.statusRegistro_id);
 
 		// Le agrega los contenidos
+		const encab_id = encabezado.id;
 		encabezado.contenidos = await baseDatos
-			.obtieneTodosPorCondicion("contenidos", {encab_id: encabezado.id}, ["layout", "carrusel", "statusRegistro"])
+			.obtieneTodosPorCondicion("contenidos", {encab_id}, ["layout", "carrusel", "statusSugeridoPor", "statusRegistro"])
 			.then((n) => n.sort((a, b) => a.orden - b.orden))
 			.then((n) => n.sort((a, b) => b.anoLanzam - a.anoLanzam));
 

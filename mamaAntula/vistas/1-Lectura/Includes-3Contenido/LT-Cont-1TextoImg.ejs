@@ -1,10 +1,23 @@
 <!-- Texto + Imagen -->
-<div class="bloque bloque-<%= contenido.layout.codigo %> <%= contenido.statusRegistro.codigo %>">
+<div class="bloque bloque-<%= contenido.layout.codigo %><%- locals.cambioStatusCont ? (" " +  contenido.statusRegistro.codigo) : '' %>">
+	<!-- Imagen -->
 	<div class="imgLeyenda flexColAlign">
 		<img class="imagen" src="/imgsEditables/<%= subCarpeta %>/<%= contenido.imagen %>">
 		<% if (contenido.leyenda) { %>
 			<div class="leyenda"><%= contenido.leyenda %></div>
 		<% } %>
 	</div>
+
+	<% if (locals.cambioStatusCont && contenido.statusRegistro_id != aprobado_id) { %>
+		<!-- Aprueba / Rechaza -->
+		<%- include("REV-9ApruebaRech") %>
+
+		<!-- Imagen del usuario que sugirió el cambio de status -->
+		<% const {statusSugeridoPor} = contenido %>
+		<% const {imagen, nombreCompleto} = statusSugeridoPor %>
+		<%- include("REV-9ImgUsuario", {imagenUsuario: imagen, nombreCompleto}) %>
+	<% } %>
+
+	<!-- Texto -->
 	<div class="texto"><%- contenido.texto %></div>
 </div>
