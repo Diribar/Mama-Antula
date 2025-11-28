@@ -12,7 +12,7 @@
 			position: relative;
 
 			.apruebaRechaza {position: absolute; left: 0px; top: 50%; translate: 0 -50%;}
-			img.cambios {right: 0px; top: 50%; translate: 0 -50%;}
+			img.cambios {position: absolute; right: 0px; top: 50%; translate: 0 -50%;}
 
 			a {color: var(--terracota); text-decoration: underline;}
 			img {cursor: pointer;}
