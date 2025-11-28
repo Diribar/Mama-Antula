@@ -147,7 +147,10 @@ export default {
 			encabezado = comp.titulosElabs({tema_id: encabezado.tema.id, encabezados: [encabezado]})[0];
 
 			// Le agrega el editadoPor
-			if (edicion) encabezado.editadoPor = edicion.editadoPor;
+			if (edicion) {
+				encabezado.edicion_id = edicion.id;
+				encabezado.editadoPor = edicion.editadoPor;
+			}
 
 			// Fin
 			return;
@@ -157,11 +160,7 @@ export default {
 			for (const key in edicion) if (!edicion[key]) delete edicion[key];
 
 			// Elimina campos puntuales
-			const camposEliminar1 = ["id", "encab_id", "editadoPor_id", "editadoEn"];
-			const camposEliminar2 = ["nombreDesde_id", "nombreHacia_id", "idioma_id", "lugar_id", "lugarIndice_id"];
-			for (const prop of [...camposEliminar1, ...camposEliminar2]) delete edicion[prop];
-
-			//
+			for (const prop in edicion) if (!Object.keys(camposEdicion).includes(prop)) delete edicion[prop];
 
 			// Fin
 			return;
@@ -216,6 +215,7 @@ export default {
 	},
 };
 
+// Funciones
 const agregaTemaPestana = (encabezado) => {
 	// Variables
 	const {tema_id, pestana_id} = encabezado;

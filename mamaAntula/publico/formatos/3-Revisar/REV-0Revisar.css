@@ -1,0 +1,10 @@
+#cuerpo {
+	border-radius: 15px;
+	flex-direction: column; overflow-y: auto !important;
+	background-color: var(--amarilloMuyClaro);
+	padding-block: 6px; padding-inline: 10px 20px;
+
+	/* Si el encabezado está en status rechazar/rechazado, cambia el color de fondo */
+	&:has(#encabezado.aprobado) {background-color: var(--verdeClaro);}
+	&:has(#encabezado.rechazar, #encabezado.rechazado) {background-color: var(--rojoMuyClaro);}
+}

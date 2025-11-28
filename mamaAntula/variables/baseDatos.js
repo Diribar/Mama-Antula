@@ -57,6 +57,8 @@ export default {
 			rechazado_id: statusRegistros.find((n) => n.codigo == "rechazado").id,
 
 			// Otros
+			lugaresCartas: lugares.filter((n) => n.cartas),
+			lugaresExpers: lugares.filter((n) => n.expers),
 			indicesCartas: indicesFecha
 				.filter((n) => n.tema_id == temaCarta_id)
 				.sort((a, b) => (a.fechaDesde < b.fechaDesde ? -1 : 1)),

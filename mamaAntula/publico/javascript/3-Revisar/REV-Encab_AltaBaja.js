@@ -10,6 +10,7 @@ window.addEventListener("load", async () => {
 		anchorLectura: document.querySelector("footer #iconosFooterOtros a#lectura"),
 	};
 	const rutaCambioStatus = "/revisar/api/rev-encabezado-cambios-status";
+	const encab_id = cookie("actualizaEncabezado_id");
 
 	// Eventos
 	for (const domEvento of DOM.eventos)
@@ -44,6 +45,3 @@ window.addEventListener("load", async () => {
 	// Fin
 	return;
 });
-
-// Variables
-const encab_id = cookie("actualizaEncabezado_id");

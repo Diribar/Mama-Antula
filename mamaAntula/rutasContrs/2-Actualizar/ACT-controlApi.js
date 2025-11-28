@@ -7,7 +7,7 @@ export default {
 		const {usuario} = req.session;
 		const datosIniciales = {
 			...{secciones, temasSecciones, pestanasTemas},
-			...{personajes, idiomas, lugares, indicesLugar},
+			...{personajes, idiomas, lugaresCartas, lugaresExpers, indicesLugar},
 			...{encabCartaIntro_id, encabLugaresIntro_id, contLayouts},
 			...{creado_id, aprobado_id, rechazar_id, rechazado_id},
 			usuario,
