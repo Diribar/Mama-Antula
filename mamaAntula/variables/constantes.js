@@ -39,11 +39,24 @@ export default {
 	temaLugares_id: 17, // el id del tema "Lugares"
 	encabLugaresIntro_id: 25, // el id del encabezado sobre Introducción a los lugares
 
-	// Includes de encabezados
+	// Encabezados
 	includesEncabs: {
 		cartas: ["nombreDesde", "nombreHacia", "idioma", "lugar"],
 		lugares: ["lugarIndice"],
 		conIndice: ["lugar"],
+	},
+	camposEdicion: {
+		// Referencias
+		nombreDesde: "Remitente",
+		nombreHacia: "Destinatario",
+		idioma: "Idioma",
+		lugar: "Lugar",
+		lugarIndice: "Lugar geográfico",
+
+		// Otros
+		numero: "Número",
+		titulo: "Título",
+		fechaEvento: "Fecha de ocurrencia",
 	},
 
 	// Otras
