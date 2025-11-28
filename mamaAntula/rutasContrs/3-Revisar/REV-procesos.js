@@ -195,12 +195,21 @@ export default {
 			// Variables
 			const statusRegistro_id = aprobado_id;
 
-			// Obtiene los encabezados que tengan algún contenido con status distinto de aprobado
-			const includes = [...includesEncabs.cartas, "lugarIndice", "contenidos"];
-			let encabezados = await baseDatos
-				.obtieneTodosPorCondicion("encabezados", {statusRegistro_id}, includes)
-				.then((n) => n.filter((m) => m.contenidos.find((o) => o.statusRegistro_id != aprobado_id)));
+			// Obtiene los encabezados con status aprobado
+			const includes = [...includesEncabs.cartas, "lugarIndice"];
+			let encabezados = baseDatos.obtieneTodosPorCondicion("encabezados", {statusRegistro_id}, includes);
+
+			// Obtiene los contenidos con status pendiente de revision
+			const statusPends = [creado_id, rechazar_id];
+			let contenidos = baseDatos.obtieneTodosPorCondicion("contenidos", {statusRegistro_id: statusPends});
+
+			// Espera a que se actualicen las promesas
+			[encabezados, contenidos] = await Promise.all([encabezados, contenidos]);
 			if (!encabezados.length) return;
+
+			// Filtra los encabezados por su contenido y se los agrega
+			encabezados = encabezados.filter((n) => contenidos.find((m) => m.encab_id == n.id));
+			encabezados.map((n) => (n.contenidos = contenidos.filter((m) => m.encab_id == n.id)));
 
 			// Quita los encabezados capturados por terceros
 			await FN.quitaEncabsCapturadosPorTerceros({encabezados, usuario});
