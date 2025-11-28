@@ -2,30 +2,46 @@
 
 export default {
 	// API
-	cambiosStatus: async ({encab_id, ...cambioStatus}) => {
+	cambiosStatusEncabezado: async ({encab_id, ...cambioStatus}) => {
 		// Variables
 		const espera = [];
 
 		// Cambia el status del encabezado
 		espera.push(baseDatos.actualizaPorId("encabezados", encab_id, cambioStatus));
 
-		// Obtiene todas las dependencias
+		// Cambia el status de los contenidos
 		const contenidos = await baseDatos.obtieneTodosPorCondicion("contenidos", {encab_id}, "carrusel");
-		espera.push(baseDatos.actualizaPorCondicion("contenidos", {encab_id}, cambioStatus)); // contenido
+		espera.push(baseDatos.actualizaPorCondicion("contenidos", {encab_id}, cambioStatus));
+		await Promise.all(espera);
 
 		// Obtiene todas las imágenes a mover
 		const imagenes = [];
 		for (const contenido of contenidos) {
-			if (contenido.imagen) imagenes.push(contenido.imagen); // contenido
-			if (contenido.imagen2) imagenes.push(contenido.imagen2); // contenido
-			imagenes.push(...contenido.carrusel.map((n) => n.imagen)); // carrusel
+			if (contenido.imagen) imagenes.push(contenido.imagen);
+			if (contenido.imagen2) imagenes.push(contenido.imagen2);
+			imagenes.push(...contenido.carrusel.map((n) => n.imagen));
 		}
 
-		// Mueve la imagen a la carpeta de aprobados
-		for (const imagen of imagenes) espera.push(comp.gestionArchs.mueve(carpRevisar, carpFinal, imagen)); // imagen
+		// Mueve los archivos de imagen a la carpeta de revisados
+		for (const imagen of imagenes) comp.gestionArchs.mueve(carpRevisar, carpFinal, imagen);
 
 		// Fin
-		await Promise.all(espera);
+		return;
+	},
+	cambiosStatusContenido: async ({encab_id, ...cambioStatus}) => {
+		// Actualiza el status del contenido
+		await baseDatos.actualizaPorCondicion("contenidos", {encab_id}, cambioStatus);
+
+		// Obtiene el nombre de los archivos de imagen
+		const imagenes = [];
+		if (contenido.imagen) imagenes.push(contenido.imagen);
+		if (contenido.imagen2) imagenes.push(contenido.imagen2);
+		imagenes.push(...contenido.carrusel.map((n) => n.imagen));
+
+		// Mueve los archivos de imagen a la carpeta de revisados
+		for (const imagen of imagenes) comp.gestionArchs.mueve(carpRevisar, carpFinal, imagen);
+
+		// Fin
 		return;
 	},
 

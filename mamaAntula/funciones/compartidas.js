@@ -112,7 +112,6 @@ export default {
 			// Fin
 			return;
 		},
-
 		mueve: function (carpOrigen, carpDestino, nombreArch) {
 			// Variables
 			const rutaNombreOrigen = path.join(carpOrigen, nombreArch);
@@ -122,12 +121,9 @@ export default {
 			if (!this.existe(carpDestino)) fs.mkdirSync(carpDestino);
 
 			// Si no encuentra el archivo de origen, lo avisa
-			if (!this.existe(rutaNombreOrigen)) console.log("No se encuentra el archivo " + rutaNombreOrigen + " para moverlo");
+			if (!this.existe(rutaNombreOrigen)) return;
 			// Mueve el archivo
-			else
-				fs.renameSync(rutaNombreOrigen, rutaNombreDestino, (error) => {
-					if (error) throw error;
-				});
+			else fs.renameSync(rutaNombreOrigen, rutaNombreDestino);
 
 			// Fin
 			return;

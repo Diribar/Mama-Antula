@@ -10,7 +10,7 @@ export default {
 			const statusSugeridoPor_id = req.session.usuario.id;
 
 			// Cambia el status de sus dependencias y mueve los archivos de imagen
-			await procesos.cambiosStatus({encab_id, statusRegistro_id, statusSugeridoPor_id});
+			await procesos.cambiosStatusEncabezado({encab_id, statusRegistro_id, statusSugeridoPor_id});
 
 			// Fin
 			return res.json({});
@@ -36,8 +36,16 @@ export default {
 			return res.json({});
 		},
 	},
-	cambiosStatus:(req, res) => {
-		console.log(40, req.body);
-		return res.json({});
+	cambiosStatus:async(req, res) => {
+			// Variables
+			const {contenido_id, aprueba, rechaza} = req.body;
+			const statusRegistro_id = (aprueba && aprobado_id) || (rechaza && rechazado_id);
+			const statusSugeridoPor_id = req.session.usuario.id;
+
+			// Cambia el status de sus dependencias y mueve los archivos de imagen
+			await procesos.cambiosStatus({encab_id, statusRegistro_id, statusSugeridoPor_id});
+
+			// Fin
+			return res.json({});
 	},
 };
