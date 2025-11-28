@@ -8,7 +8,8 @@ import soloRevisor from "../../middlewares/8-Usuarios-Roles/US-Solo4Revisor.js";
 
 // Middlewares de API - valida errores
 import encabStatus from "../../middlewares/2-Revisar/REV-1Status-Encab.js";
-import encabEdicion from "../../middlewares/2-Revisar/REV-2Edicion.js";
+import edicion from "../../middlewares/2-Revisar/REV-2Edicion.js";
+import contStatus from "../../middlewares/2-Revisar/REV-1Status-Cont.js";
 
 // Middlewares de API - captura
 
@@ -17,8 +18,8 @@ const router = express.Router();
 
 // 📡 APIs
 router.put("/api/rev-status-encabezado", encabStatus, API.cambiosStatus.encabezado);
-router.put("/api/rev-status-contenido", API.cambiosStatus.contenido);
-router.put("/api/rev-edicion", encabEdicion, API.edicion);
+router.put("/api/rev-status-contenido", contStatus, API.cambiosStatus.contenido);
+router.put("/api/rev-edicion", edicion, API.edicion);
 
 // 🖥️ Vistas
 router.get("/", soloRevisor, vista.revisar);
