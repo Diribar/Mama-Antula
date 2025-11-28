@@ -29,7 +29,7 @@ export default {
 		const codigoVista = "capacitacion";
 
 		// Datos para la vista
-		const capacitaciones = await baseDatos.obtieneTodosConOrden("capacitaciones", "orden");
+		const capacitaciones = await baseDatos.obtieneTodos("capacitaciones", "rol");
 
 		// Fin
 		return res.render("CMP-0Estructura", {
