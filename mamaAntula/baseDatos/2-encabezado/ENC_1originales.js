@@ -47,6 +47,7 @@ export default (sequelize, dt) => {
 
 		// Has many
 		entidad.hasMany(n.encabEdics, {as: "ediciones", foreignKey: "encab_id"});
+		entidad.hasMany(n.contenidos, {as: "contenidos", foreignKey: "encab_id"});
 	};
 	return entidad;
 };
