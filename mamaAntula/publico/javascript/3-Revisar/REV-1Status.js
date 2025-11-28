@@ -15,13 +15,13 @@ window.addEventListener("load", async () => {
 	const encab_id = cookie("actualizaEncabezado_id");
 
 	// Funciones
-	const FN = async ({domEvento, ruta, datos, confirmButtonText, cancelButtonText, mensaje}) => {
+	const FN = async ({domEvento, ruta, datos, confirm, cancel, mensaje}) => {
 		// Si confirmar está inactivo, interrumpe la función
 		if (domEvento.classList.contains("inactivo")) return;
 
 		// Pide que confirme
 		if (domEvento.id == "rechaza") {
-			const confirma = await carteles.confirmar({mensaje, cancelButtonText, confirmButtonText});
+			const confirma = await carteles.confirmar({mensaje, cancelButtonText: cancel, confirmButtonText: confirm});
 			if (!confirma) return;
 		}
 
@@ -45,12 +45,15 @@ window.addEventListener("load", async () => {
 		domEvento.addEventListener("click", async () => {
 			// Mensaje para confirmar el descarte
 			const mensaje = "¿Estás seguro/a de que querés eliminar este encabezado y su contenido?";
-			const cancelButtonText = "Conservar";
-			const confirmButtonText = "Eliminar";
+			const cancel = "Conservar";
+			const confirm = "Eliminar";
 
 			// Información a guardar en la BD
 			const datos = {encab_id, [domEvento.id]: true};
 			const ruta = rutasStatus.encabezado;
+
+			// Invoca la función
+			await FN({domEvento, ruta, datos, confirm, cancel, mensaje});
 		});
 
 	// Eventos - contenido
@@ -58,13 +61,16 @@ window.addEventListener("load", async () => {
 		domEvento.addEventListener("click", async () => {
 			// Mensaje para confirmar el descarte
 			const mensaje = "¿Estás seguro/a de que querés avanzar para descartar esta sugerencia?";
-			const cancelButtonText = "Retroceder";
-			const confirmButtonText = "Avanzar";
+			const cancel = "Retroceder";
+			const confirm = "Avanzar";
 
 			// Información a guardar en la BD
 			const contenido_id = domPadre.dataset.contenido_id;
 			const datos = {contenido_id, [domEvento.id]: true};
 			const ruta = rutasStatus.contenido;
+
+			// Invoca la función
+			await FN({domEvento, ruta, datos, confirm, cancel, mensaje});
 		});
 
 	// Fin
