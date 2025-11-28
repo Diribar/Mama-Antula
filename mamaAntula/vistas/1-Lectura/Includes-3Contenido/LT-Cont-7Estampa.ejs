@@ -2,7 +2,7 @@
 <div class="bloque bloque-<%= contenido.layout.codigo %> flexCol <%- locals.cambioContenido ? contenido.statusRegistro.codigo : '' %>">
 	<% if (locals.cambioContenido && contenido.statusRegistro_id != aprobado_id) { %>
 		<!-- Aprueba / Rechaza -->
-		<%- include("LT-Cont-9ApruebaRech") %>
+		<%- include("REV-9ApruebaRech") %>
 		<% const {statusSugeridoPor} = contenido %>
 		<% const {imagen, nombreCompleto} = statusSugeridoPor %>
 		<%- include("REV-9ImgUsuario", {imagenUsuario: imagen, nombreCompleto: nombreCompleto}) %>
