@@ -161,9 +161,7 @@ export default {
 			for (const key in edicion) if (!edicion[key]) delete edicion[key];
 
 			// Elimina campos puntuales
-			const camposEliminar1 = ["id", "encab_id", "editadoPor_id", "editadoEn", "editadoPor"];
-			const camposEliminar2 = ["nombreDesde_id", "nombreHacia_id", "idioma_id", "lugar_id", "lugarIndice_id"];
-			for (const prop of [...camposEliminar1, ...camposEliminar2]) delete edicion[prop];
+			for (const prop in edicion) if (!Object.keys(camposEdicion).includes(prop)) delete edicion[prop];
 
 			// Fin
 			return;
