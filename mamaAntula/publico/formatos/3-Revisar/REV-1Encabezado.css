@@ -2,7 +2,9 @@
 	#encabezado {
 		display: flex; flex-direction: row; justify-content: flex-start; gap: 20px;
 		padding-block: 6px 15px; position: relative;
+
 		h2 {max-width: calc(100% - 200px);}
+		img.cambios {right: 0px; top: 0px;}
 	}
 	h3 {font-style: italic;}
 }
