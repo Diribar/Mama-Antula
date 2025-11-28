@@ -7,12 +7,13 @@ export default {
 		// Variables
 		const tituloPagina = iconosAgrupados.find((n) => n.codigo == temaVista)?.nombre;
 		const {usuario} = req.session;
-		let encabezado, edicion;
+		let encabezado, cambioStatus, edicion, cambioContenido;
 
 		// Obtiene el encabezado a revisar
-		encabezado = await procesos.obtieneEncabezado.consolidado(usuario);
+		({encabezado, cambioStatus} = await procesos.obtieneEncabezado.consolidado(usuario));
 		if (!encabezado) ({encabezado, edicion} = await procesos.obtieneEncabConEdicion.consolidado(usuario));
-		if (!encabezado) encabezado = await procesos.obtieneEncabConContenido.consolidado(usuario);
+		if (!encabezado) ({encabezado, cambioContenido} = await procesos.obtieneEncabConContenido.consolidado(usuario));
+		// return res.send(encabezado);
 
 		// Si no hay encabezado, redirige a la lectura del artículo según cookies de actualizar
 		if (!encabezado) return res.redirect(procesos.anchorLectura(req));
@@ -30,6 +31,7 @@ export default {
 		return res.render("CMP-0Estructura", {
 			...{tituloPagina, temaVista},
 			...{encabezado, edicion, ruta, anchorLectura},
+			...{cambioStatus, cambioContenido},
 		});
 	},
 };

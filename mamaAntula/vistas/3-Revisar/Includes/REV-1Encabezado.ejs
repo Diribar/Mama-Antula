@@ -1,12 +1,12 @@
 <div id="encabezado" class="<%= encabezado.statusRegistro.codigo %>" data-encab_id="<%= encabezado.id %>">
-	<% if (!edicion) { %>
+	<% if (cambioStatus) { %>
 		<!-- Íconos de aprueba / rechaza -->
 		<i id="aprueba" class="<%= iconos.faSolid %> <%= iconos.check %>"></i>
 		<i id="rechaza" class="<%= iconos.faSolid %> <%= iconos.eliminar %>"></i>
 	<% } %>
 		<!-- Ruta -->
 		<h2><%= ruta %></h2>
-	<% if (!edicion) { %>
+	<% if (cambioStatus) { %>
 		<!-- Imagen del usuario que sugirió el status -->
 		<img src="<%= encabezado.imagenUsuario %>" title="<%= encabezado.usuario.nombreCompleto %>" class="noAgrandar">
 	<% } %>

@@ -39,11 +39,11 @@ export default {
 			// Obtiene el encabezado
 			const encabsRevisar = await this.obtieneEncabezados(usuario);
 			let encabezado = this.obtieneEncabezado(encabsRevisar);
-			if (!encabezado) return;
+			if (!encabezado) return {};
 			await this.completaEncabezado(encabezado);
 
 			// Fin
-			return encabezado;
+			return {encabezado, cambioStatus: true};
 		},
 		obtieneEncabezados: async (usuario) => {
 			// Variables
@@ -183,31 +183,39 @@ export default {
 		consolidado: async function (usuario) {
 			// Obtiene los encabezados con contenido en status distinto de aprobado
 			const encabezado = await this.obtieneEncabezado(usuario);
-			if (!encabezado) return;
-			console.log(187, encabezado);
+			if (!encabezado) return {};
 
 			// Completa el encabezado
 			await this.completaEncabezado(encabezado);
 
 			// Fin
-			return encabezado;
+			return {encabezado, cambioContenido: true};
 		},
 		obtieneEncabezado: async (usuario) => {
 			// Variables
 			const statusRegistro_id = aprobado_id;
 
-			// Obtiene los encabezados que tengan algún contenido con status distinto de aprobado
-			const includes = [...includesEncabs.cartas, "lugarIndice", "contenidos"];
-			let encabezados = await baseDatos
-				.obtieneTodosPorCondicion("encabezados", {statusRegistro_id}, includes)
-				.then((n) => n.filter((m) => m.contenidos.find((o) => o.statusRegistro_id != aprobado_id)));
+			// Obtiene los encabezados con status aprobado
+			const includes = [...includesEncabs.cartas, "lugarIndice"];
+			let encabezados = baseDatos.obtieneTodosPorCondicion("encabezados", {statusRegistro_id}, includes);
+
+			// Obtiene los contenidos con status pendiente de revision
+			const statusPends = [creado_id, rechazar_id];
+			let contenidos = baseDatos.obtieneTodosPorCondicion("contenidos", {statusRegistro_id: statusPends});
+
+			// Espera a que se actualicen las promesas
+			[encabezados, contenidos] = await Promise.all([encabezados, contenidos]);
 			if (!encabezados.length) return;
+
+			// Filtra los encabezados por su contenido y se los agrega
+			encabezados = encabezados.filter((n) => contenidos.find((m) => m.encab_id == n.id));
+			encabezados.map((n) => (n.contenidos = contenidos.filter((m) => m.encab_id == n.id)));
 
 			// Quita los encabezados capturados por terceros
 			await FN.quitaEncabsCapturadosPorTerceros({encabezados, usuario});
 			if (!encabezados.length) return;
 
-			// Agrega el tema y la pestaña
+			// Agrega el tema y la pestaña - lo necesita para hacer el 'título elaborado'
 			const encabezado = FN.agregaTemaPestana(encabezados[0]);
 
 			// Fin
@@ -228,11 +236,8 @@ export default {
 					: "/imgsEstables/Varios/usuarioGenerico.jpg";
 			}
 
-			// Le agrega el statusRegistro
-			encabezado.statusRegistro = statusRegistros.find((n) => n.id == encabezado.statusRegistro_id);
-
-			// Le agrega el título elaborado
-			encabezado = comp.titulosElabs({tema_id: encabezado.tema.id, encabezados: [encabezado]})[0];
+			// Completa el encabezado
+			await FN.completaEncabezado(encabezado);
 
 			// Fin
 			return;
