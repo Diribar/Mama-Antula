@@ -36,23 +36,14 @@ export default {
 	// Vista
 	obtieneEncabezado: {
 		consolidado: async function (usuario) {
-			// Variables
-			let encabezado, edicion;
-
 			// Obtiene el encabezado
 			const encabsRevisar = await this.obtieneEncabezados(usuario);
-			encabezado = this.obtieneEncabezado(encabsRevisar);
-
-			// Si no obtuvo un encabezado, lo obtiene de la edición
-			if (!encabezado) ({encabezado, edicion} = await this.obtieneEdicion(usuario));
-			if (!encabezado) return {};
-
-			// Completa el encabezado y pule la edición
-			await this.completaEncabezado({encabezado, edicion});
-			this.puleLaEdicion(edicion);
+			let encabezado = this.obtieneEncabezado(encabsRevisar);
+			if (!encabezado) return;
+			await this.completaEncabezado(encabezado);
 
 			// Fin
-			return {encabezado, edicion};
+			return encabezado;
 		},
 		obtieneEncabezados: async (usuario) => {
 			// Variables
@@ -64,23 +55,17 @@ export default {
 			if (!encabezados.length) return [];
 
 			// Quita los encabezados capturados por terceros
-			const capturadoPor_id = {[Op.ne]: usuario.id};
-			const capturadoEn = {[Op.gt]: new Date(Date.now() - unaHora)};
-			const capturas = await baseDatos.obtieneTodosPorCondicion("capturas", {[Op.and]: [{capturadoPor_id}, {capturadoEn}]});
-			encabezados = encabezados.filter(
-				(n) =>
-					!capturas.find((m) => (n.tema_id && m.tema_id == n.tema_id) || (n.pestana_id && m.pestana_id == n.pestana_id)) // el encabezado tiene tema/pestaña y no está capturada
-			);
+			await FN.quitaEncabsCapturadosPorTerceros({encabezados, usuario});
 
 			// Fin
 			return encabezados;
 		},
-		obtieneEncabezado: function (encabezados) {
+		obtieneEncabezado: (encabezados) => {
 			// Si no hay encabezados, interrumpe la función
 			if (!encabezados.length) return;
 
 			// Si hay un sólo encabezado, lo completa e interrumpe la función
-			encabezados = encabezados.map((n) => agregaTemaPestana(n));
+			encabezados = encabezados.map((n) => FN.agregaTemaPestana(n));
 			if (encabezados.length == 1) return encabezados[0];
 
 			// Los ordena por sección
@@ -109,48 +94,76 @@ export default {
 			// Fin
 			return encabezados[0];
 		},
-		obtieneEdicion: async () => {
-			// Obtiene las ediciones del usuario
-			const includes = [...includesEncabs.cartas, "lugarIndice"];
-			const edicion = await baseDatos.obtienePorCondicion("encabEdics", {id: {[Op.ne]: null}}, [...includes, "editadoPor"]);
-			if (!edicion) return {};
+		completaEncabezado: async ({encabezado}) => {
+			// Le agrega el usuario
+			encabezado.usuario = await baseDatos.obtienePorId("usuarios", encabezado.statusSugeridoPor_id);
 
-			// Obtiene el encabezado de la edición
-			const encabezado = await baseDatos
-				.obtienePorId("encabezados", edicion.encab_id, includes)
-				.then((n) => n && agregaTemaPestana(n));
+			// Le agrega la imagen del usuario
+			encabezado.imagenUsuario = encabezado.usuario.imagen
+				? "/imgsEditables/8-Usuarios/" + encabezado.usuario.imagen
+				: "/imgsEstables/Varios/usuarioGenerico.jpg";
+
+			await FN.completaEncabezado(encabezado);
+
+			// Fin
+			return;
+		},
+	},
+	obtieneEncabConEdicion: {
+		consolidado: async function (usuario) {
+			// Obtiene todos los encabezados que tengan ediciones
+			const encabezado = await this.obtieneEncabezado(usuario);
+			if (!encabezado) return {};
+
+			// Obtiene la edición
+			const edicion = await this.obtieneEdicion(encabezado);
+
+			// Completa el encabezado y pule la edición
+			await this.completaEncabezado({encabezado, edicion});
+			this.puleLaEdicion(edicion);
 
 			// Fin
 			return {encabezado, edicion};
 		},
+		obtieneEncabezado: async (usuario) => {
+			// Variables
+			const statusRegistro_id = aprobado_id;
+
+			// Obtiene los encabezados
+			const includes = [...includesEncabs.cartas, "lugarIndice", "ediciones"];
+			let encabezados = await baseDatos
+				.obtieneTodosPorCondicion("encabezados", {statusRegistro_id}, includes)
+				.then((n) => n.filter((m) => m.ediciones.length));
+			if (!encabezados.length) return;
+
+			// Quita los encabezados capturados por terceros
+			await FN.quitaEncabsCapturadosPorTerceros({encabezados, usuario});
+			if (!encabezados.length) return;
+
+			// Agrega el tema y la pestaña
+			const encabezado = FN.agregaTemaPestana(encabezados[0]);
+
+			// Fin
+			return encabezado;
+		},
+		obtieneEdicion: async (encabezado) => {
+			// Variables
+			const edic_id = encabezado.ediciones[0].id;
+
+			// Obtiene la edición
+			const includes = [...includesEncabs.cartas, "lugarIndice", "editadoPor"];
+			const edicion = await baseDatos.obtienePorId("encabEdics", edic_id, includes);
+
+			// Fin
+			return edicion;
+		},
 		completaEncabezado: async ({encabezado, edicion}) => {
-			// Si es un cambio de status, le agrega el usuario
-			if (!edicion) {
-				encabezado.usuario = await baseDatos.obtienePorId("usuarios", encabezado.statusSugeridoPor_id);
-
-				// Le agrega la imagen del usuario
-				encabezado.imagenUsuario = encabezado.usuario.imagen
-					? "/imgsEditables/8-Usuarios/" + encabezado.usuario.imagen
-					: "/imgsEstables/Varios/usuarioGenerico.jpg";
-			}
-
-			// Le agrega el statusRegistro
-			encabezado.statusRegistro = statusRegistros.find((n) => n.id == encabezado.statusRegistro_id);
-
-			// Le agrega los contenidos
-			encabezado.contenidos = await baseDatos
-				.obtieneTodosPorCondicion("contenidos", {encab_id: encabezado.id}, ["layout", "carrusel"])
-				.then((n) => n.sort((a, b) => a.orden - b.orden))
-				.then((n) => n.sort((a, b) => b.anoLanzam - a.anoLanzam));
-
-			// Le agrega el título elaborado
-			encabezado = comp.titulosElabs({tema_id: encabezado.tema.id, encabezados: [encabezado]})[0];
-
 			// Le agrega el editadoPor
-			if (edicion) {
-				encabezado.edicion_id = edicion.id;
-				encabezado.editadoPor = edicion.editadoPor;
-			}
+			encabezado.edicion_id = edicion.id;
+			encabezado.editadoPor = edicion.editadoPor;
+
+			// Completa el encabezado
+			await FN.completaEncabezado(encabezado);
 
 			// Fin
 			return;
@@ -161,6 +174,65 @@ export default {
 
 			// Elimina campos puntuales
 			for (const prop in edicion) if (!Object.keys(camposEdicion.vista).includes(prop)) delete edicion[prop];
+
+			// Fin
+			return;
+		},
+	},
+	obtieneEncabConContenido: {
+		consolidado: async function (usuario) {
+			// Obtiene los encabezados con contenido en status distinto de aprobado
+			const encabezado = await this.obtieneEncabezado(usuario);
+			if (!encabezado) return;
+			console.log(187, encabezado);
+
+			// Completa el encabezado
+			await this.completaEncabezado(encabezado);
+
+			// Fin
+			return encabezado;
+		},
+		obtieneEncabezado: async (usuario) => {
+			// Variables
+			const statusRegistro_id = aprobado_id;
+
+			// Obtiene los encabezados que tengan algún contenido con status distinto de aprobado
+			const includes = [...includesEncabs.cartas, "lugarIndice", "contenidos"];
+			let encabezados = await baseDatos
+				.obtieneTodosPorCondicion("encabezados", {statusRegistro_id}, includes)
+				.then((n) => n.filter((m) => m.contenidos.find((o) => o.statusRegistro_id != aprobado_id)));
+			if (!encabezados.length) return;
+
+			// Quita los encabezados capturados por terceros
+			await FN.quitaEncabsCapturadosPorTerceros({encabezados, usuario});
+			if (!encabezados.length) return;
+
+			// Agrega el tema y la pestaña
+			const encabezado = FN.agregaTemaPestana(encabezados[0]);
+
+			// Fin
+			return encabezado;
+		},
+		completaEncabezado: async (encabezado) => {
+			// Le agrega el usuario
+			for (const contenido of encabezado.contenidos) {
+				// Si el contenido está aprobado, saltea la rutina
+				if (contenido.statusRegistro_id == aprobado_id) continue;
+
+				// Le asigna el usuario
+				contenido.usuario = await baseDatos.obtienePorId("usuarios", contenido.statusSugeridoPor_id);
+
+				// Le agrega la imagen del usuario
+				contenido.imagenUsuario = contenido.usuario.imagen
+					? "/imgsEditables/8-Usuarios/" + contenido.usuario.imagen
+					: "/imgsEstables/Varios/usuarioGenerico.jpg";
+			}
+
+			// Le agrega el statusRegistro
+			encabezado.statusRegistro = statusRegistros.find((n) => n.id == encabezado.statusRegistro_id);
+
+			// Le agrega el título elaborado
+			encabezado = comp.titulosElabs({tema_id: encabezado.tema.id, encabezados: [encabezado]})[0];
 
 			// Fin
 			return;
@@ -216,15 +288,47 @@ export default {
 };
 
 // Funciones
-const agregaTemaPestana = (encabezado) => {
-	// Variables
-	const {tema_id, pestana_id} = encabezado;
+const FN = {
+	agregaTemaPestana: (encabezado) => {
+		// Variables
+		const {tema_id, pestana_id} = encabezado;
 
-	// Obtiene los datos de niveles
-	if (pestana_id) encabezado.pestana = pestanasTemas.find((n) => n.id == pestana_id);
-	encabezado.tema = temasSecciones.find((n) => n.id == (tema_id || encabezado.pestana.tema_id));
-	encabezado.seccion = secciones.find((n) => n.id == encabezado.tema.seccion_id);
+		// Obtiene los datos de niveles
+		if (pestana_id) encabezado.pestana = pestanasTemas.find((n) => n.id == pestana_id);
+		encabezado.tema = temasSecciones.find((n) => n.id == (tema_id || encabezado.pestana.tema_id));
+		encabezado.seccion = secciones.find((n) => n.id == encabezado.tema.seccion_id);
 
-	// Fin
-	return encabezado;
+		// Fin
+		return encabezado;
+	},
+	quitaEncabsCapturadosPorTerceros: async ({encabezados, usuario}) => {
+		// Variables
+		const capturadoPor_id = {[Op.ne]: usuario.id};
+		const capturadoEn = {[Op.gt]: new Date(Date.now() - unaHora)};
+
+		// Quita los encabezados capturados por terceros
+		const capturas = await baseDatos.obtieneTodosPorCondicion("capturas", {[Op.and]: [{capturadoPor_id}, {capturadoEn}]});
+		encabezados = encabezados.filter(
+			(n) => !capturas.find((m) => (n.tema_id && m.tema_id == n.tema_id) || (n.pestana_id && m.pestana_id == n.pestana_id)) // el encabezado tiene tema/pestaña y no está capturada
+		);
+
+		// Fin
+		return;
+	},
+	completaEncabezado: async (encabezado) => {
+		// Le agrega el statusRegistro
+		encabezado.statusRegistro = statusRegistros.find((n) => n.id == encabezado.statusRegistro_id);
+
+		// Le agrega los contenidos
+		encabezado.contenidos = await baseDatos
+			.obtieneTodosPorCondicion("contenidos", {encab_id: encabezado.id}, ["layout", "carrusel"])
+			.then((n) => n.sort((a, b) => a.orden - b.orden))
+			.then((n) => n.sort((a, b) => b.anoLanzam - a.anoLanzam));
+
+		// Le agrega el título elaborado
+		encabezado = comp.titulosElabs({tema_id: encabezado.tema.id, encabezados: [encabezado]})[0];
+
+		// Fin
+		return;
+	},
 };
