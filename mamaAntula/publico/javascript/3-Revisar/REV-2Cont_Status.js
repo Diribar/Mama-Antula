@@ -1,16 +1,11 @@
 "use strict";
 window.addEventListener("load", async () => {
 	// Variables
-	const domEncabezado = document.querySelector("#cuerpo #encabezado");
+	const domContenido = document.querySelector("#cuerpo #contenidoRevisar");
 	const DOM = {
-		// Cambios de status
-		eventos: domEncabezado.querySelectorAll("i"),
-
-		// Otros
-		anchorLectura: document.querySelector("footer #iconosFooterOtros a#lectura"),
+		eventos: domContenido.querySelectorAll(".apruebaRechaza i"),
 	};
-	const rutaCambioStatus = "/revisar/api/rev-encabezado-cambios-status";
-	const encab_id = cookie("actualizaEncabezado_id");
+	const rutaCambioStatus = "/revisar/api/rev-contenido-cambios-status";
 
 	// Eventos
 	for (const domEvento of DOM.eventos)
@@ -20,22 +15,24 @@ window.addEventListener("load", async () => {
 
 			// Pide que confirme
 			if (domEvento.id == "rechaza") {
-				const mensaje = "¿Estás seguro/a de que querés eliminar este encabezado y su contenido?";
-				const cancelButtonText = "Conservar";
-				const confirmButtonText = "Eliminar";
+				const mensaje = "¿Estás seguro/a de que querés avanzar para descartar esta sugerencia?";
+				const cancelButtonText = "Retroceder";
+				const confirmButtonText = "Avanzar";
 				const confirma = await carteles.confirmar({mensaje, cancelButtonText, confirmButtonText});
 				if (!confirma) return;
 			}
 
 			// Inactiva los botones para impedir confusiones
-			for (const icono of DOM.eventos) icono.classList.add("inactivo");
+			const domApruebaRechaza = domEvento.parentNode;
+			for (const icono of domApruebaRechaza) icono.classList.add("inactivo");
 
 			// Guarda la información en la BD
-			const datos = {encab_id, [domEvento.id]: true};
+			const contenido_id = domApruebaRechaza.dataset.contenido_id;
+			const datos = {contenido_id, [domApruebaRechaza.id]: true};
 			const respuesta = await fetch(rutaCambioStatus, putJson(datos)).then((n) => n.json());
-			for (const icono of DOM.eventos) icono.classList.remove("inactivo");
 
 			// Si hubo un error, muestra el mensaje e interrumpe la función
+			for (const icono of domApruebaRechaza) icono.classList.remove("inactivo");
 			if (respuesta.error) return carteles.error(respuesta.error);
 
 			// Fin
