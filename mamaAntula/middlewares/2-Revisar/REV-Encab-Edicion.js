@@ -8,7 +8,6 @@ export default async (req, res, next) => {
 	// Validaciones iniciales
 	if (!encab_id) return res.json({error: "El encabezado del artículo no está identificado, no lo podemos procesar"});
 	if (!edicion_id) return res.json({error: "La edición no está identificada, no la podemos procesar"});
-	if (!aprueba && !rechaza) return res.json({error: "Necesitamos que apruebes o rechaces el encabezado"});
 
 	// Averigua si existe el encabezado
 	const encabezado = await baseDatos.obtienePorId("encabezados", encab_id);
@@ -22,7 +21,6 @@ export default async (req, res, next) => {
 
 	// Averigua si está identificado el campo
 	if (!campo) return res.json({error: "El campo no está identificado"});
-	if (!Object.keys(camposEdicion).includes(campo)) return res.json({error: "No procesamos ese campo"});
 
 	// Averigua si se eligió alguna de las opciones
 	if (!opcOriginal && !opcEdicion) return res.json({error: "Necesitamos que elijas una opción"});

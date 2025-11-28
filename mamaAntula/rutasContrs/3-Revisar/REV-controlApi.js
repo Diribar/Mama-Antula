@@ -15,5 +15,18 @@ export default {
 			// Fin
 			return res.json({});
 		},
+		edicion: async (req, res) => {
+			// Variables
+			const {encab_id, edicion_id, campo, opcOriginal, opcEdicion} = req.body;
+			console.log(21,{encab_id, edicion_id, campo, opcOriginal, opcEdicion});
+
+
+			// Acciones si se eligió la opción original
+
+			// Acciones si se eligió la opción editada
+
+			// Fin
+			return res.json({});
+		},
 	},
 };
