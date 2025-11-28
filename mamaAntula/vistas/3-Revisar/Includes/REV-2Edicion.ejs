@@ -1,0 +1,9 @@
+<section id="edicion" class="flexCol">
+	<% for (const prop in edicion) { %>
+		<div class="flexRow">
+			<div><%= prop %>: </div>
+			<div><%= encabezado[prop] %> - </div>
+			<div><%= edicion[prop] %></div>
+		</div>
+	<% } %>
+</section>

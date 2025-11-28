@@ -1,0 +1,6 @@
+<div id="contenidoRevisar">
+	<% if (encabezado) for (const contenido of encabezado.contenidos) { %>
+		<% const subCarpeta = contenido.statusRegistro_id == creado_id ? '2-Revisar' : '1-Final' %>
+		<%- include("LT-Cont-" + contenido.layout.archVistaLt, {contenido, subCarpeta}) %>
+	<% } %>
+</div>
