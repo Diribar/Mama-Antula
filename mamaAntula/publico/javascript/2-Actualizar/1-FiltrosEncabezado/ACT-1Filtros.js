@@ -74,7 +74,7 @@ window.addEventListener("load", async () => {
 
 			// ENCABEZADO - Si es start-up, elige la opción de la cookie
 			const valoresPosiblesOpciones = Array.from(DOM.encabezado.querySelectorAll("option")).map((n) => n.value);
-			v.encab_id = cookie("actualizaEncabezado_id");
+			v.encab_id = cookie("actEncabezado_id");
 			if (comp1234.startUp && v.encab_id && valoresPosiblesOpciones.includes(v.encab_id)) DOM.encabezado.value = v.encab_id;
 			delete comp1234.startUp;
 
@@ -103,13 +103,13 @@ window.addEventListener("load", async () => {
 	// Eventos de filtros
 	DOM.seccion.addEventListener("change", () => {
 		// SECCION - Si es start-up, elige la opción de la cookie
-		let seccion_id = cookie("actualizaSeccion_id");
+		let seccion_id = cookie("actSeccion_id");
 		if (comp1234.startUp && seccion_id && comp1234.seccionesLectura.find((n) => n.id == seccion_id)) DOM.seccion.value = seccion_id;
 		else delete comp1234.startUp; // si no se pudo elegir la cookie, descarta las futuras cookies
 
 		// SECCIÓN - Guarda la cookie
 		seccion_id = DOM.seccion.value;
-		if (!comp1234.startUp) document.cookie = "actualizaSeccion_id=" + seccion_id + "; path=/";
+		if (!comp1234.startUp) document.cookie = "actSeccion_id=" + seccion_id + "; path=/";
 
 		// TEMA - Crea las opciones
 		const temasSecciones = comp1234.temasSecciones.filter((n) => n.seccion_id == seccion_id);
@@ -117,7 +117,7 @@ window.addEventListener("load", async () => {
 
 		// TEMA - Elige el tema
 		v.temasPosibles = comp1234.temasSecciones.filter((n) => n.seccion_id == DOM.seccion.value);
-		const tema_id = cookie("actualizaTema_id");
+		const tema_id = cookie("actTema_id");
 
 		// TEMA - Si es start-up, elige la opción de la cookie
 		if (comp1234.startUp && tema_id && v.temasPosibles.find((n) => n.id == tema_id)) DOM.tema.value = tema_id;
@@ -133,7 +133,7 @@ window.addEventListener("load", async () => {
 	DOM.tema.addEventListener("change", () => {
 		// TEMA - Guarda la cookie
 		const tema_id = DOM.tema.value;
-		if (!comp1234.startUp) document.cookie = "actualizaTema_id=" + tema_id + "; path=/";
+		if (!comp1234.startUp) document.cookie = "actTema_id=" + tema_id + "; path=/";
 
 		// Averigua si el tema es 'Cartas'
 		comp1234.temaActual = comp1234.temasSecciones.find((n) => n.id == tema_id);
@@ -153,7 +153,7 @@ window.addEventListener("load", async () => {
 			agregaOpciones(comp1234.pestanasTema, DOM.pestana, "titulo");
 
 			// PESTAÑA - Si es start-up, elige la opción de la cookie
-			const pestana_id = cookie("actualizaPestana_id");
+			const pestana_id = cookie("actPestana_id");
 			const pestanasPosibles = comp1234.pestanasTema.filter((n) => n.tema_id == DOM.tema.value);
 			if (comp1234.startUp && pestana_id && pestanasPosibles.find((n) => n.id == pestana_id))
 				DOM.pestana.value = pestana_id;
@@ -166,7 +166,7 @@ window.addEventListener("load", async () => {
 		// ENCABEZADO - Si no tiene pestañas, obtiene los encabezados
 		else {
 			DOM.pestana.value = "";
-			document.cookie = "actualizaPestana_id=; path=/";
+			document.cookie = "actPestana_id=; path=/";
 			DOM.pestana.classList.add("ocultar");
 			FN.actualizaFiltroEncabezado();
 		}
@@ -177,7 +177,7 @@ window.addEventListener("load", async () => {
 	DOM.pestana.addEventListener("change", () => {
 		// PESTAÑA - Guarda la cookie
 		const pestana_id = DOM.pestana.value;
-		if (!comp1234.startUp) document.cookie = "actualizaPestana_id=" + pestana_id + "; path=/";
+		if (!comp1234.startUp) document.cookie = "actPestana_id=" + pestana_id + "; path=/";
 
 		// ENCABEZADO - Los obtiene y genera el evento 'change'
 		FN.actualizaFiltroEncabezado();
@@ -185,7 +185,7 @@ window.addEventListener("load", async () => {
 	// Eventos del filtro de encabezado
 	DOM.encabezado.addEventListener("change", async () => {
 		// ENCABEZADO - Guarda la cookie
-		document.cookie = "actualizaEncabezado_id=" + DOM.encabezado.value + "; path=/";
+		document.cookie = "actEncabezado_id=" + DOM.encabezado.value + "; path=/";
 
 		// Actualiza el anchor de flitros
 		v.encab_id = DOM.encabezado.value;

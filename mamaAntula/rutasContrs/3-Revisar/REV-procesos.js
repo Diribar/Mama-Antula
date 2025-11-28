@@ -269,32 +269,32 @@ export default {
 		const {seccion, tema, pestana} = encabezado;
 
 		// Actualiza las cookies de 'actualiza'
-		res.cookie("actualizaSeccion_id", seccion.id, {maxAge: unDia, path: "/"});
-		res.cookie("actualizaTema_id", tema.id, {maxAge: unDia, path: "/"});
-		if (pestana) res.cookie("actualizaPestana_id", pestana.id, {maxAge: unDia, path: "/"});
-		else res.clearCookie("actualizaPestana_id");
-		res.cookie("actualizaEncabezado_id", encabezado.id, {maxAge: unDia, path: "/"});
+		res.cookie("actSeccion_id", seccion.id, {maxAge: unDia, path: "/"});
+		res.cookie("actTema_id", tema.id, {maxAge: unDia, path: "/"});
+		if (pestana) res.cookie("actPestana_id", pestana.id, {maxAge: unDia, path: "/"});
+		else res.clearCookie("actPestana_id");
+		res.cookie("actEncabezado_id", encabezado.id, {maxAge: unDia, path: "/"});
 
 		// Fin
 		return;
 	},
 	anchorLectura: (req) => {
 		// Variables
-		const {actualizaSeccion_id, actualizaTema_id, actualizaPestana_id, actualizaEncabezado_id} = req.cookies;
+		const {actSeccion_id, actTema_id, actPestana_id, actEncabezado_id} = req.cookies;
 
 		// Le agrega la sección
-		let anchorLectura = "/" + seccionesLectura.find((n) => n.id == actualizaSeccion_id).url;
+		let anchorLectura = "/" + seccionesLectura.find((n) => n.id == actSeccion_id).url;
 
 		// Le agrega el tema
-		const temaActual = temasSecciones.find((n) => n.id == actualizaTema_id);
-		anchorLectura += "/" + temasSecciones.find((n) => n.id == actualizaTema_id).url;
+		const temaActual = temasSecciones.find((n) => n.id == actTema_id);
+		anchorLectura += "/" + temasSecciones.find((n) => n.id == actTema_id).url;
 
 		// Le agrega la pestaña
-		anchorLectura += (actualizaPestana_id && "/" + v.pestanasTemas.find((n) => n.id == actualizaPestana_id).url) || "";
+		anchorLectura += (actPestana_id && "/" + v.pestanasTemas.find((n) => n.id == actPestana_id).url) || "";
 
 		// Le agrega el encabezado
 		const conIndice = temaActual.indicesFecha.length || temaActual.indicesLugar.length;
-		anchorLectura += conIndice ? "/?id=" + actualizaEncabezado_id : "";
+		anchorLectura += conIndice ? "/?id=" + actEncabezado_id : "";
 
 		// Fin
 		return anchorLectura;
@@ -355,7 +355,7 @@ export default {
 			const {seccion, tema, pestana} = encabezado;
 
 			// Le agrega la sección
-			let anchorLectura = "/" + seccion.url + "/" + tema.url;
+			let anchorLectura = "/?" + seccion.url + "/" + tema.url;
 
 			// Le agrega la pestaña
 			anchorLectura += (pestana && "/" + pestana.url) || "";

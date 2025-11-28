@@ -189,7 +189,7 @@ window.addEventListener("load", async () => {
 		if (respuesta.error) return carteles.error(respuesta.error);
 
 		// Elimina la cookie
-		document.cookie = "actualizaEncabezado_id=; path=/";
+		document.cookie = "actEncabezado_id=; path=/";
 
 		// Se genera un change en el tema, para que se reinicie el filtro del encabezado
 		comp1234.startUp = true;

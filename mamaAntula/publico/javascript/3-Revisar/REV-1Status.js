@@ -12,7 +12,7 @@ window.addEventListener("load", async () => {
 		encabezado: "/revisar/api/rev-status-encabezado",
 		contenido: "/revisar/api/rev-status-contenido",
 	};
-	const encab_id = cookie("actualizaEncabezado_id");
+	const encab_id = cookie("actEncabezado_id");
 
 	// Funciones
 	const FN = async ({domEvento, ruta, datos, confirm, cancel, mensaje}) => {

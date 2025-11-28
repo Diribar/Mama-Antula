@@ -2,7 +2,7 @@
 
 export default async (req, res, next) => {
 	// Variables
-	const {actualizaTema_id: tema_id, actualizaPestana_id: pestana_id} = req.cookies;
+	const {actTema_id: tema_id, actPestana_id: pestana_id} = req.cookies;
 	const pestsPosibles = (tema_id && pestanasTemas.filter((n) => n.tema_id == tema_id)) || [];
 
 	// PESTAÑA - Validaciones

@@ -43,7 +43,7 @@ export default {
 
 				// Crea el encabezado y guarda la cookie
 				const encabezado = await baseDatos.agregaRegistroIdCorrel("encabezados", datos);
-				res.cookie("actualizaEncabezado_id", encabezado.id, {maxAge: unDia, path: "/"});
+				res.cookie("actEncabezado_id", encabezado.id, {maxAge: unDia, path: "/"});
 
 				// Fin
 				return res.json({});
