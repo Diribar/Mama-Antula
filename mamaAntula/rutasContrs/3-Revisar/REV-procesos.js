@@ -206,7 +206,7 @@ export default {
 			await FN.quitaEncabsCapturadosPorTerceros({encabezados, usuario});
 			if (!encabezados.length) return;
 
-			// Agrega el tema y la pestaña
+			// Agrega el tema y la pestaña - lo necesita para hacer el 'título elaborado'
 			const encabezado = FN.agregaTemaPestana(encabezados[0]);
 
 			// Fin
