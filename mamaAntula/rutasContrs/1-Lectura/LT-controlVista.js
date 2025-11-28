@@ -1,6 +1,6 @@
 "use strict";
 import procesos from "./LT-procesos.js";
-const temaVista = "secciones";
+const temaVista = "seccionesLectura";
 
 export default {
 	temas: async (req, res) => {
