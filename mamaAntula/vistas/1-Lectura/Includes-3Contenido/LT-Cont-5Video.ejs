@@ -5,7 +5,7 @@
 		<%- include("REV-9ApruebaRech") %>
 		<% const {statusSugeridoPor} = contenido %>
 		<% const {imagen, nombreCompleto} = statusSugeridoPor %>
-		<%- include("REV-9ImgUsuario", {imagenUsuario: imagen, nombreCompleto: nombreCompleto}) %>
+		<%- include("REV-9ImgUsuario", {imagenUsuario: imagen, nombreCompleto}) %>
 	<% } %>
 
 	<iframe src="https://www.youtube.com/embed/<%= contenido.video %>?autoplay=1"></iframe>
