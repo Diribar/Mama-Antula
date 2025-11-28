@@ -5,9 +5,7 @@
 		<%- include("REV-9ApruebaRech") %>
 
 		<!-- Imagen del usuario que sugirió el cambio de status -->
-		<% const {statusSugeridoPor} = contenido %>
-		<% const {imagen, nombreCompleto} = statusSugeridoPor %>
-		<%- include("REV-9ImgUsuario", {imagenUsuario: imagen, nombreCompleto}) %>
+		<%- include("REV-9ImgUsuario", {usuario: contenido.statusSugeridoPor}) %>
 	<% } %>
 
 	<!-- Estampa -->
