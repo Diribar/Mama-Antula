@@ -13,7 +13,6 @@ export default {
 		({encabezado, cambioStatusEncab} = await procesos.obtieneEncabezado.consolidado(usuario));
 		if (!encabezado) ({encabezado, edicion} = await procesos.obtieneEncabConEdicion.consolidado(usuario));
 		if (!encabezado) ({encabezado, cambioStatusCont} = await procesos.obtieneEncabConContenido.consolidado(usuario));
-		// return res.send(encabezado);
 
 		// Si no hay encabezado, redirige a la lectura del artículo según cookies de actualizar
 		if (!encabezado) return res.redirect(procesos.anchorLectura(req));

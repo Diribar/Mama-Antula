@@ -10,7 +10,7 @@ export default {
 			const statusSugeridoPor_id = req.session.usuario.id;
 
 			// Cambia el status de sus dependencias y mueve los archivos de imagen
-			await procesos.cambiosStatusEncabezado({encab_id, statusRegistro_id, statusSugeridoPor_id});
+			await procesos.cambiosStatus.encabezado({encab_id, statusRegistro_id, statusSugeridoPor_id});
 
 			// Fin
 			return res.json({});
@@ -23,7 +23,7 @@ export default {
 			const statusSugeridoPor_id = req.session.usuario.id;
 
 			// Cambia el status de sus dependencias y mueve los archivos de imagen
-			await procesos.cambiosStatusContenido({contenido, statusRegistro_id, statusSugeridoPor_id});
+			await procesos.cambiosStatus.contenido({contenido, statusRegistro_id, statusSugeridoPor_id});
 
 			// Fin
 			return res.json({});

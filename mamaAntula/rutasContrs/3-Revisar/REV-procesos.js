@@ -2,52 +2,54 @@
 
 export default {
 	// API
-	cambiosStatusEncabezado: async ({encab_id, ...cambioStatus}) => {
-		// Variables
-		const espera = [];
+	cambiosStatus:{
+		encabezado: async ({encab_id, ...cambioStatus}) => {
+			// Variables
+			const espera = [];
 
-		// Cambia el status del encabezado
-		espera.push(baseDatos.actualizaPorId("encabezados", encab_id, cambioStatus));
+			// Cambia el status del encabezado
+			espera.push(baseDatos.actualizaPorId("encabezados", encab_id, cambioStatus));
 
-		// Cambia el status de los contenidos
-		const contenidos = await baseDatos.obtieneTodosPorCondicion("contenidos", {encab_id}, "carrusel");
-		espera.push(baseDatos.actualizaPorCondicion("contenidos", {encab_id}, cambioStatus));
-		await Promise.all(espera);
+			// Cambia el status de los contenidos
+			const contenidos = await baseDatos.obtieneTodosPorCondicion("contenidos", {encab_id}, "carrusel");
+			espera.push(baseDatos.actualizaPorCondicion("contenidos", {encab_id}, cambioStatus));
+			await Promise.all(espera);
 
-		// Obtiene todas las imágenes a mover
-		const imagenes = [];
-		for (const contenido of contenidos) {
+			// Obtiene todas las imágenes a mover
+			const imagenes = [];
+			for (const contenido of contenidos) {
+				if (contenido.imagen) imagenes.push(contenido.imagen);
+				if (contenido.imagen2) imagenes.push(contenido.imagen2);
+				imagenes.push(...contenido.carrusel.map((n) => n.imagen));
+			}
+
+			// Mueve los archivos de imagen a la carpeta de revisados
+			for (const imagen of imagenes) comp.gestionArchs.mueve(carpRevisar, carpFinal, imagen);
+
+			// Fin
+			return;
+		},
+		contenido: async ({contenido, ...cambioStatus}) => {
+			// Variables
+			const imagenes = [];
+
+			// Actualiza el status del contenido
+			await baseDatos.actualizaPorId("contenidos", contenido.id, cambioStatus);
+
+			// Obtiene los carrusel del contenido
+			const carruseles = await baseDatos.obtieneTodosPorCondicion("carrusel", {contenido_id: contenido.id});
+
+			// Obtiene el nombre de los archivos de imagen
 			if (contenido.imagen) imagenes.push(contenido.imagen);
 			if (contenido.imagen2) imagenes.push(contenido.imagen2);
-			imagenes.push(...contenido.carrusel.map((n) => n.imagen));
-		}
+			for (const carrusel of carruseles) imagenes.push(carrusel.imagen);
 
-		// Mueve los archivos de imagen a la carpeta de revisados
-		for (const imagen of imagenes) comp.gestionArchs.mueve(carpRevisar, carpFinal, imagen);
+			// Mueve los archivos de imagen a la carpeta de revisados
+			for (const imagen of imagenes) comp.gestionArchs.mueve(carpRevisar, carpFinal, imagen);
 
-		// Fin
-		return;
-	},
-	cambiosStatusContenido: async ({contenido, ...cambioStatus}) => {
-		// Variables
-		const imagenes = [];
-
-		// Actualiza el status del contenido
-		await baseDatos.actualizaPorId("contenidos", contenido.id, cambioStatus);
-
-		// Obtiene los carrusel del contenido
-		const carruseles = await baseDatos.obtieneTodosPorCondicion("carrusel", {contenido_id: contenido.id});
-
-		// Obtiene el nombre de los archivos de imagen
-		if (contenido.imagen) imagenes.push(contenido.imagen);
-		if (contenido.imagen2) imagenes.push(contenido.imagen2);
-		for (const carrusel of carruseles) imagenes.push(carrusel.imagen);
-
-		// Mueve los archivos de imagen a la carpeta de revisados
-		for (const imagen of imagenes) comp.gestionArchs.mueve(carpRevisar, carpFinal, imagen);
-
-		// Fin
-		return;
+			// Fin
+			return;
+		},
 	},
 
 	// Vista
