@@ -94,7 +94,7 @@ export default {
 			// Fin
 			return encabezados[0];
 		},
-		completaEncabezado: async ({encabezado}) => {
+		completaEncabezado: async (encabezado) => {
 			// Le agrega el usuario
 			encabezado.usuario = await baseDatos.obtienePorId("usuarios", encabezado.statusSugeridoPor_id);
 
@@ -326,7 +326,12 @@ const FN = {
 
 		// Le agrega los contenidos
 		encabezado.contenidos = await baseDatos
-			.obtieneTodosPorCondicion("contenidos", {encab_id: encabezado.id}, ["layout", "carrusel", "statusRegistro"])
+			.obtieneTodosPorCondicion("contenidos", {encab_id: encabezado.id}, [
+				"layout",
+				"carrusel",
+				"statusSugeridoPor",
+				"statusRegistro",
+			])
 			.then((n) => n.sort((a, b) => a.orden - b.orden))
 			.then((n) => n.sort((a, b) => b.anoLanzam - a.anoLanzam));
 
