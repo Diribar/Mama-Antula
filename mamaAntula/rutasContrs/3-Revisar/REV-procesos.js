@@ -150,7 +150,6 @@ export default {
 			if (edicion) {
 				encabezado.edicion_id = edicion.id;
 				encabezado.editadoPor = edicion.editadoPor;
-				encabezado.camposEdicion = camposEdicion;
 			}
 
 			// Fin
