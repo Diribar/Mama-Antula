@@ -21,6 +21,7 @@ export default async (req, res, next) => {
 
 	// Averigua si está identificado el campo
 	if (!campo) return res.json({error: "El campo no está identificado"});
+	if (!camposEdicion.tabla.includes(campo)) return res.json({error: "No procesamos ese campo"});
 
 	// Averigua si se eligió alguna de las opciones
 	if (!opcOriginal && !opcEdicion) return res.json({error: "Necesitamos que elijas una opción"});

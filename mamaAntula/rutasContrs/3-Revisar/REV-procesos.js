@@ -160,7 +160,7 @@ export default {
 			for (const key in edicion) if (!edicion[key]) delete edicion[key];
 
 			// Elimina campos puntuales
-			for (const prop in edicion) if (!Object.keys(camposEdicion).includes(prop)) delete edicion[prop];
+			for (const prop in edicion) if (!Object.keys(camposEdicion.vista).includes(prop)) delete edicion[prop];
 
 			// Fin
 			return;
