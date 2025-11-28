@@ -15,5 +15,25 @@ export default {
 			// Fin
 			return res.json({});
 		},
+		edicion: async (req, res) => {
+			// Variables
+			const {encab_id, edicion_id, campo, opcEdicion} = req.body;
+			const {edicion} = req;
+
+			// Si se eligió la opción editada, actualiza el original
+			if (opcEdicion) await baseDatos.actualizaPorId("encabezados", encab_id, {[campo]: edicion[campo]});
+
+			// Revisa si la edición ya no tiene más campos
+			delete edicion[campo];
+			for (const campo in edicion) if (!edicion[campo] || !camposEdicion.tabla.includes(campo)) delete edicion[campo];
+
+			// Actualiza/elimina la edición
+			const eliminarEdicion = !Object.keys(edicion).length;
+			if (eliminarEdicion) await baseDatos.eliminaPorId("encabEdics", edicion_id);
+			else baseDatos.actualizaPorId("encabEdics", edicion_id, {[campo]: null});
+
+			// Fin
+			return res.json({});
+		},
 	},
 };

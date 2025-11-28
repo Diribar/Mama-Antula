@@ -46,17 +46,20 @@ export default {
 		conIndice: ["lugar"],
 	},
 	camposEdicion: {
-		// Referencias
-		nombreDesde: "Remitente",
-		nombreHacia: "Destinatario",
-		idioma: "Idioma",
-		lugar: "Lugar",
-		lugarIndice: "Lugar geográfico",
+		vista: {
+			// Referencias
+			nombreDesde: "Remitente",
+			nombreHacia: "Destinatario",
+			idioma: "Idioma",
+			lugar: "Lugar",
+			lugarIndice: "Lugar geográfico",
 
-		// Otros
-		numero: "Número",
-		titulo: "Título",
-		fechaEvento: "Fecha de ocurrencia",
+			// Otros
+			numero: "Número",
+			titulo: "Título",
+			fechaEvento: "Fecha de ocurrencia",
+		},
+		tabla: ["nombreDesde_id", "nombreHacia_id", "idioma_id", "lugar_id", "numero", "titulo", "fechaEvento", "lugarIndice_id"],
 	},
 
 	// Otras
