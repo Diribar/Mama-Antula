@@ -148,6 +148,7 @@ export default {
 
 			// Le agrega el editadoPor
 			if (edicion) {
+				encabezado.edicion_id = edicion.id;
 				encabezado.editadoPor = edicion.editadoPor;
 				encabezado.camposEdicion = camposEdicion;
 			}
@@ -215,21 +216,6 @@ export default {
 		// Fin
 		return anchorLectura;
 	},
-};
-
-// Variables
-const camposEdicion = {
-	// Referencias
-	nombreDesde: "Remitente",
-	nombreHacia: "Destinatario",
-	idioma: "Idioma",
-	lugar: "Lugar",
-	lugarIndice: "Lugar geográfico",
-
-	// Otros
-	numero: "Número",
-	titulo: "Título",
-	fechaEvento: "Fecha de ocurrencia",
 };
 
 // Funciones
