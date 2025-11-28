@@ -1,20 +1,26 @@
 <!-- Carrusel -->
-<div class="bloque bloque-<%= contenido.layout.codigo %> flexColAlign<%- locals.cambioContenido ? (" " +  contenido.statusRegistro.codigo) : '' %>">
-	<% if (locals.cambioContenido && contenido.statusRegistro_id != aprobado_id) { %>
+<div class="bloque bloque-<%= contenido.layout.codigo %> flexColAlign<%- locals.cambioStatusCont ? (" " +  contenido.statusRegistro.codigo) : '' %>">
+	<% if (locals.cambioStatusCont && contenido.statusRegistro_id != aprobado_id) { %>
 		<!-- Aprueba / Rechaza -->
 		<%- include("REV-9ApruebaRech") %>
+
+		<!-- Imagen del usuario que sugirió el cambio de status -->
 		<% const {statusSugeridoPor} = contenido %>
 		<% const {imagen, nombreCompleto} = statusSugeridoPor %>
 		<%- include("REV-9ImgUsuario", {imagenUsuario: imagen, nombreCompleto}) %>
 	<% } %>
+
+	<!-- Carrousel -->
 	<div class="contenedorImgs flexRow" style="--anchorName: --carrusel-<%= contenido.id %>;">
 		<% for (const carrusel of contenido.carrusel) { %>
+			<!-- Bloque de imagen -->
 			<div class="contenedorImg flexColAlign">
 				<img src="/imgsEditables/<%- contenido.statusRegistro_id == creado_id ? '2-Revisar' : '1-Final' %>/<%= carrusel.imagen %>">
 			</div>
 		<% } %>
 	</div>
 	<% if (contenido.leyenda) { %>
+		<!-- Leyenda -->
 		<div class="leyenda"><%= contenido.leyenda %></div>
 	<% } %>
 </div>

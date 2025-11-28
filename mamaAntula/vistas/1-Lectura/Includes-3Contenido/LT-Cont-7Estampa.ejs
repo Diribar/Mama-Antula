@@ -1,13 +1,16 @@
 <!-- Estampa -->
-<div class="bloque bloque-<%= contenido.layout.codigo %> flexCol<%- locals.cambioContenido ? (" " +  contenido.statusRegistro.codigo) : '' %>">
-	<% if (locals.cambioContenido && contenido.statusRegistro_id != aprobado_id) { %>
+<div class="bloque bloque-<%= contenido.layout.codigo %> flexCol<%- locals.cambioStatusCont ? (" " +  contenido.statusRegistro.codigo) : '' %>">
+	<% if (locals.cambioStatusCont && contenido.statusRegistro_id != aprobado_id) { %>
 		<!-- Aprueba / Rechaza -->
 		<%- include("REV-9ApruebaRech") %>
+
+		<!-- Imagen del usuario que sugirió el cambio de status -->
 		<% const {statusSugeridoPor} = contenido %>
 		<% const {imagen, nombreCompleto} = statusSugeridoPor %>
 		<%- include("REV-9ImgUsuario", {imagenUsuario: imagen, nombreCompleto}) %>
 	<% } %>
 
+	<!-- Estampa -->
 	<% if (contenido.titulo) { %>
 		<h3 class="titulo"><%= contenido.titulo %></h3>
 	<% } %>
