@@ -7,7 +7,7 @@ export default (sequelize, dt) => {
 
 		actualizac: {type: dt.BOOLEAN},
 		revision: {type: dt.BOOLEAN},
-		cambioRoles: {type: dt.BOOLEAN},
+		cambioRol: {type: dt.BOOLEAN},
 	};
 	const config = {
 		tableName: "us_roles",
