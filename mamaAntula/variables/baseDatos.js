@@ -5,7 +5,7 @@ export default {
 		// Obtiene las lecturas de BD
 		const lecturas = {
 			// Niveles
-			secciones: baseDatos.obtieneTodosConOrden("secciones", "orden"),
+			seccionesLectura: baseDatos.obtieneTodosConOrden("seccionesLectura", "orden"),
 			temasSecciones: baseDatos
 				.obtieneTodosPorCondicion("temasSecciones", {inactivo: false}, ["indicesFecha", "indicesLugar"])
 				.then((n) => n.sort((a, b) => a.orden - b.orden)),

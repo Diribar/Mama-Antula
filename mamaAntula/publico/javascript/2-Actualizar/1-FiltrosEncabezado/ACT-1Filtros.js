@@ -86,7 +86,7 @@ window.addEventListener("load", async () => {
 		},
 		actualizaHref: () => {
 			// Obtiene los url
-			const urlSeccion = "/" + comp1234.secciones.find((n) => n.id == comp1234.seccion_id).url;
+			const urlSeccion = "/" + comp1234.seccionesLectura.find((n) => n.id == comp1234.seccion_id).url;
 			const urlTema = "/" + comp1234.temasSecciones.find((n) => n.id == comp1234.tema_id).url;
 			const urlPestana =
 				(comp1234.pestana_id && "/" + comp1234.pestanasTemas.find((n) => n.id == comp1234.pestana_id).url) || "";
@@ -104,7 +104,7 @@ window.addEventListener("load", async () => {
 	DOM.seccion.addEventListener("change", () => {
 		// SECCION - Si es start-up, elige la opción de la cookie
 		let seccion_id = cookie("actualizaSeccion_id");
-		if (comp1234.startUp && seccion_id && comp1234.secciones.find((n) => n.id == seccion_id)) DOM.seccion.value = seccion_id;
+		if (comp1234.startUp && seccion_id && comp1234.seccionesLectura.find((n) => n.id == seccion_id)) DOM.seccion.value = seccion_id;
 		else delete comp1234.startUp; // si no se pudo elegir la cookie, descarta las futuras cookies
 
 		// SECCIÓN - Guarda la cookie

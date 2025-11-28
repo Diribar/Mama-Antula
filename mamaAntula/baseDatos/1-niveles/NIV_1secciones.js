@@ -1,5 +1,5 @@
 export default (sequelize, dt) => {
-	const alias = "secciones";
+	const alias = "seccionesLectura";
 	const columns = {
 		// Referencias
 		orden: {type: dt.INTEGER},

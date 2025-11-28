@@ -8,7 +8,7 @@ export default (req, res, next) => {
 	const {usuario} = req.session;
 
 	// SECCION - Si la seccionActual no corresponde, muestra la vista de error
-	const seccionActual = secciones.find((n) => n.url == (urlSeccion || LP_urlSeccion)); // si no existe urlSeccion, se usa la de la landing page
+	const seccionActual = seccionesLectura.find((n) => n.url == (urlSeccion || LP_urlSeccion)); // si no existe urlSeccion, se usa la de la landing page
 	if (!seccionActual) return res.render("CMP-0Estructura", {informacion});
 
 	// TEMA - Si existe la urlSeccion y no el urlTema, redirige

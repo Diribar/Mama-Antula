@@ -37,19 +37,14 @@ export default {
 	papelera: async (req, res) => {
 		// Variables
 		const codigoVista = "papelera";
-
-		// Obtiene todos los contenidos en papelera
-		const encab_ids = await baseDatos
-			.obtieneTodosPorCondicion("contenidos", {statusRegistro_id: rechazado_id})
-			.then((n) => n.map((m) => m.encab_id));
+		const anchorLectura = procesos.anchorLectura(req);
 
 		// Obtiene todos los encabezados en papelera o con contenido en papelera
-		const condicion = {[Op.or]: [{id: encab_ids}, {statusRegistro_id: rechazado_id}]};
-		const includes = [...includesEncabs.cartas, ...includesEncabs.lugares, "tema", "pestana"];
-		const encabezados = await baseDatos.obtieneTodosPorCondicion("encabezados", condicion, includes);
+		const encabezados = procesos.papelera.obtieneEncabezados();
+		if (!encabezados.length) return res.redirect(anchorLectura);
 
-		// Variables para la vista
-		const anchorLectura = procesos.anchorLectura(req);
+		// Obtiene las rutas
+		const rutas = procesos.papelera.obtieneRutas(encabezados);
 
 		// Fin
 		return res.send(encabezados);
