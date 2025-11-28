@@ -1,5 +1,5 @@
 <!-- Libro -->
-<div class="bloque bloque-<%= contenido.layout.codigo %> <%- locals.cambioContenido ? contenido.statusRegistro.codigo : '' %>">
+<div class="bloque bloque-<%= contenido.layout.codigo %><%- locals.cambioContenido ? (" " +  contenido.statusRegistro.codigo) : '' %>">
 	<% if (locals.cambioContenido && contenido.statusRegistro_id != aprobado_id) { %>
 		<!-- Aprueba / Rechaza -->
 		<%- include("REV-9ApruebaRech") %>

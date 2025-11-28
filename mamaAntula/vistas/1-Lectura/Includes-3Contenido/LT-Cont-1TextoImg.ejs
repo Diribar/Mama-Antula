@@ -1,5 +1,5 @@
 <!-- Texto + Imagen -->
-<div class="bloque bloque-<%= contenido.layout.codigo %> <%- locals.cambioContenido ? contenido.statusRegistro.codigo : '' %>">
+<div class="bloque bloque-<%= contenido.layout.codigo %><%- locals.cambioContenido ? (" " +  contenido.statusRegistro.codigo) : '' %>">
 	<div class="imgLeyenda flexColAlign">
 		<img class="imagen" src="/imgsEditables/<%= subCarpeta %>/<%= contenido.imagen %>">
 		<% if (contenido.leyenda) { %>
