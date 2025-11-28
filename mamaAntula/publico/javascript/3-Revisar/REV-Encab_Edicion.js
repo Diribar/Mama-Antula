@@ -33,7 +33,7 @@ window.addEventListener("load", () => {
 			domCampoEdicion.remove();
 
 			// Si ya no quedan más ediciones, recarga la vista
-			if (DOM.ediciones.children.length == 0) location.reload();
+			if (DOM.ediciones.children.length == 0 || opcEdicion) location.reload();
 
 			// Fin
 			return;
