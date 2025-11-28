@@ -1,4 +1,7 @@
 body {
 	position: relative;
-	main #cuerpo {flex-direction: column; max-height: 100%; position: relative;}
+	main #cuerpo {
+		flex-direction: column; max-height: 100%; position: relative;
+		#filtroIndice #filtros {display: none;}
+	}
 }

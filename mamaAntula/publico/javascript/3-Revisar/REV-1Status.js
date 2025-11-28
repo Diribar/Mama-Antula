@@ -9,8 +9,8 @@ window.addEventListener("load", async () => {
 		eventosCont: domContenido.querySelectorAll(".apruebaRechaza i"),
 	};
 	const rutasStatus = {
-		encabezado: "/revisar/api/rev-encabezado-cambios-status",
-		contenido: "/revisar/api/rev-contenido-cambios-status",
+		encabezado: "/revisar/api/rev-status-encabezado",
+		contenido: "/revisar/api/rev-status-contenido",
 	};
 	const encab_id = cookie("actualizaEncabezado_id");
 
@@ -65,6 +65,7 @@ window.addEventListener("load", async () => {
 			const confirm = "Avanzar";
 
 			// Información a guardar en la BD
+			const domPadre = domEvento.parentNode;
 			const contenido_id = domPadre.dataset.contenido_id;
 			const datos = {contenido_id, [domEvento.id]: true};
 			const ruta = rutasStatus.contenido;
