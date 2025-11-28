@@ -1,5 +1,5 @@
 #tituloMasContenido #contenido, #sectorContActual .bloque.sector, #contenidoRevisar {
-	--margenVertical: 20px;
+	--marginBottom: 12px;
 
 	/* COMBINADOS: Texto con imagen, Imagen sola, Video, Carrusel */
 	:is(.bloque-textoImagen, .bloque-imagen, .bloque-video, .bloque-carrusel) .leyenda {
@@ -13,8 +13,7 @@
 		ul, ol {margin-left: 24px;}
 		:is(p, :where(ul, ol) li) {
 			line-height: 1.5;
-			margin-bottom: 12px;
-			/* &:not(:last-child) {margin-bottom: 12px;} */
+			margin-bottom: var(--marginBottom);
 		}
 		p {width: fit-content;}
 	}
@@ -25,7 +24,7 @@
 	}
 	/* COMBINADOS: Imagen sola, video, carrusel */
 	.bloque-imagen, .bloque-video, .bloque-carrusel {
-		margin-block: var(--margenVertical);
+		margin-bottom: var(--marginBottom);
 		.leyenda {max-width: 70%;}
 	}
 	/* COMBINADOS: Libros, Estampas */
@@ -35,7 +34,7 @@
 	/* SOLOS */
 	.bloque-textoImagen {
 		.imgLeyenda {
-			float: right; margin-left: 30px; margin-bottom: 15px; max-width: 33%;
+			float: right; margin-left: 30px; margin-bottom: var(--marginBottom); max-width: 33%;
 			.imagen, .leyenda {max-width: 100%;}
 		}
 	}
@@ -49,7 +48,7 @@
 
 			/* General */
 			gap: 20px; overflow-x: auto;
-			max-width: min(90%, 600px); margin-inline: auto; margin-bottom: var(--margenVertical);
+			max-width: min(90%, 600px); margin-inline: auto; margin-bottom: var(--marginBottom);
 			scroll-behavior: smooth; scroll-snap-type: x mandatory;
 
 			&::-webkit-scrollbar {display: none;} /* oculta la barra de deslizamiento */
@@ -70,7 +69,7 @@
 			&::scroll-marker-group {
 				display: flex; justify-content: center; gap: 10px;
 				width: 100%;
-				translate: 0 calc(10px - var(--margenVertical));
+				translate: 0 calc(10px - var(--marginBottom));
 			}
 
 			/* Imágenes */
