@@ -209,7 +209,7 @@ export default {
 		// Guarda los registros de carrusel
 		if (layoutCodigo == "carrusel")
 			for (const imagen of imagens)
-				await baseDatos.agregaRegistroIdCorrel("carrusel", {contenido_id, imagen, creadoPor_id});
+				await baseDatos.agregaRegistroIdCorrel("carrusel", {contenido_id, imagen});
 
 		// Fin
 		return res.json({});
