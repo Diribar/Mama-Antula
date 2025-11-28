@@ -1,14 +1,15 @@
 <section id="sectorEdicion" data-edicion_id="<%= encabezado.edicion_id %>">
-	<% const {imagen, nombreCompleto} = encabezado.editadoPor %>
-	<% const imagenUsuario = imagen ? ("/imgsEditables/8-Usuarios/" + imagen) : "/imgsEstables/Varios/usuarioGenerico.jpg" %>
-	<img src="<%= imagenUsuario %>" title="<%= nombreCompleto %>" class="noAgrandar">
+	<!-- Imagen del usuario que sugirió el cambio de status -->
+	<%- include("REV-9ImgUsuario", {usuario: encabezado.editadoPor}) %>
 
+	<!-- Ediciones -->
 	<div id="ediciones">
 		<% for (const prop in edicion) { %>
 			<!-- Averigua el campo -->
 			<% const esUnObjeto = edicion[prop] !== null && typeof edicion[prop] == "object" && !(edicion[prop] instanceof Date); %>
 			<% const campo = prop + (esUnObjeto ? "_id" : "") %>
 
+			<!-- Combo: campo + opciones -->
 			<div class="campoEdicion" data-campo="<%= campo %>">
 				<!-- Campo -->
 				<div class="campo"><%= camposEdicion.vista[prop] %>: </div>
@@ -25,4 +26,5 @@
 			</div>
 		<% } %>
 	</div>
+
 </section>

@@ -3,8 +3,8 @@
 		<!-- Íconos de aprueba / rechaza -->
 		<%- include("REV-9ApruebaRech") %>
 
-		<!-- Imagen del usuario que sugirió el status -->
-		<%- include("REV-9ImgUsuario", {imagenUsuario: encabezado.imagenUsuario, nombreCompleto: encabezado.usuario.nombreCompleto}) %>
+		<!-- Imagen del usuario que sugirió el cambio de status -->
+		<%- include("REV-9ImgUsuario", {usuario: encabezado.usuario}) %>
 	<% } %>
 
 	<!-- Ruta -->

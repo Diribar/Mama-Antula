@@ -1,1 +1,2 @@
-<img src="<%= imagenUsuario %>" title="<%= nombreCompleto %>" class="noAgrandar">
+<% const imagenUsuario = usuario.imagen ? "/imgsEditables/8-Usuarios/" + usuario.imagen : "/imgsEstables/Varios/usuarioGenerico.jpg"; %>
+<img src="<%= imagenUsuario %>" title="<%= usuario.nombreCompleto %>" class="noAgrandar">

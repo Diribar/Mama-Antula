@@ -94,11 +94,7 @@ export default {
 			// Le agrega el usuario
 			encabezado.usuario = await baseDatos.obtienePorId("usuarios", encabezado.statusSugeridoPor_id);
 
-			// Le agrega la imagen del usuario
-			encabezado.imagenUsuario = encabezado.usuario.imagen
-				? "/imgsEditables/8-Usuarios/" + encabezado.usuario.imagen
-				: "/imgsEstables/Varios/usuarioGenerico.jpg";
-
+			// Completa el usuario
 			await FN.completaEncabezado(encabezado);
 
 			// Fin
@@ -225,11 +221,6 @@ export default {
 
 				// Le asigna el usuario
 				contenido.usuario = await baseDatos.obtienePorId("usuarios", contenido.statusSugeridoPor_id);
-
-				// Le agrega la imagen del usuario
-				contenido.imagenUsuario = contenido.usuario.imagen
-					? "/imgsEditables/8-Usuarios/" + contenido.usuario.imagen
-					: "/imgsEstables/Varios/usuarioGenerico.jpg";
 			}
 
 			// Completa el encabezado
