@@ -33,9 +33,9 @@ window.addEventListener("load", async () => {
 			// Guarda la información en la BD
 			const datos = {encab_id, [domEvento.id]: true};
 			const respuesta = await fetch(rutaCambioStatus, putJson(datos)).then((n) => n.json());
-			for (const icono of DOM.eventos) icono.classList.remove("inactivo");
 
 			// Si hubo un error, muestra el mensaje e interrumpe la función
+			for (const icono of DOM.eventos) icono.classList.remove("inactivo");
 			if (respuesta.error) return carteles.error(respuesta.error);
 
 			// Fin
