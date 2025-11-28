@@ -12,6 +12,7 @@ export default async (req, res, next) => {
 	// Averigua si existe el encabezado
 	const encabezado = await baseDatos.obtienePorId("encabezados", encab_id);
 	if (!encabezado) return res.json({error: "No tenemos ese encabezado"});
+	req.encabezado = encabezado;
 
 	// Averigua si el usuario tiene permiso
 	if (encabezado.statusRegistro_id == aprobado_id) return res.json({error: "El encabezado ya estaba aprobado"});

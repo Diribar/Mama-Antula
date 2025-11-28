@@ -12,6 +12,7 @@ export default async (req, res, next) => {
 	// Averigua si existe el contenido
 	const contenido = await baseDatos.obtienePorId("contenidos", contenido_id);
 	if (!contenido) return res.json({error: "No tenemos ese contenido"});
+	req.contenido = contenido;
 
 	// Fin
 	return next();
