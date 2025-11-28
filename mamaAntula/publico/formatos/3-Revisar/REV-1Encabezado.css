@@ -4,7 +4,7 @@
 		padding-block: 6px 15px; position: relative;
 
 		h2 {max-width: calc(100% - 200px);}
-		img.cambios {position: absolute; right: 0px; top: 50%; translate: 0 -50%;}
+		img.cambios {position: absolute; right: 20px; top: 50%; translate: 0 -50%;}
 	}
 	h3 {font-style: italic;}
 }

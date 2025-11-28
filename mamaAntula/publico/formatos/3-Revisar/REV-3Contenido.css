@@ -11,8 +11,8 @@
 		.bloque {
 			position: relative;
 
-			.apruebaRechaza {position: absolute; left: 0px; top: 50%; translate: 0 -50%;}
-			img.cambios {position: absolute; right: 0px; top: 50%; translate: 0 -50%;}
+			.apruebaRechaza {position: absolute; left: 20px; top: 50%; translate: 0 -50%;}
+			img.cambios {position: absolute; right: 20px; top: 50%; translate: 0 -50%;}
 
 			a {color: var(--terracota); text-decoration: underline;}
 			img {cursor: pointer;}
