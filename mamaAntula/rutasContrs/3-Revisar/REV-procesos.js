@@ -2,16 +2,16 @@
 
 export default {
 	// API
-	cambiosStatus: async ({encab_id, ...cambioStatusEncab}) => {
+	cambiosStatus: async ({encab_id, ...cambioStatus}) => {
 		// Variables
 		const espera = [];
 
 		// Cambia el status del encabezado
-		espera.push(baseDatos.actualizaPorId("encabezados", encab_id, cambioStatusEncab));
+		espera.push(baseDatos.actualizaPorId("encabezados", encab_id, cambioStatus));
 
 		// Obtiene todas las dependencias
 		const contenidos = await baseDatos.obtieneTodosPorCondicion("contenidos", {encab_id}, "carrusel");
-		espera.push(baseDatos.actualizaPorCondicion("contenidos", {encab_id}, cambioStatusEncab)); // contenido
+		espera.push(baseDatos.actualizaPorCondicion("contenidos", {encab_id}, cambioStatus)); // contenido
 
 		// Obtiene todas las imágenes a mover
 		const imagenes = [];
