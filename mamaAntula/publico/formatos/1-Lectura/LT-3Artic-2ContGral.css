@@ -11,7 +11,7 @@
 	&:not(:has(#filtroIndice)) #tituloMasContenido {max-width: 100%;}
 
 	#tituloMasContenido {
-		flex-grow: 1; overflow-y: auto;
+		flex-grow: 1; overflow-y: hidden;
 		&:not(:has(#tituloDelContenido)) {padding-top: 6px;}
 
 		/* Titulo del contenido */
