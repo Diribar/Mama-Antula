@@ -22,16 +22,10 @@ export default {
 			const {tema_id, pestana_id} = req.query;
 			const {usuario} = req.session;
 
-			// Averigua si es carta o con índice
-			const temaActual = tema_id && temasSecciones.find((n) => n.id == tema_id);
-			const esCarta = temaActual && temaActual.codigo == "cartas";
-			const esLugares = temaActual && temaActual.codigo == "lugaresDevocion";
-			const conIndice = (temaActual && temaActual.indicesFecha.length) || esLugares;
-
 			// Obtiene los encabezados
 			const campo_id = [pestana_id ? "pestana_id" : "tema_id"];
 			const condicion = {[campo_id]: pestana_id || tema_id};
-			const encabezados = await procesos.obtieneEncabs({esCarta, esLugares, conIndice, condicion, usuario});
+			const encabezados = await procesos.obtieneEncabezados({tema_id, condicion, usuario});
 
 			// Fin
 			return res.json(encabezados);

@@ -43,7 +43,7 @@ export default {
 			const encabsRevisar = await this.obtieneEncabezados(usuario);
 			encabezado = this.obtieneEncabezado(encabsRevisar);
 			if (!encabezado) ({encabezado, edicion} = await this.obtieneEdicion(usuario));
-			if (!encabezado) return;
+			if (!encabezado) return {};
 			await this.completaEncabezado({encabezado, edicion});
 
 			// Obtiene la ruta
@@ -118,6 +118,9 @@ export default {
 			const edicion = await baseDatos.obtienePorCondicion("encabEdics", {id: {[Op.ne]: null}}, includes);
 			if (!edicion) return {};
 
+			// Quita los campos sin valor
+			for (const key in edicion) if (!edicion[key]) delete edicion[key];
+
 			// Obtiene el encabezado de la edición
 			const encabezado = await baseDatos
 				.obtienePorId("encabezados", edicion.encab_id, includes)
@@ -128,7 +131,7 @@ export default {
 		},
 		completaEncabezado: async ({encabezado, edicion}) => {
 			// Si es un cambio de status, le agrega el usuario
-			if (!edicion){
+			if (!edicion) {
 				encabezado.usuario = await baseDatos.obtienePorId("usuarios", encabezado.statusSugeridoPor_id);
 
 				// Le agrega la imagen del usuario
@@ -147,8 +150,11 @@ export default {
 				.then((n) => n.sort((a, b) => b.anoLanzam - a.anoLanzam));
 
 			// Si es una carta, le agrega el título
-			encabezado = comp.titulosElabs({esCarta: true, encabezados: [encabezado]})[0];
-			if (edicion) edicion = comp.titulosElabs({esCarta: true, encabezados: [{...encabezado, ...edicion}]})[0];
+			encabezado = comp.titulosElabs({tema_id: encabezado.tema.id, encabezados: [encabezado]})[0];
+			if (edicion) {
+				const aux = comp.titulosElabs({tema_id: encabezado.tema.id, encabezados: [{...encabezado, ...edicion}]})[0];
+				if (aux.tituloElab) edicion.tituloElab = aux.tituloElab;
+			}
 
 			// Fin
 			return;
