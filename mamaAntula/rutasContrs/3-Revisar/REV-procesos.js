@@ -184,13 +184,12 @@ export default {
 			// Obtiene los encabezados con contenido en status distinto de aprobado
 			const encabezado = await this.obtieneEncabezado(usuario);
 			if (!encabezado) return {};
-			console.log(187, encabezado);
 
 			// Completa el encabezado
 			await this.completaEncabezado(encabezado);
 
 			// Fin
-			return {encabezado, contenido: true};
+			return {encabezado, cambioContenido: true};
 		},
 		obtieneEncabezado: async (usuario) => {
 			// Variables
