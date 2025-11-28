@@ -29,7 +29,7 @@ export default {
 
 			// Actualiza/elimina la edición
 			const eliminarEdicion = !Object.keys(edicion).length;
-			if (eliminarEdicion) baseDatos.eliminaPorId("encabEdics", edicion_id);
+			if (eliminarEdicion) await baseDatos.eliminaPorId("encabEdics", edicion_id);
 			else baseDatos.actualizaPorId("encabEdics", edicion_id, {[campo]: null});
 
 			// Fin
