@@ -3,7 +3,6 @@ export default (sequelize, dt) => {
 	const columns = {
 		// Referencias
 		contenido_id: {type: dt.INTEGER},
-		orden: {type: dt.INTEGER},
 
 		// Otros
 		imagen: {type: dt.STRING(17)},

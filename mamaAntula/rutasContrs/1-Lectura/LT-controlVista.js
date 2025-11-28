@@ -17,6 +17,7 @@ export default {
 		// Tema
 		const temasSeccion = temasSecciones.filter((n) => n.seccion_id == seccionActual.id);
 		const temaActual = temasSeccion.find((n) => n.url == urlTema);
+		const tema_id = temaActual.id;
 		const indices = {
 			esCarta: temaActual.codigo == "cartas",
 			esLugares: temaActual.codigo == "lugaresDevocion",
@@ -30,7 +31,7 @@ export default {
 
 		// Obtiene el encabezado y contenido
 		const encab_id = req.query.id;
-		const {encabezados, encabezado} = await procesos.encabezados({encab_id, condicion, ...indices});
+		const {encabezados, encabezado} = await procesos.obtieneEncabezados({tema_id,encab_id, condicion});
 		const contenidos = encabezado && (await procesos.contenidos({encabezado, soloStatusAprob}));
 
 		// Fin
@@ -65,7 +66,7 @@ export default {
 
 		// Obtiene el encabezado y contenido
 		const encab_id = req.query.id;
-		const {encabezados, encabezado} = await procesos.encabezados({encab_id, condicion});
+		const {encabezados, encabezado} = await procesos.obtieneEncabezados({encab_id, condicion});
 		const contenidos = encabezado && (await procesos.contenidos({encabezado, soloStatusAprob}));
 
 		// Datos para la vista

@@ -9,7 +9,7 @@ export default {
 		const {usuario} = req.session;
 
 		// Obtiene el encabezado a revisar
-		const {encabezado, edicion, seccionTema} = await procesos.obtieneEncabezado.consolidado(usuario);
+		const {encabezado, edicion, ruta} = await procesos.obtieneEncabezado.consolidado(usuario);
 		if (!encabezado) return res.redirect(procesos.anchorLectura(req));
 
 		// Actualiza las cookies de 'actualiza'
@@ -21,7 +21,7 @@ export default {
 		// Fin
 		return res.render("CMP-0Estructura", {
 			...{tituloPagina, temaVista},
-			...{encabezado, edicion, seccionTema, anchorLectura},
+			...{encabezado, edicion, ruta, anchorLectura},
 		});
 	},
 };

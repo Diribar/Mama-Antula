@@ -89,7 +89,7 @@ window.addEventListener("load", async () => {
 	DOM.filtroEncab.addEventListener("change", () => {
 		// Le agrega la clase del status del encabezado
 		v.encabezado = comp1234.encabezados.find((n) => n.id == DOM.filtroEncab.value);
-		if (v.encabezado){
+		if (v.encabezado) {
 			const statusRegistro = v.encabezado.statusRegistro.codigo;
 			for (const status of ["creado", "aprobado", "rechazar", "rechazado"])
 				domSectorEncabezado.classList[status == statusRegistro ? "add" : "remove"](status);
