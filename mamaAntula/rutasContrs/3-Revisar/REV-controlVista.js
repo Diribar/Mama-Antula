@@ -45,13 +45,14 @@ export default {
 
 		// Obtiene todos los encabezados en papelera o con contenido en papelera
 		const condicion = {[Op.or]: [{id: encab_ids}, {statusRegistro_id: rechazado_id}]};
-		const includes = [...includesEncabs.cartas, ...includesEncabs.lugares];
+		const includes = [...includesEncabs.cartas, ...includesEncabs.lugares, "tema", "pestana"];
 		const encabezados = await baseDatos.obtieneTodosPorCondicion("encabezados", condicion, includes);
 
 		// Variables para la vista
 		const anchorLectura = procesos.anchorLectura(req);
 
 		// Fin
+		return res.send(encabezados);
 		return res.render("CMP-0Estructura", {
 			...{tituloPagina: "Papelera", temaVista, codigoVista},
 			...{encabezados, anchorLectura},
