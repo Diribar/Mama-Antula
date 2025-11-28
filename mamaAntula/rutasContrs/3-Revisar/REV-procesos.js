@@ -28,15 +28,20 @@ export default {
 		// Fin
 		return;
 	},
-	cambiosStatusContenido: async ({encab_id, ...cambioStatus}) => {
+	cambiosStatusContenido: async ({contenido, ...cambioStatus}) => {
+		// Variables
+		const imagenes = [];
+
 		// Actualiza el status del contenido
-		await baseDatos.actualizaPorCondicion("contenidos", {encab_id}, cambioStatus);
+		await baseDatos.actualizaPorId("contenidos", contenido.id, cambioStatus);
+
+		// Obtiene los carrusel del contenido
+		const carruseles = await baseDatos.obtieneTodosPorCondicion("carrusel", {contenido_id: contenido.id});
 
 		// Obtiene el nombre de los archivos de imagen
-		const imagenes = [];
 		if (contenido.imagen) imagenes.push(contenido.imagen);
 		if (contenido.imagen2) imagenes.push(contenido.imagen2);
-		imagenes.push(...contenido.carrusel.map((n) => n.imagen));
+		for (const carrusel of carruseles) imagenes.push(carrusel.imagen);
 
 		// Mueve los archivos de imagen a la carpeta de revisados
 		for (const imagen of imagenes) comp.gestionArchs.mueve(carpRevisar, carpFinal, imagen);
