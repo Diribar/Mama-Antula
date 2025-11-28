@@ -3,6 +3,12 @@
 	flex-direction: column; overflow-y: auto !important;
 	padding-block: 6px; padding-inline: 10px 20px;
 
+	.apruebaRechaza {
+		display: flex; flex-direction: row; align-items: center; gap: 20px;
+		i {cursor: pointer; font-size: 1.3rem; margin-top: 1px; &:hover {scale: 1.4;}}
+	}
+	img.cambios {max-height: 50px; max-width: 75px; border-radius: 50%; position: absolute; right: 0px; top: 0px;}
+
 	/* Si el encabezado está en status rechazar/rechazado, cambia el color de fondo */
 	&:has(#encabezado.creado) {background-color: var(--amarilloMuyClaro);}
 	&:has(#encabezado.aprobado) {background-color: var(--verdeClaro);}
