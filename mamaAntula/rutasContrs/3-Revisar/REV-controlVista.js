@@ -16,7 +16,7 @@ export default {
 		if (!encabezado) ({encabezado, cambioStatusCont} = await procesos.obtieneEncabConContenido.consolidado(usuario));
 
 		// Si no hay encabezado, redirige a la lectura del artículo según cookies de actualizar
-		if (!encabezado) return res.redirect(procesos.anchorLectura(req));
+		if (!encabezado) return res.redirect("/revisar/papelera");
 
 		// Captura y obtiene la ruta
 		const ruta = procesos.capturaObtieneRuta(encabezado, usuario);
