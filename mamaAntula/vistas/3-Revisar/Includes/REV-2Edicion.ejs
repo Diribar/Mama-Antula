@@ -4,7 +4,6 @@
 	<img src="<%= imagenUsuario %>" title="<%= nombreCompleto %>" class="noAgrandar">
 
 	<div id="ediciones">
-		<% const {camposEdicion} = encabezado %>
 		<% for (const prop in edicion) { %>
 			<!-- Averigua el campo -->
 			<% const esUnObjeto = edicion[prop] !== null && typeof edicion[prop] == "object" && !(edicion[prop] instanceof Date); %>
