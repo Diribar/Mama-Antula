@@ -39,11 +39,11 @@ export default {
 			// Obtiene el encabezado
 			const encabsRevisar = await this.obtieneEncabezados(usuario);
 			let encabezado = this.obtieneEncabezado(encabsRevisar);
-			if (!encabezado) return;
+			if (!encabezado) return {};
 			await this.completaEncabezado(encabezado);
 
 			// Fin
-			return encabezado;
+			return {encabezado, cambioStatus: true};
 		},
 		obtieneEncabezados: async (usuario) => {
 			// Variables
@@ -183,14 +183,14 @@ export default {
 		consolidado: async function (usuario) {
 			// Obtiene los encabezados con contenido en status distinto de aprobado
 			const encabezado = await this.obtieneEncabezado(usuario);
-			if (!encabezado) return;
+			if (!encabezado) return {};
 			console.log(187, encabezado);
 
 			// Completa el encabezado
 			await this.completaEncabezado(encabezado);
 
 			// Fin
-			return encabezado;
+			return {encabezado, contenido: true};
 		},
 		obtieneEncabezado: async (usuario) => {
 			// Variables
