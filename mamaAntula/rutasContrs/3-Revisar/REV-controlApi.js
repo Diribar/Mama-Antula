@@ -21,7 +21,7 @@ export default {
 			const {edicion} = req;
 
 			// Si se eligió la opción editada, actualiza el original
-			if (opcEdicion) baseDatos.actualizaPorId("encabezados", encab_id, {[campo]: edicion[campo]});
+			if (opcEdicion) await baseDatos.actualizaPorId("encabezados", encab_id, {[campo]: edicion[campo]});
 
 			// Revisa si la edición ya no tiene más campos
 			delete edicion[campo];
