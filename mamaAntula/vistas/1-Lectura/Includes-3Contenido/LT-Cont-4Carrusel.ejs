@@ -1,5 +1,5 @@
 <!-- Carrusel -->
-<div class="bloque bloque-<%= contenido.layout.codigo %> flexColAlign">
+<div class="bloque bloque-<%= contenido.layout.codigo %> flexColAlign <%= contenido.statusRegistro.codigo %>">
 	<div class="contenedorImgs flexRow" style="--anchorName: --carrusel-<%= contenido.id %>;">
 		<% for (const carrusel of contenido.carrusel) { %>
 			<div class="contenedorImg flexColAlign">

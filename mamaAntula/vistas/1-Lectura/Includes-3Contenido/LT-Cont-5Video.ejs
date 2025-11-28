@@ -1,5 +1,5 @@
 <!-- Video -->
-<div class="bloque bloque-<%= contenido.layout.codigo %> imgLeyenda flexColAlign">
+<div class="bloque bloque-<%= contenido.layout.codigo %> imgLeyenda flexColAlign <%= contenido.statusRegistro.codigo %>">
 	<iframe src="https://www.youtube.com/embed/<%= contenido.video %>?autoplay=1"></iframe>
 	<% if (contenido.leyenda) { %>
 		<div class="leyenda"><%= contenido.leyenda %></div>
