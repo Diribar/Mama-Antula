@@ -2,6 +2,7 @@
 window.addEventListener("load", () => {
 	// Variables
 	const domSectorEdiciones = document.querySelector("#cuerpo #sectorEdicion");
+	if (!domSectorEdiciones) return;
 	const DOM = {
 		ediciones: domSectorEdiciones.querySelector("#ediciones"),
 		opciones: domSectorEdiciones.querySelectorAll("#ediciones .opcion"),

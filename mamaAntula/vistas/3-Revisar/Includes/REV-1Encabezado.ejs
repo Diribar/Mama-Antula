@@ -1,15 +1,17 @@
 <div id="encabezado" class="<%= encabezado.statusRegistro.codigo %>" data-encab_id="<%= encabezado.id %>">
 	<% if (cambioStatus) { %>
 		<!-- Íconos de aprueba / rechaza -->
-		<i id="aprueba" class="<%= iconos.faSolid %> <%= iconos.check %>"></i>
-		<i id="rechaza" class="<%= iconos.faSolid %> <%= iconos.eliminar %>"></i>
+		<%- include("REV-9ApruebaRech") %>
 	<% } %>
-		<!-- Ruta -->
-		<h2><%= ruta %></h2>
+
+	<!-- Ruta -->
+	<h2><%= ruta %></h2>
+
 	<% if (cambioStatus) { %>
 		<!-- Imagen del usuario que sugirió el status -->
-		<img src="<%= encabezado.imagenUsuario %>" title="<%= encabezado.usuario.nombreCompleto %>" class="noAgrandar">
+		<%- include("REV-9ImgUsuario", {imagenUsuario: encabezado.imagenUsuario, nombreCompleto: encabezado.usuario.nombreCompleto}) %>
 	<% } %>
+
 </div>
 <% if (encabezado.tituloElab || encabezado.titulo) { %>
 	<h3><%= encabezado.tituloElab || encabezado.titulo %></h3>

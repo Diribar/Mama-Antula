@@ -1,14 +1,22 @@
-#cuerpo #contenidoRevisar {
-	display: flex;
-	.bloque-textoImagen, .bloque-texto blockquote {margin-top: 10px;}
-	&:not(:has(.bloque-libro, .bloque-estampa)) {flex-direction: column;}
-	&:has(.bloque-libro, .bloque-estampa) {
-		flex-direction: row; justify-content: space-evenly; flex-wrap: wrap; column-gap: 50px;
-		&:has(.bloque-libro) {row-gap: var(--margenVertical);}
-		&:has(.bloque-estampa) {row-gap: calc(var(--margenVertical) * 2);}
+#cuerpo {
+	#contenidoRevisar {
+		display: flex;
+		.bloque-textoImagen, .bloque-texto blockquote {margin-top: 10px;}
+		&:not(:has(.bloque-libro, .bloque-estampa)) {flex-direction: column;}
+		&:has(.bloque-libro, .bloque-estampa) {
+			flex-direction: row; justify-content: space-evenly; flex-wrap: wrap; column-gap: 50px;
+			&:has(.bloque-libro) {row-gap: var(--margenVertical);}
+			&:has(.bloque-estampa) {row-gap: calc(var(--margenVertical) * 2);}
+		}
+		.bloque {
+			a {color: var(--terracota); text-decoration: underline;}
+			img {cursor: pointer;}
+		}
 	}
-	.bloque {
-		a {color: var(--terracota); text-decoration: underline;}
-		img {cursor: pointer;}
+
+	/* Condicionales */
+	&:has(#encabezado.aprobado) .bloque {
+		&.creado {background-color: var(--amarilloClaro);}
+		&.rechazar, &.rechazado {background-color: var(--rojoMuyClaro);}
 	}
 }
