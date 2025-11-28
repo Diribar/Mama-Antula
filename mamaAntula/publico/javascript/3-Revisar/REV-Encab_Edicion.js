@@ -33,6 +33,3 @@ window.addEventListener("load", async () => {
 	// Fin
 	return;
 });
-
-// Variables
-const encab_id = cookie("actualizaEncabezado_id");
