@@ -2,7 +2,7 @@
 
 export default {
 	// API
-	cambiosStatus:{
+	cambioStatus:{
 		encabezado: async ({encab_id, ...cambioStatus}) => {
 			// Variables
 			const espera = [];

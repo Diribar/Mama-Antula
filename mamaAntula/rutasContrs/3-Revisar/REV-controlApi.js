@@ -2,7 +2,7 @@
 import procesos from "./REV-procesos.js";
 
 export default {
-	cambiosStatus: {
+	cambioStatus: {
 		encabezado: async (req, res) => {
 			// Variables
 			const {encab_id, aprueba, rechaza} = req.body;
@@ -10,7 +10,7 @@ export default {
 			const statusSugeridoPor_id = req.session.usuario.id;
 
 			// Cambia el status de sus dependencias y mueve los archivos de imagen
-			await procesos.cambiosStatus.encabezado({encab_id, statusRegistro_id, statusSugeridoPor_id});
+			await procesos.cambioStatus.encabezado({encab_id, statusRegistro_id, statusSugeridoPor_id});
 
 			// Fin
 			return res.json({});
@@ -23,7 +23,7 @@ export default {
 			const statusSugeridoPor_id = req.session.usuario.id;
 
 			// Cambia el status de sus dependencias y mueve los archivos de imagen
-			await procesos.cambiosStatus.contenido({contenido, statusRegistro_id, statusSugeridoPor_id});
+			await procesos.cambioStatus.contenido({contenido, statusRegistro_id, statusSugeridoPor_id});
 
 			// Fin
 			return res.json({});
