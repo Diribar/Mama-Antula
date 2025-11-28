@@ -5,6 +5,7 @@ const temaVista = "revisar";
 export default {
 	revisar: async (req, res) => {
 		// Variables
+		const codigoVista = "revisar";
 		const tituloPagina = iconosAgrupados.find((n) => n.codigo == temaVista)?.nombre;
 		const {usuario} = req.session;
 		let encabezado, cambioStatusEncab, edicion, cambioStatusCont;
@@ -28,9 +29,32 @@ export default {
 
 		// Fin
 		return res.render("CMP-0Estructura", {
-			...{tituloPagina, temaVista},
+			...{tituloPagina, temaVista, codigoVista},
 			...{encabezado, edicion, ruta, anchorLectura},
 			...{cambioStatusEncab, cambioStatusCont},
+		});
+	},
+	papelera: async (req, res) => {
+		// Variables
+		const codigoVista = "papelera";
+
+		// Obtiene todos los contenidos en papelera
+		const encab_ids = await baseDatos
+			.obtieneTodosPorCondicion("contenidos", {statusRegistro_id: rechazado_id})
+			.then((n) => n.map((m) => m.encab_id));
+
+		// Obtiene todos los encabezados en papelera o con contenido en papelera
+		const condicion = {[Op.or]: [{id: encab_ids}, {statusRegistro_id: rechazado_id}]};
+		const includes = [...includesEncabs.cartas, ...includesEncabs.lugares];
+		const encabezados = await baseDatos.obtieneTodosPorCondicion("encabezados", condicion, includes);
+
+		// Variables para la vista
+		const anchorLectura = procesos.anchorLectura(req);
+
+		// Fin
+		return res.render("CMP-0Estructura", {
+			...{tituloPagina: "Papelera", temaVista, codigoVista},
+			...{encabezados, anchorLectura},
 		});
 	},
 };

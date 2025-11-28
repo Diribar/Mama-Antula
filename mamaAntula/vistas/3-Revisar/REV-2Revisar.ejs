@@ -1,0 +1,14 @@
+<%- include('MN-Timer') %>
+<h1 id="tituloPrincipal"><%= tituloPagina %></h1>
+
+<section id="cuerpo">
+	<!-- Encabezado -->
+	<%- include("REV-1Encabezado") %>
+
+	<!-- Ediciones -->
+	<% if (edicion) { %><%- include("REV-2Edicion") %><% } %>
+
+	<!-- Contenido -->
+	<%- include("REV-3Contenido") %>
+
+</section>

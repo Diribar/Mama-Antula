@@ -23,6 +23,7 @@ router.put("/api/rev-edicion", edicion, API.edicion);
 
 // 🖥️ Vistas
 router.get("/", soloRevisor, vista.revisar);
+router.get("/papelera", soloRevisor, vista.papelera);
 
 // ✅ Export
 export default router;

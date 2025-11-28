@@ -1,14 +1,7 @@
-<%- include('MN-Timer') %>
-<h1 id="tituloPrincipal"><%= tituloPagina %></h1>
+<% if (codigoVista == "revisar") { %>
+	<%- include("REV-2Revisar") %>
+<% } %>
 
-<section id="cuerpo">
-	<!-- Encabezado -->
-	<%- include("REV-1Encabezado") %>
-
-	<!-- Ediciones -->
-	<% if (edicion) { %><%- include("REV-2Edicion") %><% } %>
-
-	<!-- Contenido -->
-	<%- include("REV-3Contenido") %>
-
-</section>
+<% if (codigoVista == "papelera") { %>
+	<%- include("REV-3Papelera") %>
+<% } %>
