@@ -9,8 +9,8 @@ const router = express.Router();
 
 // 🖥️ Vistas
 router.get("/contactanos", vista.contactanos);
-router.get("/biblioteca", vista.biblioteca);
-router.get("/capacitacion", soloActualiz, vista.capacitacion);
+router.get("/biblioteca", soloActualiz,vista.biblioteca);
+router.get("/capacitacion",  vista.capacitacion);
 
 // ✅ Export
 export default router;
