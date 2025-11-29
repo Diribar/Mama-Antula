@@ -18,12 +18,14 @@ window.addEventListener("load", async () => {
 		iconos: domSectorEncabezado.querySelectorAll(".iconos i"),
 		iconoGuardar: domSectorEncabezado.querySelector(".iconos #guardar"),
 		iconoEliminar: domSectorEncabezado.querySelector(".iconos #eliminar"),
+		iconoRecuperar: domSectorEncabezado.querySelector(".iconos #recuperar"),
 		img: domSectorEncabezado.querySelector(".iconos img"),
 	};
 	const rutas = {
 		// Encabezado
-		guardaEncabezado: "/actualizar/api/act-encabezado-guarda",
-		eliminaEncabezado: "/actualizar/api/act-encabezado-elimina/?id=",
+		guarda: "/actualizar/api/act-encabezado-guarda",
+		elimina: "/actualizar/api/act-encabezado-elimina/?id=",
+		recupera: "/actualizar/api/act-encabezado-recupera/?id=",
 	};
 	const v = {};
 
@@ -57,21 +59,18 @@ window.addEventListener("load", async () => {
 		},
 		actualizaIconos: () => {
 			// Variables
-			const statusCreadoPorOtroUsuario =
-				v.encabezado &&
-				v.encabezado.statusRegistro_id == comp1234.creado_id &&
-				v.encabezado.statusSugeridoPor_id != comp1234.usuario.id;
+			const encabezadoNuevo = DOM.filtroEncab.value == "nuevo";
+			const statusCreado = v.encabezado && v.encabezado.statusRegistro_id == comp1234.creado_id;
+			const statusSugeridoPorOtroUsuario = v.encabezado && v.encabezado.statusSugeridoPor_id != comp1234.usuario.id;
 			const statusRechazar = v.encabezado && v.encabezado.statusRegistro_id == comp1234.rechazar_id;
-			const statusRechazadoNoEsRevisor =
-				v.encabezado && v.encabezado.statusRegistro_id == comp1234.rechazado_id && !comp1234.usuario.rol.revision;
-			const statusRechazadoEsRevisor =
-				v.encabezado && v.encabezado.statusRegistro_id == comp1234.rechazado_id && comp1234.usuario.rol.revision;
+			const statusRechazado = v.encabezado && v.encabezado.statusRegistro_id == comp1234.rechazado_id;
+			const esRevisor = comp1234.usuario.rol.revision;
 
 			// Averigua si se deben ocultar los íconos
 			v.ocultaIconos =
-				statusCreadoPorOtroUsuario || // el encabezado está en status creado y fue creado por otro usuario
+				(statusCreado && statusSugeridoPorOtroUsuario) || // el encabezado está en status creado y fue creado por otro usuario
 				statusRechazar || // el encabezado está en status rechazar
-				statusRechazadoNoEsRevisor; // el encabezado está en status rechazado y el usuario no tiene permiso de revisor
+				(statusRechazado && !esRevisor); // el encabezado está en status rechazado y el usuario no tiene permiso de revisor
 
 			// Si oculta íconos, muestra la imagen del usuario
 			if (v.ocultaIconos) {
@@ -83,16 +82,10 @@ window.addEventListener("load", async () => {
 				// Oculta la imagen y muestra los íconos
 				DOM.img.src = "";
 
-				// Acciones si es un encabezado nuevo
-				console.log(statusRechazadoEsRevisor);
-
-				if (DOM.filtroEncab.value == "nuevo" || statusRechazadoEsRevisor) {
-					DOM.iconoGuardar.classList.remove("ocultar");
-					DOM.iconoEliminar.classList.add("ocultar");
-				} else {
-					DOM.iconoGuardar.classList.add("ocultar");
-					DOM.iconoEliminar.classList.remove("ocultar");
-				}
+				// Botones a mostrar
+				DOM.iconoGuardar.classList[encabezadoNuevo ? "remove" : "add"]("ocultar");
+				DOM.iconoRecuperar.classList[statusRechazado && esRevisor ? "remove" : "add"]("ocultar");
+				DOM.iconoEliminar.classList[!encabezadoNuevo && !statusRechazado ? "remove" : "add"]("ocultar");
 			}
 		},
 	};
@@ -147,13 +140,13 @@ window.addEventListener("load", async () => {
 		input.addEventListener("change", () => input.name == "titulo" && (input.value = inicialMayus(input.value)));
 	}
 
-	// Guarda/Actualiza en la BD
+	// Guarda/Actualiza/Recupera en la BD
 	DOM.iconoGuardar.addEventListener("click", async () => {
 		// Oculta el ícono
 		DOM.iconoGuardar.classList.add("ocultar");
 
 		// Arma el feedback
-		const formVisible = document.querySelector("#sectorEncabezado form:not(.ocultar)"); // elige el unico formulario visible
+		const formVisible = document.querySelector("#sectorEncabezado form:not(.ocultar)"); // elige el único formulario visible
 		const formData = new FormData(formVisible);
 		formData.append("encab_id", DOM.filtroEncab.value);
 
@@ -162,7 +155,7 @@ window.addEventListener("load", async () => {
 		formData.append(campo_id, comp1234[campo_id]);
 
 		// Guarda el encabezado en la BD
-		const respuesta = await fetch(rutas.guardaEncabezado, postForm(formData)).then((n) => n.json());
+		const respuesta = await fetch(rutas.guarda, postForm(formData)).then((n) => n.json());
 
 		// Si hubo un error, muestra el mensaje e interrumpe la función
 		if (respuesta.error) return carteles.error(respuesta.error);
@@ -195,7 +188,7 @@ window.addEventListener("load", async () => {
 
 		// Elimina de la BD, el encabezado y sus contenidos
 		const datos = {encab_id: DOM.filtroEncab.value};
-		const respuesta = await fetch(rutas.eliminaEncabezado, deleteJson(datos)).then((n) => n.json());
+		const respuesta = await fetch(rutas.elimina, deleteJson(datos)).then((n) => n.json());
 
 		// Si hubo un error, muestra el mensaje e interrumpe la función
 		if (respuesta.error) return carteles.error(respuesta.error);
@@ -204,6 +197,33 @@ window.addEventListener("load", async () => {
 		document.cookie = "actEncabezado_id=; path=/";
 
 		// Se genera un change en el tema, para que se reinicie el filtro del encabezado
+		comp1234.startUp = true;
+		DOM.filtroTema.dispatchEvent(new Event("change"));
+
+		// Fin
+		return;
+	});
+
+	// Recupera en la BD
+	DOM.iconoRecuperar.addEventListener("click", async () => {
+		// Oculta el ícono
+		DOM.iconoRecuperar.classList.add("ocultar");
+
+		// Aviso y acciones
+		const mensaje = "¿Estás seguro/a de que querés recuperar este encabezado y su contenido?";
+		const cancelButtonText = "No";
+		const confirmButtonText = "Recuperar";
+		const confirma = await carteles.confirmar({mensaje, cancelButtonText, confirmButtonText});
+		if (!confirma) return DOM.iconoRecuperar.classList.remove("ocultar");
+
+		// Recupera en la BD, el encabezado y sus contenidos
+		const datos = {encab_id: DOM.filtroEncab.value};
+		const respuesta = await fetch(rutas.recupera, putJson(datos)).then((n) => n.json());
+
+		// Si hubo un error, muestra el mensaje e interrumpe la función
+		if (respuesta.error) return carteles.error(respuesta.error);
+
+		// Se genera un change en el tema, para que se vuelvan a cargar los encabezados
 		comp1234.startUp = true;
 		DOM.filtroTema.dispatchEvent(new Event("change"));
 
