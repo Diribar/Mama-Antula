@@ -8,8 +8,8 @@
 			<% const muestraLectura = icono.codigo == "lectura" && ["actualizar", "revisar"].includes(locals.temaVista) %>
 			<% const muestraEdicion = icono.codigo == "actualizar" && usuario.rol.actualizac && locals.temaVista != "actualizar" %>
 			<% const muestraRevision = icono.codigo == "revisar" && usuario.rol.revision && locals.temaVista != "revisar" %>
-			<% const muestraCambioRoles = icono.codigo == "cambioRol" && usuario.rol.cambioRol && locals.codigoVista != "cambioRol" %>
-			<% if (muestraLectura || muestraEdicion || muestraRevision || muestraCambioRoles) { %>
+			<% const muestraCambioRol = icono.codigo == "cambioRol" && usuario.rol.cambioRol && locals.codigoVista != "cambioRol" %>
+			<% if (muestraLectura || muestraEdicion || muestraRevision || muestraCambioRol) { %>
 				<a href="<%= icono.link || locals.anchorLectura || '' %>" id="<%= icono.codigo %>" title="<%= icono.nombre %>">
 					<i class="fa-solid <%= icono.clase %> scaleHover"></i>
 				</a>

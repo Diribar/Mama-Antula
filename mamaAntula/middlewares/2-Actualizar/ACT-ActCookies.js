@@ -17,7 +17,10 @@ export default (req, res, next) => {
 	if (actEncabezado_id) res.cookie("actEncabezado_id", actEncabezado_id, {maxAge: unDia, path: "/"});
 	else res.clearCookie("actEncabezado_id");
 
+	// Redirecciona
+	let redirecciona = req.originalUrl.split("?")[0];
+	if (redirecciona.endsWith("/")) redirecciona = redirecciona.slice(0, -1);
+
 	// Fin
-	// return next();
-	return res.redirect(req.originalUrl.split("?")[0]);
+	return res.redirect(redirecciona);
 };
