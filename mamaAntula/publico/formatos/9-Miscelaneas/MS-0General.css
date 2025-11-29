@@ -4,13 +4,10 @@
 	ol {
 		margin-left: 20px;
 		li {
-			margin-bottom: 20px;
-			span {display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: 30px;}
+			span {display: flex; flex-direction: row; align-items: center; gap: 30px;}
 			button {
-				font-size: 1.3rem;
-				padding: 10px 10px; border-radius: 10px;
+				border: none; cursor: pointer; border-radius: 10px;
 				background-color: var(--grisInterm); color: var(--grisClaro);
-				border: none; cursor: pointer;
 			}
 		}
 	}
