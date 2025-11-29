@@ -5,7 +5,7 @@ import vista from "./LT-controlVista.js";
 
 // Middlewares
 import validaRuta from "../../middlewares/1-Lectura/LT-validaRuta.js";
-import cookiesAct from "../../middlewares/1-Lectura/LT-cookiesAct.js";
+import cookiesAct from "../../middlewares/1-Lectura/LT-cookiesActualizar.js";
 import libera from "../../middlewares/1-Lectura/LT-libera.js";
 const combo = [validaRuta, cookiesAct, libera];
 
