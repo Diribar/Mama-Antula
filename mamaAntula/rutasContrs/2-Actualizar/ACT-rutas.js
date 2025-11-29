@@ -5,7 +5,7 @@ import vista from "./ACT-controlVista.js";
 
 // Middlewares de Vista
 import soloActualiz from "../../middlewares/8-Usuarios-Roles/US-Solo3Actualiz.js";
-import queryEnCookies from "../../middlewares/2-Actualizar/ACT-QueryEnCookies.js";
+import queryEnCookies from "../../middlewares/2-Actualizar/ACT-queryEnCookies.js";
 
 // Middlewares de API - valida errores
 import descargaImg from "../../middlewares/descargaImg/IMG-descargaImg.js";
