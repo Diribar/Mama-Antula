@@ -1,12 +1,13 @@
 <ol>
 	<% for (const video of videos) { %>
-		<% if (!locals.usuario && video.rol.actualizac) continue %>
+		<% if (!locals.usuario && video.rol) continue // muestra alta de usuario y ninguno más %>
+		<% if (locals.usuario && !video.rol) continue // no muestra alta de usuario %>
 		<% if (locals.usuario && !usuario.rol.actualizac && video.rol.actualizac) continue %>
 		<% if (locals.usuario && !usuario.rol.revision && video.rol.revision) continue %>
 		<% if (locals.usuario && !usuario.rol.cambioRol && video.rol.cambioRol) continue %>
 		<li><span>
 			<button data-video="/videos/<%= video.codigo %>.mp4"><%= video.nombre %></button>
-			Rol <%= video.rol.nombre %>
+			<% if (video.rol) { %>Rol <%= video.rol.nombre %><% } %>
 		</span></li>
 	<% } %>
 </ol>
