@@ -6,7 +6,6 @@
 		margin-left: 20px;
 		li {
 			span {justify-content: flex-start; gap: 20px;}
-			button {font-size: 1rem; padding: 5px 5px;}
 		}
 	}
 }
