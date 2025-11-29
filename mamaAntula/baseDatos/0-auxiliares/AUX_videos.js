@@ -4,7 +4,7 @@ export default (sequelize, dt) => {
 		// Referencias
 		orden: {type: dt.INTEGER},
 		nombre: {type: dt.STRING(25)},
-		codigo: {type: dt.STRING(20)},
+		url: {type: dt.STRING(20)},
 		rol_id: {type: dt.INTEGER},
 	};
 	const config = {
