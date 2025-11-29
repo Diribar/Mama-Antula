@@ -49,7 +49,7 @@ export default {
 		// Fin
 		return res.render("CMP-0Estructura", {
 			...{tituloPagina: "Papelera", temaVista, codigoVista},
-			...{rutas, anchorLectura, },
+			...{rutas, anchorLectura},
 		});
 	},
 };
