@@ -1,5 +1,4 @@
 "use strict";
-import procesos from "./MS-procesos.js";
 const temaVista = "miscelaneas";
 
 export default {
