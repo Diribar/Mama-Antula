@@ -56,13 +56,22 @@ window.addEventListener("load", async () => {
 			return;
 		},
 		actualizaIconos: () => {
+			// Variables
+			const statusCreadoPorOtroUsuario =
+				v.encabezado &&
+				v.encabezado.statusRegistro_id == comp1234.creado_id &&
+				v.encabezado.statusSugeridoPor_id != comp1234.usuario.id;
+			const statusRechazar = v.encabezado && v.encabezado.statusRegistro_id == comp1234.rechazar_id;
+			const statusRechazadoNoEsRevisor =
+				v.encabezado && v.encabezado.statusRegistro_id == comp1234.rechazado_id && !comp1234.usuario.rol.revision;
+			const statusRechazadoEsRevisor =
+				v.encabezado && v.encabezado.statusRegistro_id == comp1234.rechazado_id && comp1234.usuario.rol.revision;
+
 			// Averigua si se deben ocultar los íconos
 			v.ocultaIconos =
-				v.encabezado &&
-				((v.encabezado.statusRegistro_id == comp1234.creado_id &&
-					v.encabezado.statusSugeridoPor_id != comp1234.usuario.id) || // el encabezado está en status creado y fue creado por otro usuario
-					v.encabezado.statusRegistro_id == comp1234.rechazar_id || // el encabezado está en status rechazar
-					v.encabezado.statusRegistro_id == comp1234.rechazado_id && !comp1234.usuario.rol.revision); // el encabezado está en status rechazado y el usuario no tiene permiso de revisor
+				statusCreadoPorOtroUsuario || // el encabezado está en status creado y fue creado por otro usuario
+				statusRechazar || // el encabezado está en status rechazar
+				statusRechazadoNoEsRevisor; // el encabezado está en status rechazado y el usuario no tiene permiso de revisor
 
 			// Si oculta íconos, muestra la imagen del usuario
 			if (v.ocultaIconos) {
@@ -75,7 +84,9 @@ window.addEventListener("load", async () => {
 				DOM.img.src = "";
 
 				// Acciones si es un encabezado nuevo
-				if (DOM.filtroEncab.value == "nuevo") {
+				console.log(statusRechazadoEsRevisor);
+
+				if (DOM.filtroEncab.value == "nuevo" || statusRechazadoEsRevisor) {
 					DOM.iconoGuardar.classList.remove("ocultar");
 					DOM.iconoEliminar.classList.add("ocultar");
 				} else {

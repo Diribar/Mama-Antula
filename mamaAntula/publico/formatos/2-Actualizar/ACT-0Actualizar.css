@@ -29,6 +29,7 @@
 				&:not(:has(:not(.ocultar))) {display: none;} /* si no se muestra ningún ícono, se oculta el contenedor */
 				i {
 					cursor: pointer;
+					&.fa-save {color: var(--azulOscuro);}
 					&:hover:not(:active) {scale: 1.5;}
 				}
 			}
