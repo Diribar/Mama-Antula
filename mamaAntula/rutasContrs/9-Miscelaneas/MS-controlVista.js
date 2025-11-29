@@ -25,16 +25,16 @@ export default {
 	},
 	capacitacion: async (req, res) => {
 		// Variables
-		const tituloPagina = "Capacitación";
+		const tituloPagina = "Videos de Capacitación";
 		const codigoVista = "capacitacion";
 
 		// Datos para la vista
-		const capacitaciones = await baseDatos.obtieneTodos("capacitaciones", "rol");
+		const videos = await baseDatos.obtieneTodos("videos", "rol");
 
 		// Fin
 		return res.render("CMP-0Estructura", {
 			...{tituloPagina, temaVista, codigoVista},
-			capacitaciones,
+			videos,
 		});
 	},
 };

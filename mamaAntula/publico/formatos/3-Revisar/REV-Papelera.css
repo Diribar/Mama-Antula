@@ -1,11 +1,15 @@
 #cuerpo {
+	background-color: var(--grisClaro); padding: 10px 10px; border-radius: 20px;
 	ul {
 		margin-left: 10px;
 		li {
-			font-weight: bold; font-size: 1.3rem; line-height: 1.3;
 			&.primario:nth-child(n+2) {margin-top: 10px;}
-			span {font-size: .9rem; margin-right: 5px;}
-			a {font-weight: normal;}
+			.alinear {
+				display: flex; flex-direction: row; align-items: center; gap: 5px;
+				font-weight: bold; font-size: 1.3rem; line-height: 1.3;
+				span {font-size: .8rem;}
+				a {font-weight: normal;}
+			}
 		}
 	}
 }
