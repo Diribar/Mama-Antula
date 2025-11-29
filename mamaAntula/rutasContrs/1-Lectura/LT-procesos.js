@@ -1,9 +1,9 @@
 "use strict";
 
 export default {
-	obtieneEncabezados: async ({tema_id, condicion, encab_id}) => {
+	obtieneEncabezados: async ({tema_id, encab_id, condicion}) => {
 		// Variables
-		const {conIndice} = comp.tipoDeTema(tema_id)
+		const {conIndice} = comp.tipoDeTema(tema_id);
 
 		// Obtiene los encabezados
 		let encabezados = await comp.obtieneEncabezados({tema_id, condicion});
@@ -25,10 +25,9 @@ export default {
 		// Fin
 		return {encabezados, encabezado};
 	},
-	contenidos: async ({encabezado, soloStatusAprob}) => {
+	contenidos: async ({encabezado, statusRegistro_id}) => {
 		// Variables
-		const condicion = {encab_id: encabezado.id};
-		condicion.statusRegistro_id = soloStatusAprob ? aprobado_id : {[Op.ne]: rechazado_id};
+		const condicion = {encab_id: encabezado.id, statusRegistro_id};
 
 		// Obtiene los contenidos
 		const contenidos = await baseDatos
