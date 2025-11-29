@@ -1,6 +1,6 @@
 "use strict";
 import procesos from "./LT-procesos.js";
-const temaVista = "secciones";
+const temaVista = "seccionesLectura";
 
 export default {
 	temas: async (req, res) => {
@@ -11,7 +11,7 @@ export default {
 		urlTema = urlTema || LP_urlTema;
 
 		// Sección
-		const seccionActual = secciones.find((n) => n.url == urlSeccion);
+		const seccionActual = seccionesLectura.find((n) => n.url == urlSeccion);
 		const tituloPagina = seccionActual.nombre;
 
 		// Tema
@@ -48,7 +48,7 @@ export default {
 		const {urlSeccion, urlTema, urlPestana} = req.params;
 
 		// Sección
-		const seccionActual = secciones.find((n) => n.url == urlSeccion);
+		const seccionActual = seccionesLectura.find((n) => n.url == urlSeccion);
 		const tituloPagina = seccionActual.nombre;
 
 		// Tema

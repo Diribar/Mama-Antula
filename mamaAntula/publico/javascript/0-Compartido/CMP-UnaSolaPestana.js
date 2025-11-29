@@ -28,7 +28,7 @@ const actualizaUrlLectura = async () => {
 	const v = await fetch("/actualizar/api/act-filtros-datos-inciales").then((n) => n.json());
 
 	// Obtiene los url
-	const urlSeccion = v.secciones.find((n) => n.id == seccion_id)?.url || "";
+	const urlSeccion = v.seccionesLectura.find((n) => n.id == seccion_id)?.url || "";
 	const urlTema = (urlSeccion && v.temasSecciones.find((n) => n.id == tema_id)?.url) || "";
 	const urlPestana = (urlTema && v.pestanasTemas.find((n) => n.id == pestana_id)?.url) || "";
 	const urlEncabezado = (urlTema && encab_id && "/?id=" + encab_id) || "";

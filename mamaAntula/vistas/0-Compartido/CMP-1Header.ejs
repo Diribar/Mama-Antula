@@ -6,7 +6,7 @@
 	</div>
 
 	<div id="secciones" class="flexRowAlign">
-		<% for (const seccion of secciones) { %>
+		<% for (const seccion of seccionesLectura) { %>
 			<a href="/<%= seccion.url %>" <% if (seccion.nombre == locals.tituloPagina) { %> class="resaltar"<% } %>><%= seccion.nombre %></a>
 		<% } %>
 	</div>

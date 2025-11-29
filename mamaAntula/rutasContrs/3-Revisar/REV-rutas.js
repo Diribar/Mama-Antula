@@ -17,12 +17,13 @@ import edicion from "../../middlewares/2-Revisar/REV-3Edicion.js";
 const router = express.Router();
 
 // 📡 APIs
-router.put("/api/rev-status-encabezado", encabStatus, API.cambiosStatus.encabezado);
-router.put("/api/rev-status-contenido", contStatus, API.cambiosStatus.contenido);
+router.put("/api/rev-status-encabezado", encabStatus, API.cambioStatus.encabezado);
+router.put("/api/rev-status-contenido", contStatus, API.cambioStatus.contenido);
 router.put("/api/rev-edicion", edicion, API.edicion);
 
 // 🖥️ Vistas
 router.get("/", soloRevisor, vista.revisar);
+router.get("/papelera", soloRevisor, vista.papelera);
 
 // ✅ Export
 export default router;

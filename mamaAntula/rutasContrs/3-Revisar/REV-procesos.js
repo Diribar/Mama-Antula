@@ -2,55 +2,57 @@
 
 export default {
 	// API
-	cambiosStatusEncabezado: async ({encab_id, ...cambioStatus}) => {
-		// Variables
-		const espera = [];
+	cambioStatus: {
+		encabezado: async ({encab_id, ...cambioStatus}) => {
+			// Variables
+			const espera = [];
 
-		// Cambia el status del encabezado
-		espera.push(baseDatos.actualizaPorId("encabezados", encab_id, cambioStatus));
+			// Cambia el status del encabezado
+			espera.push(baseDatos.actualizaPorId("encabezados", encab_id, cambioStatus));
 
-		// Cambia el status de los contenidos
-		const contenidos = await baseDatos.obtieneTodosPorCondicion("contenidos", {encab_id}, "carrusel");
-		espera.push(baseDatos.actualizaPorCondicion("contenidos", {encab_id}, cambioStatus));
-		await Promise.all(espera);
+			// Cambia el status de los contenidos
+			const contenidos = await baseDatos.obtieneTodosPorCondicion("contenidos", {encab_id}, "carrusel");
+			espera.push(baseDatos.actualizaPorCondicion("contenidos", {encab_id}, cambioStatus));
+			await Promise.all(espera);
 
-		// Obtiene todas las imágenes a mover
-		const imagenes = [];
-		for (const contenido of contenidos) {
+			// Obtiene todas las imágenes a mover
+			const imagenes = [];
+			for (const contenido of contenidos) {
+				if (contenido.imagen) imagenes.push(contenido.imagen);
+				if (contenido.imagen2) imagenes.push(contenido.imagen2);
+				imagenes.push(...contenido.carrusel.map((n) => n.imagen));
+			}
+
+			// Mueve los archivos de imagen a la carpeta de revisados
+			for (const imagen of imagenes) comp.gestionArchs.mueve(carpRevisar, carpFinal, imagen);
+
+			// Fin
+			return;
+		},
+		contenido: async ({contenido, ...cambioStatus}) => {
+			// Variables
+			const imagenes = [];
+
+			// Actualiza el status del contenido
+			await baseDatos.actualizaPorId("contenidos", contenido.id, cambioStatus);
+
+			// Obtiene los carrusel del contenido
+			const carruseles = await baseDatos.obtieneTodosPorCondicion("carrusel", {contenido_id: contenido.id});
+
+			// Obtiene el nombre de los archivos de imagen
 			if (contenido.imagen) imagenes.push(contenido.imagen);
 			if (contenido.imagen2) imagenes.push(contenido.imagen2);
-			imagenes.push(...contenido.carrusel.map((n) => n.imagen));
-		}
+			for (const carrusel of carruseles) imagenes.push(carrusel.imagen);
 
-		// Mueve los archivos de imagen a la carpeta de revisados
-		for (const imagen of imagenes) comp.gestionArchs.mueve(carpRevisar, carpFinal, imagen);
+			// Mueve los archivos de imagen a la carpeta de revisados
+			for (const imagen of imagenes) comp.gestionArchs.mueve(carpRevisar, carpFinal, imagen);
 
-		// Fin
-		return;
-	},
-	cambiosStatusContenido: async ({contenido, ...cambioStatus}) => {
-		// Variables
-		const imagenes = [];
-
-		// Actualiza el status del contenido
-		await baseDatos.actualizaPorId("contenidos", contenido.id, cambioStatus);
-
-		// Obtiene los carrusel del contenido
-		const carruseles = await baseDatos.obtieneTodosPorCondicion("carrusel", {contenido_id: contenido.id});
-
-		// Obtiene el nombre de los archivos de imagen
-		if (contenido.imagen) imagenes.push(contenido.imagen);
-		if (contenido.imagen2) imagenes.push(contenido.imagen2);
-		for (const carrusel of carruseles) imagenes.push(carrusel.imagen);
-
-		// Mueve los archivos de imagen a la carpeta de revisados
-		for (const imagen of imagenes) comp.gestionArchs.mueve(carpRevisar, carpFinal, imagen);
-
-		// Fin
-		return;
+			// Fin
+			return;
+		},
 	},
 
-	// Vista
+	// Vista - Revisar
 	obtieneEncabezado: {
 		consolidado: async function (usuario) {
 			// Obtiene el encabezado
@@ -282,7 +284,7 @@ export default {
 		const {actualizaSeccion_id, actualizaTema_id, actualizaPestana_id, actualizaEncabezado_id} = req.cookies;
 
 		// Le agrega la sección
-		let anchorLectura = "/" + secciones.find((n) => n.id == actualizaSeccion_id).url;
+		let anchorLectura = "/" + seccionesLectura.find((n) => n.id == actualizaSeccion_id).url;
 
 		// Le agrega el tema
 		const temaActual = temasSecciones.find((n) => n.id == actualizaTema_id);
@@ -298,6 +300,42 @@ export default {
 		// Fin
 		return anchorLectura;
 	},
+
+	// Vista - Papelera
+	papelera: {
+		obtieneEncabezados: async () => {
+			// Obtiene todos los contenidos en papelera
+			const encab_ids = await baseDatos
+				.obtieneTodosPorCondicion("contenidos", {statusRegistro_id: rechazado_id})
+				.then((n) => n.map((m) => m.encab_id));
+
+			// Obtiene todos los encabezados en papelera o con contenido en papelera
+			const condicion = {[Op.or]: [{id: encab_ids}, {statusRegistro_id: rechazado_id}]};
+			const includes = [...includesEncabs.cartas, ...includesEncabs.lugares];
+			const encabezados = await baseDatos.obtieneTodosPorCondicion("encabezados", condicion, includes);
+
+			// Fin
+			return encabezados;
+		},
+		obtieneRutas: (encabs) => {
+			// Variables
+			const pestanas = pestanasTemas.map((n) => ({...n, encabs: encabs.filter((m) => m.pestana_id == n.id)}));
+			const temas = temasSecciones
+				.map((n) => ({
+					...n,
+					encabezados: encabs.filter((m) => m.tema_id == n.id),
+					pestanas: pestanas.filter((m) => m.tema_id == n.id),
+				}))
+				.filter((n) => n.encabezados.length || n.pestanas.length);
+			const
+
+			// Le agrega el tema a todos los encabezados
+			encabezados = encabezados.map((n) => FN.agregaTemaPestana(n));
+
+			// Fin
+			return rutas;
+		},
+	},
 };
 
 // Funciones
@@ -309,7 +347,7 @@ const FN = {
 		// Obtiene los datos de niveles
 		if (pestana_id) encabezado.pestana = pestanasTemas.find((n) => n.id == pestana_id);
 		encabezado.tema = temasSecciones.find((n) => n.id == (tema_id || encabezado.pestana.tema_id));
-		encabezado.seccion = secciones.find((n) => n.id == encabezado.tema.seccion_id);
+		encabezado.seccion = seccionesLectura.find((n) => n.id == encabezado.tema.seccion_id);
 
 		// Fin
 		return encabezado;

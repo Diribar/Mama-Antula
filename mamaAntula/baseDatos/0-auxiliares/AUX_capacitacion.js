@@ -1,18 +1,19 @@
 export default (sequelize, dt) => {
-	const alias = "seccionesLectura";
+	const alias = "capacitaciones";
 	const columns = {
 		// Referencias
 		orden: {type: dt.INTEGER},
-
-		// Otros
-		nombre: {type: dt.STRING(20)},
+		nombre: {type: dt.STRING(25)},
+		rol_id: {type: dt.INTEGER},
 		codigo: {type: dt.STRING(20)},
-		url: {type: dt.STRING(30)},
 	};
 	const config = {
-		tableName: "nivel1_secciones",
+		tableName: "aux_capacitaciones",
 		timestamps: false,
 	};
 	const entidad = sequelize.define(alias, columns, config);
+	entidad.associate = (n) => {
+		entidad.belongsTo(n.roles, {as: "rol", foreignKey: "rol_id"});
+	};
 	return entidad;
 };

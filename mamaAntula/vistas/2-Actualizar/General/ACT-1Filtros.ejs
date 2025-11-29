@@ -3,7 +3,7 @@
 	<h2>Filtros</h2>
 	<div id="filtros">
 		<select name="seccion_id">
-			<% for (const seccion of secciones) { %>
+			<% for (const seccion of seccionesLectura) { %>
 				<option value="<%= seccion.id %>"><%= seccion.nombre %></option>
 			<% } %>
 		</select>
