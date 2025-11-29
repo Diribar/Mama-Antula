@@ -1,6 +1,13 @@
 "use strict";
 
 export default {
+	// API - Compartido con Revisar
+	encabezadoContenidos: async ({encab_id, ...cambioStatus}) =>
+		Promise.all([
+			baseDatos.actualizaPorId("encabezados", encab_id, cambioStatus), // Cambia el status del encabezado
+			baseDatos.actualizaPorCondicion("contenidos", {encab_id}, cambioStatus), // Cambia el status de los contenidos
+		]),
+
 	// API - Encabezado
 	obtieneEncabezados: async ({tema_id, condicion, usuario}) => {
 		// Variables

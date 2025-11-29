@@ -30,6 +30,7 @@ router.get("/api/act-filtros-datos-inciales", API.datosIniciales);
 router.get("/api/act-filtros-obtiene-encabezados", validaFiltros, validaCaptura, captura, API.encabezado.obtiene);
 router.post("/api/act-encabezado-guarda", descargaImg.none(), validaEncabGuarda, API.encabezado.guarda); // se usa multer para que procese el formData
 router.delete("/api/act-encabezado-elimina", validaEncabElimina, API.encabezado.elimina);
+router.put("/api/act-encabezado-recupera", validaEncabGuarda, API.encabezado.recupera);
 
 // APIs - Contenido Actual - CRUD
 router.get("/api/act-contenido-actual-obtiene", API.contActual.obtiene);

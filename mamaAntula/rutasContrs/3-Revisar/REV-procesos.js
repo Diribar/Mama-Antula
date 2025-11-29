@@ -3,11 +3,6 @@
 export default {
 	// API
 	cambioStatus: {
-		encabezadoContenidos: async ({encab_id, ...cambioStatus}) =>
-			Promise.all([
-				baseDatos.actualizaPorId("encabezados", encab_id, cambioStatus), // Cambia el status del encabezado
-				baseDatos.actualizaPorCondicion("contenidos", {encab_id}, cambioStatus), // Cambia el status de los contenidos
-			]),
 		mueveArchivosImg: async (encab_id) => {
 			// Obtiene los contenidos
 			const contenidos = await baseDatos.obtieneTodosPorCondicion("contenidos", {encab_id}, "carrusel");
