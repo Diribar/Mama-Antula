@@ -290,7 +290,7 @@ export default {
 		anchorLectura += "/" + temasSecciones.find((n) => n.id == actTema_id).url;
 
 		// Le agrega la pestaña
-		anchorLectura += (actPestana_id && "/" + v.pestanasTemas.find((n) => n.id == actPestana_id).url) || "";
+		anchorLectura += (actPestana_id && "/" + pestanasTemas.find((n) => n.id == actPestana_id).url) || "";
 
 		// Le agrega el encabezado
 		const conIndice = temaActual.indicesFecha.length || temaActual.indicesLugar.length;
