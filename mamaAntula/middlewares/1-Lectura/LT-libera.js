@@ -2,7 +2,7 @@
 
 export default (req, res, next) => {
 	// Variables
-	const {actualizaTema_id: tema_id, actualizaPestana_id: pestana_id} = req.cookies;
+	const {actTema_id: tema_id, actPestana_id: pestana_id} = req.cookies;
 	const {usuario} = req.session;
 
 	// Si no hay usuario, interrumpe la función

@@ -43,15 +43,6 @@ export default (req, res, next) => {
 		res.cookie(temaActual.codigo, pestanaActual.codigo, {maxAge: unDia, path: "/"});
 	} else if (urlPestana) return res.render("CMP-0Estructura", {informacion});
 
-	// ACTUALIZA - Guarda cookies para interactuar con actualización
-	if (usuario) {
-		res.cookie("actualizaSeccion_id", seccionActual.id, {maxAge: unDia, path: "/"});
-		res.cookie("actualizaTema_id", temaActual.id, {maxAge: unDia, path: "/"});
-		if (pestsPosibles.length) res.cookie("actualizaPestana_id", pestanaActual.id, {maxAge: unDia, path: "/"});
-		else res.clearCookie("actualizaPestana_id");
-		if (encab_id) res.cookie("actualizaEncabezado_id", encab_id, {maxAge: unDia, path: "/"});
-	}
-
 	// Fin
 	return next();
 };

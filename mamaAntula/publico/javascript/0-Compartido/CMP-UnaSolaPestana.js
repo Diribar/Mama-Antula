@@ -19,10 +19,10 @@ const unaSolaPestana = async (e) => {
 };
 const actualizaUrlLectura = async () => {
 	// Obtiene los ids del url
-	const seccion_id = cookie("actualizaSeccion_id");
-	const tema_id = cookie("actualizaTema_id");
-	const pestana_id = cookie("actualizaPestana_id");
-	const encab_id = cookie("actualizaEncabezado_id");
+	const seccion_id = cookie("actSeccion_id");
+	const tema_id = cookie("actTema_id");
+	const pestana_id = cookie("actPestana_id");
+	const encab_id = cookie("actEncabezado_id");
 
 	// Obtiene los datos iniciales
 	const v = await fetch("/actualizar/api/act-filtros-datos-inciales").then((n) => n.json());

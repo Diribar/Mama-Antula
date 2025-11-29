@@ -1,5 +1,23 @@
 <h1 id="tituloPrincipal"><%= tituloPagina %></h1>
 
 <section id="cuerpo">
-
+	<ul>
+		<% for (const ruta in rutas) { %>
+			<% const {titulo, tituloElab} = rutas[ruta].encabezados[0] %>
+			<% if (titulo || tituloElab) { %>
+				<!-- Ruta con título -->
+				<li class="primario"><%= ruta %></li>
+				<!-- Título -->
+				<ul>
+					<% for (const encabezado of rutas[ruta].encabezados) { %>
+						<% const {titulo, tituloElab, anchor} = encabezado %>
+						<li class="secundario"><span>👉</span><a href="<%= anchor %>"><%= titulo || tituloElab %></a></li>
+					<% } %>
+				</ul>
+			<% } else { %>
+				<!-- Ruta sin título -->
+				<li class="primario"><span>👉</span><a href="<%= rutas[ruta].encabezados[0].anchor %>"><%= ruta %></a></li>
+			<% } %>
+		<% } %>
+	</ul>
 </section>

@@ -16,6 +16,7 @@ import {Sequelize} from "sequelize";
 import mysql from "mysql2";
 import session from "express-session";
 import connectMySQL from "express-mysql-session";
+import morgan from "morgan";
 
 // Variables globales
 globalThis.path = path;
@@ -63,6 +64,7 @@ app.use("/formatos", express.static(path.join(rutaHome, "/publico/formatos")));
 app.use("/javascript", express.static(path.join(rutaHome, "/publico/javascript")));
 app.use("/descargas", express.static(path.join(rutaHome, "/publico/descargas")));
 app.use("/fa", express.static("node_modules/@fortawesome/fontawesome-free"));
+// app.use(morgan("dev"));
 
 // Variables globales - debe ser con await, para que primero se carguen las variables globales de más arriba
 const constantes = await import("./variables/constantes.js");
