@@ -25,7 +25,7 @@ export default {
 	},
 	capacitacion: async (req, res) => {
 		// Variables
-		const tituloPagina = "Capacitación";
+		const tituloPagina = "Videos de Capacitación";
 		const codigoVista = "capacitacion";
 
 		// Datos para la vista
