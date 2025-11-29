@@ -29,6 +29,7 @@
 			}
 			&:not(:has(.bloque-libro, .bloque-estampa)) {flex-direction: column;}
 			.bloque {
+				h3 {font-style: italic; font-weight: normal;}
 				a {color: var(--terracota); text-decoration: underline;}
 				img {cursor: pointer;}
 			}
