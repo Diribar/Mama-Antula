@@ -10,7 +10,8 @@ import queryEnCookies from "../../middlewares/2-Actualizar/ACT-queryEnCookies.js
 // Middlewares de API - valida errores
 import descargaImg from "../../middlewares/descargaImg/IMG-descargaImg.js";
 import imgEnReqBody from "../../middlewares/descargaImg/IMG-imgEnReqBody.js";
-import validaFiltros from "../../middlewares/2-Actualizar/ACT-1Filtros.js";
+import validaFiltros from "../../middlewares/2-Actualizar/ACT-1Filtros1Validacs.js";
+import validaCaptura from "../../middlewares/2-Actualizar/ACT-1Filtros2ValidaCapt.js";
 import validaEncabGuarda from "../../middlewares/2-Actualizar/ACT-2Encab1Guarda.js";
 import validaEncabElimina from "../../middlewares/2-Actualizar/ACT-2Encab2Elimina.js";
 import validaContActual from "../../middlewares/2-Actualizar/ACT-3ContActual.js";
@@ -26,7 +27,7 @@ const router = express.Router();
 router.get("/api/act-filtros-datos-inciales", API.datosIniciales);
 
 // APIs - Encabezado
-router.get("/api/act-filtros-obtiene-encabezados", validaFiltros, captura, API.encabezado.obtiene);
+router.get("/api/act-filtros-obtiene-encabezados", validaFiltros, validaCaptura, captura, API.encabezado.obtiene);
 router.post("/api/act-encabezado-guarda", descargaImg.none(), validaEncabGuarda, API.encabezado.guarda); // se usa multer para que procese el formData
 router.delete("/api/act-encabezado-elimina", validaEncabElimina, API.encabezado.elimina);
 
