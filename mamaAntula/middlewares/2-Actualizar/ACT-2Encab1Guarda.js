@@ -5,7 +5,6 @@ export default async (req, res, next) => {
 	// Variables
 	const {tema_id, pestana_id, encab_id} = req.body;
 	const {usuario} = req.session;
-	mensajes = [];
 
 	// GENERAL - tema_id y pestana_id
 	if (!tema_id && !pestana_id) return res.json({error: "Tenés que elegir un tema o una pestaña"});
@@ -141,7 +140,7 @@ export default async (req, res, next) => {
 };
 
 // Variables
-let mensajes;
+let mensajes = [];
 
 // Funciones
 const preparaLaRespuesta = (mensajes) => {
