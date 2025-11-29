@@ -17,7 +17,7 @@ import validaContActual from "../../middlewares/2-Actualizar/ACT-3ContActual.js"
 import validaContNuevo from "../../middlewares/2-Actualizar/ACT-4ContNuevo.js";
 
 // Middlewares de API - captura
-import captura from "../../middlewares/2-Actualizar/ACT-Captura.js";
+import captura from "../../middlewares/2-Actualizar/ACT-captura.js";
 
 // 🧩 Router
 const router = express.Router();
