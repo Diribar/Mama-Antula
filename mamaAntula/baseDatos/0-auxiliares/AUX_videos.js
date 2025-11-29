@@ -1,5 +1,5 @@
 export default (sequelize, dt) => {
-	const alias = "capacitaciones";
+	const alias = "videos";
 	const columns = {
 		// Referencias
 		orden: {type: dt.INTEGER},
@@ -8,7 +8,7 @@ export default (sequelize, dt) => {
 		codigo: {type: dt.STRING(20)},
 	};
 	const config = {
-		tableName: "aux_capacitaciones",
+		tableName: "aux_videos",
 		timestamps: false,
 	};
 	const entidad = sequelize.define(alias, columns, config);

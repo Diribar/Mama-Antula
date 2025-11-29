@@ -29,12 +29,12 @@ export default {
 		const codigoVista = "capacitacion";
 
 		// Datos para la vista
-		const capacitaciones = await baseDatos.obtieneTodos("capacitaciones", "rol");
+		const videos = await baseDatos.obtieneTodos("videos", "rol");
 
 		// Fin
 		return res.render("CMP-0Estructura", {
 			...{tituloPagina, temaVista, codigoVista},
-			capacitaciones,
+			videos,
 		});
 	},
 };
