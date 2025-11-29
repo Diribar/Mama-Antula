@@ -9,7 +9,7 @@ export default {
 			const statusRegistro_id = (aprueba && aprobado_id) || (rechaza && rechazado_id);
 			const statusSugeridoPor_id = req.session.usuario.id;
 
-			// Cambia el status de sus dependencias y mueve los archivos de imagen
+			// Cambia el status del encabezado y sus dependencias
 			await procesos.cambioStatus.encabezadoContenidos({encab_id, statusRegistro_id, statusSugeridoPor_id});
 
 			// Mueve los archivos de imagen
