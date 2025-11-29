@@ -1,6 +1,8 @@
 #tituloMasContenido #contenido, #sectorContActual .bloque.sector, #contenidoRevisar {
 	--marginBottom: 12px;
 
+	h3 {font-style: italic; font-weight: normal; margin-bottom: 3px; font-variant: small-caps;}
+
 	/* COMBINADOS: Texto con imagen, Imagen sola, Video, Carrusel */
 	:is(.bloque-textoImagen, .bloque-imagen, .bloque-video, .bloque-carrusel) .leyenda {
 		font-style: italic; color: var(--grisInterm); text-align: center; text-wrap: balance;

@@ -84,7 +84,7 @@ window.addEventListener("load", async () => {
 
 				// Botones a mostrar
 				DOM.iconoGuardar.classList[encabezadoNuevo ? "remove" : "add"]("ocultar");
-				DOM.iconoRecuperar.classList[statusRechazado && esRevisor ? "remove" : "add"]("ocultar");
+				DOM.iconoRecuperar.classList[statusRechazado ? "remove" : "add"]("ocultar");
 				DOM.iconoEliminar.classList[!encabezadoNuevo && !statusRechazado ? "remove" : "add"]("ocultar");
 			}
 		},
