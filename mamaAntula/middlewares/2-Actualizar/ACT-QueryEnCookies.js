@@ -2,9 +2,7 @@
 
 export default (req, res, next) => {
 	// Si no existe query, saltea la función
-	console.log(5);
 	if (!Object.keys(req.query).length) return next();
-	console.log(8);
 
 	// Variables
 	const {actSeccion_id, actTema_id, actPestana_id, actEncabezado_id} = req.query;

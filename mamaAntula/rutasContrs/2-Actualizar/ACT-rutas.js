@@ -5,7 +5,7 @@ import vista from "./ACT-controlVista.js";
 
 // Middlewares de Vista
 import soloActualiz from "../../middlewares/8-Usuarios-Roles/US-Solo3Actualiz.js";
-import actCookies from "../../middlewares/2-Actualizar/ACT-ActCookies.js";
+import queryEnCookies from "../../middlewares/2-Actualizar/ACT-QueryEnCookies.js";
 
 // Middlewares de API - valida errores
 import descargaImg from "../../middlewares/descargaImg/IMG-descargaImg.js";
@@ -41,7 +41,7 @@ router.post("/api/act-nuevo-contenido-guarda", descargaImg.single("archivo"), im
 router.post("/api/act-nuevo-carrusel-guarda", descargaImg.array("archivos"), imgEnReqBody, validaContNuevo, API.guardaContNuevo);
 
 // 🖥️ Vistas
-router.get("/", soloActualiz, actCookies, vista.actualizar);
+router.get("/", soloActualiz, queryEnCookies, vista.actualizar);
 
 // ✅ Export
 export default router;
