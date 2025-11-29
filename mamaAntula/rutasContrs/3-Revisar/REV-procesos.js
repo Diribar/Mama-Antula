@@ -3,17 +3,14 @@
 export default {
 	// API
 	cambioStatus: {
-		encabezado: async ({encab_id, ...cambioStatus}) => {
-			// Variables
-			const espera = [];
-
-			// Cambia el status del encabezado
-			espera.push(baseDatos.actualizaPorId("encabezados", encab_id, cambioStatus));
-
-			// Cambia el status de los contenidos
+		encabezadoContenidos: async ({encab_id, ...cambioStatus}) =>
+			Promise.all([
+				baseDatos.actualizaPorId("encabezados", encab_id, cambioStatus), // Cambia el status del encabezado
+				baseDatos.actualizaPorCondicion("contenidos", {encab_id}, cambioStatus), // Cambia el status de los contenidos
+			]),
+		mueveArchivosImg: async (encab_id) => {
+			// Obtiene los contenidos
 			const contenidos = await baseDatos.obtieneTodosPorCondicion("contenidos", {encab_id}, "carrusel");
-			espera.push(baseDatos.actualizaPorCondicion("contenidos", {encab_id}, cambioStatus));
-			await Promise.all(espera);
 
 			// Obtiene todas las imágenes a mover
 			const imagenes = [];
@@ -328,7 +325,7 @@ export default {
 
 				// Completa el encabezado
 				encabezado = comp.tituloElab(encabezado);
-				encabezado.anchor ="/actualizar"+ this.anchorLectura(encabezado);
+				encabezado.anchor = "/actualizar" + this.anchorLectura(encabezado);
 
 				// Agrega a la ruta
 				if (rutas[ruta]) rutas[ruta].encabezados.push(encabezado);
