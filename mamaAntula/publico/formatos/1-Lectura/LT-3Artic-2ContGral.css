@@ -1,10 +1,10 @@
 #cuerpo .contenidoCuerpo {
 	border: 1px solid var(--grisOscuro);
-	padding-left: 20px; padding-block: 10px;
+	padding-block: 10px;
 }
 .contenidoCuerpo {
 	background-color: var(--grisMuyClaroFondo);
-	padding-left: 20px; border-radius: 20px;
+	padding-left: 20px; border-radius: 20px; border-top-left-radius: 0;
 
 	&:has(#filtroIndice) #tituloMasContenido {--margenIzq: 210px; margin-left: var(--margenIzq); max-width: calc(100% - var(--margenIzq));}
 	&:not(:has(#filtroIndice)) #tituloMasContenido {max-width: 100%;}
@@ -17,7 +17,7 @@
 		&:has(#tituloDelContenido) #tituloDelContenido {padding-block: 6px 10px;}
 
 		/* Temas generales del contenido */
-		&:has(#tituloDelContenido) #contenido {height: calc(100% - 22px - 16px);} /* 22px es el alto de #tituloDelContenido sin el padding, y 16px es el padding */
+		&:has(#tituloDelContenido) #contenido {height: calc(100% - 27px - 16px);} /* 22px es el alto de #tituloDelContenido sin el padding, y 16px es el padding */
 		/* &:not(:has(#tituloDelContenido)) #contenido {height: calc(100% - 6px);}  *//* 6px es el alto del padding */
 		#contenido {
 			display: flex; padding-right: 20px; overflow-y: auto;
