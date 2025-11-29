@@ -232,7 +232,7 @@ window.addEventListener("load", async () => {
 		// Auxiliares
 		imgsCrsl: ({carrusel, contenido}) => {
 			// Variables
-			const subCarpeta = contenido.statusRegistro_id == creado_id ? "2-Revisar/" : "1-Final/";
+			const subCarpeta = contenido.statusRegistro_id == comp1234.creado_id ? "2-Revisar/" : "1-Final/";
 
 			// Crea el contenedor de cada imagen
 			const contenedorImg = document.createElement("div");

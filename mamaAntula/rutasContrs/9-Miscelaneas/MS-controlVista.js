@@ -1,5 +1,4 @@
 "use strict";
-import procesos from "./MS-procesos.js";
 const temaVista = "miscelaneas";
 
 export default {
@@ -26,10 +25,10 @@ export default {
 	capacitacion: async (req, res) => {
 		// Variables
 		const tituloPagina = "Videos de Capacitación";
-		const codigoVista = "capacitacion";
+		const codigoVista = "videos";
 
 		// Datos para la vista
-		const videos = await baseDatos.obtieneTodos("videos", "rol");
+		const videos = await baseDatos.obtieneTodos("videos", "rol").then((n) => n.sort((a, b) => a.orden - b.orden));
 
 		// Fin
 		return res.render("CMP-0Estructura", {
