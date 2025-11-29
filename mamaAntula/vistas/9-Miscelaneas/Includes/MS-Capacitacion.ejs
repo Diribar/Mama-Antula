@@ -4,6 +4,9 @@
 		<% if (locals.usuario && !usuario.rol.actualizac && video.rol.actualizac) continue %>
 		<% if (locals.usuario && !usuario.rol.revision && video.rol.revision) continue %>
 		<% if (locals.usuario && !usuario.rol.cambioRol && video.rol.cambioRol) continue %>
-		<li><span><button data-video="/videos/<%= video.codigo %>.mp4"><%= video.nombre %></button>Rol <%= video.rol.nombre %></span></li>
+		<li><span>
+			<button data-video="/videos/<%= video.codigo %>.mp4"><%= video.nombre %></button>
+			Rol <%= video.rol.nombre %>
+		</span></li>
 	<% } %>
 </ol>
