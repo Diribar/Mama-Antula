@@ -61,7 +61,8 @@ window.addEventListener("load", async () => {
 				v.encabezado &&
 				((v.encabezado.statusRegistro_id == comp1234.creado_id &&
 					v.encabezado.statusSugeridoPor_id != comp1234.usuario.id) || // el encabezado está en status creado y fue creado por otro usuario
-					[comp1234.rechazar_id, comp1234.rechazado_id].includes(v.encabezado.statusRegistro_id)); // el encabezado está en status rechazar/rechazado
+					v.encabezado.statusRegistro_id == comp1234.rechazar_id || // el encabezado está en status rechazar
+					v.encabezado.statusRegistro_id == comp1234.rechazado_id && !comp1234.usuario.rol.revision); // el encabezado está en status rechazado y el usuario no tiene permiso de revisor
 
 			// Si oculta íconos, muestra la imagen del usuario
 			if (v.ocultaIconos) {
