@@ -1,5 +1,5 @@
 <ol>
 	<% for (const video of videos) { %>
-		<li><span><button><%= video.nombre %></button>Rol <%= video.rol.nombre %></span></li>
+		<li><span><button data-video="/videos/<%= video.codigo %>.mp4"></button>><%= video.nombre %></button>Rol <%= video.rol.nombre %></span></li>
 	<% } %>
 </ol>

@@ -60,9 +60,8 @@ globalThis.carpImgsEditables = path.join(rutaHome, "../9-Imagenes"); // este dom
 app.use("/imgsEditables", express.static(carpImgsEditables));
 
 // Carpetas públicas - otras
-app.use("/formatos", express.static(path.join(rutaHome, "/publico/formatos")));
-app.use("/javascript", express.static(path.join(rutaHome, "/publico/javascript")));
-app.use("/descargas", express.static(path.join(rutaHome, "/publico/descargas")));
+for (const carpeta of ["formatos", "javascript", "descargas", "videos"])
+	app.use("/" + carpeta, express.static(path.join(rutaHome, "/publico/" + carpeta)));
 app.use("/fa", express.static("node_modules/@fortawesome/fontawesome-free"));
 // app.use(morgan("dev"));
 
