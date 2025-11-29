@@ -253,7 +253,7 @@ export default {
 			return;
 		},
 	},
-	captura: (encabezado, usuario) => {
+	capturaObtieneRuta: (encabezado, usuario) => {
 		// Actualiza la captura
 		const {tema_id, pestana_id} = encabezado;
 		comp.captura({tema_id, pestana_id, capturadoPor_id: usuario.id});
