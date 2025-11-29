@@ -4,10 +4,10 @@
 	<ul>
 		<% for (const ruta in rutas) { %>
 			<% const {titulo, tituloElab} = rutas[ruta].encabezados[0] %>
-			<% console.log(6, {ruta, titulo, tituloElab}) %>
-
 			<% if (titulo || tituloElab) { %>
+				<!-- Ruta con título -->
 				<li><%= ruta %></li>
+				<!-- Título -->
 				<ul>
 					<% for (const encabezado of rutas[ruta].encabezados) { %>
 						<% const {titulo, tituloElab, anchor} = encabezado %>
@@ -15,6 +15,7 @@
 					<% } %>
 				</ul>
 			<% } else { %>
+				<!-- Ruta sin título -->
 				<li><a href="<%= rutas[ruta].encabezados[0].anchor %>"><%= ruta %></a></li>
 			<% } %>
 		<% } %>

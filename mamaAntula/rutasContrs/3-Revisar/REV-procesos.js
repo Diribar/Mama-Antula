@@ -328,7 +328,7 @@ export default {
 
 				// Completa el encabezado
 				encabezado = comp.tituloElab(encabezado);
-				encabezado.anchor = this.anchorLectura(encabezado);
+				encabezado.anchor ="/actualizar"+ this.anchorLectura(encabezado);
 
 				// Agrega a la ruta
 				if (rutas[ruta]) rutas[ruta].encabezados.push(encabezado);
@@ -355,15 +355,15 @@ export default {
 			const {seccion, tema, pestana} = encabezado;
 
 			// Le agrega la sección
-			let anchorLectura = "/?" + seccion.url + "/" + tema.url;
+			let anchorLectura = "/?actSeccion_id=" + seccion.id + "&actTema_id=" + tema.id;
 
 			// Le agrega la pestaña
-			anchorLectura += (pestana && "/" + pestana.url) || "";
+			anchorLectura += (pestana && "&actPestana_id=" + pestana.id) || "";
 
 			// Le agrega el encabezado
 			const temaActual = temasSecciones.find((n) => n.id == tema.id);
 			const conIndice = temaActual.indicesFecha.length || temaActual.indicesLugar.length;
-			anchorLectura += conIndice ? "/?id=" + encabezado.id : "";
+			anchorLectura += conIndice ? "&actEncabezado_id=" + encabezado.id : "";
 
 			// Fin
 			return anchorLectura;

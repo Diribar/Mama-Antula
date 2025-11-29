@@ -5,10 +5,11 @@ import vista from "./ACT-controlVista.js";
 
 // Middlewares de Vista
 import soloActualiz from "../../middlewares/8-Usuarios-Roles/US-Solo3Actualiz.js";
-import descargaImg from "../../middlewares/descargaImg/IMG-descargaImg.js";
-import imgEnReqBody from "../../middlewares/descargaImg/IMG-imgEnReqBody.js";
+import actCookies from "../../middlewares/2-Actualizar/ACT-ActCookies.js";
 
 // Middlewares de API - valida errores
+import descargaImg from "../../middlewares/descargaImg/IMG-descargaImg.js";
+import imgEnReqBody from "../../middlewares/descargaImg/IMG-imgEnReqBody.js";
 import validaFiltros from "../../middlewares/2-Actualizar/ACT-1Filtros.js";
 import validaEncabGuarda from "../../middlewares/2-Actualizar/ACT-2Encab1Guarda.js";
 import validaEncabElimina from "../../middlewares/2-Actualizar/ACT-2Encab2Elimina.js";
@@ -16,7 +17,7 @@ import validaContActual from "../../middlewares/2-Actualizar/ACT-3ContActual.js"
 import validaContNuevo from "../../middlewares/2-Actualizar/ACT-4ContNuevo.js";
 
 // Middlewares de API - captura
-import captura from "../../middlewares/2-Actualizar/ACT-captura.js";
+import captura from "../../middlewares/2-Actualizar/ACT-Captura.js";
 
 // 🧩 Router
 const router = express.Router();
@@ -40,7 +41,7 @@ router.post("/api/act-nuevo-contenido-guarda", descargaImg.single("archivo"), im
 router.post("/api/act-nuevo-carrusel-guarda", descargaImg.array("archivos"), imgEnReqBody, validaContNuevo, API.guardaContNuevo);
 
 // 🖥️ Vistas
-router.get("/", soloActualiz, vista.actualizar);
+router.get("/", soloActualiz, actCookies, vista.actualizar);
 
 // ✅ Export
 export default router;
