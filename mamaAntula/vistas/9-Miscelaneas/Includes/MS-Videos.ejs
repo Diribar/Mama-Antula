@@ -1,4 +1,7 @@
-<h3>Estos videos sólo son accesibles para usuarios con el permiso para actualizar el contenido del sitio.</h3>
+<% if (locals.usuario && usuario.rol.actualizac) { %>
+	<h3>Estos videos sólo son accesibles para usuarios con el permiso para actualizar el contenido del sitio.</h3>
+<% } %>
+
 <ol>
 	<% for (const video of videos) { %>
 		<% if (!locals.usuario && video.rol) continue // muestra alta de usuario y ninguno más %>
