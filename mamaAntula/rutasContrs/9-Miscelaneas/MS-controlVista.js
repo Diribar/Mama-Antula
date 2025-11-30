@@ -22,7 +22,7 @@ export default {
 			...{tituloPagina, temaVista, codigoVista},
 		});
 	},
-	capacitacion: async (req, res) => {
+	videos: async (req, res) => {
 		// Variables
 		const tituloPagina = "Videos de Capacitación";
 		const codigoVista = "videos";

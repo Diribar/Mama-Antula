@@ -7,7 +7,7 @@
 		<% if (locals.usuario && !usuario.rol.cambioRol && video.rol.cambioRol) continue %>
 		<li><span>
 			<button data-video="/videos/<%= video.url %>.mp4"><%= video.nombre %></button>
-			<% if (video.rol) { %>Permiso de <%= video.rol.nombre %><% } %>
+			<% if (video.rol) { %><p>Permiso de <span><b><em><%= video.rol.nombre %></em></b></span></p><% } %>
 		</span></li>
 	<% } %>
 </ol>

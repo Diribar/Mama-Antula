@@ -1,0 +1,10 @@
+#cuerpo ol li {
+	margin-bottom: 20px;
+	& > span {gap: 30px;}
+	span {justify-content: space-between;}
+	button {font-size: 1.3rem; padding: 3px 7px;}
+	p {
+		display: flex; flex-direction: row;
+		b {margin-left: 5px;}
+	}
+}

@@ -4,18 +4,15 @@
 		<i class="fa-solid fa-envelope" title="Contactanos"></i>
 	</a>
 
-	<% if (locals.usuario) { %>
-		<% if (usuario.rol.actualizac) { %>
-			<!-- Biblioteca -->
-			<a href="/biblioteca" class="menuOpcion">
-				<i class="fa-solid fa-book-medical"></i>
-			</a>
-		<% } else { %>
-			<!-- Capacitación -->
-			<a href="/capacitacion" class="menuOpcion">
-				<i class="fa-solid fa-book-medical"></i>
-			</a>
-		<% } %>
+	<% if (locals.usuario &&usuario.rol.actualizac) { %>
+		<!-- Biblioteca -->
+		<a href="/biblioteca" class="menuOpcion">
+			<i class="fa-solid fa-book-medical"></i>
+		</a>
+		<!-- Capacitación -->
+		<a href="/videos" class="menuOpcion">
+			<i class="fa-solid fa-video"></i>
+		</a>
 	<% } %>
 
 </div>
