@@ -174,6 +174,7 @@ export default {
 
 				// Contenidos
 				if (contenido.imagen) comp.gestionArchs.elimina(carpRevisar, contenido.imagen, true);
+				if (contenido.imagen2) comp.gestionArchs.elimina(carpRevisar, contenido.imagen2, true);
 				await baseDatos.eliminaPorId("contenidos", id);
 			}
 
