@@ -6,16 +6,16 @@
 
 	<% if (!locals.usuario) { %>
 		<!-- Videos -->
-		<a href="/videos" class="menuOpcion">
+		<a href="/videos" class="menuOpcion" title="Videos de capacitación">
 			<i class="fa-solid fa-video"></i>
 		</a>
 	<% } else if (usuario.rol.actualizac) { %>
 		<!-- Biblioteca -->
-		<a href="/biblioteca" class="menuOpcion">
+		<a href="/biblioteca" class="menuOpcion" title="Biblioteca">
 			<i class="fa-solid fa-book-medical"></i>
 		</a>
 		<!-- Videos -->
-		<a href="/videos" class="menuOpcion">
+		<a href="/videos" class="menuOpcion" title="Videos de capacitación">
 			<i class="fa-solid fa-video"></i>
 		</a>
 	<% } %>
