@@ -135,7 +135,7 @@ app.set("view engine", "ejs");
 	for (const campo in datosPartics) globalThis[campo] = datosPartics[campo]; // asigna una variable a valores específicos
 
 	// Rutinas
-	const rutinas = await import("./rutinas/RT-Control.mjs").then((n) => n.default);
+	const rutinas = await import("./rutinas/RT-Control.js").then((n) => n.default);
 	await rutinas.startupMasConfiguracion();
 
 	// Middlewares transversales

@@ -2,13 +2,16 @@
 // Variables
 const apiKey = process.env.API_KEY_GOOGLE;
 
-module.exports = {
+export default {
 	revisaLinks: async function (contenidos) {
 		// Variables - generales
+		const cantLinks = contenidos.length;
+		let contador = 0;
+		let cantLinksOk = 0;
+		let cantLinksNo = 0;
 		const espera = [];
 
 		// Rutina
-		let contador = 0;
 		for (const contenido of contenidos) {
 			// Obtiene el resultado de la validación
 			const respuesta = this.revisaLink(contenido).then(async (res) => {
@@ -46,6 +49,12 @@ module.exports = {
 		}
 		await Promise.all(espera);
 
+		// Estadísticas
+		const cantNoVigentes = cantLinks - cantLinksOk;
+		const plural = cantNoVigentes != 1 ? "s" : "";
+		const porcVigentes = Math.round((cantLinksOk / cantLinks) * 100);
+		console.log(cantNoVigentes + " video" + plural + " no vigente" + plural + " -", "precisión " + porcVigentes + "%\n");
+
 		// Fin
 		return;
 	},
@@ -81,6 +90,7 @@ module.exports = {
 		}
 	},
 	actualizaStatusEnBd: async (contenido, vigente) => {
+		return;
 		// Actualiza el registro del contenido
 		const statusRegistro_id = vigente ? aprobado_id : creadoAprob_id;
 		await baseDatos.actualizaPorId("contenidos", contenido.id, {statusRegistro_id});

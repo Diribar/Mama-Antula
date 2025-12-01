@@ -1,26 +1,28 @@
 "use strict";
 import cron from "node-cron";
-import linksVencidos from "./RT-LinksVencidos";
+import linksVencidos from "./RT-LinksVencidos.js";
+import baseDatos from "../funciones/baseDatos.js";
 
 // Exportar
 export default {
 	// Start-up y Configuración de Rutinas
 	startupMasConfiguracion: async function () {
 		// Rutinas programadas - compartidas diarias: 0:00hs
-		cron.schedule("0 0 * * *", () => this.rutinasDiarias(), {timezone: "Etc/Greenwich"}); // Rutinas diarias (a las 0:00hs)
-		cron.schedule("1 * * * *", () => this.rutinasHorarias(), {timezone: "Etc/Greenwich"}); // Rutinas horarias (a las X:00hs)
+		cron.schedule("* * * * 1", () => this.rutinasSemanales(), {timezone: "Etc/Greenwich"}); // Rutinas diarias (a las 0:00hs)
+		//cron.schedule("0 0 * * *", () => this.rutinasDiarias(), {timezone: "Etc/Greenwich"}); // Rutinas diarias (a las 0:00hs)
+		// cron.schedule("1 * * * *", () => this.rutinasHorarias(), {timezone: "Etc/Greenwich"}); // Rutinas horarias (a las X:00hs)
 
 		// Fin
 		return;
 	},
-
-	rutinasDiarias: async function () {
+	rutinasSemanales: async function () {
 		await this.rutinas.verificaLinksYouTube();
+		await this.rutinas.elimImgsSinRegEnBd.consolidado();
 	},
 
 	// Rutinas
 	rutinas: {
-		// Diarias
+		// Semanales
 		verificaLinksYouTube: async () => {
 			// Obtiene los links a revisar
 			const condicion = {statusRegistro_id: aprobado_id, video: {[Op.ne]: null}};
@@ -33,40 +35,49 @@ export default {
 			contenidos = await baseDatos.obtieneTodosPorCondicion("contenidos", {statusRegistro_id: creadoAprob_id});
 
 			// Segunda revisión
-			await linksVencidos.revisaLinks(contenidos);
+			if (contenidos.length) await linksVencidos.revisaLinks(contenidos);
 
 			// Fin
 			return;
 		},
-		idCorrelativo: async () => {
-			// Variables
-			const tablas = [
-				...["edicsHistorial", "statusHistorial"],
-				...["prodEdics", "rclvEdics", "linkEdics"],
-				...["capturas"],
-				...["calRegistros", "misConsultas", "consRegsPrefs", "pppRegistros"],
-				...["capsSinLink", "novsPeliculas"],
-			];
-
-			// Actualiza los valores de ID
-			for (const tabla of tablas) {
+		elimImgsSinRegEnBd: {
+			consolidado: async function () {
 				// Variables
-				const registros = await baseDatos.obtieneTodos(tabla);
-				let id = 1;
+				let archsEnBd;
 
-				// Actualiza los IDs - es crítico que sea un 'for', porque el 'forEach' no respeta el 'await'
-				for (const registro of registros) {
-					if (registro.id != id) await baseDatos.actualizaPorId(tabla, registro.id, {id}); // tiene que ser 'await' para no duplicar ids
-					id++;
+				// Elimina las imágenes de las carpetas "Revisar" y "Final"
+				archsEnBd = await this.obtieneImgsContenidoCrsl();
+				const carpetas = [path.join(carpImgsEditables, "1-Final"), path.join(carpImgsEditables, "2-Revisar")];
+				for (const carpeta of carpetas) this.eliminaLasImagenes({carpeta, archsEnBd});
+
+				// Fin
+				return;
+			},
+			obtieneImgsContenidoCrsl: async () => {
+				// Variables
+				const archsEnBd = [];
+
+				// Obtiene las imágenes de los contenidos y carruseles
+				const contenidos = await baseDatos.obtieneTodosPorCondicion("contenidos", {imagen: {[Op.ne]: null}});
+				for (const contenido of contenidos) {
+					archsEnBd.push(contenido.imagen);
+					if (contenido.imagen2) archsEnBd.push(contenido.imagen2);
 				}
+				await baseDatos.obtieneTodos("carrusel").then((n) => n.map((m) => archsEnBd.push(m)));
 
-				// Actualiza el próximo valor de ID
-				const texto = bdNombre + "." + bd[tabla].tableName;
-				await sequelize.query("ALTER TABLE " + texto + " AUTO_INCREMENT = " + id + ";");
-			}
+				// Fin
+				return archsEnBd;
+			},
+			eliminaLasImagenes: ({carpeta, archsEnBd}) => {
+				// Obtiene el nombre de todas las imagenes de los archivos de la carpeta
+				const archsEnDisco = fs.readdirSync(carpeta);
 
-			// Fin
-			return;
+				// Rutina para borrar archivos cuyo nombre no está en BD
+				for (const archEnDisco of archsEnDisco) if (!archsEnBd.includes(archEnDisco)) FN.elimina(carpeta, archEnDisco);
+
+				// Fin
+				return;
+			},
 		},
 	},
 };
