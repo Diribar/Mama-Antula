@@ -1,15 +1,15 @@
 {
 	"name": "mamaantula",
 	"version": "1.00",
-	"main": "app.mjs",
+	"main": "app.js",
 	"type": "module",
 	"scripts": {
 		"start": "nodemon -e js,json app.js"
 	},
 	"keywords": [],
-	"author": "",
+	"author": "Diego Iribarren",
 	"license": "ISC",
-	"description": "",
+	"description": "Portal web de la Familia de Mama Antula",
 	"dependencies": {
 		"@fortawesome/fontawesome-free": "^7.1.0",
 		"async": "^3.2.6",
