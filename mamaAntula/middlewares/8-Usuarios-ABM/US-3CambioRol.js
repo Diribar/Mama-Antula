@@ -38,9 +38,9 @@ export default async (req, res, next) => {
 
 		// Administradores - deben ser entre 1 y 2 usuarios
 		if (cambioRoles.length < 1 && !rolesCambioRoles_ids.includes(rol_id))
-			return res.json({error: "El rol 'Cambio de Roles' debe tener al menos 1 usuario"});
+			return res.json({error: "El rol 'Cambio de Rol' debe tener al menos 1 usuario"});
 		if (cambioRoles.length > 2 && rolesCambioRoles_ids.includes(rol_id))
-			return res.json({error: "El rol 'Cambio de Roles' no debe tener más de 2 usuarios"});
+			return res.json({error: "El rol 'Cambio de Rol' no debe tener más de 2 usuarios"});
 	}
 
 	// Fin
