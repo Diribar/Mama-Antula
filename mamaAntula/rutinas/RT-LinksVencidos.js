@@ -1,8 +1,6 @@
 "use strict";
 // Variables
-const procsFM_PRL = require("../rutasContrs/2.0-Familias/FM-Procs1-PRL");
 const apiKey = process.env.API_KEY_GOOGLE;
-const motivoVideoNoDisp_id = 31;
 
 module.exports = {
 	revisaLinks: async function (contenidos) {
