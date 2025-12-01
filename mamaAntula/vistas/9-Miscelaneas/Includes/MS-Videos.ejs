@@ -4,14 +4,15 @@
 
 <ol>
 	<% for (const video of videos) { %>
-		<% if (!locals.usuario && video.rol) continue // muestra alta de usuario y ninguno más %>
-		<% if (locals.usuario && !video.rol) continue // no muestra alta de usuario %>
-		<% if (locals.usuario && !usuario.rol.actualizac && video.rol.actualizac) continue %>
-		<% if (locals.usuario && !usuario.rol.revision && video.rol.revision) continue %>
-		<% if (locals.usuario && !usuario.rol.cambioRol && video.rol.cambioRol) continue %>
+		<% let vale %>
+		<% if (video.visita && !locals.usuario) vale = true // bien - no es apto para visitas %>
+		<% if (video.lectura && locals.usuario && !usuario.rol.actualizac) vale = true // bien - no es apto para el permiso soloLectura %>
+		<% if (video.actualizac && locals.usuario && usuario.rol.actualizac) vale = true // no es apto para el permiso actualizac %>
+		<% if (video.revision && locals.usuario && usuario.rol.revision) vale = true // no es apto para el permiso revision %>
+		<% if (video.cambioRol && locals.usuario && usuario.rol.cambioRol) vale = true // no es apto para el permiso cambioRol %>
+		<% if (!vale) continue %>
 		<li><span>
 			<button data-video="/videos/<%= video.url %>.mp4"><%= video.nombre %></button>
-			<% if (video.rol) { %><p>Permiso de <span><b><em><%= video.rol.nombre %></em></b></span></p><% } %>
 		</span></li>
 	<% } %>
 </ol>
