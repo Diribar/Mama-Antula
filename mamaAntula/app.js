@@ -32,7 +32,7 @@ app.use(express.json()); // Para convertir el json recibido por POST en req.body
 app.use(cookieParser());
 
 // Variables de entorno
-globalThis.rutaHome = path.dirname(fileURLToPath(import.meta.url));
+globalThis.rutaHome = path.dirname(fileURLToPath(import.meta.url)); // es la carpeta raíz
 globalThis.entProd = path.basename(rutaHome) == "1-Actual";
 globalThis.entPrueba = path.basename(rutaHome) == "2-Prueba";
 globalThis.entDesarr = !entProd && !entPrueba;
