@@ -31,7 +31,7 @@ export default {
 
 	// Landing page
 	LP_urlSeccion: "inicio",
-	LP_urlTema: "novedades",
+	LP_urlTema: "quien-es-mama-antula",
 
 	// Temas y encabezados
 	temaCarta_id: 10, // el id del tema "Cartas"

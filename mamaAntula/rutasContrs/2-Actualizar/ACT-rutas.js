@@ -13,7 +13,8 @@ import imgEnReqBody from "../../middlewares/descargaImg/IMG-imgEnReqBody.js";
 import validaFiltros from "../../middlewares/2-Actualizar/ACT-1Filtros1Validacs.js";
 import validaCaptura from "../../middlewares/2-Actualizar/ACT-1Filtros2ValidaCapt.js";
 import validaEncabGuarda from "../../middlewares/2-Actualizar/ACT-2Encab1Guarda.js";
-import validaEncabElimina from "../../middlewares/2-Actualizar/ACT-2Encab2Elimina.js";
+import validaEncabRecupera from "../../middlewares/2-Actualizar/ACT-2Encab2Recupera.js";
+import validaEncabElimina from "../../middlewares/2-Actualizar/ACT-2Encab3Elimina.js";
 import validaContActual from "../../middlewares/2-Actualizar/ACT-3ContActual.js";
 import validaContNuevo from "../../middlewares/2-Actualizar/ACT-4ContNuevo.js";
 
@@ -29,6 +30,7 @@ router.get("/api/act-filtros-datos-inciales", API.datosIniciales);
 // APIs - Encabezado
 router.get("/api/act-filtros-obtiene-encabezados", validaFiltros, validaCaptura, captura, API.encabezado.obtiene);
 router.post("/api/act-encabezado-guarda", descargaImg.none(), validaEncabGuarda, API.encabezado.guarda); // se usa multer para que procese el formData
+router.put("/api/act-encabezado-recupera", validaEncabRecupera, API.encabezado.recupera);
 router.delete("/api/act-encabezado-elimina", validaEncabElimina, API.encabezado.elimina);
 
 // APIs - Contenido Actual - CRUD

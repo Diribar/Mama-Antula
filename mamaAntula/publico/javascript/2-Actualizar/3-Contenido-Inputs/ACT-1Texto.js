@@ -112,6 +112,7 @@ window.addEventListener("load", async () => {
 			DOM.output.value = quill.root.innerHTML
 				.replaceAll("&nbsp;", " ") // reemplaza por espacios normales;
 				.replaceAll("  ", " ") // reemplaza espacios duplicados
+				.replaceAll("h2>", "h3>")// reemplaza el tipo de título
 				.replace("<p><br></p>", "") // reemplaza el último, porque los demás ya fueron quitados
 				.trim(); // reemplaza espacios al final
 		}, 100);

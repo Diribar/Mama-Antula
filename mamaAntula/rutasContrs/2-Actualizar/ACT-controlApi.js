@@ -95,6 +95,18 @@ export default {
 			// Fin
 			return res.json({});
 		},
+		recupera: async (req, res) => {
+			// Variables
+			const {encab_id} = req.body;
+			const statusRegistro_id = aprobado_id;
+			const statusSugeridoPor_id = req.session.usuario.id;
+
+			// Cambia el status del encabezado y sus dependencias
+			await procesos.encabezadoContenidos({encab_id, statusRegistro_id, statusSugeridoPor_id});
+
+			// Fin
+			return res.json({});
+		}
 	},
 	contActual: {
 		obtiene: async (req, res) => {

@@ -16,7 +16,6 @@ import {Sequelize} from "sequelize";
 import mysql from "mysql2";
 import session from "express-session";
 import connectMySQL from "express-mysql-session";
-import morgan from "morgan";
 
 // Variables globales
 globalThis.path = path;
@@ -59,11 +58,18 @@ app.use("/imgsEstables", express.static(carpImgsEstables));
 globalThis.carpImgsEditables = path.join(rutaHome, "../9-Imagenes"); // este dominio
 app.use("/imgsEditables", express.static(carpImgsEditables));
 
+// Carpetas públicas - videos
+const videos = path.join(rutaHome, "../8-Videos"); // este dominio
+app.use("/videos", express.static(videos));
+
+// Carpetas públicas - descargas
+const descargas = path.join(rutaHome, "../7-Descargas"); // este dominio
+app.use("/descargas", express.static(descargas));
+
 // Carpetas públicas - otras
-for (const carpeta of ["formatos", "javascript", "descargas", "videos"])
-	app.use("/" + carpeta, express.static(path.join(rutaHome, "/publico/" + carpeta)));
+app.use("/formatos", express.static(path.join(rutaHome, "/publico/formatos")));
+app.use("/javascript", express.static(path.join(rutaHome, "/publico/javascript")));
 app.use("/fa", express.static("node_modules/@fortawesome/fontawesome-free"));
-// app.use(morgan("dev"));
 
 // Variables globales - debe ser con await, para que primero se carguen las variables globales de más arriba
 const constantes = await import("./variables/constantes.js");

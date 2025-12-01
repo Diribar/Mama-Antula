@@ -1,4 +1,5 @@
 "use strict";
+import procsActualizar from "../2-Actualizar/ACT-procesos.js";
 import procesos from "./REV-procesos.js";
 
 export default {
@@ -9,8 +10,11 @@ export default {
 			const statusRegistro_id = (aprueba && aprobado_id) || (rechaza && rechazado_id);
 			const statusSugeridoPor_id = req.session.usuario.id;
 
-			// Cambia el status de sus dependencias y mueve los archivos de imagen
-			await procesos.cambioStatus.encabezado({encab_id, statusRegistro_id, statusSugeridoPor_id});
+			// Cambia el status del encabezado y sus dependencias
+			await procsActualizar.encabezadoContenidos({encab_id, statusRegistro_id, statusSugeridoPor_id});
+
+			// Mueve los archivos de imagen
+			await procesos.cambioStatus.mueveArchivosImg(encab_id);
 
 			// Fin
 			return res.json({});

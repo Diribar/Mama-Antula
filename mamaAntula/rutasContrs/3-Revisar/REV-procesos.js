@@ -3,17 +3,9 @@
 export default {
 	// API
 	cambioStatus: {
-		encabezado: async ({encab_id, ...cambioStatus}) => {
-			// Variables
-			const espera = [];
-
-			// Cambia el status del encabezado
-			espera.push(baseDatos.actualizaPorId("encabezados", encab_id, cambioStatus));
-
-			// Cambia el status de los contenidos
+		mueveArchivosImg: async (encab_id) => {
+			// Obtiene los contenidos
 			const contenidos = await baseDatos.obtieneTodosPorCondicion("contenidos", {encab_id}, "carrusel");
-			espera.push(baseDatos.actualizaPorCondicion("contenidos", {encab_id}, cambioStatus));
-			await Promise.all(espera);
 
 			// Obtiene todas las imágenes a mover
 			const imagenes = [];
@@ -290,7 +282,7 @@ export default {
 		anchorLectura += "/" + temasSecciones.find((n) => n.id == actTema_id).url;
 
 		// Le agrega la pestaña
-		anchorLectura += (actPestana_id && "/" + v.pestanasTemas.find((n) => n.id == actPestana_id).url) || "";
+		anchorLectura += (actPestana_id && "/" + pestanasTemas.find((n) => n.id == actPestana_id).url) || "";
 
 		// Le agrega el encabezado
 		const conIndice = temaActual.indicesFecha.length || temaActual.indicesLugar.length;
@@ -328,7 +320,7 @@ export default {
 
 				// Completa el encabezado
 				encabezado = comp.tituloElab(encabezado);
-				encabezado.anchor ="/actualizar"+ this.anchorLectura(encabezado);
+				encabezado.anchor = "/actualizar" + this.anchorLectura(encabezado);
 
 				// Agrega a la ruta
 				if (rutas[ruta]) rutas[ruta].encabezados.push(encabezado);

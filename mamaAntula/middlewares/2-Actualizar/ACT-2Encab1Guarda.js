@@ -4,7 +4,7 @@
 export default async (req, res, next) => {
 	// Variables
 	const {tema_id, pestana_id, encab_id} = req.body;
-	mensajes = [];
+	const {usuario} = req.session;
 
 	// GENERAL - tema_id y pestana_id
 	if (!tema_id && !pestana_id) return res.json({error: "Tenés que elegir un tema o una pestaña"});
@@ -22,11 +22,13 @@ export default async (req, res, next) => {
 		if (!encabezado) return res.json({error: "No tenemos ese encabezado"});
 
 		// Sin permiso de edición
+		const {statusRegistro_id, creadoPor_id} = encabezado;
 		if (
-			(encabezado.statusRegistro_id == creado_id && encabezado.creadoPor_id != req.session.usuario.id) ||
-			[rechazar_id, rechazado_id].includes(encabezado.statusRegistro_id)
+			(statusRegistro_id == creado_id && creadoPor_id != usuario.id) ||
+			statusRegistro_id == rechazar_id ||
+			(statusRegistro_id == rechazado_id && !usuario.rol.revision)
 		)
-			return res.json({error: "No tenés permiso para editar este encabezado"});
+			return res.json({error: "No tenés permiso para actualizar este encabezado"});
 
 		// Averigua si hubieron novedades
 		let novedad = false;
@@ -138,7 +140,7 @@ export default async (req, res, next) => {
 };
 
 // Variables
-let mensajes;
+let mensajes = [];
 
 // Funciones
 const preparaLaRespuesta = (mensajes) => {
