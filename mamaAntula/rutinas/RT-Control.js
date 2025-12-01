@@ -1,5 +1,6 @@
 "use strict";
 import cron from "node-cron";
+import linksVencidos from "./RT-LinksVencidos";
 
 // Exportar
 export default {
@@ -21,31 +22,25 @@ export default {
 	rutinas: {
 		// Diarias
 		verificaLinksYouTube: async () => {
-			// Variables
-			const distYT = "youtube.com";
-
 			// Obtiene los links a revisar
 			const condicion = {statusRegistro_id: aprobado_id, video: {[Op.ne]: null}};
-			let links = await baseDatos.obtieneTodosPorCondicion("contenidos", condicion);
+			let contenidos = await baseDatos.obtieneTodosPorCondicion("contenidos", condicion);
 
 			// Primera revisión
-			await linksVencidos.porProv(YT);
+			await linksVencidos.revisaLinks(contenidos);
 
 			// Obtiene los links con el mismo orden que en Revisión
-			links = await baseDatos
-				.obtieneTodosPorCondicion("links", {statusRegistro_id: inactivar_id, prodAprob: true}, entProdsAsocs)
-				.then((n) => n.sort((a, b) => (a.capitulo_id && !b.capitulo_id ? -1 : !a.capitulo_id && b.capitulo_id ? 1 : 0))) // agrupados por capítulos y no capítulos
-				.then((n) => n.sort((a, b) => (a.capitulo_id && b.capitulo_id ? a.capitulo_id - b.capitulo_id : 0))) // ordenados por capítulos
-				.then((n) => n.sort((a, b) => (a.capitulo_id && b.capitulo_id ? a.grupoCol_id - b.grupoCol_id : 0))); // ordenados por colección
+			links = await baseDatos.obtieneTodosPorCondicion(
+				"links",
+				{statusRegistro_id: inactivar_id, prodAprob: true},
+				entProdsAsocs
+			);
 
 			// Segunda revisión
 			console.log("Segunda revisión");
+			const distYT = "youtube.com";
 			YT.links = links.filter((n) => n.url.startsWith(distYT));
-			await linksVencidos.porProv(YT);
-			okRu.links = links.filter((n) => n.url.startsWith(distOkRu));
-			await linksVencidos.porProv(okRu);
-			DM.links = links.filter((n) => n.url.startsWith(distDM));
-			// await linksVencidos.porProv(DM);
+			await linksVencidos.rutinaParaConts(YT);
 
 			// Actualiza la cantidad de links por semana
 			procsFM_PRL.actualizaCantLinksPorSem();
