@@ -30,23 +30,12 @@ export default {
 			await linksVencidos.revisaLinks(contenidos);
 
 			// Obtiene los links con el mismo orden que en Revisión
-			links = await baseDatos.obtieneTodosPorCondicion(
-				"links",
-				{statusRegistro_id: inactivar_id, prodAprob: true},
-				entProdsAsocs
-			);
+			contenidos = await baseDatos.obtieneTodosPorCondicion("contenidos", {statusRegistro_id: creadoAprob_id});
 
 			// Segunda revisión
-			console.log("Segunda revisión");
-			const distYT = "youtube.com";
-			YT.links = links.filter((n) => n.url.startsWith(distYT));
-			await linksVencidos.rutinaParaConts(YT);
-
-			// Actualiza la cantidad de links por semana
-			procsFM_PRL.actualizaCantLinksPorSem();
+			await linksVencidos.revisaLinks(contenidos);
 
 			// Fin
-			console.log("Terminado!");
 			return;
 		},
 		idCorrelativo: async () => {
