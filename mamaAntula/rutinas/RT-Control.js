@@ -73,9 +73,6 @@ export default {
 
 				// Obtiene el nombre de todas las imagenes de los archivos de la carpeta
 				const archsEnDisco = fs.readdirSync(carpeta);
-				console.log(73, archsEnBd);
-				console.log(77,archsEnDisco);
-
 
 				// Rutina para borrar archivos cuyo nombre no está en BD
 				for (const archEnDisco of archsEnDisco) if (!archsEnBd.includes(archEnDisco)) this.elimina(carpeta, archEnDisco);
