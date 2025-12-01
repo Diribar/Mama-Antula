@@ -1,5 +1,4 @@
-/0-Backup
-/7-Descargas
+/Backup
 /8-Videos
 /PPT
 .env
@@ -7,4 +6,3 @@
 *.zip
 # se escribe así porque es una sub-carpeta
 node_modules/
-*.mp4

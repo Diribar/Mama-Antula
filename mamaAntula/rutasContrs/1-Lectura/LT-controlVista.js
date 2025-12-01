@@ -27,7 +27,7 @@ export default {
 		// Condición - si el usuario no tiene el permiso de edición, no se le permite ver los contenidos que tengan status 'creado'
 		const condicion = {tema_id: temaActual.id};
 		const soloStatusAprob = !req.session.usuario || !rolesActualizac_ids.includes(req.session.usuario.rol_id);
-		const statusRegistro_id = soloStatusAprob ? aprobado_id : {[Op.ne]: rechazado_id};
+		const statusRegistro_id = soloStatusAprob ? aprobado_id : [creado_id, aprobado_id];
 		condicion.statusRegistro_id = statusRegistro_id;
 
 		// Obtiene el encabezado y contenido

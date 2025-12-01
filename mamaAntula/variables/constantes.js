@@ -20,7 +20,7 @@ export default {
 		...{izqDer: "fa-arrow-right-arrow-left", arrAbajo: "fa-arrow-right-arrow-left girar90"},
 		...{detalle: "fa-circle-info", edicion: "fa-pen", edicionCambiada: "fa-arrow-right-long", rotar: "fa-rotate-90"},
 		...{graficos: "fa-chart-line", chart: "fa-chart-pie", columnas: "fa-chart-simple", area: "fa-chart-area"},
-		...{prod: "fa-video", rclv: "fa-child", link: "fa-link", instituc: "fa-building-columns", mail: "fa-envelope"},
+		...{video: "fa-video", link: "fa-link", instituc: "fa-building-columns", mail: "fa-envelope"},
 		...{login: "fa-circle-user", altaUser: "fa-user-plus", revision: "fa-user-graduate", mantenim: "fa-tools"},
 	},
 

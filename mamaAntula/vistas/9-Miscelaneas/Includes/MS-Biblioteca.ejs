@@ -1,17 +1,11 @@
+<% if (locals.usuario && usuario.rol.actualizac) { %>
+	<h3>Esta biblioteca sólo está accesible para usuarios con el permiso para actualizar el contenido del sitio.</h3>
+<% } %>
+
 <ol>
-	<li>Memorias relacionadas con el dominio <em>mamaantula.com</em></li>
-	<ul>
-		<li><span>
-			Memoria del año 2022
-			<a href="/descargas/PDF - Memoria 2022.pdf" download><i class="fa-solid fa-download"></i></a>
-		</span></li>
-		<li><span>
-			Memoria del día 30/sep/2025
-			<a href="/descargas/PDF - Memoria-2025-09-30.pdf" download><i class="fa-solid fa-download"></i></a>
-		</span></li>
-	</ul>
-	<li><a href="/capacitacion">Videos de capacitación</a></li>
-	<li>Criterios sobre la navegación</li>
+
+	<!-- Navegación -->
+	<li>Navegación</li>
 	<ul>
 		<li><span>
 			Mapa del sitio
@@ -26,4 +20,20 @@
 			<a href="/descargas/PPT - Simultaneidad.ppsx" download><i class="fa-solid fa-download"></i></a>
 		</span></li>
 	</ul>
+
+	<% if (usuario.rol.revision || usuario.rol.cambioRol) { %>
+		<!-- Memorias relacionadas con el dominio -->
+		<li>Memorias del dominio <em>mamaantula.com</em></li>
+		<ul>
+			<li><span>
+				Memoria del año 2022
+				<a href="/descargas/PDF - Memoria 2022.pdf" download><i class="fa-solid fa-download"></i></a>
+			</span></li>
+			<li><span>
+				Memoria del día 30/sep/2025
+				<a href="/descargas/PDF - Memoria-2025-09-30.pdf" download><i class="fa-solid fa-download"></i></a>
+			</span></li>
+		</ul>
+	<% } %>
+
 </ol>

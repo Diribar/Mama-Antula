@@ -1,3 +1,7 @@
+<% if (locals.usuario && usuario.rol.actualizac) { %>
+	<h3>Estos videos sólo son accesibles para usuarios con el permiso para actualizar el contenido del sitio.</h3>
+<% } %>
+
 <ol>
 	<% for (const video of videos) { %>
 		<% if (!locals.usuario && video.rol) continue // muestra alta de usuario y ninguno más %>
@@ -6,8 +10,8 @@
 		<% if (locals.usuario && !usuario.rol.revision && video.rol.revision) continue %>
 		<% if (locals.usuario && !usuario.rol.cambioRol && video.rol.cambioRol) continue %>
 		<li><span>
-			<button data-video="/videos/<%= video.codigo %>.mp4"><%= video.nombre %></button>
-			<% if (video.rol) { %>Rol <%= video.rol.nombre %><% } %>
+			<button data-video="/videos/<%= video.url %>.mp4"><%= video.nombre %></button>
+			<% if (video.rol) { %><p>Permiso de <span><b><em><%= video.rol.nombre %></em></b></span></p><% } %>
 		</span></li>
 	<% } %>
 </ol>

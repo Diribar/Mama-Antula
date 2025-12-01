@@ -1,11 +1,16 @@
 #cuerpo ol {
+	font-size: 1.4rem;
 	& > li {
+		margin-bottom: 5px;
 		&:not(:first-child) {margin-top: 20px;}
 	}
 	ul {
 		margin-left: 20px;
 		li {
-			span {justify-content: flex-start; gap: 20px;}
+			margin-bottom: 5px;
+			span {
+				justify-content: flex-start; gap: 20px;
+			}
 		}
 	}
 }

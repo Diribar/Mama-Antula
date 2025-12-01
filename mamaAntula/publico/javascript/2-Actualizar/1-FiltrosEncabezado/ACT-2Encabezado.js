@@ -140,7 +140,7 @@ window.addEventListener("load", async () => {
 		input.addEventListener("change", () => input.name == "titulo" && (input.value = inicialMayus(input.value)));
 	}
 
-	// Guarda/Actualiza/Recupera en la BD
+	// Guarda en la BD
 	DOM.iconoGuardar.addEventListener("click", async () => {
 		// Oculta el ícono
 		DOM.iconoGuardar.classList.add("ocultar");
@@ -150,7 +150,7 @@ window.addEventListener("load", async () => {
 		const formData = new FormData(formVisible);
 		formData.append("encab_id", DOM.filtroEncab.value);
 
-		// Si no es una carta, le agrega el tema_id o pestana_id, según corresponda
+		// Le agrega el tema_id o pestana_id, según corresponda
 		const campo_id = comp1234.pestana_id ? "pestana_id" : "tema_id";
 		formData.append(campo_id, comp1234[campo_id]);
 
