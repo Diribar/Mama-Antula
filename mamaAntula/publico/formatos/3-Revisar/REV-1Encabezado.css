@@ -4,7 +4,6 @@
 		padding-block: 6px; position: relative;
 
 		&.creado {background-color: var(--amarilloMuyClaro);}
-		&.aprobado {background-color: var(--verdeClaro);}
 		&.rechazar, &.rechazado {background-color: var(--rojoMuyClaro);}
 
 		h2 {max-width: calc(100% - 200px);}
