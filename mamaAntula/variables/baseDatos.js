@@ -17,7 +17,7 @@ export default {
 			// Cartas
 			idiomas: baseDatos.obtieneTodosConOrden("idiomas", "orden"),
 			lugares: baseDatos.obtieneTodosConOrden("lugares", "nombre"),
-			personajes: baseDatos.obtieneTodosConOrden("personajes", "orden"),
+			personajes: baseDatos.obtieneTodosConOrden("personajes", "nombre"),
 
 			// Usuarios
 			roles: baseDatos.obtieneTodosConOrden("roles", "orden"),
