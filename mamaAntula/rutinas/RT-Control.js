@@ -8,7 +8,7 @@ export default {
 	// Start-up y Configuración de Rutinas
 	startupMasConfiguracion: async function () {
 		// Rutinas programadas - compartidas diarias: 0:00hs
-		cron.schedule("0 0 * * 1", () => this.rutinasSemanales(), {timezone: "Etc/Greenwich"}); // Rutinas diarias (a las 0:00hs)
+		cron.schedule("0 0 * * 1", () => this.rutinasSemanales(), {timezone: "Etc/Greenwich"}); // Rutinas semanales (a las 0:00hs)
 		// cron.schedule("0 0 * * *", () => this.rutinasDiarias(), {timezone: "Etc/Greenwich"}); // Rutinas diarias (a las 0:00hs)
 		// cron.schedule("1 * * * *", () => this.rutinasHorarias(), {timezone: "Etc/Greenwich"}); // Rutinas horarias (a las X:00hs)
 
