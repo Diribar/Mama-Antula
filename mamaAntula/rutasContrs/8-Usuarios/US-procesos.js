@@ -60,7 +60,7 @@ export default {
 		},
 		creaElUsuario: async ({email, contrEncriptada}) => {
 			// Crea el usuario
-			const usuario = await baseDatos.agregaRegistroIdCorrel("usuarios", {email, contrasena: contrEncriptada, versionWeb});
+			const usuario = await baseDatos.agregaRegistro("usuarios", {email, contrasena: contrEncriptada, versionWeb});
 
 			// Agrega 'cliente_id' en 'usuarios'
 			const cliente_id = "U" + String(usuario.id).padStart(10, "0");
