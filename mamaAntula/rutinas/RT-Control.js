@@ -8,10 +8,9 @@ export default {
 	// Start-up y Configuración de Rutinas
 	startupMasConfiguracion: async function () {
 		// Rutinas programadas - compartidas diarias: 0:00hs
-		cron.schedule("* * * * 1", () => this.rutinasSemanales(), {timezone: "Etc/Greenwich"}); // Rutinas diarias (a las 0:00hs)
-		//cron.schedule("0 0 * * *", () => this.rutinasDiarias(), {timezone: "Etc/Greenwich"}); // Rutinas diarias (a las 0:00hs)
+		cron.schedule("0 0 * * 1", () => this.rutinasSemanales(), {timezone: "Etc/Greenwich"}); // Rutinas diarias (a las 0:00hs)
+		// cron.schedule("0 0 * * *", () => this.rutinasDiarias(), {timezone: "Etc/Greenwich"}); // Rutinas diarias (a las 0:00hs)
 		// cron.schedule("1 * * * *", () => this.rutinasHorarias(), {timezone: "Etc/Greenwich"}); // Rutinas horarias (a las X:00hs)
-		await this.rutinas.elimImgsSinRegEnBd.consolidado();
 
 		// Fin
 		return;
@@ -48,7 +47,7 @@ export default {
 
 				// Elimina las imágenes de las carpetas "Revisar" y "Final"
 				archsEnBd = await this.obtieneImgsContenidoCrsl();
-				const carpetas = [path.join(carpImgsEditables, "1-Final"), path.join(carpImgsEditables, "2-Revisar")];
+				const carpetas = [path.join(carpImgsEditables, "2-Revisar"), path.join(carpImgsEditables, "1-Final")];
 				for (const carpeta of carpetas) this.eliminaLasImagenes({carpeta, archsEnBd});
 
 				// Fin
@@ -70,7 +69,6 @@ export default {
 				return archsEnBd;
 			},
 			eliminaLasImagenes: function ({carpeta, archsEnBd}) {
-
 				// Obtiene el nombre de todas las imagenes de los archivos de la carpeta
 				const archsEnDisco = fs.readdirSync(carpeta);
 
