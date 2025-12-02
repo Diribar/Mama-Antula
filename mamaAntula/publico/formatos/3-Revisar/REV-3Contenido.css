@@ -1,7 +1,6 @@
 #cuerpo {
 	#contenidoRevisar {
 		display: flex;
-		.bloque-textoImagen, .bloque-texto blockquote {margin-top: 10px;}
 		&:not(:has(.bloque-libro, .bloque-estampa)) {flex-direction: column;}
 		&:has(.bloque-libro, .bloque-estampa) {
 			flex-direction: row; justify-content: space-evenly; flex-wrap: wrap; column-gap: 50px;
@@ -21,6 +20,7 @@
 
 	/* Condicionales */
 	&:has(#encabezado.aprobado) .bloque {
+		margin-top: 20px;
 		&.creado {background-color: var(--amarilloClaro);}
 		&.rechazar, &.rechazado {background-color: var(--rojoMuyClaro);}
 	}
