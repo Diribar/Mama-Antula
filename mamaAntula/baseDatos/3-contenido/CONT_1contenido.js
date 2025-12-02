@@ -20,7 +20,7 @@ export default (sequelize, dt) => {
 		autor: {type: dt.STRING(50)},
 		anoLanzam: {type: dt.INTEGER},
 		editorial: {type: dt.STRING(50)},
-		descarga: {type: dt.STRING(55)},
+		descarga: {type: dt.STRING(50)},
 
 		// Control
 		creadoPor_id: {type: dt.INTEGER},
