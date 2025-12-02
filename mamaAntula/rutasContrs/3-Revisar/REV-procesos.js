@@ -397,8 +397,9 @@ const FN = {
 
 		// Le agrega los contenidos
 		const encab_id = encabezado.id;
+		const condicion = {encab_id, statusRegistro_id: {[Op.ne]: rechazado_id}};
 		encabezado.contenidos = await baseDatos
-			.obtieneTodosPorCondicion("contenidos", {encab_id}, ["layout", "carrusel", "statusSugeridoPor", "statusRegistro"])
+			.obtieneTodosPorCondicion("contenidos", condicion, ["layout", "carrusel", "statusSugeridoPor", "statusRegistro"])
 			.then((n) => n.sort((a, b) => a.orden - b.orden))
 			.then((n) => n.sort((a, b) => b.anoLanzam - a.anoLanzam));
 

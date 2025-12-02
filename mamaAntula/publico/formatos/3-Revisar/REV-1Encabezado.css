@@ -1,9 +1,13 @@
 #cuerpo {
 	#encabezado {
 		display: flex; flex-direction: row; justify-content: flex-start; gap: 20px;
-		padding-block: 6px 15px; position: relative;
+		padding-block: 6px; position: relative;
+
+		&.creado {background-color: var(--amarilloMuyClaro);}
+		&.rechazar, &.rechazado {background-color: var(--rojoMuyClaro);}
 
 		h2 {max-width: calc(100% - 200px);}
 		img.cambios {position: absolute; right: 20px; top: 50%; translate: 0 -50%;}
 	}
+	h3:not(:empty) {margin-block: 12px !important;}
 }

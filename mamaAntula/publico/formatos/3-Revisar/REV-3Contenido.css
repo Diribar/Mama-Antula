@@ -1,7 +1,6 @@
 #cuerpo {
 	#contenidoRevisar {
 		display: flex;
-		.bloque-textoImagen, .bloque-texto blockquote {margin-top: 10px;}
 		&:not(:has(.bloque-libro, .bloque-estampa)) {flex-direction: column;}
 		&:has(.bloque-libro, .bloque-estampa) {
 			flex-direction: row; justify-content: space-evenly; flex-wrap: wrap; column-gap: 50px;
@@ -11,7 +10,14 @@
 		.bloque {
 			position: relative;
 
-			.apruebaRechaza {position: absolute; left: 20px; top: 50%; translate: 0 -50%;}
+			.apruebaRechaza {
+				position: absolute; left: 20px; top: 50%; translate: 0 -50%;
+				i {
+					&#aprueba {padding: 2px; border-radius: 50%;}
+					&#rechaza {background-color: snow; padding: 3px; border-radius: 5px;}
+
+				}
+			}
 			img.cambios {position: absolute; right: 20px; top: 50%; translate: 0 -50%;}
 
 			a {color: var(--terracota); text-decoration: underline;}
@@ -21,6 +27,7 @@
 
 	/* Condicionales */
 	&:has(#encabezado.aprobado) .bloque {
+		margin-top: 20px;
 		&.creado {background-color: var(--amarilloClaro);}
 		&.rechazar, &.rechazado {background-color: var(--rojoMuyClaro);}
 	}

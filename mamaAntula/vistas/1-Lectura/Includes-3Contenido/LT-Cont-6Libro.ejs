@@ -19,9 +19,9 @@
 			<%= contenido.anoLanzam || "" %>
 			<%- contenido.anoLanzam && contenido.editorial ? " - " : "" %>
 			<%= contenido.editorial || "" %>
-			<% if (contenido.editorial && contenido.editorial.toLowerCase().includes("descarga")) { %>
+			<% if (contenido.descarga) { %>
 				<!-- Particular para el download -->
-				<a href="/descargas/PDF - El estandarte de la mujer fuerte.pdf" download>
+				<a href="/descargas/PDF - <%= contenido.descarga %>.pdf" download>
 					<i class="fa-solid fa-download"></i>
 				</a>
 			<% } %>
