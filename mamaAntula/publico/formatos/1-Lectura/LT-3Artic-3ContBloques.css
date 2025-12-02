@@ -94,7 +94,7 @@
 	}
 	.bloque-libro {
 		.texto {
-			max-width: 260px; padding-block: 6px;
+			max-width: 285px; padding-block: 6px;
 			* {line-height: 1.2;}
 			.titulo {font-weight: bold; margin-bottom: 6px;}
 			.autor {font-style: italic;}
