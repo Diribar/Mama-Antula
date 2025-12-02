@@ -31,7 +31,8 @@ export default {
 
 		// Usuarios
 		const {id: userId} = req.session.usuario;
-		const usuarios = await baseDatos.obtieneTodos("usuarios").then((n) => n.filter((m) => m.id > 1 && m.id != userId));
+		const condicion = {id: {[Op.and]: [{[Op.gt]: 2}, {[Op.ne]: userId}]}, statusRegistro_id: conApodo_id};
+		const usuarios = await baseDatos.obtieneTodosPorCondicion("usuarios", condicion);
 
 		// Fin
 		return res.render("CMP-0Estructura", {tituloPagina, temaVista, codigoVista, imagenes, usuarios});
