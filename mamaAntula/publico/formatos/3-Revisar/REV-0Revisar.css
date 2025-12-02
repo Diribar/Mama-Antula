@@ -10,4 +10,7 @@
 		}
 	}
 	img.cambios {max-height: 50px; max-width: 75px; border-radius: 50%; cursor: default !important;}
+
+	/* Si el encabezado está en status rechazar/rechazado, cambia el color de fondo */
+	&:has(#encabezado.aprobado) {background-color: var(--verdeClaro);}
 }
