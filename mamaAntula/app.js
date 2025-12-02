@@ -32,7 +32,7 @@ app.use(express.json()); // Para convertir el json recibido por POST en req.body
 app.use(cookieParser());
 
 // Variables de entorno
-globalThis.rutaHome = path.dirname(fileURLToPath(import.meta.url));
+globalThis.rutaHome = path.dirname(fileURLToPath(import.meta.url)); // es la carpeta raíz
 globalThis.entProd = path.basename(rutaHome) == "1-Actual";
 globalThis.entPrueba = path.basename(rutaHome) == "2-Prueba";
 globalThis.entDesarr = !entProd && !entPrueba;
@@ -134,8 +134,9 @@ app.set("view engine", "ejs");
 	const datosPartics = varsBD.datosPartics();
 	for (const campo in datosPartics) globalThis[campo] = datosPartics[campo]; // asigna una variable a valores específicos
 
-	//const rutinas = await import("./rutinas/RT-Control.mjs").then((n) => n.default);
-	// await rutinas.startupMasConfiguracion();
+	// Rutinas
+	const rutinas = await import("./rutinas/RT-Control.js").then((n) => n.default);
+	await rutinas.startupMasConfiguracion();
 
 	// Middlewares transversales
 	app.use((await import("./middlewares/transversales/TR-clienteId.js")).default);
