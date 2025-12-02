@@ -28,7 +28,7 @@ export default {
 		const codigoVista = "videos";
 
 		// Datos para la vista
-		const videos = await baseDatos.obtieneTodos("videos", "rol").then((n) => n.sort((a, b) => a.orden - b.orden));
+		const videos = await baseDatos.obtieneTodos("videos").then((n) => n.sort((a, b) => a.orden - b.orden));
 
 		// Fin
 		return res.render("CMP-0Estructura", {
