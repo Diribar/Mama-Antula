@@ -162,6 +162,20 @@ export default {
 			// Fin
 			return res.json({});
 		},
+		recupera: async (req, res) => {
+			// Variables
+			const {id} = req.body;
+			const statusSugeridoPor_id = req.session.usuario.id;
+			const statusSugeridoEn = new Date();
+			const statusRegistro_id = aprobado_id;
+			const novedad = {statusSugeridoPor_id, statusSugeridoEn, statusRegistro_id};
+
+			// Devuelve el registro al status aprobado_id
+			await baseDatos.actualizaPorId("contenidos", id, novedad);
+
+			// Fin
+			return res.json({});
+		},
 		elimina: async (req, res) => {
 			// Variables
 			const {id} = req.body;
