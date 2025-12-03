@@ -34,28 +34,23 @@ export default {
 	rutinas: {
 		// Diarias
 		eliminaRegsPapelera: async () => {
-			// Variables
-			let condicion;
-
 			// Obtiene los encabezados anteriores a la fecha de corte
-			condicion = {statusRegistro_id: rechazado_id, statusSugeridoEn: {[Op.lt]: Date.now - unaSemana}};
-			const encabezados = await baseDatos.obtieneTodosPorCondicion("encabezados", condicion);
+			const condEncab = {statusRegistro_id: rechazado_id, statusSugeridoEn: {[Op.lt]: new Date(Date.now() - unaSemana)}};
+			const encabezados = await baseDatos.obtieneTodosPorCondicion("encabezados", condEncab);
 
 			// Obtiene los contenidos de esos encabezados y los anteriores a la fecha de corte
-			condicion = {[Op.or]: [condicion, {encab_id: encabezados.map((n) => n.id)}]};
-			const contenidos = await baseDatos.obtieneTodosPorCondicion("contenidos", condicion);
+			const condCont = {[Op.or]: [condEncab, {encab_id: encabezados.map((n) => n.id)}]};
+			const contenidos = await baseDatos.obtieneTodosPorCondicion("contenidos", condCont);
 
 			// Elimina los dependientes de los contenidos
-			condicion = {contenido_id: contenidos.map((n) => n.id)};
-			await baseDatos.eliminaPorCondicion("carrusel", condicion);
+			const condCrsl = {contenido_id: contenidos.map((n) => n.id)};
+			await baseDatos.eliminaPorCondicion("carrusel", condCrsl);
 
-			// Elimina los dependientes de los encabezados
-			condicion = {encab_id: encabezados.map((n) => n.id)};
-			await baseDatos.eliminaPorCondicion("contenidos", condicion);
+			// Elimina los contenidos
+			await baseDatos.eliminaPorCondicion("contenidos", condCont);
 
 			// Elimina los encabezados
-			condicion = {id: encabezados.map((n) => n.id)};
-			await baseDatos.eliminaPorCondicion("encabezados", condicion);
+			await baseDatos.eliminaPorCondicion("encabezados", condEncab);
 
 			// Fin
 			return;
