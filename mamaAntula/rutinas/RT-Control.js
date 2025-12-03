@@ -65,8 +65,9 @@ export default {
 			// Primera revisión
 			await linksVencidos.revisaLinks(contenidos);
 
-			// Obtiene los links con el mismo orden que en Revisión
-			contenidos = await baseDatos.obtieneTodosPorCondicion("contenidos", {statusRegistro_id: creadoAprob_id});
+			// Obtiene los links
+			condicion.statusRegistro_id = rechazar_id;
+			contenidos = await baseDatos.obtieneTodosPorCondicion("contenidos", condicion);
 
 			// Segunda revisión
 			if (contenidos.length) await linksVencidos.revisaLinks(contenidos);
