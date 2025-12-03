@@ -12,7 +12,14 @@ export default {
 			pestanasTemas: baseDatos.obtieneTodosConOrden("pestanasTemas", "orden"),
 			contLayouts: baseDatos.obtieneTodosConOrden("contLayouts", "orden"),
 			indicesFecha: baseDatos.obtieneTodos("indicesFecha"),
-			indicesLugar: baseDatos.obtieneTodosConOrden("indicesLugar", "orden"),
+			indicesLugar: baseDatos
+				.obtieneTodos("indicesLugar")
+				.then((n) => n.sort((a, b) => (a.nombre < b.nombre ? -1 : 1)))
+				.then((n) =>
+					n.sort((a, b) =>
+						a.orden && (!b.orden || a.orden < b.orden) ? -1 : b.orden && (!a.orden || a.orden > b.orden) ? 1 : 0
+					)
+				),
 
 			// Cartas
 			idiomas: baseDatos.obtieneTodosConOrden("idiomas", "nombre"),
@@ -32,6 +39,7 @@ export default {
 		// Await
 		const valores = await Promise.all(Object.values(lecturas));
 		Object.keys(lecturas).forEach((campo, i) => (lecturas[campo] = valores[i]));
+		console.log(37, lecturas.indicesLugar);
 
 		// Fin
 		return lecturas;
