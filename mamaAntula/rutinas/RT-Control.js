@@ -9,8 +9,15 @@ export default {
 	startupMasConfiguracion: async function () {
 		// Rutinas programadas - compartidas diarias: 0:00hs
 		cron.schedule("0 0 * * 1", () => this.rutinasSemanales(), {timezone: "Etc/Greenwich"}); // Rutinas semanales (a las 0:00hs)
-		// cron.schedule("0 0 * * *", () => this.rutinasDiarias(), {timezone: "Etc/Greenwich"}); // Rutinas diarias (a las 0:00hs)
-		// cron.schedule("1 * * * *", () => this.rutinasHorarias(), {timezone: "Etc/Greenwich"}); // Rutinas horarias (a las X:00hs)
+		cron.schedule("1 0 * * *", () => this.rutinasDiarias(), {timezone: "Etc/Greenwich"}); // Rutinas diarias (a las 0:00hs)
+		// cron.schedule("2 * * * *", () => this.rutinasHorarias(), {timezone: "Etc/Greenwich"}); // Rutinas horarias (a las X:00hs)
+
+		// Fin
+		return;
+	},
+
+	rutinasDiarias: async function () {
+		await this.rutinas.eliminaRegsPapelera();
 
 		// Fin
 		return;
@@ -18,10 +25,42 @@ export default {
 	rutinasSemanales: async function () {
 		await this.rutinas.verificaLinksYouTube();
 		await this.rutinas.elimImgsSinRegEnBd.consolidado();
+
+		// Fin
+		return;
 	},
 
 	// Rutinas
 	rutinas: {
+		// Diarias
+		eliminaRegsPapelera: async () => {
+			// Variables
+			let condicion;
+
+			// Obtiene los encabezados anteriores a la fecha de corte
+			condicion = {statusRegistro_id: rechazado_id, statusSugeridoEn: {[Op.lt]: Date.now - unaSemana}};
+			const encabezados = await baseDatos.obtieneTodosPorCondicion("encabezados", condicion);
+
+			// Obtiene los contenidos de esos encabezados y los anteriores a la fecha de corte
+			condicion = {[Op.or]: [condicion, {encab_id: encabezados.map((n) => n.id)}]};
+			const contenidos = await baseDatos.obtieneTodosPorCondicion("contenidos", condicion);
+
+			// Elimina los dependientes de los contenidos
+			condicion = {contenido_id: contenidos.map((n) => n.id)};
+			await baseDatos.eliminaPorCondicion("carrusel", condicion);
+
+			// Elimina los dependientes de los encabezados
+			condicion = {encab_id: encabezados.map((n) => n.id)};
+			await baseDatos.eliminaPorCondicion("contenidos", condicion);
+
+			// Elimina los encabezados
+			condicion = {id: encabezados.map((n) => n.id)};
+			await baseDatos.eliminaPorCondicion("encabezados", condicion);
+
+			// Fin
+			return;
+		},
+
 		// Semanales
 		verificaLinksYouTube: async () => {
 			// Obtiene los links a revisar
