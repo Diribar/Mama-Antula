@@ -39,7 +39,6 @@ export default {
 		// Await
 		const valores = await Promise.all(Object.values(lecturas));
 		Object.keys(lecturas).forEach((campo, i) => (lecturas[campo] = valores[i]));
-		console.log(37, lecturas.indicesLugar);
 
 		// Fin
 		return lecturas;
