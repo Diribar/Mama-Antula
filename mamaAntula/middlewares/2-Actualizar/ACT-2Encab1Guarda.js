@@ -168,7 +168,7 @@ const validaLugarFecha = (lugar_id, fechaEvento, tema_id) => {
 	// Busca el rango de fechas
 	if (indicesTema && indicesTema.length) {
 		fechaMin = indicesTema.sort((a, b) => (a.fechaDesde < b.fechaDesde ? -1 : 1))[0].fechaDesde;
-		fechaMax = indicesTema.sort((a, b) => (b.fechaDesde < a.fechaDesde ? -1 : 1))[0].fechaDesde;
+		fechaMax = indicesTema.sort((a, b) => (b.fechaHasta < a.fechaHasta ? -1 : 1))[0].fechaHasta;
 	}
 
 	// Valida cada variable - lugar_id
