@@ -23,8 +23,11 @@
 		max-height: calc(100% - 70px); padding-right: 20px;
 		overflow-y: auto; ;
 		.sector {
-			&.inactivo {background-color: var(--rojoClaro)}
-			&:not(.inactivo) {background-color: var(--grisClaro);}
+			&.rechazo {
+				background-color: var(--rojoClaro);
+				i#recuperar {color: var(--azulOscuro)}
+			}
+			&:not(.rechazo) {background-color: var(--grisClaro);}
 			.iconos {
 				display: flex; flex-direction: row; align-items: center; gap: 5px;
 				&:not(:has(:not(.ocultar))) {display: none;} /* si no se muestra ningún ícono, se oculta el contenedor */
