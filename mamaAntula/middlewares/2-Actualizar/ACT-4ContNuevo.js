@@ -4,7 +4,7 @@
 export default async (req, res, next) => {
 	// Variables
 	const {encab_id, layoutCodigo} = req.body;
-	const {texto, imagen, imagen2, imagens, video, titulo, autor, anoLanzam, editorial} = req.body;
+	const {texto, imagen, video, titulo, autor, anoLanzam, editorial} = req.body;
 	const mensajes = [];
 
 	// GENERAL - encab_id

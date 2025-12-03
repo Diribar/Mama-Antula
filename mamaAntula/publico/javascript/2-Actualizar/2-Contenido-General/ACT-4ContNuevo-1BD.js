@@ -87,10 +87,7 @@ window.addEventListener("load", async () => {
 		},
 		libro: function () {
 			// Si no se subió un archivo, interrumpe la función
-			if (!archLibro) return;
-
-			// Agrega el archivo del libro
-			this.archImg(archLibro, "");
+			if (archLibro) this.archImg(archLibro, "");
 
 			// Agrega los demás datos del libro
 			for (const input of DOM.inputsLibro) v.formData.append(input.name, input.value);
