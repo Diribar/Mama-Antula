@@ -6,17 +6,35 @@ window.addEventListener("load", () => {
 	const DOM = {
 		// Filtros
 		rolFiltro: domForm.querySelector("select[name='rolFiltro']"),
-		usuario: domForm.querySelector("select[name='usuario']"),
-		usuarios: domForm.querySelectorAll("select[name='usuario'] option"),
+		usuarioFiltro: domForm.querySelector("select[name='usuario']"),
 		usuarioDefault: domForm.querySelector("select[name='usuario'] option[value='']"),
+		usuarios: domForm.querySelectorAll("select[name='usuario'] option"),
 
 		// Actualización de datos
 		nombre: domForm.querySelector("input[name='nombreCompleto']"),
 		iconoNombre: domForm.querySelector("input[name='nombreCompleto'] + i"),
-		rol_id: domForm.querySelector("select[name='rol_id']"),
+		nuevoRol: domForm.querySelector("select[name='rol_id']"),
 		iconoRol: domForm.querySelector("select[name='rol_id'] + i"),
 	};
 	const rutaApi = "/usuarios/api/us-cambio-de-roles";
+
+	const cambioRol = () => {
+		// Variables
+		const rol_id = DOM.nuevoRol.value;
+
+		// Cambia el rol en el filtro por usuario
+		const usuarioElegido = DOM.usuarioFiltro.options[DOM.usuarioFiltro.selectedIndex];
+		usuarioElegido.dataset.rol_id = rol_id;
+
+		// Cambia el rol en el selector de roles
+		DOM.rolFiltro.value = rol_id;
+
+		// Dispara un evento change en el filtro por rol
+		DOM.rolFiltro.dispatchEvent(new Event("change"));
+
+		// Fin
+		return;
+	};
 
 	// Eventos - Filtros - Rol
 	DOM.rolFiltro.addEventListener("change", () => {
@@ -25,23 +43,23 @@ window.addEventListener("load", () => {
 			usuario.dataset.rol_id == DOM.rolFiltro.value ? (usuario.hidden = false) : (usuario.hidden = true);
 
 		// Si la opción de usuario seleccionada está oculta, selecciona el default
-		const usuarioElegido = DOM.usuario.options[DOM.usuario.selectedIndex];
+		const usuarioElegido = DOM.usuarioFiltro.options[DOM.usuarioFiltro.selectedIndex];
 		if (usuarioElegido.hidden) {
-			DOM.usuario.value = "";
-			DOM.usuario.dispatchEvent(new Event("change"));
+			DOM.usuarioFiltro.value = "";
+			DOM.usuarioFiltro.dispatchEvent(new Event("change"));
 		}
 
 		// Fin
 		return;
 	});
 	// Eventos - Filtros - Usuario
-	DOM.usuario.addEventListener("change", () => {
+	DOM.usuarioFiltro.addEventListener("change", () => {
 		// Variables
-		const opcionElegida = DOM.usuario.options[DOM.usuario.selectedIndex];
+		const opcionElegida = DOM.usuarioFiltro.options[DOM.usuarioFiltro.selectedIndex];
 
 		// Actualiza el nombre y el rol
 		DOM.nombre.value = opcionElegida.dataset.nombre_completo || "";
-		DOM.rol_id.value = opcionElegida.dataset.rol_id || "";
+		DOM.nuevoRol.value = opcionElegida.dataset.rol_id || "";
 
 		// Fin
 		return;
@@ -56,7 +74,7 @@ window.addEventListener("load", () => {
 		DOM.nombre.value = inicialMayus(DOM.nombre.value);
 
 		// Variables
-		const usuario_id = DOM.usuario.value;
+		const usuario_id = DOM.usuarioFiltro.value;
 		const nombreCompleto = DOM.nombre.value;
 		if (!usuario_id || !nombreCompleto) return;
 
@@ -73,10 +91,10 @@ window.addEventListener("load", () => {
 		return;
 	});
 	// Guarda las novedades - rol
-	DOM.rol_id.addEventListener("change", async () => {
+	DOM.nuevoRol.addEventListener("change", async () => {
 		// Variables
-		const usuario_id = DOM.usuario.value;
-		const rol_id = DOM.rol_id.value;
+		const usuario_id = DOM.usuarioFiltro.value;
+		const rol_id = DOM.nuevoRol.value;
 		if (!usuario_id || !rol_id) return;
 
 		// Guarda el rol_id en el BE
@@ -87,6 +105,9 @@ window.addEventListener("load", () => {
 
 		// Muestra el ícono de OK
 		DOM.iconoRol.classList.remove("ocultar");
+
+		// Acciones por el nuevo rol
+		cambioRol();
 
 		// Fin
 		return;
