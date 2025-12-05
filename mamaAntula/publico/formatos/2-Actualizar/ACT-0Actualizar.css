@@ -25,7 +25,7 @@
 		.sector {
 			&.rechazo {
 				background-color: var(--rojoClaro);
-				i#recuperar {color: var(--azulOscuro)}
+				i#recupera {color: var(--azulOscuro)}
 			}
 			&:not(.rechazo) {background-color: var(--grisClaro);}
 			.iconos {

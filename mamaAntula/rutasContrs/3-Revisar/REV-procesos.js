@@ -316,7 +316,7 @@ export default {
 			for (let encabezado of encabezados) {
 				// Obtiene la ruta
 				encabezado = FN.agregaTemaPestana(encabezado);
-				const ruta = FN.obtieneRuta(encabezado);
+				const ruta = FN.obtieneRuta(encabezado).split(" - ").slice(0, 2).join(" - ");
 
 				// Completa el encabezado
 				encabezado = comp.tituloElab(encabezado);
