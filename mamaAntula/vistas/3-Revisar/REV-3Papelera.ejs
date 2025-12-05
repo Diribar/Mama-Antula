@@ -12,7 +12,7 @@
 					<% for (const encabezado of rutas[ruta].encabezados) { %>
 						<% const {titulo, tituloElab, anchor} = encabezado %>
 						<li class="secundario"><span class="alinearVertical">
-							<span>✅</span>
+							<span class="icono">✅</span>
 							<a href="<%= anchor %>"><%= titulo || tituloElab %></a>
 						</span></li>
 					<% } %>
@@ -20,7 +20,7 @@
 			<% } else { %>
 				<!-- Ruta sin título -->
 				<li class="primario"><span class="alinearVertical">
-					<span>✅</span>
+					<span class="icono">✅</span>
 					<a href="<%= rutas[ruta].encabezados[0].anchor %>"><%= ruta %></a>
 				</span></li>
 			<% } %>
