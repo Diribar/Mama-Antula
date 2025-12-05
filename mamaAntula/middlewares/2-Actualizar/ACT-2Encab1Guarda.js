@@ -80,7 +80,7 @@ export default async (req, res, next) => {
 		(!nombreHacia_id && mensajes.push("El campo <em>Destinatario</em> es obligatorio")) ||
 			(!personajes.find((n) => n.id == nombreHacia_id) && mensajes.push("El destinatario no existe"));
 
-		// nombreDesde_id y nombreHacia_id (excepción para id de 'Desconodido')
+		// nombreDesde_id y nombreHacia_id (excepción para id de 'Desconocido')
 		if (nombreDesde_id && nombreDesde_id != 5 && nombreDesde_id == nombreHacia_id)
 			mensajes.push("El remitente y el destinatario deben ser distintos");
 
