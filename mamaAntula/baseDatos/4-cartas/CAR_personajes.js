@@ -1,7 +1,7 @@
 export default (sequelize, dt) => {
 	const alias = "personajes";
 	const columns = {
-		nombre: {type: dt.STRING(20)},
+		nombre: {type: dt.STRING(30)},
 	};
 	const config = {
 		tableName: "cartas_personajes",

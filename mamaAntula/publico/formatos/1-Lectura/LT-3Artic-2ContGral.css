@@ -1,10 +1,11 @@
 #cuerpo .contenidoCuerpo {
 	border: 1px solid var(--grisOscuro);
 	padding-block: 10px;
+	border-top-left-radius: 0;
 }
 .contenidoCuerpo {
 	background-color: var(--grisMuyClaroFondo);
-	padding-left: 20px; border-radius: 20px; border-top-left-radius: 0;
+	padding-left: 20px; border-radius: 20px;
 
 	&:has(#filtroIndice) #tituloMasContenido {--margenIzq: 210px; margin-left: var(--margenIzq); max-width: calc(100% - var(--margenIzq));}
 	&:not(:has(#filtroIndice)) #tituloMasContenido {max-width: 100%;}
