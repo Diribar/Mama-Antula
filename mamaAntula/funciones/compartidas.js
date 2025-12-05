@@ -305,7 +305,7 @@ const titulosElabs = {
 					  (encab.nombreDesde.nombre.startsWith("P.") ? "l " : " ") +
 					  encab.nombreDesde.nombre +
 					  " para " +
-					  //   (encab.nombreHacia.nombre.startsWith("P.") ? "el " : "") +
+					    (encab.nombreHacia.nombre.startsWith("P.") ? "el " : "") +
 					  encab.nombreHacia.nombre +
 					  " - " +
 					  encab.lugar.nombre +

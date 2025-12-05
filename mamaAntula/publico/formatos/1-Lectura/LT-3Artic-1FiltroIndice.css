@@ -35,7 +35,10 @@
 
 	#indice {
 		align-self: flex-start;
-		max-height: 400px; overflow-y: auto;
+		max-height: 300px; overflow-y: auto;
+		&::-webkit-scrollbar {width: 8px;}
+		&::-webkit-scrollbar-thumb {background-color: var(--grisInterm); border-radius: 10px;}
+		&::-webkit-scrollbar-track {background: var(--celesteClaro); border-radius: 10px; margin-block: 2px;}
 	}
 
 	#fichaTecnica {
