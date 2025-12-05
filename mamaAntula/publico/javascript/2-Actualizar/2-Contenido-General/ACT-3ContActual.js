@@ -11,10 +11,11 @@ window.addEventListener("load", async () => {
 		iconos: document.querySelector("#sectorContActual .iconos"),
 	};
 	const v = {
-		cruds: ["baja", "sube", "elimina"],
+		cruds: ["baja", "sube", "recupera", "elimina"],
 		funcsComps: {
 			baja: (datos) => putJson(datos),
 			sube: (datos) => putJson(datos),
+			recupera: (datos) => putJson(datos),
 			elimina: (datos) => deleteJson(datos),
 		},
 	};
@@ -48,7 +49,7 @@ window.addEventListener("load", async () => {
 			const domBloque = document.createElement("div");
 			domBloque.classList.add("bloque", "sector");
 			if ([comp1234.rechazar_id, comp1234.rechazado_id].includes(contenido.statusRegistro_id))
-				domBloque.classList.add("inactivo");
+				domBloque.classList.add("rechazo");
 
 			// Crea y agrega el contenido
 			this.creaElContenido(contenido);
@@ -90,30 +91,33 @@ window.addEventListener("load", async () => {
 			return;
 		},
 		creaLosIconos: (contenido) => {
-			// Crea el DOM
+			// Crea el DOM y asigna el id
 			v.domIconos = DOM.iconos.cloneNode(true);
+			v.domIconos.dataset.id = contenido.id;
 
-			// Muestra la imagen
+			// Muestra los iconos
 			if (v.aptoEliminar) {
-				// Asigna el id
-				v.domIconos.dataset.id = contenido.id;
-
 				// Muestra los íconos
 				if (v.inicial_id == contenido.id || !v.aptoMover) v.domIconos.querySelector(".sube").remove();
 				if (v.final_id == contenido.id || !v.aptoMover) v.domIconos.querySelector(".baja").remove();
 
-				// Oculta la imagen
+				// Quita el ícono recupera y la imagen
+				v.domIconos.querySelector("#recupera").remove();
 				v.domIconos.querySelector("img").remove();
 			}
 
 			// Muestra la imagen
 			else {
-				v.domIconos.querySelector("img").src = "/imgsEditables/8-Usuarios/" + contenido.statusSugeridoPor.imagen;
-				v.domIconos.querySelector("img").title = contenido.statusSugeridoPor.nombreCompleto;
-
 				// Oculta los íconos
 				const iconos = v.domIconos.querySelectorAll("i");
-				for (const icono of iconos) icono.remove();
+				for (const icono of iconos) if (icono.id != "recupera") icono.remove();
+
+				// Muestra la imagen
+				if (!comp1234.usuario.rol.revision) {
+					v.domIconos.querySelector("#recupera").remove();
+					v.domIconos.querySelector("img").src = "/imgsEditables/8-Usuarios/" + contenido.statusSugeridoPor.imagen;
+					v.domIconos.querySelector("img").title = contenido.statusSugeridoPor.nombreCompleto;
+				} else v.domIconos.querySelector("img").remove();
 			}
 
 			// Fin
@@ -290,7 +294,7 @@ window.addEventListener("load", async () => {
 	};
 
 	// Eventos de íconos
-	const eventosIconos = () => {
+	const creaLosEventosDeLosIconos = () => {
 		// Rutina por evento crud
 		for (const crud of v.cruds) {
 			// Obtiene todos los íconos de este crud
@@ -346,7 +350,7 @@ window.addEventListener("load", async () => {
 		creaContenidoIconos.consolidado();
 
 		// Genera los eventos de los íconos
-		eventosIconos();
+		creaLosEventosDeLosIconos();
 
 		// Fin
 		return;

@@ -12,7 +12,14 @@ export default {
 			pestanasTemas: baseDatos.obtieneTodosConOrden("pestanasTemas", "orden"),
 			contLayouts: baseDatos.obtieneTodosConOrden("contLayouts", "orden"),
 			indicesFecha: baseDatos.obtieneTodos("indicesFecha"),
-			indicesLugar: baseDatos.obtieneTodosConOrden("indicesLugar", "orden"),
+			indicesLugar: baseDatos
+				.obtieneTodos("indicesLugar")
+				.then((n) => n.sort((a, b) => (a.nombre < b.nombre ? -1 : 1)))
+				.then((n) =>
+					n.sort((a, b) =>
+						a.orden && (!b.orden || a.orden < b.orden) ? -1 : b.orden && (!a.orden || a.orden > b.orden) ? 1 : 0
+					)
+				),
 
 			// Cartas
 			idiomas: baseDatos.obtieneTodosConOrden("idiomas", "nombre"),
@@ -52,7 +59,6 @@ export default {
 
 			// 3. Status de contenido
 			creado_id: statusRegistros.find((n) => n.codigo == "creado").id,
-			creadoAprob_id: statusRegistros.find((n) => n.codigo == "creadoAprob").id,
 			aprobado_id: statusRegistros.find((n) => n.codigo == "aprobado").id,
 			rechazar_id: statusRegistros.find((n) => n.codigo == "rechazar").id,
 			rechazado_id: statusRegistros.find((n) => n.codigo == "rechazado").id,

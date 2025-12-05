@@ -74,6 +74,11 @@ window.addEventListener("load", async () => {
 			await FN({domEvento, ruta, datos, confirm, cancel, mensaje});
 		});
 
+	// Start-up
+	domEncabezado.setAttribute("tabindex", "0");
+	domEncabezado.style.outline = "none";
+	domEncabezado.focus();
+
 	// Fin
 	return;
 });

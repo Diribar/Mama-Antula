@@ -37,6 +37,7 @@ router.delete("/api/act-encabezado-elimina", validaEncabElimina, API.encabezado.
 router.get("/api/act-contenido-actual-obtiene", API.contActual.obtiene);
 router.put("/api/act-contenido-actual-baja", validaContActual, API.contActual.baja);
 router.put("/api/act-contenido-actual-sube", validaContActual, API.contActual.sube);
+router.put("/api/act-contenido-actual-recupera", validaContActual, API.contActual.recupera);
 router.delete("/api/act-contenido-actual-elimina", validaContActual, API.contActual.elimina);
 
 // APIs - Contenido Nuevo
