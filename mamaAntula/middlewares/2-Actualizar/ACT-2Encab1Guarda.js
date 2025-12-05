@@ -88,7 +88,7 @@ export default async (req, res, next) => {
 		(!idioma_id && mensajes.push("El campo <em>Idioma</em> es obligatorio")) ||
 			(!idiomas.find((n) => n.id == idioma_id) && mensajes.push("El idioma no existe"));
 
-		validaLugarFecha(lugar_id, fechaEvento);
+		validaLugarFecha(lugar_id, fechaEvento, tema_id);
 
 		// Fin
 		const error = preparaLaRespuesta(mensajes);
@@ -119,7 +119,7 @@ export default async (req, res, next) => {
 		validaTitulo(titulo);
 
 		// Valida lugar y fechas
-		validaLugarFecha(lugar_id, fechaEvento);
+		validaLugarFecha(lugar_id, fechaEvento, tema_id);
 
 		// Fin
 		const error = preparaLaRespuesta(mensajes);
@@ -162,13 +162,13 @@ const preparaLaRespuesta = (mensajes) => {
 };
 const validaLugarFecha = (lugar_id, fechaEvento, tema_id) => {
 	// Variables
-	const indicesTema = tema_id && indicesFecha.filter((n) => n.tema_id == tema_id).map();
+	const indicesTema = tema_id && indicesFecha.filter((n) => n.tema_id == tema_id);
 	let fechaMin, fechaMax;
 
 	// Busca el rango de fechas
 	if (indicesTema && indicesTema.length) {
 		fechaMin = indicesTema.sort((a, b) => (a.fechaDesde < b.fechaDesde ? -1 : 1))[0].fechaDesde;
-		fechaMax = indicesTema.sort((a, b) => (b.fechaDesde < a.fechaDesde ? -1 : 1))[0].fechaDesde;
+		fechaMax = indicesTema.sort((a, b) => (b.fechaHasta < a.fechaHasta ? -1 : 1))[0].fechaHasta;
 	}
 
 	// Valida cada variable - lugar_id

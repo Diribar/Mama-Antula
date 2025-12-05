@@ -9,9 +9,10 @@ export default {
 			const {encab_id, aprueba, rechaza} = req.body;
 			const statusRegistro_id = (aprueba && aprobado_id) || (rechaza && rechazado_id);
 			const statusSugeridoPor_id = req.session.usuario.id;
+			const statusSugeridoEn = new Date();
 
 			// Cambia el status del encabezado y sus dependencias
-			await procsActualizar.encabezadoContenidos({encab_id, statusRegistro_id, statusSugeridoPor_id});
+			await procsActualizar.encabezadoContenidos({encab_id, statusRegistro_id, statusSugeridoPor_id, statusSugeridoEn});
 
 			// Mueve los archivos de imagen
 			await procesos.cambioStatus.mueveArchivosImg(encab_id);
@@ -25,9 +26,10 @@ export default {
 			const {contenido} = req;
 			const statusRegistro_id = (aprueba && aprobado_id) || (rechaza && rechazado_id);
 			const statusSugeridoPor_id = req.session.usuario.id;
+			const statusSugeridoEn = new Date();
 
 			// Cambia el status de sus dependencias y mueve los archivos de imagen
-			await procesos.cambioStatus.contenido({contenido, statusRegistro_id, statusSugeridoPor_id});
+			await procesos.cambioStatus.contenido({contenido, statusRegistro_id, statusSugeridoPor_id, statusSugeridoEn});
 
 			// Fin
 			return res.json({});

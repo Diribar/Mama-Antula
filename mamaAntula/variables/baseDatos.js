@@ -15,7 +15,7 @@ export default {
 			indicesLugar: baseDatos.obtieneTodosConOrden("indicesLugar", "orden"),
 
 			// Cartas
-			idiomas: baseDatos.obtieneTodosConOrden("idiomas", "orden"),
+			idiomas: baseDatos.obtieneTodosConOrden("idiomas", "nombre"),
 			lugares: baseDatos.obtieneTodosConOrden("lugares", "nombre"),
 			personajes: baseDatos.obtieneTodosConOrden("personajes", "nombre"),
 

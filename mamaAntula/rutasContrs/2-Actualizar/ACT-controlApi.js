@@ -39,7 +39,7 @@ export default {
 			if (encab_id == "nuevo") {
 				// Arma los datos a guardar
 				const creadoPor_id = req.session.usuario.id;
-				const datos = {...req.body, creadoPor_id, statusSugeridoPor_id: creadoPor_id};
+				const datos = {...req.body, creadoPor_id, statusSugeridoPor_id: creadoPor_id, statusSugeridoEn: new Date()};
 
 				// Crea el encabezado y guarda la cookie
 				const encabezado = await baseDatos.agregaRegistroIdCorrel("encabezados", datos);
@@ -100,13 +100,14 @@ export default {
 			const {encab_id} = req.body;
 			const statusRegistro_id = aprobado_id;
 			const statusSugeridoPor_id = req.session.usuario.id;
+			const statusSugeridoEn = new Date();
 
 			// Cambia el status del encabezado y sus dependencias
-			await procesos.encabezadoContenidos({encab_id, statusRegistro_id, statusSugeridoPor_id});
+			await procesos.encabezadoContenidos({encab_id, statusRegistro_id, statusSugeridoPor_id, statusSugeridoEn});
 
 			// Fin
 			return res.json({});
-		}
+		},
 	},
 	contActual: {
 		obtiene: async (req, res) => {

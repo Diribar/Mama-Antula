@@ -26,6 +26,7 @@ export default (sequelize, dt) => {
 		creadoPor_id: {type: dt.INTEGER},
 		creadoEn: {type: dt.DATE},
 		statusSugeridoPor_id: {type: dt.INTEGER},
+		statusSugeridoEn: {type: dt.DATE},
 		statusRegistro_id: {type: dt.INTEGER},
 	};
 	const config = {
