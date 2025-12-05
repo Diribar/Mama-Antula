@@ -1,6 +1,5 @@
 <div id="indice" class="contenedor">
 	<% for (const indice of indices) { %>
-		<!-- Rutina por indice -->
 		<% const encabsIndice = encabezados.filter((n) => n.lugarIndice_id == indice.id); %>
 
 		<% if (!encabsIndice.length) continue; %>
