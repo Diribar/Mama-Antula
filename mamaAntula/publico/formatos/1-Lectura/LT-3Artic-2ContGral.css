@@ -34,6 +34,7 @@
 				img {cursor: pointer;}
 			}
 			.bloque-textoImagen, .bloque-texto blockquote {margin-top: 10px;}
+			.texto p {text-align: justify;}
 		}
 	}
 }
