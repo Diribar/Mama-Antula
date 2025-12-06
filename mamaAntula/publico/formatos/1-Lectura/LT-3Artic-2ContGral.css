@@ -21,11 +21,12 @@
 		&:has(#tituloDelContenido) #contenido {height: calc(100% - 27px - 16px);} /* 22px es el alto de #tituloDelContenido sin el padding, y 16px es el padding */
 		/* &:not(:has(#tituloDelContenido)) #contenido {height: calc(100% - 6px);}  *//* 6px es el alto del padding */
 		#contenido {
-			display: flex; padding-right: 20px; overflow-y: auto;
 			--margenVertical: 20px;
+			display: flex; padding-right: 20px; overflow-y: auto;
+			outline: none;
 			&:has(.bloque-libro, .bloque-estampa) {
 				flex-direction: row; justify-content: space-evenly; flex-wrap: wrap; column-gap: 50px;
-				&:has(.bloque-libro) {row-gap: var(--margenVertical);}
+				&:has(.bloque-libro) {row-gap: var(--margenVertical); padding-block: 20px;}
 				&:has(.bloque-estampa) {row-gap: calc(var(--margenVertical) * 2);}
 			}
 			&:not(:has(.bloque-libro, .bloque-estampa)) {flex-direction: column;}

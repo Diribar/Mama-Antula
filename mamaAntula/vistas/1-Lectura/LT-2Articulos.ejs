@@ -30,7 +30,7 @@
 	<% } %>
 
 	<!-- Contenido -->
-	<div id="contenido">
+	<div id="contenido" tabindex="0" autofocus>
 		<% if (encabezado) for (const contenido of contenidos) { %>
 			<% const subCarpeta = contenido.statusRegistro_id == creado_id ? '2-Revisar' : '1-Final' %>
 			<%- include("LT-Cont-" + contenido.layout.archVistaLt, {contenido, subCarpeta}) %>
