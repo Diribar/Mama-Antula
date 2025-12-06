@@ -12,18 +12,20 @@ window.addEventListener("load", async () => {
 		grupo1: [
 			{codigo: "titulo", clase: "ql-header", valor: "2", title: "Título"},
 			{codigo: "pegarPlano", clase: "ql-pastePlain", title: "Pegar texto sin formato"},
-			{codigo: "limpiar", clase: "ql-clean", title: "Quitar formato"},
 		],
 		grupo2: [
 			{codigo: "negrita", clase: "ql-bold", title: "Negrita"},
 			{codigo: "cursiva", clase: "ql-italic", title: "Cursiva"},
 			{codigo: "cita", clase: "ql-blockquote", title: "Cita"},
 		],
-		grupo4: [
+		grupo3: [
 			{codigo: "listaNum", clase: "ql-list", valor: "ordered", title: "Lista numerada"},
 			{codigo: "dots", clase: "ql-list", valor: "bullet", title: "Lista con viñetas"},
 		],
-		grupo3: [{codigo: "link", clase: "ql-link", title: "Insertar enlace"}],
+		grupo4: [
+			{codigo: "link", clase: "ql-link", title: "Insertar enlace"},
+			{codigo: "limpiar", clase: "ql-clean", title: "Quitar formato"},
+		],
 	};
 
 	// Obtiene el nombre de las etiquetas

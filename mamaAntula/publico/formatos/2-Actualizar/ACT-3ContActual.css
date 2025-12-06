@@ -5,7 +5,7 @@
 
 	.contenido {
 		flex-grow: 1;
-		a {color: var(--terracota); text-decoration: underline;}
+		a {color: var(--terracotaSuave); text-decoration: underline;}
 	}
 	.iconos .fa-trash-can {color: var(--rojoOscuro)}
 }
