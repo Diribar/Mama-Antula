@@ -303,7 +303,11 @@ export default {
 			// Obtiene todos los encabezados en papelera o con contenido en papelera
 			const condicion = {[Op.or]: [{id: encab_ids}, {statusRegistro_id: rechazado_id}]};
 			const includes = [...includesEncabs.cartas, ...includesEncabs.lugares];
-			const encabezados = await baseDatos.obtieneTodosPorCondicion("encabezados", condicion, includes);
+			const encabezados = await baseDatos
+				.obtieneTodosPorCondicion("encabezados", condicion, includes)
+				.then((n) => n.sort((a, b) => (a.titulo < b.titulo ? -1 : 1)))
+				.then((n) => n.sort((a, b) => (a.fechaEvento < b.fechaEvento ? -1 : 1)))
+				.then((n) => n.sort((a, b) => (a.lugarIndice && b.lugarIndice) && (a.lugarIndice.orden < b.lugarIndice.orden ? -1 : 1)));
 
 			// Fin
 			return encabezados;
