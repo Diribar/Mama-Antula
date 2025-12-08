@@ -26,11 +26,11 @@
 	<% const tituloDelContenido = locals.encabezado && (conIndice ? encabezado.tituloElab : encabezado.titulo) %>
 	<% if (tituloDelContenido) { %>
 		<!-- Título del contenido -->
-		<h2 id="tituloDelContenido"><%= tituloDelContenido %></h2>
+		<h3 id="tituloDelContenido"><%= tituloDelContenido %></h3>
 	<% } %>
 
 	<!-- Contenido -->
-	<div id="contenido">
+	<div id="contenido" tabindex="0" autofocus>
 		<% if (encabezado) for (const contenido of contenidos) { %>
 			<% const subCarpeta = contenido.statusRegistro_id == creado_id ? '2-Revisar' : '1-Final' %>
 			<%- include("LT-Cont-" + contenido.layout.archVistaLt, {contenido, subCarpeta}) %>
