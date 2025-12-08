@@ -10,7 +10,7 @@ export default {
 		// Rutinas programadas - compartidas diarias: 0:00hs
 		cron.schedule("0 0 * * 1", () => this.rutinasSemanales(), {timezone: "Etc/Greenwich"}); // Rutinas semanales (a las 0:00hs)
 		cron.schedule("1 0 * * *", () => this.rutinasDiarias(), {timezone: "Etc/Greenwich"}); // Rutinas diarias (a las 0:00hs)
-		// cron.schedule("2 * * * *", () => this.rutinasHorarias(), {timezone: "Etc/Greenwich"}); // Rutinas horarias (a las X:00hs)
+		// this.rutinas.elimImgsSinRegEnBd.consolidado();
 
 		// Fin
 		return;
