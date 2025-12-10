@@ -11,7 +11,7 @@ export default (req, res, next) => {
 	if (errorNombre) mensajes.push(errorNombre.replace("contenido", "nombre"));
 
 	// Valida email
-	const errorEmail = comp.validacs.formatoMail(email);
+	const errorEmail = comp.validacs.formatoMail(email).email;
 	if (errorEmail) mensajes.push(errorEmail);
 
 	// Valida institución
