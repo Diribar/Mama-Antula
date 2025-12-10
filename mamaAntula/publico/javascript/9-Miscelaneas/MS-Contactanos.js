@@ -12,9 +12,16 @@ window.addEventListener("load", async () => {
 
 	// Eventos - change
 	domForm.addEventListener("change", (e) => {
+		// Variables
 		const campo = e.target.name;
-		const valor = e.target.value;
-		if (["nombre", "institucion", "mensaje"].includes(campo) && valor) e.target.value = inicialMayus(valor);
+		if (!e.target.value) return;
+
+		// Quita espacios innecesarios
+		e.target.value = e.target.value.trim();
+		e.target.value = e.target.value.replace(/\s+/g, " ");
+
+		// Inicial mayúscula
+		if (["nombre", "institucion", "mensaje"].includes(campo) && e.target.value) e.target.value = inicialMayus(e.target.value);
 	});
 
 	// Eventos - submit
@@ -31,7 +38,7 @@ window.addEventListener("load", async () => {
 		respuesta = await fetch(ruta, postForm(formData)).then((n) => n.json());
 
 		// Feedback al emisor
-		const mensaje = respuesta.error || "Le hemos enviado tu mensaje a los interesados.";
+		const mensaje = respuesta.error || "Le hemos enviado tu mensaje al equipo.";
 		await carteles[respuesta.error ? "error" : "exito"](mensaje);
 
 		// Si hay error, vuelve a mostrar el botón de enviar
