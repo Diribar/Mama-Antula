@@ -90,10 +90,12 @@ export default {
 		}
 	},
 	actualizaStatusEnBd: async (contenido, vigente) => {
-		return;
-		// Actualiza el registro del contenido
-		const statusRegistro_id = vigente ? aprobado_id : rechazar_id;
-		await baseDatos.actualizaPorId("contenidos", contenido.id, {statusRegistro_id});
+		// Asigna el status vigente
+		const statusRegistro_id = vigente ? aprobado_id : creadoAprob_id;
+
+		// Si corresponde, actualiza el registro del contenido
+		if (contenido.statusRegistro_id != statusRegistro_id)
+			await baseDatos.actualizaPorId("contenidos", contenido.id, {statusRegistro_id});
 
 		// Fin
 		return;

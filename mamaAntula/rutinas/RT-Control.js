@@ -49,7 +49,7 @@ export default {
 			// Fin
 			return;
 		},
-		feedbackRevisores: async () => {
+		feedbackParaRevisores: async () => {
 			// Obtiene los contenidos en status creado o rechazar
 			const condicion = {statusRegistro_id: {[Op.in]: [creado_id, rechazar_id]}};
 			const contenidos = await baseDatos.obtieneTodosPorCondicion("contenidos", condicion);
@@ -87,15 +87,15 @@ export default {
 			return;
 		},
 		verificaLinksYouTube: async () => {
-			// Obtiene los links a revisar
+			// Obtiene los links aprobados a revisar
 			const condicion = {statusRegistro_id: aprobado_id, video: {[Op.ne]: null}};
 			let contenidos = await baseDatos.obtieneTodosPorCondicion("contenidos", condicion);
 
 			// Primera revisión
 			await linksVencidos.revisaLinks(contenidos);
 
-			// Obtiene los links
-			condicion.statusRegistro_id = rechazar_id;
+			// Obtiene los links rechazados a revisar
+			condicion.statusRegistro_id = creadoAprob_id;
 			contenidos = await baseDatos.obtieneTodosPorCondicion("contenidos", condicion);
 
 			// Segunda revisión
