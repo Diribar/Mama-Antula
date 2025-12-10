@@ -243,7 +243,7 @@ export default {
 		// Fin
 		return false;
 	},
-	mailRevisores: async () =>
+	emailsRevisores: async () =>
 		await baseDatos.obtieneTodosPorCondicion("usuarios", {rol_id: rolesRevision_ids}).then((n) => n.map((m) => m.email)),
 
 	enviaMail: async ({nombre, email, asunto, comentario}) => {

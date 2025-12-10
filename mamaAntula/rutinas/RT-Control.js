@@ -67,8 +67,8 @@ export default {
 				"La Familia Mama Antula.";
 
 			// Envía el mail a los revisores
-			const mailRevisores = await comp.mailRevisores();
-			for (const email of mailRevisores) await comp.enviaMail({nombre, email, asunto, comentario});
+			const emailsRevisores = await comp.emailsRevisores();
+			for (const email of emailsRevisores) await comp.enviaMail({nombre, email, asunto, comentario});
 
 			// Fin
 			return;

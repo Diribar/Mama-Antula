@@ -18,7 +18,7 @@ export default {
 			("Por favor, respondé directamente al remitente a su mail: <b><em>" + remitenteMail + "</em></b>.");
 
 		// Envía el mail a los miembros de la Familia Mama Antula
-		const emailsRevisores = await comp.mailRevisores();
+		const emailsRevisores = await comp.emailsRevisores();
 		let mailEnviado;
 		for (const email of emailsRevisores) mailEnviado = (await comp.enviaMail({nombre, email, asunto, comentario})) || mailEnviado;
 
