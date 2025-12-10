@@ -8,31 +8,25 @@ export default {
 	// Start-up y Configuración de Rutinas
 	startupMasConfiguracion: async function () {
 		// Rutinas programadas - compartidas diarias: 0:00hs
-		cron.schedule("0 0 * * 1", () => this.rutinasSemanales(), {timezone: "Etc/Greenwich"}); // Rutinas semanales (a las 0:00hs)
-		cron.schedule("1 0 * * *", () => this.rutinasDiarias(), {timezone: "Etc/Greenwich"}); // Rutinas diarias (a las 0:00hs)
-		// this.rutinas.elimImgsSinRegEnBd.consolidado();
+		cron.schedule("0 0 * * 1", () => this.rutinasSemanales.consolidado(), {timezone: "Etc/Greenwich"}); // Rutinas semanales (a las 0:00hs)
+		cron.schedule("1 0 * * *", () => this.rutinasDiarias.consolidado(), {timezone: "Etc/Greenwich"}); // Rutinas diarias (a las 0:00hs)
+		// this.rutinasSemanales.consolidado()
 
 		// Fin
 		return;
 	},
 
-	rutinasDiarias: async function () {
-		await this.rutinas.eliminaRegsPapelera();
+	// Rutinas diarias
+	rutinasDiarias: {
+		consolidado: async function () {
+			const funciones = Object.keys(this).slice(1);
 
-		// Fin
-		return;
-	},
-	rutinasSemanales: async function () {
-		await this.rutinas.verificaLinksYouTube();
-		await this.rutinas.elimImgsSinRegEnBd.consolidado();
+			// Ejecuta las rutinas
+			for (const funcion of funciones) await this[funcion]();
 
-		// Fin
-		return;
-	},
-
-	// Rutinas
-	rutinas: {
-		// Diarias
+			// Fin
+			return;
+		},
 		eliminaRegsPapelera: async () => {
 			// Obtiene los encabezados anteriores a la fecha de corte
 			const condEncab = {statusRegistro_id: rechazado_id, statusSugeridoEn: {[Op.lt]: new Date(Date.now() - unaSemana)}};
@@ -55,8 +49,43 @@ export default {
 			// Fin
 			return;
 		},
+		feedbackRevisores: async () => {
+			// Obtiene los contenidos en status creado o rechazar
+			const condicion = {statusRegistro_id: {[Op.in]: [creado_id, rechazar_id]}};
+			const contenidos = await baseDatos.obtieneTodosPorCondicion("contenidos", condicion);
+			if (!contenidos.length) return;
 
-		// Semanales
+			// Prepara el mail a enviar
+			const nombre = "Familia Mama Antula";
+			const asunto = "Contenido pendiente de revisión";
+			const comentario =
+				"Este es un mail automático para informarte que en el sistema Familia Mama Antula, hay contenido pendiente de revisión.<br><br>" +
+				"Por favor, ingresá al <a href='" +
+				urlHost +
+				"/revisar'>panel de revisión</a> para gestionarlo.<br><br>" +
+				"Saludos cordiales,<br>" +
+				"La Familia Mama Antula.";
+
+			// Envía el mail a los revisores
+			const mailRevisores = await comp.mailRevisores();
+			for (const email of mailRevisores) await comp.enviaMail({nombre, email, asunto, comentario});
+
+			// Fin
+			return;
+		},
+	},
+
+	// Rutinas semanales
+	rutinasSemanales: {
+		consolidado: async function () {
+			const funciones = Object.keys(this).slice(1);
+
+			// Ejecuta las rutinas
+			for (const funcion of funciones) await this[funcion]();
+
+			// Fin
+			return;
+		},
 		verificaLinksYouTube: async () => {
 			// Obtiene los links a revisar
 			const condicion = {statusRegistro_id: aprobado_id, video: {[Op.ne]: null}};
@@ -75,22 +104,13 @@ export default {
 			// Fin
 			return;
 		},
-		elimImgsSinRegEnBd: {
-			consolidado: async function () {
-				// Variables
-				let archsEnBd;
+		elimImgsSinRegEnBd: async function () {
+			// Variables
+			let archsEnBd;
 
-				// Elimina las imágenes de las carpetas "Revisar" y "Final"
-				archsEnBd = await this.obtieneImgsContenidoCrsl();
-				const carpetas = [path.join(carpImgsEditables, "2-Revisar"), path.join(carpImgsEditables, "1-Final")];
-				for (const carpeta of carpetas) this.eliminaLasImagenes({carpeta, archsEnBd});
-
-				// Fin
-				return;
-			},
-			obtieneImgsContenidoCrsl: async () => {
+			const obtieneImgsContenidoCrsl = async () => {
 				// Variables
-				const archsEnBd = [];
+				archsEnBd = [];
 
 				// Obtiene las imágenes de los contenidos y carruseles
 				const contenidos = await baseDatos.obtieneTodosPorCondicion("contenidos", {imagen: {[Op.ne]: null}});
@@ -101,19 +121,19 @@ export default {
 				await baseDatos.obtieneTodos("carrusel").then((n) => n.map((m) => archsEnBd.push(m.imagen)));
 
 				// Fin
-				return archsEnBd;
-			},
-			eliminaLasImagenes: function ({carpeta, archsEnBd}) {
+				return;
+			};
+			const eliminaLasImagenes = function (carpeta) {
 				// Obtiene el nombre de todas las imagenes de los archivos de la carpeta
 				const archsEnDisco = fs.readdirSync(carpeta);
 
 				// Rutina para borrar archivos cuyo nombre no está en BD
-				for (const archEnDisco of archsEnDisco) if (!archsEnBd.includes(archEnDisco)) this.elimina(carpeta, archEnDisco);
+				for (const archEnDisco of archsEnDisco) if (!archsEnBd.includes(archEnDisco)) elimina(carpeta, archEnDisco);
 
 				// Fin
 				return;
-			},
-			elimina: (ruta, archivo) => {
+			};
+			const elimina = (ruta, archivo) => {
 				// Arma el nombre del archivo
 				const rutaNombre = path.join(ruta, archivo);
 
@@ -133,7 +153,15 @@ export default {
 
 				// Fin
 				return;
-			},
+			};
+
+			// Elimina las imágenes de las carpetas "Revisar" y "Final"
+			await obtieneImgsContenidoCrsl();
+			const carpetas = [path.join(carpImgsEditables, "2-Revisar"), path.join(carpImgsEditables, "1-Final")];
+			for (const carpeta of carpetas) eliminaLasImagenes(carpeta);
+
+			// Fin
+			return;
 		},
 	},
 };
