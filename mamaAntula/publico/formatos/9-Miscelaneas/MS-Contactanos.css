@@ -20,7 +20,8 @@ main h1 {margin-block: 20px 15px !important;}
 			}
 		}
 		input {margin-bottom: 20px;}
-		p {margin-bottom: 15px;}
+		p#obligatorio {margin-bottom: 15px;}
+		p#espera {margin-inline: auto; color: var(--rojoOscuro); font-weight: bold;}
 		textarea {height: 100px; resize: vertical;}
 		button {
 			background: var(--grisOscuro); color: white; border: none;
