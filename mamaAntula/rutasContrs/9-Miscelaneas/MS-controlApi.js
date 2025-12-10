@@ -6,7 +6,7 @@ export default {
 		// Variables
 		const {nombre: remitenteNombre, email: remitenteMail, institucion, mensaje} = req.body;
 		const nombre = "Familia Mama Antula";
-		let asunto = "Mensaje recibido desde el formulario de contacto";
+		let asunto = "Mensaje enviado desde el formulario de contacto";
 
 		// Cuerpo del mail
 		let comentario =
