@@ -1,4 +1,5 @@
 "use strict";
+import procesosUs from "../8-Usuarios/US-procesos.js";
 const temaVista = "miscelaneas";
 
 export default {
@@ -6,10 +7,12 @@ export default {
 		// Variables
 		const tituloPagina = "Contactanos";
 		const codigoVista = "contactanos";
+		const imagenes = procesosUs.obtieneImagenesAlAzar();
 
 		// Fin
 		return res.render("CMP-0Estructura", {
 			...{tituloPagina, temaVista, codigoVista},
+			imagenes,
 		});
 	},
 	biblioteca: async (req, res) => {
