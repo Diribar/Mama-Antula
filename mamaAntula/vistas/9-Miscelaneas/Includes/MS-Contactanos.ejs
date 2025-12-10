@@ -3,11 +3,11 @@
 	<img src="<%= imagenes[0] %>">
 </div>
 
-<form class="formulario">
-	<input type="text" autofocus placeholder="Nombre *">
-	<input type="email" placeholder="Correo electrónico *">
-	<input type="text" placeholder="Si pertenecés a alguna institución, ¿nos podés decir a cuál?">
-	<textarea placeholder="Mensaje *"></textarea>
+<form>
+	<input name="nombre" type="text" autofocus placeholder="Nombre *">
+	<input name="email" type="email" placeholder="Correo electrónico *">
+	<input name="institucion" type="text" placeholder="Si pertenecés a alguna institución, ¿nos podés decir a cuál?">
+	<textarea name="mensaje" placeholder="Mensaje *"></textarea>
 	<p>* Campos de contenido obligatorio</p>
 
 	<button type="submit">Enviar</button>
