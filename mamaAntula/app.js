@@ -34,10 +34,8 @@ app.use(cookieParser());
 // Variables de entorno
 globalThis.rutaHome = path.dirname(fileURLToPath(import.meta.url)); // es la carpeta raíz
 globalThis.entProd = path.basename(rutaHome) == "1-Actual";
-globalThis.entPrueba = path.basename(rutaHome) == "2-Prueba";
-globalThis.entDesarr = !entProd && !entPrueba;
-globalThis.urlHost =
-	(entProd && "https://mamaantula.com") || (entPrueba && "https://prueba.mamaantula.com") || "https://mamaantula:3006";
+const entPrueba = path.basename(rutaHome) == "2-Prueba";
+const entDesarr = !entProd && !entPrueba;
 
 // Servidor
 const puerto = entProd ? 4216 : entPrueba ? "?" : 3008;

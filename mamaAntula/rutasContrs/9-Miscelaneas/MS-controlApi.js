@@ -18,11 +18,9 @@ export default {
 			("Por favor, respondé directamente al remitente a su mail: <b><em>" + remitenteMail + "</em></b>.");
 
 		// Envía el mail a los miembros de la Familia Mama Antula
-		const emails = await baseDatos
-			.obtieneTodosPorCondicion("usuarios", {rol_id: rolesRevision_ids})
-			.then((n) => n.map((m) => m.email));
+		const emailsRevisores = await comp.mailRevisores();
 		let mailEnviado;
-		for (const email of emails) mailEnviado = (await comp.enviaMail({nombre, email, asunto, comentario})) || mailEnviado;
+		for (const email of emailsRevisores) mailEnviado = (await comp.enviaMail({nombre, email, asunto, comentario})) || mailEnviado;
 
 		// Genera el mensaje de respuesta
 		const error = !mailEnviado ? "No hemos podido enviar el mail" : "";
