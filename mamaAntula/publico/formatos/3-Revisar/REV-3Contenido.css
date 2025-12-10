@@ -29,6 +29,6 @@
 	&:has(#encabezado.aprobado) .bloque {
 		margin-top: 20px;
 		&.creado {background-color: var(--amarilloClaro);}
-		&.rechazar, &.rechazado {background-color: var(--rojoMuyClaro);}
+		&.creadoAprob, &.rechazar, &.rechazado {background-color: var(--rojoMuyClaro);}
 	}
 }
