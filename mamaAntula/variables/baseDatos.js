@@ -28,11 +28,11 @@ export default {
 
 			// Usuarios
 			roles: baseDatos.obtieneTodosConOrden("roles", "orden"),
-			statusRegistrosUs: baseDatos.obtieneTodosConOrden("statusRegistrosUs", "orden"),
+			statusRegistrosUs: baseDatos.obtieneTodos("statusRegistrosUs"),
 
 			// Otros
 			iconosAgrupados: baseDatos.obtieneTodosConOrden("iconosAgrupados", "orden").then((n) => n.filter((m) => m.activo)),
-			statusRegistros: baseDatos.obtieneTodosConOrden("statusRegistros", "orden"),
+			statusRegistros: baseDatos.obtieneTodos("statusRegistros"),
 			versionWeb: baseDatos.obtieneTodosConOrden("novsDelSitio", "fecha").then((n) => n.at(-1).version),
 		};
 
@@ -59,6 +59,7 @@ export default {
 
 			// 3. Status de contenido
 			creado_id: statusRegistros.find((n) => n.codigo == "creado").id,
+			creadoAprob_id: statusRegistros.find((n) => n.codigo == "creadoAprob")?.id,
 			aprobado_id: statusRegistros.find((n) => n.codigo == "aprobado").id,
 			rechazar_id: statusRegistros.find((n) => n.codigo == "rechazar").id,
 			rechazado_id: statusRegistros.find((n) => n.codigo == "rechazado").id,
