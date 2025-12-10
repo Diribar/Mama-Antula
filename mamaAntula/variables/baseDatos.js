@@ -59,7 +59,7 @@ export default {
 
 			// 3. Status de contenido
 			creado_id: statusRegistros.find((n) => n.codigo == "creado").id,
-			creadoAprob_id: statusRegistros.find((n) => n.codigo == "creadoAprob")?.id,
+			creadoAprob_id: statusRegistros.find((n) => n.codigo == "creadoAprob").id,
 			aprobado_id: statusRegistros.find((n) => n.codigo == "aprobado").id,
 			rechazar_id: statusRegistros.find((n) => n.codigo == "rechazar").id,
 			rechazado_id: statusRegistros.find((n) => n.codigo == "rechazado").id,
