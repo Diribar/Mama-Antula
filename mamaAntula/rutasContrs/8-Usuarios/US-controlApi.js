@@ -49,6 +49,7 @@ export default {
 		guarda: (req, res) => {
 			// Variables
 			const datos = req.body;
+			if (datos.contrasena) datos.contrasena = bcryptjs.hashSync(datos.contrasena, 10);
 
 			// Actualizaciones varias
 			const {usuario} = req.session;
