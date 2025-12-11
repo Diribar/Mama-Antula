@@ -6,9 +6,10 @@
 
 	.formatoBusq {
 		position: absolute; right: -7px; top: -3px; translate: 100%;
+		color: var(--grisOscuro);
 		input, #muestraResultados {border: 1px solid var(--azul-oscuro); border-radius: 5px;}
 		input, #escribiMas {width: 200px;}
-		input {padding: 4px 5px; font-size: 1rem; color: var(--grisOscuro);}
+		input {padding: 4px 5px; font-size: 1rem;}
 
 		/* Opciones de #muestraResultados */
 		#muestraResultados {
@@ -30,7 +31,10 @@
 				}
 			}
 		}
-		#escribiMas {background: var(--gris-claro); font-style: italic; padding: 2px 7px; border-radius: 5px;}
+		#escribiMas {
+			background: var(--grisClaro); padding: 2px 7px; border-radius: 5px; border: var(--grisOscuro) 1px solid;
+			font-style: italic; font-size: 0.9rem;
+		}
 
 		/* Condicional */
 		&:not(:has(#muestraResultados.ocultar)) input {border-bottom-left-radius: 0; border-bottom-right-radius: 0;}
