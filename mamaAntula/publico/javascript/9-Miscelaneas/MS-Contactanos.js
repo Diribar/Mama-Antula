@@ -6,6 +6,7 @@ window.addEventListener("load", async () => {
 	const DOM = {
 		mensaje: domForm.querySelector("[name='mensaje']"),
 		submit: domForm.querySelector("button[type='submit']"),
+		espera: domForm.querySelector("#espera"),
 	};
 	const ruta = "/contactanos/api/enviar";
 	let respuesta;
@@ -28,8 +29,9 @@ window.addEventListener("load", async () => {
 	domForm.addEventListener("submit", async (e) => {
 		// Si confirmar está oculto, interrumpe la función
 		e.preventDefault();
-		if (DOM.submit.className.includes("invisible")) return;
-		DOM.submit.classList.add("invisible");
+		if (DOM.submit.className.includes("ocultar")) return;
+		DOM.submit.classList.add("ocultar");
+		DOM.espera.classList.remove("ocultar");
 
 		// Crea el FormData y agrega los datos
 		const formData = new FormData(domForm);
@@ -41,10 +43,12 @@ window.addEventListener("load", async () => {
 		const mensaje = respuesta.error || "Le hemos enviado tu mensaje al equipo.";
 		await carteles[respuesta.error ? "error" : "exito"](mensaje);
 
-		// Si hay error, vuelve a mostrar el botón de enviar
-		if (respuesta.error) DOM.submit.classList.remove("invisible");
 		// Borra el mensaje
-		else DOM.mensaje.value = "";
+		if (!respuesta.error) DOM.mensaje.value = "";
+
+		// Quite el mensaje de espera
+		DOM.submit.classList.remove("ocultar");
+		DOM.espera.classList.add("ocultar");
 
 		// Fin
 		return;
