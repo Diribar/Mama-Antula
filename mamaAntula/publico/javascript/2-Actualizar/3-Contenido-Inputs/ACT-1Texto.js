@@ -115,6 +115,7 @@ window.addEventListener("load", async () => {
 				.replaceAll("&nbsp;", " ") // reemplaza por espacios normales;
 				.replaceAll("  ", " ") // reemplaza espacios duplicados
 				.replaceAll("h2>", "h3>")// reemplaza el tipo de título
+				.replaceAll(' target="_blank"', "") // quita el target de los links
 				.replace("<p><br></p>", "") // reemplaza el último, porque los demás ya fueron quitados
 				.trim(); // reemplaza espacios al final
 		}, 100);
