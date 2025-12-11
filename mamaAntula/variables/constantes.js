@@ -60,7 +60,7 @@ export default {
 			titulo: "Título",
 			fechaEvento: "Fecha de ocurrencia",
 		},
-		tabla: ["nombreDesde_id", "nombreHacia_id", "idioma_id", "lugar_id", "numero", "titulo", "fechaEvento", "lugarIndice_id"],
+		tabla: ["nombreDesde_id", "nombreHacia_id", "idioma_id", "lugarCarta_id", "lugarExper_id", "numero", "titulo", "fechaEvento", "lugarIndice_id"],
 	},
 
 	// Otras
