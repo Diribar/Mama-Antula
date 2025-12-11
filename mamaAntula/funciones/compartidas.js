@@ -243,6 +243,9 @@ export default {
 		// Fin
 		return false;
 	},
+	emailsRevisores: async () =>
+		await baseDatos.obtieneTodosPorCondicion("usuarios", {rol_id: rolesRevision_ids}).then((n) => n.map((m) => m.email)),
+
 	enviaMail: async ({nombre, email, asunto, comentario}) => {
 		// Variables
 		const {host, puerto: port, mailEnvios: user, contrEnvios: pass, seguro: secure} = credencsSitio.mail;
@@ -305,7 +308,7 @@ const titulosElabs = {
 					  (encab.nombreDesde.nombre.startsWith("P.") ? "l " : " ") +
 					  encab.nombreDesde.nombre +
 					  " para " +
-					    (encab.nombreHacia.nombre.startsWith("P.") ? "el " : "") +
+					  (encab.nombreHacia.nombre.startsWith("P.") ? "el " : "") +
 					  encab.nombreHacia.nombre +
 					  " - " +
 					  encab.lugar.nombre +
