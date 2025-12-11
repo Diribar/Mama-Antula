@@ -8,7 +8,7 @@ window.addEventListener("load", () => {
 		muestraResultados: domHeader.querySelector("#busquedaRapida .mostrarToggle #muestraResultados"),
 		escribiMas: domHeader.querySelector("#busquedaRapida .mostrarToggle #escribiMas"),
 	};
-	DOM.input.value = localStorage.getItem("busqRapida");
+	const rutaApi = "/busqueda-rapida/api/busca-en-bd";
 	let posicion = 0;
 	let resultados;
 
@@ -79,14 +79,13 @@ window.addEventListener("load", () => {
 		// Fin
 		return;
 	};
-	const guardaUrlBusqRap = () => fetch("/api/cmp-guarda-url-br/?comentario=" + DOM.input.value); // no hace falta el 'await', porque se puede guardar en forma asincrónica
 
 	// Add Event Listener
 	DOM.input.addEventListener("input", async () => {
 		// Impide los caracteres que no son válidos
 		DOM.input.value = DOM.input.value.replace(/[^a-záéíóúüñ'¡¿-\d\s]/gi, "").replace(/ +/g, " ");
 		const dataEntry = DOM.input.value;
-		localStorage.setItem("busqRapida", dataEntry)
+		localStorage.setItem("busqRapida", dataEntry);
 
 		// Elimina palabras repetidas
 		let palabras = dataEntry.split(" ");
@@ -106,8 +105,7 @@ window.addEventListener("load", () => {
 		// Busca los productos
 		palabras = palabras.join(" ");
 		console.log(palabras);
-		return
-		resultados = await fetch("/api/cmp-busqueda-rapida/?palabras=" + palabras).then((n) => n.json());
+		resultados = await fetch(rutaApi, postJson(palabras)).then((n) => n.json());
 		if (!resultados.length) resultados = "- No encontramos resultados -";
 
 		// Muestra los resultados
@@ -136,10 +134,7 @@ window.addEventListener("load", () => {
 		}
 
 		// Redirige a la vista del hallazgo
-		if (e.key == "Enter") {
-			guardaUrlBusqRap();
-			location.href = DOM.muestraResultados.children[posicion].href;
-		}
+		if (e.key == "Enter") location.href = DOM.muestraResultados.children[posicion].href;
 
 		// Oculta el sector de muestraResultados
 		if (e.key == "Escape") DOM.mostrarClick.classList.add("ocultar");
@@ -161,4 +156,10 @@ window.addEventListener("load", () => {
 		// Fin
 		return;
 	});
+
+	// Start-up
+	DOM.input.value = localStorage.getItem("busqRapida");
+
+	// Fin
+	return;
 });
