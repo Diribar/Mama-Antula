@@ -65,8 +65,18 @@ export default {
 
 			// Obtiene los encabezados
 			const condicion = {id: encabs_id, statusRegistro_id};
-			const include = ["tema", "pestana", ...comp.includes()];
-			const encabezados = await baseDatos.obtieneTodosPorCondicion("encabezados", condicion);
+			const include = comp.includes()
+			const encabezados = await baseDatos.obtieneTodosPorCondicion("encabezados", condicion, include)
+				.then((n) => n.sort((a, b) => (a.titulo < b.titulo ? -1 : 1)))
+				.then((n) => n.sort((a, b) => (a.fechaEvento < b.fechaEvento ? -1 : 1)))
+				.then((n) =>
+					n.sort((a, b) => a.lugarIndice && b.lugarIndice && (a.lugarIndice.orden < b.lugarIndice.orden ? -1 : 1))
+				);
+
+			// Les agrega la ruta y los títulos
+
+			// Fin
+			return res.json(encabezados);
 		},
 		titulos: async ({palabras, statusRegistro_id}) => {
 			// Obtiene la condición

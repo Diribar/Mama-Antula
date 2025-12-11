@@ -210,7 +210,7 @@ export default {
 
 		// Fin
 		return esCarta
-			? titulosElabs.cartas(encabezados) // cartas
+			? titulosElabs.cartas(encabezados)
 			: esLugares
 			? titulosElabs.lugares(encabezados)
 			: conIndice
