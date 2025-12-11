@@ -61,7 +61,7 @@ export default {
 			const statusRegistro_id = [creado_id, rechazar_id];
 
 			// Obtiene los encabezados
-			const includes = [...includesEncabs.cartas, "lugarIndice"];
+			const includes = comp.includes();
 			let encabezados = await baseDatos.obtieneTodosPorCondicion("encabezados", {statusRegistro_id}, includes);
 			if (!encabezados.length) return [];
 
@@ -137,7 +137,7 @@ export default {
 			const statusRegistro_id = aprobado_id;
 
 			// Obtiene los encabezados
-			const includes = [...includesEncabs.cartas, "lugarIndice", "ediciones"];
+			const includes = [...comp.includes(), "ediciones"];
 			let encabezados = await baseDatos
 				.obtieneTodosPorCondicion("encabezados", {statusRegistro_id}, includes)
 				.then((n) => n.filter((m) => m.ediciones.length));
@@ -158,7 +158,7 @@ export default {
 			const edic_id = encabezado.ediciones[0].id;
 
 			// Obtiene la edición
-			const includes = [...includesEncabs.cartas, "lugarIndice", "editadoPor"];
+			const includes = [...comp.includes(), "editadoPor"];
 			const edicion = await baseDatos.obtienePorId("encabEdics", edic_id, includes);
 
 			// Fin
@@ -203,7 +203,7 @@ export default {
 			const statusRegistro_id = aprobado_id;
 
 			// Obtiene los encabezados con status aprobado
-			const includes = [...includesEncabs.cartas, "lugarIndice"];
+			const includes = comp.includes();
 			let encabezados = baseDatos.obtieneTodosPorCondicion("encabezados", {statusRegistro_id}, includes);
 
 			// Obtiene los contenidos con status pendiente de revision
@@ -304,12 +304,14 @@ export default {
 
 			// Obtiene todos los encabezados en papelera o con contenido en papelera
 			const condicion = {[Op.or]: [{id: encab_ids}, {statusRegistro_id: rechazado_id}]};
-			const includes = [...includesEncabs.cartas, ...includesEncabs.lugares];
+			const includes = comp.includes();
 			const encabezados = await baseDatos
 				.obtieneTodosPorCondicion("encabezados", condicion, includes)
 				.then((n) => n.sort((a, b) => (a.titulo < b.titulo ? -1 : 1)))
 				.then((n) => n.sort((a, b) => (a.fechaEvento < b.fechaEvento ? -1 : 1)))
-				.then((n) => n.sort((a, b) => (a.lugarIndice && b.lugarIndice) && (a.lugarIndice.orden < b.lugarIndice.orden ? -1 : 1)));
+				.then((n) =>
+					n.sort((a, b) => a.lugarIndice && b.lugarIndice && (a.lugarIndice.orden < b.lugarIndice.orden ? -1 : 1))
+				);
 
 			// Fin
 			return encabezados;

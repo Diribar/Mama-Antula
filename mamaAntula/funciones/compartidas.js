@@ -173,6 +173,16 @@ export default {
 		// Fin
 		return {esCarta, esLugares, conIndice};
 	},
+	includes: () => {
+		// Variables
+		const includes = [];
+
+		// Obtiene todos los includes
+		for (const include in includesEncabs) includes.push(...includesEncabs[include]);
+
+		// Fin
+		return includes;
+	},
 	obtieneEncabezados: function ({tema_id, condicion}) {
 		// Variables
 		const {esCarta, esLugares, conIndice} = this.tipoDeTema(tema_id);
