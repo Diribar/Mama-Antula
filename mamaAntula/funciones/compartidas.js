@@ -311,7 +311,7 @@ const titulosElabs = {
 					  (encab.nombreHacia.nombre.startsWith("P.") ? "el " : "") +
 					  encab.nombreHacia.nombre +
 					  " - " +
-					  encab.lugar.nombre +
+					  encab.lugarCarta.nombre +
 					  " - " +
 					  diaMesAnoUTC(encab.fechaEvento);
 
@@ -336,7 +336,7 @@ const titulosElabs = {
 	},
 	conIndice: (encabs) => {
 		for (const encab of encabs)
-			encab.tituloElab = diaMesAnoUTC(encab.fechaEvento) + " - " + encab.titulo + " - " + encab.lugar.nombre;
+			encab.tituloElab = diaMesAnoUTC(encab.fechaEvento) + " - " + encab.titulo + " - " + encab.lugarExper.nombre;
 		return encabs;
 	},
 };

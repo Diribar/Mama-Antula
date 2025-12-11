@@ -65,7 +65,7 @@ export default {
 
 			// Obtiene los encabezados
 			const condicion = {id: encabs_id, statusRegistro_id};
-			const include = ["tema", "pestana"];
+			const include = ["tema", "pestana", ...includesEncabs.cartas, ...includesEncabs.lugares];
 			const encabezados = await baseDatos.obtieneTodosPorCondicion("encabezados", condicion);
 		},
 		titulos: async ({palabras, statusRegistro_id}) => {

@@ -35,7 +35,8 @@ export default (sequelize, dt) => {
 		entidad.belongsTo(n.idiomas, {as: "idioma", foreignKey: "idioma_id"});
 
 		// Otros
-		entidad.belongsTo(n.lugares, {as: "lugar", foreignKey: "lugar_id"});
+		entidad.belongsTo(n.lugaresCartas, {as: "lugarCarta", foreignKey: "lugar_id"});
+		entidad.belongsTo(n.lugaresExpers, {as: "lugarExper", foreignKey: "lugar_id"});
 		entidad.belongsTo(n.indicesLugar, {as: "lugarIndice", foreignKey: "lugarIndice_id"});
 
 	};
