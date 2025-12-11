@@ -8,7 +8,7 @@
 		position: absolute; right: -7px; top: -3px; translate: 100%;
 		input, #muestraResultados {border: 1px solid var(--azul-oscuro); border-radius: 5px;}
 		input, #escribiMas {width: 200px;}
-		input {padding: 4px 5px; font-size: 1rem; font-weight: bold;}
+		input {padding: 4px 5px; font-size: 1rem; color: var(--grisOscuro);}
 
 		/* Opciones de #muestraResultados */
 		#muestraResultados {

@@ -29,7 +29,7 @@
 <!-- Main -->
 <link rel="stylesheet" href="/formatos/0-Compartido/Main/MN-CartelCentro.css">
 
-<!-- Includes2 -->
+<!-- Includes -->
 <link rel="stylesheet" href="/formatos/0-Compartido/Includes/Animaciones.css">
 <link rel="stylesheet" href="/formatos/0-Compartido/Includes/Clases.css">
 <link rel="stylesheet" href="/formatos/0-Compartido/Includes/Colores.css">
@@ -39,13 +39,16 @@
 <script src="/javascript/0-Compartido/CMP-MuestraOculta.js"></script>
 <script src="/javascript/0-Compartido/CMP-Funciones.js"></script>
 <script src="/javascript/0-Compartido/CMP-AgrandaImg.js"></script>
+<script src="/javascript/0-Compartido/CMP-BusqRapida.js"></script>
+
+<!-- SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link rel="stylesheet" href="/formatos/0-Compartido/Main/MN-0Carteles.css">
+
+<!-- Usuarios -->
 <% if (!locals.usuario) { %>
 	<script src="/javascript/8-Usuarios/US-0Login.js"></script>
 	<script src="/javascript/8-Usuarios/US-0LoginOjitoContr.js"></script>
 <% } else { %>
 	<script src="/javascript/8-Usuarios/US-0Logout.js"></script>
 <% } %>
-
-<!-- SweetAlert2 -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<link rel="stylesheet" href="/formatos/0-Compartido/Main/MN-0Carteles.css">

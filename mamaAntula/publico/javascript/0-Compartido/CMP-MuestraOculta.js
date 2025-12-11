@@ -23,6 +23,8 @@ window.addEventListener("load", () => {
 			e.target == click && !click.className.includes("inactivo")
 				? menu.classList.toggle("ocultar") // caso exitoso, toggle del menu
 				: menu.classList.add("ocultar"); // caso fallido, oculta el menu
+
+			if (e.target == click && click == DOM.brIcono && !DOM.brMostrar.classList.contains("ocultar")) DOM.brInput.focus();
 		})
 	);
 });
