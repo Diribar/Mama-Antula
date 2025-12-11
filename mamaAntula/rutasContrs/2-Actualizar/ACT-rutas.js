@@ -8,7 +8,6 @@ import soloActualiz from "../../middlewares/8-Usuarios-Roles/US-Solo3Actualiz.js
 import queryEnCookies from "../../middlewares/2-Actualizar/ACT-queryEnCookies.js";
 
 // Middlewares de API - valida errores
-import descargaImg from "../../middlewares/descargaImg/IMG-descargaImg.js";
 import imgEnReqBody from "../../middlewares/descargaImg/IMG-imgEnReqBody.js";
 import validaFiltros from "../../middlewares/2-Actualizar/ACT-1Filtros1Validacs.js";
 import validaCaptura from "../../middlewares/2-Actualizar/ACT-1Filtros2ValidaCapt.js";
@@ -18,7 +17,8 @@ import validaEncabElimina from "../../middlewares/2-Actualizar/ACT-2Encab3Elimin
 import validaContActual from "../../middlewares/2-Actualizar/ACT-3ContActual.js";
 import validaContNuevo from "../../middlewares/2-Actualizar/ACT-4ContNuevo.js";
 
-// Middlewares de API - captura
+// Middlewares de API - otros
+import descargaImg from "../../middlewares/descargaImg/IMG-descargaImg.js";
 import captura from "../../middlewares/2-Actualizar/ACT-captura.js";
 
 // 🧩 Router
