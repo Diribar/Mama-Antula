@@ -5,12 +5,23 @@ export default async (req, res, next) => {
 	if (comp.omitirMiddlewsTransv(req)) return next();
 
 	// Variables
+	const fechaHoy = comp.fechaHora.anoMesDia(new Date());
 	let {usuario, cliente} = req.session;
 	let cliente_id;
 
 	// Si el 'cliente_id' tiene un valor y coincide en ambas variables, interrumpe la función
 	if (usuario && cliente && usuario.cliente_id && usuario.cliente_id == cliente.cliente_id) {
-		res.locals.usuario = usuario;
+		// Si corresponde, actualiza la fecha de última navegación
+		if (usuario.fechaUltNaveg < fechaHoy) {
+			await baseDatos.actualizaPorId("usuarios", usuario.id, {fechaUltNaveg: fechaHoy});
+			req.session.usuario.fechaUltNaveg = fechaHoy;
+			req.session.cliente.fechaUltNaveg = fechaHoy;
+		}
+
+		// Actualiza locals
+		res.locals.usuario = req.session.usuario;
+
+		// Avanza
 		return next();
 	}
 
@@ -70,6 +81,20 @@ export default async (req, res, next) => {
 
 		// Actualiza el cliente con los campos necesarios
 		cliente = await baseDatos.obtienePorId("visitas", cliente.id, "rol").then((n) => obtieneCamposNecesarios(n));
+	}
+
+	// Si corresponde, actualiza la fecha de última navegación
+	if (cliente.fechaUltNaveg < fechaHoy) {
+		// Actualiza el cliente
+		cliente.fechaUltNaveg = fechaHoy;
+
+		// Actualiza el usuario
+		if (usuario) {
+			baseDatos.actualizaPorId("usuarios", usuario.id, {fechaUltNaveg: fechaHoy});
+			usuario.fechaUltNaveg = fechaHoy;
+		}
+		// Actualiza la visita
+		else baseDatos.actualizaPorId("visitas", cliente.id, {fechaUltNaveg: fechaHoy});
 	}
 
 	// Actualiza usuario y cliente

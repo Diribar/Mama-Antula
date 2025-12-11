@@ -22,7 +22,10 @@ export default {
 			const funciones = Object.keys(this).slice(1);
 
 			// Ejecuta las rutinas
-			for (const funcion of funciones) await this[funcion]();
+			for (const funcion of funciones) {
+				await this[funcion]();
+				console.log("Rutina", funcion, "procesada");
+			}
 
 			// Fin
 			return;
