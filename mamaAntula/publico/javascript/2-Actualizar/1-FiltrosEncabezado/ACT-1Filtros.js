@@ -8,7 +8,7 @@ window.addEventListener("load", async () => {
 		tema: document.querySelector("#filtros select[name='tema_id']"),
 		pestana: document.querySelector("#filtros select[name='pestana_id']"),
 		encabezado: document.querySelector("#filtros select[name='encabezado']"),
-		anchorLectura: document.querySelector("footer #iconosFooterOtros a#lectura"),
+		anchorLectura: document.querySelector("footer #rolesVip a#lectura"),
 	};
 	const rutas = {
 		datosIniciales: "/actualizar/api/act-filtros-datos-inciales",

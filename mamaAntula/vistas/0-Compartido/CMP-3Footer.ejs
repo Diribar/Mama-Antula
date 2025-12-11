@@ -1,4 +1,8 @@
-<div class="iconosFooter">
+<div class="texto">
+	Versión <%= versionWeb %>
+</div>
+
+<div class="iconos">
 	<!-- Contactanos -->
 	<a href="/contactanos" tabindex="-1">
 		<i class="fa-solid fa-envelope" title="Contactanos"></i>
@@ -20,7 +24,7 @@
 
 <!-- Otros -->
 <% if (locals.usuario && usuario.rol.actualizac) { %>
-	<div id="iconosFooterOtros" class="iconosFooter">
+	<div id="rolesVip" class="iconos">
 		<% for (const icono of iconosAgrupados.filter(n => n.codigo)) { %>
 			<% const muestraLectura = icono.codigo == "lectura" && ["actualizar", "revisar"].includes(locals.temaVista) %>
 			<% const muestraEdicion = icono.codigo == "actualizar" && usuario.rol.actualizac && locals.temaVista != "actualizar" %>
@@ -36,10 +40,15 @@
 <% } %>
 
 <!-- Redes -->
-<div id="iconosFooterRedes" class="iconosFooter">
+<div class="iconos">
 	<% for (const icono of iconosAgrupados.filter(n => !n.codigo)) { %>
 		<a href="<%= icono.link %>" target="_blank" title="<%= icono.nombre %>" rel="noopener noreferrer">
 			<i class="fa-brands <%= icono.clase %> scaleHover"></i>
 		</a>
 	<% } %>
+</div>
+
+<!-- Realizado por -->
+ <div class="texto">
+	<a href="mailto:sp2015w@gmail.com">Realizado por D.I.</a>
 </div>
