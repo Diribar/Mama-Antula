@@ -26,3 +26,12 @@ DELETE FROM cont_lugares WHERE id=15;
 DELETE FROM cont_lugares WHERE id=16;
 DELETE FROM cont_lugares WHERE id=17;
 DELETE FROM cont_lugares WHERE id=18;
+
+ALTER TABLE ma_bd.encab_1original CHANGE lugar_id lugarCarta_id tinyint(1) unsigned DEFAULT NULL NULL;
+ALTER TABLE ma_bd.encab_1original ADD lugarExper_id tinyint(1) unsigned DEFAULT NULL NULL;
+ALTER TABLE ma_bd.encab_1original CHANGE lugarExper_id lugarExper_id tinyint(1) unsigned DEFAULT NULL NULL AFTER lugarCarta_id;
+ALTER TABLE ma_bd.encab_1original DROP FOREIGN KEY encabezado_lugar;
+UPDATE ma_bd.encab_1original SET lugarExper_id = lugarCarta_id WHERE tema_id <> 10;
+UPDATE ma_bd.encab_1original SET lugarCarta_id = NULL WHERE tema_id <> 10;
+ALTER TABLE ma_bd.encab_1original ADD CONSTRAINT encabezado_lugarCarta FOREIGN KEY (lugarCarta_id) REFERENCES ma_bd.cartas_lugares(id);
+ALTER TABLE ma_bd.encab_1original ADD CONSTRAINT encabezado_lugarExper FOREIGN KEY (lugarExper_id) REFERENCES ma_bd.cont_lugares(id);
