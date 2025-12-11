@@ -19,7 +19,7 @@ export default async (req, res, next) => {
 		}
 
 		// Actualiza locals
-		if (!res.locals.usuario) res.locals.usuario = req.session.usuario;
+		res.locals.usuario = req.session.usuario;
 
 		// Avanza
 		return next();
