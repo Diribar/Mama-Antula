@@ -10,7 +10,7 @@ export default {
 		// Rutinas programadas - compartidas diarias: 0:00hs
 		cron.schedule("0 0 * * 1", () => this.rutinasSemanales.consolidado(), {timezone: "Etc/Greenwich"}); // Rutinas semanales (a las 0:00hs)
 		cron.schedule("1 0 * * *", () => this.rutinasDiarias.consolidado(), {timezone: "Etc/Greenwich"}); // Rutinas diarias (a las 0:00hs)
-		this.rutinasDiarias.consolidado()
+		// this.rutinasSemanales.consolidado()
 
 		// Fin
 		return;
@@ -25,7 +25,6 @@ export default {
 			for (const funcion of funciones) {
 				await this[funcion]();
 				console.log("Rutina", funcion, "procesada");
-
 			}
 
 			// Fin
