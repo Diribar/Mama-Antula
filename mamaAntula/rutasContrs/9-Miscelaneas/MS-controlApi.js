@@ -48,35 +48,42 @@ export default {
 	busquedaRapida: {
 		consolidado: async (req, res) => {
 			// Obtiene las palabras ingresadas
-			const {palabras} = req.body;
+			let {palabras} = req.body;
+			palabras = palabras.split(" ");
 
+			// Variables
 			const soloStatusAprob = !req.session.usuario || !rolesActualizac_ids.includes(req.session.usuario.rol_id);
 			const statusRegistro_id = soloStatusAprob ? aprobado_id : [creado_id, aprobado_id];
+
+			// Obtiene todos los encabezados a buscar
+			const encabs_id = await Promise.all([
+				this.titulos({palabras, statusRegistro_id}),
+				this.contenidos({palabras, statusRegistro_id}),
+			])
+				.then((a, b) => [...a, ...b])
+				.then((n) => [...new Set(n)]);
+
+			// Obtiene los encabezados
+			const condicion = {id: encabs_id, statusRegistro_id};
+			const include = ["tema", "pestana"];
+			const encabezados = await baseDatos.obtieneTodosPorCondicion("encabezados", condicion);
 		},
 		titulos: async ({palabras, statusRegistro_id}) => {
-			// Variables
-			const campos = ["texto", "leyenda", "titulo", "autor", "editorial"];
-
 			// Obtiene la condición
-			const condicion = procesos.busquedaRapida.condicionContenido({palabras, campos, statusRegistro_id});
+			const condicion = procesos.busquedaRapida.condiciones.contenido({palabras, statusRegistro_id});
 
 			// Obtiene los registros que cumplen la condición
-			const encabs_id = await baseDatos
-				.obtieneTodosPorCondicionConLimite("contenidos", condicion, 15)
-				.then((n) => n.map((m) => m.encab_id))
-				.then((n) => [...new Set(n)]); // elimina duplicados
+			const encabs_id = await baseDatos.obtieneTodosPorCondicion("encabezados", condicion).then((n) => n.map((m) => m.id));
 
 			// Envia la info al FE
 			return encabs_id;
 		},
 		contenidos: async ({palabras, statusRegistro_id}) => {
-			// Variables
-			const campos = ["texto", "leyenda", "titulo", "autor", "editorial"];
-
 			// Obtiene la condición
-			const condicion = procesos.busquedaRapida.condicionContenido({palabras, campos, statusRegistro_id});
+			const campos = ["texto", "leyenda", "titulo", "autor", "editorial"];
+			const condicion = procesos.busquedaRapida.condiciones.contenido({palabras, campos, statusRegistro_id});
 
-			// Obtiene los registros que cumplen la condición
+			// Obtiene los encabs_id
 			const encabs_id = await baseDatos
 				.obtieneTodosPorCondicionConLimite("contenidos", condicion, 15)
 				.then((n) => n.map((m) => m.encab_id))
