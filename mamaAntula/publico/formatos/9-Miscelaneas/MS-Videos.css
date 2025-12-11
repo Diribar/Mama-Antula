@@ -1,4 +1,5 @@
 #cuerpo {
+	flex-direction: column; align-items: flex-start;
 	ol li {
 		margin-bottom: 20px;
 		& > span {gap: 30px;}
