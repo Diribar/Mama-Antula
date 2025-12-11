@@ -81,24 +81,23 @@ window.addEventListener("load", async () => {
 	const quill = new Quill(input, {modules, formats, placeholder, theme: "snow"});
 
 	// Pule el input y lo pega en el output
-	const actualizaContenido = (delta, oldDelta, source) =>
-		// ACTUALIZA EL INPUT - si el cambio no fue hecho por el usuario, interrumpe la función
-
+	const actualizaContenido = (...args) =>
 		setTimeout(() => {
+			// Si el cambio no fue hecho por el usuario, interrumpe la función
+			const source = args[2]; // los dos primeros argumentos son innecesarios
 			if (source !== "user") return;
 
 			const parrafos = quill.root.querySelectorAll("p");
-			for (let i = parrafos.length - 1; i >= 0; i--) {
-				// ACTUALIZA EL INPUT - 1. Si el parrafo es <p><br></p> lo elimina del editor
-				const parrafo = parrafos[i];
+			parrafos.forEach((parrafo, i) => {
+				// ACTUALIZA EL INPUT - 1. Elimina los <p><br></p>
 				if (["<br>", ""].includes(parrafo.innerHTML) && i < parrafos.length - 1) {
 					const blot = Quill.find(parrafo);
 					if (blot) blot.remove();
-					continue;
+					return;
 				}
 
-				// ACTUALIZA EL INPUT - 2. Elimina saltos de línea innecesarios
-				if (!i) continue;
+				// ACTUALIZA EL INPUT - 2. Une párrafos que deberían estar unidos
+				if (!i) return;
 				const p1 = parrafos[i - 1];
 				const p2 = parrafos[i];
 
@@ -108,13 +107,13 @@ window.addEventListener("load", async () => {
 					p1.innerHTML = p1.innerHTML + p2.innerHTML;
 					p2.remove();
 				}
-			}
+			});
 
 			// ACTUALIZA EL OUTPUT -
 			DOM.output.value = quill.root.innerHTML
 				.replaceAll("&nbsp;", " ") // reemplaza por espacios normales;
 				.replaceAll("  ", " ") // reemplaza espacios duplicados
-				.replaceAll("h2>", "h3>")// reemplaza el tipo de título
+				.replaceAll("h2>", "h3>") // reemplaza el tipo de título
 				.replaceAll(' target="_blank"', "") // quita el target de los links
 				.replace("<p><br></p>", "") // reemplaza el último, porque los demás ya fueron quitados
 				.trim(); // reemplaza espacios al final
