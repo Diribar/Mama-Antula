@@ -16,7 +16,6 @@ window.addEventListener("load", () => {
 	const agregaResultados = () => {
 		// Generar las condiciones para que se puedan mostrar los 'muestraResultados'
 		DOM.muestraResultados.innerHTML = "";
-		DOM.muestraResultados.classList.remove("ocultar");
 
 		// Si se encontraron resultados, crea el listado
 		if (Array.isArray(resultados)) return creaElListado();
@@ -94,18 +93,14 @@ window.addEventListener("load", () => {
 		let pasaNoPasa = palabras.join("");
 
 		// Acciones si la palabra tiene menos de 3 caracteres significativos
-		if (pasaNoPasa.length < 3) {
-			DOM.muestraResultados.classList.add("ocultar"); // Oculta el sector de muestraResultados
-			DOM.escribiMas.classList.remove("ocultar"); // Muestra el cartel de "escribí más"
-			return;
-		}
+		if (pasaNoPasa.length < 3) return DOM.escribiMas.classList.remove("ocultar"); // Muestra el cartel de "escribí más"
 		// Oculta el cartel de "escribí más"
 		else DOM.escribiMas.classList.add("ocultar");
 
 		// Busca los productos
 		palabras = palabras.join(" ");
 		console.log(palabras);
-		resultados = await fetch(rutaApi, postJson(palabras)).then((n) => n.json());
+		resultados = await fetch(rutaApi, postJson({palabras})).then((n) => n.json());
 		if (!resultados.length) resultados = "- No encontramos resultados -";
 
 		// Muestra los resultados
