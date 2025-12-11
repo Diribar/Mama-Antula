@@ -8,6 +8,7 @@ window.addEventListener("load", () => {
 		muestraResultados: domHeader.querySelector("#busquedaRapida .mostrarToggle #muestraResultados"),
 		escribiMas: domHeader.querySelector("#busquedaRapida .mostrarToggle #escribiMas"),
 	};
+	DOM.input.value = localStorage.getItem("busqRapida");
 	let posicion = 0;
 	let resultados;
 
@@ -85,6 +86,7 @@ window.addEventListener("load", () => {
 		// Impide los caracteres que no son válidos
 		DOM.input.value = DOM.input.value.replace(/[^a-záéíóúüñ'¡¿-\d\s]/gi, "").replace(/ +/g, " ");
 		const dataEntry = DOM.input.value;
+		localStorage.setItem("busqRapida", dataEntry)
 
 		// Elimina palabras repetidas
 		let palabras = dataEntry.split(" ");
@@ -159,5 +161,4 @@ window.addEventListener("load", () => {
 		// Fin
 		return;
 	});
-	DOM.muestraResultados.addEventListener("click", (e) => guardaUrlBusqRap());
 });
