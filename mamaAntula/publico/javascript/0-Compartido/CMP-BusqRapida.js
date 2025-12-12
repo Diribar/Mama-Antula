@@ -10,63 +10,61 @@ window.addEventListener("load", () => {
 		escribiMas: domHeader.querySelector("#busquedaRapida .mostrarToggle #escribiMas"),
 	};
 	const rutaApi = "/busqueda-rapida/api/busca-en-bd";
-	let posicion = 0;
-	let resultados, buscaEnBe;
+	let resultados, buscaEnBe, color;
 
 	// Funciones
 	const sinResultados = (respuesta) => {
 		// Crea el párrafo
-		const parrafo = document.createElement("p");
-		parrafo.style.fontStyle = "italic";
-		parrafo.style.textAlign = "center";
+		const p = document.createElement("p");
+		p.classList.add("colorClaro");
+		p.id = "sinResultados";
 
 		// Le agrega el texto de la respuesta
-		parrafo.appendChild(document.createTextNode(respuesta));
+		p.appendChild(document.createTextNode(respuesta));
 
 		// Agrega el párrafo a la tabla
-		DOM.muestraResultados.appendChild(parrafo);
+		DOM.muestraResultados.appendChild(p);
 
 		// Fin
 		return;
 	};
 	const muestraResultados = () => {
 		console.log(resultados);
-
-		// Generar las condiciones para mostrar los 'muestraResultados'
-		DOM.muestraResultados.innerHTML = "";
-
 		// Rutina de creación de filas
 		for (const ruta in resultados) {
 			// Obtiene los encabezados
 			const {encabezados} = resultados[ruta];
 
-			// Acciones dependiendo de la cantidad de encabezados por ruta
+			// Acciones para 1 encabezado por ruta
 			if (encabezados.length == 1) {
 				// Agrega el anchor al cuerpo
 				const anchor = document.createElement("a");
 				anchor.href = encabezados[0].href;
 				anchor.innerText = ruta;
+				anchor.classList.add(color);
+				color = color != "colorClaro" ? "colorClaro" : "colorOscuro";
 				DOM.muestraResultados.appendChild(anchor);
-			} else {
+			}
+
+			// Acciones para varios encabezados por ruta
+			else {
 				// Agrega la ruta al cuerpo
 				const div = document.createElement("div");
 				div.innerText = ruta;
+				div.classList.add("ruta", color);
+				color = color != "colorClaro" ? "colorClaro" : "colorOscuro";
 				DOM.muestraResultados.appendChild(div);
 
 				// Agrega el ul de anchors al cuerpo
-				const ul = creaLosAnchor(encabezados);
+				const ul = creaElListado(encabezados);
 				DOM.muestraResultados.appendChild(ul);
 			}
 		}
 
-		// Terminación
-		DOM.muestraResultados.children[0].classList.add("resaltar"); // Resalta el resultado anterior
-		posicion = 0;
-
 		// Fin
 		return;
 	};
-	const creaLosAnchor = (encabezados) => {
+	const creaElListado = (encabezados) => {
 		// Crea el ul
 		const ul = document.createElement("ul");
 
@@ -76,10 +74,12 @@ window.addEventListener("load", () => {
 			const anchor = document.createElement("a");
 			anchor.href = encabezado.href;
 			const {titulo, tituloElab} = encabezado;
-			anchor.innerText = titulo || tituloElab || "";
+			anchor.innerText = tituloElab || titulo || "";
 
 			// Crea el li y lo agrega al ul
 			const li = document.createElement("li");
+			li.classList.add(color);
+			color = color != "colorClaro" ? "colorClaro" : "colorOscuro";
 			li.appendChild(anchor);
 			ul.appendChild(li);
 		}
@@ -94,6 +94,11 @@ window.addEventListener("load", () => {
 		DOM.input.value = DOM.input.value.replace(/[^a-záéíóúüñ'¡¿-\d\s]/gi, "").replace(/ +/g, " ");
 		const dataEntry = DOM.input.value;
 		localStorage.setItem("busqRapida", dataEntry);
+
+		// Generar las condiciones para mostrar los 'muestraResultados'
+		DOM.muestraResultados.innerHTML = "";
+		let posicion = 0;
+		color = "resaltar";
 
 		// Elimina palabras repetidas
 		let palabras = dataEntry.split(" ");
