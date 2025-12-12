@@ -12,8 +12,9 @@
 
 		/* Opciones de #muestraResultados */
 		#muestraResultados {
-			border-top-left-radius: 0; overflow: auto;
-			max-height: var(--altoCuerpo); font-size: 0.9rem;
+			border-top-left-radius: 0; overflow: auto; max-height: var(--altoCuerpo);
+			font-size: 0.9rem; width: max-content;
+			& > * {padding-inline: 5px;}
 			&:empty {display: none;}
 			&:not(:empty) {display: flex; flex-direction: column;}
 

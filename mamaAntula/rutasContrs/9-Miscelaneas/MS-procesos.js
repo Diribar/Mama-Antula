@@ -88,7 +88,7 @@ export default {
 
 			// Completa el encabezado
 			encabezado = comp.tituloElab(encabezado);
-			encabezado.anchor = this.anchorLectura(encabezado);
+			encabezado.href = this.anchorLectura(encabezado);
 
 			// Agrega a la ruta
 			if (rutas[ruta]) rutas[ruta].encabezados.push(encabezado);

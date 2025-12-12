@@ -29,29 +29,27 @@ window.addEventListener("load", () => {
 		// Fin
 		return;
 	};
-	const agregaResultados = () => {
-		// Generar las condiciones para que se puedan mostrar los 'muestraResultados'
+	const muestraResultados = () => {
+		// Generar las condiciones para mostrar los 'muestraResultados'
 		DOM.muestraResultados.innerHTML = "";
 
-		// Si se encontraron resultados, crea el listado
-		if (Array.isArray(resultados)) return creaElListado();
-	};
-	const creaElListado = () => {
 		// Rutina de creación de filas
-		for (const resultado of resultados) {
-			// Variables
-			const {familia, entidad, id} = resultado;
-			const siglaFam = familia[0];
-			const clase = familia.slice(0, 4);
+		for (const ruta in resultados) {
+			// Obtiene los encabezados
+			const {encabezados} = resultados[ruta];
 
-			// Crea el anchor del resultado
-			const anchor = document.createElement("a");
-			anchor.classList.add(clase, "flexRow");
-			anchor.href = "/" + entidad + "/detalle/" + siglaFam + "/?id=" + id;
+			// Acciones dependiendo de la cantidad de encabezados por ruta
+			if (encabezados.length == 1) {
+				// Crea el anchor del resultado
+				const anchor = document.createElement("a");
+				anchor.href = encabezados[0].href;
+				anchor.innerText= ruta;
 
-			// Agrega la fila al cuerpo de la tabla
-			creaLasFilas({anchor, resultado});
-			DOM.muestraResultados.appendChild(anchor);
+				// Agrega la fila al cuerpo
+				DOM.muestraResultados.appendChild(anchor);
+			}
+
+			//creaLasFilas({anchor, resultado});
 		}
 
 		// Terminación
@@ -119,8 +117,8 @@ window.addEventListener("load", () => {
 			.catch(() => {});
 
 		// Muestra los resultados
-		const hayResultados = !!Object.keys(resultados).length
-		hayResultados ? agregaResultados() : sinResultados("- No encontramos resultados -");
+		const hayResultados = !!Object.keys(resultados).length;
+		hayResultados ? muestraResultados() : sinResultados("- No encontramos resultados -");
 
 		// Fin
 		return;
