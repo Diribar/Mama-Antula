@@ -167,11 +167,11 @@ export default {
 
 		// Averigua el tipo de tema
 		const esCarta = temaActual && temaActual.codigo == "cartas";
+		const esExpers = !esCarta && temaActual && temaActual.indicesFecha.length;
 		const esLugaresDevoc = temaActual && temaActual.codigo == "lugaresDevocion";
-		const conIndice = (temaActual && temaActual.indicesFecha.length) || esLugaresDevoc;
 
 		// Fin
-		return {esCarta, esLugaresDevoc, conIndice};
+		return {esCarta, esExpers, esLugaresDevoc};
 	},
 	includes: () => {
 		// Variables
@@ -185,7 +185,7 @@ export default {
 	},
 	obtieneEncabezados: function ({tema_id, condicion}) {
 		// Variables
-		const {esCarta, esLugaresDevoc, conIndice} = this.tipoDeTema(tema_id);
+		const {esCarta, esExpers, esLugaresDevoc} = this.tipoDeTema(tema_id);
 		const includesAdics = ["statusSugeridoPor", "statusRegistro"];
 
 		// Fin
@@ -193,42 +193,42 @@ export default {
 			? baseDatos
 					.obtieneTodosPorCondicion("encabezados", condicion, [...includesEncabs.cartas, ...includesAdics])
 					.then((n) => n.sort((a, b) => (a.fechaEvento < b.fechaEvento ? -1 : 1)))
+			: esExpers
+			? baseDatos
+					.obtieneTodosPorCondicion("encabezados", condicion, [...includesEncabs.expers, ...includesAdics])
+					.then((n) => n.sort((a, b) => (b.fechaEvento < a.fechaEvento ? -1 : 1)))
 			: esLugaresDevoc
 			? baseDatos
 					.obtieneTodosPorCondicion("encabezados", condicion, [...includesEncabs.lugaresDevoc, ...includesAdics])
 					.then((n) => n.sort((a, b) => (a.titulo < b.titulo ? -1 : 1)))
 					.then((n) => n.sort((a, b) => (a.indiceDevoc.nombre < b.indiceDevoc.nombre ? -1 : 1)))
 					.then((n) => n.sort((a, b) => a.indiceDevoc.orden - b.indiceDevoc.orden))
-			: conIndice
-			? baseDatos
-					.obtieneTodosPorCondicion("encabezados", condicion, [...includesEncabs.conIndice, ...includesAdics])
-					.then((n) => n.sort((a, b) => (b.fechaEvento < a.fechaEvento ? -1 : 1)))
 			: baseDatos.obtieneTodosPorCondicion("encabezados", condicion, includesAdics);
 	},
 	titulosElabs: function ({tema_id, encabezados}) {
 		// Variables
-		const {esCarta, esLugaresDevoc, conIndice} = this.tipoDeTema(tema_id);
+		const {esCarta, esExpers, esLugaresDevoc} = this.tipoDeTema(tema_id);
 
 		// Fin
 		return esCarta
 			? titulosElabs.cartas(encabezados)
+			: esExpers
+			? titulosElabs.expers(encabezados)
 			: esLugaresDevoc
 			? titulosElabs.lugaresDevoc(encabezados)
-			: conIndice
-			? titulosElabs.conIndice(encabezados)
 			: encabezados;
 	},
 	tituloElab: function (encabezado) {
 		// Variables
-		const {esCarta, esLugaresDevoc, conIndice} = this.tipoDeTema(encabezado.tema_id);
+		const {esCarta, esExpers, esLugaresDevoc} = this.tipoDeTema(encabezado.tema_id);
 
 		// Fin
 		return esCarta
 			? titulosElabs.cartas([encabezado])[0] // cartas
+			: esExpers
+			? titulosElabs.expers([encabezado])[0]
 			: esLugaresDevoc
 			? titulosElabs.lugaresDevoc([encabezado])[0]
-			: conIndice
-			? titulosElabs.conIndice([encabezado])[0]
 			: encabezado;
 	},
 	agregaTemaPestana: (encabezado) => {
@@ -341,6 +341,11 @@ const titulosElabs = {
 		// Fin
 		return encabs;
 	},
+	expers: (encabs) => {
+		for (const encab of encabs)
+			encab.tituloElab = diaMesAnoUTC(encab.fechaEvento) + " - " + encab.titulo + " - " + encab.lugarExper.nombre;
+		return encabs;
+	},
 	lugaresDevoc: (encabs) => {
 		// Rutina
 		for (const encab of encabs) {
@@ -355,11 +360,6 @@ const titulosElabs = {
 		}
 
 		// Fin
-		return encabs;
-	},
-	conIndice: (encabs) => {
-		for (const encab of encabs)
-			encab.tituloElab = diaMesAnoUTC(encab.fechaEvento) + " - " + encab.titulo + " - " + encab.lugarExper.nombre;
 		return encabs;
 	},
 };
