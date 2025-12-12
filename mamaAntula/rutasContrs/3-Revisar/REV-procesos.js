@@ -96,11 +96,12 @@ export default {
 				if (encabezados.length == 1) return encabezados[0];
 			}
 
-			// Los ordena por fecha y por lugarIndice
+			// Los ordena por fecha y por indiceDevoc
 			encabezados
-				.sort((a, b) => (a.titulo < b.titulo ? -1 : 1))
+				.sort((a, b) => (a.titulo < b.titulo ? -1 : a.titulo > b.titulo ? 1 : 0))
 				.sort((a, b) => (a.fechaEvento && b.fechaEvento ? new Date(a.fechaEvento) - new Date(b.fechaEvento) : 0))
-				.sort((a, b) => (a.lugarIndice && b.lugarIndice ? (a.lugarIndice.orden < b.lugarIndice.orden ? -1 : 1) : 0));
+				.sort((a, b) => (a.indiceDevoc && b.indiceDevoc ? (a.indiceDevoc.nombre < b.indiceDevoc.nombre ? -1 : 1) : 0))
+				.sort((a, b) => (a.indiceDevoc && b.indiceDevoc ? a.indiceDevoc.orden - b.indiceDevoc.orden : 0));
 
 			// Fin
 			return encabezados[0];
@@ -287,7 +288,7 @@ export default {
 		anchorLectura += (actPestana_id && "/" + pestanasTemas.find((n) => n.id == actPestana_id).url) || "";
 
 		// Le agrega el encabezado
-		const conIndice = temaActual.indicesFecha.length || temaActual.indicesLugar.length;
+		const conIndice = temaActual.indicesFecha.length || temaActual.indicesDevoc.length;
 		anchorLectura += conIndice ? "/?id=" + actEncabezado_id : "";
 
 		// Fin
@@ -309,9 +310,7 @@ export default {
 				.obtieneTodosPorCondicion("encabezados", condicion, includes)
 				.then((n) => n.sort((a, b) => (a.titulo < b.titulo ? -1 : 1)))
 				.then((n) => n.sort((a, b) => (a.fechaEvento < b.fechaEvento ? -1 : 1)))
-				.then((n) =>
-					n.sort((a, b) => a.lugarIndice && b.lugarIndice && (a.lugarIndice.orden < b.lugarIndice.orden ? -1 : 1))
-				);
+				.then((n) => n.sort((a, b) => a.indiceDevoc && b.indiceDevoc && a.indiceDevoc.orden - b.indiceDevoc.orden));
 
 			// Fin
 			return encabezados;
@@ -363,7 +362,7 @@ export default {
 
 			// Le agrega el encabezado
 			const temaActual = temasSecciones.find((n) => n.id == tema.id);
-			const conIndice = temaActual.indicesFecha.length || temaActual.indicesLugar.length;
+			const conIndice = temaActual.indicesFecha.length || temaActual.indicesDevoc.length;
 			anchorLectura += conIndice ? "&actEncabezado_id=" + encabezado.id : "";
 
 			// Fin

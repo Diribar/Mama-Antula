@@ -15,11 +15,7 @@ export default {
 			indicesDevoc: baseDatos
 				.obtieneTodos("indicesDevoc")
 				.then((n) => n.sort((a, b) => (a.nombre < b.nombre ? -1 : 1)))
-				.then((n) =>
-					n.sort((a, b) =>
-						a.orden && (!b.orden || a.orden < b.orden) ? -1 : b.orden && (!a.orden || a.orden > b.orden) ? 1 : 0
-					)
-				),
+				.then((n) => n.sort((a, b) => a.orden - b.orden)),
 
 			// Cartas
 			idiomas: baseDatos.obtieneTodosConOrden("idiomas", "nombre"),

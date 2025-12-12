@@ -197,7 +197,8 @@ export default {
 			? baseDatos
 					.obtieneTodosPorCondicion("encabezados", condicion, [...includesEncabs.lugares, ...includesAdics])
 					.then((n) => n.sort((a, b) => (a.titulo < b.titulo ? -1 : 1)))
-					.then((n) => n.sort((a, b) => (a.indiceDevoc.orden < b.indiceDevoc.orden ? -1 : 1)))
+					.then((n) => n.sort((a, b) => (a.indiceDevoc.nombre < b.indiceDevoc.nombre ? -1 : 1)))
+					.then((n) => n.sort((a, b) => a.indiceDevoc.orden - b.indiceDevoc.orden))
 			: conIndice
 			? baseDatos
 					.obtieneTodosPorCondicion("encabezados", condicion, [...includesEncabs.conIndice, ...includesAdics])
