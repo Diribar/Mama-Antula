@@ -98,7 +98,7 @@ export default {
 
 			// Los ordena por fecha y por indiceDevoc
 			encabezados
-				.sort((a, b) => (a.titulo < b.titulo ? -1 : a.titulo > b.titulo ? 1 : 0))
+				.sort((a, b) => (a.titulo < b.titulo ? -1 : 1))
 				.sort((a, b) => (a.fechaEvento && b.fechaEvento ? new Date(a.fechaEvento) - new Date(b.fechaEvento) : 0))
 				.sort((a, b) => (a.indiceDevoc && b.indiceDevoc ? (a.indiceDevoc.nombre < b.indiceDevoc.nombre ? -1 : 1) : 0))
 				.sort((a, b) => (a.indiceDevoc && b.indiceDevoc ? a.indiceDevoc.orden - b.indiceDevoc.orden : 0));
