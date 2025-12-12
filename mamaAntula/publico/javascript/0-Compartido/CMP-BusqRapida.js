@@ -30,6 +30,8 @@ window.addEventListener("load", () => {
 		return;
 	};
 	const muestraResultados = () => {
+		console.log(resultados);
+
 		// Generar las condiciones para mostrar los 'muestraResultados'
 		DOM.muestraResultados.innerHTML = "";
 
@@ -40,16 +42,21 @@ window.addEventListener("load", () => {
 
 			// Acciones dependiendo de la cantidad de encabezados por ruta
 			if (encabezados.length == 1) {
-				// Crea el anchor del resultado
+				// Agrega el anchor al cuerpo
 				const anchor = document.createElement("a");
 				anchor.href = encabezados[0].href;
-				anchor.innerText= ruta;
-
-				// Agrega la fila al cuerpo
+				anchor.innerText = ruta;
 				DOM.muestraResultados.appendChild(anchor);
-			}
+			} else {
+				// Agrega la ruta al cuerpo
+				const div = document.createElement("div");
+				div.innerText = ruta;
+				DOM.muestraResultados.appendChild(div);
 
-			//creaLasFilas({anchor, resultado});
+				// Agrega el ul de anchors al cuerpo
+				const ul = creaLosAnchor(encabezados);
+				DOM.muestraResultados.appendChild(ul);
+			}
 		}
 
 		// Terminación
@@ -59,31 +66,26 @@ window.addEventListener("load", () => {
 		// Fin
 		return;
 	};
-	const creaLasFilas = ({anchor, resultado}) => {
-		// Variables
-		const {familia, entidad, anoEstreno} = resultado;
-		let {nombre} = resultado;
-		let anchoMax = 40;
+	const creaLosAnchor = (encabezados) => {
+		// Crea el ul
+		const ul = document.createElement("ul");
 
-		// Nombre
-		if (nombre.length > anchoMax) nombre = nombre.slice(0, anchoMax - 1) + "…";
-		if (familia == "producto" && anoEstreno) nombre += " (" + anoEstreno + ")";
-		const spanNombre = document.createElement("span");
-		spanNombre.innerHTML = nombre;
-		spanNombre.className = "spanNombre";
-		anchor.appendChild(spanNombre);
+		// Crea los li
+		for (const encabezado of encabezados) {
+			// Crea el anchor
+			const anchor = document.createElement("a");
+			anchor.href = encabezado.href;
+			const {titulo, tituloElab} = encabezado;
+			anchor.innerText = titulo || tituloElab || "";
 
-		// Entidad
-		const entidadCorta = entidad.slice(0, -1);
-		let ent = entidad == "personajes" ? "pers" : entidadCorta.slice(0, 5);
-		if (ent != entidadCorta && ent != "epoca") ent += ".";
-		const spanEnt = document.createElement("span");
-		spanEnt.innerHTML = ent;
-		spanEnt.className = "spanEnt";
-		anchor.appendChild(spanEnt);
+			// Crea el li y lo agrega al ul
+			const li = document.createElement("li");
+			li.appendChild(anchor);
+			ul.appendChild(li);
+		}
 
 		// Fin
-		return;
+		return ul;
 	};
 
 	// Add Event Listener
