@@ -310,7 +310,7 @@ export default {
 				.obtieneTodosPorCondicion("encabezados", condicion, includes)
 				.then((n) => n.sort((a, b) => (a.titulo < b.titulo ? -1 : 1)))
 				.then((n) => n.sort((a, b) => (a.fechaEvento < b.fechaEvento ? -1 : 1)))
-				.then((n) => n.sort((a, b) => a.indiceDevoc && b.indiceDevoc && a.indiceDevoc.orden - b.indiceDevoc.orden));
+				.then((n) => n.sort((a, b) => (a.indiceDevoc && b.indiceDevoc ? a.indiceDevoc.orden - b.indiceDevoc.orden : 0)));
 
 			// Fin
 			return encabezados;
