@@ -9,6 +9,7 @@ body {
 	--altoMain: calc(var(--alturaViewPort) - var(--altoHeader) - var(--altoFooter));
 	--altoTitulo: 36px;
 	--altoPestañas: 24px;
+	--altoCuerpo: calc(var(--altoMain) - var(--altoFooter));
 	--altoCuerpoTitulo: calc(var(--altoMain) - var(--altoTitulo));
 	--altoCuerpoPestañas: calc(var(--altoMain) - var(--altoTitulo) - var(--altoPestañas));
 

@@ -23,7 +23,7 @@ export default {
 
 			// Cartas
 			idiomas: baseDatos.obtieneTodosConOrden("idiomas", "nombre"),
-			lugares: baseDatos.obtieneTodosConOrden("lugares", "nombre"),
+			lugaresCartas: baseDatos.obtieneTodosConOrden("lugaresCartas", "nombre"),
 			personajes: baseDatos.obtieneTodosConOrden("personajes", "nombre"),
 
 			// Usuarios
@@ -31,6 +31,7 @@ export default {
 			statusRegistrosUs: baseDatos.obtieneTodos("statusRegistrosUs"),
 
 			// Otros
+			lugaresExpers: baseDatos.obtieneTodosConOrden("lugaresExpers", "nombre"),
 			iconosAgrupados: baseDatos.obtieneTodosConOrden("iconosAgrupados", "orden").then((n) => n.filter((m) => m.activo)),
 			statusRegistros: baseDatos.obtieneTodos("statusRegistros"),
 			versionWeb: baseDatos.obtieneTodosConOrden("novsDelSitio", "fecha").then((n) => n.at(-1).version),
@@ -65,8 +66,6 @@ export default {
 			rechazado_id: statusRegistros.find((n) => n.codigo == "rechazado").id,
 
 			// Otros
-			lugaresCartas: lugares.filter((n) => n.cartas),
-			lugaresExpers: lugares.filter((n) => n.expers),
 			indicesCartas: indicesFecha
 				.filter((n) => n.tema_id == temaCarta_id)
 				.sort((a, b) => (a.fechaDesde < b.fechaDesde ? -1 : 1)),
@@ -75,7 +74,6 @@ export default {
 				.sort((a, b) => (b.fechaDesde < a.fechaDesde ? -1 : 1)),
 		};
 		seccionesLectura = seccionesLectura.filter((n) => temasSecciones.find((m) => m.seccion_id == n.id));
-		pestanasTemas = pestanasTemas.filter((n) => temasSecciones.find((m) => m.pestana_id == n.id));
 
 		// Fin
 		return respuesta;

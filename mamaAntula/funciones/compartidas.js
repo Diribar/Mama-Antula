@@ -173,6 +173,16 @@ export default {
 		// Fin
 		return {esCarta, esLugares, conIndice};
 	},
+	includes: () => {
+		// Variables
+		const includes = [];
+
+		// Obtiene todos los includes
+		for (const include in includesEncabs) includes.push(...includesEncabs[include]);
+
+		// Fin
+		return includes;
+	},
 	obtieneEncabezados: function ({tema_id, condicion}) {
 		// Variables
 		const {esCarta, esLugares, conIndice} = this.tipoDeTema(tema_id);
@@ -200,7 +210,7 @@ export default {
 
 		// Fin
 		return esCarta
-			? titulosElabs.cartas(encabezados) // cartas
+			? titulosElabs.cartas(encabezados)
 			: esLugares
 			? titulosElabs.lugares(encabezados)
 			: conIndice
@@ -219,6 +229,18 @@ export default {
 			: conIndice
 			? titulosElabs.conIndice([encabezado])[0]
 			: encabezado;
+	},
+	agregaTemaPestana: (encabezado) => {
+		// Variables
+		const {tema_id, pestana_id} = encabezado;
+
+		// Obtiene los datos de niveles
+		if (pestana_id) encabezado.pestana = pestanasTemas.find((n) => n.id == pestana_id);
+		encabezado.tema = temasSecciones.find((n) => n.id == (tema_id || encabezado.pestana.tema_id));
+		encabezado.seccion = seccionesLectura.find((n) => n.id == encabezado.tema.seccion_id);
+
+		// Fin
+		return encabezado;
 	},
 
 	// Funciones puntuales
@@ -311,7 +333,7 @@ const titulosElabs = {
 					  (encab.nombreHacia.nombre.startsWith("P.") ? "el " : "") +
 					  encab.nombreHacia.nombre +
 					  " - " +
-					  encab.lugar.nombre +
+					  encab.lugarCarta.nombre +
 					  " - " +
 					  diaMesAnoUTC(encab.fechaEvento);
 
@@ -336,7 +358,7 @@ const titulosElabs = {
 	},
 	conIndice: (encabs) => {
 		for (const encab of encabs)
-			encab.tituloElab = diaMesAnoUTC(encab.fechaEvento) + " - " + encab.titulo + " - " + encab.lugar.nombre;
+			encab.tituloElab = diaMesAnoUTC(encab.fechaEvento) + " - " + encab.titulo + " - " + encab.lugarExper.nombre;
 		return encabs;
 	},
 };

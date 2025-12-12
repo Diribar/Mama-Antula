@@ -60,7 +60,7 @@ export default async (req, res, next) => {
 	// CARTAS
 	else if (tema_id == temaCarta_id) {
 		// Variables
-		const {numero, nombreDesde_id, nombreHacia_id, lugar_id, idioma_id, fechaEvento} = req.body;
+		const {numero, nombreDesde_id, nombreHacia_id, lugarCarta_id, idioma_id, fechaEvento} = req.body;
 
 		// numero
 		if (!numero) mensajes.push("El campo <em>Número</em> es obligatorio");
@@ -88,7 +88,7 @@ export default async (req, res, next) => {
 		(!idioma_id && mensajes.push("El campo <em>Idioma</em> es obligatorio")) ||
 			(!idiomas.find((n) => n.id == idioma_id) && mensajes.push("El idioma no existe"));
 
-		validaLugarFecha(lugar_id, fechaEvento, tema_id);
+		validaLugarFecha({lugarCarta_id, fechaEvento, tema_id});
 
 		// Fin
 		const error = preparaLaRespuesta(mensajes);
@@ -113,13 +113,13 @@ export default async (req, res, next) => {
 	// ENCABEZADOS CON ÍNDICES
 	else if (tema_id && temasSecciones.find((n) => n.id == tema_id && n.indicesFecha.length)) {
 		// Variables
-		const {titulo, lugar_id, fechaEvento} = req.body;
+		const {titulo, lugarExper_id, fechaEvento} = req.body;
 
 		// Valida cada variable - titulo
 		validaTitulo(titulo);
 
 		// Valida lugar y fechas
-		validaLugarFecha(lugar_id, fechaEvento, tema_id);
+		validaLugarFecha({lugarExper_id, fechaEvento, tema_id});
 
 		// Fin
 		const error = preparaLaRespuesta(mensajes);
@@ -160,7 +160,7 @@ const preparaLaRespuesta = (mensajes) => {
 	// Fin
 	return error;
 };
-const validaLugarFecha = (lugar_id, fechaEvento, tema_id) => {
+const validaLugarFecha = ({lugarCarta_id, lugarExper_id, fechaEvento, tema_id}) => {
 	// Variables
 	const indicesTema = tema_id && indicesFecha.filter((n) => n.tema_id == tema_id);
 	let fechaMin, fechaMax;
@@ -171,9 +171,11 @@ const validaLugarFecha = (lugar_id, fechaEvento, tema_id) => {
 		fechaMax = indicesTema.sort((a, b) => (b.fechaHasta < a.fechaHasta ? -1 : 1))[0].fechaHasta;
 	}
 
-	// Valida cada variable - lugar_id
-	(!lugar_id && mensajes.push("El campo <em>Lugar</em> es obligatorio")) ||
-		(!lugares.find((n) => n.id == lugar_id) && mensajes.push("El lugar no existe"));
+	// Valida cada variable - lugarCarta_id
+	lugarCarta_id && !lugaresCartas.find((n) => n.id == lugarCarta_id) && mensajes.push("El lugar no existe");
+
+	// Valida cada variable - lugarExper_id
+	lugarExper_id && !lugaresExpers.find((n) => n.id == lugarExper_id) && mensajes.push("El lugar no existe");
 
 	// Valida cada variable - fechaEvento
 	(!fechaEvento && mensajes.push("El campo <em>Fecha</em> es obligatorio")) ||

@@ -45,76 +45,38 @@ export default {
 		// Fin
 		return res.json({error});
 	},
-	busquedaRapida: async (req, res) => {
+	busquedaRapida: async function (req, res) {
+		// Obtiene las palabras ingresadas
+		let {palabras} = req.body;
+		palabras = palabras.split(" ");
+
 		// Variables
-		const {palabras} = req.body;
-		console.log(51, palabras);
-		return res.json([]);
+		const soloStatusAprob = !req.session.usuario || !rolesActualizac_ids.includes(req.session.usuario.rol_id);
+		const statusRegistro_id = soloStatusAprob ? aprobado_id : [creado_id, aprobado_id];
 
-		const usuario_id = req.session.usuario ? req.session.usuario.id : 0;
-		const autTablEnts = req.session.usuario && req.session.usuario.rol.autTablEnts;
-		const camposProds = ["nombreCastellano", "nombreOriginal"];
-		const camposRclvs = ["nombre", "nombreAltern"];
-		const original = true;
-		let datos = [];
-		let resultados = [];
-		let campos;
+		// Obtiene todos los encabezados a buscar
+		const encabs_id = await Promise.all([
+			procesos.encabezados({palabras, statusRegistro_id}),
+			procesos.contenidos({palabras, statusRegistro_id}),
+		])
+			.then(([a, b]) => [...a, ...b])
+			.then((n) => [...new Set(n)]);
 
-		// Armado de la variable 'datos' para productos originales
-		campos = camposProds;
-		for (const entidad of entProds) datos.push({familia: "producto", entidad, campos, original});
-
-		// Armado de la variable 'datos' para rclvs originales
-		for (const entidad of entRclvs) {
-			campos = ["personajes", "hechos"].includes(entidad) ? camposRclvs : ["nombre"];
-			datos.push({familia: "rclv", entidad, campos, original});
-		}
-
-		// Armado de la variable 'datos' para ediciones
-		campos = camposProds;
-		datos.push({familia: "producto", entidad: "prodEdics", campos, include: entProdsAsocs}); // productos
-		campos = camposRclvs;
-		datos.push({familia: "rclv", entidad: "rclvEdics", campos, include: entRclvsAsocs}); // rclvs
-
-		// Rutina
-		for (const dato of datos) {
-			// Obtiene las condiciones
-			campos = dato.campos;
-			const original = dato.original;
-			const condicion = procsFM_PR.busquedaRapida.condicion({
-				palabras,
-				campos,
-				usuario_id,
-				original,
-				autTablEnts,
-				omitirStatus,
-			});
-
-			// Obtiene los registros que cumplen las condiciones
-			resultados.push(
-				dato.original
-					? procsFM_PR.busquedaRapida.registros(condicion, dato) // originales
-					: procsFM_PR.busquedaRapida.ediciones(condicion, dato) // ediciones
+		// Obtiene los encabezados
+		const condicion = {id: encabs_id, statusRegistro_id};
+		const include = comp.includes();
+		const encabezados = await baseDatos
+			.obtieneTodosPorCondicion("encabezados", condicion, include)
+			.then((n) => n.sort((a, b) => (a.titulo < b.titulo ? -1 : 1)))
+			.then((n) => n.sort((a, b) => (a.fechaEvento < b.fechaEvento ? -1 : 1)))
+			.then((n) =>
+				n.sort((a, b) => a.lugarIndice && b.lugarIndice && (a.lugarIndice.orden < b.lugarIndice.orden ? -1 : 1))
 			);
-		}
-		resultados = await Promise.all(resultados).then((n) => n.flat());
 
-		// Acciones si hay más de un resultado
-		if (resultados.length > 1) {
-			// Ordena los resultados
-			resultados.sort((a, b) => (a.anoEstreno < b.anoEstreno ? -1 : 1)); // tercera prioridad: anoEstreno
-			resultados.sort((a, b) => (a.nombre < b.nombre ? -1 : 1)); // segunda prioridad: nombre
-			resultados.sort((a, b) => (a.familia < b.familia ? -1 : 1)); // primera prioridad: familia
+		// Obtiene las rutas
+		const rutas = procesos.obtieneRutas(encabezados);
 
-			// Elimina duplicados
-			for (let i = resultados.length - 2; i >= 0; i--) {
-				const {entidad: entidad1, id: id1} = resultados[i];
-				const {entidad: entidad2, id: id2} = resultados[i + 1];
-				if (entidad1 == entidad2 && id1 == id2) resultados.splice(i + 1, 1);
-			}
-		}
-
-		// Envia la info al FE
-		return res.json(resultados);
+		// Fin
+		return res.json(rutas);
 	},
 };

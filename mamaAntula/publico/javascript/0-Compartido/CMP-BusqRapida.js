@@ -13,19 +13,27 @@ window.addEventListener("load", () => {
 	let resultados;
 
 	// Funciones
+	const sinResultados = (respuesta) => {
+		// Crea el párrafo
+		const parrafo = document.createElement("p");
+		parrafo.style.fontStyle = "italic";
+		parrafo.style.textAlign = "center";
+
+		// Le agrega el texto de la respuesta
+		parrafo.appendChild(document.createTextNode(respuesta));
+
+		// Agrega el párrafo a la tabla
+		DOM.muestraResultados.appendChild(parrafo);
+
+		// Fin
+		return;
+	};
 	const agregaResultados = () => {
 		// Generar las condiciones para que se puedan mostrar los 'muestraResultados'
 		DOM.muestraResultados.innerHTML = "";
 
 		// Si se encontraron resultados, crea el listado
 		if (Array.isArray(resultados)) return creaElListado();
-
-		// Mensaje de 'no se encontraron resultados'
-		const parrafo = document.createElement("p");
-		parrafo.style.fontStyle = "italic";
-		parrafo.style.textAlign = "center";
-		parrafo.appendChild(document.createTextNode(resultados));
-		DOM.muestraResultados.appendChild(parrafo);
 	};
 	const creaElListado = () => {
 		// Rutina de creación de filas
@@ -99,9 +107,10 @@ window.addEventListener("load", () => {
 
 		// Busca los productos
 		palabras = palabras.join(" ");
-		console.log(palabras);
 		resultados = await fetch(rutaApi, postJson({palabras})).then((n) => n.json());
-		if (!resultados.length) resultados = "- No encontramos resultados -";
+
+		// Acciones si no se encontraron resultados
+		if (!Object.keys(resultados).length) return sinResultados("- No encontramos resultados -");
 
 		// Muestra los resultados
 		agregaResultados();

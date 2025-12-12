@@ -61,7 +61,7 @@ export default {
 			const statusRegistro_id = [creado_id, rechazar_id];
 
 			// Obtiene los encabezados
-			const includes = [...includesEncabs.cartas, "lugarIndice"];
+			const includes = comp.includes();
 			let encabezados = await baseDatos.obtieneTodosPorCondicion("encabezados", {statusRegistro_id}, includes);
 			if (!encabezados.length) return [];
 
@@ -76,7 +76,7 @@ export default {
 			if (!encabezados.length) return;
 
 			// Si hay un sólo encabezado, lo completa e interrumpe la función
-			encabezados = encabezados.map((n) => FN.agregaTemaPestana(n));
+			encabezados = encabezados.map((n) => comp.agregaTemaPestana(n));
 			if (encabezados.length == 1) return encabezados[0];
 
 			// Los ordena por sección
@@ -137,7 +137,7 @@ export default {
 			const statusRegistro_id = aprobado_id;
 
 			// Obtiene los encabezados
-			const includes = [...includesEncabs.cartas, "lugarIndice", "ediciones"];
+			const includes = [...comp.includes(), "ediciones"];
 			let encabezados = await baseDatos
 				.obtieneTodosPorCondicion("encabezados", {statusRegistro_id}, includes)
 				.then((n) => n.filter((m) => m.ediciones.length));
@@ -148,7 +148,7 @@ export default {
 			if (!encabezados.length) return;
 
 			// Agrega el tema y la pestaña
-			const encabezado = FN.agregaTemaPestana(encabezados[0]);
+			const encabezado = comp.agregaTemaPestana(encabezados[0]);
 
 			// Fin
 			return encabezado;
@@ -158,7 +158,7 @@ export default {
 			const edic_id = encabezado.ediciones[0].id;
 
 			// Obtiene la edición
-			const includes = [...includesEncabs.cartas, "lugarIndice", "editadoPor"];
+			const includes = [...comp.includes(), "editadoPor"];
 			const edicion = await baseDatos.obtienePorId("encabEdics", edic_id, includes);
 
 			// Fin
@@ -203,7 +203,7 @@ export default {
 			const statusRegistro_id = aprobado_id;
 
 			// Obtiene los encabezados con status aprobado
-			const includes = [...includesEncabs.cartas, "lugarIndice"];
+			const includes = comp.includes();
 			let encabezados = baseDatos.obtieneTodosPorCondicion("encabezados", {statusRegistro_id}, includes);
 
 			// Obtiene los contenidos con status pendiente de revision
@@ -225,7 +225,7 @@ export default {
 			if (!encabezados.length) return;
 
 			// Agrega el tema y la pestaña - lo necesita para hacer el 'título elaborado'
-			const encabezado = FN.agregaTemaPestana(encabezados[0]);
+			const encabezado = comp.agregaTemaPestana(encabezados[0]);
 
 			// Fin
 			return encabezado;
@@ -249,11 +249,11 @@ export default {
 	},
 	capturaObtieneRuta: (encabezado, usuario) => {
 		// Actualiza la captura
-		const {tema_id, pestana_id} = encabezado;
+		const {tema_id, pestana_id, seccion, tema, pestana} = encabezado;
 		comp.captura({tema_id, pestana_id, capturadoPor_id: usuario.id});
 
 		// Obtiene la ruta
-		const ruta = FN.obtieneRuta(encabezado);
+		const ruta = seccion.nombre + " - " + tema.titulo + (pestana ? " - " + pestana.titulo : "");
 
 		// Fin
 		return ruta;
@@ -304,12 +304,14 @@ export default {
 
 			// Obtiene todos los encabezados en papelera o con contenido en papelera
 			const condicion = {[Op.or]: [{id: encab_ids}, {statusRegistro_id: rechazado_id}]};
-			const includes = [...includesEncabs.cartas, ...includesEncabs.lugares];
+			const includes = comp.includes();
 			const encabezados = await baseDatos
 				.obtieneTodosPorCondicion("encabezados", condicion, includes)
 				.then((n) => n.sort((a, b) => (a.titulo < b.titulo ? -1 : 1)))
 				.then((n) => n.sort((a, b) => (a.fechaEvento < b.fechaEvento ? -1 : 1)))
-				.then((n) => n.sort((a, b) => (a.lugarIndice && b.lugarIndice) && (a.lugarIndice.orden < b.lugarIndice.orden ? -1 : 1)));
+				.then((n) =>
+					n.sort((a, b) => a.lugarIndice && b.lugarIndice && (a.lugarIndice.orden < b.lugarIndice.orden ? -1 : 1))
+				);
 
 			// Fin
 			return encabezados;
@@ -321,8 +323,9 @@ export default {
 			// Agrega el tema y la pestaña
 			for (let encabezado of encabezados) {
 				// Obtiene la ruta
-				encabezado = FN.agregaTemaPestana(encabezado);
-				const ruta = FN.obtieneRuta(encabezado).split(" - ").slice(0, 2).join(" - ");
+				encabezado = comp.agregaTemaPestana(encabezado);
+				const {seccion, tema} = encabezado;
+				const ruta = seccion.nombre + " - " + tema.titulo;
 
 				// Completa el encabezado
 				encabezado = comp.tituloElab(encabezado);
@@ -356,7 +359,7 @@ export default {
 			let anchorLectura = "/?actSeccion_id=" + seccion.id + "&actTema_id=" + tema.id;
 
 			// Le agrega la pestaña
-			anchorLectura += (pestana && "&actPestana_id=" + pestana.id) || "";
+			if (pestana) anchorLectura += "&actPestana_id=" + pestana.id;
 
 			// Le agrega el encabezado
 			const temaActual = temasSecciones.find((n) => n.id == tema.id);
@@ -371,18 +374,6 @@ export default {
 
 // Funciones
 const FN = {
-	agregaTemaPestana: (encabezado) => {
-		// Variables
-		const {tema_id, pestana_id} = encabezado;
-
-		// Obtiene los datos de niveles
-		if (pestana_id) encabezado.pestana = pestanasTemas.find((n) => n.id == pestana_id);
-		encabezado.tema = temasSecciones.find((n) => n.id == (tema_id || encabezado.pestana.tema_id));
-		encabezado.seccion = seccionesLectura.find((n) => n.id == encabezado.tema.seccion_id);
-
-		// Fin
-		return encabezado;
-	},
 	quitaEncabsCapturadosPorTerceros: async ({encabezados, usuario}) => {
 		// Variables
 		const capturadoPor_id = {[Op.ne]: usuario.id};
@@ -414,13 +405,5 @@ const FN = {
 
 		// Fin
 		return;
-	},
-	obtieneRuta: (encabezado) => {
-		// Obtiene la ruta
-		const {seccion, tema, pestana} = encabezado;
-		const ruta = seccion.nombre + " - " + tema.titulo + (pestana ? " - " + pestana.titulo : "");
-
-		// Fin
-		return ruta;
 	},
 };
