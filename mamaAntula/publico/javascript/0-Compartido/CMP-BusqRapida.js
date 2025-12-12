@@ -10,24 +10,9 @@ window.addEventListener("load", () => {
 		escribiMas: domHeader.querySelector("#busquedaRapida .mostrarToggle #escribiMas"),
 	};
 	const rutaApi = "/busqueda-rapida/api/busca-en-bd";
-	let resultados, buscaEnBe, color;
+	let resultados, buscaEnBe, color, hayResultados, posicion;
 
 	// Funciones
-	const sinResultados = (respuesta) => {
-		// Crea el párrafo
-		const p = document.createElement("p");
-		p.classList.add("colorClaro");
-		p.id = "sinResultados";
-
-		// Le agrega el texto de la respuesta
-		p.appendChild(document.createTextNode(respuesta));
-
-		// Agrega el párrafo a la tabla
-		DOM.muestraResultados.appendChild(p);
-
-		// Fin
-		return;
-	};
 	const muestraResultados = () => {
 		console.log(resultados);
 		// Rutina de creación de filas
@@ -87,6 +72,21 @@ window.addEventListener("load", () => {
 		// Fin
 		return ul;
 	};
+	const sinResultados = (respuesta) => {
+		// Crea el párrafo
+		const p = document.createElement("p");
+		p.classList.add("colorClaro");
+		p.id = "sinResultados";
+
+		// Le agrega el texto de la respuesta
+		p.appendChild(document.createTextNode(respuesta));
+
+		// Agrega el párrafo a la tabla
+		DOM.muestraResultados.appendChild(p);
+
+		// Fin
+		return;
+	};
 
 	// Add Event Listener
 	DOM.input.addEventListener("input", async () => {
@@ -97,7 +97,7 @@ window.addEventListener("load", () => {
 
 		// Generar las condiciones para mostrar los 'muestraResultados'
 		DOM.muestraResultados.innerHTML = "";
-		let posicion = 0;
+		posicion = 0;
 		color = "resaltar";
 
 		// Elimina palabras repetidas
@@ -124,7 +124,7 @@ window.addEventListener("load", () => {
 			.catch(() => {});
 
 		// Muestra los resultados
-		const hayResultados = !!Object.keys(resultados).length;
+		hayResultados = !!Object.keys(resultados).length;
 		hayResultados ? muestraResultados() : sinResultados("- No encontramos resultados -");
 
 		// Fin
@@ -132,8 +132,9 @@ window.addEventListener("load", () => {
 	});
 	DOM.input.addEventListener("keydown", (e) => {
 		// Variables
-		if (!Array.isArray(resultados)) return;
-		const cantResultados = DOM.muestraResultados.children && DOM.muestraResultados.children.length;
+		if (!hayResultados) return;
+		const cantResultados = Object.values(resultados).reduce((a, b) => a + b.encabezados.length, 0);
+		console.log(cantResultados);
 
 		// Resalta el resultado anterior
 		if (e.key == "ArrowUp" && posicion) {
