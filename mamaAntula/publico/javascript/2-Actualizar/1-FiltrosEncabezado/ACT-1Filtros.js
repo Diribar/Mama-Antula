@@ -104,7 +104,8 @@ window.addEventListener("load", async () => {
 	DOM.seccion.addEventListener("change", () => {
 		// SECCION - Si es start-up, elige la opción de la cookie
 		let seccion_id = cookie("actSeccion_id");
-		if (comp1234.startUp && seccion_id && comp1234.seccionesLectura.find((n) => n.id == seccion_id)) DOM.seccion.value = seccion_id;
+		if (comp1234.startUp && seccion_id && comp1234.seccionesLectura.find((n) => n.id == seccion_id))
+			DOM.seccion.value = seccion_id;
 		else delete comp1234.startUp; // si no se pudo elegir la cookie, descarta las futuras cookies
 
 		// SECCIÓN - Guarda la cookie
@@ -138,12 +139,13 @@ window.addEventListener("load", async () => {
 		// Averigua si el tema es 'Cartas'
 		comp1234.temaActual = comp1234.temasSecciones.find((n) => n.id == tema_id);
 		comp1234.esCarta = comp1234.temaActual.codigo == "cartas";
-		comp1234.esLugaresDevoc = comp1234.temaActual.codigo == "lugaresDevocion";
-		comp1234.esConIndice = !!(comp1234.temaActual.indicesFecha.length || comp1234.temaActual.indicesDevoc.length);
+		comp1234.esExpers = !comp1234.esCarta && !!comp1234.temaActual.indicesFecha.length;
+		comp1234.esLugaresDevoc = !!comp1234.temaActual.indicesDevoc.length;
+		comp1234.esConIndice = comp1234.esCarta || comp1234.esExpers || comp1234.esLugaresDevoc;
 		comp1234.tipoEncab =
 			(comp1234.esCarta && "encabCartas") ||
+			(comp1234.esExpers && "encabExpers") ||
 			(comp1234.esLugaresDevoc && "encabLugares") ||
-			(comp1234.esConIndice && "encabConIndice") ||
 			"encabSinIndice";
 
 		// PESTAÑA - Crea las opciones
