@@ -63,7 +63,7 @@ window.addEventListener("load", async () => {
 			const campo = comp1234.esLugaresDevoc ? "tituloActualizar" : comp1234.esConIndice ? "tituloElab" : "titulo";
 			agregaOpciones(comp1234.encabezados, DOM.encabezado, campo);
 
-			// ENCABEZADO - Si 'esConIndice' o no existen encabezados, crea la opción NUEVO - sin indice no puede tener más de uno
+			// ENCABEZADO - Si 'esConIndice' o no existen encabezados, crea la opción NUEVO - para sin indice no se crea porque no puede tener más de uno
 			if (comp1234.esConIndice || !comp1234.encabezados.length) {
 				const option = document.createElement("option");
 				option.value = "nuevo";
