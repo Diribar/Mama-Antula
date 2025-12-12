@@ -167,9 +167,9 @@ export default {
 
 		// Averigua el tipo de tema
 		const tipoDeTema = {
-			esCarta: temaActual.codigo == "cartas",
-			esExpers: !!(temaActual.codigo != "cartas" && temaActual.indicesFecha.length),
-			esLugaresDevoc: !!temaActual.indicesDevoc.length,
+			esCarta: temaActual && temaActual.codigo == "cartas",
+			esExpers: temaActual && !!(temaActual.codigo != "cartas" && temaActual.indicesFecha.length),
+			esLugaresDevoc: temaActual && !!temaActual.indicesDevoc.length,
 		};
 		tipoDeTema.esConIndice = Object.values(tipoDeTema).some((n) => !!n);
 
