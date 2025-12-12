@@ -11,6 +11,7 @@ import soloActualiz from "../../middlewares/8-Usuarios-Roles/US-Solo3Actualiz.js
 const router = express.Router();
 
 // 📡 APIs
+router.post("/busqueda-rapida/api/busca-en-bd", API.busquedaRapida);
 router.post("/contactanos/api/enviar", descargaImg.none(), validarContactanos, API.contactanos);
 
 // 🖥️ Vistas
