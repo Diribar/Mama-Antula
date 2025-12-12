@@ -76,7 +76,7 @@ export default {
 			if (!encabezados.length) return;
 
 			// Si hay un sólo encabezado, lo completa e interrumpe la función
-			encabezados = encabezados.map((n) => FN.agregaTemaPestana(n));
+			encabezados = encabezados.map((n) => comp.agregaTemaPestana(n));
 			if (encabezados.length == 1) return encabezados[0];
 
 			// Los ordena por sección
@@ -148,7 +148,7 @@ export default {
 			if (!encabezados.length) return;
 
 			// Agrega el tema y la pestaña
-			const encabezado = FN.agregaTemaPestana(encabezados[0]);
+			const encabezado = comp.agregaTemaPestana(encabezados[0]);
 
 			// Fin
 			return encabezado;
@@ -225,7 +225,7 @@ export default {
 			if (!encabezados.length) return;
 
 			// Agrega el tema y la pestaña - lo necesita para hacer el 'título elaborado'
-			const encabezado = FN.agregaTemaPestana(encabezados[0]);
+			const encabezado = comp.agregaTemaPestana(encabezados[0]);
 
 			// Fin
 			return encabezado;
@@ -249,11 +249,11 @@ export default {
 	},
 	capturaObtieneRuta: (encabezado, usuario) => {
 		// Actualiza la captura
-		const {tema_id, pestana_id} = encabezado;
+		const {tema_id, pestana_id, seccion, tema, pestana} = encabezado;
 		comp.captura({tema_id, pestana_id, capturadoPor_id: usuario.id});
 
 		// Obtiene la ruta
-		const ruta = FN.obtieneRuta(encabezado);
+		const ruta = seccion.nombre + " - " + tema.titulo + (pestana ? " - " + pestana.titulo : "");
 
 		// Fin
 		return ruta;
@@ -323,8 +323,9 @@ export default {
 			// Agrega el tema y la pestaña
 			for (let encabezado of encabezados) {
 				// Obtiene la ruta
-				encabezado = FN.agregaTemaPestana(encabezado);
-				const ruta = FN.obtieneRuta(encabezado).split(" - ").slice(0, 2).join(" - ");
+				encabezado = comp.agregaTemaPestana(encabezado);
+				const {seccion, tema} = encabezado;
+				const ruta = seccion.nombre + " - " + tema.titulo;
 
 				// Completa el encabezado
 				encabezado = comp.tituloElab(encabezado);
@@ -358,7 +359,7 @@ export default {
 			let anchorLectura = "/?actSeccion_id=" + seccion.id + "&actTema_id=" + tema.id;
 
 			// Le agrega la pestaña
-			anchorLectura += (pestana && "&actPestana_id=" + pestana.id) || "";
+			if (pestana) anchorLectura += "&actPestana_id=" + pestana.id;
 
 			// Le agrega el encabezado
 			const temaActual = temasSecciones.find((n) => n.id == tema.id);
@@ -373,18 +374,6 @@ export default {
 
 // Funciones
 const FN = {
-	agregaTemaPestana: (encabezado) => {
-		// Variables
-		const {tema_id, pestana_id} = encabezado;
-
-		// Obtiene los datos de niveles
-		if (pestana_id) encabezado.pestana = pestanasTemas.find((n) => n.id == pestana_id);
-		encabezado.tema = temasSecciones.find((n) => n.id == (tema_id || encabezado.pestana.tema_id));
-		encabezado.seccion = seccionesLectura.find((n) => n.id == encabezado.tema.seccion_id);
-
-		// Fin
-		return encabezado;
-	},
 	quitaEncabsCapturadosPorTerceros: async ({encabezados, usuario}) => {
 		// Variables
 		const capturadoPor_id = {[Op.ne]: usuario.id};
@@ -416,13 +405,5 @@ const FN = {
 
 		// Fin
 		return;
-	},
-	obtieneRuta: (encabezado) => {
-		// Obtiene la ruta
-		const {seccion, tema, pestana} = encabezado;
-		const ruta = seccion.nombre + " - " + tema.titulo + (pestana ? " - " + pestana.titulo : "");
-
-		// Fin
-		return ruta;
 	},
 };

@@ -230,6 +230,18 @@ export default {
 			? titulosElabs.conIndice([encabezado])[0]
 			: encabezado;
 	},
+	agregaTemaPestana: (encabezado) => {
+		// Variables
+		const {tema_id, pestana_id} = encabezado;
+
+		// Obtiene los datos de niveles
+		if (pestana_id) encabezado.pestana = pestanasTemas.find((n) => n.id == pestana_id);
+		encabezado.tema = temasSecciones.find((n) => n.id == (tema_id || encabezado.pestana.tema_id));
+		encabezado.seccion = seccionesLectura.find((n) => n.id == encabezado.tema.seccion_id);
+
+		// Fin
+		return encabezado;
+	},
 
 	// Funciones puntuales
 	obtieneUsuarioPorMail: (email) => {
