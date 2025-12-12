@@ -11,7 +11,7 @@ window.addEventListener("load", () => {
 	};
 	const rutaApi = "/busqueda-rapida/api/busca-en-bd";
 	let posicion = 0;
-	let resultados, controller, buscaEnBe;
+	let resultados, buscaEnBe;
 
 	// Funciones
 	const sinResultados = (respuesta) => {
@@ -105,9 +105,9 @@ window.addEventListener("load", () => {
 		if (pasaNoPasa.length < 3) return DOM.escribiMas.classList.remove("ocultar"); // Muestra el cartel de "escribí más"
 
 		// Cancela la búsqueda anterior si aún no terminó
-		controller?.abort();
-		controller = new AbortController();
-		const {signal} = controller;
+		buscaEnBe?.abort();
+		buscaEnBe = new AbortController();
+		const {signal} = buscaEnBe;
 
 		// Oculta el cartel de "escribí más"
 		DOM.escribiMas.classList.add("ocultar");
