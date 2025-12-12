@@ -83,8 +83,8 @@ export default {
 		for (let encabezado of encabezados) {
 			// Obtiene la ruta
 			encabezado = comp.agregaTemaPestana(encabezado);
-			const {seccion, tema} = encabezado;
-			const ruta = seccion.nombre + " - " + tema.titulo;
+			const {seccion, tema, pestana} = encabezado;
+			const ruta = seccion.nombre + " - " + tema.titulo + (pestana ? " - " + pestana.titulo : "");
 
 			// Completa el encabezado
 			encabezado = comp.tituloElab(encabezado);
@@ -94,7 +94,6 @@ export default {
 			if (rutas[ruta]) rutas[ruta].encabezados.push(encabezado);
 			else {
 				// Crea el orden
-				const {seccion, tema, pestana} = encabezado;
 				const orden = seccion.orden + "-" + tema.orden + (pestana ? "-" + pestana.orden : "");
 
 				// Crea la ruta
