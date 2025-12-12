@@ -195,7 +195,7 @@ export default {
 					.then((n) => n.sort((a, b) => (a.fechaEvento < b.fechaEvento ? -1 : 1)))
 			: esLugares
 			? baseDatos
-					.obtieneTodosPorCondicion("encabezados", condicion, [...includesEncabs.lugares, ...includesAdics])
+					.obtieneTodosPorCondicion("encabezados", condicion, [...includesEncabs.lugaresDevoc, ...includesAdics])
 					.then((n) => n.sort((a, b) => (a.titulo < b.titulo ? -1 : 1)))
 					.then((n) => n.sort((a, b) => (a.indiceDevoc.nombre < b.indiceDevoc.nombre ? -1 : 1)))
 					.then((n) => n.sort((a, b) => a.indiceDevoc.orden - b.indiceDevoc.orden))
@@ -213,7 +213,7 @@ export default {
 		return esCarta
 			? titulosElabs.cartas(encabezados)
 			: esLugares
-			? titulosElabs.lugares(encabezados)
+			? titulosElabs.lugaresDevoc(encabezados)
 			: conIndice
 			? titulosElabs.conIndice(encabezados)
 			: encabezados;
@@ -226,7 +226,7 @@ export default {
 		return esCarta
 			? titulosElabs.cartas([encabezado])[0] // cartas
 			: esLugares
-			? titulosElabs.lugares([encabezado])[0]
+			? titulosElabs.lugaresDevoc([encabezado])[0]
 			: conIndice
 			? titulosElabs.conIndice([encabezado])[0]
 			: encabezado;
@@ -341,7 +341,7 @@ const titulosElabs = {
 		// Fin
 		return encabs;
 	},
-	lugares: (encabs) => {
+	lugaresDevoc: (encabs) => {
 		// Rutina
 		for (const encab of encabs) {
 			encab.tituloElab =
