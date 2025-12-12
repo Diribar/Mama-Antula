@@ -74,6 +74,8 @@ export default {
 				.filter((n) => n.tema_id != temaCarta_id)
 				.sort((a, b) => (b.fechaDesde < a.fechaDesde ? -1 : 1)),
 		};
+		seccionesLectura = seccionesLectura.filter((n) => temasSecciones.find((m) => m.seccion_id == n.id));
+		pestanasTemas = pestanasTemas.filter((n) => temasSecciones.find((m) => m.pestana_id == n.id));
 
 		// Fin
 		return respuesta;

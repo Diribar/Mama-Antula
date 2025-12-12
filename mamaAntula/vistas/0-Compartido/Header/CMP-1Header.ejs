@@ -5,7 +5,9 @@
 		<h4>María Antonia de San José Paz y Figueroa</h4>
 	</div>
 
+
 	<div id="secciones" class="flexRowAlign">
+		<i class="fa-solid fa-magnifying-glass pointer" title="Búsqueda rápida"></i>
 		<% for (const seccion of seccionesLectura) { %>
 			<a href="/<%= seccion.url %>" <% if (seccion.nombre == locals.tituloPagina) { %> class="resaltar"<% } %>><%= seccion.nombre %></a>
 		<% } %>
@@ -14,7 +16,7 @@
 
 <!-- Íconos de la derecha -->
 <section id="derecha" class="flexColAlign">
-	<% if (!locals.usuario) { %><%- include("CMP-HR-1Login") %>
-	<% } else { %><%- include("CMP-HR-2Logout") %>
+	<% if (!locals.usuario) { %><%- include("CMP-HR-Login") %>
+	<% } else { %><%- include("CMP-HR-Logout") %>
 	<% } %>
 </section>
