@@ -91,7 +91,7 @@ export default async (req, res, next) => {
 		// lugarCarta_id
 		if (!lugarCarta_id) mensajes.push("El campo <em>Lugar</em> es obligatorio")
 
-		// Otros
+		// Valida lugar y fechas
 		validaLugarFecha({lugarCarta_id, fechaEvento, tema_id});
 
 		// Fin
