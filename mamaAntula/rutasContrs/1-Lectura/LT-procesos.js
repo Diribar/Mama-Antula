@@ -3,7 +3,7 @@
 export default {
 	obtieneEncabezados: async ({tema_id, encab_id, condicion}) => {
 		// Variables
-		const {conIndice} = comp.tipoDeTema(tema_id);
+		const {esConIndice} = comp.tipoDeTema(tema_id);
 
 		// Obtiene los encabezados
 		let encabezados = await comp.obtieneEncabezados({tema_id, condicion});
@@ -16,7 +16,7 @@ export default {
 		const encabezado = encabezados.find((n) => n.id == encab_id) || encabezados[0];
 
 		// Si es una tema con índice, obtiene los encabezados anterior y posterior
-		if (conIndice) {
+		if (esConIndice) {
 			const indice = encabezados.indexOf(encabezado);
 			encabezado.ant_id = encabezados[indice - 1]?.id || null;
 			encabezado.sig_id = encabezados[indice + 1]?.id || null;

@@ -26,7 +26,7 @@ window.addEventListener("load", async () => {
 			comp1234.pestana_id = DOM.pestana.value;
 
 			// ENCABEZADO - Si corresponde, oculta el sector encabezados - 'sin índice' solo puede tener un encabezado
-			if (!comp1234.conIndice) DOM.encabezado.classList.add("ocultar");
+			if (!comp1234.esConIndice) DOM.encabezado.classList.add("ocultar");
 
 			// ENCABEZADO - Obtiene los encabezados
 			const datos =
@@ -60,11 +60,11 @@ window.addEventListener("load", async () => {
 			comp1234.encabezados = respuesta;
 
 			// ENCABEZADO - Crea las opciones
-			const campo = comp1234.esLugaresDevoc ? "tituloActualizar" : comp1234.conIndice ? "tituloElab" : "titulo";
+			const campo = comp1234.esLugaresDevoc ? "tituloActualizar" : comp1234.esConIndice ? "tituloElab" : "titulo";
 			agregaOpciones(comp1234.encabezados, DOM.encabezado, campo);
 
-			// ENCABEZADO - Si 'conIndice' o no existen encabezados, crea la opción NUEVO - sin indice no puede tener más de uno
-			if (comp1234.conIndice || !comp1234.encabezados.length) {
+			// ENCABEZADO - Si 'esConIndice' o no existen encabezados, crea la opción NUEVO - sin indice no puede tener más de uno
+			if (comp1234.esConIndice || !comp1234.encabezados.length) {
 				const option = document.createElement("option");
 				option.value = "nuevo";
 				option.textContent = "Encabezado nuevo";
@@ -90,7 +90,7 @@ window.addEventListener("load", async () => {
 			const urlTema = "/" + comp1234.temasSecciones.find((n) => n.id == comp1234.tema_id).url;
 			const urlPestana =
 				(comp1234.pestana_id && "/" + comp1234.pestanasTemas.find((n) => n.id == comp1234.pestana_id).url) || "";
-			const urlEncabezado = comp1234.conIndice ? "/?id=" + v.encab_id : "";
+			const urlEncabezado = comp1234.esConIndice ? "/?id=" + v.encab_id : "";
 
 			// Actualiza el DOM
 			DOM.anchorLectura.href = urlSeccion + urlTema + urlPestana + urlEncabezado;
@@ -139,11 +139,11 @@ window.addEventListener("load", async () => {
 		comp1234.temaActual = comp1234.temasSecciones.find((n) => n.id == tema_id);
 		comp1234.esCarta = comp1234.temaActual.codigo == "cartas";
 		comp1234.esLugaresDevoc = comp1234.temaActual.codigo == "lugaresDevocion";
-		comp1234.conIndice = !!(comp1234.temaActual.indicesFecha.length || comp1234.temaActual.indicesDevoc.length);
+		comp1234.esConIndice = !!(comp1234.temaActual.indicesFecha.length || comp1234.temaActual.indicesDevoc.length);
 		comp1234.tipoEncab =
 			(comp1234.esCarta && "encabCartas") ||
 			(comp1234.esLugaresDevoc && "encabLugares") ||
-			(comp1234.conIndice && "encabConIndice") ||
+			(comp1234.esConIndice && "encabConIndice") ||
 			"encabSinIndice";
 
 		// PESTAÑA - Crea las opciones

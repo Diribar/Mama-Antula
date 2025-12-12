@@ -42,7 +42,7 @@ export default {
 	// Encabezados
 	includesEncabs: {
 		cartas: ["nombreDesde", "nombreHacia", "idioma", "lugarCarta"],
-		conIndice: ["lugarExper"],
+		expers: ["lugarExper"],
 		lugaresDevoc: ["indiceDevoc"],
 	},
 	camposEdicion: {

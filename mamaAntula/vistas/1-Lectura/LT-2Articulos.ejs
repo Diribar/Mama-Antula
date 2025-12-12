@@ -1,8 +1,8 @@
-<% if (conIndice && encabezado) { %>
+<% if (esConIndice && encabezado) { %>
 	<!-- Filtros e Índice -->
 	<div id="filtroIndice">
 		<% if (esCarta) { %> <%- include("LT-Indice-1Cartas") %><% } %>
-		<% if (!esCarta && !esLugaresDevoc) { %><%- include("LT-Indice-2Expers") %><% } %>
+		<% if (esExpers) { %><%- include("LT-Indice-2Expers") %><% } %>
 		<% if (esLugaresDevoc) { %> <%- include("LT-Indice-3LugaresDevoc") %><% } %>
 
 		<div id="flechas">
@@ -23,7 +23,7 @@
 <!-- Artículo -->
 <div id="tituloMasContenido">
 
-	<% const tituloDelContenido = locals.encabezado && (conIndice ? encabezado.tituloElab : encabezado.titulo) %>
+	<% const tituloDelContenido = locals.encabezado && (esConIndice ? encabezado.tituloElab : encabezado.titulo) %>
 	<% if (tituloDelContenido) { %>
 		<!-- Título del contenido -->
 		<h3 id="tituloDelContenido"><%= tituloDelContenido %></h3>

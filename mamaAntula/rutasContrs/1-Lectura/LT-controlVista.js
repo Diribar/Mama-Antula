@@ -18,12 +18,7 @@ export default {
 		const temasSeccion = temasSecciones.filter((n) => n.seccion_id == seccionActual.id);
 		const temaActual = temasSeccion.find((n) => n.url == urlTema);
 		const tema_id = temaActual.id;
-		const indices = {
-			esCarta: temaActual.codigo == "cartas",
-			esLugaresDevoc: temaActual.codigo == "lugaresDevocion",
-			conIndice: !!(temaActual.indicesFecha.length || temaActual.indicesDevoc.length),
-		};
-
+		const indices = comp.tipoDeTema(tema_id);
 		// Condición - si el usuario no tiene el permiso de edición, no se le permite ver los contenidos que tengan status 'creado'
 		const condicion = {tema_id: temaActual.id};
 		const soloStatusAprob = !req.session.usuario || !rolesActualizac_ids.includes(req.session.usuario.rol_id);
@@ -72,7 +67,7 @@ export default {
 		const contenidos = encabezado && (await procesos.contenidos({encabezado, statusRegistro_id}));
 
 		// Datos para la vista
-		const indices = {esCarta: null, esLugaresDevoc: null, conIndice: null};
+		const indices = {};
 
 		// Fin
 		return res.render("CMP-0Estructura", {
