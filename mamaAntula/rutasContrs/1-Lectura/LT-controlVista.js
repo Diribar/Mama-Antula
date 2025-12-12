@@ -20,7 +20,7 @@ export default {
 		const tema_id = temaActual.id;
 		const indices = {
 			esCarta: temaActual.codigo == "cartas",
-			esLugares: temaActual.codigo == "lugaresDevocion",
+			esLugaresDevoc: temaActual.codigo == "lugaresDevocion",
 			conIndice: !!(temaActual.indicesFecha.length || temaActual.indicesDevoc.length),
 		};
 
@@ -72,7 +72,7 @@ export default {
 		const contenidos = encabezado && (await procesos.contenidos({encabezado, statusRegistro_id}));
 
 		// Datos para la vista
-		const indices = {esCarta: null, esLugares: null, conIndice: null};
+		const indices = {esCarta: null, esLugaresDevoc: null, conIndice: null};
 
 		// Fin
 		return res.render("CMP-0Estructura", {

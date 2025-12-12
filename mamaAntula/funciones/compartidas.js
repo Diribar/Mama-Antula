@@ -167,11 +167,11 @@ export default {
 
 		// Averigua el tipo de tema
 		const esCarta = temaActual && temaActual.codigo == "cartas";
-		const esLugares = temaActual && temaActual.codigo == "lugaresDevocion";
-		const conIndice = (temaActual && temaActual.indicesFecha.length) || esLugares;
+		const esLugaresDevoc = temaActual && temaActual.codigo == "lugaresDevocion";
+		const conIndice = (temaActual && temaActual.indicesFecha.length) || esLugaresDevoc;
 
 		// Fin
-		return {esCarta, esLugares, conIndice};
+		return {esCarta, esLugaresDevoc, conIndice};
 	},
 	includes: () => {
 		// Variables
@@ -185,7 +185,7 @@ export default {
 	},
 	obtieneEncabezados: function ({tema_id, condicion}) {
 		// Variables
-		const {esCarta, esLugares, conIndice} = this.tipoDeTema(tema_id);
+		const {esCarta, esLugaresDevoc, conIndice} = this.tipoDeTema(tema_id);
 		const includesAdics = ["statusSugeridoPor", "statusRegistro"];
 
 		// Fin
@@ -193,7 +193,7 @@ export default {
 			? baseDatos
 					.obtieneTodosPorCondicion("encabezados", condicion, [...includesEncabs.cartas, ...includesAdics])
 					.then((n) => n.sort((a, b) => (a.fechaEvento < b.fechaEvento ? -1 : 1)))
-			: esLugares
+			: esLugaresDevoc
 			? baseDatos
 					.obtieneTodosPorCondicion("encabezados", condicion, [...includesEncabs.lugaresDevoc, ...includesAdics])
 					.then((n) => n.sort((a, b) => (a.titulo < b.titulo ? -1 : 1)))
@@ -207,12 +207,12 @@ export default {
 	},
 	titulosElabs: function ({tema_id, encabezados}) {
 		// Variables
-		const {esCarta, esLugares, conIndice} = this.tipoDeTema(tema_id);
+		const {esCarta, esLugaresDevoc, conIndice} = this.tipoDeTema(tema_id);
 
 		// Fin
 		return esCarta
 			? titulosElabs.cartas(encabezados)
-			: esLugares
+			: esLugaresDevoc
 			? titulosElabs.lugaresDevoc(encabezados)
 			: conIndice
 			? titulosElabs.conIndice(encabezados)
@@ -220,12 +220,12 @@ export default {
 	},
 	tituloElab: function (encabezado) {
 		// Variables
-		const {esCarta, esLugares, conIndice} = this.tipoDeTema(encabezado.tema_id);
+		const {esCarta, esLugaresDevoc, conIndice} = this.tipoDeTema(encabezado.tema_id);
 
 		// Fin
 		return esCarta
 			? titulosElabs.cartas([encabezado])[0] // cartas
-			: esLugares
+			: esLugaresDevoc
 			? titulosElabs.lugaresDevoc([encabezado])[0]
 			: conIndice
 			? titulosElabs.conIndice([encabezado])[0]

@@ -60,7 +60,7 @@ window.addEventListener("load", async () => {
 			comp1234.encabezados = respuesta;
 
 			// ENCABEZADO - Crea las opciones
-			const campo = comp1234.esLugares ? "tituloActualizar" : comp1234.conIndice ? "tituloElab" : "titulo";
+			const campo = comp1234.esLugaresDevoc ? "tituloActualizar" : comp1234.conIndice ? "tituloElab" : "titulo";
 			agregaOpciones(comp1234.encabezados, DOM.encabezado, campo);
 
 			// ENCABEZADO - Si 'conIndice' o no existen encabezados, crea la opción NUEVO - sin indice no puede tener más de uno
@@ -138,11 +138,11 @@ window.addEventListener("load", async () => {
 		// Averigua si el tema es 'Cartas'
 		comp1234.temaActual = comp1234.temasSecciones.find((n) => n.id == tema_id);
 		comp1234.esCarta = comp1234.temaActual.codigo == "cartas";
-		comp1234.esLugares = comp1234.temaActual.codigo == "lugaresDevocion";
+		comp1234.esLugaresDevoc = comp1234.temaActual.codigo == "lugaresDevocion";
 		comp1234.conIndice = !!(comp1234.temaActual.indicesFecha.length || comp1234.temaActual.indicesDevoc.length);
 		comp1234.tipoEncab =
 			(comp1234.esCarta && "encabCartas") ||
-			(comp1234.esLugares && "encabLugares") ||
+			(comp1234.esLugaresDevoc && "encabLugares") ||
 			(comp1234.conIndice && "encabConIndice") ||
 			"encabSinIndice";
 

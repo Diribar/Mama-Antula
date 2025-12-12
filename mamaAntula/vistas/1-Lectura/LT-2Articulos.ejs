@@ -2,8 +2,8 @@
 	<!-- Filtros e Índice -->
 	<div id="filtroIndice">
 		<% if (esCarta) { %> <%- include("LT-Indice-1Cartas") %><% } %>
-		<% if (esLugares) { %> <%- include("LT-Indice-2Lugares") %><% } %>
-		<% if (!esCarta && !esLugares) { %><%- include("LT-Indice-3Resto") %><% } %>
+		<% if (!esCarta && !esLugaresDevoc) { %><%- include("LT-Indice-2Expers") %><% } %>
+		<% if (esLugaresDevoc) { %> <%- include("LT-Indice-3LugaresDevoc") %><% } %>
 
 		<div id="flechas">
 			<% if (encabezado.ant_id) { %>
