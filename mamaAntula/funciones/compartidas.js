@@ -166,12 +166,15 @@ export default {
 		const temaActual = tema_id && temasSecciones.find((n) => n.id == tema_id);
 
 		// Averigua el tipo de tema
-		const esCarta = temaActual && temaActual.codigo == "cartas";
-		const esExpers = !esCarta && temaActual && temaActual.indicesFecha.length;
-		const esLugaresDevoc = temaActual && temaActual.codigo == "lugaresDevocion";
+		const tipoDeTema = {
+			esCarta: temaActual.codigo == "cartas",
+			esExpers: !!(temaActual.codigo != "cartas" && temaActual.indicesFecha.length),
+			esLugaresDevoc: !!temaActual.indicesDevoc.length,
+		};
+		tipoDeTema.esConIndice = Object.values(tipoDeTema).some((n) => !!n);
 
 		// Fin
-		return {esCarta, esExpers, esLugaresDevoc};
+		return tipoDeTema;
 	},
 	includes: () => {
 		// Variables
