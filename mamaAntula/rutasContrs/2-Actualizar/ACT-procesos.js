@@ -16,8 +16,8 @@ export default {
 		// Obtiene los encabezados
 		let encabezados = await comp.obtieneEncabezados({tema_id, condicion});
 
-		// Si es sin indice, no existe un encabezado, y la condición tiene un tema o pestaña, crea el encabezado
-		if (!esConIndice && !encabezados.length && (condicion.tema_id || condicion.pestana_id)) {
+		// Si es sin indice y no existe un encabezado, crea el encabezado
+		if (!esConIndice && !encabezados.length ) {
 			// Crea los datos a guardar
 			const datos = {statusSugeridoPor_id: usuario.id, creadoPor_id: usuario.id};
 
