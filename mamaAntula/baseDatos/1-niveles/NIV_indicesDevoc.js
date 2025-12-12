@@ -1,15 +1,15 @@
 export default (sequelize, dt) => {
-	const alias = "indicesLugar";
+	const alias = "indicesDevoc";
 	const columns = {
 		// Referencias
 		tema_id: {type: dt.INTEGER},
 
 		// Nombre y código
 		nombre: {type: dt.STRING(15)},
-		orden: {type: dt.STRING(25)},
+		orden: {type: dt.INTEGER},
 	};
 	const config = {
-		tableName: "nivel9_indices_lugar",
+		tableName: "nivel9_indices_devoc",
 		timestamps: false,
 	};
 	const entidad = sequelize.define(alias, columns, config);

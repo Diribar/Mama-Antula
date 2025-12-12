@@ -32,6 +32,7 @@ ALTER TABLE ma_bd.encab_1original CHANGE lugarExper_id lugarExper_id tinyint(1) 
 UPDATE ma_bd.encab_1original SET lugarExper_id = lugarCarta_id, lugarCarta_id = NULL WHERE tema_id <> 10;
 ALTER TABLE ma_bd.encab_1original ADD CONSTRAINT encabezado_lugarCarta FOREIGN KEY (lugarCarta_id) REFERENCES ma_bd.cartas_lugares(id);
 ALTER TABLE ma_bd.encab_1original ADD CONSTRAINT encabezado_lugarExper FOREIGN KEY (lugarExper_id) REFERENCES ma_bd.cont_lugares(id);
+ALTER TABLE ma_bd.encab_1original CHANGE lugarIndice_id indiceDevoc_id int(10) unsigned DEFAULT NULL NULL;
 
 <!-- Edición -->
 ALTER TABLE ma_bd.encab_2edicion CHANGE lugar_id lugarCarta_id tinyint(1) unsigned DEFAULT NULL NULL;
@@ -39,33 +40,35 @@ ALTER TABLE ma_bd.encab_2edicion ADD lugarExper_id tinyint(1) unsigned DEFAULT N
 ALTER TABLE ma_bd.encab_2edicion CHANGE lugarExper_id lugarExper_id tinyint(1) unsigned DEFAULT NULL NULL AFTER lugarCarta_id;
 ALTER TABLE ma_bd.encab_2edicion ADD CONSTRAINT edicion_lugarCarta FOREIGN KEY (lugarCarta_id) REFERENCES ma_bd.cartas_lugares(id);
 ALTER TABLE ma_bd.encab_2edicion ADD CONSTRAINT edicion_lugarExper FOREIGN KEY (lugarExper_id) REFERENCES ma_bd.cont_lugares(id);
+ALTER TABLE ma_bd.encab_2edicion CHANGE lugarIndice_id indiceDevoc_id int(10) unsigned DEFAULT NULL NULL AFTER lugarExper_id;
 
-<!-- Indices lugar -->
+<!-- Indices devoción -->
+ALTER TABLE ma_bd.nivel9_indices_lugar DROP KEY indicesLugar_codigo;
 UPDATE ma_bd.nivel9_indices_lugar SET tema_id = 17, nombre = 'Introducción', orden = '1' WHERE id = 1;
 UPDATE ma_bd.nivel9_indices_lugar SET tema_id = 17, nombre = 'CABA', orden = '2' WHERE id = 2;
 UPDATE ma_bd.nivel9_indices_lugar SET tema_id = 17, nombre = 'GBA', orden = '3' WHERE id = 3;
-UPDATE ma_bd.nivel9_indices_lugar SET tema_id = 17, nombre = 'Buenos Aires', orden = NULL WHERE id = 4;
-UPDATE ma_bd.nivel9_indices_lugar SET tema_id = 17, nombre = 'Córdoba', orden = NULL WHERE id = 5;
-UPDATE ma_bd.nivel9_indices_lugar SET tema_id = 17, nombre = 'Santa Fe', orden = NULL WHERE id = 6;
-UPDATE ma_bd.nivel9_indices_lugar SET tema_id = 17, nombre = 'Santiago del Estero', orden = NULL WHERE id = 7;
-UPDATE ma_bd.nivel9_indices_lugar SET tema_id = 17, nombre = 'Salta', orden = NULL WHERE id = 8;
-UPDATE ma_bd.nivel9_indices_lugar SET tema_id = 17, nombre = 'Jujuy', orden = NULL WHERE id = 9;
+UPDATE ma_bd.nivel9_indices_lugar SET tema_id = 17, nombre = 'Buenos Aires', orden = '4' WHERE id = 4;
+UPDATE ma_bd.nivel9_indices_lugar SET tema_id = 17, nombre = 'Córdoba', orden = '9' WHERE id = 5;
+UPDATE ma_bd.nivel9_indices_lugar SET tema_id = 17, nombre = 'Santa Fe', orden = '9' WHERE id = 6;
+UPDATE ma_bd.nivel9_indices_lugar SET tema_id = 17, nombre = 'Santiago del Estero', orden = '9' WHERE id = 7;
+UPDATE ma_bd.nivel9_indices_lugar SET tema_id = 17, nombre = 'Salta', orden = '9' WHERE id = 8;
+UPDATE ma_bd.nivel9_indices_lugar SET tema_id = 17, nombre = 'Jujuy', orden = '9' WHERE id = 9;
 ALTER TABLE ma_bd.nivel9_indices_lugar MODIFY COLUMN orden tinyint(1) unsigned DEFAULT NULL NULL;
-INSERT INTO ma_bd.nivel9_indices_lugar (tema_id, nombre) VALUES (17, 'Catamarca');
-INSERT INTO ma_bd.nivel9_indices_lugar (tema_id, nombre) VALUES (17, 'Chaco');
-INSERT INTO ma_bd.nivel9_indices_lugar (tema_id, nombre) VALUES (17, 'Chubut');
-INSERT INTO ma_bd.nivel9_indices_lugar (tema_id, nombre) VALUES (17, 'Corrientes');
-INSERT INTO ma_bd.nivel9_indices_lugar (tema_id, nombre) VALUES (17, 'Entre Ríos');
-INSERT INTO ma_bd.nivel9_indices_lugar (tema_id, nombre) VALUES (17, 'Formosa');
-INSERT INTO ma_bd.nivel9_indices_lugar (tema_id, nombre) VALUES (17, 'La Pampa');
-INSERT INTO ma_bd.nivel9_indices_lugar (tema_id, nombre) VALUES (17, 'La Rioja');
-INSERT INTO ma_bd.nivel9_indices_lugar (tema_id, nombre) VALUES (17, 'Mendoza');
-INSERT INTO ma_bd.nivel9_indices_lugar (tema_id, nombre) VALUES (17, 'Misiones');
-INSERT INTO ma_bd.nivel9_indices_lugar (tema_id, nombre) VALUES (17, 'Neuquén');
-INSERT INTO ma_bd.nivel9_indices_lugar (tema_id, nombre) VALUES (17, 'Río Negro');
-INSERT INTO ma_bd.nivel9_indices_lugar (tema_id, nombre) VALUES (17, 'San Juan');
-INSERT INTO ma_bd.nivel9_indices_lugar (tema_id, nombre) VALUES (17, 'San Luis');
-INSERT INTO ma_bd.nivel9_indices_lugar (tema_id, nombre) VALUES (17, 'Santa Cruz');
-INSERT INTO ma_bd.nivel9_indices_lugar (tema_id, nombre) VALUES (17, 'Tierra del Fuego');
-INSERT INTO ma_bd.nivel9_indices_lugar (tema_id, nombre) VALUES (17, 'Tucumán');
-RENAME TABLE ma_bd.nivel9_indices_lugar TO ma_bd.nivel9_indices_advoc;
+INSERT INTO ma_bd.nivel9_indices_lugar (tema_id, nombre, orden) VALUES (17, 'Catamarca', 9);
+INSERT INTO ma_bd.nivel9_indices_lugar (tema_id, nombre, orden) VALUES (17, 'Chaco', 9);
+INSERT INTO ma_bd.nivel9_indices_lugar (tema_id, nombre, orden) VALUES (17, 'Chubut', 9);
+INSERT INTO ma_bd.nivel9_indices_lugar (tema_id, nombre, orden) VALUES (17, 'Corrientes', 9);
+INSERT INTO ma_bd.nivel9_indices_lugar (tema_id, nombre, orden) VALUES (17, 'Entre Ríos', 9);
+INSERT INTO ma_bd.nivel9_indices_lugar (tema_id, nombre, orden) VALUES (17, 'Formosa', 9);
+INSERT INTO ma_bd.nivel9_indices_lugar (tema_id, nombre, orden) VALUES (17, 'La Pampa', 9);
+INSERT INTO ma_bd.nivel9_indices_lugar (tema_id, nombre, orden) VALUES (17, 'La Rioja', 9);
+INSERT INTO ma_bd.nivel9_indices_lugar (tema_id, nombre, orden) VALUES (17, 'Mendoza', 9);
+INSERT INTO ma_bd.nivel9_indices_lugar (tema_id, nombre, orden) VALUES (17, 'Misiones', 9);
+INSERT INTO ma_bd.nivel9_indices_lugar (tema_id, nombre, orden) VALUES (17, 'Neuquén', 9);
+INSERT INTO ma_bd.nivel9_indices_lugar (tema_id, nombre, orden) VALUES (17, 'Río Negro', 9);
+INSERT INTO ma_bd.nivel9_indices_lugar (tema_id, nombre, orden) VALUES (17, 'San Juan', 9);
+INSERT INTO ma_bd.nivel9_indices_lugar (tema_id, nombre, orden) VALUES (17, 'San Luis', 9);
+INSERT INTO ma_bd.nivel9_indices_lugar (tema_id, nombre, orden) VALUES (17, 'Santa Cruz', 9);
+INSERT INTO ma_bd.nivel9_indices_lugar (tema_id, nombre, orden) VALUES (17, 'Tierra del Fuego', 9);
+INSERT INTO ma_bd.nivel9_indices_lugar (tema_id, nombre, orden) VALUES (17, 'Tucumán', 9);
+RENAME TABLE ma_bd.nivel9_indices_lugar TO ma_bd.nivel9_indices_devoc;

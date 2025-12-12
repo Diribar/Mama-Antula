@@ -139,7 +139,7 @@ window.addEventListener("load", async () => {
 		comp1234.temaActual = comp1234.temasSecciones.find((n) => n.id == tema_id);
 		comp1234.esCarta = comp1234.temaActual.codigo == "cartas";
 		comp1234.esLugares = comp1234.temaActual.codigo == "lugaresDevocion";
-		comp1234.conIndice = !!(comp1234.temaActual.indicesFecha.length || comp1234.temaActual.indicesLugar.length);
+		comp1234.conIndice = !!(comp1234.temaActual.indicesFecha.length || comp1234.temaActual.indicesDevoc.length);
 		comp1234.tipoEncab =
 			(comp1234.esCarta && "encabCartas") ||
 			(comp1234.esLugares && "encabLugares") ||

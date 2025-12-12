@@ -7,13 +7,13 @@ export default {
 			// Niveles
 			seccionesLectura: baseDatos.obtieneTodosConOrden("seccionesLectura", "orden"),
 			temasSecciones: baseDatos
-				.obtieneTodosPorCondicion("temasSecciones", {inactivo: false}, ["indicesFecha", "indicesLugar"])
+				.obtieneTodosPorCondicion("temasSecciones", {inactivo: false}, ["indicesFecha", "indicesDevoc"])
 				.then((n) => n.sort((a, b) => a.orden - b.orden)),
 			pestanasTemas: baseDatos.obtieneTodosConOrden("pestanasTemas", "orden"),
 			contLayouts: baseDatos.obtieneTodosConOrden("contLayouts", "orden"),
 			indicesFecha: baseDatos.obtieneTodos("indicesFecha"),
-			indicesLugar: baseDatos
-				.obtieneTodos("indicesLugar")
+			indicesDevoc: baseDatos
+				.obtieneTodos("indicesDevoc")
 				.then((n) => n.sort((a, b) => (a.nombre < b.nombre ? -1 : 1)))
 				.then((n) =>
 					n.sort((a, b) =>

@@ -42,8 +42,8 @@ export default {
 	// Encabezados
 	includesEncabs: {
 		cartas: ["nombreDesde", "nombreHacia", "idioma", "lugarCarta"],
-		lugares: ["lugarIndice"],
 		conIndice: ["lugarExper"],
+		lugares: ["indiceDevoc"],
 	},
 	camposEdicion: {
 		vista: {
@@ -53,14 +53,14 @@ export default {
 			idioma: "Idioma",
 			lugarCarta: "Lugar",
 			lugarExper: "Lugar",
-			lugarIndice: "Lugar geográfico",
+			indiceDevoc: "Lugar geográfico",
 
 			// Otros
 			numero: "Número",
 			titulo: "Título",
 			fechaEvento: "Fecha de ocurrencia",
 		},
-		tabla: ["nombreDesde_id", "nombreHacia_id", "idioma_id", "lugarCarta_id", "lugarExper_id", "numero", "titulo", "fechaEvento", "lugarIndice_id"],
+		tabla: ["nombreDesde_id", "nombreHacia_id", "idioma_id", "lugarCarta_id", "lugarExper_id", "numero", "titulo", "fechaEvento", "indiceDevoc_id"],
 	},
 
 	// Otras

@@ -10,7 +10,7 @@ export default (sequelize, dt) => {
 		idioma_id: {type: dt.INTEGER},
 		lugarCarta_id: {type: dt.INTEGER},
 		lugarExper_id: {type: dt.INTEGER},
-		lugarIndice_id: {type: dt.STRING(25)},
+		indiceDevoc_id: {type: dt.STRING(25)},
 
 		// Otros
 		numero: {type: dt.INTEGER},
@@ -38,7 +38,7 @@ export default (sequelize, dt) => {
 		// Otros
 		entidad.belongsTo(n.lugaresCartas, {as: "lugarCarta", foreignKey: "lugarCarta_id"});
 		entidad.belongsTo(n.lugaresExpers, {as: "lugarExper", foreignKey: "lugarExper_id"});
-		entidad.belongsTo(n.indicesLugar, {as: "lugarIndice", foreignKey: "lugarIndice_id"});
+		entidad.belongsTo(n.indicesDevoc, {as: "indiceDevoc", foreignKey: "indiceDevoc_id"});
 
 	};
 	return entidad;

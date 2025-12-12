@@ -101,14 +101,14 @@ export default async (req, res, next) => {
 	// LUGARES
 	else if (tema_id == temaLugares_id) {
 		// Variables
-		const {titulo, lugarIndice_id} = req.body;
+		const {titulo, indiceDevoc_id} = req.body;
 
 		// titulo
 		validaTitulo(titulo);
 
-		// Valida el códigoLugar
-		(!lugarIndice_id && mensajes.push("El campo <em>Lugar geográfico</em> es obligatorio")) ||
-			(!indicesLugar.find((n) => n.id == lugarIndice_id) && mensajes.push("El lugar geográfico no existe"));
+		// Valida el indiceDevoc_id
+		(!indiceDevoc_id && mensajes.push("El campo <em>Lugar geográfico</em> es obligatorio")) ||
+			(!indicesDevoc.find((n) => n.id == indiceDevoc_id) && mensajes.push("El lugar geográfico no existe"));
 
 		// Fin
 		const error = preparaLaRespuesta(mensajes);
