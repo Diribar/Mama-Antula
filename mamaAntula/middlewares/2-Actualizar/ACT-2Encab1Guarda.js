@@ -88,6 +88,10 @@ export default async (req, res, next) => {
 		(!idioma_id && mensajes.push("El campo <em>Idioma</em> es obligatorio")) ||
 			(!idiomas.find((n) => n.id == idioma_id) && mensajes.push("El idioma no existe"));
 
+		// lugarCarta_id
+		if (!lugarCarta_id) mensajes.push("El campo <em>Lugar</em> es obligatorio")
+
+		// Otros
 		validaLugarFecha({lugarCarta_id, fechaEvento, tema_id});
 
 		// Fin
@@ -117,6 +121,9 @@ export default async (req, res, next) => {
 
 		// Valida cada variable - titulo
 		validaTitulo(titulo);
+
+		// lugarExper_id
+		if (!lugarExper_id) mensajes.push("El campo <em>Lugar</em> es obligatorio")
 
 		// Valida lugar y fechas
 		validaLugarFecha({lugarExper_id, fechaEvento, tema_id});
