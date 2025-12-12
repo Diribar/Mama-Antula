@@ -35,7 +35,7 @@ window.addEventListener("load", async () => {
 			const oculta =
 				(!comp1234.esConIndice && !DOM.filtroPestana.value) || // Si es 'sin índice' y viene de un tema, lo oculta porque sus campos no poseen ningún valor
 				DOM.filtroEncab.value == comp1234.encabCartaIntro_id || // Si es la nota de introducción al tema cartas, oculta el encabezado
-				DOM.filtroEncab.value == comp1234.encabLugaresIntro_id; // Si es la nota de introducción al tema lugaresDevoc, oculta el encabezado
+				DOM.filtroEncab.value == comp1234.encabLugaresDevocIntro_id; // Si es la nota de introducción al tema lugaresDevoc, oculta el encabezado
 			domSectorEncabezado.classList[oculta ? "add" : "remove"]("ocultar");
 
 			// Fin

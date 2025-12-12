@@ -8,7 +8,7 @@ export default {
 		const datosIniciales = {
 			...{seccionesLectura, temasSecciones, pestanasTemas},
 			...{personajes, idiomas, lugaresCartas, lugaresExpers, indicesDevoc},
-			...{encabCartaIntro_id, encabLugaresIntro_id, contLayouts},
+			...{encabCartaIntro_id, encabLugaresDevocIntro_id, contLayouts},
 			...{creado_id, aprobado_id, rechazar_id, rechazado_id},
 			usuario,
 		};

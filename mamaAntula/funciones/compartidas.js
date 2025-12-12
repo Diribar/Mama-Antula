@@ -353,11 +353,11 @@ const titulosElabs = {
 		// Rutina
 		for (const encab of encabs) {
 			encab.tituloElab =
-				encab.id == encabLugaresIntro_id // para 'Introducción'
+				encab.id == encabLugaresDevocIntro_id // para 'Introducción'
 					? encab.indiceDevoc.nombre
 					: encab.titulo + " - " + encab.indiceDevoc.nombre;
 			encab.tituloActualizar =
-				encab.id == encabLugaresIntro_id // para 'Introducción'
+				encab.id == encabLugaresDevocIntro_id // para 'Introducción'
 					? encab.indiceDevoc.nombre
 					: encab.indiceDevoc.nombre + " - " + encab.titulo;
 		}
