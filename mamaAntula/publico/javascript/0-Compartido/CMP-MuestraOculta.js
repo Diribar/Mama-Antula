@@ -5,19 +5,26 @@ window.addEventListener("load", () => {
 		// Todos los lugares donde hacer click y qué mostrar
 		clicks: document.querySelectorAll(".mostrarClick"),
 		menus: document.querySelectorAll(".mostrarToggle"),
+
+		// Relacionado con búsqueda rápida
+		brIcono: document.querySelector("header #busquedaRapida .mostrarClick"),
+		brMostrar: document.querySelector("header #busquedaRapida .mostrarToggle"), // es el contenedor del input
+		brInput: document.querySelector("header #busquedaRapida .mostrarToggle input"), // es el input
 	};
 
 	// Mensajes de ayuda
-	window.addEventListener("click", (e) => {
-		// Rutina por cada dupla
-		for (let i = 0; i < DOM.clicks.length; i++) {
-			// Si el 'click' fue dentro del mostrarToggle, saltea la rutina
-			if (DOM.menus[i].id == "menuLogin" && DOM.menus[i].contains(e.target)) continue;
+	window.addEventListener("click", (e) =>
+		DOM.clicks.forEach((click, i) => {
+			// Si el 'click' fue dentro del menú, saltea la rutina
+			const menu = DOM.menus[i];
+			if (menu.contains(e.target)) return;
 
 			// Se fija si el 'click' fue en el ícono y si está activo
-			e.target == DOM.clicks[i] && !DOM.clicks[i].className.includes("inactivo")
-				? DOM.menus[i].classList.toggle("ocultar") // caso exitoso, toggle del menu
-				: DOM.menus[i].classList.add("ocultar"); // caso fallido, oculta el menu
-		}
-	});
+			e.target == click && !click.className.includes("inactivo")
+				? menu.classList.toggle("ocultar") // caso exitoso, toggle del menu
+				: menu.classList.add("ocultar"); // caso fallido, oculta el menu
+
+			if (e.target == click && click == DOM.brIcono && !DOM.brMostrar.classList.contains("ocultar")) DOM.brInput.focus();
+		})
+	);
 });

@@ -5,9 +5,11 @@
 		<h4>María Antonia de San José Paz y Figueroa</h4>
 	</div>
 
+	<div id="centro">
+		<!-- Búsqueda rápida -->
+		<%- include("CMP-HR-BusqRapida") %>
 
-	<div id="secciones" class="flexRowAlign">
-		<i class="fa-solid fa-magnifying-glass pointer" title="Búsqueda rápida"></i>
+		<!-- Secciones -->
 		<% for (const seccion of seccionesLectura) { %>
 			<a href="/<%= seccion.url %>" <% if (seccion.nombre == locals.tituloPagina) { %> class="resaltar"<% } %>><%= seccion.nombre %></a>
 		<% } %>
