@@ -19,13 +19,15 @@
 	<% } %>
 </select>
 <select name="idioma_id">
-	<option value="">Idioma</option>
+	<option value>Idioma</option>
+	<option value class="quitarFiltro">Sin filtro</option>
 	<% for (const idioma of idiomas) { %>
 		<option value="<%= idioma.id %>"><%= idioma.nombre %></option>
 	<% } %>
 </select>
 <select name="lugarCarta_id">
-	<option value="">Elejí un lugar</option>
+	<option value>Elejí un lugar</option>
+	<option value class="quitarFiltro">Sin filtro</option>
 	<% for (const lugar of lugaresCartas) { %>
 		<option value="<%= lugar.id %>"><%= lugar.nombre %></option>
 	<% } %>
