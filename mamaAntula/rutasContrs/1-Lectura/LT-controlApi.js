@@ -33,8 +33,6 @@ export default {
 		}
 
 		// Obtiene los encabs_id
-		console.log(36,condicion);
-
 		const encabs_id = await baseDatos.obtieneTodosPorCondicion("encabezados", condicion).then((n) => n.map((m) => m.id));
 
 		// Fin
