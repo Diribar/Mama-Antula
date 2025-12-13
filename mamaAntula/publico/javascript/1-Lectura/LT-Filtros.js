@@ -2,15 +2,32 @@
 
 window.addEventListener("load", async () => {
 	// Variables
-	const domForm = document.querySelector("#tituloFiltros #filtros");
+	const DOM = {
+		form: document.querySelector("#tituloFiltros form#filtros"),
+		anchors: document.querySelectorAll("#indice a"),
+		tituloEncabs: document.querySelectorAll("#indice .tituloEncabs"),
+	};
 	const ruta = "api/lt-filtros";
-	let interrumpeFetch;
+	let interrumpeFetch, idsVisibles;
+
+	// Funciones
+	const muestraOcultaAnchors = () => {
+		// Muestra/oculta los anchors, en función de los idsVisibles
+		for (const anchor of DOM.anchors)
+			anchor.classList[idsVisibles.includes(Number(anchor.dataset.id)) ? "remove" : "add"]("ocultar");
+
+		// Muestra/oculta los tituloEncabs, en función de si tienen algún anchor visible
+		for (const tituloEncab of DOM.tituloEncabs){
+			const anchors = tituloEncab.querySelectorAll("a")
+			const visible = Array.from(anchors).some((n) => !n.classList.contains("ocultar"));
+			tituloEncab.classList[visible ? "remove" : "add"]("ocultar");
+		}
+	};
 
 	// Eventos - input
-	domForm.addEventListener("input", async (e) => {
+	DOM.form.addEventListener("input", async (e) => {
 		// Obtiene los valores del formulario
-		const form = new FormData(domForm);
-		// console.log([...form.entries()]);
+		const form = new FormData(DOM.form);
 
 		// Cancela la búsqueda anterior si aún no terminó
 		interrumpeFetch?.abort();
@@ -19,12 +36,12 @@ window.addEventListener("load", async () => {
 		let interrupcion;
 
 		// Envia los datos
-		const respuesta = await fetch(ruta, {...postForm(form), signal})
+		idsVisibles = await fetch(ruta, {...postForm(form), signal})
 			.then((n) => n.json())
 			.catch(() => (interrupcion = true));
 		if (interrupcion) return;
 
-		// Actualiza los encabezados visibles
-
+		// Muestra/oculta los anchors
+		muestraOcultaAnchors();
 	});
 });
