@@ -77,7 +77,7 @@ export default {
 			},
 
 			// Otros
-			versionWeb: novsDelSitio[-1]?.version,
+			versionWeb: novsDelSitio.at(-1)?.version,
 		};
 
 		// Fin

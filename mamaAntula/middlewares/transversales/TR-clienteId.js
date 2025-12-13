@@ -95,12 +95,9 @@ export default async (req, res, next) => {
 		const diasNaveg = ++cliente.diasNaveg;
 
 		// Actualiza el usuario
-		if (esUsuario) {
-			baseDatos.actualizaPorId("usuarios", usuario.id, {fechaUltNaveg: fechaHoy, diasNaveg});
-			usuario = {...usuario, fechaUltNaveg: fechaHoy, diasNaveg};
-		}
-		// Actualiza la visita
-		else baseDatos.actualizaPorId(tabla, cliente.id, {fechaUltNaveg: fechaHoy, diasNaveg});
+		baseDatos.actualizaPorId(tabla, cliente.id, {fechaUltNaveg: fechaHoy, diasNaveg});
+		if (usuario) usuario = {...usuario, fechaUltNaveg: fechaHoy, diasNaveg};
+
 	}
 
 	// Actualiza usuario y cliente

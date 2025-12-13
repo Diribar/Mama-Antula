@@ -30,7 +30,7 @@ export default (req, res, next) => {
 		// Actualiza la BD
 		const esUsuario = cliente_id.startsWith("U");
 		const tabla = esUsuario ? "usuarios" : "visitas";
-		baseDatos.actualizaPorCondicion(tabla, cliente_id, {versionWeb});
+		baseDatos.actualizaPorId(tabla, cliente.id, {versionWeb});
 	}
 
 	// Fin
