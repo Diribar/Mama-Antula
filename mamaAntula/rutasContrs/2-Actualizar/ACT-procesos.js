@@ -11,13 +11,13 @@ export default {
 	// API - Encabezado
 	obtieneEncabezados: async ({tema_id, condicion, usuario}) => {
 		// Variables
-		const {conIndice} = comp.tipoDeTema(tema_id);
+		const {esConIndice} = comp.tipoDeTema(tema_id);
 
 		// Obtiene los encabezados
 		let encabezados = await comp.obtieneEncabezados({tema_id, condicion});
 
-		// Si es sin indice, no existe un registro, y la condición tiene un tema, crea el encabezado
-		if (!conIndice && !encabezados.length && condicion.tema_id) {
+		// Si es sin indice y no existe un encabezado, crea el encabezado
+		if (!esConIndice && !encabezados.length ) {
 			// Crea los datos a guardar
 			const datos = {statusSugeridoPor_id: usuario.id, creadoPor_id: usuario.id};
 

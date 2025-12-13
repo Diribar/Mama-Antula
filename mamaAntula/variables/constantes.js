@@ -37,13 +37,13 @@ export default {
 	temaCarta_id: 10, // el id del tema "Cartas"
 	encabCartaIntro_id: 33, // el id del encabezado sobre Introducción a las cartas
 	temaLugares_id: 17, // el id del tema "Lugares"
-	encabLugaresIntro_id: 25, // el id del encabezado sobre Introducción a los lugares
+	encabLugaresDevocIntro_id: 25, // el id del encabezado sobre Introducción a los lugaresDevoc
 
 	// Encabezados
 	includesEncabs: {
 		cartas: ["nombreDesde", "nombreHacia", "idioma", "lugarCarta"],
-		conIndice: ["lugarExper"],
-		lugares: ["indiceDevoc"],
+		expers: ["lugarExper"],
+		lugaresDevoc: ["indiceDevoc"],
 	},
 	camposEdicion: {
 		vista: {

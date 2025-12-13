@@ -18,11 +18,7 @@ export default {
 		const temasSeccion = temasSecciones.filter((n) => n.seccion_id == seccionActual.id);
 		const temaActual = temasSeccion.find((n) => n.url == urlTema);
 		const tema_id = temaActual.id;
-		const indices = {
-			esCarta: temaActual.codigo == "cartas",
-			esLugares: temaActual.codigo == "lugaresDevocion",
-			conIndice: !!(temaActual.indicesFecha.length || temaActual.indicesDevoc.length),
-		};
+		const tipoDeTema = comp.tipoDeTema(tema_id);
 
 		// Condición - si el usuario no tiene el permiso de edición, no se le permite ver los contenidos que tengan status 'creado'
 		const condicion = {tema_id: temaActual.id};
@@ -40,7 +36,7 @@ export default {
 			...{tituloPagina, temaVista, codigoVista, temasSeccion},
 			...{seccionActual, temaActual},
 			...{encabezado, contenidos, encabezados},
-			...indices,
+			...tipoDeTema,
 		});
 	},
 	pestanas: async (req, res) => {
@@ -72,14 +68,14 @@ export default {
 		const contenidos = encabezado && (await procesos.contenidos({encabezado, statusRegistro_id}));
 
 		// Datos para la vista
-		const indices = {esCarta: null, esLugares: null, conIndice: null};
+		const tipoDeTema = comp.tipoDeTema();
 
 		// Fin
 		return res.render("CMP-0Estructura", {
 			...{tituloPagina, temaVista, codigoVista, temasSeccion, pestanasTema},
 			...{seccionActual, temaActual, pestanaActual},
 			...{encabezado, contenidos, encabezados},
-			...indices,
+			...tipoDeTema,
 		});
 	},
 };

@@ -288,8 +288,8 @@ export default {
 		anchorLectura += (actPestana_id && "/" + pestanasTemas.find((n) => n.id == actPestana_id).url) || "";
 
 		// Le agrega el encabezado
-		const conIndice = temaActual.indicesFecha.length || temaActual.indicesDevoc.length;
-		anchorLectura += conIndice ? "/?id=" + actEncabezado_id : "";
+		const esConIndice = temaActual.indicesFecha.length || temaActual.indicesDevoc.length;
+		anchorLectura += esConIndice ? "/?id=" + actEncabezado_id : "";
 
 		// Fin
 		return anchorLectura;
@@ -362,8 +362,8 @@ export default {
 
 			// Le agrega el encabezado
 			const temaActual = temasSecciones.find((n) => n.id == tema.id);
-			const conIndice = temaActual.indicesFecha.length || temaActual.indicesDevoc.length;
-			anchorLectura += conIndice ? "&actEncabezado_id=" + encabezado.id : "";
+			const esConIndice = temaActual.indicesFecha.length || temaActual.indicesDevoc.length;
+			anchorLectura += esConIndice ? "&actEncabezado_id=" + encabezado.id : "";
 
 			// Fin
 			return anchorLectura;

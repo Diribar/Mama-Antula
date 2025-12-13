@@ -166,12 +166,15 @@ export default {
 		const temaActual = tema_id && temasSecciones.find((n) => n.id == tema_id);
 
 		// Averigua el tipo de tema
-		const esCarta = temaActual && temaActual.codigo == "cartas";
-		const esLugares = temaActual && temaActual.codigo == "lugaresDevocion";
-		const conIndice = (temaActual && temaActual.indicesFecha.length) || esLugares;
+		const tipoDeTema = {
+			esCarta: temaActual && temaActual.codigo == "cartas",
+			esExpers: temaActual && !!(temaActual.codigo != "cartas" && temaActual.indicesFecha.length),
+			esLugaresDevoc: temaActual && !!temaActual.indicesDevoc.length,
+		};
+		tipoDeTema.esConIndice = Object.values(tipoDeTema).some((n) => !!n);
 
 		// Fin
-		return {esCarta, esLugares, conIndice};
+		return tipoDeTema;
 	},
 	includes: () => {
 		// Variables
@@ -185,7 +188,7 @@ export default {
 	},
 	obtieneEncabezados: function ({tema_id, condicion}) {
 		// Variables
-		const {esCarta, esLugares, conIndice} = this.tipoDeTema(tema_id);
+		const {esCarta, esExpers, esLugaresDevoc} = this.tipoDeTema(tema_id);
 		const includesAdics = ["statusSugeridoPor", "statusRegistro"];
 
 		// Fin
@@ -193,42 +196,42 @@ export default {
 			? baseDatos
 					.obtieneTodosPorCondicion("encabezados", condicion, [...includesEncabs.cartas, ...includesAdics])
 					.then((n) => n.sort((a, b) => (a.fechaEvento < b.fechaEvento ? -1 : 1)))
-			: esLugares
+			: esExpers
 			? baseDatos
-					.obtieneTodosPorCondicion("encabezados", condicion, [...includesEncabs.lugares, ...includesAdics])
+					.obtieneTodosPorCondicion("encabezados", condicion, [...includesEncabs.expers, ...includesAdics])
+					.then((n) => n.sort((a, b) => (b.fechaEvento < a.fechaEvento ? -1 : 1)))
+			: esLugaresDevoc
+			? baseDatos
+					.obtieneTodosPorCondicion("encabezados", condicion, [...includesEncabs.lugaresDevoc, ...includesAdics])
 					.then((n) => n.sort((a, b) => (a.titulo < b.titulo ? -1 : 1)))
 					.then((n) => n.sort((a, b) => (a.indiceDevoc.nombre < b.indiceDevoc.nombre ? -1 : 1)))
 					.then((n) => n.sort((a, b) => a.indiceDevoc.orden - b.indiceDevoc.orden))
-			: conIndice
-			? baseDatos
-					.obtieneTodosPorCondicion("encabezados", condicion, [...includesEncabs.conIndice, ...includesAdics])
-					.then((n) => n.sort((a, b) => (b.fechaEvento < a.fechaEvento ? -1 : 1)))
 			: baseDatos.obtieneTodosPorCondicion("encabezados", condicion, includesAdics);
 	},
 	titulosElabs: function ({tema_id, encabezados}) {
 		// Variables
-		const {esCarta, esLugares, conIndice} = this.tipoDeTema(tema_id);
+		const {esCarta, esExpers, esLugaresDevoc} = this.tipoDeTema(tema_id);
 
 		// Fin
 		return esCarta
 			? titulosElabs.cartas(encabezados)
-			: esLugares
-			? titulosElabs.lugares(encabezados)
-			: conIndice
-			? titulosElabs.conIndice(encabezados)
+			: esExpers
+			? titulosElabs.expers(encabezados)
+			: esLugaresDevoc
+			? titulosElabs.lugaresDevoc(encabezados)
 			: encabezados;
 	},
 	tituloElab: function (encabezado) {
 		// Variables
-		const {esCarta, esLugares, conIndice} = this.tipoDeTema(encabezado.tema_id);
+		const {esCarta, esExpers, esLugaresDevoc} = this.tipoDeTema(encabezado.tema_id);
 
 		// Fin
 		return esCarta
 			? titulosElabs.cartas([encabezado])[0] // cartas
-			: esLugares
-			? titulosElabs.lugares([encabezado])[0]
-			: conIndice
-			? titulosElabs.conIndice([encabezado])[0]
+			: esExpers
+			? titulosElabs.expers([encabezado])[0]
+			: esLugaresDevoc
+			? titulosElabs.lugaresDevoc([encabezado])[0]
 			: encabezado;
 	},
 	agregaTemaPestana: (encabezado) => {
@@ -341,25 +344,25 @@ const titulosElabs = {
 		// Fin
 		return encabs;
 	},
-	lugares: (encabs) => {
+	expers: (encabs) => {
+		for (const encab of encabs)
+			encab.tituloElab = diaMesAnoUTC(encab.fechaEvento) + " - " + encab.titulo + " - " + encab.lugarExper.nombre;
+		return encabs;
+	},
+	lugaresDevoc: (encabs) => {
 		// Rutina
 		for (const encab of encabs) {
 			encab.tituloElab =
-				encab.id == encabLugaresIntro_id // para 'Introducción'
+				encab.id == encabLugaresDevocIntro_id // para 'Introducción'
 					? encab.indiceDevoc.nombre
 					: encab.titulo + " - " + encab.indiceDevoc.nombre;
 			encab.tituloActualizar =
-				encab.id == encabLugaresIntro_id // para 'Introducción'
+				encab.id == encabLugaresDevocIntro_id // para 'Introducción'
 					? encab.indiceDevoc.nombre
 					: encab.indiceDevoc.nombre + " - " + encab.titulo;
 		}
 
 		// Fin
-		return encabs;
-	},
-	conIndice: (encabs) => {
-		for (const encab of encabs)
-			encab.tituloElab = diaMesAnoUTC(encab.fechaEvento) + " - " + encab.titulo + " - " + encab.lugarExper.nombre;
 		return encabs;
 	},
 };
