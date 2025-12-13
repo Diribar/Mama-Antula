@@ -65,22 +65,16 @@ export default async (req, res, next) => {
 
 	// Cliente: 3. Como no existe, lo crea
 	if (!cliente) {
-		// Variables
-		const datos = {versionWeb};
-
 		// Crea el cliente
+		const datos = {versionWeb};
 		cliente = await baseDatos.agregaRegistroIdCorrel("visitas", datos);
 
-		// Crea un nuevo 'cliente_id'
+		// Crea un nuevo 'cliente_id' y actualiza o crea la cookie
 		cliente_id = "V" + String(cliente.id).padStart(10, "0");
-
-		// Actualiza o crea la cookie
 		res.cookie("cliente_id", cliente_id, {maxAge: unAno, path: "/"});
 
-		// Actualiza el 'cliente_id' en la BD
+		// Actualiza el 'cliente_id' en la BD y la variable
 		await baseDatos.actualizaPorId("visitas", cliente.id, {cliente_id}); // es crítico el 'await'
-
-		// Actualiza el cliente con los campos necesarios
 		cliente = await baseDatos.obtienePorId("visitas", cliente.id, "rol").then((n) => obtieneCamposNecesarios(n));
 	}
 
