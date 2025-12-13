@@ -1,0 +1,10 @@
+<div id="tituloFiltros" class="contenedor">
+	<div class="titulo">
+		<i class="fa-solid fa-caret-right mostrar"></i>
+		Filtros
+	</div>
+	<div id="filtros" class="ocultar">
+		<% if (esCarta) { %> <%- include("LT-1Cartas-2Filtro") %><% } %>
+		<% if (esExpers) { %><%- include("LT-2Expers-2Filtro") %><% } %>
+	</div>
+</div>

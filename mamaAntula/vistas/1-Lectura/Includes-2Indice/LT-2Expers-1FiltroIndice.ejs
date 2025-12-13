@@ -1,13 +1,8 @@
 <!-- Filtros -->
-<div id="filtros" class="contenedor">
-	<div class="titulo">
-		<i class="fa-solid fa-caret-right mostrar"></i>
-		Filtros
-	</div>
-</div>
+<%- include("LT-Filtro") %>
 
 <!-- Índice -->
-<%- include("LT-1Cartas-3Indice", {indices: indicesRestoFechas}) %>
+<%- include("LT-Indice", {indices: indicesRestoFechas}) %>
 
 <!-- Ficha técnica -->
 <div id="fichaTecnica">

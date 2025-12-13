@@ -7,7 +7,23 @@ window.addEventListener("load", async () => {
 		titulos: domFiltroIndice.querySelectorAll(".titulo"),
 	};
 
-	// Eventos - click en el agrupador de encabezados
+	// Funciones
+	const ocultaMuestra = ({titulo, accion}) => {
+		// Obtiene el padre
+		const padre = titulo.closest(".tituloEncabs") || titulo.closest("#tituloFiltros");
+		if (!padre) return;
+
+		// Obtiene el hijo a ocultar/mostrar
+		const hijo = padre.querySelector(".encabezados") || padre.querySelector("#filtros");
+
+		// Oculta/muestra el hijo
+		hijo.classList[accion]("ocultar");
+
+		// Fin
+		return;
+	};
+
+	// Eventos - Gira el ícono y muestra/oculta los encabezados
 	for (const titulo of DOM.titulos)
 		titulo.addEventListener("click", () => {
 			// Alterna entre girar o no el ícono
@@ -16,25 +32,26 @@ window.addEventListener("load", async () => {
 			mostrar.classList.toggle("girar");
 
 			// Alterna entre mostrar y ocultar los encabezados
-			const padre = titulo.closest(".tituloEncabs");
-			if (!padre) return;
-			const encabezados = padre.querySelector(".encabezados");
-			encabezados.classList.toggle("ocultar");
+			ocultaMuestra({titulo, accion: "toggle"});
+
+			// Fin
+			return;
 		});
 
+	// Eventos - Si no se eligió un título o ícono, endereza todos los íconos y oculta los encabezados/filtros
 	document.addEventListener("click", (e) => {
-		if (!["titulo", "mostrar"].some((n) => e.target.classList.contains(n)))
-			for (const titulo of DOM.titulos) {
-				// Endereza el ícono
-				const mostrar = titulo.querySelector(".mostrar");
-				if (!mostrar) continue;
-				mostrar.classList.remove("girar");
+		// Si se eligió un título o ícono, interrumpe la función
+		if (e.target.closest("#tituloFiltros") || e.target.closest("#indice")) return;
 
-				// Oculta los encabezados
-				const padre = titulo.closest(".tituloEncabs");
-				if (!padre) continue;
-				const encabezados = padre.querySelector(".encabezados");
-				encabezados.classList.add("ocultar");
-			}
+		// Endereza todos los íconos y oculta los encabezados
+		for (const titulo of DOM.titulos) {
+			// Endereza el ícono
+			const mostrar = titulo.querySelector(".mostrar");
+			if (!mostrar) continue;
+			mostrar.classList.remove("girar");
+
+			// Oculta los encabezados/filtros
+			ocultaMuestra({titulo, accion: "add"});
+		}
 	});
 });
