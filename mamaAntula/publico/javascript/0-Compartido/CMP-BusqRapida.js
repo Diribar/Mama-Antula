@@ -1,4 +1,5 @@
 "use strict";
+
 window.addEventListener("load", () => {
 	// DOM
 	const domHeader = document.querySelector("header");
@@ -10,7 +11,7 @@ window.addEventListener("load", () => {
 	};
 	const rutaApi = "/busqueda-rapida/api/busca-en-bd";
 	let posicion = 0;
-	let resultados;
+	let resultados, buscaEnBe;
 
 	// Funciones
 	const sinResultados = (respuesta) => {
@@ -102,18 +103,24 @@ window.addEventListener("load", () => {
 
 		// Acciones si la palabra tiene menos de 3 caracteres significativos
 		if (pasaNoPasa.length < 3) return DOM.escribiMas.classList.remove("ocultar"); // Muestra el cartel de "escribí más"
+
+		// Cancela la búsqueda anterior si aún no terminó
+		buscaEnBe?.abort();
+		buscaEnBe = new AbortController();
+		const {signal} = buscaEnBe;
+
 		// Oculta el cartel de "escribí más"
-		else DOM.escribiMas.classList.add("ocultar");
+		DOM.escribiMas.classList.add("ocultar");
 
 		// Busca los productos
 		palabras = palabras.join(" ");
-		resultados = await fetch(rutaApi, postJson({palabras})).then((n) => n.json());
-
-		// Acciones si no se encontraron resultados
-		if (!Object.keys(resultados).length) return sinResultados("- No encontramos resultados -");
+		resultados = await fetch(rutaApi, {...postJson({palabras}), signal})
+			.then((n) => n.json())
+			.catch(() => {});
 
 		// Muestra los resultados
-		agregaResultados();
+		const hayResultados = !!Object.keys(resultados).length
+		hayResultados ? agregaResultados() : sinResultados("- No encontramos resultados -");
 
 		// Fin
 		return;
