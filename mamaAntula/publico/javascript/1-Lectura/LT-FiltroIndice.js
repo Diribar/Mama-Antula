@@ -41,7 +41,8 @@ window.addEventListener("load", async () => {
 	// Eventos - Si no se eligió un título o ícono, endereza todos los íconos y oculta los encabezados/filtros
 	document.addEventListener("click", (e) => {
 		// Si se eligió un título o ícono, interrumpe la función
-		if (["titulo", "mostrar"].some((n) => e.target.classList.contains(n))) return;
+		if (e.target.closest("#tituloFiltros") || e.target.closest("#indice")) return;
+		console.log(e.target.closest("#tituloFiltros") || e.target.closest("#indice"));
 
 		// Endereza todos los íconos y oculta los encabezados
 		for (const titulo of DOM.titulos) {

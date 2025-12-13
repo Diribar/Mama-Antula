@@ -6,17 +6,18 @@
 
 	/* Tamaños de fuente */
 	#indice, #tituloFiltros {
-		.titulo {font-size: 0.95rem;}
-		.tituloEncabs a, select {font-size: 0.9rem;}
+		.titulo {font-size: 0.95rem; align-self: flex-start;}
+		.tituloEncabs a, select, .mostrar {font-size: 0.9rem;}
 	}
 
 	.contenedor {
+		display: flex; flex-direction: column;
 		border: 1px solid var(--rojoOscuro); border-radius: 8px;
 		color: var(--rojoOscuro); background-color: var(--amarilloClaro);
 		padding-block: 10px; padding-inline: 30px 10px;
 		min-width: var(--anchoIndice);
 		width: max-content;
-		&#indice {display: flex; flex-direction: column; gap: 10px;}
+		&#indice {gap: 5px;}
 
 		.titulo {
 			position: relative; cursor: pointer;
@@ -27,11 +28,11 @@
 			}
 		}
 		.tituloEncabs {
-			display: flex; flex-direction: column; justify-content: flex-start;
+			display: flex; flex-direction: column; align-items: flex-start;
 			.encabezados {
 				display: flex; flex-direction: column; justify-content: flex-start;
 				margin-inline: 10px 15px;
-				a {line-height: 1.2;}
+				a {line-height: 1.2; align-self: flex-start;}
 			}
 		}
 	}
