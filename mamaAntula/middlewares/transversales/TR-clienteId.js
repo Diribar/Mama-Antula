@@ -7,10 +7,10 @@ export default async (req, res, next) => {
 	// Variables
 	const fechaHoy = comp.fechaHora.anoMesDia(new Date());
 	let {usuario, cliente} = req.session;
-	let cliente_id;
+	let cliente_id = cliente && cliente.cliente_id;
 
 	// Si el 'cliente_id' tiene un valor y coincide en ambas variables, interrumpe la función
-	if (usuario && cliente && usuario.cliente_id && usuario.cliente_id == cliente.cliente_id) {
+	if (usuario && cliente && usuario.cliente_id && usuario.cliente_id == cliente_id) {
 		// Si corresponde, actualiza la fecha de última navegación
 		if (usuario.fechaUltNaveg < fechaHoy) {
 			const diasNaveg = ++cliente.diasNaveg;
@@ -41,7 +41,7 @@ export default async (req, res, next) => {
 	}
 
 	// Cliente: 1. Lo obtiene del usuario
-	if (usuario && (!cliente || usuario.cliente_id != cliente.cliente_id)) {
+	if (usuario && (!cliente || usuario.cliente_id != cliente_id)) {
 		// Obtiene el cliente
 		cliente = obtieneCamposNecesarios(usuario);
 
