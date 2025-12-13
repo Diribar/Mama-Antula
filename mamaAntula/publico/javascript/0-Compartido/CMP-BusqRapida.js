@@ -14,7 +14,6 @@ window.addEventListener("load", () => {
 
 	// Funciones
 	const muestraResultados = () => {
-		console.log(resultados);
 		// Rutina de creación de filas
 		for (const ruta in resultados) {
 			// Obtiene los encabezados
@@ -114,6 +113,7 @@ window.addEventListener("load", () => {
 		buscaEnBe?.abort();
 		buscaEnBe = new AbortController();
 		const {signal} = buscaEnBe;
+		let interrupcion
 
 		// Oculta el cartel de "escribí más"
 		DOM.escribiMas.classList.add("ocultar");
@@ -122,7 +122,9 @@ window.addEventListener("load", () => {
 		palabras = palabras.join(" ");
 		resultados = await fetch(rutaApi, {...postJson({palabras}), signal})
 			.then((n) => n.json())
-			.catch(() => {});
+			.catch(() => interrupcion = true);
+		console.log(resultados,interrupcion);
+		if (interrupcion) return
 
 		// Muestra los resultados
 		hayResultados = !!Object.keys(resultados).length;
@@ -136,7 +138,6 @@ window.addEventListener("load", () => {
 		if (!hayResultados) return;
 		const opciones = document.querySelectorAll("#muestraResultados > a, #muestraResultados li");
 		const cantResultados = opciones.length;
-		console.log(cantResultados);
 
 		// Resalta el resultado anterior
 		if (e.key == "ArrowUp") {
@@ -168,14 +169,15 @@ window.addEventListener("load", () => {
 	});
 	DOM.muestraResultados.addEventListener("mouseover", (e) => {
 		// Variables
-		const opciones = Array.from(DOM.muestraResultados.children);
-		const indice = opciones.findIndex((n) => n == e.target.parentNode);
+		if (!hayResultados) return;
+		const opciones = document.querySelectorAll("#muestraResultados > a, #muestraResultados li");
+		const indice = Array.from(opciones).findIndex((n) => n == e.target || n == e.target.parentElement);
 		if (indice == -1) return;
 
 		// Quita la clase resaltar de donde estaba
-		if (posicion !== null) DOM.muestraResultados.children[posicion].classList.remove("resaltar");
+		if (posicion !== null) opciones[posicion].classList.remove("resaltar");
 		posicion = indice;
-		DOM.muestraResultados.children[posicion].classList.add("resaltar");
+		opciones[posicion].classList.add("resaltar");
 
 		// Fin
 		return;

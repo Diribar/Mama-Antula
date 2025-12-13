@@ -16,8 +16,8 @@
 			font-size: 0.9rem; width: max-content; min-width: 100%;
 			&:empty {display: none;}
 			&:not(:empty) {display: flex; flex-direction: column;}
-			& > :is(a, div) {padding-inline: 5px; width: 100%; line-height: 1.5;}
-			ul li {padding-inline: 15px 5px; width: 100%; line-height: 1.2;}
+			& > :is(a, div) {padding-inline: 5px 10px; width: 100%; line-height: 1.5;}
+			ul li {padding-inline: 15px 10px; width: 100%; line-height: 1.2;}
 
 			/* Variantes */
 			.colorClaro {background: snow;}
