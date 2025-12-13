@@ -113,7 +113,7 @@ window.addEventListener("load", () => {
 		buscaEnBe?.abort();
 		buscaEnBe = new AbortController();
 		const {signal} = buscaEnBe;
-		let interrupcion
+		let interrupcion;
 
 		// Oculta el cartel de "escribí más"
 		DOM.escribiMas.classList.add("ocultar");
@@ -122,9 +122,9 @@ window.addEventListener("load", () => {
 		palabras = palabras.join(" ");
 		resultados = await fetch(rutaApi, {...postJson({palabras}), signal})
 			.then((n) => n.json())
-			.catch(() => interrupcion = true);
-		console.log(resultados,interrupcion);
-		if (interrupcion) return
+			.catch(() => (interrupcion = true));
+		console.log(resultados, interrupcion);
+		if (interrupcion) return;
 
 		// Muestra los resultados
 		hayResultados = !!Object.keys(resultados).length;
@@ -167,6 +167,7 @@ window.addEventListener("load", () => {
 		// Fin
 		return;
 	});
+	DOM.input.addEventListener("focus", (e) => e.target.select());
 	DOM.muestraResultados.addEventListener("mouseover", (e) => {
 		// Variables
 		if (!hayResultados) return;
