@@ -134,28 +134,31 @@ window.addEventListener("load", () => {
 	DOM.input.addEventListener("keydown", (e) => {
 		// Variables
 		if (!hayResultados) return;
-		const anchors = document.querySelectorAll("#muestraResultados > a, #muestraResultados li");
-		const cantResultados = anchors.length;
+		const opciones = document.querySelectorAll("#muestraResultados > a, #muestraResultados li");
+		const cantResultados = opciones.length;
 		console.log(cantResultados);
 
 		// Resalta el resultado anterior
-		if (e.key == "ArrowUp" ) {
-			anchors[posicion].classList.remove("resaltar"); // Des-resalta el resultado vigente
+		if (e.key == "ArrowUp") {
+			opciones[posicion].classList.remove("resaltar"); // Des-resalta el resultado vigente
 			posicion--;
 			if (posicion == -1) posicion = cantResultados - 1;
-			anchors[posicion].classList.add("resaltar"); // Resalta el resultado anterior
+			opciones[posicion].classList.add("resaltar"); // Resalta el resultado anterior
 		}
 
 		// Resalta el resultado siguiente
 		if (e.key == "ArrowDown") {
-			anchors[posicion].classList.remove("resaltar"); // Des-resalta el resultado vigente
+			opciones[posicion].classList.remove("resaltar"); // Des-resalta el resultado vigente
 			posicion++;
 			if (posicion == cantResultados) posicion = 0;
-			anchors[posicion].classList.add("resaltar"); // Resalta el resultado siguiente
+			opciones[posicion].classList.add("resaltar"); // Resalta el resultado siguiente
 		}
 
 		// Redirige a la vista del hallazgo
-		if (e.key == "Enter") location.href = anchors[posicion].href;
+		if (e.key == "Enter") {
+			const href = opciones[posicion].href || opciones[posicion].querySelector("a").href;
+			location.href = href;
+		}
 
 		// Oculta el sector de muestraResultados
 		if (e.key == "Escape") DOM.mostrarClick.classList.add("ocultar");
