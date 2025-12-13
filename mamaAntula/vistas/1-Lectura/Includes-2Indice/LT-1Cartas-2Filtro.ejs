@@ -1,10 +1,10 @@
 <!-- Filtros -->
-<div id="filtros" class="contenedor">
+<div id="tituloFiltros" class="contenedor">
 	<div class="titulo">
 		<i class="fa-solid fa-caret-right mostrar"></i>
 		Filtros
 	</div>
-	<div class="flexRowAlign">
+	<div id="filtros" class="flexRowAlign">
 		<select name="personaje1">
 			<option value="">Elejí un personaje</option>
 			<% for (const personaje of personajes) { %>
@@ -18,7 +18,7 @@
 			<% } %>
 		</select>
 		<select name="idioma">
-			<option value="">Elejí un idioma</option>
+			<option value="">Idioma</option>
 			<% for (const idioma of idiomas) { %>
 				<option value="<%= idioma.id %>"><%= idioma.nombre %></option>
 			<% } %>

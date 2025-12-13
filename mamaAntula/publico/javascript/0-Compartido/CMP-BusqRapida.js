@@ -123,7 +123,6 @@ window.addEventListener("load", () => {
 		resultados = await fetch(rutaApi, {...postJson({palabras}), signal})
 			.then((n) => n.json())
 			.catch(() => (interrupcion = true));
-		console.log(resultados, interrupcion);
 		if (interrupcion) return;
 
 		// Muestra los resultados

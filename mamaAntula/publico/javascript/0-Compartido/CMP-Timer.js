@@ -4,7 +4,7 @@ window.addEventListener("load", async () => {
 	// Variables
 	const DOM = {
 		timer: document.querySelector("#timer"),
-		filtroEncab: document.querySelector("#filtros select[name='encabezado']"),
+		filtroEncab: document.querySelector("#sectorFiltros #filtros select[name='encabezado']"),
 	};
 	const unMinuto = 60 * 1000;
 	const minutosPermitidos = 60;
@@ -55,7 +55,7 @@ window.addEventListener("load", async () => {
 	timer = iniciarTimer();
 
 	// Reinicia el timer al cambiar de encabezado
-	DOM.filtroEncab &&
+	if (DOM.filtroEncab)
 		DOM.filtroEncab.addEventListener("change", () => {
 			// Si el encabezado no tiene un valor, interrumpe la función
 			if (!DOM.filtroEncab.value) return;

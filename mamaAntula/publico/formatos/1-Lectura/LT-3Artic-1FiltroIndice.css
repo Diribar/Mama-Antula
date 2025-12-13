@@ -30,8 +30,11 @@
 		}
 	}
 
-	#filtros {
-
+	#tituloFiltros {
+		#filtros {
+			display: flex; flex-direction: row; gap: 20px;
+			select {border-radius: 8px;}
+		}
 	}
 
 	#indice {
