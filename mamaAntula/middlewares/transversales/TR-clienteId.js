@@ -13,9 +13,10 @@ export default async (req, res, next) => {
 	if (usuario && cliente && usuario.cliente_id && usuario.cliente_id == cliente.cliente_id) {
 		// Si corresponde, actualiza la fecha de última navegación
 		if (usuario.fechaUltNaveg < fechaHoy) {
-			await baseDatos.actualizaPorId("usuarios", usuario.id, {fechaUltNaveg: fechaHoy});
-			req.session.usuario = {...req.session.usuario, fechaUltNaveg: fechaHoy};
-			req.session.cliente = {...req.session.cliente, fechaUltNaveg: fechaHoy};
+			const diasNaveg = ++cliente.diasNaveg;
+			req.session.usuario = {...req.session.usuario, fechaUltNaveg: fechaHoy, diasNaveg};
+			req.session.cliente = {...req.session.cliente, fechaUltNaveg: fechaHoy, diasNaveg};
+			await baseDatos.actualizaPorId("usuarios", usuario.id, {fechaUltNaveg: fechaHoy, diasNaveg});
 		}
 
 		// Actualiza locals
@@ -91,14 +92,15 @@ export default async (req, res, next) => {
 	if (cliente.fechaUltNaveg < fechaHoy) {
 		// Actualiza el cliente
 		cliente.fechaUltNaveg = fechaHoy;
+		const diasNaveg = ++cliente.diasNaveg;
 
 		// Actualiza el usuario
 		if (esUsuario) {
-			baseDatos.actualizaPorId("usuarios", usuario.id, {fechaUltNaveg: fechaHoy});
-			usuario = {...usuario, fechaUltNaveg: fechaHoy};
+			baseDatos.actualizaPorId("usuarios", usuario.id, {fechaUltNaveg: fechaHoy, diasNaveg});
+			usuario = {...usuario, fechaUltNaveg: fechaHoy, diasNaveg};
 		}
 		// Actualiza la visita
-		else baseDatos.actualizaPorId(tabla, cliente.id, {fechaUltNaveg: fechaHoy});
+		else baseDatos.actualizaPorId(tabla, cliente.id, {fechaUltNaveg: fechaHoy, diasNaveg});
 	}
 
 	// Actualiza usuario y cliente
