@@ -6,7 +6,7 @@
 
 		<% if (encabsIndice.length == 1) { %>
 			<!-- Indice con un solo encabezado -->
-			<a href="?id=<%= encabsIndice[0].id %>" class="titulo">
+			<a href="?id=<%= encabsIndice[0].id %>" class="titulo" data-id="<%= encabsIndice[0].id %>">
 				<%= indice.nombre %>
 			</a>
 
@@ -22,7 +22,9 @@
 				<!-- Encabezados -->
 				<div class="encabezados ocultar">
 					<% for (const encabIndice of encabsIndice) { %>
-						<a href="?id=<%= encabIndice.id %>" class="encabezado"><%= encabIndice.tituloElab %></a>
+						<a href="?id=<%= encabIndice.id %>" class="encabezado" data-id="<%= encabIndice.id %>">
+							<%= encabIndice.tituloElab %>
+						</a>
 					<% } %>
 				</div>
 

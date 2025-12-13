@@ -18,7 +18,7 @@
 </select>
 <select name="lugaresCartas">
 	<option value="">Elejí un lugar</option>
-	<% for (const lugarCarta of lugaresCartas) { %>
-		<option value="<%= lugarCarta.id %>"><%= lugarCarta.nombre %></option>
+	<% for (const lugar of lugaresCartas) { %>
+		<option value="<%= lugar.id %>"><%= lugar.nombre %></option>
 	<% } %>
 </select>
