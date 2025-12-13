@@ -9,9 +9,13 @@
 	<% } %>
 </select>
 <select name="persona2_id">
-	<option value="">Elejí un personaje</option>
-	<% for (const personaje of personajes) { %>
-		<option value="<%= personaje.id %>"><%= personaje.nombre %></option>
+	<option value>Elejí un personaje</option>
+	<option value class="quitarFiltro">Sin filtro</option>
+	<% for (const grupo in persAgrupados) { %>
+		<optgroup label="<%= grupo %>">
+		<% for (const personaje of persAgrupados[grupo]) { %>
+			<option value="<%= personaje.id %>"><%= personaje.nombre %></option>
+		<% } %>
 	<% } %>
 </select>
 <select name="idioma_id">
