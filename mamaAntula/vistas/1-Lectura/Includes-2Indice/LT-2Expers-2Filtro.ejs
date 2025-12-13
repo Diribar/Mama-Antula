@@ -1,0 +1,6 @@
+<select name="lugaresExpers">
+	<option value="">Elejí un lugar</option>
+	<% for (const lugar of lugaresExpers) { %>
+		<option value="<%= lugar.id %>"><%= lugar.nombre %></option>
+	<% } %>
+</select>
