@@ -26,8 +26,9 @@ window.addEventListener("load", () => {
 				const anchor = document.createElement("a");
 				anchor.href = encabezados[0].href;
 				anchor.innerText = ruta;
+				if (!color) anchor.classList.add("resaltar");
+				asignaColor();
 				anchor.classList.add(color);
-				color = color != "colorClaro" ? "colorClaro" : "colorOscuro";
 				DOM.muestraResultados.appendChild(anchor);
 			}
 
@@ -36,8 +37,8 @@ window.addEventListener("load", () => {
 				// Agrega la ruta al cuerpo
 				const div = document.createElement("div");
 				div.innerText = ruta;
+				asignaColor();
 				div.classList.add("ruta", color);
-				color = color != "colorClaro" ? "colorClaro" : "colorOscuro";
 				DOM.muestraResultados.appendChild(div);
 
 				// Agrega el ul de anchors al cuerpo
@@ -63,8 +64,8 @@ window.addEventListener("load", () => {
 
 			// Crea el li y lo agrega al ul
 			const li = document.createElement("li");
+			asignaColor();
 			li.classList.add(color);
-			color = color != "colorClaro" ? "colorClaro" : "colorOscuro";
 			li.appendChild(anchor);
 			ul.appendChild(li);
 		}
@@ -87,6 +88,7 @@ window.addEventListener("load", () => {
 		// Fin
 		return;
 	};
+	const asignaColor = () => (color = color != "colorOscuro" ? "colorOscuro" : "colorClaro");
 
 	// Add Event Listener
 	DOM.input.addEventListener("input", async () => {
@@ -98,7 +100,6 @@ window.addEventListener("load", () => {
 		// Generar las condiciones para mostrar los 'muestraResultados'
 		DOM.muestraResultados.innerHTML = "";
 		posicion = 0;
-		color = "resaltar";
 
 		// Elimina palabras repetidas
 		let palabras = dataEntry.split(" ");
@@ -133,25 +134,28 @@ window.addEventListener("load", () => {
 	DOM.input.addEventListener("keydown", (e) => {
 		// Variables
 		if (!hayResultados) return;
-		const cantResultados = Object.values(resultados).reduce((a, b) => a + b.encabezados.length, 0);
+		const anchors = document.querySelectorAll("#muestraResultados > a, #muestraResultados li");
+		const cantResultados = anchors.length;
 		console.log(cantResultados);
 
 		// Resalta el resultado anterior
-		if (e.key == "ArrowUp" && posicion) {
-			DOM.muestraResultados.children[posicion].classList.remove("resaltar"); // Des-resalta el resultado vigente
+		if (e.key == "ArrowUp" ) {
+			anchors[posicion].classList.remove("resaltar"); // Des-resalta el resultado vigente
 			posicion--;
-			DOM.muestraResultados.children[posicion].classList.add("resaltar"); // Resalta el resultado anterior
+			if (posicion == -1) posicion = cantResultados - 1;
+			anchors[posicion].classList.add("resaltar"); // Resalta el resultado anterior
 		}
 
 		// Resalta el resultado siguiente
-		if (e.key == "ArrowDown" && posicion < cantResultados - 1) {
-			DOM.muestraResultados.children[posicion].classList.remove("resaltar"); // Des-resalta el resultado vigente
+		if (e.key == "ArrowDown") {
+			anchors[posicion].classList.remove("resaltar"); // Des-resalta el resultado vigente
 			posicion++;
-			DOM.muestraResultados.children[posicion].classList.add("resaltar"); // Resalta el resultado siguiente
+			if (posicion == cantResultados) posicion = 0;
+			anchors[posicion].classList.add("resaltar"); // Resalta el resultado siguiente
 		}
 
 		// Redirige a la vista del hallazgo
-		if (e.key == "Enter") location.href = DOM.muestraResultados.children[posicion].href;
+		if (e.key == "Enter") location.href = anchors[posicion].href;
 
 		// Oculta el sector de muestraResultados
 		if (e.key == "Escape") DOM.mostrarClick.classList.add("ocultar");
