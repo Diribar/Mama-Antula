@@ -186,6 +186,7 @@ window.addEventListener("load", () => {
 
 	// Start-up
 	DOM.input.value = localStorage.getItem("busqRapida");
+	if (DOM.input.value) DOM.input.dispatchEvent(new Event("input"));
 
 	// Fin
 	return;
