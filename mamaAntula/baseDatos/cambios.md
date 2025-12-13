@@ -77,3 +77,6 @@ RENAME TABLE ma_bd.nivel9_indices_lugar TO ma_bd.nivel9_indices_devoc;
 UPDATE ma_bd.aux_novs_del_sitio SET comentario='Se agregó el formulario de Contactanos', WHERE id=3;
 UPDATE ma_bd.aux_novs_del_sitio SET comentario='Se agregó el buscador general en el encabezado', WHERE id=4;
 INSERT INTO ma_bd.aux_novs_del_sitio (id, comentario, fecha, version) VALUES(5, 'Se agregó el filtro en Cartas y Experiencias', '2025-12-13', '1.02');
+
+-- Varios
+ALTER TABLE ma_bd.aux_status_registros AUTO_INCREMENT=1;
