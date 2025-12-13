@@ -69,9 +69,7 @@ export default {
 			.obtieneTodosPorCondicion("encabezados", condicion, include)
 			.then((n) => n.sort((a, b) => (a.titulo < b.titulo ? -1 : 1)))
 			.then((n) => n.sort((a, b) => (a.fechaEvento < b.fechaEvento ? -1 : 1)))
-			.then((n) =>
-				n.sort((a, b) => a.lugarIndice && b.lugarIndice && (a.lugarIndice.orden < b.lugarIndice.orden ? -1 : 1))
-			);
+			.then((n) => n.sort((a, b) => (a.indiceDevoc && b.indiceDevoc ? a.indiceDevoc.orden - b.indiceDevoc.orden : 0)));
 
 		// Obtiene las rutas
 		const rutas = procesos.obtieneRutas(encabezados);

@@ -121,7 +121,7 @@ export default {
 
 		// Le agrega el encabezado
 		const temaActual = temasSecciones.find((n) => n.id == tema.id);
-		const conIndice = temaActual.indicesFecha.length || temaActual.indicesLugar.length;
+		const conIndice = temaActual.indicesFecha.length || temaActual.indicesDevoc.length;
 		if (conIndice) anchorLectura += "/?id=" + encabezado.id;
 
 		// Fin

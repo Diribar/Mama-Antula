@@ -1,6 +1,6 @@
 <div id="indice" class="contenedor">
 	<% for (const indice of indices) { %>
-		<% const encabsIndice = encabezados.filter((n) => n.lugarIndice_id == indice.id); %>
+		<% const encabsIndice = encabezados.filter((n) => n.indiceDevoc_id == indice.id); %>
 
 		<% if (!encabsIndice.length) continue; %>
 

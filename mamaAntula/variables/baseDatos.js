@@ -7,19 +7,15 @@ export default {
 			// Niveles
 			seccionesLectura: baseDatos.obtieneTodosConOrden("seccionesLectura", "orden"),
 			temasSecciones: baseDatos
-				.obtieneTodosPorCondicion("temasSecciones", {inactivo: false}, ["indicesFecha", "indicesLugar"])
+				.obtieneTodosPorCondicion("temasSecciones", {inactivo: false}, ["indicesFecha", "indicesDevoc"])
 				.then((n) => n.sort((a, b) => a.orden - b.orden)),
 			pestanasTemas: baseDatos.obtieneTodosConOrden("pestanasTemas", "orden"),
 			contLayouts: baseDatos.obtieneTodosConOrden("contLayouts", "orden"),
 			indicesFecha: baseDatos.obtieneTodos("indicesFecha"),
-			indicesLugar: baseDatos
-				.obtieneTodos("indicesLugar")
+			indicesDevoc: baseDatos
+				.obtieneTodos("indicesDevoc")
 				.then((n) => n.sort((a, b) => (a.nombre < b.nombre ? -1 : 1)))
-				.then((n) =>
-					n.sort((a, b) =>
-						a.orden && (!b.orden || a.orden < b.orden) ? -1 : b.orden && (!a.orden || a.orden > b.orden) ? 1 : 0
-					)
-				),
+				.then((n) => n.sort((a, b) => a.orden - b.orden)),
 
 			// Cartas
 			idiomas: baseDatos.obtieneTodosConOrden("idiomas", "nombre"),
@@ -73,7 +69,6 @@ export default {
 				.filter((n) => n.tema_id != temaCarta_id)
 				.sort((a, b) => (b.fechaDesde < a.fechaDesde ? -1 : 1)),
 		};
-		seccionesLectura = seccionesLectura.filter((n) => temasSecciones.find((m) => m.seccion_id == n.id));
 
 		// Fin
 		return respuesta;
