@@ -10,83 +10,84 @@ window.addEventListener("load", () => {
 		escribiMas: domHeader.querySelector("#busquedaRapida .mostrarToggle #escribiMas"),
 	};
 	const rutaApi = "/busqueda-rapida/api/busca-en-bd";
-	let posicion = 0;
-	let resultados, buscaEnBe;
+	let resultados, buscaEnBe, color, hayResultados, posicion;
 
 	// Funciones
-	const sinResultados = (respuesta) => {
-		// Crea el párrafo
-		const parrafo = document.createElement("p");
-		parrafo.style.fontStyle = "italic";
-		parrafo.style.textAlign = "center";
-
-		// Le agrega el texto de la respuesta
-		parrafo.appendChild(document.createTextNode(respuesta));
-
-		// Agrega el párrafo a la tabla
-		DOM.muestraResultados.appendChild(parrafo);
-
-		// Fin
-		return;
-	};
-	const agregaResultados = () => {
-		// Generar las condiciones para que se puedan mostrar los 'muestraResultados'
-		DOM.muestraResultados.innerHTML = "";
-
-		// Si se encontraron resultados, crea el listado
-		if (Array.isArray(resultados)) return creaElListado();
-	};
-	const creaElListado = () => {
+	const muestraResultados = () => {
 		// Rutina de creación de filas
-		for (const resultado of resultados) {
-			// Variables
-			const {familia, entidad, id} = resultado;
-			const siglaFam = familia[0];
-			const clase = familia.slice(0, 4);
+		for (const ruta in resultados) {
+			// Obtiene los encabezados
+			const {encabezados} = resultados[ruta];
 
-			// Crea el anchor del resultado
-			const anchor = document.createElement("a");
-			anchor.classList.add(clase, "flexRow");
-			anchor.href = "/" + entidad + "/detalle/" + siglaFam + "/?id=" + id;
+			// Acciones para 1 encabezado por ruta
+			if (encabezados.length == 1) {
+				// Agrega el anchor al cuerpo
+				const anchor = document.createElement("a");
+				anchor.href = encabezados[0].href;
+				anchor.innerText = ruta;
+				if (!color) anchor.classList.add("resaltar");
+				asignaColor();
+				anchor.classList.add(color);
+				DOM.muestraResultados.appendChild(anchor);
+			}
 
-			// Agrega la fila al cuerpo de la tabla
-			creaLasFilas({anchor, resultado});
-			DOM.muestraResultados.appendChild(anchor);
+			// Acciones para varios encabezados por ruta
+			else {
+				// Agrega la ruta al cuerpo
+				const div = document.createElement("div");
+				div.innerText = ruta;
+				asignaColor();
+				div.classList.add("ruta", color);
+				DOM.muestraResultados.appendChild(div);
+
+				// Agrega el ul de anchors al cuerpo
+				const ul = creaElListado(encabezados);
+				DOM.muestraResultados.appendChild(ul);
+			}
 		}
 
-		// Terminación
-		DOM.muestraResultados.children[0].classList.add("resaltar"); // Resalta el resultado anterior
-		posicion = 0;
+		// Fin
+		return;
+	};
+	const creaElListado = (encabezados) => {
+		// Crea el ul
+		const ul = document.createElement("ul");
+
+		// Crea los li
+		for (const encabezado of encabezados) {
+			// Crea el anchor
+			const anchor = document.createElement("a");
+			anchor.href = encabezado.href;
+			const {titulo, tituloElab} = encabezado;
+			anchor.innerText = tituloElab || titulo || "";
+
+			// Crea el li y lo agrega al ul
+			const li = document.createElement("li");
+			asignaColor();
+			li.classList.add(color);
+			li.appendChild(anchor);
+			ul.appendChild(li);
+		}
+
+		// Fin
+		return ul;
+	};
+	const sinResultados = (respuesta) => {
+		// Crea el párrafo
+		const p = document.createElement("p");
+		p.classList.add("colorClaro");
+		p.id = "sinResultados";
+
+		// Le agrega el texto de la respuesta
+		p.appendChild(document.createTextNode(respuesta));
+
+		// Agrega el párrafo a la tabla
+		DOM.muestraResultados.appendChild(p);
 
 		// Fin
 		return;
 	};
-	const creaLasFilas = ({anchor, resultado}) => {
-		// Variables
-		const {familia, entidad, anoEstreno} = resultado;
-		let {nombre} = resultado;
-		let anchoMax = 40;
-
-		// Nombre
-		if (nombre.length > anchoMax) nombre = nombre.slice(0, anchoMax - 1) + "…";
-		if (familia == "producto" && anoEstreno) nombre += " (" + anoEstreno + ")";
-		const spanNombre = document.createElement("span");
-		spanNombre.innerHTML = nombre;
-		spanNombre.className = "spanNombre";
-		anchor.appendChild(spanNombre);
-
-		// Entidad
-		const entidadCorta = entidad.slice(0, -1);
-		let ent = entidad == "personajes" ? "pers" : entidadCorta.slice(0, 5);
-		if (ent != entidadCorta && ent != "epoca") ent += ".";
-		const spanEnt = document.createElement("span");
-		spanEnt.innerHTML = ent;
-		spanEnt.className = "spanEnt";
-		anchor.appendChild(spanEnt);
-
-		// Fin
-		return;
-	};
+	const asignaColor = () => (color = color != "colorOscuro" ? "colorOscuro" : "colorClaro");
 
 	// Add Event Listener
 	DOM.input.addEventListener("input", async () => {
@@ -94,6 +95,10 @@ window.addEventListener("load", () => {
 		DOM.input.value = DOM.input.value.replace(/[^a-záéíóúüñ'¡¿-\d\s]/gi, "").replace(/ +/g, " ");
 		const dataEntry = DOM.input.value;
 		localStorage.setItem("busqRapida", dataEntry);
+
+		// Generar las condiciones para mostrar los 'muestraResultados'
+		DOM.muestraResultados.innerHTML = "";
+		posicion = 0;
 
 		// Elimina palabras repetidas
 		let palabras = dataEntry.split(" ");
@@ -108,6 +113,7 @@ window.addEventListener("load", () => {
 		buscaEnBe?.abort();
 		buscaEnBe = new AbortController();
 		const {signal} = buscaEnBe;
+		let interrupcion;
 
 		// Oculta el cartel de "escribí más"
 		DOM.escribiMas.classList.add("ocultar");
@@ -116,36 +122,44 @@ window.addEventListener("load", () => {
 		palabras = palabras.join(" ");
 		resultados = await fetch(rutaApi, {...postJson({palabras}), signal})
 			.then((n) => n.json())
-			.catch(() => {});
+			.catch(() => (interrupcion = true));
+		console.log(resultados, interrupcion);
+		if (interrupcion) return;
 
 		// Muestra los resultados
-		const hayResultados = !!Object.keys(resultados).length
-		hayResultados ? agregaResultados() : sinResultados("- No encontramos resultados -");
+		hayResultados = !!Object.keys(resultados).length;
+		hayResultados ? muestraResultados() : sinResultados("- No encontramos resultados -");
 
 		// Fin
 		return;
 	});
 	DOM.input.addEventListener("keydown", (e) => {
 		// Variables
-		if (!Array.isArray(resultados)) return;
-		const cantResultados = DOM.muestraResultados.children && DOM.muestraResultados.children.length;
+		if (!hayResultados) return;
+		const opciones = document.querySelectorAll("#muestraResultados > a, #muestraResultados li");
+		const cantResultados = opciones.length;
 
 		// Resalta el resultado anterior
-		if (e.key == "ArrowUp" && posicion) {
-			DOM.muestraResultados.children[posicion].classList.remove("resaltar"); // Des-resalta el resultado vigente
+		if (e.key == "ArrowUp") {
+			opciones[posicion].classList.remove("resaltar"); // Des-resalta el resultado vigente
 			posicion--;
-			DOM.muestraResultados.children[posicion].classList.add("resaltar"); // Resalta el resultado anterior
+			if (posicion == -1) posicion = cantResultados - 1;
+			opciones[posicion].classList.add("resaltar"); // Resalta el resultado anterior
 		}
 
 		// Resalta el resultado siguiente
-		if (e.key == "ArrowDown" && posicion < cantResultados - 1) {
-			DOM.muestraResultados.children[posicion].classList.remove("resaltar"); // Des-resalta el resultado vigente
+		if (e.key == "ArrowDown") {
+			opciones[posicion].classList.remove("resaltar"); // Des-resalta el resultado vigente
 			posicion++;
-			DOM.muestraResultados.children[posicion].classList.add("resaltar"); // Resalta el resultado siguiente
+			if (posicion == cantResultados) posicion = 0;
+			opciones[posicion].classList.add("resaltar"); // Resalta el resultado siguiente
 		}
 
 		// Redirige a la vista del hallazgo
-		if (e.key == "Enter") location.href = DOM.muestraResultados.children[posicion].href;
+		if (e.key == "Enter") {
+			const href = opciones[posicion].href || opciones[posicion].querySelector("a").href;
+			location.href = href;
+		}
 
 		// Oculta el sector de muestraResultados
 		if (e.key == "Escape") DOM.mostrarClick.classList.add("ocultar");
@@ -153,16 +167,18 @@ window.addEventListener("load", () => {
 		// Fin
 		return;
 	});
+	DOM.input.addEventListener("focus", (e) => e.target.select());
 	DOM.muestraResultados.addEventListener("mouseover", (e) => {
 		// Variables
-		const opciones = Array.from(DOM.muestraResultados.children);
-		const indice = opciones.findIndex((n) => n == e.target.parentNode);
+		if (!hayResultados) return;
+		const opciones = document.querySelectorAll("#muestraResultados > a, #muestraResultados li");
+		const indice = Array.from(opciones).findIndex((n) => n == e.target || n == e.target.parentElement);
 		if (indice == -1) return;
 
 		// Quita la clase resaltar de donde estaba
-		if (posicion !== null) DOM.muestraResultados.children[posicion].classList.remove("resaltar");
+		if (posicion !== null) opciones[posicion].classList.remove("resaltar");
 		posicion = indice;
-		DOM.muestraResultados.children[posicion].classList.add("resaltar");
+		opciones[posicion].classList.add("resaltar");
 
 		// Fin
 		return;

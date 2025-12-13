@@ -12,26 +12,19 @@
 
 		/* Opciones de #muestraResultados */
 		#muestraResultados {
-			border-top-left-radius: 0; overflow: auto;
-			max-height: var(--altoCuerpo); font-size: 0.9rem;
+			border-top-left-radius: 0; overflow: auto; max-height: var(--altoCuerpo);
+			font-size: 0.9rem; width: max-content; min-width: 100%;
 			&:empty {display: none;}
 			&:not(:empty) {display: flex; flex-direction: column;}
+			& > :is(a, div) {padding-inline: 5px 10px; width: 100%; line-height: 1.5;}
+			ul li {padding-inline: 15px 10px; width: 100%; line-height: 1.2;}
 
-			p, a.prod:nth-of-type(odd) {background: whitesmoke;}
-
-			a {
-				min-width: 200px; width: 100%; line-height: 1.5;
-				&.resaltar {background-color: var(--grisInterm) !important;}
-				&.prod:nth-of-type(even) {background: var(--celesteClaro);}
-				&.rclv:nth-of-type(odd) {background: var(--amarilloOscuro);}
-				&.rclv:nth-of-type(even) {background: var(--amarilloClaro);}
-				* {padding-inline: 5px; align-content: center;}
-				.spanNombre {width: 100%; padding-inline: 5px;}
-				.spanEnt {
-					&:first-letter {text-transform: uppercase;}
-					min-width: 44px; width: 44px; text-align: left;
-				}
-			}
+			/* Variantes */
+			.colorClaro {background: snow;}
+			.colorOscuro {background: var(--celesteClaro);}
+			.ruta, #sinResultados {font-style: italic; cursor: not-allowed;}
+			.resaltar {background-color: var(--grisOscuro) !important; color: snow;}
+			#sinResultados {text-align: center;}
 		}
 		#escribiMas {
 			background: var(--grisClaro); padding: 2px 7px; border-radius: 5px; border: var(--grisOscuro) 1px solid;
