@@ -10,7 +10,7 @@ window.addEventListener("load", () => {
 		escribiMas: domHeader.querySelector("#busquedaRapida .mostrarToggle #escribiMas"),
 	};
 	const rutaApi = "/busqueda-rapida/api/busca-en-bd";
-	let resultados, buscaEnBe, color, hayResultados, posicion;
+	let resultados, interrumpeFetch, color, hayResultados, posicion;
 
 	// Funciones
 	const muestraResultados = () => {
@@ -109,14 +109,14 @@ window.addEventListener("load", () => {
 		// Acciones si la palabra tiene menos de 3 caracteres significativos
 		if (pasaNoPasa.length < 3) return DOM.escribiMas.classList.remove("ocultar"); // Muestra el cartel de "escribí más"
 
-		// Cancela la búsqueda anterior si aún no terminó
-		buscaEnBe?.abort();
-		buscaEnBe = new AbortController();
-		const {signal} = buscaEnBe;
-		let interrupcion;
-
 		// Oculta el cartel de "escribí más"
 		DOM.escribiMas.classList.add("ocultar");
+
+		// Cancela la búsqueda anterior si aún no terminó
+		interrumpeFetch?.abort();
+		interrumpeFetch = new AbortController();
+		const {signal} = interrumpeFetch;
+		let interrupcion;
 
 		// Busca los productos
 		palabras = palabras.join(" ");
