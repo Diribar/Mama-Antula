@@ -47,8 +47,7 @@ export default {
 	},
 	busquedaRapida: async function (req, res) {
 		// Obtiene las palabras ingresadas
-		let {palabras} = req.body;
-		palabras = palabras.split(" ");
+		const {palabras} = req.body;
 
 		// Variables
 		const soloStatusAprob = !req.session.usuario || !rolesActualizac_ids.includes(req.session.usuario.rol_id);

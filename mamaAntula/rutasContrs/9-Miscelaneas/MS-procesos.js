@@ -3,7 +3,10 @@
 export default {
 	encabezados: async function ({palabras, statusRegistro_id}) {
 		// Obtiene la condición
-		const condicion = this.condiciones.encabezado({palabras, statusRegistro_id});
+		const condicion = {
+			titulo: {[Op.or]: [{[Op.like]: palabras + "%"}, {[Op.like]: "% " + palabras + "%"}]},
+			statusRegistro_id,
+		};
 
 		// Obtiene los registros que cumplen la condición
 		const encabs_id = await baseDatos.obtieneTodosPorCondicion("encabezados", condicion).then((n) => n.map((m) => m.id));
@@ -14,66 +17,37 @@ export default {
 	contenidos: async function ({palabras, statusRegistro_id}) {
 		// Obtiene la condición
 		const campos = ["texto", "leyenda", "titulo", "autor", "editorial"];
-		const condicion = this.condiciones.contenido({palabras, campos, statusRegistro_id});
+		const condicion = this.condicion({palabras, campos, statusRegistro_id});
 
 		// Obtiene los encabs_id
 		const encabs_id = await baseDatos
-			.obtieneTodosPorCondicionConLimite("contenidos", condicion, 15)
+			.obtieneTodosPorCondicion("contenidos", condicion)
 			.then((n) => n.map((m) => m.encab_id))
 			.then((n) => [...new Set(n)]); // elimina duplicados
 
 		// Envia la info al FE
 		return encabs_id;
 	},
-	condiciones: {
-		encabezado: ({palabras, statusRegistro_id}) => {
-			// Variables
-			const acumuladoPalabrasEnCampo = [];
+	condicion: ({palabras, campos, statusRegistro_id}) => {
+		// Variables
+		const consolidadoCampos = [];
 
+		// Consolidado de que en cada campo se cumplan todas las palabras
+		for (const campo of campos) {
 			// Todas las palabras deben estar en 'campo'
-			for (const palabra of palabras) {
-				const condicionPalabraEnCampo = {
-					titulo: {[Op.or]: [{[Op.like]: palabra + "%"}, {[Op.like]: "% " + palabra + "%"}]},
-				};
-				acumuladoPalabrasEnCampo.push(condicionPalabraEnCampo);
-			}
+			const condicionPalabrasEnCampo = {
+				[campo]: {[Op.or]: [{[Op.like]: palabras + "%"}, {[Op.like]: "% " + palabras + "%"}]}, // En el comienzo del texto o de una palabra
+			};
 
-			// Exige que cada palabra del conjunto esté presente en el campo
-			const consolidadoCampo = {[Op.and]: acumuladoPalabrasEnCampo};
+			// Consolida la condición por campo
+			consolidadoCampos.push(condicionPalabrasEnCampo);
+		}
 
-			// Fin
-			return {...consolidadoCampo, statusRegistro_id};
-		},
-		contenido: ({palabras, campos, statusRegistro_id}) => {
-			// Variables
-			const consolidadoCampos = [];
+		// Todas las palabras deben estar en alguno de los campos
+		const condicPalabras = {[Op.or]: consolidadoCampos};
 
-			// Consolidado de que en cada campo se cumplan todas las palabras
-			for (const campo of campos) {
-				// Variables
-				const acumuladoPalabrasEnCampo = [];
-
-				// Todas las palabras deben estar en 'campo'
-				for (const palabra of palabras) {
-					const condicionPalabraEnCampo = {
-						[campo]: {[Op.or]: [{[Op.like]: palabra + "%"}, {[Op.like]: "% " + palabra + "%"}]}, // En el comienzo del texto o de una palabra
-					};
-					acumuladoPalabrasEnCampo.push(condicionPalabraEnCampo);
-				}
-
-				// Exige que cada palabra del conjunto esté presente en el campo
-				const consolidadoCampo = {[Op.and]: acumuladoPalabrasEnCampo};
-
-				// Consolida las condiciones por campo
-				consolidadoCampos.push(consolidadoCampo);
-			}
-
-			// Todas las palabras deben estar en alguno de los campos
-			const condicPalabras = {[Op.or]: consolidadoCampos};
-
-			// Fin
-			return {...condicPalabras, statusRegistro_id};
-		},
+		// Fin
+		return {...condicPalabras, statusRegistro_id};
 	},
 	obtieneRutas: function (encabezados) {
 		// Variables
