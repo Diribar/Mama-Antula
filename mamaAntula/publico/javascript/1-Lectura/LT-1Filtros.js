@@ -44,6 +44,9 @@ window.addEventListener("load", async () => {
 		// Muestra/oculta los anchors
 		muestraOcultaAnchors();
 
+		// Reemplaza 'Sin Filtro" por "Elegí un valor"
+		if (!e.target.value) e.target.value = "";
+
 		// Fin
 		return;
 	});

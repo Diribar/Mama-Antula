@@ -4,9 +4,12 @@ const temaVista = "seccionesLectura";
 
 export default {
 	temas: async (req, res) => {
+		// Datos del url
+		const encab_id = req.query.id;
+		let {urlSeccion, urlTema} = req.params;
+
 		// Variables
 		const codigoVista = "temas";
-		let {urlSeccion, urlTema} = req.params;
 		urlSeccion = urlSeccion || LP_urlSeccion;
 		urlTema = urlTema || LP_urlTema;
 
@@ -27,15 +30,18 @@ export default {
 		condicion.statusRegistro_id = statusRegistro_id;
 
 		// Obtiene el encabezado y contenido
-		const encab_id = req.query.id;
 		const {encabezados, encabezado} = await procesos.obtieneEncabezados({tema_id, encab_id, condicion});
 		const contenidos = encabezado && (await procesos.contenidos({encabezado, statusRegistro_id}));
+
+		// Obtiene los lugares de experiencia
+		const lugaresExpers_ids = encabezados.map((n) => n.lugarExper_id).filter((n) => !!n);
+		const lugaresExpersVisibles = lugaresExpers.filter((n) => lugaresExpers_ids.includes(n.id));
 
 		// Fin
 		return res.render("CMP-0Estructura", {
 			...{tituloPagina, temaVista, codigoVista, temasSeccion},
 			...{seccionActual, temaActual},
-			...{encabezado, contenidos, encabezados},
+			...{encabezado, contenidos, encabezados, lugaresExpersVisibles},
 			...tipoDeTema,
 		});
 	},

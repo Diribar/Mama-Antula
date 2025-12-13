@@ -1,23 +1,33 @@
-<select name="personaje1">
-	<option value="">Elejí un personaje</option>
-	<% for (const personaje of personajes) { %>
-		<option value="<%= personaje.id %>"><%= personaje.nombre %></option>
+<select name="persona1_id">
+	<option value>Elejí un personaje</option>
+	<option value class="quitarFiltro">Sin filtro</option>
+	<% for (const grupo in persAgrupados) { %>
+		<optgroup label="<%= grupo %>">
+		<% for (const personaje of persAgrupados[grupo]) { %>
+			<option value="<%= personaje.id %>"><%= personaje.nombre %></option>
+		<% } %>
 	<% } %>
 </select>
-<select name="personaje2">
-	<option value="">Elejí un personaje</option>
-	<% for (const personaje of personajes) { %>
-		<option value="<%= personaje.id %>"><%= personaje.nombre %></option>
+<select name="persona2_id">
+	<option value>Elejí un personaje</option>
+	<option value class="quitarFiltro">Sin filtro</option>
+	<% for (const grupo in persAgrupados) { %>
+		<optgroup label="<%= grupo %>">
+		<% for (const personaje of persAgrupados[grupo]) { %>
+			<option value="<%= personaje.id %>"><%= personaje.nombre %></option>
+		<% } %>
 	<% } %>
 </select>
-<select name="idioma">
-	<option value="">Idioma</option>
+<select name="idioma_id">
+	<option value>Idioma</option>
+	<option value class="quitarFiltro">Sin filtro</option>
 	<% for (const idioma of idiomas) { %>
 		<option value="<%= idioma.id %>"><%= idioma.nombre %></option>
 	<% } %>
 </select>
-<select name="lugaresCartas">
-	<option value="">Elejí un lugar</option>
+<select name="lugarCarta_id">
+	<option value>Elejí un lugar</option>
+	<option value class="quitarFiltro">Sin filtro</option>
 	<% for (const lugar of lugaresCartas) { %>
 		<option value="<%= lugar.id %>"><%= lugar.nombre %></option>
 	<% } %>

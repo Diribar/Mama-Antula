@@ -61,13 +61,20 @@ export default {
 			rechazar_id: statusRegistros.find((n) => n.codigo == "rechazar").id,
 			rechazado_id: statusRegistros.find((n) => n.codigo == "rechazado").id,
 
-			// Otros
+			// Índices de fecha
+			indicesExpers: indicesFecha
+				.filter((n) => n.tema_id != temaCarta_id)
+				.sort((a, b) => (b.fechaDesde < a.fechaDesde ? -1 : 1)),
 			indicesCartas: indicesFecha
 				.filter((n) => n.tema_id == temaCarta_id)
 				.sort((a, b) => (a.fechaDesde < b.fechaDesde ? -1 : 1)),
-			indicesRestoFechas: indicesFecha
-				.filter((n) => n.tema_id != temaCarta_id)
-				.sort((a, b) => (b.fechaDesde < a.fechaDesde ? -1 : 1)),
+
+			// Personajes agrupados
+			persAgrupados: {
+				"Mas frecuentes": personajes.filter((n) => n.id <= 3),
+				"Sacerdotes": personajes.filter((n) => n.id > 3 && n.nombre.startsWith("P.")),
+				"Laicos": personajes.filter((n) => n.id > 3 && !n.nombre.startsWith("P.")),
+			},
 		};
 
 		// Fin

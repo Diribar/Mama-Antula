@@ -1,16 +1,21 @@
 "use strict";
 
 import express from "express";
+import API from "./LT-controlApi.js";
 import vista from "./LT-controlVista.js";
 
 // Middlewares
 import validaRuta from "../../middlewares/1-Lectura/LT-validaRuta.js";
 import cookiesAct from "../../middlewares/1-Lectura/LT-cookiesActualizar.js";
 import libera from "../../middlewares/1-Lectura/LT-libera.js";
+import descargaImg from "../../middlewares/descargaImg/IMG-descargaImg.js";
 const combo = [validaRuta, cookiesAct, libera];
 
 // 🧩 Router
 const router = express.Router();
+
+// 📡 APIs
+router.post("/:urlSeccion/:urlTema/api/lt-filtros", descargaImg.none(), API.filtros);
 
 // 🖥️ Vistas
 router.get("/", combo, vista.temas);
