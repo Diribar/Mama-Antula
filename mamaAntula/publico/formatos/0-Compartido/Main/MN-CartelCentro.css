@@ -41,12 +41,21 @@ main {
 
 			/* Color de fondo */
 			&:has(#alerta):not(:has(#alerta.ocultar)) {background: var(--rojoOscuro);}
+			&:has(#trabajando):not(:has(#trabajando.ocultar)) {background: var(--grisOscuro);}
 
 			&#cartelGenerico {
 				.inicio {font-size: 4rem; color: var(--amarilloOscuro);}
 				#contenedorMensajes {
 					overflow-y: auto;
 					max-height: calc(var(--alturaViewPort) * 0.5);
+				}
+				button {
+					margin-inline: auto; margin-block: 30px 20px;
+					background-color: var(--verdeOscuro);
+					font-weight: bold; font-size: 1.2rem;
+					padding: 5px 10px;
+					border-radius: 15px; border: 2px solid snow;
+					cursor: pointer;
 				}
 			}
 		}

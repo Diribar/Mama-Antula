@@ -7,15 +7,16 @@ export default async (req, res, next) => {
 	// Variables
 	const fechaHoy = comp.fechaHora.anoMesDia(new Date());
 	let {usuario, cliente} = req.session;
-	let cliente_id;
+	let cliente_id = cliente && cliente.cliente_id;
 
 	// Si el 'cliente_id' tiene un valor y coincide en ambas variables, interrumpe la función
-	if (usuario && cliente && usuario.cliente_id && usuario.cliente_id == cliente.cliente_id) {
+	if (usuario && cliente && usuario.cliente_id && usuario.cliente_id == cliente_id) {
 		// Si corresponde, actualiza la fecha de última navegación
-		if (usuario.fechaUltNaveg < fechaHoy || usuario.versionWeb != versionWeb) {
-			await baseDatos.actualizaPorId("usuarios", usuario.id, {fechaUltNaveg: fechaHoy, versionWeb});
-			req.session.usuario = {...req.session.usuario, fechaUltNaveg: fechaHoy, versionWeb};
-			req.session.cliente = {...req.session.cliente, fechaUltNaveg: fechaHoy, versionWeb};
+		if (usuario.fechaUltNaveg < fechaHoy) {
+			const diasNaveg = ++cliente.diasNaveg;
+			req.session.usuario = {...req.session.usuario, fechaUltNaveg: fechaHoy, diasNaveg};
+			req.session.cliente = {...req.session.cliente, fechaUltNaveg: fechaHoy, diasNaveg};
+			await baseDatos.actualizaPorId("usuarios", usuario.id, {fechaUltNaveg: fechaHoy, diasNaveg});
 		}
 
 		// Actualiza locals
@@ -40,7 +41,7 @@ export default async (req, res, next) => {
 	}
 
 	// Cliente: 1. Lo obtiene del usuario
-	if (usuario && (!cliente || usuario.cliente_id != cliente.cliente_id)) {
+	if (usuario && (!cliente || usuario.cliente_id != cliente_id)) {
 		// Obtiene el cliente
 		cliente = obtieneCamposNecesarios(usuario);
 
@@ -64,37 +65,33 @@ export default async (req, res, next) => {
 
 	// Cliente: 3. Como no existe, lo crea
 	if (!cliente) {
-		// Variables
-		const datos = {versionWeb};
-
 		// Crea el cliente
+		const datos = {versionWeb};
 		cliente = await baseDatos.agregaRegistroIdCorrel("visitas", datos);
 
-		// Crea un nuevo 'cliente_id'
+		// Crea un nuevo 'cliente_id' y actualiza o crea la cookie
 		cliente_id = "V" + String(cliente.id).padStart(10, "0");
-
-		// Actualiza o crea la cookie
 		res.cookie("cliente_id", cliente_id, {maxAge: unAno, path: "/"});
 
-		// Actualiza el 'cliente_id' en la BD
+		// Actualiza el 'cliente_id' en la BD y la variable
 		await baseDatos.actualizaPorId("visitas", cliente.id, {cliente_id}); // es crítico el 'await'
-
-		// Actualiza el cliente con los campos necesarios
 		cliente = await baseDatos.obtienePorId("visitas", cliente.id, "rol").then((n) => obtieneCamposNecesarios(n));
 	}
 
+	// Variables
+	const esUsuario = cliente_id.startsWith("U");
+	const tabla = esUsuario ? "usuarios" : "visitas";
+
 	// Si corresponde, actualiza la fecha de última navegación
-	if (cliente.fechaUltNaveg < fechaHoy || cliente.versionWeb != versionWeb) {
+	if (cliente.fechaUltNaveg < fechaHoy) {
 		// Actualiza el cliente
-		cliente = {...cliente, fechaUltNaveg: fechaHoy, versionWeb};
+		cliente.fechaUltNaveg = fechaHoy;
+		const diasNaveg = ++cliente.diasNaveg;
 
 		// Actualiza el usuario
-		if (usuario) {
-			baseDatos.actualizaPorId("usuarios", usuario.id, {fechaUltNaveg: fechaHoy, versionWeb});
-			usuario = {...usuario, fechaUltNaveg: fechaHoy, versionWeb};
-		}
-		// Actualiza la visita
-		else baseDatos.actualizaPorId("visitas", cliente.id, {fechaUltNaveg: fechaHoy, versionWeb});
+		baseDatos.actualizaPorId(tabla, cliente.id, {fechaUltNaveg: fechaHoy, diasNaveg});
+		if (usuario) usuario = {...usuario, fechaUltNaveg: fechaHoy, diasNaveg};
+
 	}
 
 	// Actualiza usuario y cliente

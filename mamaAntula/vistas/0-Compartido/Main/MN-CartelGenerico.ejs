@@ -7,14 +7,17 @@
 		<div id="encab" class="flexColAlign">
 			<!-- Íconos -->
 			<i id="alerta" class="<%= iconos.faSolid %> fa-triangle-exclamation inicio<%- locals.informacion && (locals.informacion.check || locals.informacion.trabajando) ? ' ocultar' : '' %>"></i>
+			<i id="trabajando" class="<%= iconos.faSolid %> fa-tools inicio<%- !locals.informacion || !locals.informacion.trabajando ? ' ocultar' : '' %>"></i>
 
 			<!-- Título -->
 			<h1 id="titulo"><%= locals.informacion ? informacion.titulo : '' %></h1>
 		</div>
 
 		<div id="contenedorMensajes">
-			<% if (informacion.ol) { %><ol id="mensajes" type="<%- informacion.mensajes.length > 1 ? '1' : 'none' %>">
-			<% } else { %><ul id="mensajes" type="<%- informacion.mensajes.length > 1 ? 'disc' : 'none' %>">
+			<% if (informacion.ol) { %>
+				<ol id="mensajes" type="<%- informacion.mensajes.length > 1 ? '1' : 'none' %>">
+			<% } else { %>
+				<ul id="mensajes" type="<%- informacion.mensajes.length > 1 ? 'disc' : 'none' %>">
 			<% } %>
 				<% for (mensaje of informacion.mensajes) { %>
 					<li>
@@ -22,7 +25,14 @@
 						<% } else { %><%- mensaje %><% } %>
 					</li>
 				<% } %>
-			<% if (informacion.ol) { %></ol><% } else { %></ul><% } %>
+			<% if (informacion.ol) { %>
+				</ol>
+			<% } else { %>
+				</ul>
+			<% } %>
 		</div>
+		<% if (informacion.reload) { %>
+			<button onclick="location.reload()">Entendido</button>
+		<% } %>
 	</div>
 </section>
