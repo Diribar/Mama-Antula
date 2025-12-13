@@ -30,7 +30,7 @@ export default {
 			lugaresExpers: baseDatos.obtieneTodosConOrden("lugaresExpers", "nombre"),
 			iconosAgrupados: baseDatos.obtieneTodosConOrden("iconosAgrupados", "orden").then((n) => n.filter((m) => m.activo)),
 			statusRegistros: baseDatos.obtieneTodos("statusRegistros"),
-			versionWeb: baseDatos.obtieneTodosConOrden("novsDelSitio", "fecha").then((n) => n.at(-1).version),
+			novsDelSitio: baseDatos.obtieneTodosConOrden("novsDelSitio", "fecha"),
 		};
 
 		// Await
@@ -72,9 +72,12 @@ export default {
 			// Personajes agrupados
 			persAgrupados: {
 				"Mas frecuentes": personajes.filter((n) => n.id <= 3),
-				"Sacerdotes": personajes.filter((n) => n.id > 3 && n.nombre.startsWith("P.")),
-				"Laicos": personajes.filter((n) => n.id > 3 && !n.nombre.startsWith("P.")),
+				Sacerdotes: personajes.filter((n) => n.id > 3 && n.nombre.startsWith("P.")),
+				Laicos: personajes.filter((n) => n.id > 3 && !n.nombre.startsWith("P.")),
 			},
+
+			// Otros
+			versionWeb: novsDelSitio[-1]?.version,
 		};
 
 		// Fin

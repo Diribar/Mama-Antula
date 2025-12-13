@@ -83,18 +83,22 @@ export default async (req, res, next) => {
 		cliente = await baseDatos.obtienePorId("visitas", cliente.id, "rol").then((n) => obtieneCamposNecesarios(n));
 	}
 
+	// Variables
+	const esUsuario = cliente_id.startsWith("U");
+	const tabla = esUsuario ? "usuarios" : "visitas";
+
 	// Si corresponde, actualiza la fecha de última navegación
 	if (cliente.fechaUltNaveg < fechaHoy) {
 		// Actualiza el cliente
-		cliente = {...cliente, fechaUltNaveg: fechaHoy};
+		cliente.fechaUltNaveg = fechaHoy;
 
 		// Actualiza el usuario
-		if (usuario) {
+		if (esUsuario) {
 			baseDatos.actualizaPorId("usuarios", usuario.id, {fechaUltNaveg: fechaHoy});
 			usuario = {...usuario, fechaUltNaveg: fechaHoy};
 		}
 		// Actualiza la visita
-		else baseDatos.actualizaPorId("visitas", cliente.id, {fechaUltNaveg: fechaHoy});
+		else baseDatos.actualizaPorId(tabla, cliente.id, {fechaUltNaveg: fechaHoy});
 	}
 
 	// Actualiza usuario y cliente

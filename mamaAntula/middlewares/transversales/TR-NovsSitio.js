@@ -1,51 +1,36 @@
 // Muestra carteles que se activan con el acceso al sitio (no se usa con apis)
 "use strict";
 
-module.exports = async (req, res, next) => {
+export default (req, res, next) => {
 	// Si corresponde, interrumpe la función
 	if (req.method != "GET") return next();
 	if (req.originalUrl.includes("/inactivar-captura/")) return next();
 	if (comp.omitirMiddlewsTransv(req)) return next();
 
 	// Variables
-	const {cliente} = req.session;
+	const {usuario, cliente} = req.session;
 	const {cliente_id} = cliente;
-	const esUsuario = cliente_id.startsWith("U");
-	const tabla = esUsuario ? "usuarios" : "visitas";
 	let informacion;
 
-	// Si el cliente ingresa por primera vez al sitio de películas, actualiza la versión en la tabla usuario y en la variable usuario
-	if (!cliente.versPeliculas) {
-		baseDatos.actualizaPorCondicion(tabla, {cliente_id}, {versPeliculas: version});
-		cliente.versPeliculas = version;
-	}
+	// Acciones si el usuario todavía no accedió a la version web vigente
+	if (cliente.versionWeb != versionWeb) {
+		// Genera la información a mostrar
+		const novs = novsDelSitio.filter((n) => n.version > cliente.versionWeb); // obtiene las novedades
+		informacion = {
+			trabajando: true,
+			titulo: "Novedad" + (novs.length > 1 ? "es" : "") + " del sitio",
+			mensajes: novs.map((n) => n.comentario + "."),
+			reload: true,
+		};
 
-	// Cartel de novedades
-	if (cliente.versPeliculas != version) {
-		// Variables
-		const permisos = ["permInputs", "autTablEnts", "revisorPERL", "revisorLinks", "revisorEnts", "revisorUs"];
-		const novs = novsPeliculas.filter((n) => n.version > cliente.versPeliculas); // obtiene las novedades
+		// Actualiza el cliente y el usuario
+		req.session.cliente.versionWeb = versionWeb;
+		if (usuario) req.session.usuario.versionWeb = versionWeb;
 
-		// Si la novedad especifica un permiso que el cliente no tiene, se la descarta
-		for (let i = novs.length - 1; i >= 0; i--)
-			for (const permiso of permisos)
-				if (novs[i][permiso] && !cliente.rol[permiso]) {
-					novs.splice(i, 1);
-					break;
-				}
-
-		// Si hubieron novedades, genera la información
-		if (novs.length)
-			informacion = {
-				mensajes: novs.map((n) => n.comentario + "."),
-				iconos: [variables.vistaEntendido(req.originalUrl)],
-				titulo: "Novedad" + (novs.length > 1 ? "es" : "") + " del sitio",
-				check: true,
-			};
-
-		// Actualiza la versión en la tabla usuario y en la variable usuario
-		baseDatos.actualizaPorCondicion(tabla, {cliente_id}, {versPeliculas: version});
-		cliente.versPeliculas = version;
+		// Actualiza la BD
+		const esUsuario = cliente_id.startsWith("U");
+		const tabla = esUsuario ? "usuarios" : "visitas";
+		baseDatos.actualizaPorCondicion(tabla, cliente_id, {versionWeb});
 	}
 
 	// Fin

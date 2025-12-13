@@ -139,6 +139,7 @@ app.set("view engine", "ejs");
 
 	// Middlewares transversales
 	app.use((await import("./middlewares/transversales/TR-clienteId.js")).default);
+	app.use((await import("./middlewares/transversales/TR-novsSitio.js")).default);
 	app.use((await import("./middlewares/transversales/TR-haciaEdicUs.js")).default);
 
 	// Rutas
