@@ -1,11 +1,8 @@
 #filtroIndice {
 	--anchoIndice: 160px;
-
-	position: absolute;
-	top: 10px;
+	position: absolute; top: 10px;
 	display: flex; flex-direction: column; align-items: flex-start; gap: 20px;
-	min-width: var(--anchoIndice); height: 100%;
-	overflow-y: hidden;
+	min-width: var(--anchoIndice); height: 100%; overflow-y: hidden;
 
 	.contenedor {
 		display: flex; flex-direction: column; gap: 10px;
@@ -30,6 +27,13 @@
 				margin-inline: 10px 15px;
 				a {line-height: 1.2; font-size: 0.9rem;}
 			}
+		}
+	}
+
+	#tituloFiltros {
+		#filtros {
+			display: flex; flex-direction: row; gap: 20px;
+			select {border-radius: 8px;}
 		}
 	}
 

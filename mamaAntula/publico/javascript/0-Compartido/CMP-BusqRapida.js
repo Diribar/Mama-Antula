@@ -123,7 +123,6 @@ window.addEventListener("load", () => {
 		resultados = await fetch(rutaApi, {...postJson({palabras}), signal})
 			.then((n) => n.json())
 			.catch(() => (interrupcion = true));
-		console.log(resultados, interrupcion);
 		if (interrupcion) return;
 
 		// Muestra los resultados
@@ -186,6 +185,7 @@ window.addEventListener("load", () => {
 
 	// Start-up
 	DOM.input.value = localStorage.getItem("busqRapida");
+	if (DOM.input.value) DOM.input.dispatchEvent(new Event("input"));
 
 	// Fin
 	return;

@@ -1,0 +1,33 @@
+<!-- Filtros -->
+<div id="tituloFiltros" class="contenedor">
+	<div class="titulo">
+		<i class="fa-solid fa-caret-right mostrar"></i>
+		Filtros
+	</div>
+	<div id="filtros" class="flexRowAlign">
+		<select name="personaje1">
+			<option value="">Elejí un personaje</option>
+			<% for (const personaje of personajes) { %>
+				<option value="<%= personaje.id %>"><%= personaje.nombre %></option>
+			<% } %>
+		</select>
+		<select name="personaje2">
+			<option value="">Elejí un personaje</option>
+			<% for (const personaje of personajes) { %>
+				<option value="<%= personaje.id %>"><%= personaje.nombre %></option>
+			<% } %>
+		</select>
+		<select name="idioma">
+			<option value="">Idioma</option>
+			<% for (const idioma of idiomas) { %>
+				<option value="<%= idioma.id %>"><%= idioma.nombre %></option>
+			<% } %>
+		</select>
+		<select name="lugaresCartas">
+			<option value="">Elejí un lugar</option>
+			<% for (const lugarCarta of lugaresCartas) { %>
+				<option value="<%= lugarCarta.id %>"><%= lugarCarta.nombre %></option>
+			<% } %>
+		</select>
+	</div>
+</div>
