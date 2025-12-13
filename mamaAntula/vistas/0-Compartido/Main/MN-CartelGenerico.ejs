@@ -30,9 +30,9 @@
 			<% } else { %>
 				</ul>
 			<% } %>
-			<% if (informacion.reload) { %>
-				<button>Entendido</button>
-			<% } %>
 		</div>
+		<% if (informacion.reload) { %>
+			<button onclick="location.reload()">Entendido</button>
+		<% } %>
 	</div>
 </section>
