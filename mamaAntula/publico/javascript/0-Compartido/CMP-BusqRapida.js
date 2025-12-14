@@ -92,21 +92,15 @@ window.addEventListener("load", () => {
 	// Add Event Listener
 	DOM.input.addEventListener("input", async () => {
 		// Impide los caracteres que no son válidos
-		DOM.input.value = DOM.input.value.replace(/[^a-záéíóúüñ',¡¿-\d\s]/gi, "").replace(/ +/g, " ");
-		const dataEntry = DOM.input.value;
-		localStorage.setItem("busqRapida", dataEntry);
-
-		// Generar las condiciones para mostrar los 'muestraResultados'
-		posicion = 0;
-
-		// Elimina palabras repetidas
-		let palabras = dataEntry.split(" ");
-		for (let i = palabras.length - 1; i > 0; i--)
-			if (palabras.filter((n) => n == palabras[i]).length > 1) palabras.splice(i, 1);
-		let pasaNoPasa = palabras.join("");
+		const palabras = DOM.input.value.replace(/[^a-záéíóúüñ',¡¿-\d\s]/gi, "").replace(/ +/g, " ");
+		DOM.input.value = palabras;
 
 		// Acciones si la palabra tiene menos de 3 caracteres significativos
-		if (pasaNoPasa.length < 3) return DOM.escribiMas.classList.remove("ocultar"); // Muestra el cartel de "escribí más"
+		if (palabras.length < 3) return DOM.escribiMas.classList.remove("ocultar"); // Muestra el cartel de "escribí más"
+
+		// Generar las condiciones para mostrar los 'muestraResultados'
+		localStorage.setItem("busqRapida", palabras);
+		posicion = 0;
 
 		// Oculta el cartel de "escribí más"
 		DOM.escribiMas.classList.add("ocultar");
@@ -118,7 +112,7 @@ window.addEventListener("load", () => {
 		let interrupcion;
 
 		// Busca los productos
-		resultados = await fetch(rutaApi, {...postJson({palabras: dataEntry}), signal})
+		resultados = await fetch(rutaApi, {...postJson({palabras}), signal})
 			.then((n) => n.json())
 			.catch(() => (interrupcion = true));
 		if (interrupcion) return;
