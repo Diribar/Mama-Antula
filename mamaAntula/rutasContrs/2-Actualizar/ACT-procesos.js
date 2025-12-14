@@ -10,11 +10,8 @@ export default {
 
 	// API - Encabezado
 	obtieneEncabezados: async ({tema_id, condicion, usuario}) => {
-		// Variables
-		const {esConIndice} = comp.tipoDeTema(tema_id);
-
 		// Obtiene los encabezados
-		let encabezados = await comp.obtieneEncabezados({tema_id, condicion});
+		let {encabezados, esConIndice} = await comp.obtieneEncabezados({tema_id, condicion});
 
 		// Si es sin indice y no existe un encabezado, crea el encabezado
 		if (!esConIndice && !encabezados.length ) {
@@ -30,7 +27,7 @@ export default {
 			await baseDatos.agregaRegistroIdCorrel("encabezados", datos);
 
 			// Lee de nuevo los encabezados
-			encabezados = await comp.obtieneEncabezados({tema_id, condicion});
+			({encabezados} = await comp.obtieneEncabezados({tema_id, condicion}));
 		}
 
 		// Les agrega los títulos
