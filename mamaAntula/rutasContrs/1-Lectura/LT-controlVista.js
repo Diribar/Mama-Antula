@@ -11,7 +11,7 @@ export default {
 		// Variables
 		const codigoVista = "temas";
 		urlSeccion = urlSeccion || LP_urlSeccion;
-		urlTema = urlTema || LP_urlTema;
+		urlTema = urlTema || LP_urlTema1;
 
 		// Sección
 		const seccionActual = seccionesLectura.find((n) => n.url == urlSeccion);
@@ -27,14 +27,14 @@ export default {
 
 			if (!hayNovedades) {
 				// Si el urlTema es 'Novedades', lo cambia por el alternativo
-				if (urlTema == temaLandingPage.url) {
+				if (urlTema == LP_urlTema1) {
 					// Si viene del url, redirige
-					if (req.params.urlTema) return res.redirect("/inicio/" + temaAlternativo.url);
-					else urlTema = temaAlternativo.url;
+					if (req.params.urlTema) return res.redirect("/inicio/" + LP_urlTema2);
+					else urlTema = LP_urlTema2;
 				}
 
 				// Quita el tema del menú
-				temasSeccion = temasSeccion.filter((n) => n.id != temaLandingPage.id);
+				temasSeccion = temasSeccion.filter((n) => n.url != LP_urlTema1);
 			}
 		}
 		const temaActual = temasSeccion.find((n) => n.url == urlTema);
