@@ -92,7 +92,7 @@ window.addEventListener("load", () => {
 	// Add Event Listener
 	DOM.input.addEventListener("input", async () => {
 		// Impide los caracteres que no son válidos
-		DOM.input.value = DOM.input.value.replace(/[^a-záéíóúüñ'¡¿-\d\s]/gi, "").replace(/ +/g, " ");
+		DOM.input.value = DOM.input.value.replace(/[^a-záéíóúüñ',¡¿-\d\s]/gi, "").replace(/ +/g, " ");
 		const dataEntry = DOM.input.value;
 		localStorage.setItem("busqRapida", dataEntry);
 
