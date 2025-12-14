@@ -17,7 +17,7 @@ export default (req, res, next) => {
 	}
 
 	// TEMA - Si el temaActual no corresponde, muestra la vista de error
-	const temaActual = temasPosibles.find((n) => n.url == (urlTema || LP_urlTema)); // si no existe urlTema, se usa el de la landing page
+	const temaActual = temasPosibles.find((n) => n.url == (urlTema || LP_urlTema1)); // si no existe urlTema, se usa el de la landing page
 	if (!temaActual) return res.render("CMP-0Estructura", {informacion});
 
 	// TEMA - Guarda cookies
