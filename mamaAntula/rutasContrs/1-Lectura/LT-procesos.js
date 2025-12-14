@@ -3,10 +3,7 @@
 export default {
 	obtieneEncabezados: async ({tema_id, encab_id, condicion}) => {
 		// Variables
-		const {esConIndice} = comp.tipoDeTema(tema_id);
-
-		// Obtiene los encabezados
-		let encabezados = await comp.obtieneEncabezados({tema_id, condicion});
+		let {encabezados, esExpers, esConIndice} = await comp.obtieneEncabezados({tema_id, condicion});
 		if (!encabezados.length) return {};
 
 		// Les agrega los títulos
@@ -23,11 +20,12 @@ export default {
 		}
 
 		// Fin
-		return {encabezados, encabezado};
+		return {encabezados, encabezado, esExpers};
 	},
 	contenidos: async ({encabezado, statusRegistro_id}) => {
 		// Variables
 		const condicion = {encab_id: encabezado.id, statusRegistro_id};
+		console.log(31, encabezado, encabezado.id);
 
 		// Obtiene los contenidos
 		const contenidos = await baseDatos
