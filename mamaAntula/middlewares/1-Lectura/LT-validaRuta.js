@@ -3,9 +3,7 @@
 export default (req, res, next) => {
 	// Variables
 	const {urlSeccion, urlTema, urlPestana} = req.params;
-	const {id: encab_id} = req.query;
 	const informacion = {mensajes: ["No tenemos esa dirección en nuestro sistema"]};
-	const {usuario} = req.session;
 
 	// SECCION - Si la seccionActual no corresponde, muestra la vista de error
 	const seccionActual = seccionesLectura.find((n) => n.url == (urlSeccion || LP_urlSeccion)); // si no existe urlSeccion, se usa la de la landing page
