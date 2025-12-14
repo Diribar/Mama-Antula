@@ -97,7 +97,6 @@ window.addEventListener("load", () => {
 		localStorage.setItem("busqRapida", dataEntry);
 
 		// Generar las condiciones para mostrar los 'muestraResultados'
-		DOM.muestraResultados.innerHTML = "";
 		posicion = 0;
 
 		// Elimina palabras repetidas
@@ -127,6 +126,7 @@ window.addEventListener("load", () => {
 
 		// Muestra los resultados
 		hayResultados = !!Object.keys(resultados).length;
+		DOM.muestraResultados.innerHTML = "";
 		hayResultados ? muestraResultados() : sinResultados("- No encontramos resultados -");
 
 		// Fin
