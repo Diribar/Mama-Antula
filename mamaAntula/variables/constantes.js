@@ -62,15 +62,8 @@ export default {
 			fechaEvento: "Fecha de ocurrencia",
 		},
 		tabla: [
-			"nombreDesde_id",
-			"nombreHacia_id",
-			"idioma_id",
-			"lugarCarta_id",
-			"lugarExper_id",
-			"numero",
-			"titulo",
-			"fechaEvento",
-			"indiceDevoc_id",
+			...["numero", "nombreDesde_id", "nombreHacia_id", "idioma_id", "lugarCarta_id"],
+			...["lugarExper_id", "titulo", "fechaEvento", "indiceDevoc_id"],
 		],
 	},
 
