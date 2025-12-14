@@ -25,7 +25,6 @@ export default {
 	contenidos: async ({encabezado, statusRegistro_id}) => {
 		// Variables
 		const condicion = {encab_id: encabezado.id, statusRegistro_id};
-		console.log(31, encabezado, encabezado.id);
 
 		// Obtiene los contenidos
 		const contenidos = await baseDatos
