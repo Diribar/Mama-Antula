@@ -18,7 +18,25 @@ export default {
 		const tituloPagina = seccionActual.nombre;
 
 		// Tema
-		const temasSeccion = temasSecciones.filter((n) => n.seccion_id == seccionActual.id);
+		let temasSeccion = temasSecciones.filter((n) => n.seccion_id == seccionActual.id);
+		if (seccionActual.url == LP_urlSeccion) {
+			// Averigua si hay novedades
+			const hayNovedades = await baseDatos
+				.obtienePorCondicion("encabezados", {tema_id: temaLandingPage.id}, "contenidos")
+				.then((n) => !!n.contenidos.length);
+
+			if (!hayNovedades) {
+				// Si el urlTema es 'Novedades', lo cambia por el alternativo
+				if (urlTema == temaLandingPage.url) {
+					// Si viene del url, redirige
+					if (req.params.urlTema) return res.redirect("/inicio/" + temaAlternativo.url);
+					else urlTema = temaAlternativo.url;
+				}
+
+				// Quita el tema del menú
+				temasSeccion = temasSeccion.filter((n) => n.id != temaLandingPage.id);
+			}
+		}
 		const temaActual = temasSeccion.find((n) => n.url == urlTema);
 		const tema_id = temaActual.id;
 		const tipoDeTema = comp.tipoDeTema(tema_id);
