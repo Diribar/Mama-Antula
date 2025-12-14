@@ -118,8 +118,7 @@ window.addEventListener("load", () => {
 		let interrupcion;
 
 		// Busca los productos
-		palabras = palabras.join(" ");
-		resultados = await fetch(rutaApi, {...postJson({palabras}), signal})
+		resultados = await fetch(rutaApi, {...postJson({palabras: dataEntry}), signal})
 			.then((n) => n.json())
 			.catch(() => (interrupcion = true));
 		if (interrupcion) return;
