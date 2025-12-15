@@ -1,13 +1,23 @@
+@media (width > 1200px) {
+
+}
+@media (width <= 1200px) {
+	header {
+		#izquierda {
+			padding-left: 20px;
+			a {font-size: 1.25rem;}
+			h4 {font-size: 0.7rem;}
+		}
+		#centro {font-size: 1rem;}
+		#derecha {margin-right: 15px;}
+	}
+}
 @media (width >= 768px) {
 	html {font-size: 18px;} /* debe estar en 'html', porque es de donde donde toma referencia el 'rem' */
 }
-
 @media (width < 768px) {
 	html {font-size: 16px;} /* debe estar en 'html', porque es de donde donde toma referencia el 'rem' */
-	body {
-
-		footer {.ocultar768 {display: none;}}
-	}
+	footer {.ocultar768 {display: none;}}
 }
 body {
 	/* Acostados */
