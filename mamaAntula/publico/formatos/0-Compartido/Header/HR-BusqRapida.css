@@ -1,5 +1,4 @@
-/* Íconos de búsqueda rápida e inputMasResultados */
-#busquedaRapida {
+header #busquedaRapida {
 	position: relative;
 	i.mostrarClick {font-size: 1.2rem; cursor: pointer;}
 
