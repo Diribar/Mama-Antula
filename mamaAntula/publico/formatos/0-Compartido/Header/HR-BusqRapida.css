@@ -14,7 +14,7 @@ header #busquedaRapida .formatoBusq {
 		& > :is(a, div) {padding-inline: 5px 10px; width: 100%;}
 		ul li {
 			list-style: none; position: relative;
-			padding-inline: 20px 10px; width: 100%;
+			padding-inline: 20px 10px; width: 100%; max-width: calc(99vw - var(--posicionBuscador));
 			margin-left: 0;
 			&::before {content: "•"; position: absolute; left: 10px;}
 		}

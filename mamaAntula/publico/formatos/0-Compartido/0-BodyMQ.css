@@ -15,6 +15,7 @@ header {
 		}
 		#secciones {font-size: 1.2rem;}
 		#busquedaRapida {
+			--posicionBuscador: 200px;
 			.formatoBusq {
 				input {padding: 4px 5px; font-size: 1rem;}
 				#muestraResultados {font-size: 0.9rem; }
@@ -36,6 +37,7 @@ header {
 		#mmBr {
 			display: flex; flex-direction: row; align-items: center; gap: var(--gapHeader);
 			#busquedaRapida {
+				--posicionBuscador: 120px;
 				.formatoBusq {
 					input {padding: 4px 5px; font-size: .85rem;}
 					#muestraResultados {font-size: 0.8rem; }
