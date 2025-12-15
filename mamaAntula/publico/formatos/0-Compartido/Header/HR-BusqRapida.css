@@ -1,5 +1,5 @@
-header #busquedaRapida .formatoBusq {
-	position: absolute; right: -7px; top: -3px; translate: 100%;
+header #busquedaRapida #formatoBr {
+	position: absolute;
 	color: var(--grisOscuro); pointer-events: none; z-index: 1;
 	input, #muestraResultados {border: 1px solid var(--azulOscuro); border-radius: 5px; pointer-events: auto;}
 	input, #escribiMas {width: 220px;}
