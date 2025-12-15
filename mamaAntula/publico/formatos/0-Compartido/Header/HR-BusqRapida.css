@@ -10,12 +10,14 @@ header #busquedaRapida .formatoBusq {
 		width: max-content; min-width: 100%;
 		&:empty {display: none;}
 		&:not(:empty) {display: flex; flex-direction: column;}
-		& > :is(a, div) {padding-inline: 5px 10px; width: 100%; line-height: 1.5;}
+		& > :is(a, div), ul li {line-height: max(1.5em, 20px);}
+		& > :is(a, div) {padding-inline: 5px 10px; width: 100%;}
 		ul li {
-			padding-inline: 15px 10px; width: 100%; line-height: 1.2;
-			list-style-position: inside; margin-left: 0;
+			list-style: none; position: relative;
+			padding-inline: 20px 10px; width: 100%;
+			margin-left: 0;
+			&::before {content: "•"; position: absolute; left: 10px;}
 		}
-
 
 		/* Variantes */
 		.colorClaro {background: snow;}
