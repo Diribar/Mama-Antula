@@ -16,9 +16,11 @@ export default (req, res, next) => {
 	if (cliente.versionWeb != versionWeb) {
 		// Genera la información a mostrar
 		const novs = novsDelSitio.filter((n) => n.version > cliente.versionWeb); // obtiene las novedades
+		const titulo = "Novedad" + (novs.length > 1 ? "es" : "") + " del sitio";
 		informacion = {
+			tituloPagina: titulo,
 			trabajando: true,
-			titulo: "Novedad" + (novs.length > 1 ? "es" : "") + " del sitio",
+			titulo,
 			mensajes: novs.map((n) => n.comentario + "."),
 			reload: true,
 		};

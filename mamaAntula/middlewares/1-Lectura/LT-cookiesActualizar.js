@@ -14,7 +14,7 @@ export default (req, res, next) => {
 
 	// TEMA - Si el temaActual no corresponde, muestra la vista de error
 	const temasPosibles = temasSecciones.filter((n) => n.seccion_id == seccionActual.id);
-	const temaActual = temasPosibles.find((n) => n.url == (urlTema || LP_urlTema)); // si no existe urlTema, se usa el de la landing page
+	const temaActual = temasPosibles.find((n) => n.url == (urlTema || LP_urlTema1)); // si no existe urlTema, se usa el de la landing page
 
 	// PESTAÑA - Averigua si el tema tiene pestañas
 	const pestsPosibles = pestanasTemas.filter((n) => n.tema_id == temaActual.id);

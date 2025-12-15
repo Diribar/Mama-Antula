@@ -76,6 +76,9 @@ export default {
 				Laicos: personajes.filter((n) => n.id > 3 && !n.nombre.startsWith("P.")),
 			},
 
+			// Landing page
+			landingPage_id: temasSecciones.find((n) => n.url == LP_urlTema1)?.id,
+
 			// Otros
 			versionWeb: novsDelSitio.at(-1)?.version,
 		};

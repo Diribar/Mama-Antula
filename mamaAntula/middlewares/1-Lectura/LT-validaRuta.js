@@ -3,9 +3,7 @@
 export default (req, res, next) => {
 	// Variables
 	const {urlSeccion, urlTema, urlPestana} = req.params;
-	const {id: encab_id} = req.query;
 	const informacion = {mensajes: ["No tenemos esa dirección en nuestro sistema"]};
-	const {usuario} = req.session;
 
 	// SECCION - Si la seccionActual no corresponde, muestra la vista de error
 	const seccionActual = seccionesLectura.find((n) => n.url == (urlSeccion || LP_urlSeccion)); // si no existe urlSeccion, se usa la de la landing page
@@ -19,7 +17,7 @@ export default (req, res, next) => {
 	}
 
 	// TEMA - Si el temaActual no corresponde, muestra la vista de error
-	const temaActual = temasPosibles.find((n) => n.url == (urlTema || LP_urlTema)); // si no existe urlTema, se usa el de la landing page
+	const temaActual = temasPosibles.find((n) => n.url == (urlTema || LP_urlTema1)); // si no existe urlTema, se usa el de la landing page
 	if (!temaActual) return res.render("CMP-0Estructura", {informacion});
 
 	// TEMA - Guarda cookies

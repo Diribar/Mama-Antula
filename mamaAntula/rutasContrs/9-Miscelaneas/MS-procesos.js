@@ -3,10 +3,7 @@
 export default {
 	encabezados: async function ({palabras, statusRegistro_id}) {
 		// Obtiene la condición
-		const condicion = {
-			titulo: {[Op.or]: [{[Op.like]: palabras + "%"}, {[Op.like]: "% " + palabras + "%"}]},
-			statusRegistro_id,
-		};
+		const condicion = {titulo: {[Op.like]: "%" + palabras + "%"}, statusRegistro_id};
 
 		// Obtiene los registros que cumplen la condición
 		const encabs_id = await baseDatos.obtieneTodosPorCondicion("encabezados", condicion).then((n) => n.map((m) => m.id));
@@ -35,9 +32,7 @@ export default {
 		// Consolidado de que en cada campo se cumplan todas las palabras
 		for (const campo of campos) {
 			// Todas las palabras deben estar en 'campo'
-			const condicionPalabrasEnCampo = {
-				[campo]: {[Op.or]: [{[Op.like]: palabras + "%"}, {[Op.like]: "% " + palabras + "%"}]}, // En el comienzo del texto o de una palabra
-			};
+			const condicionPalabrasEnCampo = {[campo]: {[Op.like]: "%" + palabras + "%"}};
 
 			// Consolida la condición por campo
 			consolidadoCampos.push(condicionPalabrasEnCampo);

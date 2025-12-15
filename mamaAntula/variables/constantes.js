@@ -31,7 +31,8 @@ export default {
 
 	// Landing page
 	LP_urlSeccion: "inicio",
-	LP_urlTema: "quien-es-mama-antula",
+	LP_urlTema1: "novedades",
+	LP_urlTema2: "quien-es-mama-antula",
 
 	// Temas y encabezados
 	temaCarta_id: 10, // el id del tema "Cartas"
@@ -47,20 +48,13 @@ export default {
 	},
 	camposEdicion: {
 		vista: {
-			// Referencias
-			nombreDesde: "Remitente",
-			nombreHacia: "Destinatario",
-			idioma: "Idioma",
-			lugarCarta: "Lugar",
-			lugarExper: "Lugar",
-			indiceDevoc: "Lugar geográfico",
-
-			// Otros
-			numero: "Número",
-			titulo: "Título",
-			fechaEvento: "Fecha de ocurrencia",
+			...{numero: "Número", nombreDesde: "Remitente", nombreHacia: "Destinatario", idioma: "Idioma", lugarCarta: "Lugar"},
+			...{titulo: "Título", fechaEvento: "Fecha de ocurrencia", lugarExper: "Lugar", indiceDevoc: "Lugar geográfico"},
 		},
-		tabla: ["nombreDesde_id", "nombreHacia_id", "idioma_id", "lugarCarta_id", "lugarExper_id", "numero", "titulo", "fechaEvento", "indiceDevoc_id"],
+		tabla: [
+			...["numero", "nombreDesde_id", "nombreHacia_id", "idioma_id", "lugarCarta_id"],
+			...["lugarExper_id", "titulo", "fechaEvento", "indiceDevoc_id"],
+		],
 	},
 
 	// Otras

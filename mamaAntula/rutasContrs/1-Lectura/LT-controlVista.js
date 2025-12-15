@@ -11,14 +11,32 @@ export default {
 		// Variables
 		const codigoVista = "temas";
 		urlSeccion = urlSeccion || LP_urlSeccion;
-		urlTema = urlTema || LP_urlTema;
+		urlTema = urlTema || LP_urlTema1;
 
 		// Sección
 		const seccionActual = seccionesLectura.find((n) => n.url == urlSeccion);
 		const tituloPagina = seccionActual.nombre;
 
 		// Tema
-		const temasSeccion = temasSecciones.filter((n) => n.seccion_id == seccionActual.id);
+		let temasSeccion = temasSecciones.filter((n) => n.seccion_id == seccionActual.id);
+		if (seccionActual.url == LP_urlSeccion) {
+			// Averigua si hay novedades
+			const hayNovedades = await baseDatos
+				.obtienePorCondicion("encabezados", {tema_id: landingPage_id}, "contenidos")
+				.then((n) => !!n.contenidos.length);
+
+			if (!hayNovedades) {
+				// Si el urlTema es 'Novedades', lo cambia por el alternativo
+				if (urlTema == LP_urlTema1) {
+					// Si viene del url, redirige
+					if (req.params.urlTema) return res.redirect("/inicio/" + LP_urlTema2);
+					else urlTema = LP_urlTema2;
+				}
+
+				// Quita el tema del menú
+				temasSeccion = temasSeccion.filter((n) => n.url != LP_urlTema1);
+			}
+		}
 		const temaActual = temasSeccion.find((n) => n.url == urlTema);
 		const tema_id = temaActual.id;
 		const tipoDeTema = comp.tipoDeTema(tema_id);
@@ -30,18 +48,21 @@ export default {
 		condicion.statusRegistro_id = statusRegistro_id;
 
 		// Obtiene el encabezado y contenido
-		const {encabezados, encabezado} = await procesos.obtieneEncabezados({tema_id, encab_id, condicion});
+		const {encabezados, encabezado, esExpers} = await procesos.obtieneEncabezados({tema_id, encab_id, condicion});
 		const contenidos = encabezado && (await procesos.contenidos({encabezado, statusRegistro_id}));
 
 		// Obtiene los lugares de experiencia
-		const lugaresExpers_ids = encabezados.map((n) => n.lugarExper_id).filter((n) => !!n);
-		const lugaresExpersVisibles = lugaresExpers.filter((n) => lugaresExpers_ids.includes(n.id));
+		let lugaresExpersFiltro;
+		if (encabezados && esExpers) {
+			const lugaresExpers_ids = encabezados.map((n) => n.lugarExper_id).filter((n) => !!n);
+			lugaresExpersFiltro = lugaresExpers.filter((n) => lugaresExpers_ids.includes(n.id));
+		}
 
 		// Fin
 		return res.render("CMP-0Estructura", {
 			...{tituloPagina, temaVista, codigoVista, temasSeccion},
 			...{seccionActual, temaActual},
-			...{encabezado, contenidos, encabezados, lugaresExpersVisibles},
+			...{encabezado, contenidos, encabezados, lugaresExpersFiltro},
 			...tipoDeTema,
 		});
 	},

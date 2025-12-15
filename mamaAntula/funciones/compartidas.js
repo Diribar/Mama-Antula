@@ -186,27 +186,30 @@ export default {
 		// Fin
 		return includes;
 	},
-	obtieneEncabezados: function ({tema_id, condicion}) {
+	obtieneEncabezados: async function ({tema_id, condicion}) {
 		// Variables
-		const {esCarta, esExpers, esLugaresDevoc} = this.tipoDeTema(tema_id);
+		const {esCarta, esExpers, esLugaresDevoc, esConIndice} = this.tipoDeTema(tema_id);
 		const includesAdics = ["statusSugeridoPor", "statusRegistro"];
 
-		// Fin
-		return esCarta
-			? baseDatos
+		// Obtiene los encabezados
+		const encabezados = esCarta
+			? await baseDatos
 					.obtieneTodosPorCondicion("encabezados", condicion, [...includesEncabs.cartas, ...includesAdics])
 					.then((n) => n.sort((a, b) => (a.fechaEvento < b.fechaEvento ? -1 : 1)))
 			: esExpers
-			? baseDatos
+			? await baseDatos
 					.obtieneTodosPorCondicion("encabezados", condicion, [...includesEncabs.expers, ...includesAdics])
 					.then((n) => n.sort((a, b) => (b.fechaEvento < a.fechaEvento ? -1 : 1)))
 			: esLugaresDevoc
-			? baseDatos
+			? await baseDatos
 					.obtieneTodosPorCondicion("encabezados", condicion, [...includesEncabs.lugaresDevoc, ...includesAdics])
 					.then((n) => n.sort((a, b) => (a.titulo < b.titulo ? -1 : 1)))
 					.then((n) => n.sort((a, b) => (a.indiceDevoc.nombre < b.indiceDevoc.nombre ? -1 : 1)))
 					.then((n) => n.sort((a, b) => a.indiceDevoc.orden - b.indiceDevoc.orden))
-			: baseDatos.obtieneTodosPorCondicion("encabezados", condicion, includesAdics);
+			: await baseDatos.obtieneTodosPorCondicion("encabezados", condicion, includesAdics);
+
+		// Fin
+		return {encabezados, esExpers, esConIndice};
 	},
 	titulosElabs: function ({tema_id, encabezados}) {
 		// Variables
