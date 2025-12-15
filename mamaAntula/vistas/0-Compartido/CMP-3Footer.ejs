@@ -9,13 +9,13 @@
 	</a>
 
 	<!-- Videos -->
-	<a href="/videos" class="menuOpcion" title="Videos de capacitación">
+	<a href="/videos" title="Videos de capacitación" class="ocultar768">
 		<i class="fa-solid fa-video"></i>
 	</a>
 
 	<% if (locals.usuario && usuario.rol.actualizac) { %>
 		<!-- Biblioteca -->
-		<a href="/biblioteca" class="menuOpcion" title="Biblioteca">
+		<a href="/biblioteca" title="Biblioteca" class="ocultar768">
 			<i class="fa-solid fa-book-medical"></i>
 		</a>
 	<% } %>
@@ -49,6 +49,6 @@
 </div>
 
 <!-- Realizado por -->
- <div class="texto">
+ <div class="texto ocultar768">
 	<a href="mailto:sp2015w@gmail.com">Realizado por D.I.</a>
 </div>
