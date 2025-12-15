@@ -1,7 +1,3 @@
-html {
-	font-size: 18px; /* debe estar en 'html', porque es de donde donde toma referencia el 'rem' */
-
-}
 body {
 	/* Variables */
 	--altoHeader: clamp(52px, calc(var(--alturaViewPort) * 0.08), 60px);

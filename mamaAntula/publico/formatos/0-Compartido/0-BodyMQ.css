@@ -1,5 +1,10 @@
+html {
+	@media (width >= 768px) {font-size: 18px;} /* debe estar en 'html', porque es de donde donde toma referencia el 'rem' */
+	@media (width < 768px) {font-size: 16px;}
+}
 body {
-	@media (width <= 950px) {
+	@media (width < 768px) {
+		footer {.ocultar768 {display: none;}}
 	}
 	/* Acostados */
 	@media (orientation: landscape) {
