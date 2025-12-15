@@ -1,5 +1,21 @@
 @media (width > 1200px) {
-
+	header {
+		#izquierda {
+			padding-left: 30px;
+			a {font-size: 1.5rem;}
+			h4 {font-size: 0.79rem;}
+		}
+		#centro {font-size: 1.2rem;}
+		#derecha {margin-right: 20px;}
+		#busquedaRapida {
+			i.mostrarClick {font-size: 1.2rem;}
+			.formatoBusq {
+				input {padding: 4px 5px; font-size: 1rem;}
+				#muestraResultados {font-size: 0.9rem; }
+			}
+			#escribiMas {font-size: 0.9rem;}
+		}
+	}
 }
 @media (width <= 1200px) {
 	header {
@@ -8,7 +24,7 @@
 			a {font-size: 1.25rem;}
 			h4 {font-size: 0.7rem;}
 		}
-		#centro {font-size: 1rem;}
+		#centro {font-size: 1.1rem;}
 		#derecha {margin-right: 15px;}
 	}
 }

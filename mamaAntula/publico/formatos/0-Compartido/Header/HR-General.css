@@ -1,20 +1,18 @@
 header {
 	#izquierda {
-		padding-left: 30px; text-wrap: nowrap;
-		a {font-size: 1.5rem; font-weight: bold;}
-		h4 {font-style: italic; font-weight: normal; font-size: 0.79rem;}
+		text-wrap: nowrap;
+		a {font-weight: bold;}
+		h4 {font-style: italic; font-weight: normal;}
 	}
 
 	#centro {
-		flex-grow: 1;
-		justify-content: space-evenly;
-		font-size: 1.2rem;
+		flex-grow: 1; justify-content: space-evenly;
 		& > .resaltar {color: var(--amarilloClaro); font-weight: bold;}
 	}
 
 	#derecha {
 		position: relative; justify-content: center;
-		margin-right: 20px; width: calc(0.7 * var(--altoHeader)); height: calc(0.7 * var(--altoHeader));
+		width: calc(0.7 * var(--altoHeader)); height: calc(0.7 * var(--altoHeader));
 		line-height: 0; color: var(--colorMain);
 
 		#menuLogin, #menuLogout {

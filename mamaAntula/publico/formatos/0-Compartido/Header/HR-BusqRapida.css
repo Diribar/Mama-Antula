@@ -1,18 +1,17 @@
 header #busquedaRapida {
 	position: relative;
-	i.mostrarClick {font-size: 1.2rem; cursor: pointer;}
+	i.mostrarClick {cursor: pointer;}
 
 	.formatoBusq {
 		position: absolute; right: -7px; top: -3px; translate: 100%;
-		color: var(--grisOscuro); pointer-events: none;
+		color: var(--grisOscuro); pointer-events: none; z-index: 1;
 		input, #muestraResultados {border: 1px solid var(--azulOscuro); border-radius: 5px; pointer-events: auto;}
 		input, #escribiMas {width: 220px;}
-		input {padding: 4px 5px; font-size: 1rem;}
 
 		/* Opciones de #muestraResultados */
 		#muestraResultados {
 			border-top-left-radius: 0; overflow: auto; max-height: var(--altoCuerpo);
-			font-size: 0.9rem; width: max-content; min-width: 100%;
+			width: max-content; min-width: 100%;
 			&:empty {display: none;}
 			&:not(:empty) {display: flex; flex-direction: column;}
 			& > :is(a, div) {padding-inline: 5px 10px; width: 100%; line-height: 1.5;}
@@ -31,7 +30,7 @@ header #busquedaRapida {
 		}
 		#escribiMas {
 			background: var(--grisClaro); padding: 2px 7px; border-radius: 5px; border: var(--grisOscuro) 1px solid;
-			font-style: italic; font-size: 0.9rem;
+			font-style: italic;
 		}
 
 		/* Condicional */
