@@ -1,12 +1,18 @@
-@media (width > 1200px) {
-	header {
-		#izquierda {
-			padding-left: 30px;
+html {
+	/* el font-size debe estar en 'html', porque es de donde donde toma referencia el 'rem' */
+	@media (1280px < width) {font-size: 18px;}
+	@media (768px < width <= 1280px) {font-size: 16px;}
+	@media (width <= 768px) {font-size: 14px;}
+}
+header {
+	@media (width > 1024px) {
+		--gapHeader: 30px;
+		.mobile {display: none;}
+		#familia {
 			a {font-size: 1.5rem;}
 			h4 {font-size: 0.79rem;}
 		}
-		#centro {font-size: 1.2rem;}
-		#derecha {margin-right: 20px;}
+		#secciones {font-size: 1.2rem;}
 		#busquedaRapida {
 			i.mostrarClick {font-size: 1.2rem;}
 			.formatoBusq {
@@ -16,25 +22,31 @@
 			#escribiMas {font-size: 0.9rem;}
 		}
 	}
-}
-@media (width <= 1200px) {
-	header {
-		#izquierda {
-			padding-left: 20px;
+	@media (width <= 1024px) {
+		--gapHeader: 20px;
+
+		/* Oden */
+		#mobile {order: 1;}
+		#secciones {order: 2;}
+		#familia {order: 3;}
+		#usuario {order: 4;}
+
+		#familia {
 			a {font-size: 1.25rem;}
-			h4 {font-size: 0.7rem;}
+			h4 {font-size: 0.65rem;}
 		}
-		#centro {font-size: 1.1rem;}
-		#derecha {margin-right: 15px;}
+		#secciones {font-size: 1.1rem;}
+		#busquedaRapida {
+			i.mostrarClick {font-size: 1rem;}
+			.formatoBusq {
+				input {padding: 4px 5px; font-size: .85rem;}
+				#muestraResultados {font-size: 0.8rem; }
+			}
+			#escribiMas {font-size: 0.8rem;}
+		}
 	}
 }
-@media (width >= 768px) {
-	html {font-size: 18px;} /* debe estar en 'html', porque es de donde donde toma referencia el 'rem' */
-}
-@media (width < 768px) {
-	html {font-size: 16px;} /* debe estar en 'html', porque es de donde donde toma referencia el 'rem' */
-	footer {.ocultar768 {display: none;}}
-}
+footer {@media (width <= 768px) {.ocultar768 {display: none;}}}
 body {
 	/* Acostados */
 	@media (orientation: landscape) {

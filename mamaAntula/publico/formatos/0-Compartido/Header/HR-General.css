@@ -1,16 +1,16 @@
 header {
-	#izquierda {
+	#familia {
 		text-wrap: nowrap;
 		a {font-weight: bold;}
 		h4 {font-style: italic; font-weight: normal;}
 	}
 
-	#centro {
-		flex-grow: 1; justify-content: space-evenly;
+	#secciones {
+		flex-grow: 1; justify-content: space-between;
 		& > .resaltar {color: var(--amarilloClaro); font-weight: bold;}
 	}
 
-	#derecha {
+	#usuario {
 		position: relative; justify-content: center;
 		width: calc(0.7 * var(--altoHeader)); height: calc(0.7 * var(--altoHeader));
 		line-height: 0; color: var(--colorMain);
