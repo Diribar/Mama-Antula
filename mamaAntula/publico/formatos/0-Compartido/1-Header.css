@@ -5,6 +5,10 @@ header {
 	height: var(--altoHeader); max-height: var(--altoHeader);
 	background: var(--fondoHeader); color: var(--colorHeader);
 	z-index: 1;
+
+	i.mostrarClick {cursor: pointer; color: var(--grisClaro);}
+	i.mostrarClick {font-size: 1.4rem;}
+
 }
 
 /* Fuente */

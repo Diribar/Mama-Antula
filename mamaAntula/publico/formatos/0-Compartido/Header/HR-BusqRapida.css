@@ -1,6 +1,5 @@
 header #busquedaRapida {
 	position: relative;
-	i.mostrarClick {cursor: pointer;}
 
 	.formatoBusq {
 		position: absolute; right: -7px; top: -3px; translate: 100%;

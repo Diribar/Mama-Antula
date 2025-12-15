@@ -1,56 +1,7 @@
 <i class="<%= iconos.faSolid %> fa-bars mostrarClick iconoHeader"></i>
-<div id="menuMobile" class="mostrarToggle menuForm menuFondo ocultar">
-	<% if (locals.tema != "consultas") { %>
-		<!-- Inicio -->
-		<a href="/" class="menuOpcion">
-			<i class="<%= iconos.faSolid %> icono <%= iconos.hogar %>"></i>
-			<span>Inicio</span>
+<div id="menu" class="mostrarToggle menuForm ocultar">
+	<% for (const seccion of seccionesLectura) { %>
+		<a href="/<%= seccion.url %>" class="menuOpcion"><%= seccion.nombre %>
 		</a>
-		<hr />
-	<% } %>
-	<!-- Búsqueda rápida -->
-	<div class="menuOpcion mmBR soloPortrait">
-		<i class="<%= iconos.faSolid %> icono fa-magnifying-glass mmBR"></i>
-		<span class="mmBR">Búsqueda rápida</span>
-	</div>
-	<hr class="soloPortrait" />
-
-	<% if (locals.tema != "institucional") { %>
-		<!-- Quiénes somos -->
-		<a href="/institucional/bienvenida" class="menuOpcion">
-			<i class="<%= iconos.faSolid %> icono <%= iconos.instituc %>"></i>
-			<span>Institucional</span>
-		</a>
-		<hr />
-	<% } %>
-	<% if (locals.usuario && usuario.rol.revisorEnts) { %>
-		<!-- Movimientos del Día -->
-		<a href="/movimientos-del-dia" class="menuOpcion">
-			<i class="<%= iconos.faSolid %> icono <%= iconos.detalle %>"></i>
-			<span>Movimientos del día</span>
-		</a>
-		<hr />
-
-		<!-- Select Gráficos -->
-		<div class="flexRow menuOpcion mmSG">
-			<label for="selectGraficos" class="mmSG">
-				<i class="<%= iconos.faSolid %> <%= iconos.graficos %> icono"></i>
-			</label>
-			<select
-				id="selectGraficos"
-				class="mmSG"
-				onchange="location = this.value; document.querySelector('#menuMobile').classList.add('ocultar');"
-			>
-				<option id="graficos" selected class="ocultar">Gráficos</option>
-				<% for (const codigo in graficos) { %>
-				<option value="/graficos/<%= graficos[codigo].url %>"><%= graficos[codigo].titulo %></option>
-				<% } %>
-			</select>
-		</div>
-		<hr />
-		<!-- Tablero de Revisión -->
-		<a href="/revision/tablero" class="menuOpcion">
-			<i class="<%= iconos.faSolid %> icono <%= iconos.revision %>"></i>
-			<span>Tablero de Revisión</span>
 	<% } %>
 </div>
