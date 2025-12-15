@@ -26,14 +26,16 @@ header {
 	}
 	@media (width <= 1024px) {
 		/* Oden */
-		#mobile {order: 1;}
-		#busquedaRapida {order: 2;}
-		#familia {order: 3;}
-		#usuario {order: 4;}
+		#mmBr {order: 1;}
+		#familia {order: 2;}
+		#usuario {order: 3;}
 
 		#familia {
 			a {font-size: 1.5rem;}
 			h4 {font-size: 0.79rem;}
+		}
+		#mmBr {
+			display: flex; flex-direction: row; align-items: center; gap: var(--gapHeader);
 		}
 		#busquedaRapida {
 			i.mostrarClick {font-size: 1rem;}
