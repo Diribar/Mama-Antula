@@ -6,7 +6,14 @@ header {
 	background: var(--fondoHeader); color: var(--colorHeader);
 	z-index: 1;
 
-	i.mostrarClick {cursor: pointer; color: var(--grisClaro);}
-	i.mostrarClick {font-size: 1.4rem;}
-
+	.formIconoMenu {
+		position: relative;
+		i.mostrarClick {cursor: pointer; color: var(--grisClaro); font-size: 1.4rem;}
+		.menuForm {
+			position: absolute; bottom: 0; translate: 0 100%;
+			border-radius: 5px; font-size: 0.8rem;
+			display: flex; flex-direction: column;
+			background-color: var(--amarilloClaro);
+		}
+	}
 }

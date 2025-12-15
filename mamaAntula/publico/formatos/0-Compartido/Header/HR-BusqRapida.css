@@ -1,38 +1,34 @@
-header #busquedaRapida {
-	position: relative;
+header #busquedaRapida .formatoBusq {
+	position: absolute; right: -7px; top: -3px; translate: 100%;
+	color: var(--grisOscuro); pointer-events: none; z-index: 1;
+	input, #muestraResultados {border: 1px solid var(--azulOscuro); border-radius: 5px; pointer-events: auto;}
+	input, #escribiMas {width: 220px;}
 
-	.formatoBusq {
-		position: absolute; right: -7px; top: -3px; translate: 100%;
-		color: var(--grisOscuro); pointer-events: none; z-index: 1;
-		input, #muestraResultados {border: 1px solid var(--azulOscuro); border-radius: 5px; pointer-events: auto;}
-		input, #escribiMas {width: 220px;}
-
-		/* Opciones de #muestraResultados */
-		#muestraResultados {
-			border-top-left-radius: 0; overflow: auto; max-height: var(--altoCuerpo);
-			width: max-content; min-width: 100%;
-			&:empty {display: none;}
-			&:not(:empty) {display: flex; flex-direction: column;}
-			& > :is(a, div) {padding-inline: 5px 10px; width: 100%; line-height: 1.5;}
-			ul li {
-				padding-inline: 15px 10px; width: 100%; line-height: 1.2;
-				list-style-position: inside; margin-left: 0;
-			}
-
-
-			/* Variantes */
-			.colorClaro {background: snow;}
-			.colorOscuro {background: var(--celesteClaro);}
-			.ruta, #sinResultados {font-style: italic; cursor: not-allowed;}
-			.resaltar {background-color: var(--grisOscuro) !important; color: snow;}
-			#sinResultados {text-align: center;}
-		}
-		#escribiMas {
-			background: var(--grisClaro); padding: 2px 7px; border-radius: 5px; border: var(--grisOscuro) 1px solid;
-			font-style: italic;
+	/* Opciones de #muestraResultados */
+	#muestraResultados {
+		border-top-left-radius: 0; overflow: auto; max-height: var(--altoCuerpo);
+		width: max-content; min-width: 100%;
+		&:empty {display: none;}
+		&:not(:empty) {display: flex; flex-direction: column;}
+		& > :is(a, div) {padding-inline: 5px 10px; width: 100%; line-height: 1.5;}
+		ul li {
+			padding-inline: 15px 10px; width: 100%; line-height: 1.2;
+			list-style-position: inside; margin-left: 0;
 		}
 
-		/* Condicional */
-		&:not(:has(#muestraResultados.ocultar)) input {border-bottom-left-radius: 0; border-bottom-right-radius: 0;}
+
+		/* Variantes */
+		.colorClaro {background: snow;}
+		.colorOscuro {background: var(--celesteClaro);}
+		.ruta, #sinResultados {font-style: italic; cursor: not-allowed;}
+		.resaltar {background-color: var(--grisOscuro) !important; color: snow;}
+		#sinResultados {text-align: center;}
 	}
+	#escribiMas {
+		background: var(--grisClaro); padding: 2px 7px; border-radius: 5px; border: var(--grisOscuro) 1px solid;
+		font-style: italic;
+	}
+
+	/* Condicional */
+	&:not(:has(#muestraResultados.ocultar)) input {border-bottom-left-radius: 0; border-bottom-right-radius: 0;}
 }

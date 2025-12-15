@@ -4,10 +4,10 @@
 </section>
 
 <section id="mmBr">
-	<div id="menuMobile" class="mobile">
+	<div id="menuMobile" class="mobile formIconoMenu">
 		<%- include("CMP-HR-MenuMobile") %>
 	</div>
-	<div id="busquedaRapida">
+	<div id="busquedaRapida" class="formIconoMenu">
 		<%- include("CMP-HR-BusqRapida") %>
 	</div>
 </section>
@@ -19,7 +19,7 @@
 	<% } %>
 </section>
 
-<section id="usuario" class="flexColAlign">
+<section id="usuario" class="formIconoMenu">
 	<% if (!locals.usuario) { %><%- include("CMP-HR-Login") %>
 	<% } else { %><%- include("CMP-HR-Logout") %>
 	<% } %>
