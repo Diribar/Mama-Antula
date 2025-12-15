@@ -12,7 +12,7 @@ header #busquedaRapida #formatoBr {
 		font-size: 0.9rem;
 		&:empty {display: none;}
 		&:not(:empty) {display: flex; flex-direction: column;}
-		& > :is(a, div), ul li {line-height: max(1.5em, 20px); max-width: calc(99vw - var(--posicionBuscador));}
+		& > :is(a, div), ul li {padding-block: 5px; max-width: calc(99vw - var(--posicionBuscador));}
 		& > :is(a, div) {padding-inline: 5px 10px; width: 100%;}
 		ul li {
 			list-style: none; position: relative;

@@ -31,9 +31,10 @@ header {
 	}
 	@media (width <= 400px) {
 		justify-content: space-around !important;
-		#busquedaRapida {
+		#mmBr #busquedaRapida {
+			--posicionBuscador: 70px;
 			#iconoBr {display: none;}
-			#formatoBr {left: 0; top: -12px;}
+			#formatoBr {left: 3px; top: -14px;}
 		}
 
 	}
