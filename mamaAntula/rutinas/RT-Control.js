@@ -76,6 +76,25 @@ export default {
 			// Fin
 			return;
 		},
+		eliminaEncabsErroneos: async () => {
+			// Obtiene los temas con sus encabezados e indices
+			const temas = await baseDatos.obtieneTodos("temasSecciones", ["encabezados", "indicesFecha", "indicesDevoc"]);
+
+			// Recorre los temas
+			for (const tema of temas) {
+				// Se fija qué temas tienen varios encabezados y no tienen indices
+				if (tema.encabezados.length > 1 && !tema.indicesFecha.length && !tema.indicesDevoc.length) {
+					// Obtiene el encabezado más antiguo
+					const encab = tema.encabezados.sort((a, b) => new Date(a.creadoEn) - new Date(b.creadoEn))[0];
+
+					// Elimina los demás encabezados del tema
+					await baseDatos.eliminaPorCondicion("encabezados", {tema_id: tema.id, id: {[Op.ne]: encab.id}});
+				}
+			}
+
+			// Fin
+			return;
+		},
 	},
 
 	// Rutinas semanales
