@@ -1,5 +1,11 @@
 <i class="<%= iconos.faSolid %> fa-bars mostrarClick iconoHeader"></i>
-<div id="menuSecciones" class="mostrarToggle menuForm ocultar">
+<div id="menuMobile" class="mostrarToggle menuForm ocultar">
+	<div class="menuOpcion brMobile">
+		<i class="<%= iconos.faSolid %> icono fa-magnifying-glass brMobile"></i>
+		<span class="brMobile">Búsqueda rápida</span>
+	</div>
+	<hr class="brMobile" />
+
 	<% for (const seccion of seccionesLectura) { %>
 		<a href="/<%= seccion.url %>" class="menuOpcion"><%= seccion.nombre %></a>
 	<% } %>
