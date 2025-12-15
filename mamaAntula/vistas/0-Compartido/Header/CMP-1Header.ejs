@@ -1,22 +1,18 @@
-<section id="izquierda" class="flexRowAlign">
-
-	<div id="tituloSitio">
-		<a href="/">Familia Mama Antula</a>
-		<h4>María Antonia de San José Paz y Figueroa</h4>
-	</div>
-
-	<div id="centro">
-		<!-- Búsqueda rápida -->
-		<%- include("CMP-HR-BusqRapida") %>
-
-		<!-- Secciones -->
-		<% for (const seccion of seccionesLectura) { %>
-			<a href="/<%= seccion.url %>" <% if (seccion.nombre == locals.tituloPagina) { %> class="resaltar"<% } %>><%= seccion.nombre %></a>
-		<% } %>
-	</div>
+<section id="izquierda">
+	<a href="/">Familia Mama Antula</a>
+	<h4>María Antonia de San José Paz y Figueroa</h4>
 </section>
 
-<!-- Íconos de la derecha -->
+<section id="centro" class="flexRowAlign">
+	<!-- Búsqueda rápida -->
+	<%- include("CMP-HR-BusqRapida") %>
+
+	<!-- Secciones -->
+	<% for (const seccion of seccionesLectura) { %>
+		<a href="/<%= seccion.url %>" <% if (seccion.nombre == locals.tituloPagina) { %> class="resaltar"<% } %>><%= seccion.nombre %></a>
+	<% } %>
+</section>
+
 <section id="derecha" class="flexColAlign">
 	<% if (!locals.usuario) { %><%- include("CMP-HR-Login") %>
 	<% } else { %><%- include("CMP-HR-Logout") %>
