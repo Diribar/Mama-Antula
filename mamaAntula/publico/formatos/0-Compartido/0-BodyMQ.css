@@ -1,11 +1,15 @@
-html {
-	@media (width >= 768px) {font-size: 18px;} /* debe estar en 'html', porque es de donde donde toma referencia el 'rem' */
-	@media (width < 768px) {font-size: 16px;}
+@media (width >= 768px) {
+	html {font-size: 18px;} /* debe estar en 'html', porque es de donde donde toma referencia el 'rem' */
 }
-body {
-	@media (width < 768px) {
+
+@media (width < 768px) {
+	html {font-size: 16px;} /* debe estar en 'html', porque es de donde donde toma referencia el 'rem' */
+	body {
+
 		footer {.ocultar768 {display: none;}}
 	}
+}
+body {
 	/* Acostados */
 	@media (orientation: landscape) {
 		--alturaViewPort: 100vh;
