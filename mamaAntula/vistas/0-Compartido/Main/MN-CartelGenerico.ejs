@@ -32,7 +32,11 @@
 			<% } %>
 		</div>
 		<% if (informacion.reload) { %>
-			<button onclick="location.reload()">Entendido</button>
+			<button
+				onclick="location.reload();"
+				onkeydown="if (event.key) location.reload();"
+				autofocus tabindex="-1"
+			>Entendido</button>
 		<% } %>
 	</div>
 </section>
