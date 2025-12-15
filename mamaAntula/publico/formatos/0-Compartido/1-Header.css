@@ -10,6 +10,3 @@ header {
 	i.mostrarClick {font-size: 1.4rem;}
 
 }
-
-/* Fuente */
-@font-face {font-family: MTCORSVA; src: url('MTCORSVA.TTF') format('truetype');}
