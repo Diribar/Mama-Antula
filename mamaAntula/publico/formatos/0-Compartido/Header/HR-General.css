@@ -11,9 +11,8 @@ header {
 	}
 
 	#usuario {
-		position: relative;
-		max-width: calc(0.7 * var(--altoHeader)); max-height: calc(0.7 * var(--altoHeader));
-		line-height: 0; color: var(--colorMain);
+		max-width: calc(0.7 * var(--altoHeader));
+		max-height: calc(0.7 * var(--altoHeader));
 
 		/* Login */
 		#menuLogin {
@@ -48,12 +47,8 @@ header {
 		/* Logout */
 		img#imagenUsuario {max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 50%;}
 		#menuLogout {
-			width: max-content; right: 0;
-			.menuOpcion {
-				display: flex; flex-direction: row; align-items: center; gap: 10px;
-				cursor: pointer; padding: 5px 10px;
-				&:hover {background-color: var(--amarilloOscuro); color: inherit;}
-			}
+			right: 0;
+			.menuOpcion {display: flex; flex-direction: row; align-items: center; gap: 10px;}
 		}
 	}
 }
