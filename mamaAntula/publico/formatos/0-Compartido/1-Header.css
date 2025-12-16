@@ -1,10 +1,12 @@
 /* Configuración general */
 header {
 	display: flex; flex-direction: row; align-items: center; flex-grow: 1;
+	justify-content: space-between; gap: var(--gapHeader); padding-inline: var(--gapHeader);
 	height: var(--altoHeader); max-height: var(--altoHeader);
 	background: var(--fondoHeader); color: var(--colorHeader);
 	z-index: 1;
-}
 
-/* Fuente */
-@font-face {font-family: MTCORSVA; src: url('MTCORSVA.TTF') format('truetype');}
+	i.mostrarClick {cursor: pointer; color: var(--grisClaro);}
+	i.mostrarClick {font-size: 1.4rem;}
+
+}

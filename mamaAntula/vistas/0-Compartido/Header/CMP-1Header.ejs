@@ -1,23 +1,25 @@
-<section id="izquierda" class="flexRowAlign">
+<section id="familia">
+	<a href="/">Familia Mama Antula</a>
+	<h4>María Antonia de San José Paz y Figueroa</h4>
+</section>
 
-	<div id="tituloSitio">
-		<a href="/">Familia Mama Antula</a>
-		<h4>María Antonia de San José Paz y Figueroa</h4>
+<section id="mmBr">
+	<div id="menuMobile" class="mobile">
+		<%- include("CMP-HR-MenuMobile") %>
 	</div>
-
-	<div id="centro">
-		<!-- Búsqueda rápida -->
+	<div id="busquedaRapida">
 		<%- include("CMP-HR-BusqRapida") %>
-
-		<!-- Secciones -->
-		<% for (const seccion of seccionesLectura) { %>
-			<a href="/<%= seccion.url %>" <% if (seccion.nombre == locals.tituloPagina) { %> class="resaltar"<% } %>><%= seccion.nombre %></a>
-		<% } %>
 	</div>
 </section>
 
-<!-- Íconos de la derecha -->
-<section id="derecha" class="flexColAlign">
+<!-- Secciones -->
+<section id="secciones" class="flexRowAlign">
+	<% for (const seccion of seccionesLectura) { %>
+		<a href="/<%= seccion.url %>" <% if (seccion.nombre == locals.tituloPagina) { %> class="resaltar"<% } %>><%= seccion.nombre %></a>
+	<% } %>
+</section>
+
+<section id="usuario" class="flexColAlign">
 	<% if (!locals.usuario) { %><%- include("CMP-HR-Login") %>
 	<% } else { %><%- include("CMP-HR-Logout") %>
 	<% } %>

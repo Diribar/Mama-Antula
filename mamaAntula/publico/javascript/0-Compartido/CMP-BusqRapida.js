@@ -101,6 +101,7 @@ window.addEventListener("load", () => {
 		// Generar las condiciones para mostrar los 'muestraResultados'
 		localStorage.setItem("busqRapida", palabras);
 		posicion = 0;
+		color = null;
 
 		// Oculta el cartel de "escribí más"
 		DOM.escribiMas.classList.add("ocultar");
