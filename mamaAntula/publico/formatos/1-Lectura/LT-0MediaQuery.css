@@ -6,6 +6,10 @@
 		.bloque-textoImagen .imgLeyenda {float: right; margin-left: 30px; max-width: max(33%, 350px);}
 		#aumentaDisminuye {display: none;}
 		#filtroIndice, #filtroIndice * {max-width: 100%;}
+		#filtroIndice {
+			.encabezados {margin-inline: 10px;}
+			ul {list-style-type: none; li {margin-left: 0;}}
+		}
 	}
 	@media (width <= 1000px) {
 		--anchoIndice: 140px; --margenIzq: 0px;
@@ -16,6 +20,8 @@
 			background-color: var(--grisMuyClaro);
 			border-top-right-radius: 20px; border-bottom-right-radius: 20px;
 			&.aumentaX {padding-right: 10px;}
+
+			ul {list-style-type: disc;}
 		}
 	}
 }

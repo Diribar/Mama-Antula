@@ -2,7 +2,7 @@
 	position: absolute;
 	display: flex; flex-direction: row; align-items: center;
 	height: 100%;
-	width: 80vw; pointer-events: none;
+	width: 90vw; pointer-events: none;
 	* {pointer-events: auto;}
 
 	i#aumentaDisminuye {
@@ -40,8 +40,8 @@
 				display: flex; flex-direction: column; align-items: flex-start;
 				.encabezados {
 					display: flex; flex-direction: column; justify-content: flex-start;
-					margin-inline: 10px 15px;
-					a {line-height: 1.2; align-self: flex-start;}
+					li, a {line-height: 1; align-self: flex-start;}
+					li {margin-bottom: 6px;}
 				}
 			}
 		}
@@ -58,6 +58,7 @@
 		#indice {
 			align-self: flex-start;
 			max-height: 400px; overflow-y: auto;
+			max-width: 100%;
 			&:not(:has(> :not(.ocultar))) {display: none;}
 
 			/* Scroll-bar */

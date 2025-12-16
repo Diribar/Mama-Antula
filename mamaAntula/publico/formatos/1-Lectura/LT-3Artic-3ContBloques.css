@@ -93,6 +93,7 @@
 		iframe {height: 340px; width: auto; aspect-ratio: 16 / 9;}
 	}
 	.bloque-libro {
+		img {display: block; margin-inline: auto;}
 		.texto {
 			max-width: 285px; padding-block: 6px;
 			* {line-height: 1.2;}
