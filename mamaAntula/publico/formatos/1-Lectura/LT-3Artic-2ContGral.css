@@ -7,8 +7,9 @@
 	background-color: var(--grisMuyClaroFondo);
 	border-radius: 20px;
 	padding-inline: min(20px, 3vw);
+	--margenIzq: calc(var(--anchoIndice) + var(--anchoMargen));
 
-	&:has(#filtroIndice) #tituloMasContenido {--margenIzq: 210px; margin-left: var(--margenIzq); max-width: calc(100% - var(--margenIzq));}
+	&:has(#filtroIndice) #tituloMasContenido {margin-left: var(--margenIzq); max-width: calc(100% - var(--margenIzq));}
 	&:not(:has(#filtroIndice)) #tituloMasContenido {max-width: 100%;}
 
 	#tituloMasContenido {
