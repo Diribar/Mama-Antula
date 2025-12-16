@@ -96,7 +96,11 @@ window.addEventListener("load", () => {
 		DOM.input.value = palabras;
 
 		// Acciones si la palabra tiene menos de 3 caracteres significativos
-		if (palabras.length < 3) return DOM.escribiMas.classList.remove("ocultar"); // Muestra el cartel de "escribí más"
+		if (palabras.length < 3) {
+			DOM.muestraResultados.innerHTML = "";
+			DOM.escribiMas.classList[palabras.length ? "remove" : "add"]("ocultar");
+			return;
+		}
 
 		// Generar las condiciones para mostrar los 'muestraResultados'
 		localStorage.setItem("busqRapida", palabras);

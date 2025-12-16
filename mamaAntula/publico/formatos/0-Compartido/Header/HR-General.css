@@ -1,11 +1,13 @@
 header {
 	#familia {
 		text-wrap: nowrap;
-		a {font-weight: bold;}
-		h4 {font-style: italic; font-weight: normal;}
+		a {font-weight: bold; font-size: 1.5rem;}
+		h4 {font-style: italic; font-weight: normal; font-size: 0.79rem;}
+
 	}
 
 	#secciones {
+		font-size: 1.2rem;
 		flex-grow: 1; justify-content: space-between;
 		& > .resaltar {color: var(--amarilloClaro); font-weight: bold;}
 	}

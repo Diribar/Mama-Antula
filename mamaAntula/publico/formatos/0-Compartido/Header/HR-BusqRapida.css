@@ -1,21 +1,25 @@
-header #busquedaRapida .formatoBusq {
-	position: absolute; right: -7px; top: -3px; translate: 100%;
+header #busquedaRapida #formatoBr {
+	position: absolute;
 	color: var(--grisOscuro); pointer-events: none; z-index: 1;
 	input, #muestraResultados {border: 1px solid var(--azulOscuro); border-radius: 5px; pointer-events: auto;}
 	input, #escribiMas {width: 220px;}
+	input {padding: 4px 5px; font-size: 1rem;}
 
 	/* Opciones de #muestraResultados */
 	#muestraResultados {
 		border-top-left-radius: 0; overflow: auto; max-height: var(--altoCuerpo);
 		width: max-content; min-width: 100%;
+		font-size: 0.9rem;
 		&:empty {display: none;}
 		&:not(:empty) {display: flex; flex-direction: column;}
-		& > :is(a, div) {padding-inline: 5px 10px; width: 100%; line-height: 1.5;}
+		& > :is(a, div), ul li {padding-block: 5px; max-width: calc(99vw - var(--posicionBuscador));}
+		& > :is(a, div) {padding-inline: 5px 10px; width: 100%;}
 		ul li {
-			padding-inline: 15px 10px; width: 100%; line-height: 1.2;
-			list-style-position: inside; margin-left: 0;
+			list-style: none; position: relative;
+			padding-inline: 20px 10px; width: 100%;
+			margin-left: 0;
+			&::before {content: "•"; position: absolute; left: 10px;}
 		}
-
 
 		/* Variantes */
 		.colorClaro {background: snow;}
@@ -26,7 +30,7 @@ header #busquedaRapida .formatoBusq {
 	}
 	#escribiMas {
 		background: var(--grisClaro); padding: 2px 7px; border-radius: 5px; border: var(--grisOscuro) 1px solid;
-		font-style: italic;
+		font-style: italic; font-size: 0.9rem;
 	}
 
 	/* Condicional */

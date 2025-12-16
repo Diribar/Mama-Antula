@@ -8,19 +8,10 @@ header {
 	@media (width > 1100px) {--gapHeader: 30px;}
 	@media (width <= 1100px) {--gapHeader: 20px;}
 	@media (width <= 1024px) {--gapHeader: 30px;}
+	@media (width <= 450px) {--gapHeader: 20px;}
+	@media (width <= 400px) {--gapHeader: 0px;}
 	@media (width > 1024px) {
-		#familia {
-			a {font-size: 1.5rem;}
-			h4 {font-size: 0.79rem;}
-		}
-		#secciones {font-size: 1.2rem;}
-		#busquedaRapida {
-			.formatoBusq {
-				input {padding: 4px 5px; font-size: 1rem;}
-				#muestraResultados {font-size: 0.9rem; }
-			}
-			#escribiMas {font-size: 0.9rem;}
-		}
+		#busquedaRapida {--posicionBuscador: 200px;}
 		.mobile {display: none;}
 	}
 	@media (width <= 1024px) {
@@ -28,22 +19,24 @@ header {
 		#mmBr {order: 1;}
 		#familia {order: 2;}
 		#usuario {order: 3;}
-
-		#familia {
-			a {font-size: 1.5rem;}
-			h4 {font-size: 0.79rem;}
-		}
 		#mmBr {
 			display: flex; flex-direction: row; align-items: center; gap: var(--gapHeader);
-			#busquedaRapida {
-				.formatoBusq {
-					input {padding: 4px 5px; font-size: .85rem;}
-					#muestraResultados {font-size: 0.8rem; }
-				}
-				#escribiMas {font-size: 0.8rem;}
-			}
+			#busquedaRapida {--posicionBuscador: 120px;}
 		}
 		#secciones {display: none;}
+	}
+	@media (400px < width) {
+		.brMobile {display: none;}
+		#busquedaRapida #formatoBr {right: -7px; top: -3px; translate: 100%;}
+	}
+	@media (width <= 400px) {
+		justify-content: space-around !important;
+		#mmBr #busquedaRapida {
+			--posicionBuscador: 70px;
+			#iconoBr {display: none;}
+			#formatoBr {left: 3px; top: -14px;}
+		}
+
 	}
 }
 footer {@media (width <= 768px) {.ocultar768 {display: none;}}}
