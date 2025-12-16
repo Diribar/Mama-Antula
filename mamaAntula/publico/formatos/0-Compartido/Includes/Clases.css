@@ -37,3 +37,4 @@
 .girar90 {rotate: 90deg;}
 .imgOnTop {z-index: 1;}
 .scaleHover:hover {scale: 1.25;}
+i.mostrarClick {cursor: pointer; font-size: 1.4rem;}

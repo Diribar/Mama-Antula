@@ -22,5 +22,4 @@ body, * {margin: 0px; padding: 0; box-sizing: border-box !important;}
 body * {
 	font-family: 'Calibri', 'Trebuchet MS', 'sans-serif'; color: inherit;
 	&:focus {outline-color: gray;}
-	i.mostrarClick {cursor: pointer; font-size: 1.4rem;}
 }
