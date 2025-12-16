@@ -40,7 +40,10 @@ header {
 
 	}
 }
-footer {@media (width <= 768px) {.ocultar768 {display: none;}}}
+footer {
+	@media (width <= 768px) {.ocultar768 {display: none;}}
+	@media (width <= 480px) {--gapFooter: 10px !important;}
+}
 body {
 	/* Acostados */
 	@media (orientation: landscape) {
