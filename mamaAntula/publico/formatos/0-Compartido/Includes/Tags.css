@@ -39,5 +39,4 @@ a {text-decoration: none; display: inline-flex; align-items: center;}
 a:has(img) {line-height: 0;}
 
 /* Cursor pointer */
-a[href], label[for], input[type="radio"], input[type="checkbox"] {cursor: pointer;}
-a[href] *, label[for] * {cursor: pointer;}
+:where(a[href], label[for], input[type="radio"], input[type="checkbox"], .mostrarClick) {&, & * {cursor: pointer;}}

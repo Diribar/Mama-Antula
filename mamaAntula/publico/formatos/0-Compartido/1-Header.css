@@ -4,9 +4,22 @@ header {
 	justify-content: space-between; gap: var(--gapHeader); padding-inline: var(--gapHeader);
 	height: var(--altoHeader); max-height: var(--altoHeader);
 	background: var(--fondoHeader); color: var(--colorHeader);
-	z-index: 1;
+	z-index: 2;
 
-	i.mostrarClick {cursor: pointer; color: var(--grisClaro);}
-	i.mostrarClick {font-size: 1.4rem;}
+	.formIconoMenu {
+		position: relative; color: var(--colorMain);
+		i.mostrarClick {cursor: pointer; color: var(--grisClaro); font-size: 1.4rem;}
+		.menuForm {
+			position: absolute; bottom: 0; translate: 0 100%;
+			border-radius: 5px; font-size: 0.8rem;
+			display: flex; flex-direction: column;
+			background-color: var(--amarilloClaro);
+			width: max-content;
+			.menuOpcion {
+				padding: 5px 10px;
+				&:hover {background-color: var(--amarilloOscuro); color: inherit;}
 
+			}
+		}
+	}
 }
