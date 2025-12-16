@@ -1,11 +1,7 @@
-#filtroIndice {
+#ladoIzq {
 	position: absolute; top: 10px;
-	display: flex; flex-direction: column; align-items: flex-start; gap: 20px;
-	min-width: var(--anchoIndice);
 	height: 100%;
-	max-width: 90vw;
-	/* overflow-y: hidden; */
-	* {max-width: 100%;}
+	max-width: 80vw;
 
 	i#aumentaDisminuye {
 		position: absolute; top: 50%; right: 0; translate: 100% -50%;
@@ -15,75 +11,74 @@
 		background-color: var(--rojoOscuro); color: snow;
 	}
 
-	/* Tamaños de fuente */
-	#indice, #tituloFiltros {
-		.titulo {font-size: 0.95rem; align-self: flex-start;}
-		.tituloEncabs a, select, .mostrar {font-size: 0.9rem;}
-	}
+	#filtroIndice {
+		display: flex; flex-direction: column; align-items: flex-start; gap: 20px;
+		height: 100%;
+		&, * {max-width: 100%;}
+		#indice, #tituloFiltros {
+			.titulo {font-size: 0.95rem; align-self: flex-start;}
+			.tituloEncabs a, select, .mostrar {font-size: 0.9rem;}
+		}
+		.contenedor {
+			display: flex; flex-direction: column;
+			border: 1px solid var(--rojoOscuro); border-radius: 8px;
+			color: var(--rojoOscuro); background-color: var(--amarilloClaro);
+			padding-block: 10px; padding-inline: 30px 10px;
+			min-width: var(--anchoIndice);
+			width: max-content;
+			&#indice {gap: 5px;}
 
-	.contenedor {
-		display: flex; flex-direction: column;
-		border: 1px solid var(--rojoOscuro); border-radius: 8px;
-		color: var(--rojoOscuro); background-color: var(--amarilloClaro);
-		padding-block: 10px; padding-inline: 30px 10px;
-		min-width: var(--anchoIndice);
-		width: max-content;
-		&#indice {gap: 5px;}
-
-		.titulo {
-			position: relative; cursor: pointer;
-			.mostrar {
-				position: absolute; left: -5px; top: 50%; translate: -90% -50%;
-				cursor: pointer;
-				&.girar {transform: rotate(90deg);}
+			.titulo {
+				position: relative; cursor: pointer;
+				.mostrar {
+					position: absolute; left: -5px; top: 50%; translate: -90% -50%;
+					cursor: pointer;
+					&.girar {transform: rotate(90deg);}
+				}
+			}
+			.tituloEncabs {
+				display: flex; flex-direction: column; align-items: flex-start;
+				.encabezados {
+					display: flex; flex-direction: column; justify-content: flex-start;
+					margin-inline: 10px 15px;
+					a {line-height: 1.2; align-self: flex-start;}
+				}
 			}
 		}
-		.tituloEncabs {
-			display: flex; flex-direction: column; align-items: flex-start;
-			.encabezados {
-				display: flex; flex-direction: column; justify-content: flex-start;
-				margin-inline: 10px 15px;
-				a {line-height: 1.2; align-self: flex-start;}
+		#tituloFiltros {
+			#filtros {
+				display: flex; flex-direction: row; align-items: center; gap: 20px;
+				select {
+					border-radius: 8px;
+					option.quitarFiltro {display: initial; font-style: italic;}
+					&:has(option:checked[value=""]) option.quitarFiltro {display: none;}
+				}
 			}
 		}
-	}
+		#indice {
+			align-self: flex-start;
+			max-height: 400px; overflow-y: auto;
+			&:not(:has(> :not(.ocultar))) {display: none;}
 
-	#tituloFiltros {
-		#filtros {
-			display: flex; flex-direction: row; align-items: center; gap: 20px;
-			select {
-				border-radius: 8px;
-				option.quitarFiltro {display: initial; font-style: italic;}
-				&:has(option:checked[value=""]) option.quitarFiltro {display: none;}
-			}
+			/* Scroll-bar */
+			&::-webkit-scrollbar {width: 8px;}
+			&::-webkit-scrollbar-thumb {background-color: var(--grisInterm); border-radius: 10px;}
+			&::-webkit-scrollbar-track {background: var(--celesteClaro); border-radius: 10px; margin-block: 2px;}
 		}
-	}
-
-	#indice {
-		align-self: flex-start;
-		max-height: 400px; overflow-y: auto;
-		&:not(:has(> :not(.ocultar))) {display: none;}
-
-		/* Scroll-bar */
-		&::-webkit-scrollbar {width: 8px;}
-		&::-webkit-scrollbar-thumb {background-color: var(--grisInterm); border-radius: 10px;}
-		&::-webkit-scrollbar-track {background: var(--celesteClaro); border-radius: 10px; margin-block: 2px;}
-	}
-
-	#fichaTecnica {
-		flex-grow: 1;
-		display: flex; flex-direction: column; justify-content: center;
-		max-width: var(--anchoIndice);
-		ul {font-size: 0.9rem;}
-	}
-
-	#flechas {
-		display: flex; flex-direction: row; justify-content: space-evenly;
-		width: var(--anchoIndice);
-		margin-bottom: 20px; color: var(--rojoOscuro);
-		i {
-			font-size: 1.5rem; cursor: pointer;
-			&:hover {scale: 1.5;}
+		#fichaTecnica {
+			flex-grow: 1;
+			display: flex; flex-direction: column; justify-content: center;
+			max-width: var(--anchoIndice);
+			ul {font-size: 0.9rem;}
+		}
+		#flechas {
+			display: flex; flex-direction: row; justify-content: space-evenly;
+			width: var(--anchoIndice);
+			margin-bottom: 20px; color: var(--rojoOscuro);
+			i {
+				font-size: 1.5rem; cursor: pointer;
+				&:hover {scale: 1.5;}
+			}
 		}
 	}
 }

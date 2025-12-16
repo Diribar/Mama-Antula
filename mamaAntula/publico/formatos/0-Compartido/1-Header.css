@@ -8,7 +8,7 @@ header {
 
 	.formIconoMenu {
 		position: relative; color: var(--colorMain);
-		i.mostrarClick {cursor: pointer; color: var(--grisClaro); font-size: 1.4rem;}
+		i.mostrarClick {color: var(--grisClaro);}
 		.menuForm {
 			position: absolute; bottom: 0; translate: 0 100%;
 			border-radius: 5px; font-size: 0.8rem;

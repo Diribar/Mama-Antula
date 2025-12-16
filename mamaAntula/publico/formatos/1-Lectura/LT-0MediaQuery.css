@@ -1,7 +1,13 @@
 .contenidoCuerpo {
 	@media (1280px < width) {--anchoIndice: 160px; --anchoMargen: 50px;}
 	@media (width <= 1280px) {--anchoIndice: 150px; --anchoMargen: 40px;}
-	@media (width <= 768px) {--anchoIndice: 140px; --anchoMargen: 0px;}
+	@media (1000px < width) {
+		--margenIzq: calc(var(--anchoIndice) + var(--anchoMargen));
+		.bloque-textoImagen .imgLeyenda {float: right; margin-left: 30px; max-width: max(33%, 350px);}
+	}
 
-	.bloque-textoImagen .imgLeyenda {@media (800px < width) {float: right; margin-left: 30px; max-width: max(33%, 350px);}}
+	@media (width <= 1000px) {
+		--anchoIndice: 140px; --margenIzq: 0px;
+		#filtroIndice {overflow-x: hidden;}
+	}
 }
