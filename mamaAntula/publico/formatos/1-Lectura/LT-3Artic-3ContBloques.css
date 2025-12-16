@@ -90,7 +90,7 @@
 		}
 	}
 	.bloque-video {
-		iframe {height: 340px; width: auto; aspect-ratio: 16 / 9;}
+		iframe {max-height: 340px; width: auto; aspect-ratio: 16 / 9;}
 	}
 	.bloque-libro {
 		img {display: block; margin-inline: auto;}
@@ -102,8 +102,12 @@
 		}
 	}
 	.bloque-estampa {
-		justify-content: flex-end;
-		.titulo {margin-bottom: 6px; align-self: flex-start;}
-		.imagenes {gap: 20px;}
+		justify-content: flex-end; max-width: 100%;
+		.titulo {margin-bottom: 6px;}
+		.imagenes {
+			display: flex; flex-direction: row; flex-wrap: wrap; justify-content: space-around;
+			gap: 20px;
+			img {max-width: 100%; max-height: max-content;}
+		}
 	}
 }
