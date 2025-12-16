@@ -2,9 +2,10 @@
 
 window.addEventListener("load", async () => {
 	// Variables
-	const domFiltroIndice = document.querySelector("#filtroIndice");
 	const DOM = {
-		titulos: domFiltroIndice.querySelectorAll(".titulo"),
+		aumentaDisminuye: document.querySelector("#ladoIzq #aumentaDisminuye"),
+		filtroIndice: document.querySelector("#ladoIzq #filtroIndice"),
+		titulos: document.querySelectorAll("#filtroIndice .titulo"),
 	};
 
 	// Funciones
@@ -22,6 +23,19 @@ window.addEventListener("load", async () => {
 		// Fin
 		return;
 	};
+
+	// Eventos - Muestra/oculta el lado izquierdo
+	DOM.aumentaDisminuye.addEventListener("click", () => {
+		// Ancho de la zona de filtros
+		DOM.filtroIndice.classList.toggle("aumentaX");
+		const esAumentaX = DOM.filtroIndice.classList.contains("aumentaX");
+		DOM.filtroIndice.classList[esAumentaX ? "remove" : "add"]("disminuyeX");
+
+		// Flecha
+		DOM.aumentaDisminuye.classList.toggle("flechaIzq");
+		const esFlechaIzq = DOM.aumentaDisminuye.classList.contains("flechaIzq");
+		DOM.aumentaDisminuye.classList[esFlechaIzq ? "remove" : "add"]("flechaDer");
+	});
 
 	// Eventos - Gira el ícono y muestra/oculta los encabezados
 	for (const titulo of DOM.titulos)

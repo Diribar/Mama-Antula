@@ -1,7 +1,6 @@
 <% if (esConIndice && encabezado) { %>
 	<!-- Filtros e Índice -->
 	<section id="ladoIzq">
-		<i id="aumentaDisminuye" class="<%= iconos.faSolid %> fa-chevron-right"></i>
 		<div id="filtroIndice">
 			 <% if (esCarta) { %> <%- include("LT-1Cartas-1FiltroIndice") %><% } %>
 			 <% if (esExpers) { %><%- include("LT-2Expers-1FiltroIndice") %><% } %>
@@ -20,6 +19,7 @@
 				 <% } %>
 			 </div>
 		</div>
+		<i id="aumentaDisminuye" class="<%= iconos.faSolid %> fa-chevron-right"></i>
 	</section>
 <% } %>
 
@@ -33,7 +33,7 @@
 	<% } %>
 
 	<!-- Contenido -->
-	<div id="contenido" tabindex="0" autofocus>
+	<div id="contenido" tabindex="0">
 		<% if (encabezado) for (const contenido of contenidos) { %>
 			<% const subCarpeta = contenido.statusRegistro_id == creado_id ? '2-Revisar' : '1-Final' %>
 			<%- include("LT-Cont-" + contenido.layout.archVistaLt, {contenido, subCarpeta}) %>

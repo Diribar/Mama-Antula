@@ -1,11 +1,11 @@
 /* Hover - scale */
 body * {transition: 200ms;}
 
-@keyframes aumentaX       {0% {transform: scaleX(0);} 100% {transform: scaleX(1);}}
-@keyframes disminuyeX     {0% {transform: scaleX(1);} 100% {transform: scaleX(0);}}
+@keyframes aumentaX       {0% {max-width: 0%;} 100% {max-width: 100%;}}
+@keyframes disminuyeX     {0% {max-width: 100%;} 100% {max-width: 0%;}}
 
-@keyframes flechaDer      {0% {rotate: 180deg;} 100% {rotate: 0deg;}}
 @keyframes flechaIzq      {0% {rotate: 0deg;} 100% {rotate: 180deg;}}
+@keyframes flechaDer      {0% {rotate: 180deg;} 100% {rotate: 0deg;}}
 
 .aumentaX {animation: aumentaX .3s;}
 .disminuyeX {animation: disminuyeX .3s;}
