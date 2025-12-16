@@ -3,16 +3,11 @@
 window.addEventListener("load", () => {
 	// Variables
 	const DOM = {
-		body: document.body,
+		main: document.querySelector("main"),
+		fondoImg: document.querySelector("main #fondoImg"),
 		imagenes: document.querySelectorAll("#cuerpo img:not(.noAgrandar)"),
 	};
 	if (!DOM.imagenes.length) return;
-
-	// Crea el fondoImg negro
-	const fondoImg = document.createElement("div");
-	fondoImg.id = "fondoImg";
-	fondoImg.classList.add("ocultar", "absoluteCentro");
-	DOM.body.appendChild(fondoImg);
 
 	// Genera un modal por imagen
 	for (const imagen of DOM.imagenes) {
@@ -20,19 +15,19 @@ window.addEventListener("load", () => {
 		const img = document.createElement("img");
 		img.src = imagen.src;
 		img.classList.add("imgGrande", "ocultar");
-		fondoImg.appendChild(img);
+		DOM.fondoImg.appendChild(img);
 
 		// Eventos
 		imagen.addEventListener("click", () => {
-			fondoImg.classList.remove("ocultar");
+			DOM.fondoImg.classList.remove("ocultar");
 			img.classList.remove("ocultar");
 		});
 	}
 
 	// Eventos
-	fondoImg.addEventListener("click", () => {
-		fondoImg.classList.add("ocultar");
-		fondoImg.querySelector(".imgGrande:not(.ocultar)").classList.add("ocultar");
+	DOM.fondoImg.addEventListener("click", () => {
+		DOM.fondoImg.classList.add("ocultar");
+		DOM.fondoImg.querySelector(".imgGrande:not(.ocultar)").classList.add("ocultar");
 	});
 	window.addEventListener("keydown", (e) => e.key == "Escape" && fondoImg.dispatchEvent(new Event("click")));
 });

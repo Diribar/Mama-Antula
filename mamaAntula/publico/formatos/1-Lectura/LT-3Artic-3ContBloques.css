@@ -35,7 +35,7 @@
 	/* SOLOS */
 	.bloque-textoImagen {
 		.imgLeyenda {
-			float: right; margin-left: 30px; margin-bottom: var(--marginBottom); max-width: 33%;
+			margin-bottom: var(--marginBottom);
 			.imagen, .leyenda {max-width: 100%;}
 		}
 	}

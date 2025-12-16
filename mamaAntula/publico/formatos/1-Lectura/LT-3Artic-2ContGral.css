@@ -5,7 +5,8 @@
 }
 .contenidoCuerpo {
 	background-color: var(--grisMuyClaroFondo);
-	padding-left: 20px; border-radius: 20px;
+	border-radius: 20px;
+	padding-inline: min(20px, 3vw);
 
 	&:has(#filtroIndice) #tituloMasContenido {--margenIzq: 210px; margin-left: var(--margenIzq); max-width: calc(100% - var(--margenIzq));}
 	&:not(:has(#filtroIndice)) #tituloMasContenido {max-width: 100%;}

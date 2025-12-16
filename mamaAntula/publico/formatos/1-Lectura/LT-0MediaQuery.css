@@ -1,0 +1,8 @@
+.bloque-textoImagen {
+    .imgLeyenda {
+		@media (800px < width) {
+			float: right; margin-left: 30px; max-width: max(33%, 350px);
+		}
+
+	}
+}
