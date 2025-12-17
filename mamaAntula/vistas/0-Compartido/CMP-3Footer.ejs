@@ -1,4 +1,4 @@
-<div class="texto">
+<div class="texto ocultar768">
 	Versión <%= versionWeb %>
 </div>
 
@@ -9,7 +9,7 @@
 	</a>
 
 	<!-- Videos -->
-	<a href="/videos" title="Videos de capacitación" class="ocultar768">
+	<a href="/videos" title="Videos de capacitación" class="">
 		<i class="fa-solid fa-video"></i>
 	</a>
 
@@ -34,7 +34,7 @@
 				<a
 					href="<%= icono.link || locals.anchorLectura || '' %>"
 					id="<%= icono.codigo %>" title="<%= icono.nombre %>"
-					<% if (muestraEdicion) { %> class="ocultar768" <% } %>
+					<% if (muestraEdicion) { %> class="ocultar768"<% } %>
 				>
 					<i class="fa-solid <%= icono.clase %> scaleHover"></i>
 				</a>
