@@ -9,7 +9,7 @@
 				.encabezados {margin-inline: 10px;}
 				ul {list-style-type: none; li {margin-left: 0;}}
 			}
-			#aumentaDisminuye {display: none;}
+			#muestraFiltroIndice {display: none;}
 		}
 		#tituloMasContenido {
 			&:not(:has(#tituloDelContenido)) {padding-top: 18px;}
@@ -34,7 +34,7 @@
 
 				ul {list-style-type: disc;}
 			}
-			#aumentaDisminuye {display: flex;}
+			#muestraFiltroIndice {display: flex;}
 		}
 		#tituloMasContenido {
 			&:not(:has(#tituloDelContenido)) {padding-top: 12px;}

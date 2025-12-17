@@ -2,17 +2,19 @@
 	position: absolute;
 	display: flex; flex-direction: row; align-items: center;
 	height: 100%;
-	width: 90vw; pointer-events: none;
+	width: 90vw;
+
+	&:not(:has(i#muestraFiltroIndice.ocultar)) {pointer-events: none;} /* los eventos sólo tienen vigencia si el ícono 'muestraFiltroIndice' está oculto */
 	* {pointer-events: auto;}
 
-	i#aumentaDisminuye {cursor: pointer;}
+	i#muestraFiltroIndice {cursor: pointer;}
 
 	#filtroIndice {
 		display: flex; flex-direction: column; align-items: flex-start; gap: 20px;
 		height: 100%; padding-block: 10px;
 		#indice, #tituloFiltros {
 			.titulo {font-size: 0.95rem; align-self: flex-start;}
-			.tituloEncabs a, select, .mostrar {font-size: 0.9rem;}
+			.tituloEncabs a, select, .muestraFiltrosAnchors {font-size: 0.9rem;}
 		}
 		.contenedor {
 			display: flex; flex-direction: column;
@@ -25,10 +27,9 @@
 
 			.titulo {
 				position: relative; cursor: pointer;
-				.mostrar {
+				.muestraFiltrosAnchors {
 					position: absolute; left: -5px; top: 50%; translate: -90% -50%;
 					cursor: pointer;
-					&.girar {transform: rotate(90deg);}
 				}
 			}
 			.tituloEncabs {
