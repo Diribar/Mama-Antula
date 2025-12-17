@@ -30,6 +30,7 @@
 				.muestraFiltroAnchors {
 					position: absolute; left: -5px; top: 50%; translate: -90% -50%;
 					cursor: pointer;
+					&.girar {transform: rotate(90deg);}
 				}
 			}
 			.tituloEncabs {
