@@ -13,6 +13,7 @@
 
 	#tituloMasContenido {
 		flex-grow: 1; overflow-y: auto; /* fundamental para la lectura */
+		overflow-x: hidden;
 
 		/* Titulo del contenido */
 		#tituloDelContenido {padding-block: 6px 10px;}
