@@ -7,10 +7,10 @@
 		display: flex; flex-direction: column;
 		background-color: var(--fondoBlanco); box-shadow: 0 4px 20px rgba(0,0,0,0.1);
 		border-radius: 15px;
+		max-width: 99%;
 
 		&:is(.usuarios) {
 			align-items: center; justify-content: space-between;
-			max-width: 99%;
 
 			input:not([type="checkbox"]), select {
 				background: var(--celesteClaro); border: 1px solid var(--grisInterm);

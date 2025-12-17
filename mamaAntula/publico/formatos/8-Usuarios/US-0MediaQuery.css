@@ -2,13 +2,34 @@
 	#cuerpo {
 		justify-content: space-between;
 		.contenedorImagen {display: flex;}
-		form.usuarios {padding: 35px 45px;}
+		form.usuarios {
+			padding: 35px 45px;
+			&#cambioRol {
+
+				.bloques {
+					display: flex; flex-direction: row; align-items: center;
+					gap: 2rem;
+				}
+			}
+		}
 	}
 }
 @media (width <= 1400px) {
 	#cuerpo {
 		justify-content: center;
 		.contenedorImagen {display: none;}
-		form.usuarios {padding: 30px 35px;}
+		form.usuarios {
+			padding: 30px 35px;
+			&#cambioRol {
+				align-items: stretch;
+				h2 {display: none;}
+				#bloqueFiltros, #bloqueInputs, .bloques {align-items: stretch;}
+				.bloques {
+					display: flex; flex-direction: column;
+					gap: 1rem;
+					select, input {width: 100%;}
+				}
+			}
+		}
 	}
 }
