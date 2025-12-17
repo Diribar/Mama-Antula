@@ -1,0 +1,14 @@
+@media (1400px < width) {
+	#cuerpo {
+		justify-content: space-between;
+		.contenedorImagen {display: flex;}
+		form.usuarios {padding: 35px 45px;}
+	}
+}
+@media (width <= 1400px) {
+	#cuerpo {
+		justify-content: center;
+		.contenedorImagen {display: none;}
+		form.usuarios {padding: 30px 35px;}
+	}
+}

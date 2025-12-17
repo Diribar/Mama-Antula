@@ -1,10 +1,11 @@
 main h1 {margin-block: 20px 15px !important;}
 #cuerpo {
-	form {
+	form#formContactanos {
 		align-items: stretch;
-		padding: 30px 40px; text-align: left;
+		text-align: left;
+		input, textarea, p {max-width: 300px;}
 		input, textarea {
-			padding: 6px 10px; width: 455px;
+			padding: 6px 10px;
 			border: 2px solid #d7dee5; border-radius: 12px;
 			background: var(--celesteMuyClaro);
 			outline: none;
@@ -13,9 +14,19 @@ main h1 {margin-block: 20px 15px !important;}
 				box-shadow: 0 0 0 3px rgba(12,58,92,0.2);
 			}
 		}
-		input {margin-bottom: 20px;}
-		p#obligatorio {margin-bottom: 15px;}
+		input:not(:last-of-type) {margin-bottom: 20px;}
+		p.comentario {margin-bottom: 15px; text-wrap: balance;}
 		p#espera {margin-inline: auto; color: var(--rojoOscuro); font-weight: bold;}
-		textarea {height: 100px; resize: vertical;}
+
+		@media (340px < width) {
+			& {padding: 30px 40px; }
+			input, textarea {padding: 6px 10px;}
+			textarea {height: 100px; resize: vertical;}
+		}
+		@media (width <= 340px) {
+			& {padding: 25px 30px; }
+			input, textarea {padding: 3px 5px;}
+			textarea {resize: vertical;}
+		}
 	}
 }

@@ -1,5 +1,5 @@
 #cuerpo {
-	flex-direction: row; align-items: center; justify-content: space-between;
+	flex-direction: row; align-items: center; gap: 100px;
 	flex-wrap: nowrap; flex-grow: 1;
 	width: 100%; max-width: 100%; max-height: 100%;
 
@@ -8,14 +8,15 @@
 		background-color: var(--fondoBlanco); box-shadow: 0 4px 20px rgba(0,0,0,0.1);
 		border-radius: 15px;
 
-		&:is(.formAltaOlvido, .formEdicion, .cambioRol) {
+		&:is(.usuarios) {
 			align-items: center; justify-content: space-between;
-			padding: 36px 45px 40px;
+			max-width: 99%;
 
 			input:not([type="checkbox"]), select {
 				background: var(--celesteClaro); border: 1px solid var(--grisInterm);
 				border-radius: 8px; transition: all 0.2s ease;
-				padding-inline: 10px; height: 30px; width: 250px;
+				padding-inline: 10px; height: 30px;
+				align-self: stretch;
 				&:focus {
 					background-color: var(--fondoBlanco); border-color: var(--grisOscuro);
 					box-shadow: 0 0 0 3px rgba(12,58,92,0.2); outline: none;
@@ -35,13 +36,12 @@
 			cursor: pointer; transition: 250ms; margin-inline: auto;
 			&:hover {scale: 1.05;}
 		}
-
 	}
 
 	.contenedorImagen {
-		display: flex; flex-direction: row; align-items: center;
+		flex-direction: row; align-items: center;
 		--ancho: 22%;
-		height: 100%; width: var(--ancho); max-width: var(--ancho);
+		height: 100%;
 		&#izquierda {justify-content: flex-end;}
 		&#derecha {justify-content: flex-start;}
 		img {max-width: 100%; max-height: 100%;}

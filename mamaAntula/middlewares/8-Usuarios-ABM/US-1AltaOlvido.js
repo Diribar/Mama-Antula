@@ -14,7 +14,7 @@ export default async (req, res, next) => {
 	req.body.usuario = usuario;
 	const {fechaContrasena} = usuario;
 
-	// Detecta si ya se le envió una contraseña en las últimas 24hs
+	// Si ya se le envió una contraseña en las últimas 24hs, interrumpe la función
 	if (fechaContrasena) {
 		// Variables
 		const ahora = comp.fechaHora.ahora();
