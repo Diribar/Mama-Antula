@@ -8,7 +8,6 @@ window.addEventListener("load", async () => {
 		filtroIndice: document.querySelector("#ladoIzq #filtroIndice"),
 		titulos: document.querySelectorAll("#filtroIndice .titulo"),
 	};
-	document.addEventListener("click", (e) => console.log(e.target));
 
 	// Funciones
 	const ocultaMuestra = ({titulo, accion}) => {
@@ -26,7 +25,7 @@ window.addEventListener("load", async () => {
 		return;
 	};
 
-	// Eventos - Muestra/oculta el lado izquierdo
+	// Eventos - Muestra el lado izquierdo
 	DOM.muestraFiltroIndice.addEventListener("click", () => {
 		// Ancho de la zona de filtros
 		DOM.filtroIndice.classList.add("aumentaX");
@@ -34,7 +33,17 @@ window.addEventListener("load", async () => {
 		DOM.muestraFiltroIndice.classList.add("ocultar");
 	});
 
-	// Eventos - Gira el ícono y muestra/oculta los encabezados
+	// Eventos - Oculta el lado izquierdo
+	DOM.ladoIzq.addEventListener("click", (e) => {
+		if (e.target.id != "ladoIzq") return
+
+		// Ancho de la zona de filtros
+		DOM.filtroIndice.classList.add("disminuyeX");
+		DOM.filtroIndice.classList.remove("aumentaX");
+		DOM.muestraFiltroIndice.classList.remove("ocultar");
+	});
+
+	// Eventos - Gira el ícono 'muestraFiltroAnchors' y muestra/oculta los filtros y anchors
 	for (const titulo of DOM.titulos)
 		titulo.addEventListener("click", () => {
 			// Alterna entre girar o no el ícono

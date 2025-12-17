@@ -34,7 +34,7 @@
 
 				ul {list-style-type: disc;}
 			}
-			#muestraFiltroIndice {display: flex;}
+			#muestraFiltroIndice {width: min-content; translate: -100%;}
 		}
 		#tituloMasContenido {
 			&:not(:has(#tituloDelContenido)) {padding-top: 12px;}
