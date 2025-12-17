@@ -13,7 +13,7 @@
 
 	#tituloMasContenido {
 		flex-grow: 1; overflow-y: auto; /* fundamental para la lectura */
-		/* &:not(:has(#tituloDelContenido)) {padding-top: 6px;} */
+		&:not(:has(#tituloDelContenido)) {padding-top: 6px;}
 
 		/* Titulo del contenido */
 		&:has(#tituloDelContenido) #tituloDelContenido {padding-block: 6px 10px;}
