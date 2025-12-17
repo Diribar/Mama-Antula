@@ -4,10 +4,18 @@
 	@media (1000px < width) {
 		--margenIzq: calc(var(--anchoIndice) + var(--anchoMargen));
 		.bloque-textoImagen .imgLeyenda {float: right; margin-left: 30px; max-width: max(33%, 350px);}
+		#aumentaDisminuye {display: none;}
+		#filtroIndice, #filtroIndice * {max-width: 100%;}
 	}
-
 	@media (width <= 1000px) {
 		--anchoIndice: 140px; --margenIzq: 0px;
-		#filtroIndice {overflow-x: hidden;}
+		#aumentaDisminuye {display: flex;}
+		#filtroIndice {
+			overflow-x: hidden;
+			max-width: 0%;
+			background-color: var(--grisMuyClaro);
+			border-top-right-radius: 20px; border-bottom-right-radius: 20px;
+			&.aumentaX {padding-right: 10px;}
+		}
 	}
 }
