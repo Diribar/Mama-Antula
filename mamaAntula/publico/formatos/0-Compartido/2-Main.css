@@ -12,7 +12,8 @@ main {
 
 	/* Dimensiones */
 	height: var(--altoMain); max-height: var(--altoMain);
-	padding-block: 10px 20px; padding-inline: 50px 30px;
+	padding-block: 10px 20px;
+	padding-inline: min(50px, 3vw) min(30px, 3vw);
 
 	#cuerpo {
 		height: calc(100% - 68.2px); /* 68.2px es el alto del tema */
@@ -21,8 +22,11 @@ main {
 	}
 }
 #fondoImg {
-	display: flex; justify-content: center; align-items: center;
+	position: absolute;
+	display: flex; flex-direction: column; align-items: center; justify-content: center;
 	width: 100%; height: 100%;
 	background: rgba(0,0,0,0.8); z-index: 1;
 	img {width: 90%; height: 90%; border-radius: 10px; object-fit: contain;}
 }
+
+main:not(:has(#fondoImg.ocultar)) {padding: 0;}

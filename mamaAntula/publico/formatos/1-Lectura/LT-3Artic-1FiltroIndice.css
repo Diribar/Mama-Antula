@@ -1,8 +1,10 @@
 #filtroIndice {
-	--anchoIndice: 160px;
 	position: absolute; top: 10px;
 	display: flex; flex-direction: column; align-items: flex-start; gap: 20px;
-	min-width: var(--anchoIndice); height: 100%; overflow-y: hidden;
+	min-width: var(--anchoIndice);
+	height: 100%; overflow-y: hidden;
+	max-width: 90vw;
+	* {max-width: 100%;}
 
 	/* Tamaños de fuente */
 	#indice, #tituloFiltros {
