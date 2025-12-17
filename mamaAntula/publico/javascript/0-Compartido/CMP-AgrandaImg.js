@@ -3,7 +3,6 @@
 window.addEventListener("load", () => {
 	// Variables
 	const DOM = {
-		main: document.querySelector("main"),
 		fondoImg: document.querySelector("main #fondoImg"),
 		imagenes: document.querySelectorAll("#cuerpo img:not(.noAgrandar)"),
 	};
