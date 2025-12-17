@@ -11,11 +11,15 @@
 			}
 			#aumentaDisminuye {display: none;}
 		}
-		#contenido {
-			padding-right: 20px;
-			.bloque-textoImagen .imgLeyenda {float: right; margin-left: 30px; max-width: max(33%, 350px);}
-			.bloque-estampa .titulo {align-self: flex-start;}
-			.texto p {text-align: justify;}
+		#tituloMasContenido {
+			&:not(:has(#tituloDelContenido)) {padding-top: 18px;}
+			&:has(#tituloDelContenido) {padding-top: 6px;}
+			#contenido {
+				padding-right: 20px;
+				.bloque-textoImagen .imgLeyenda {float: right; margin-left: 30px; max-width: max(33%, 350px);}
+				.bloque-estampa .titulo {align-self: flex-start;}
+				.texto p {text-align: justify;}
+			}
 		}
 	}
 	@media (width <= 1000px) {
@@ -32,12 +36,15 @@
 			}
 			#aumentaDisminuye {display: flex;}
 		}
-		#contenido {
-			.bloque-libro .texto {
-				display: flex; flex-direction: column; align-items: center;
-				* {text-wrap: balance; text-align: center;}
+		#tituloMasContenido {
+			&:not(:has(#tituloDelContenido)) {padding-top: 12px;}
+			#contenido {
+				.bloque-libro .texto {
+					display: flex; flex-direction: column; align-items: center;
+					* {text-wrap: balance; text-align: center;}
+				}
+				.bloque-estampa .titulo {text-wrap: balance; text-align: center;}
 			}
-			.bloque-estampa .titulo {text-wrap: balance; text-align: center;}
 		}
 	}
 }
