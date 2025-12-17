@@ -29,8 +29,7 @@
 		.leyenda {max-width: 70%;}
 	}
 	/* COMBINADOS: Libros, Estampas */
-	:is(.bloque-libro, .bloque-estampa) img {height: 370px;}
-
+	:is(.bloque-libro, .bloque-estampa) img {max-height: 370px; max-width: 100%;}
 
 	/* SOLOS */
 	.bloque-textoImagen {
@@ -94,6 +93,7 @@
 		iframe {max-height: 340px; width: auto; aspect-ratio: 16 / 9;}
 	}
 	.bloque-libro {
+		max-width: 100%;
 		img {display: block; margin-inline: auto;}
 		.texto {
 			max-width: 285px; padding-block: 6px;
