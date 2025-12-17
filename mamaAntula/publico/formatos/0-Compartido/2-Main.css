@@ -12,11 +12,11 @@ main {
 
 	/* Dimensiones */
 	height: var(--altoMain); max-height: var(--altoMain);
-	padding-block: 10px 20px;
+	padding-block: 10px;
 	padding-inline: min(50px, 3vw) min(30px, 3vw);
 
 	#cuerpo {
-		height: calc(100% - 68.2px); /* 68.2px es el alto del tema */
+		height: 100%;
 		display: flex;
 		overflow-y: hidden;
 	}

@@ -26,7 +26,7 @@
 <!-- Artículo -->
 <div id="tituloMasContenido">
 
-	<% const tituloDelContenido = locals.encabezado && (esConIndice ? encabezado.tituloElab : encabezado.titulo) %>
+	<% const tituloDelContenido = locals.encabezado && esConIndice && encabezado.tituloElab %>
 	<% if (tituloDelContenido) { %>
 		<!-- Título del contenido -->
 		<h3 id="tituloDelContenido"><%= tituloDelContenido %></h3>

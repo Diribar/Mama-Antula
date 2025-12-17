@@ -9,6 +9,7 @@
 		}
 		.bloque {
 			position: relative;
+			&.bloque-textoImagen .imgLeyenda {float: right; margin-left: 30px; max-width: max(33%, 350px);}
 
 			.apruebaRechaza {
 				position: absolute; left: 20px; top: 50%; translate: 0 -50%;

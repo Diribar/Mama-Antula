@@ -1,6 +1,6 @@
 #cuerpo .contenidoCuerpo {
 	border: 1px solid var(--grisOscuro);
-	padding-block: 10px;
+	/* padding-block: 10px; */
 	border-top-left-radius: 0;
 }
 .contenidoCuerpo {
