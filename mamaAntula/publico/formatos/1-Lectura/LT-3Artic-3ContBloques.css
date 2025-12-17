@@ -38,6 +38,7 @@
 			margin-bottom: var(--marginBottom);
 			.imagen, .leyenda {max-width: 100%;}
 		}
+		.texto > :is(ul, ol) {margin-left: 0;}
 	}
 	.bloque-imagen {
 		.imagen {max-width: 90%;}

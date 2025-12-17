@@ -13,23 +13,24 @@
 
 	#tituloMasContenido {
 		flex-grow: 1; overflow-y: auto; /* fundamental para la lectura */
-		&:not(:has(#tituloDelContenido)) {padding-top: 6px;}
+		overflow-x: hidden;
 
 		/* Titulo del contenido */
-		&:has(#tituloDelContenido) #tituloDelContenido {padding-block: 6px 10px;}
+		#tituloDelContenido {padding-block: 6px 10px;}
 
 		/* Temas generales del contenido */
 		&:has(#tituloDelContenido) #contenido {height: calc(100% - 27px - 16px);} /* 22px es el alto de #tituloDelContenido sin el padding, y 16px es el padding */
 		/* &:not(:has(#tituloDelContenido)) #contenido {height: calc(100% - 6px);}  *//* 6px es el alto del padding */
 		#contenido {
 			--margenVertical: 20px;
-			display: flex; overflow-y: auto; outline: none;
+			display: flex;
 			&:has(.bloque-libro, .bloque-estampa) {
 				flex-direction: row; justify-content: space-evenly; flex-wrap: wrap; column-gap: 50px;
-				&:has(.bloque-libro) {row-gap: var(--margenVertical); padding-block: 30px;}
+				&:has(.bloque-libro) {row-gap: var(--margenVertical);}
 				&:has(.bloque-estampa) {row-gap: calc(var(--margenVertical) * 2);}
 			}
 			&:not(:has(.bloque-libro, .bloque-estampa)) {flex-direction: column;}
+			&:focus {outline: none;}
 			.bloque {
 				a {color: var(--terracotaSuave); text-decoration: underline; display: inline;}
 				img {cursor: pointer; border-radius: 10px;}

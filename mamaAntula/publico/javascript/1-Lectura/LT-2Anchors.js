@@ -3,7 +3,8 @@
 window.addEventListener("load", async () => {
 	// Variables
 	const DOM = {
-		aumentaDisminuye: document.querySelector("#ladoIzq #aumentaDisminuye"),
+		ladoIzq: document.querySelector("#ladoIzq"),
+		muestraFiltroIndice: document.querySelector("#ladoIzq #muestraFiltroIndice"),
 		filtroIndice: document.querySelector("#ladoIzq #filtroIndice"),
 		titulos: document.querySelectorAll("#filtroIndice .titulo"),
 	};
@@ -24,26 +25,31 @@ window.addEventListener("load", async () => {
 		return;
 	};
 
-	// Eventos - Muestra/oculta el lado izquierdo
-	DOM.aumentaDisminuye.addEventListener("click", () => {
+	// Eventos - Muestra el lado izquierdo
+	DOM.muestraFiltroIndice.addEventListener("click", () => {
 		// Ancho de la zona de filtros
-		DOM.filtroIndice.classList.toggle("aumentaX");
-		const esAumentaX = DOM.filtroIndice.classList.contains("aumentaX");
-		DOM.filtroIndice.classList[esAumentaX ? "remove" : "add"]("disminuyeX");
-
-		// Flecha
-		DOM.aumentaDisminuye.classList.toggle("flechaIzq");
-		const esFlechaIzq = DOM.aumentaDisminuye.classList.contains("flechaIzq");
-		DOM.aumentaDisminuye.classList[esFlechaIzq ? "remove" : "add"]("flechaDer");
+		DOM.filtroIndice.classList.add("aumentaX");
+		DOM.filtroIndice.classList.remove("disminuyeX");
+		DOM.muestraFiltroIndice.classList.add("ocultar");
 	});
 
-	// Eventos - Gira el ícono y muestra/oculta los encabezados
+	// Eventos - Oculta el lado izquierdo
+	DOM.ladoIzq.addEventListener("click", (e) => {
+		if (e.target.id != "ladoIzq") return
+
+		// Ancho de la zona de filtros
+		DOM.filtroIndice.classList.add("disminuyeX");
+		DOM.filtroIndice.classList.remove("aumentaX");
+		DOM.muestraFiltroIndice.classList.remove("ocultar");
+	});
+
+	// Eventos - Gira el ícono 'muestraFiltroAnchors' y muestra/oculta los filtros y anchors
 	for (const titulo of DOM.titulos)
 		titulo.addEventListener("click", () => {
 			// Alterna entre girar o no el ícono
-			const mostrar = titulo.querySelector(".mostrar");
-			if (!mostrar) return;
-			mostrar.classList.toggle("girar");
+			const muestraFiltroAnchors = titulo.querySelector(".muestraFiltroAnchors");
+			if (!muestraFiltroAnchors) return;
+			muestraFiltroAnchors.classList.toggle("girar");
 
 			// Alterna entre mostrar y ocultar los encabezados
 			ocultaMuestra({titulo, accion: "toggle"});
@@ -60,9 +66,9 @@ window.addEventListener("load", async () => {
 		// Endereza todos los íconos y oculta los encabezados
 		for (const titulo of DOM.titulos) {
 			// Endereza el ícono
-			const mostrar = titulo.querySelector(".mostrar");
-			if (!mostrar) continue;
-			mostrar.classList.remove("girar");
+			const muestraFiltroAnchors = titulo.querySelector(".muestraFiltroAnchors");
+			if (!muestraFiltroAnchors) continue;
+			muestraFiltroAnchors.classList.remove("girar");
 
 			// Oculta los encabezados/filtros
 			ocultaMuestra({titulo, accion: "add"});
