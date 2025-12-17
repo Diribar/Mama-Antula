@@ -23,7 +23,7 @@
 		/* &:not(:has(#tituloDelContenido)) #contenido {height: calc(100% - 6px);}  *//* 6px es el alto del padding */
 		#contenido {
 			--margenVertical: 20px;
-			display: flex; overflow-y: auto; outline: none;
+			display: flex;
 			&:has(.bloque-libro, .bloque-estampa) {
 				flex-direction: row; justify-content: space-evenly; flex-wrap: wrap; column-gap: 50px;
 				&:has(.bloque-libro) {row-gap: var(--margenVertical); padding-block: 30px;}
