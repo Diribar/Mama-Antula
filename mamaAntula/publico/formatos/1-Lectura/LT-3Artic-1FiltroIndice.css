@@ -14,7 +14,7 @@
 		height: 100%; padding-block: 10px;
 		#indice, #tituloFiltros {
 			.titulo {font-size: 0.95rem; align-self: flex-start;}
-			.tituloEncabs a, select, .muestraFiltrosAnchors {font-size: 0.9rem;}
+			.tituloEncabs a, select, .muestraFiltroAnchors {font-size: 0.9rem;}
 		}
 		.contenedor {
 			display: flex; flex-direction: column;
@@ -27,7 +27,7 @@
 
 			.titulo {
 				position: relative; cursor: pointer;
-				.muestraFiltrosAnchors {
+				.muestraFiltroAnchors {
 					position: absolute; left: -5px; top: 50%; translate: -90% -50%;
 					cursor: pointer;
 				}
