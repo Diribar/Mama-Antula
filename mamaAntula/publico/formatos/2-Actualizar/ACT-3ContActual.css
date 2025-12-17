@@ -5,6 +5,7 @@
 
 	.contenido {
 		flex-grow: 1;
+		&.bloque-textoImagen .imgLeyenda {float: right; margin-left: 30px; max-width: max(33%, 350px);}
 		a {color: var(--terracotaSuave); text-decoration: underline;}
 	}
 	.iconos .fa-trash-can {color: var(--rojoOscuro)}

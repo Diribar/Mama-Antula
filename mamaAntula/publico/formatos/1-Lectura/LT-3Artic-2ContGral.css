@@ -13,7 +13,7 @@
 
 	#tituloMasContenido {
 		flex-grow: 1; overflow-y: auto; /* fundamental para la lectura */
-		&:not(:has(#tituloDelContenido)) {padding-top: 6px;}
+		/* &:not(:has(#tituloDelContenido)) {padding-top: 6px;} */
 
 		/* Titulo del contenido */
 		&:has(#tituloDelContenido) #tituloDelContenido {padding-block: 6px 10px;}
@@ -34,7 +34,7 @@
 				a {color: var(--terracotaSuave); text-decoration: underline;}
 				img {cursor: pointer; border-radius: 10px;}
 			}
-			.bloque-textoImagen, .bloque-texto blockquote {margin-top: 10px;}
+			/* .bloque-textoImagen, .bloque-texto blockquote {margin-top: 10px;} */
 			.texto p {text-align: justify;}
 		}
 	}
