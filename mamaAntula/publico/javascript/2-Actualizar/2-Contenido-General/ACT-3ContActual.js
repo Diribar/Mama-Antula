@@ -202,9 +202,9 @@ window.addEventListener("load", async () => {
 			// Agrega la información del libro
 			const texto = document.createElement("div");
 			texto.classList.add("texto");
-			const tituloSubtitulo = contenido.titulo + (contenido.subTitulo ? " - " + contenido.subTitulo : "");
-			texto.appendChild(this.textoLibro(tituloSubtitulo, "titulo"));
-			texto.appendChild(this.textoLibro(contenido.autor));
+			texto.appendChild(this.textoLibro(contenido.titulo, "titulo"));
+			if (contenido.subTitulo) texto.appendChild(this.textoLibro(contenido.subTitulo, "subTitulo"));
+			texto.appendChild(this.textoLibro(contenido.autor, "autor"));
 			const anoEditorial =
 				(contenido.anoLanzam || "") +
 				(contenido.anoLanzam && contenido.editorial ? " - " : "") +
@@ -267,7 +267,7 @@ window.addEventListener("load", async () => {
 		textoLibro: (texto, formato) => {
 			// Crea el contenedor
 			const div = document.createElement("div");
-			div.classList.add(formato);
+			if (formato) div.classList.add(formato);
 			div.innerText = texto;
 
 			// Fin
