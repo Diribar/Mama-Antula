@@ -29,8 +29,7 @@
 		.leyenda {max-width: 70%;}
 	}
 	/* COMBINADOS: Libros, Estampas */
-	:is(.bloque-libro, .bloque-estampa) img {height: 370px;}
-
+	:is(.bloque-libro, .bloque-estampa) img.libroEstampa {max-height: 370px; max-width: 100%;}
 
 	/* SOLOS */
 	.bloque-textoImagen {
@@ -94,12 +93,14 @@
 		iframe {max-height: 340px; width: auto; aspect-ratio: 16 / 9;}
 	}
 	.bloque-libro {
+		max-width: 100%;
 		img {display: block; margin-inline: auto;}
 		.texto {
 			max-width: 285px; padding-block: 6px;
 			* {line-height: 1.2;}
-			.titulo {font-weight: bold; margin-bottom: 6px;}
-			.autor {font-style: italic;}
+			.titulo {font-weight: bold;}
+			.subTitulo {font-style: italic;}
+			.autor {margin-top: 6px;}
 		}
 	}
 	.bloque-estampa {
@@ -108,7 +109,6 @@
 		.imagenes {
 			display: flex; flex-direction: row; flex-wrap: wrap; justify-content: space-around;
 			gap: 20px;
-			img {max-width: 100%; max-height: max-content;}
 		}
 	}
 }

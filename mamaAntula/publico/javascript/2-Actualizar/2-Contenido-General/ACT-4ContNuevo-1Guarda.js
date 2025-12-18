@@ -90,7 +90,8 @@ window.addEventListener("load", async () => {
 			if (archLibro) this.archImg(archLibro, "");
 
 			// Agrega los demás datos del libro
-			for (const input of DOM.inputsLibro) v.formData.append(input.name, input.value);
+			const form = document.querySelector("#libro form");
+			for (const [key, value] of new FormData(form)) v.formData.append(key, value);
 
 			// Fin
 			return;
@@ -138,7 +139,7 @@ window.addEventListener("load", async () => {
 		if (respuesta.error) {
 			await carteles.error(respuesta.error);
 			DOM.iconoGuardar.classList.remove("inactivo");
-			return
+			return;
 		}
 
 		// Recarga la vista, para que limpie todo
