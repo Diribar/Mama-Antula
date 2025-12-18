@@ -33,8 +33,9 @@ window.addEventListener("load", async () => {
 
 	// Eventos - Oculta el lado izquierdo
 	document.addEventListener("click", (e) => {
-		const padre = e.target.closest("#tituloFiltros, #indice, #muestraFiltroIndice");
-		if (padre) return;
+		const ignorar = e.target.closest("#tituloFiltros, #indice, #muestraFiltroIndice");
+		const hayQueDisminuir = DOM.filtroIndice.classList.contains("aumentaX");
+		if (ignorar || !hayQueDisminuir) return;
 
 		// Ancho de la zona de filtros
 		DOM.filtroIndice.classList.add("disminuyeX");

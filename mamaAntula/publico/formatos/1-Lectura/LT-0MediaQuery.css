@@ -6,10 +6,10 @@
 		i#muestraFiltroIndice {display: none;}
 		#filtroIndice, #filtroIndice * {max-width: 100%;}
 		#filtroIndice {
+			#filtros {gap: 20px;}
 			.encabezados {margin-inline: 10px;}
 			ul {list-style-type: none; li {margin-left: 0;}}
 		}
-		#muestraFiltroIndice {display: none;}
 		#tituloMasContenido {
 			&:not(:has(#tituloDelContenido)) {padding-top: 18px;}
 			&:has(#tituloDelContenido) {padding-top: 6px;}
@@ -27,11 +27,13 @@
 		--anchoIndice: 140px; --margenIzq: 0px;
 		#filtroIndice {
 			overflow-x: hidden;
-			max-width: 0%;
+			transform-origin: left;
 			background-color: var(--grisMuyClaro);
 			border-top-right-radius: 20px; border-bottom-right-radius: 20px;
+			transform: scaleX(0);
 			&.aumentaX {padding-right: 10px;}
 
+			#filtros {gap: 10px;}
 			ul {list-style-type: disc;}
 		}
 		i#muestraFiltroIndice {
