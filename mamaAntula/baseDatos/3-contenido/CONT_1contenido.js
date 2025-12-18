@@ -15,7 +15,7 @@ export default (sequelize, dt) => {
 
 		// Libros / Estampas
 		titulo: {type: dt.STRING(100)},
-		subtitulo: {type: dt.STRING(100)},
+		subTitulo: {type: dt.STRING(100)},
 
 		// Libros
 		autor: {type: dt.STRING(50)},
