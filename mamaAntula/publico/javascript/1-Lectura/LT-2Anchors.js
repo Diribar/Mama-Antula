@@ -33,7 +33,7 @@ window.addEventListener("load", async () => {
 
 	// Eventos - Oculta el lado izquierdo
 	document.addEventListener("click", (e) => {
-		const ignorar = e.target.closest("#tituloFiltros, #indice, #muestraFiltroIndice");
+		const ignorar = e.target.closest("#tituloFiltros, #indice, #muestraFiltroIndice, #flechas");
 		const hayQueDisminuir = DOM.filtroIndice.classList.contains("aumentaX");
 		if (ignorar || !hayQueDisminuir) return;
 
