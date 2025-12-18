@@ -8,13 +8,8 @@ window.addEventListener("load", async () => {
 		areaSoltar: domLayout.querySelector("#areaSoltar"),
 		inputImagen: domLayout.querySelector("#areaSoltar [name='imagen']"),
 		vistaImagen: domLayout.querySelector("#areaSoltar img"),
-
-		// Otros campos del formulario
-		titulo: domLayout.querySelector("[name='titulo']"),
-		autor: domLayout.querySelector("[name='autor']"),
-		anoLanzam: domLayout.querySelector("[name='anoLanzam']"),
-		editorial: domLayout.querySelector("[name='editorial']"),
 	};
+	const camposInicialMayus = ["titulo", "subtitulo", "autor", "editorial"];
 
 	// Eventos drag & drop
 	otrosEventos(DOM);
@@ -25,9 +20,10 @@ window.addEventListener("load", async () => {
 		"change",
 		async () => (archLibro = await obtieneNuevaImagen(DOM.inputImagen.files, DOM.vistaImagen))
 	);
-	DOM.titulo.addEventListener("change", () => (DOM.titulo.value = inicialMayus(DOM.titulo.value)));
-	DOM.autor.addEventListener("change", () => (DOM.autor.value = inicialMayus(DOM.autor.value)));
-	DOM.editorial.addEventListener("change", () => (DOM.editorial.value = inicialMayus(DOM.editorial.value)));
+	for (const campo of camposInicialMayus) {
+		DOM[campo] = domLayout.querySelector("[name='" + campo + "']");
+		DOM[campo].addEventListener("change", () => (DOM[campo].value = inicialMayus(DOM[campo].value)));
+	}
 
 	// Fin
 	return;
