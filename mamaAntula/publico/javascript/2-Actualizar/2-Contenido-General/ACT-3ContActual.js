@@ -202,7 +202,7 @@ window.addEventListener("load", async () => {
 			// Agrega la información del libro
 			const texto = document.createElement("div");
 			texto.classList.add("texto");
-			const tituloSubtitulo = contenido.titulo + (contenido.subtitulo ? " - " + contenido.subtitulo : "");
+			const tituloSubtitulo = contenido.titulo + (contenido.subTitulo ? " - " + contenido.subTitulo : "");
 			texto.appendChild(this.textoLibro(tituloSubtitulo, "titulo"));
 			texto.appendChild(this.textoLibro(contenido.autor));
 			const anoEditorial =

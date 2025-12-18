@@ -98,8 +98,9 @@
 		.texto {
 			max-width: 285px; padding-block: 6px;
 			* {line-height: 1.2;}
-			.titulo {font-weight: bold; margin-bottom: 6px;}
-			.autor {font-style: italic;}
+			.titulo {font-weight: bold;}
+			.subTitulo {font-style: italic;}
+			.autor {margin-top: 6px;}
 		}
 	}
 	.bloque-estampa {

@@ -9,7 +9,7 @@ window.addEventListener("load", async () => {
 		inputImagen: domLayout.querySelector("#areaSoltar [name='imagen']"),
 		vistaImagen: domLayout.querySelector("#areaSoltar img"),
 	};
-	const camposInicialMayus = ["titulo", "subtitulo", "autor", "editorial"];
+	const camposInicialMayus = ["titulo", "subTitulo", "autor", "editorial"];
 
 	// Eventos drag & drop
 	otrosEventos(DOM);

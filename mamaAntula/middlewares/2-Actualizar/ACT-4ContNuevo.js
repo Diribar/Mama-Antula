@@ -4,7 +4,7 @@
 export default async (req, res, next) => {
 	// Variables
 	const {encab_id, layoutCodigo} = req.body;
-	const {texto, imagen, video, titulo, subtitulo, autor, anoLanzam, editorial} = req.body;
+	const {texto, imagen, video, titulo, subTitulo, autor, anoLanzam, editorial} = req.body;
 	const mensajes = [];
 
 	// GENERAL - encab_id
@@ -27,7 +27,7 @@ export default async (req, res, next) => {
 		if (!imagen) mensajes.push("Necesitamos una imagen");
 		(!titulo && mensajes.push("Necesitamos el título del libro")) ||
 			(titulo.length > 100 && mensajes.push("El campo <em>Título</em> debe tener hasta 100 caracteres"));
-		subtitulo && subtitulo.length > 100 && mensajes.push("El campo <em>Subtítulo</em> debe tener hasta 100 caracteres");
+		subTitulo && subTitulo.length > 100 && mensajes.push("El campo <em>Subtítulo</em> debe tener hasta 100 caracteres");
 		(!autor && mensajes.push("Necesitamos el dato del autor")) ||
 			(autor.length > 50 && mensajes.push("El campo <em>Autor</em> debe tener hasta 50 caracteres"));
 		(!anoLanzam && mensajes.push("Necesitamos el año de lanzamiento")) ||

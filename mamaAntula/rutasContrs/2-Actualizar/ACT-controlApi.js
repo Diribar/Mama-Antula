@@ -217,7 +217,7 @@ export default {
 
 		// Obtiene los datos útiles
 		const camposGuardar = ["texto", "imagen", "video", "leyenda"];
-		camposGuardar.push("titulo", "subtitulo", "autor", "anoLanzam", "editorial", "cantPags");
+		camposGuardar.push("titulo", "subTitulo", "autor", "anoLanzam", "editorial", "cantPags");
 		for (const campo of camposGuardar) if (req.body[campo]) datos[campo] = req.body[campo];
 
 		// Estampa

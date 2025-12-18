@@ -14,6 +14,9 @@
 	<!-- Información del libro -->
 	<div class="texto">
 		<div class="titulo"><%= contenido.titulo %></div>
+		<% if (contenido.subTitulo) { %>
+			<div class="subTitulo"><%= contenido.subTitulo %></div>
+		<% } %>
 		<div class="autor"><%= contenido.autor %></div>
 		<div class="editorialAno">
 			<%= contenido.anoLanzam || "" %>
@@ -26,5 +29,8 @@
 				</a>
 			<% } %>
 		</div>
+		<% if (contenido.cantPags) { %>
+			<div class="cantPags"><%= contenido.cantPags %> páginas</div>
+		<% } %>
 	</div>
 </div>
