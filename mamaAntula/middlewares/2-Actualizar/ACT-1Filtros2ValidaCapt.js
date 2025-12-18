@@ -11,7 +11,7 @@ export default async (req, res, next) => {
 	const condicion = {[Op.and]: [{capturadoPor_id}, {capturadoEn}]};
 	const capturas = await baseDatos.obtieneTodosPorCondicion("capturas", condicion, "capturadoPor");
 
-	// El tema o pestaña no esta siendo capturado
+	// Si el tema o pestaña no está capturado, interrumpe la función
 	const captura = capturas.find((n) => (tema_id && n.tema_id == tema_id) || (pestana_id && n.pestana_id == pestana_id));
 	if (!captura) return next();
 
