@@ -196,18 +196,21 @@ window.addEventListener("load", async () => {
 			const img = document.createElement("img");
 			const subCarpeta = contenido.statusRegistro_id == 1 ? "2-Revisar/" : "1-Final/";
 			img.src = "/imgsEditables/" + subCarpeta + contenido.imagen;
+			img.classList.add("libroEstampa");
 			contenedor.appendChild(img);
 
 			// Agrega la información del libro
 			const texto = document.createElement("div");
 			texto.classList.add("texto");
 			texto.appendChild(this.textoLibro(contenido.titulo, "titulo"));
+			if (contenido.subtitulo) texto.appendChild(this.textoLibro(contenido.subtitulo, "subtitulo"));
 			texto.appendChild(this.textoLibro(contenido.autor, "autor"));
 			const anoEditorial =
 				(contenido.anoLanzam || "") +
 				(contenido.anoLanzam && contenido.editorial ? " - " : "") +
 				(contenido.editorial || "");
 			texto.appendChild(this.textoLibro(anoEditorial, "anoEditorial"));
+			if (contenido.cantPags) texto.appendChild(this.textoLibro(contenido.cantPags, "cantPags"));
 			contenedor.appendChild(texto);
 
 			// Fin
@@ -283,6 +286,8 @@ window.addEventListener("load", async () => {
 			const img2 = document.createElement("img");
 			img1.src = "/imgsEditables/" + subCarpeta + contenido.imagen;
 			img2.src = "/imgsEditables/" + subCarpeta + contenido.imagen2;
+			img1.classList.add("libroEstampa");
+			img2.classList.add("libroEstampa");
 
 			// Las agrega al padre
 			imagenes.appendChild(img1);

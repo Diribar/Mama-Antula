@@ -2,17 +2,13 @@
 #layouts {
 	display: flex; flex-direction: row; justify-content: center; gap: 30px;
 	width: 100%;
-	/* align-self: stretch;  */
-
-	:is(&.edicion) #texto .input {width: 100%;}
-	/* :is(&#layouts) #texto {} */
+	/* &.edicion #texto .input {width: 100%;} */
 
 	/* Layouts */
 	.layout {
 		--lado: 200px;
 		display: none;
 		min-width: var(--lado); min-height: var(--lado);
-		/* max-height: 300px; */
 		[name="leyenda"], [name="comentario"] {text-align: center;}
 	}
 	#texto {
@@ -83,14 +79,18 @@
 		#muestraLeyenda {text-align: center;}
 	}
 	#libro {
-		flex-direction: row; align-items: center; gap: 30px;
-		.inputs, #areaSoltar {
-			display: flex; flex-direction: column; align-items: center; justify-content: center;
-			width: var(--lado);
-		}
+		flex-direction: row; align-items: center; gap: 40px;
+		.inputs, #areaSoltar {display: flex; flex-direction: column; align-items: center; justify-content: center;}
+		#areaSoltar {width: var(--lado);}
 		.inputs {
 			gap: 10px;
-			input {text-align: left;}
+			input, .anoPags {width: 170px;}
+			.anoPags {
+				display: flex; flex-direction: row; justify-content: space-between;
+				input {text-align: center;}
+				input[name="anoLanzam"] {width: 35%;}
+				input[name="cantPags"] {width: 50%;}
+			}
 		}
 		#areaSoltar {height: 162px; border-radius: 5px;}
 
