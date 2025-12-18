@@ -17,8 +17,8 @@ header {
 			width: max-content;
 			.menuOpcion {
 				padding: 5px 10px;
+				&.activo {background-color: var(--grisOscuro); color: snow;}
 				&:hover {background-color: var(--amarilloOscuro); color: inherit;}
-
 			}
 		}
 	}

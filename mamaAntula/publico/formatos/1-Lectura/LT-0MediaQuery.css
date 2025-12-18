@@ -21,6 +21,8 @@
 				.texto p {text-align: justify;}
 			}
 		}
+		.bloque-imagen, .bloque-video, .bloque-carrusel {.leyenda {max-width: 70%;}}
+
 	}
 	@media (width <= 1000px) {
 		--anchoIndice: 140px; --margenIzq: 0px;

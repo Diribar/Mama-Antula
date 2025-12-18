@@ -3,8 +3,8 @@
 <section id="cuerpo">
 	<ul>
 		<% for (const ruta in rutas) { %>
-			<% const {titulo, tituloElab} = rutas[ruta].encabezados[0] %>
-			<% if (titulo || tituloElab) { %>
+			<% const {encabezados} = rutas[ruta] %>
+			<% if (encabezados.length > 1) { %>
 				<!-- Ruta con título -->
 				<li class="primario"><%= ruta %></li>
 				<!-- Título -->

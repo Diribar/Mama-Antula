@@ -7,7 +7,7 @@
 		<% for (const tema of temasSeccion) { %>
 			<a
 				href="/<%= seccionActual.url %>/<%= tema.url %>"
-				class="tema <% if (tema.id == temaActual.id) { %>activo<% } %>"
+				<% if (tema.id == temaActual.id) { %>class="activo"<% } %>
 				data-tema_codigo="<%= tema.codigo %>"
 			>
 				<%= tema.titulo %>
