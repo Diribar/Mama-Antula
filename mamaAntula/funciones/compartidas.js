@@ -306,9 +306,9 @@ export default {
 
 		// Actualiza las capturas
 		baseDatos
-			.eliminaPorCondicion("capturas", {capturadoPor_id})
-			.then(() => baseDatos.eliminaPorCondicion("capturas", {[campo]: campo_id}))
-			.then(() => baseDatos.agregaRegistroIdCorrel("capturas", {[campo]: campo_id, ...captura}));
+			.eliminaPorCondicion("capturas", {capturadoPor_id})// elimina las demás capturas del usuario
+			.then(() => baseDatos.eliminaPorCondicion("capturas", {[campo]: campo_id}))// elimina las demás capturas del tema/pestaña
+			.then(() => baseDatos.agregaRegistroIdCorrel("capturas", {[campo]: campo_id, ...captura}));// realiza la captura
 
 		// Fin
 		return;
