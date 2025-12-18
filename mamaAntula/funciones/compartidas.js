@@ -301,12 +301,14 @@ export default {
 		// Variables
 		const capturadoEn = new Date();
 		const captura = {capturadoPor_id, capturadoEn};
-		const campo_id = pestana_id ? "pestana_id" : "tema_id";
+		const campo = pestana_id ? "pestana_id" : "tema_id";
+		const campo_id = pestana_id || tema_id;
 
 		// Actualiza las capturas
 		baseDatos
 			.eliminaPorCondicion("capturas", {capturadoPor_id})
-			.then(() => baseDatos.agregaRegistroIdCorrel("capturas", {[campo_id]: pestana_id || tema_id, ...captura}));
+			.then(() => baseDatos.eliminaPorCondicion("capturas", {[campo]: campo_id}))
+			.then(() => baseDatos.agregaRegistroIdCorrel("capturas", {[campo]: campo_id, ...captura}));
 
 		// Fin
 		return;
