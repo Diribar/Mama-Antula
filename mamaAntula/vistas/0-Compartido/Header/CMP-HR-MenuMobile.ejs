@@ -9,7 +9,7 @@
 	<% for (const seccion of seccionesLectura) { %>
 		<a
 			href="/<%= seccion.url %>"
-			class="menuOpcion<% if (seccion.id == seccionActual.id) { %> activo<% } %>"
+			class="menuOpcion<% if (locals.seccionActual && seccion.id == seccionActual.id) { %> activo<% } %>"
 		><%= seccion.nombre %></a>
 	<% } %>
 </div>
