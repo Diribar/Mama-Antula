@@ -52,6 +52,9 @@ window.addEventListener("load", async () => {
 				DOM.encabezado.innerHTML = "";
 				delete comp1234.startUp;
 
+				// Actualiza el href
+				FN.actualizaHref();
+
 				// Muestra el error e interrumpe la función
 				return carteles.error(respuesta.error);
 			}
