@@ -1,5 +1,5 @@
-form {
-	gap: 15px; max-width: 415px;
+#cuerpo form {
+	width: 340px; gap: 15px;
 	#areaSoltar {
 		/* Medidas de lado */
 		--ladoCuadrado: 150px; width: var(--ladoCuadrado); height: var(--ladoCuadrado);

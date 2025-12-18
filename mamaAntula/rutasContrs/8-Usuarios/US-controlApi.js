@@ -21,9 +21,13 @@ export default {
 
 		// Actualiza o crea el usuario
 		if (mailEnviado) {
+			// Variables
 			const contrEncriptada = bcryptjs.hashSync(contrasena, 10);
+			const fechaContrasena = new Date();
+
+			// Actualiza o crea el usuario
 			usuario.id
-				? await baseDatos.actualizaPorId("usuarios", usuario.id, {contrasena: contrEncriptada})
+				? await baseDatos.actualizaPorId("usuarios", usuario.id, {contrasena: contrEncriptada, fechaContrasena})
 				: await procesos.altaOlvido.creaElUsuario({email, contrEncriptada});
 		}
 

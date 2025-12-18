@@ -1,16 +1,11 @@
 main h1 {margin-block: 20px 15px !important;}
 #cuerpo {
-	flex-direction: row; align-items: center; justify-content: space-between;
-	flex-wrap: nowrap; flex-grow: 1;
-	width: 100%; max-width: 100%; max-height: 100%;
-
-	form {
-		display: flex; flex-direction: column; align-items: stretch;
-		background: white; padding: 30px 40px; border-radius: 18px; text-align: left;
-		box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-		label {font-weight: bold; margin-bottom: 6px; display: block; color: var(--grisOscuro);}
+	form#formContactanos {
+		align-items: stretch;
+		text-align: left;
+		input, textarea, p {max-width: 300px;}
 		input, textarea {
-			padding: 6px 10px; width: 455px;
+			padding: 6px 10px;
 			border: 2px solid #d7dee5; border-radius: 12px;
 			background: var(--celesteMuyClaro);
 			outline: none;
@@ -19,24 +14,19 @@ main h1 {margin-block: 20px 15px !important;}
 				box-shadow: 0 0 0 3px rgba(12,58,92,0.2);
 			}
 		}
-		input {margin-bottom: 20px;}
-		p#obligatorio {margin-bottom: 15px;}
+		input:not(:last-of-type) {margin-bottom: 20px;}
+		p.comentario {margin-bottom: 15px; text-wrap: balance;}
 		p#espera {margin-inline: auto; color: var(--rojoOscuro); font-weight: bold;}
-		textarea {height: 100px; resize: vertical;}
-		button {
-			background: var(--grisOscuro); color: white; border: none;
-			margin-top: 10px; padding: 10px 20px; border-radius: 10px; font-size: 1.2rem;
-			cursor: pointer; transition: 250ms; margin-inline: auto;
-			&:hover {scale: 1.05;}
-		}
-	}
 
-	.contenedorImagen {
-		display: flex; flex-direction: row; align-items: center;
-		--ancho: 22%;
-		height: 100%; width: var(--ancho); max-width: var(--ancho);
-		&#izquierda {justify-content: flex-end;}
-		&#derecha {justify-content: flex-start;}
-		img {max-width: 100%; max-height: 100%;}
+		@media (340px < width) {
+			& {padding: 30px 40px; }
+			input, textarea {padding: 6px 10px;}
+			textarea {height: 100px; resize: vertical;}
+		}
+		@media (width <= 340px) {
+			& {padding: 25px 30px; }
+			input, textarea {padding: 3px 5px;}
+			textarea {resize: vertical;}
+		}
 	}
 }
