@@ -1,26 +1,26 @@
 <% if (esConIndice && encabezado) { %>
-	<!-- Filtros e Índice -->
-	<section id="ladoIzq">
-		<div id="filtroIndice">
-			 <% if (esCarta) { %> <%- include("LT-1Cartas-1FiltroIndice") %><% } %>
-			 <% if (esExpers) { %><%- include("LT-2Expers-1FiltroIndice") %><% } %>
-			 <% if (esLugaresDevoc) { %> <%- include("LT-3LugaresDevoc-1Indice") %><% } %>
+	<!-- Mostrar u ocultar los filtros e índice -->
+	<i id="muestraFiltroIndice" class="<%= iconos.faSolid %> fa-chevron-right"></i>
 
-			 <div id="flechas">
-				 <% if (encabezado.ant_id) { %>
-					 <a href="?id=<%= encabezado.ant_id %>" class="flechaIzquierda">
-						 <i class="<%= iconos.faSolid %> <%= iconos.izquierda %>"></i>
-					 </a>
-				 <% } %>
-				 <% if (encabezado.sig_id) { %>
-					 <a href="?id=<%= encabezado.sig_id %>" class="flechaDerecha">
-						 <i class="<%= iconos.faSolid %> <%= iconos.derecha %>"></i>
-					 </a>
-				 <% } %>
-			 </div>
-		</div>
-		<i id="muestraFiltroIndice" class="<%= iconos.faSolid %> fa-chevron-right"></i>
-	</section>
+	<!-- Filtros e Índice -->
+	<div id="filtroIndice">
+			<% if (esCarta) { %> <%- include("LT-1Cartas-1FiltroIndice") %><% } %>
+			<% if (esExpers) { %><%- include("LT-2Expers-1FiltroIndice") %><% } %>
+			<% if (esLugaresDevoc) { %> <%- include("LT-3LugaresDevoc-1Indice") %><% } %>
+
+			<div id="flechas">
+				<% if (encabezado.ant_id) { %>
+					<a href="?id=<%= encabezado.ant_id %>" class="flechaIzquierda">
+						<i class="<%= iconos.faSolid %> <%= iconos.izquierda %>"></i>
+					</a>
+				<% } %>
+				<% if (encabezado.sig_id) { %>
+					<a href="?id=<%= encabezado.sig_id %>" class="flechaDerecha">
+						<i class="<%= iconos.faSolid %> <%= iconos.derecha %>"></i>
+					</a>
+				<% } %>
+			</div>
+	</div>
 <% } %>
 
 <!-- Artículo -->

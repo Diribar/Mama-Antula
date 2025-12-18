@@ -1,82 +1,71 @@
-#ladoIzq {
+#filtroIndice {
 	position: absolute;
-	display: flex; flex-direction: row; align-items: center;
-	height: 100%;
-	width: 90vw;
+	display: flex; flex-direction: column; align-items: flex-start; gap: 20px;
+	height: 100%; padding-block: 10px;
+	#indice, #tituloFiltros {
+		.titulo {font-size: 0.95rem; align-self: flex-start;}
+		.tituloEncabs a, select, .muestraFiltroAnchors {font-size: 0.9rem;}
+	}
+	.contenedor {
+		display: flex; flex-direction: column;
+		border: 1px solid var(--rojoOscuro); border-radius: 8px;
+		color: var(--rojoOscuro); background-color: var(--amarilloClaro);
+		padding-block: 10px; padding-inline: 30px 10px;
+		min-width: var(--anchoIndice);
+		width: max-content;
+		&#indice {gap: 5px;}
 
-	&:not(:has(i#muestraFiltroIndice.ocultar)) {pointer-events: none;} /* los eventos sólo tienen vigencia si el ícono 'muestraFiltroIndice' está oculto */
-	* {pointer-events: auto;}
-
-	i#muestraFiltroIndice {cursor: pointer;}
-
-	#filtroIndice {
-		display: flex; flex-direction: column; align-items: flex-start; gap: 20px;
-		height: 100%; padding-block: 10px;
-		#indice, #tituloFiltros {
-			.titulo {font-size: 0.95rem; align-self: flex-start;}
-			.tituloEncabs a, select, .muestraFiltroAnchors {font-size: 0.9rem;}
-		}
-		.contenedor {
-			display: flex; flex-direction: column;
-			border: 1px solid var(--rojoOscuro); border-radius: 8px;
-			color: var(--rojoOscuro); background-color: var(--amarilloClaro);
-			padding-block: 10px; padding-inline: 30px 10px;
-			min-width: var(--anchoIndice);
-			width: max-content;
-			&#indice {gap: 5px;}
-
-			.titulo {
-				position: relative; cursor: pointer;
-				.muestraFiltroAnchors {
-					position: absolute; left: -5px; top: 50%; translate: -90% -50%;
-					cursor: pointer;
-					&.girar {transform: rotate(90deg);}
-				}
-			}
-			.tituloEncabs {
-				display: flex; flex-direction: column; align-items: flex-start;
-				.encabezados {
-					display: flex; flex-direction: column; justify-content: flex-start;
-					li, a {line-height: 1; align-self: flex-start;}
-					li {margin-bottom: 6px;}
-				}
+		.titulo {
+			position: relative; cursor: pointer;
+			.muestraFiltroAnchors {
+				position: absolute; left: -5px; top: 50%; translate: -90% -50%;
+				cursor: pointer;
+				&.girar {transform: rotate(90deg);}
 			}
 		}
-		#tituloFiltros {
-			#filtros {
-				display: flex; flex-direction: row; align-items: center; gap: 20px;
-				select {
-					border-radius: 8px;
-					option.quitarFiltro {display: initial; font-style: italic;}
-					&:has(option:checked[value=""]) option.quitarFiltro {display: none;}
-				}
+		.tituloEncabs {
+			display: flex; flex-direction: column; align-items: flex-start;
+			.encabezados {
+				display: flex; flex-direction: column; justify-content: flex-start;
+				li, a {line-height: 1; align-self: flex-start;}
+				li {margin-bottom: 6px;}
 			}
 		}
-		#indice {
-			align-self: flex-start;
-			max-height: 400px; overflow-y: auto;
-			max-width: 100%;
-			&:not(:has(> :not(.ocultar))) {display: none;}
+	}
+	#tituloFiltros {
+		#filtros {
+			display: flex; flex-direction: row; align-items: center; gap: 20px;
+			select {
+				border-radius: 8px;
+				option.quitarFiltro {display: initial; font-style: italic;}
+				&:has(option:checked[value=""]) option.quitarFiltro {display: none;}
+			}
+		}
+	}
+	#indice {
+		align-self: flex-start;
+		max-height: 400px; overflow-y: auto;
+		max-width: 100%;
+		&:not(:has(> :not(.ocultar))) {display: none;}
 
-			/* Scroll-bar */
-			&::-webkit-scrollbar {width: 8px;}
-			&::-webkit-scrollbar-thumb {background-color: var(--grisInterm); border-radius: 10px;}
-			&::-webkit-scrollbar-track {background: var(--celesteClaro); border-radius: 10px; margin-block: 2px;}
-		}
-		#fichaTecnica {
-			flex-grow: 1;
-			display: flex; flex-direction: column; justify-content: center;
-			max-width: var(--anchoIndice);
-			ul {font-size: 0.9rem;}
-		}
-		#flechas {
-			display: flex; flex-direction: row; justify-content: space-evenly;
-			width: var(--anchoIndice);
-			i {
-				color: var(--azulOscuro);
-				font-size: 1.5rem; cursor: pointer;
-				&:hover {scale: 1.5;}
-			}
+		/* Scroll-bar */
+		&::-webkit-scrollbar {width: 8px;}
+		&::-webkit-scrollbar-thumb {background-color: var(--grisInterm); border-radius: 10px;}
+		&::-webkit-scrollbar-track {background: var(--celesteClaro); border-radius: 10px; margin-block: 2px;}
+	}
+	#fichaTecnica {
+		flex-grow: 1;
+		display: flex; flex-direction: column; justify-content: center;
+		max-width: var(--anchoIndice);
+		ul {font-size: 0.9rem;}
+	}
+	#flechas {
+		display: flex; flex-direction: row; justify-content: space-evenly;
+		width: var(--anchoIndice);
+		i {
+			color: var(--azulOscuro);
+			font-size: 1.5rem; cursor: pointer;
+			&:hover {scale: 1.5;}
 		}
 	}
 }
