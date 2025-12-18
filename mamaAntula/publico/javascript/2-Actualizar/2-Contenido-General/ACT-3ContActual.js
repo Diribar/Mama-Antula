@@ -202,15 +202,15 @@ window.addEventListener("load", async () => {
 			// Agrega la información del libro
 			const texto = document.createElement("div");
 			texto.classList.add("texto");
-			texto.appendChild(this.textoLibro(contenido.titulo, "titulo"));
-			if (contenido.subtitulo) texto.appendChild(this.textoLibro(contenido.subtitulo, "subtitulo"));
-			texto.appendChild(this.textoLibro(contenido.autor, "autor"));
+			const tituloSubtitulo = contenido.titulo + (contenido.subtitulo ? " - " + contenido.subtitulo : "");
+			texto.appendChild(this.textoLibro(tituloSubtitulo, "titulo"));
+			texto.appendChild(this.textoLibro(contenido.autor));
 			const anoEditorial =
 				(contenido.anoLanzam || "") +
 				(contenido.anoLanzam && contenido.editorial ? " - " : "") +
 				(contenido.editorial || "");
-			texto.appendChild(this.textoLibro(anoEditorial, "anoEditorial"));
-			if (contenido.cantPags) texto.appendChild(this.textoLibro(contenido.cantPags, "cantPags"));
+			texto.appendChild(this.textoLibro(anoEditorial));
+			if (contenido.cantPags) texto.appendChild(this.textoLibro(contenido.cantPags + " páginas"));
 			contenedor.appendChild(texto);
 
 			// Fin

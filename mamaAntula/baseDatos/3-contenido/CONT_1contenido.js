@@ -15,11 +15,13 @@ export default (sequelize, dt) => {
 
 		// Libros / Estampas
 		titulo: {type: dt.STRING(100)},
+		subtitulo: {type: dt.STRING(100)},
 
 		// Libros
 		autor: {type: dt.STRING(50)},
 		anoLanzam: {type: dt.INTEGER},
 		editorial: {type: dt.STRING(50)},
+		cantPags: {type: dt.INTEGER},
 		descarga: {type: dt.STRING(50)},
 
 		// Control
