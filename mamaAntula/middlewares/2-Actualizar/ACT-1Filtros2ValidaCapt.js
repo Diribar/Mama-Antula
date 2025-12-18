@@ -7,45 +7,39 @@ export default async (req, res, next) => {
 
 	// Obtiene las capturas
 	const capturadoPor_id = {[Op.ne]: usuario.id}; // por otros usuarios
-	const capturadoEn = {[Op.gt]: new Date(Date.now() - unaHora)}; // hace menos de una hora
+	let capturadoEn = {[Op.gt]: new Date(Date.now() - unaHora)}; // hace menos de una hora
 	const condicion = {[Op.and]: [{capturadoPor_id}, {capturadoEn}]};
 	const capturas = await baseDatos.obtieneTodosPorCondicion("capturas", condicion, "capturadoPor");
 
-	// TEMA - Valida la captura
+	// Si el tema o pestaña no está capturado, interrumpe la función
+	const captura = capturas.find((n) => (tema_id && n.tema_id == tema_id) || (pestana_id && n.pestana_id == pestana_id));
+	if (!captura) return next();
+
+	// Más variables
+	const {nombreCompleto, apodo} = captura.capturadoPor;
+	({capturadoEn} = captura);
+	let titulo, entidad, oa;
+
+	// Variables de tema
 	if (tema_id) {
-		// El tema no esta siendo capturado
-		const captura = capturas.find((n) => n.tema_id == tema_id);
-		if (!captura) return next();
-
 		// Variables
-		const {capturadoPor, capturadoEn} = captura;
-		const {nombreCompleto, apodo} = capturadoPor;
-		const titulo = temasSecciones.find((n) => n.id == tema_id).titulo;
-		const entidad = "El tema ";
-		const oa = "o";
-
-		// Fin
-		const datos = {entidad, titulo, oa, nombreCompleto, apodo, capturadoEn};
-		return res.json(respuesta(datos));
+		titulo = temasSecciones.find((n) => n.id == tema_id).titulo;
+		entidad = "El tema ";
+		oa = "o";
 	}
 
-	// PESTAÑA - Valida la captura
+	// Variables de pestaña
 	if (pestana_id) {
-		// La pestaña no esta siendo capturada
-		const captura = capturas.find((n) => n.tema_id == tema_id);
-		if (!captura) return next();
-
-		// Variables
-		const {capturadoPor, capturadoEn} = captura;
-		const {nombreCompleto, apodo} = capturadoPor;
-		const titulo = pestanasTemas.find((n) => n.id == pestana_id).titulo;
-		const entidad = "La pestaña ";
-		const oa = "a";
-
-		// Fin
-		const datos = {entidad, titulo, oa, nombreCompleto, apodo, capturadoEn};
-		return res.json(respuesta(datos));
+		titulo = pestanasTemas.find((n) => n.id == pestana_id).titulo;
+		entidad = "La pestaña ";
+		oa = "a";
 	}
+
+	// Consolida la información
+	const datos = {entidad, titulo, oa, nombreCompleto, apodo, capturadoEn};
+
+	// Fin
+	return res.json(respuesta(datos));
 };
 
 // Variables
