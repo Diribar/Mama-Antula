@@ -10,10 +10,10 @@
 				<!-- Título -->
 				<ul>
 					<% for (const encabezado of rutas[ruta].encabezados) { %>
-						<% const {titulo, tituloElab, anchor} = encabezado %>
+						<% const {titulo, tituloElab, pestana, anchor} = encabezado %>
 						<li class="secundario"><span class="alinearVertical">
 							<span class="icono">✅</span>
-							<a href="<%= anchor %>"><%= titulo || tituloElab %></a>
+							<a href="<%= anchor %>"><%= titulo || tituloElab || pestana && pestana.titulo %></a>
 						</span></li>
 					<% } %>
 				</ul>
