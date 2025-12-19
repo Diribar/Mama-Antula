@@ -7,7 +7,7 @@ main {
 		.cartelCentro {
 			/* Formato general */
 			width: max-content; max-width: min(600px, 95vw);
-			max-height: 95%; color: var(--grisClaro);
+			max-height: 90%; color: var(--grisClaro);
 			padding: 20px; border-radius: 15px; border: 6px double white;
 
 			/* Partes internas */
