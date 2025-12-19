@@ -24,6 +24,7 @@ header {
 				#mensajeError {color: var(--grisClaro); text-align: center;font-style: italic; line-height: 1;}
 				#iconos {display: none;}
 			}
+			input, #eye {font-size: 0.8rem;}
 			input {
 				width: 150px; padding-inline: 2px;
 				text-align: center; color: var(--colorMain);
@@ -42,14 +43,17 @@ header {
 					&#altaOlvido {color: var(--colorMain);}
 				}
 			}
-			a#capacitacion {width: 100%; justify-content: space-between;}
+			a#videos {gap: 10px; align-self: flex-start;}
 		}
 
 		/* Logout */
 		img#imagenUsuario {max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 50%;}
 		#menuLogout {
 			right: 0;
-			.menuOpcion {display: flex; flex-direction: row; align-items: center; gap: 10px;}
+			font-size: 0.8rem;
+			.menuOpcion {
+				display: flex; flex-direction: row; align-items: center; gap: 10px;
+			}
 		}
 	}
 }

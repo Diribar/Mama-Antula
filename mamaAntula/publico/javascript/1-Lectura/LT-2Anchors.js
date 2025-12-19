@@ -29,17 +29,19 @@ window.addEventListener("load", async () => {
 		// Ancho de la zona de filtros
 		DOM.filtroIndice.classList.add("aumentaX");
 		DOM.filtroIndice.classList.remove("disminuyeX");
+		DOM.muestraFiltroIndice.classList.add("ocultar");
 	});
 
 	// Eventos - Oculta el lado izquierdo
 	document.addEventListener("click", (e) => {
-		const ignorar = e.target.closest("#tituloFiltros, #indice, #muestraFiltroIndice");
+		const ignorar = e.target.closest("#tituloFiltros, #indice, #muestraFiltroIndice, #flechas");
 		const hayQueDisminuir = DOM.filtroIndice.classList.contains("aumentaX");
 		if (ignorar || !hayQueDisminuir) return;
 
 		// Ancho de la zona de filtros
 		DOM.filtroIndice.classList.add("disminuyeX");
 		DOM.filtroIndice.classList.remove("aumentaX");
+		DOM.muestraFiltroIndice.classList.remove("ocultar");
 	});
 
 	// Eventos - Gira el ícono 'muestraFiltroAnchors' y muestra/oculta los filtros y anchors

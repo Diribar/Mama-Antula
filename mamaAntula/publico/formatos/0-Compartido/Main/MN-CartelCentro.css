@@ -7,7 +7,7 @@ main {
 		.cartelCentro {
 			/* Formato general */
 			width: max-content; max-width: min(600px, 95vw);
-			max-height: 95%; color: var(--grisClaro);
+			max-height: 90%; color: var(--grisClaro);
 			padding: 20px; border-radius: 15px; border: 6px double white;
 
 			/* Partes internas */
@@ -64,7 +64,6 @@ main {
 /* Acostado */
 @media (orientation: landscape) and (width > 1250px) {
 	#cartelGenerico {
-		transform: translateY(-12.7px);
 		&:has(#contenedorMensajes:not(:empty)) #encab {margin-bottom: 40px;}
 		&:has(#titulo:not(:empty)) #encab .inicio {margin-bottom: 20px;}
 		#iconosCartel {margin-top: 35px;}
@@ -90,7 +89,6 @@ main {
 		#mensajes {margin-inline: 10px;}
 	}
 	#cartelGenerico {
-		transform: translateY(-12.7px);
 		&:has(#contenedorMensajes:not(:empty)) #encab {margin-bottom: 20px;}
 		&:has(#titulo:not(:empty)) #encab .inicio {margin-bottom: 10px;}
 		#iconosCartel {margin-top: 25px;}

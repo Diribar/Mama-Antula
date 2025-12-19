@@ -205,13 +205,13 @@ export default {
 		// Variables
 		const {encab_id, imagen, texto, imagens} = req.body;
 
-		// Pule el layout
+		// Obtiene el layout_id
 		let {layoutCodigo} = req.body;
 		const textoImagen = layoutCodigo == "textoImagen";
 		layoutCodigo = (textoImagen && !imagen && "texto") || (textoImagen && !texto && "imagen") || layoutCodigo;
+		const layout_id = contLayouts.find((n) => n.codigo == layoutCodigo).id;
 
 		// Empieza a armar la información a guardar
-		const layout_id = contLayouts.find((n) => n.codigo == layoutCodigo).id;
 		const {id: creadoPor_id} = req.session.usuario;
 		const datos = {encab_id, layout_id, creadoPor_id, statusSugeridoPor_id: creadoPor_id};
 
@@ -231,7 +231,7 @@ export default {
 		if (req.files) req.files.forEach((file, i) => comp.gestionArchs.descarga(carpRevisar, imagens[i], file));
 
 		// Averigua el orden y guarda el registro
-		datos.orden = await procesos.obtieneOrdenContenidos(encab_id);
+		if (layoutCodigo != "libro") datos.orden = await procesos.obtieneOrdenContenidos(encab_id);
 		const {id: contenido_id} = await baseDatos.agregaRegistroIdCorrel("contenidos", datos);
 
 		// Guarda los registros de carrusel

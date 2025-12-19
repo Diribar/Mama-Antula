@@ -42,6 +42,7 @@
 			width: 30px; height: 30px; border-radius: 50%; object-fit: cover;
 			&[src=""] {display: none;}
 		}
+		@media (width <= 1000px) {#sectorContNuevo {display: none;}}
 	}
 
 	/* Si el encabezado es nuevo, oculta el sectorContNuevo */
