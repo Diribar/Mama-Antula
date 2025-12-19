@@ -10,12 +10,12 @@
 
 			<div id="flechas">
 				<% if (encabezado.ant_id) { %>
-					<a href="?id=<%= encabezado.ant_id %>" class="flechaIzquierda">
+					<a href="?id=<%= encabezado.ant_id %>" id="retrocede">
 						<i class="<%= iconos.faSolid %> <%= iconos.izquierda %>"></i>
 					</a>
 				<% } %>
 				<% if (encabezado.sig_id) { %>
-					<a href="?id=<%= encabezado.sig_id %>" class="flechaDerecha">
+					<a href="?id=<%= encabezado.sig_id %>" id="avanza">
 						<i class="<%= iconos.faSolid %> <%= iconos.derecha %>"></i>
 					</a>
 				<% } %>
