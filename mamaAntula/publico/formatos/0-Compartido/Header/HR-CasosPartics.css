@@ -24,6 +24,7 @@ header {
 				#mensajeError {color: var(--grisClaro); text-align: center;font-style: italic; line-height: 1;}
 				#iconos {display: none;}
 			}
+			input, #eye {font-size: 0.8rem;}
 			input {
 				width: 150px; padding-inline: 2px;
 				text-align: center; color: var(--colorMain);
@@ -42,7 +43,7 @@ header {
 					&#altaOlvido {color: var(--colorMain);}
 				}
 			}
-			a#capacitacion {width: 100%; justify-content: space-between;}
+			a#videos {gap: 10px; align-self: flex-start;}
 		}
 
 		/* Logout */
