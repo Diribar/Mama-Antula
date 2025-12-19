@@ -11,9 +11,11 @@
 	&:has(#filtroIndice) #tituloMasContenido {margin-left: var(--margenIzq); max-width: calc(100% - var(--margenIzq));}
 	&:not(:has(#filtroIndice)) #tituloMasContenido {max-width: 100%;}
 
+	/* #tituloMasContenido::-webkit-scrollbar-thumb {background-color: blue;} */
 	#tituloMasContenido {
-		flex-grow: 1; overflow-y: auto; /* fundamental para la lectura */
-		overflow-x: hidden;
+		flex-grow: 1;
+		overflow-y: auto; /* fundamental para la lectura */
+		overflow-x: hidden; /* fundamental para las estampas */
 
 		/* Titulo del contenido */
 		#tituloDelContenido {padding-block: 6px 10px;}
