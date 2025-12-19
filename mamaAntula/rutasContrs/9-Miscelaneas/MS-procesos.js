@@ -13,7 +13,7 @@ export default {
 	},
 	contenidos: async function ({palabras, statusRegistro_id}) {
 		// Obtiene la condición
-		const campos = ["texto", "leyenda", "titulo", "autor", "editorial"];
+		const campos = ["texto", "leyenda", "titulo", "subtitulo", "autor", "editorial"];
 		const condicion = this.condicion({palabras, campos, statusRegistro_id});
 
 		// Obtiene los encabs_id
