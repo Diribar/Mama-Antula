@@ -3,13 +3,12 @@
 	@media (width <= 1280px) {--anchoIndice: 150px; --anchoMargen: 40px;}
 	@media (1000px < width) {
 		--margenIzq: calc(var(--anchoIndice) + var(--anchoMargen));
-		#ladoIzq {
-			#filtroIndice, #filtroIndice * {max-width: 100%;}
-			#filtroIndice {
-				.encabezados {margin-inline: 10px;}
-				ul {list-style-type: none; li {margin-left: 0;}}
-			}
-			#muestraFiltroIndice {display: none;}
+		i#muestraFiltroIndice {display: none;}
+		#filtroIndice, #filtroIndice * {max-width: 100%;}
+		#filtroIndice {
+			#filtros {gap: 20px;}
+			.encabezados {margin-inline: 10px;}
+			ul {list-style-type: none; li {margin-left: 0;}}
 		}
 		#tituloMasContenido {
 			&:not(:has(#tituloDelContenido)) {padding-top: 18px;}
@@ -26,18 +25,25 @@
 	}
 	@media (width <= 1000px) {
 		--anchoIndice: 140px; --margenIzq: 0px;
-		#ladoIzq {
-			#filtroIndice {
-				overflow-x: hidden;
-				max-width: 0%;
-				background-color: var(--grisMuyClaro);
-				border-top-right-radius: 20px; border-bottom-right-radius: 20px;
-				&.aumentaX {padding-right: 10px;}
+		#filtroIndice {
+			overflow-x: hidden;
+			transform-origin: left;
+			background-color: var(--grisMuyClaro);
+			border-top-right-radius: 20px; border-bottom-right-radius: 20px;
+			transform: scaleX(0);
+			&.aumentaX {padding-right: 10px;}
 
-				ul {list-style-type: disc;}
-			}
-			#muestraFiltroIndice {width: min-content; translate: -100%;}
+			#filtros {gap: 10px;}
+			ul {list-style-type: disc;}
 		}
+		i#muestraFiltroIndice {
+			position: absolute; left: 0px; top: 50%; translate: 0 -50%;
+			background-color: var(--grisOscuro); color: snow; border-radius: 0 5px 5px 0;
+			padding-block: 5px; padding-inline: 1px 2px;
+			font-size: 12px;
+			width: min-content; cursor: pointer;
+		}
+
 		#tituloMasContenido {
 			&:not(:has(#tituloDelContenido)) {padding-top: 12px;}
 			#contenido {
