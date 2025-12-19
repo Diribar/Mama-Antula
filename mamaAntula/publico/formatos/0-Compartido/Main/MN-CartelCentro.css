@@ -64,7 +64,6 @@ main {
 /* Acostado */
 @media (orientation: landscape) and (width > 1250px) {
 	#cartelGenerico {
-		transform: translateY(-12.7px);
 		&:has(#contenedorMensajes:not(:empty)) #encab {margin-bottom: 40px;}
 		&:has(#titulo:not(:empty)) #encab .inicio {margin-bottom: 20px;}
 		#iconosCartel {margin-top: 35px;}
@@ -90,7 +89,6 @@ main {
 		#mensajes {margin-inline: 10px;}
 	}
 	#cartelGenerico {
-		transform: translateY(-12.7px);
 		&:has(#contenedorMensajes:not(:empty)) #encab {margin-bottom: 20px;}
 		&:has(#titulo:not(:empty)) #encab .inicio {margin-bottom: 10px;}
 		#iconosCartel {margin-top: 25px;}
