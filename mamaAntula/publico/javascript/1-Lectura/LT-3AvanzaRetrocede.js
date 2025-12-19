@@ -32,7 +32,7 @@ window.addEventListener("load", async () => {
 		const diffY = finY - inicioY;
 
 		// Desplazamiento horizontal
-		if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > UMBRAL) {
+		if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > v.umbral) {
 			if (diffX > 0 && v.retrocede) location.href = v.retrocede;
 			if (diffX < 0 && v.avanza) location.href = v.avanza;
 		}

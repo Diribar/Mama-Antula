@@ -29,6 +29,7 @@ window.addEventListener("load", async () => {
 		// Ancho de la zona de filtros
 		DOM.filtroIndice.classList.add("aumentaX");
 		DOM.filtroIndice.classList.remove("disminuyeX");
+		DOM.muestraFiltroIndice.classList.add("ocultar");
 	});
 
 	// Eventos - Oculta el lado izquierdo
@@ -40,6 +41,7 @@ window.addEventListener("load", async () => {
 		// Ancho de la zona de filtros
 		DOM.filtroIndice.classList.add("disminuyeX");
 		DOM.filtroIndice.classList.remove("aumentaX");
+		DOM.muestraFiltroIndice.classList.remove("ocultar");
 	});
 
 	// Eventos - Gira el ícono 'muestraFiltroAnchors' y muestra/oculta los filtros y anchors
