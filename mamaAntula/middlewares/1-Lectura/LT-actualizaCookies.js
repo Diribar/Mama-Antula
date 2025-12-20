@@ -23,7 +23,11 @@ export default (req, res, next) => {
 	// Guarda cookies para interactuar con actualización
 	res.cookie("actSeccion_id", seccionActual.id, {maxAge: unDia, path: "/"});
 	res.cookie("actTema_id", temaActual.id, {maxAge: unDia, path: "/"});
-	if (pestanaActual) res.cookie("actPestana_id", pestanaActual.id, {maxAge: unDia, path: "/"});
+	res.locals.tema_id = temaActual.id;
+	if (pestanaActual) {
+		res.cookie("actPestana_id", pestanaActual.id, {maxAge: unDia, path: "/"});
+		res.locals.pestana_id = pestanaActual.id;
+	}
 	else res.clearCookie("actPestana_id");
 	if (encab_id) res.cookie("actEncabezado_id", encab_id, {maxAge: unDia, path: "/"});
 
