@@ -1,23 +1,4 @@
 body {
 	position: relative;
 	main #cuerpo {flex-direction: column; max-height: 100%; position: relative;}
-
-	#loader-overlay {
-		position: fixed;
-		inset: 0;
-		background: rgba(255, 255, 255, 0.8);
-		display: none; /* oculto por defecto */
-		align-items: center;
-		justify-content: center;
-		z-index: 2;
-		#loader {
-			width: 48px;
-			height: 48px;
-			border: 5px solid #ccc;
-			border-top-color: #333;
-			border-radius: 50%;
-			animation: spin 1s linear infinite;
-		}
-		@keyframes spin {to {transform: rotate(360deg);}}
-	}
 }
