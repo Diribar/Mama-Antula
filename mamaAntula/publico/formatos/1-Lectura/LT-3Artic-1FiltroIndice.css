@@ -29,7 +29,10 @@
 			.encabezados {
 				display: flex; flex-direction: column; justify-content: flex-start;
 				li, a {line-height: 1; align-self: flex-start;}
-				li {margin-bottom: 6px;}
+				li {
+					margin-bottom: 6px;
+					&:has(.ocultar) {display: none;}
+				}
 			}
 		}
 	}
