@@ -199,6 +199,7 @@ export default {
 			: esExpers
 			? await baseDatos
 					.obtieneTodosPorCondicion("encabezados", condicion, [...includesEncabs.expers, ...includesAdics])
+					.then((n) => n.sort((a, b) => (a.lugarExper.nombre < b.lugarExper.nombre ? -1 : 1)))
 					.then((n) => n.sort((a, b) => (b.fechaEvento < a.fechaEvento ? -1 : 1)))
 			: esLugaresDevoc
 			? await baseDatos
