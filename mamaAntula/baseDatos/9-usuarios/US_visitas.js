@@ -9,15 +9,12 @@ export default (sequelize, dt) => {
 		diasNaveg: {type: dt.INTEGER}, // para la estadística
 
 		versionWeb: {type: dt.STRING(4)}, // para las novsPeliculas
-		rol_id: {type: dt.INTEGER}, // para las novsPeliculas, default '1'
+		originalUrl: {type: dt.STRING(200)},
 	};
 	const config = {
 		tableName: "us_visitas",
 		timestamps: false,
 	};
 	const entidad = sequelize.define(alias, columns, config);
-	entidad.associate = (n) => {
-		entidad.belongsTo(n.roles, {as: "rol", foreignKey: "rol_id"});
-	};
 	return entidad;
 };

@@ -6,7 +6,7 @@ export default (sequelize, dt) => {
 
 		apodo: {type: dt.STRING(30)},
 		cliente_id: {type: dt.STRING(11)},
-		contrasena: {type: dt.STRING(50)},
+		contrasena: {type: dt.STRING(60)},
 		imagen: {type: dt.STRING(100)},
 		notificacs: {type: dt.BOOLEAN},
 

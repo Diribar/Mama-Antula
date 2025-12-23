@@ -59,14 +59,15 @@ export default async (req, res, next) => {
 
 		// Obtiene el cliente
 		const tabla = esUsuario ? "usuarios" : "visitas";
-		cliente = await baseDatos.obtienePorCondicion(tabla, {cliente_id}, "rol").then((n) => n && obtieneCamposNecesarios(n));
+		cliente = await baseDatos.obtienePorCondicion(tabla, {cliente_id}).then((n) => n && obtieneCamposNecesarios(n));
 		// no se obtiene el usuario por medida de seguridad, ya que no existe la cookie del mail
 	}
 
 	// Cliente: 3. Como no existe, lo crea
 	if (!cliente) {
 		// Crea el cliente
-		const datos = {versionWeb};
+		const originalUrl = req.originalUrl.split("?")[0].slice(0, 200); // para analizar el url
+		const datos = {versionWeb, originalUrl};
 		cliente = await baseDatos.agregaRegistroIdCorrel("visitas", datos);
 
 		// Crea un nuevo 'cliente_id' y actualiza o crea la cookie
@@ -75,7 +76,7 @@ export default async (req, res, next) => {
 
 		// Actualiza el 'cliente_id' en la BD y la variable
 		await baseDatos.actualizaPorId("visitas", cliente.id, {cliente_id}); // es crítico el 'await'
-		cliente = await baseDatos.obtienePorId("visitas", cliente.id, "rol").then((n) => obtieneCamposNecesarios(n));
+		cliente = await baseDatos.obtienePorId("visitas", cliente.id).then((n) => obtieneCamposNecesarios(n));
 	}
 
 	// Variables
@@ -91,7 +92,6 @@ export default async (req, res, next) => {
 		// Actualiza el usuario
 		baseDatos.actualizaPorId(tabla, cliente.id, {fechaUltNaveg: fechaHoy, diasNaveg});
 		if (usuario) usuario = {...usuario, fechaUltNaveg: fechaHoy, diasNaveg};
-
 	}
 
 	// Actualiza usuario y cliente
@@ -111,7 +111,7 @@ const obtieneCamposNecesarios = (usuario) => {
 		...["id", "cliente_id"], // identificación
 		"fechaUltNaveg", // para el 'contador de navegaciones'
 		...["diasNaveg", "visitaCreadaEn"], // para la tabla 'persWebDiaAcum'
-		...["versionWeb", "rol"], // para mostrar carteles
+		"versionWeb", // para mostrar carteles
 	];
 
 	// Obtiene los datos para la variable cliente
