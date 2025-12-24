@@ -272,8 +272,12 @@ export default {
 	},
 	rutaInvalida: (req, res) => {
 		// Elimina de la BD las visitas con ese url
-		const originalUrl = req.originalUrl.split("?")[0].slice(0, 200); // para analizar el url
-		baseDatos.eliminaPorCondicion("visitas", {originalUrl});
+		const {cliente_id} = req.session.cliente;
+		if (cliente_id.startsWith("V")) {
+			const originalUrl = req.originalUrl.split("?")[0].slice(0, 200); // para analizar el url
+			const fechaUltNaveg = comp.fechaHora.anoMesDia(new Date());
+			baseDatos.eliminaPorCondicion("visitas", {originalUrl, fechaUltNaveg});
+		}
 
 		// Vista de ruta inválida
 		const informacion = {mensajes: ["No tenemos esa dirección en nuestro sitio"]};
