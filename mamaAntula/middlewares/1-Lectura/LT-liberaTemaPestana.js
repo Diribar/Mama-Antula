@@ -2,13 +2,14 @@
 
 export default (req, res, next) => {
 	// Variables
-	const {actTema_id: tema_id, actPestana_id: pestana_id} = req.cookies;
 	const {usuario} = req.session;
+	if (!usuario) return next();
 
 	// Elimina la captura del usuario
+	const {tema_id, pestana_id} = res.locals;
 	const campo = tema_id ? "tema_id" : "pestana_id";
 	const campo_id = tema_id || pestana_id;
-	if (usuario) baseDatos.eliminaPorCondicion("capturas", {[campo]: campo_id, capturadoPor_id: usuario.id});
+	baseDatos.eliminaPorCondicion("capturas", {[campo]: campo_id, capturadoPor_id: usuario.id});
 
 	// Fin
 	return next();
