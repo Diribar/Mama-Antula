@@ -270,9 +270,20 @@ export default {
 		// Fin
 		return false;
 	},
-	emailsRevisores: async () =>
-		await baseDatos.obtieneTodosPorCondicion("usuarios", {rol_id: rolesRevision_ids}).then((n) => n.map((m) => m.email)),
+	rutaInvalida: (req, res) => {
+		// Elimina de la BD las visitas con ese url
+		const originalUrl = req.originalUrl.split("?")[0].slice(0, 200); // para analizar el url
+		baseDatos.eliminaPorCondicion("visitas", {originalUrl});
 
+		// Vista de ruta inválida
+		const informacion = {mensajes: ["No tenemos esa dirección en nuestro sitio"]};
+		res.status(404).render("CMP-0Estructura", {informacion});
+
+		// Fin
+		return;
+	},
+	emailsRevisores: () =>
+		baseDatos.obtieneTodosPorCondicion("usuarios", {rol_id: rolesRevision_ids}).then((n) => n.map((m) => m.email)),
 	enviaMail: async ({nombre, email, asunto, comentario}) => {
 		// Variables
 		const {host, puerto: port, mailEnvios: user, contrEnvios: pass, seguro: secure} = credencsSitio.mail;
