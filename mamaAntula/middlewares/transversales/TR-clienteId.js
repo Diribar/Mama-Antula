@@ -40,7 +40,7 @@ export default async (req, res, next) => {
 		}
 	}
 
-	// Cliente: 1. Lo obtiene del usuario
+	// Cliente: 1. Lo obtiene del usuario y actualiza la cookie
 	if (usuario && (!cliente || usuario.cliente_id != cliente_id)) {
 		// Obtiene el cliente
 		cliente = obtieneCamposNecesarios(usuario);
@@ -51,7 +51,7 @@ export default async (req, res, next) => {
 			res.cookie("cliente_id", cliente_id, {maxAge: unAno, path: "/"});
 	}
 
-	// Cliente: 2. Lo obtiene de la cookie
+	// Cliente: 2. Lo obtiene de la cookie y si no existe el registro en la BD, elimina la cookie y recarga el url
 	if (!cliente && req.cookies && req.cookies.cliente_id) {
 		// Variables
 		({cliente_id} = req.cookies);
@@ -59,8 +59,13 @@ export default async (req, res, next) => {
 
 		// Obtiene el cliente
 		const tabla = esUsuario ? "usuarios" : "visitas";
-		cliente = await baseDatos.obtienePorCondicion(tabla, {cliente_id}).then((n) => n && obtieneCamposNecesarios(n));
-		// no se obtiene el usuario por medida de seguridad, ya que no existe la cookie del mail
+		cliente = await baseDatos.obtienePorCondicion(tabla, {cliente_id}).then((n) => n && obtieneCamposNecesarios(n)); // no se obtiene el usuario por medida de seguridad, ya que no existe la cookie del mail
+
+		// Si el cliente no existe, elimina la cookie y recarga la vista
+		if (!cliente) {
+			res.clearCookie("cliente_id");
+			return res.redirect(req.originalUrl);
+		}
 	}
 
 	// Cliente: 3. Como no existe, lo crea
