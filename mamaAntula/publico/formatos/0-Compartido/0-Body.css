@@ -24,7 +24,7 @@ body {
 		display: flex; flex-direction: column; align-items: center; justify-content: center;
 		width: 100%; height: 100%; z-index: 2;
 		background-color: var(--grisMuyClaroFondo);
-		&:has(img):not(:has(img.ocultar)) {background-color: var(--grisMuyClaro);}
+		&:has(img:not(.ocultar)) {background-color: var(--grisMuyClaro);}
 		img {width: 90%; height: 90%; border-radius: 10px; object-fit: contain;}
 	}
 }

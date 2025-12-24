@@ -199,6 +199,7 @@ export default {
 			: esExpers
 			? await baseDatos
 					.obtieneTodosPorCondicion("encabezados", condicion, [...includesEncabs.expers, ...includesAdics])
+					.then((n) => n.sort((a, b) => (a.lugarExper.nombre < b.lugarExper.nombre ? -1 : 1)))
 					.then((n) => n.sort((a, b) => (b.fechaEvento < a.fechaEvento ? -1 : 1)))
 			: esLugaresDevoc
 			? await baseDatos
@@ -262,6 +263,7 @@ export default {
 		if (req.originalUrl == "/.well-known/appspecific/com.chrome.devtools.json") return true;
 		if (req.originalUrl.startsWith("/xmlrpc.php")) return true;
 		if (["/imgsEstables/", "/imgsEditables/", "/9-Imagenes/"].some((n) => req.originalUrl.startsWith(n))) return true;
+		if (["/sitemap.xml.gz", "/robots.txt", "/9-Imagenes/"].some((n) => req.originalUrl.startsWith(n))) return true;
 
 		// Si se desconoce el origen
 		if (!req.headers["user-agent"]) return true;
@@ -306,9 +308,9 @@ export default {
 
 		// Actualiza las capturas
 		baseDatos
-			.eliminaPorCondicion("capturas", {capturadoPor_id})// elimina las demás capturas del usuario
-			.then(() => baseDatos.eliminaPorCondicion("capturas", {[campo]: campo_id}))// elimina las demás capturas del tema/pestaña
-			.then(() => baseDatos.agregaRegistroIdCorrel("capturas", {[campo]: campo_id, ...captura}));// realiza la captura
+			.eliminaPorCondicion("capturas", {capturadoPor_id}) // elimina las demás capturas del usuario
+			.then(() => baseDatos.eliminaPorCondicion("capturas", {[campo]: campo_id})) // elimina las demás capturas del tema/pestaña
+			.then(() => baseDatos.agregaRegistroIdCorrel("capturas", {[campo]: campo_id, ...captura})); // realiza la captura
 
 		// Fin
 		return;
