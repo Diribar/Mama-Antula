@@ -291,7 +291,7 @@ export default {
 				// Elimina la cookie 'cliente_id'
 				res.clearCookie("cliente_id");
 
-				// Elimina de la visita de la BD
+				// Elimina la visita de la BD
 				baseDatos.eliminaPorCondicion("visitas", condicion);
 			});
 		}
