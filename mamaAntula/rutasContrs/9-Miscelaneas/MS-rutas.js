@@ -16,8 +16,8 @@ router.post("/contactanos/api/enviar", descargaImg.none(), validarContactanos, A
 
 // 🖥️ Vistas
 router.get("/contactanos", vista.contactanos);
-router.get("/biblioteca", soloActualiz, vista.biblioteca);
 router.get("/videos", vista.videos);
+router.get("/biblioteca", soloActualiz, vista.biblioteca);
 
 // ✅ Export
 export default router;

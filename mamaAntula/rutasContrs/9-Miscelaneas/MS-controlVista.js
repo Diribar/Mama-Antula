@@ -15,16 +15,6 @@ export default {
 			imagenes,
 		});
 	},
-	biblioteca: async (req, res) => {
-		// Variables
-		const tituloPagina = "Biblioteca";
-		const codigoVista = "biblioteca";
-
-		// Fin
-		return res.render("CMP-0Estructura", {
-			...{tituloPagina, temaVista, codigoVista},
-		});
-	},
 	videos: async (req, res) => {
 		// Variables
 		const tituloPagina = "Videos de Capacitación";
@@ -37,6 +27,16 @@ export default {
 		return res.render("CMP-0Estructura", {
 			...{tituloPagina, temaVista, codigoVista},
 			videos,
+		});
+	},
+	biblioteca: async (req, res) => {
+		// Variables
+		const tituloPagina = "Biblioteca";
+		const codigoVista = "biblioteca";
+
+		// Fin
+		return res.render("CMP-0Estructura", {
+			...{tituloPagina, temaVista, codigoVista},
 		});
 	},
 };
