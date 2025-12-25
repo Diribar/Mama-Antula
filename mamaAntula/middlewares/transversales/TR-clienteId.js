@@ -34,7 +34,7 @@ export default async (req, res, next) => {
 		usuario = await comp.obtieneUsuarioPorMail(email);
 
 		// Acciones si el cliente_id de la BD y de la cookie difieren
-		if (usuario && usuario.cliente_id != cliente_id) {
+		if (!usuario || usuario.cliente_id != cliente_id) {
 			usuario = null; // anula el valor del usuario
 			res.clearCookie("email"); // borra esa cookie
 		}
