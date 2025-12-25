@@ -270,13 +270,29 @@ export default {
 		// Fin
 		return false;
 	},
-	rutaInvalida: (req, res) => {
-		// Elimina de la BD las visitas con ese url
+	rutaInvalida: async function (req, res) {
+		// Si es un usuario o se omitieron los middlews transversales, interrumpe la función
 		const {cliente_id} = req.session.cliente;
-		if (cliente_id.startsWith("V")) {
+		if (cliente_id.startsWith("V") && !this.omitirMiddlewsTransv(req)) {
+			// Crea la condición
 			const originalUrl = req.originalUrl.split("?")[0].slice(0, 200); // para analizar el url
-			const fechaUltNaveg = comp.fechaHora.anoMesDia(new Date());
-			baseDatos.eliminaPorCondicion("visitas", {originalUrl, fechaUltNaveg});
+			const fechaUltNaveg = this.fechaHora.anoMesDia(new Date());
+			const condicion = {cliente_id,fechaUltNaveg, originalUrl};
+
+			// Acciones si la visita accedió con este url
+			await baseDatos.obtienePorCondicion("visitas", condicion).then((n) => {
+				if (!n) return;
+
+				// Elimina la session
+				req.session.destroy();
+				res.clearCookie("session_id");
+
+				// Elimina la cookie de cliente_id
+				res.clearCookie("cliente_id");
+
+				// Elimina de la BD las visitas con ese url
+				baseDatos.eliminaPorCondicion("visitas", condicion);
+			});
 		}
 
 		// Vista de ruta inválida

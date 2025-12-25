@@ -95,7 +95,7 @@ export default {
 		// Actualiza el usuario y la cookie - no se actualiza 'session'', para que se ejecute el middleware 'clientesSession'
 		res.cookie("email", email, {maxAge: unAno, path: "/"});
 		res.cookie("cliente_id", usuario.cliente_id, {maxAge: unAno, path: "/"}); // es crítico por seguridad, para cruzar email con cliente_id
-		delete req.session.cliente; // es crítico para que lo obtenga del cliente_id
+		delete req.session.cliente; // es crítico para que lo obtenga del cliente_id y allí actualice 'diasNaveg' y 'fechaUltNaveg'
 
 		// Actualiza datos en las estadísticas
 		// procesos.login.actualizaPersWebDia(usuario)
