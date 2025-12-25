@@ -277,7 +277,7 @@ export default {
 			// Crea la condición
 			const originalUrl = req.originalUrl.split("?")[0].slice(0, 200); // para analizar el url
 			const fechaUltNaveg = this.fechaHora.anoMesDia(new Date());
-			const condicion = {cliente_id,fechaUltNaveg, originalUrl};
+			const condicion = {cliente_id, fechaUltNaveg, originalUrl};
 
 			// Acciones si la visita accedió con este url
 			await baseDatos.obtienePorCondicion("visitas", condicion).then((n) => {
@@ -287,7 +287,7 @@ export default {
 				req.session.destroy();
 				res.clearCookie("session_id");
 
-				// Elimina la cookie de cliente_id
+				// Elimina la cookie cliente_id
 				res.clearCookie("cliente_id");
 
 				// Elimina de la BD las visitas con ese url
