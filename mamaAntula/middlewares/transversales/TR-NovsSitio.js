@@ -4,7 +4,6 @@
 export default (req, res, next) => {
 	// Si corresponde, interrumpe la función
 	if (req.method != "GET") return next();
-	if (req.originalUrl.includes("/inactivar-captura/")) return next();
 	if (comp.omitirMiddlewsTransv(req)) return next();
 
 	// Variables
