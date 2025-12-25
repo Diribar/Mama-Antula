@@ -288,7 +288,7 @@ export default {
 				req.session.destroy();
 				res.clearCookie("session_id");
 
-				// Elimina la cookie cliente_id
+				// Elimina la cookie 'cliente_id'
 				res.clearCookie("cliente_id");
 
 				// Elimina de la BD las visitas con ese url
