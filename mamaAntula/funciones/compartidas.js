@@ -281,6 +281,7 @@ export default {
 
 			// Acciones si la visita accedió con este url
 			await baseDatos.obtienePorCondicion("visitas", condicion).then((n) => {
+				// Si accedió con otra url, interrumpe la función
 				if (!n) return;
 
 				// Elimina la session
