@@ -5,7 +5,7 @@ export default (sequelize, dt) => {
 		cliente_id: {type: dt.STRING(11)}, // para la vinculación
 
 		visitaCreadaEn: {type: dt.DATE}, // para la estadística
-		fechaUltNaveg: {type: dt.DATE}, // para el contador de 'clientes x día', default 'actual'
+		fechaUltNaveg: {type: dt.STRING(10)}, // para el contador de 'clientes x día', default 'actual'
 		diasNaveg: {type: dt.INTEGER}, // para la estadística
 
 		versionWeb: {type: dt.STRING(4)}, // para las novsPeliculas
