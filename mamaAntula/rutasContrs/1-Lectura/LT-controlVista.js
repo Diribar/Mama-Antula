@@ -25,6 +25,7 @@ export default {
 				.obtienePorCondicion("encabezados", {tema_id: landingPage_id}, "contenidos")
 				.then((n) => !!n.contenidos.length);
 
+			// Acciones si no hay novedades
 			if (!hayNovedades) {
 				// Si el urlTema es 'Novedades', lo cambia por el alternativo
 				if (urlTema == LP_urlTema1) {

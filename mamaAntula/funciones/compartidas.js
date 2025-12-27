@@ -270,13 +270,13 @@ export default {
 		// Fin
 		return false;
 	},
-	rutaInvalida: async function (req, res) {
+	rutaInvalida: async (req, res) => {
 		// Si es un usuario o se omitieron los middlews transversales, interrumpe la función
 		const {cliente_id} = req.session.cliente;
-		if (cliente_id.startsWith("V") && !this.omitirMiddlewsTransv(req)) {
+		if (cliente_id.startsWith("V") && !comp.omitirMiddlewsTransv(req)) {
 			// Crea la condición
 			const originalUrl = req.originalUrl.split("?")[0].slice(0, 200); // para analizar el url
-			const fechaUltNaveg = this.fechaHora.anoMesDia(new Date());
+			const fechaUltNaveg = comp.fechaHora.anoMesDia(new Date());
 			const condicion = {cliente_id, fechaUltNaveg, originalUrl};
 
 			// Acciones si la visita accedió con este url
