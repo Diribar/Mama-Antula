@@ -1,4 +1,5 @@
 export default (sequelize, dt) => {
+	// Guarda todas las navegaciones
 	const alias = "navegacs";
 	const columns = {
 		// Datos compartidos con usuario - necesarios en 'session'
