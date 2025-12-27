@@ -8,8 +8,9 @@ import vista from "./LT-controlVista.js";
 import validaRuta from "../../middlewares/1-Lectura/LT-validaRuta.js";
 import actualizaCookies from "../../middlewares/1-Lectura/LT-actualizaCookies.js";
 import libera from "../../middlewares/1-Lectura/LT-liberaTemaPestana.js";
+import rutaVisitada from "../../middlewares/9-Miscelaneas/MS-RutaVisitada.js";
 import descargaImg from "../../middlewares/descargaImg/IMG-descargaImg.js";
-const combo = [validaRuta, actualizaCookies, libera];
+const combo = [validaRuta, actualizaCookies, libera, rutaVisitada];
 
 // 🧩 Router
 const router = express.Router();

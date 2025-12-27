@@ -12,7 +12,7 @@ export default (sequelize, dt) => {
 		originalUrl: {type: dt.STRING(200)},
 	};
 	const config = {
-		tableName: "us_visitas",
+		tableName: "ind_visitas",
 		timestamps: false,
 	};
 	const entidad = sequelize.define(alias, columns, config);

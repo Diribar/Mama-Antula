@@ -68,7 +68,7 @@ export default async (req, res, next) => {
 	// Cliente: 3. Como no existe, lo crea
 	if (!cliente) {
 		// Crea el cliente
-		const originalUrl = req.originalUrl.split("?")[0].slice(0, 200); // para analizar el url
+		const originalUrl = req.originalUrl.split("?")[0].slice(0, 100); // para analizar el url
 		const datos = {fechaUltNaveg, versionWeb, originalUrl};
 		cliente = await baseDatos.agregaRegistroIdCorrel("visitas", datos);
 
