@@ -62,7 +62,7 @@ export default {
 			const nombre = "Familia Mama Antula";
 			const asunto = "Contenido pendiente de revisión";
 			const comentario =
-				"Este es un mail automático para informarte que en el sistema Familia Mama Antula, hay contenido pendiente de revisión.<br><br>" +
+				"Este es un mail automático para informarte que en el sitio web de la Familia Mama Antula, hay contenido pendiente de revisión.<br><br>" +
 				"Por favor, ingresá al <a href='" +
 				urlHost +
 				"/revisar'>panel de revisión</a> para gestionarlo.<br><br>" +
