@@ -32,7 +32,7 @@ header {
 			display: flex; flex-direction: row; align-items: center; gap: var(--gapHeader);
 			#busquedaRapida {--posicionBuscador: 120px;}
 		}
-		#secciones {display: none;}
+		.seccion {display: none;}
 	}
 	@media (400px < width) {
 		.brMobile {display: none;}

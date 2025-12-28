@@ -13,11 +13,9 @@
 </section>
 
 <!-- Secciones -->
-<section id="secciones" class="flexRowAlign">
-	<% for (const seccion of seccionesLectura) { %>
-		<a href="/<%= seccion.url %>" <% if (seccion.nombre == locals.tituloPagina) { %> class="resaltar"<% } %>><%= seccion.nombre %></a>
-	<% } %>
-</section>
+<% for (const seccion of seccionesLectura) { %>
+	<a href="/<%= seccion.url %>" class="seccion<% if (seccion.nombre == locals.tituloPagina) { %> resaltar<% } %>"><%= seccion.nombre %></a>
+<% } %>
 
 <section id="usuario" class="formIconoMenu">
 	<% if (!locals.usuario) { %><%- include("CMP-HR-Login") %>
