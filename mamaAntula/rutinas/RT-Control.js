@@ -115,7 +115,7 @@ export default {
 			// Variables
 			const ahora = Date.now();
 			const masDeUnMes = {[Op.lt]: new Date(ahora - unMes)};
-			const ultimoDia = {[Op.gte]: new Date(ahora - unDia*6)};
+			const ultimoDia = {[Op.gte]: new Date(ahora - unDia * 6)};
 			const espera = [];
 
 			// Elimina las navegaciones de hace más de un mes (fechaHora)
@@ -136,7 +136,6 @@ export default {
 
 			// Elimina las visitas creadas, que no tengan navegación
 			const visitas = await baseDatos.obtieneTodosPorCondicion("visitas", {visitaCreadaEn: ultimoDia});
-			console.log(139,visitas.length,ultimoDia);
 
 			for (let i = visitas.length - 1; i >= 0; i--)
 				if (!navegacs.find((n) => n.cliente_id == visitas[i].cliente_id))

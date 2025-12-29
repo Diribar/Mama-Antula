@@ -7,7 +7,7 @@ Tablas
 	OK - Elimina las visitas creadas el día vencido, que no tengan navegación
 
 Indicador Clientes por día
-- Consolida la cantidad de usuarios y visitas que ingresaron al sitio
+- Cantidad de visitas que ingresaron al sitio
 - Rutina diaria
 	- Guarda las cantidades del día vencido
 	- Si se terminó un mes,
