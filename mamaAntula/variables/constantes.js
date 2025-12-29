@@ -58,7 +58,6 @@ export default {
 	},
 
 	// Otras
-	requestsTriviales: ["WhatsApp", "Postman", "TelegramBot", "TwitterBot", "Zabbix"], // evita que se cuenten como visitas
 	continentes: ["América", "Europa", "Africa", "Asia", "Oceanía"],
 	rutasUsuario: {altaOlvido: "/alta-u-olvido-de-contrasena", edicion: "/edicion", cambioRol: "/cambio-de-rol"},
 	tamMaxArch: 1024 * 1024, // 1Mb
