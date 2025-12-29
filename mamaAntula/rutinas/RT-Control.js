@@ -10,7 +10,7 @@ export default {
 		// Rutinas programadas - compartidas diarias: 0:00hs
 		// cron.schedule("0 0 * * 1", () => this.rutinasSemanales.consolidado(), {timezone: "Etc/Greenwich"}); // Rutinas semanales (a las 0:00hs)
 		cron.schedule("0 0 * * *", () => this.rutinasDiarias.consolidado(), {timezone: "Etc/Greenwich"}); // Rutinas diarias (a las 0:00hs)
-		this.rutinasDiarias.puleTablaNavegacs();
+		this.rutinasDiarias.puleTablas();
 
 		// Fin
 		return;
@@ -111,35 +111,39 @@ export default {
 			// Fin
 			return;
 		},
-		puleTablaNavegacs: async () => {
+		puleTablas: async () => {
 			// Variables
+			const ahora = Date.now();
+			const masDeUnMes = {[Op.lt]: new Date(ahora - unMes)};
+			const ultimoDia = {[Op.gte]: new Date(ahora - unDia*6)};
 			const espera = [];
-			let fechaHora, registros;
-			// return;
 
 			// Elimina las navegaciones de hace más de un mes (fechaHora)
-			fechaHora = {[Op.lt]: new Date(Date.now() - unMes)};
-			await baseDatos.eliminaPorCondicion("navegacs", {fechaHora});
+			await baseDatos.eliminaPorCondicion("navegacs", {fechaHora: masDeUnMes});
 
-			// Obtiene las navegaciones del día
-			fechaHora = {[Op.gte]: new Date(Date.now() - unDia * 2)};
-			registros = await baseDatos
-				.obtieneTodosPorCondicion("navegacs", {fechaHora})
-				.then((n) => n.sort((a, b) => new Date(b.fechaHora) - new Date(a.fechaHora)));
-
-			// Elimina las navegaciones duplicadas: mismo cliente_id y url
-			for (let i = registros.length - 1; i >= 0; i--) {
-				const reg = registros[i];
-				if (registros.filter((n) => n.cliente_id == reg.cliente_id && n.originalUrl == reg.originalUrl).length > 1)
-					await procesos.puleTablaNavegacs({registros, i, espera});
+			// Elimina las navegaciones que correspondan
+			const navegacs = await baseDatos
+				.obtieneTodosPorCondicion("navegacs", {fechaHora: ultimoDia})
+				.then((n) => n.sort((a, b) => new Date(a.fechaHora) - new Date(b.fechaHora)));
+			for (let i = navegacs.length - 1; i >= 0; i--) {
+				const reg = navegacs[i];
+				if (
+					navegacs.filter((n) => n.cliente_id == reg.cliente_id && n.originalUrl == reg.originalUrl).length > 1 || // navegaciones duplicadas de un mismo cliente
+					navegacs.filter((n) => n.cliente_id == reg.cliente_id).length == 1 // el cliente hizo una sola navegación
+				)
+					await procesos.eliminaRegistro({tabla: "navegacs", registros: navegacs, i, espera});
 			}
 
-			// Si el cliente hizo una sola navegación, la elimina
-			for (let i = registros.length - 1; i >= 0; i--)
-				if (registros.filter((n) => n.cliente_id == registros[i].cliente_id).length == 1)
-					await procesos.puleTablaNavegacs({registros, i, espera});
+			// Elimina las visitas creadas, que no tengan navegación
+			const visitas = await baseDatos.obtieneTodosPorCondicion("visitas", {visitaCreadaEn: ultimoDia});
+			console.log(139,visitas.length,ultimoDia);
+
+			for (let i = visitas.length - 1; i >= 0; i--)
+				if (!navegacs.find((n) => n.cliente_id == visitas[i].cliente_id))
+					await procesos.eliminaRegistro({tabla: "visitas", registros: visitas, i, espera});
 
 			// Fin
+			await Promise.all(espera);
 			return;
 		},
 		feedbackParaRevisores: async () => {
