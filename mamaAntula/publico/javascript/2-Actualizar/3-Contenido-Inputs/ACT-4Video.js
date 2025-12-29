@@ -16,16 +16,17 @@ window.addEventListener("load", async () => {
 
 	// Funciones
 	const getYouTubeId = (url) => {
+		// Variables
 		const u = new URL(url);
+		let videoId;
 
 		// Caso 1: URL normal con ?v=ID
-		const idFromParam = u.searchParams.get("v");
-		if (idFromParam) return idFromParam;
+		videoId = u.searchParams.get("v");
+		if (videoId) return videoId;
 
 		// Caso 2: URL corta https://youtu.be/ID
-		if (u.hostname === "youtu.be") return u.pathname.slice(1).split("/")[0].split("?")[0];
-
-		return null; // No se pudo extraer
+		if (u.hostname == "youtu.be") videoId = u.pathname.slice(1).split("/")[0].split("?")[0];
+		return videoId;
 	};
 
 	// Evento url
