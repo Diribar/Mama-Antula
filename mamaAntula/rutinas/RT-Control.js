@@ -10,7 +10,7 @@ export default {
 		// Rutinas programadas - compartidas diarias: 0:00hs
 		cron.schedule("0 0 * * 1", () => this.rutinasSemanales.consolidado(), {timezone: "Etc/Greenwich"}); // Rutinas semanales (a las 0:00hs)
 		cron.schedule("1 0 * * *", () => this.rutinasDiarias.consolidado(), {timezone: "Etc/Greenwich"}); // Rutinas diarias (a las 0:00hs)
-		// this.rutinasSemanales.consolidado()
+		// this.rutinasDiarias.verificaLinksYouTube()
 
 		// Fin
 		return;
@@ -95,19 +95,6 @@ export default {
 			// Fin
 			return;
 		},
-	},
-
-	// Rutinas semanales
-	rutinasSemanales: {
-		consolidado: async function () {
-			const funciones = Object.keys(this).slice(1);
-
-			// Ejecuta las rutinas
-			for (const funcion of funciones) await this[funcion]();
-
-			// Fin
-			return;
-		},
 		verificaLinksYouTube: async () => {
 			// Obtiene los links aprobados a revisar
 			const condicion = {statusRegistro_id: aprobado_id, video: {[Op.ne]: null}};
@@ -122,6 +109,19 @@ export default {
 
 			// Segunda revisión
 			if (contenidos.length) await linksVencidos.revisaLinks(contenidos);
+
+			// Fin
+			return;
+		},
+	},
+
+	// Rutinas semanales
+	rutinasSemanales: {
+		consolidado: async function () {
+			const funciones = Object.keys(this).slice(1);
+
+			// Ejecuta las rutinas
+			for (const funcion of funciones) await this[funcion]();
 
 			// Fin
 			return;
