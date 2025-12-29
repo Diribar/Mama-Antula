@@ -1,14 +1,10 @@
-Tabla Navegacs
-- Guarda las navegaciones de todos los clientes
-- Rutina diaria
+Tablas
+- Navegacs
 	OK - Elimina las navegaciones de hace más de un mes (fecha)
-	- Elimina las navegaciones duplicadas (fecha, cliente_id, url)
-	- Elimina las navegaciones únicas por cliente (fecha, cliente)
-
-Tabla Visitas
-- Guarda la primera visita válida de todos los clientes
-- Rutina diaria
-	- Elimina las visitas creadas el día vencido, que no tengan más de 1 navegación
+	OK - Elimina las navegaciones duplicadas (fecha, cliente_id, url)
+	OK - Elimina las navegaciones únicas por cliente (fecha, cliente)
+- Visitas
+	OK - Elimina las visitas creadas el día vencido, que no tengan navegación
 
 Indicador Clientes por día
 - Consolida la cantidad de usuarios y visitas que ingresaron al sitio
