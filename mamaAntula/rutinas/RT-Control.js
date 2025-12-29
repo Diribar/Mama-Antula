@@ -1,16 +1,16 @@
 "use strict";
 import cron from "node-cron";
 import linksVencidos from "./RT-LinksVencidos.js";
+import procesos from "./RT-Procesos.js";
 import baseDatos from "../funciones/baseDatos.js";
 
-// Exportar
 export default {
 	// Start-up y Configuración de Rutinas
 	startupMasConfiguracion: async function () {
 		// Rutinas programadas - compartidas diarias: 0:00hs
-		cron.schedule("0 0 * * 1", () => this.rutinasSemanales.consolidado(), {timezone: "Etc/Greenwich"}); // Rutinas semanales (a las 0:00hs)
-		cron.schedule("1 0 * * *", () => this.rutinasDiarias.consolidado(), {timezone: "Etc/Greenwich"}); // Rutinas diarias (a las 0:00hs)
-		// this.rutinasDiarias.verificaLinksYouTube()
+		// cron.schedule("0 0 * * 1", () => this.rutinasSemanales.consolidado(), {timezone: "Etc/Greenwich"}); // Rutinas semanales (a las 0:00hs)
+		cron.schedule("0 0 * * *", () => this.rutinasDiarias.consolidado(), {timezone: "Etc/Greenwich"}); // Rutinas diarias (a las 0:00hs)
+		this.rutinasDiarias.puleTablaNavegacs();
 
 		// Fin
 		return;
@@ -48,80 +48,6 @@ export default {
 
 			// Elimina los encabezados
 			await baseDatos.eliminaPorCondicion("encabezados", condEncab);
-
-			// Fin
-			return;
-		},
-		feedbackParaRevisores: async () => {
-			// Obtiene los contenidos en status creado o rechazar
-			const condicion = {statusRegistro_id: {[Op.in]: [creado_id, rechazar_id]}};
-			const contenidos = await baseDatos.obtieneTodosPorCondicion("contenidos", condicion);
-			if (!contenidos.length) return;
-
-			// Prepara el mail a enviar
-			const nombre = "Familia Mama Antula";
-			const asunto = "Contenido pendiente de revisión";
-			const comentario =
-				"Este es un mail automático para informarte que en el sitio web de la Familia Mama Antula, hay contenido pendiente de revisión.<br><br>" +
-				"Por favor, ingresá al <a href='" +
-				urlHost +
-				"/revisar'>panel de revisión</a> para gestionarlo.<br><br>" +
-				"Saludos cordiales,<br>" +
-				"La Familia Mama Antula.";
-
-			// Envía el mail a los revisores
-			const emailsRevisores = await comp.emailsRevisores();
-			for (const email of emailsRevisores) await comp.enviaMail({nombre, email, asunto, comentario});
-
-			// Fin
-			return;
-		},
-		eliminaEncabsErroneos: async () => {
-			// Obtiene los temas con sus encabezados e indices
-			const temas = await baseDatos.obtieneTodos("temasSecciones", ["encabezados", "indicesFecha", "indicesDevoc"]);
-
-			// Recorre los temas
-			for (const tema of temas) {
-				// Se fija qué temas tienen varios encabezados y no tienen indices
-				if (tema.encabezados.length > 1 && !tema.indicesFecha.length && !tema.indicesDevoc.length) {
-					// Obtiene el encabezado más antiguo
-					const encab = tema.encabezados.sort((a, b) => new Date(a.creadoEn) - new Date(b.creadoEn))[0];
-
-					// Elimina los demás encabezados del tema
-					await baseDatos.eliminaPorCondicion("encabezados", {tema_id: tema.id, id: {[Op.ne]: encab.id}});
-				}
-			}
-
-			// Fin
-			return;
-		},
-		verificaLinksYouTube: async () => {
-			// Obtiene los links aprobados a revisar
-			const condicion = {statusRegistro_id: aprobado_id, video: {[Op.ne]: null}};
-			let contenidos = await baseDatos.obtieneTodosPorCondicion("contenidos", condicion);
-
-			// Primera revisión
-			await linksVencidos.revisaLinks(contenidos);
-
-			// Obtiene los links rechazados a revisar
-			condicion.statusRegistro_id = creadoAprob_id;
-			contenidos = await baseDatos.obtieneTodosPorCondicion("contenidos", condicion);
-
-			// Segunda revisión
-			if (contenidos.length) await linksVencidos.revisaLinks(contenidos);
-
-			// Fin
-			return;
-		},
-	},
-
-	// Rutinas semanales
-	rutinasSemanales: {
-		consolidado: async function () {
-			const funciones = Object.keys(this).slice(1);
-
-			// Ejecuta las rutinas
-			for (const funcion of funciones) await this[funcion]();
 
 			// Fin
 			return;
@@ -181,6 +107,111 @@ export default {
 			await obtieneImgsContenidoCrsl();
 			const carpetas = [path.join(carpImgsEditables, "2-Revisar"), path.join(carpImgsEditables, "1-Final")];
 			for (const carpeta of carpetas) eliminaLasImagenes(carpeta);
+
+			// Fin
+			return;
+		},
+		puleTablaNavegacs: async () => {
+			// Variables
+			const espera = [];
+			let fechaHora, registros;
+			// return;
+
+			// Elimina las navegaciones de hace más de un mes (fechaHora)
+			fechaHora = {[Op.lt]: new Date(Date.now() - unMes)};
+			await baseDatos.eliminaPorCondicion("navegacs", {fechaHora});
+
+			// Obtiene las navegaciones del día
+			fechaHora = {[Op.gte]: new Date(Date.now() - unDia * 2)};
+			registros = await baseDatos
+				.obtieneTodosPorCondicion("navegacs", {fechaHora})
+				.then((n) => n.sort((a, b) => new Date(b.fechaHora) - new Date(a.fechaHora)));
+
+			// Elimina las navegaciones duplicadas: mismo cliente_id y url
+			for (let i = registros.length - 1; i >= 0; i--) {
+				const reg = registros[i];
+				if (registros.filter((n) => n.cliente_id == reg.cliente_id && n.originalUrl == reg.originalUrl).length > 1)
+					await procesos.puleTablaNavegacs({registros, i, espera});
+			}
+
+			// Si el cliente hizo una sola navegación, la elimina
+			for (let i = registros.length - 1; i >= 0; i--)
+				if (registros.filter((n) => n.cliente_id == registros[i].cliente_id).length == 1)
+					await procesos.puleTablaNavegacs({registros, i, espera});
+
+			// Fin
+			return;
+		},
+		feedbackParaRevisores: async () => {
+			// Obtiene los contenidos en status creado o rechazar
+			const condicion = {statusRegistro_id: {[Op.in]: [creado_id, rechazar_id]}};
+			const contenidos = await baseDatos.obtieneTodosPorCondicion("contenidos", condicion);
+			if (!contenidos.length) return;
+
+			// Prepara el mail a enviar
+			const nombre = "Familia Mama Antula";
+			const asunto = "Contenido pendiente de revisión";
+			const comentario =
+				"Este es un mail automático para informarte que en el sitio web de la Familia Mama Antula, hay contenido pendiente de revisión.<br><br>" +
+				"Por favor, ingresá al <a href='" +
+				urlHost +
+				"/revisar'>panel de revisión</a> para gestionarlo.<br><br>" +
+				"Saludos cordiales,<br>" +
+				"La Familia Mama Antula.";
+
+			// Envía el mail a los revisores
+			const emailsRevisores = await comp.emailsRevisores();
+			for (const email of emailsRevisores) await comp.enviaMail({nombre, email, asunto, comentario});
+
+			// Fin
+			return;
+		},
+		verificaLinksYouTube: async () => {
+			// Obtiene los links aprobados a revisar
+			const condicion = {statusRegistro_id: aprobado_id, video: {[Op.ne]: null}};
+			let contenidos = await baseDatos.obtieneTodosPorCondicion("contenidos", condicion);
+
+			// Primera revisión
+			await linksVencidos.revisaLinks(contenidos);
+
+			// Obtiene los links rechazados a revisar
+			condicion.statusRegistro_id = creadoAprob_id;
+			contenidos = await baseDatos.obtieneTodosPorCondicion("contenidos", condicion);
+
+			// Segunda revisión
+			if (contenidos.length) await linksVencidos.revisaLinks(contenidos);
+
+			// Fin
+			return;
+		},
+	},
+
+	// Rutinas semanales
+	rutinasSemanales: {
+		consolidado: async function () {
+			const funciones = Object.keys(this).slice(1);
+
+			// Ejecuta las rutinas
+			for (const funcion of funciones) await this[funcion]();
+
+			// Fin
+			return;
+		},
+		eliminaEncabsErroneos: async () => {
+			// Obtiene los temas con sus encabezados e indices
+			const temas = await baseDatos.obtieneTodos("temasSecciones", ["encabezados", "indicesFecha", "indicesDevoc"]);
+
+			// Recorre los temas
+			for (const tema of temas) {
+				// Se fija qué temas tienen varios encabezados y no tienen indices
+				if (tema.encabezados.length > 1 && !tema.indicesFecha.length && !tema.indicesDevoc.length) {
+					// Obtiene el encabezado más antiguo
+					const encab = tema.encabezados.sort((a, b) => new Date(a.creadoEn) - new Date(b.creadoEn))[0];
+
+					// Elimina los demás encabezados del tema
+					await baseDatos.eliminaPorCondicion("encabezados", {tema_id: tema.id, id: {[Op.ne]: encab.id}});
+				}
+			}
 
 			// Fin
 			return;
