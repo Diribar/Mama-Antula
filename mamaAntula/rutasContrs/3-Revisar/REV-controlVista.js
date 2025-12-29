@@ -41,7 +41,6 @@ export default {
 
 		// Obtiene todos los encabezados en papelera o con contenido en papelera
 		const encabezados = await procesos.papelera.obtieneEncabezados();
-		if (!encabezados.length) return res.redirect(anchorLectura);
 
 		// Obtiene las rutas
 		const rutas = procesos.papelera.obtieneRutas(encabezados);

@@ -1,3 +1,5 @@
+"use strict";
+
 export default (req, res, next) => {
 	// Variables
 	const {nombre, email, institucion, mensaje} = req.body;
