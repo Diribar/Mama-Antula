@@ -1,6 +1,6 @@
 "use strict";
 
-// Start-up - última carpeta git subida: 3.96
+// Start-up - última carpeta git subida: 4.00
 console.clear();
 globalThis.horarioStartUp = Date.now();
 
@@ -148,4 +148,7 @@ app.set("view engine", "ejs");
 	app.use("/usuarios", (await import("./rutasContrs/8-Usuarios/US-rutas.js")).default);
 	app.use("/", (await import("./rutasContrs/9-Miscelaneas/MS-rutas.js")).default);
 	app.use("/", (await import("./rutasContrs/1-Lectura/LT-rutas.js")).default);
+
+	// Ruta desconocida
+	app.use(comp.rutaInvalida); // Si no se reconoce el url - se debe informar después de los urls anteriores
 })();

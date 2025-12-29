@@ -258,25 +258,53 @@ export default {
 	},
 	omitirMiddlewsTransv: (req) => {
 		// Si es un url irrelevante
-		if (["/favicon.ico"].includes(req.originalUrl)) return true;
 		if (req.originalUrl.includes("/api/")) return true;
-		if (req.originalUrl == "/.well-known/appspecific/com.chrome.devtools.json") return true;
-		if (req.originalUrl.startsWith("/xmlrpc.php")) return true;
-		if (["/imgsEstables/", "/imgsEditables/", "/9-Imagenes/"].some((n) => req.originalUrl.startsWith(n))) return true;
-		if (["/sitemap.xml.gz", "/robots.txt", "/9-Imagenes/"].some((n) => req.originalUrl.startsWith(n))) return true;
+		if (req.originalUrl.includes(".")) return true;
 
-		// Si se desconoce el origen
+		// Se desconoce el origen
 		if (!req.headers["user-agent"]) return true;
 
-		// Si es una aplicación conocida que no es de navegación, pero que muestra datos del url visitado
+		// Es una aplicación conocida que no es de navegación, pero que muestra datos del url visitado
 		if (requestsTriviales.some((n) => req.headers["user-agent"].startsWith(n))) return true;
 
 		// Fin
 		return false;
 	},
-	emailsRevisores: async () =>
-		await baseDatos.obtieneTodosPorCondicion("usuarios", {rol_id: rolesRevision_ids}).then((n) => n.map((m) => m.email)),
+	rutaInvalida: async function (req, res) {
+		// Si es un usuario o se omitieron los middlews transversales, interrumpe la función
+		const {cliente_id} = req.session.cliente;
+		if (cliente_id.startsWith("V") && !this.omitirMiddlewsTransv(req)) {
+			// Crea la condición
+			const originalUrl = req.originalUrl.split("?")[0].slice(0, 200); // para analizar el url
+			const fechaUltNaveg = this.fechaHora.anoMesDia(new Date());
+			const condicion = {cliente_id, fechaUltNaveg, originalUrl};
 
+			// Acciones si la visita accedió con este url
+			await baseDatos.obtienePorCondicion("visitas", condicion).then((n) => {
+				// Si accedió con otra url, interrumpe la función
+				if (!n) return;
+
+				// Elimina la session
+				req.session.destroy();
+				res.clearCookie("session_id");
+
+				// Elimina la cookie 'cliente_id'
+				res.clearCookie("cliente_id");
+
+				// Elimina la visita de la BD
+				baseDatos.eliminaPorCondicion("visitas", condicion);
+			});
+		}
+
+		// Vista de ruta inválida
+		const informacion = {mensajes: ["No tenemos esa dirección en nuestro sitio"]};
+		res.status(404).render("CMP-0Estructura", {informacion});
+
+		// Fin
+		return;
+	},
+	emailsRevisores: () =>
+		baseDatos.obtieneTodosPorCondicion("usuarios", {rol_id: rolesRevision_ids}).then((n) => n.map((m) => m.email)),
 	enviaMail: async ({nombre, email, asunto, comentario}) => {
 		// Variables
 		const {host, puerto: port, mailEnvios: user, contrEnvios: pass, seguro: secure} = credencsSitio.mail;

@@ -79,6 +79,8 @@ export default {
 			if (esVisita) {
 				// Actualiza datos
 				datosUs.fechaUltNaveg = cliente.fechaUltNaveg;
+
+				// Actualiza 'diasNaveg'
 				if (usuario.fechaUltNaveg < cliente.fechaUltNaveg) {
 					const diaInicial = new Date(usuario.fechaUltNaveg).getTime();
 					const diaFinal = new Date(cliente.fechaUltNaveg).getTime();

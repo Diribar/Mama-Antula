@@ -11,7 +11,7 @@ export default (sequelize, dt) => {
 		notificacs: {type: dt.BOOLEAN},
 
 		visitaCreadaEn: {type: dt.DATE},
-		fechaUltNaveg: {type: dt.DATE},
+		fechaUltNaveg: {type: dt.STRING(10)},
 		diasNaveg: {type: dt.INTEGER},
 		versionWeb: {type: dt.STRING(4)},
 
