@@ -10,7 +10,7 @@ export default {
 		// Rutinas programadas - compartidas diarias: 0:00hs
 		cron.schedule("0 0 * * 1", () => this.rutinasSemanales.consolidado(), {timezone: "Etc/Greenwich"}); // Rutinas semanales (a las 0:00hs)
 		cron.schedule("1 0 * * *", () => this.rutinasDiarias.consolidado(), {timezone: "Etc/Greenwich"}); // Rutinas diarias (a las 0:00hs)
-		// this.rutinasSemanales.consolidado()
+		// this.rutinasDiarias.verificaLinksYouTube()
 
 		// Fin
 		return;
@@ -62,7 +62,7 @@ export default {
 			const nombre = "Familia Mama Antula";
 			const asunto = "Contenido pendiente de revisión";
 			const comentario =
-				"Este es un mail automático para informarte que en el sistema Familia Mama Antula, hay contenido pendiente de revisión.<br><br>" +
+				"Este es un mail automático para informarte que en el sitio web de la Familia Mama Antula, hay contenido pendiente de revisión.<br><br>" +
 				"Por favor, ingresá al <a href='" +
 				urlHost +
 				"/revisar'>panel de revisión</a> para gestionarlo.<br><br>" +
@@ -95,19 +95,6 @@ export default {
 			// Fin
 			return;
 		},
-	},
-
-	// Rutinas semanales
-	rutinasSemanales: {
-		consolidado: async function () {
-			const funciones = Object.keys(this).slice(1);
-
-			// Ejecuta las rutinas
-			for (const funcion of funciones) await this[funcion]();
-
-			// Fin
-			return;
-		},
 		verificaLinksYouTube: async () => {
 			// Obtiene los links aprobados a revisar
 			const condicion = {statusRegistro_id: aprobado_id, video: {[Op.ne]: null}};
@@ -122,6 +109,19 @@ export default {
 
 			// Segunda revisión
 			if (contenidos.length) await linksVencidos.revisaLinks(contenidos);
+
+			// Fin
+			return;
+		},
+	},
+
+	// Rutinas semanales
+	rutinasSemanales: {
+		consolidado: async function () {
+			const funciones = Object.keys(this).slice(1);
+
+			// Ejecuta las rutinas
+			for (const funcion of funciones) await this[funcion]();
 
 			// Fin
 			return;

@@ -5,10 +5,9 @@ header {
 		h4 {font-style: italic; font-weight: normal; font-size: 0.7rem;}
 	}
 
-	#secciones {
-		font-size: 1.2rem;
-		flex-grow: 1; justify-content: space-between;
-		& > .resaltar {color: var(--amarilloClaro); font-weight: bold;}
+	.seccion {
+		font-size: 1.2rem; justify-content: space-between;
+		&.resaltar {color: var(--amarilloClaro); font-weight: bold;}
 	}
 
 	#usuario {

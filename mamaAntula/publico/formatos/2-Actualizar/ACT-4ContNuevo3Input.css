@@ -2,7 +2,6 @@
 #layouts {
 	display: flex; flex-direction: row; justify-content: center; gap: 30px;
 	width: 100%;
-	/* &.edicion #texto .input {width: 100%;} */
 
 	/* Layouts */
 	.layout {

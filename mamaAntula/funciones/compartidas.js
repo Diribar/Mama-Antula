@@ -265,6 +265,7 @@ export default {
 		if (!req.headers["user-agent"]) return true;
 
 		// Es una aplicación conocida que no es de navegación, pero que muestra datos del url visitado
+		const requestsTriviales = ["WhatsApp", "Postman", "TelegramBot", "TwitterBot", "Zabbix"];
 		if (requestsTriviales.some((n) => req.headers["user-agent"].startsWith(n))) return true;
 
 		// Fin
