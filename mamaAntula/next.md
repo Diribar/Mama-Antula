@@ -1,11 +1,3 @@
-Tablas
-- Navegacs
-	OK - Elimina las navegaciones de hace más de un mes (fecha)
-	OK - Elimina las navegaciones duplicadas (fecha, cliente_id, url)
-	OK - Elimina las navegaciones únicas por cliente (fecha, cliente)
-- Visitas
-	OK - Elimina las visitas creadas el día vencido, que no tengan navegación
-
 Indicador Clientes por día
 - Cantidad de visitas que ingresaron al sitio
 - Rutina diaria

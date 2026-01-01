@@ -10,7 +10,7 @@ export default {
 		// Rutinas programadas - compartidas diarias: 0:00hs
 		// cron.schedule("0 0 * * 1", () => this.rutinasSemanales.consolidado(), {timezone: "Etc/Greenwich"}); // Rutinas semanales (a las 0:00hs)
 		cron.schedule("0 0 * * *", () => this.rutinasDiarias.consolidado(), {timezone: "Etc/Greenwich"}); // Rutinas diarias (a las 0:00hs)
-		this.rutinasDiarias.puleTablas();
+		// this.rutinasDiarias.puleTablas();
 
 		// Fin
 		return;
@@ -115,7 +115,7 @@ export default {
 			// Variables
 			const ahora = Date.now();
 			const masDeUnMes = {[Op.lt]: new Date(ahora - unMes)};
-			const ultimoDia = {[Op.gte]: new Date(ahora - unDia * 6)};
+			const ultimoDia = {[Op.gte]: new Date(ahora - unDia)};
 			const espera = [];
 
 			// Elimina las navegaciones de hace más de un mes (fechaHora)
@@ -200,7 +200,7 @@ export default {
 			// Fin
 			return;
 		},
-		eliminaEncabsErroneos: async () => {
+		eliminaEncabsDuplics: async () => {
 			// Obtiene los temas con sus encabezados e indices
 			const temas = await baseDatos.obtieneTodos("temasSecciones", ["encabezados", "indicesFecha", "indicesDevoc"]);
 
