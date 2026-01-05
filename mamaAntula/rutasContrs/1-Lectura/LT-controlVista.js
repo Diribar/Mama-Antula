@@ -29,9 +29,18 @@ export default {
 			if (!hayNovedades) {
 				// Si el urlTema es 'Novedades', lo cambia por el alternativo
 				if (urlTema == LP_urlTema1) {
-					// Si viene del url, redirige
-					if (req.params.urlTema) return res.redirect("/inicio/" + LP_urlTema2);
-					else urlTema = LP_urlTema2;
+					// Acciones si viene del url
+					if (req.params.urlTema) {
+						// Elimina la navegación
+						const {cliente_id} = req.session.cliente;
+						const originalUrl = "/inicio/" + LP_urlTema1;
+						const fechaHora = {[Op.gte]: comp.fechaHora.anoMesDia(new Date())};
+						const condicion = {cliente_id, fechaHora, originalUrl};
+						baseDatos.eliminaPorCondicion("navegacs", condicion);
+
+						// Redirige
+						return res.redirect("/inicio/" + LP_urlTema2);
+					} else urlTema = LP_urlTema2;
 				}
 
 				// Quita el tema del menú
