@@ -272,7 +272,7 @@ export default {
 		return false;
 	},
 	rutaInvalida: async (req, res) => {
-		// Si es un usuario o se omitieron los middlews transversales, interrumpe la función
+		// Acciones si es una visita y no se omitieron los middlews transversales
 		const {cliente_id} = req.session.cliente;
 		if (cliente_id.startsWith("V") && !comp.omitirMiddlewsTransv(req)) {
 			// Crea la condición
