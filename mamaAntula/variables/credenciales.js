@@ -37,8 +37,5 @@ export default {
 		// Para envíos
 		mailEnvios: process.env.MAIL_ENVIOS,
 		contrEnvios: process.env.CONTR_ENVIOS,
-
-		// Para atención al usuario
-		ateUsuario: process.env.MAIL_ATE_USUARIO,
 	},
 };
