@@ -8,7 +8,8 @@ export default (req, res, next) => {
 
 	// Variables
 	const {usuario, cliente} = req.session;
-	if (cliente.versionWeb == versionWeb) return next();
+	const {versionWeb: versionWebCliente} = cliente;
+	if (versionWebCliente == versionWeb) return next();
 
 	// Actualiza el cliente y el usuario
 	req.session.cliente.versionWeb = versionWeb;
@@ -21,7 +22,7 @@ export default (req, res, next) => {
 	baseDatos.actualizaPorId(tabla, cliente.id, {versionWeb});
 
 	// Genera la información a mostrar
-	const novs = novsDelSitio.filter((n) => n.version > cliente.versionWeb); // obtiene las novedades
+	const novs = novsDelSitio.filter((n) => n.version > versionWebCliente); // obtiene las novedades
 	const titulo = "Novedad" + (novs.length > 1 ? "es" : "") + " del sitio";
 	const informacion = {
 		tituloPagina: titulo,
