@@ -104,8 +104,7 @@ export default {
 			("<b>Nombre:</b> " + remitenteNombre + "<br>") +
 			("<b>Mail:</b> " + remitenteMail + "<br>") +
 			(institucion ? "<b>Institución:</b> " + institucion + "<br>" : "") +
-			("<b>Mensaje:</b><br>" + mensaje.replace(/\n/g, "<br>") + "<br><br>") +
-			("Por favor, respondé directamente al remitente a su mail: <b><em>" + remitenteMail + "</em></b>."),
+			("<b>Mensaje:</b><br>" + mensaje.replace(/\n/g, "<br>") + "<br>"),
 		remitente: ({remitenteNombre, mensaje}) =>
 			"Hola " +
 			remitenteNombre +
