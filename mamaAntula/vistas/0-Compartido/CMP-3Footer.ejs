@@ -26,9 +26,9 @@
 <% if (locals.usuario && usuario.rol.actualizac) { %>
 	<div id="rolesVip" class="iconos">
 		<% for (const icono of iconosAgrupados.filter(n => n.codigo)) { %>
-			<% const muestraLectura = icono.codigo == "lectura" && ["actualizar", "revisar"].includes(locals.temaVista) %>
-			<% const muestraEdicion = icono.codigo == "actualizar" && usuario.rol.actualizac && locals.temaVista != "actualizar" %>
-			<% const muestraRevision = icono.codigo == "revisar" && usuario.rol.revision && locals.temaVista != "revisar" %>
+			<% const muestraLectura = icono.codigo == "lectura" && ["actualizaArtics", "revisaArtics"].includes(locals.temaVista) %>
+			<% const muestraEdicion = icono.codigo == "actualizaArtics" && usuario.rol.actualizac && locals.temaVista != "actualizaArtics" %>
+			<% const muestraRevision = icono.codigo == "revisaArtics" && usuario.rol.revision && locals.temaVista != "revisaArtics" %>
 			<% const muestraCambioRol = icono.codigo == "cambioRol" && usuario.rol.cambioRol && locals.codigoVista != "cambioRol" %>
 			<% if (muestraLectura || muestraEdicion || muestraRevision || muestraCambioRol) { %>
 				<a

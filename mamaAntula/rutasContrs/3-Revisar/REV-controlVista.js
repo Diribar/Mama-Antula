@@ -1,6 +1,6 @@
 "use strict";
 import procesos from "./REV-procesos.js";
-const temaVista = "revisar";
+const temaVista = "revisaArtics";
 
 export default {
 	revisar: async (req, res) => {
