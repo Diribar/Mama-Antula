@@ -7,9 +7,9 @@ window.addEventListener("load", async () => {
 		anchors: document.querySelectorAll("#indice a"),
 		tituloEncabs: document.querySelectorAll("#indice .tituloEncabs"),
 	};
+	const ruta = pathname + "/api/lt-filtros";
 	let {pathname}=location
 	if (pathname.endsWith("/")) pathname = pathname.slice(0, -1);
-	const ruta = pathname + "/api/lt-filtros";
 	let interrumpeFetch, idsVisibles;
 
 	// Funciones
