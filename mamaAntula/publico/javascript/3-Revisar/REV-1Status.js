@@ -9,8 +9,8 @@ window.addEventListener("load", async () => {
 		eventosCont: domContenido.querySelectorAll(".apruebaRechaza i"),
 	};
 	const rutasStatus = {
-		encabezado: "/revisar/api/rev-status-encabezado",
-		contenido: "/revisar/api/rev-status-contenido",
+		encabezado: "/revisa-articulos/api/rev-status-encabezado",
+		contenido: "/revisa-articulos/api/rev-status-contenido",
 	};
 	const encab_id = cookie("actEncabezado_id");
 

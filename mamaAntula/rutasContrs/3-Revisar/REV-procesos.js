@@ -328,7 +328,7 @@ export default {
 
 				// Completa el encabezado
 				encabezado = comp.tituloElab(encabezado);
-				encabezado.anchor = "/actualizar" + this.anchorLectura(encabezado);
+				encabezado.anchor = "/actualiza-articulos" + this.anchorLectura(encabezado);
 
 				// Agrega a la ruta
 				if (rutas[ruta]) rutas[ruta].encabezados.push(encabezado);

@@ -25,7 +25,7 @@ const actualizaUrlLectura = async () => {
 	const encab_id = cookie("actEncabezado_id");
 
 	// Obtiene los datos iniciales
-	const ruta = "/actualizar/api/act-filtros-datos-inciales";
+	const ruta = "/actualiza-articulos/api/act-filtros-datos-inciales";
 	const v = await fetch(ruta).then((n) => n.json());
 
 	// Obtiene los url

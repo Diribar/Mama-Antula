@@ -19,8 +19,8 @@ window.addEventListener("load", async () => {
 			elimina: (datos) => deleteJson(datos),
 		},
 	};
-	const rutasContenido = {obtiene: "/actualizar/api/act-contenido-actual-obtiene/?"};
-	for (const crud of v.cruds) rutasContenido[crud] = "/actualizar/api/act-contenido-actual-" + crud;
+	const rutasContenido = {obtiene: "/actualiza-articulos/api/act-contenido-actual-obtiene/?"};
+	for (const crud of v.cruds) rutasContenido[crud] = "/actualiza-articulos/api/act-contenido-actual-" + crud;
 
 	// Funciones
 	// Funciones auxiliares de crea contenido e íconos
