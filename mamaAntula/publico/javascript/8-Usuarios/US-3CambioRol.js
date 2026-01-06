@@ -18,6 +18,7 @@ window.addEventListener("load", () => {
 	};
 	const rutaApi = "/usuarios/api/us-cambio-de-roles";
 
+	// Funciones
 	const cambioRol = () => {
 		// Variables
 		const rol_id = DOM.nuevoRol.value;

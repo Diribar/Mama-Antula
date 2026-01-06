@@ -96,4 +96,23 @@ export default {
 		// Fin
 		return anchorLectura;
 	},
+
+	// Contactanos
+	comentarios: {
+		revisores: ({remitenteNombre, remitenteMail, institucion, mensaje}) =>
+			"Este es un mensaje enviado desde el formulario de contacto de Mama Antula:<br><br>" +
+			("<b>Nombre:</b> " + remitenteNombre + "<br>") +
+			("<b>Mail:</b> " + remitenteMail + "<br>") +
+			(institucion ? "<b>Institución:</b> " + institucion + "<br>" : "") +
+			("<b>Mensaje:</b><br>" + mensaje.replace(/\n/g, "<br>") + "<br><br>") +
+			("Por favor, respondé directamente al remitente a su mail: <b><em>" + remitenteMail + "</em></b>."),
+		remitente: ({remitenteNombre, mensaje}) =>
+			"Hola " +
+			remitenteNombre +
+			",<br><br>" +
+			"Gracias por comunicarte con nosotros. Te confirmamos que tu mensaje fue enviado al equipo.<br><br>" +
+			("Tu mensaje fue:<br><em>" + mensaje.replace(/\n/g, "<br>") + "</em><br><br>") +
+			"Saludos cordiales,<br>" +
+			"La Familia Mama Antula.",
+	},
 };

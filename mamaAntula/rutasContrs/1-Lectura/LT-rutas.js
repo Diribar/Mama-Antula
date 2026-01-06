@@ -10,7 +10,7 @@ import actualizaCookies from "../../middlewares/1-Lectura/LT-actualizaCookies.js
 import libera from "../../middlewares/1-Lectura/LT-liberaTemaPestana.js";
 import rutaVisitada from "../../middlewares/9-Miscelaneas/MS-RutaVisitada.js";
 import descargaImg from "../../middlewares/descargaImg/IMG-descargaImg.js";
-const combo = [validaRuta, actualizaCookies, libera, rutaVisitada];
+const combo = [validaRuta, actualizaCookies, libera];
 
 // 🧩 Router
 const router = express.Router();
@@ -19,10 +19,10 @@ const router = express.Router();
 router.post("/:urlSeccion/:urlTema/api/lt-filtros", descargaImg.none(), API.filtros);
 
 // 🖥️ Vistas
-router.get("/", combo, vista.temas);
+router.get("/", combo, rutaVisitada, vista.temas);
 router.get("/:urlSeccion", combo); // la middleware redirige
-router.get("/:urlSeccion/:urlTema", combo, vista.temas);
-router.get("/:urlSeccion/:urlTema/:urlPestana", combo, vista.pestanas);
+router.get("/:urlSeccion/:urlTema", combo, rutaVisitada, vista.temas);
+router.get("/:urlSeccion/:urlTema/:urlPestana", combo, rutaVisitada, vista.pestanas);
 
 // ✅ Export
 export default router;
