@@ -11,8 +11,8 @@ window.addEventListener("load", async () => {
 		anchorLectura: document.querySelector("footer #rolesVip a#lectura"),
 	};
 	const rutas = {
-		datosIniciales: "/actualizar/api/act-filtros-datos-inciales",
-		obtieneEncabs: "/actualizar/api/act-filtros-obtiene-encabezados/?",
+		datosIniciales: "/actualiza-articulos/api/act-filtros-datos-inciales",
+		obtieneEncabs: "/actualiza-articulos/api/act-filtros-obtiene-encabezados/?",
 	};
 	comp1234 = {startUp: true, ...(await fetch(rutas.datosIniciales).then((n) => n.json()))};
 	const v = {};

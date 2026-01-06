@@ -7,7 +7,7 @@ window.addEventListener("load", () => {
 		ediciones: domSectorEdiciones.querySelector("#ediciones"),
 		opciones: domSectorEdiciones.querySelectorAll("#ediciones .opcion"),
 	};
-	const rutaEdicion = "/revisar/api/rev-edicion";
+	const rutaEdicion = "/revisa-articulos/api/rev-edicion";
 	const encab_id = cookie("actEncabezado_id");
 	const {edicion_id} = domSectorEdiciones.dataset;
 

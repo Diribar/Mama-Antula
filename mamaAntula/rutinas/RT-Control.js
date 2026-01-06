@@ -158,7 +158,7 @@ export default {
 				"Este es un mail automático para informarte que en el sitio web de la Familia Mama Antula, hay contenido pendiente de revisión.<br><br>" +
 				"Por favor, ingresá al <a href='" +
 				urlHost +
-				"/revisar'>panel de revisión</a> para gestionarlo.<br><br>" +
+				"/revisa-articulos'>panel de revisión</a> para gestionarlo.<br><br>" +
 				"Saludos cordiales,<br>" +
 				"La Familia Mama Antula.";
 

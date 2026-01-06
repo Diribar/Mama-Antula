@@ -23,9 +23,9 @@ window.addEventListener("load", async () => {
 	};
 	const rutas = {
 		// Encabezado
-		guarda: "/actualizar/api/act-encabezado-guarda",
-		elimina: "/actualizar/api/act-encabezado-elimina/?id=",
-		recupera: "/actualizar/api/act-encabezado-recupera/?id=",
+		guarda: "/actualiza-articulos/api/act-encabezado-guarda",
+		elimina: "/actualiza-articulos/api/act-encabezado-elimina/?id=",
+		recupera: "/actualiza-articulos/api/act-encabezado-recupera/?id=",
 	};
 	const v = {};
 

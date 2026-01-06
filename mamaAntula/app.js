@@ -1,6 +1,6 @@
 "use strict";
 
-// Start-up - última carpeta git subida: 4.05
+// Start-up - última carpeta git subida: 4.07
 console.clear();
 globalThis.horarioStartUp = Date.now();
 
@@ -143,8 +143,8 @@ app.set("view engine", "ejs");
 	app.use((await import("./middlewares/transversales/TR-haciaEdicUs.js")).default);
 
 	// Rutas
-	app.use("/actualizar", (await import("./rutasContrs/2-Actualizar/ACT-rutas.js")).default);
-	app.use("/revisar", (await import("./rutasContrs/3-Revisar/REV-rutas.js")).default);
+	app.use("/actualiza-articulos", (await import("./rutasContrs/2-Actualizar/ACT-rutas.js")).default);
+	app.use("/revisa-articulos", (await import("./rutasContrs/3-Revisar/REV-rutas.js")).default);
 	app.use("/usuarios", (await import("./rutasContrs/8-Usuarios/US-rutas.js")).default);
 	app.use("/", (await import("./rutasContrs/9-Miscelaneas/MS-rutas.js")).default);
 	app.use("/", (await import("./rutasContrs/1-Lectura/LT-rutas.js")).default);

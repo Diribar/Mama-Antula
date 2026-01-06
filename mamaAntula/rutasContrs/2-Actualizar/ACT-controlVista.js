@@ -1,5 +1,5 @@
 "use strict";
-const temaVista = "actualizar";
+const temaVista = "actualizaArtics";
 
 export default {
 	actualizar: async (req, res) => {

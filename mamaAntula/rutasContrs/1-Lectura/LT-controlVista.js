@@ -17,13 +17,17 @@ export default {
 		const seccionActual = seccionesLectura.find((n) => n.url == urlSeccion);
 		const tituloPagina = seccionActual.nombre;
 
+		// Condición - si el usuario no tiene el permiso de edición, no se le permite ver los contenidos que tengan status 'creado'
+		const soloStatusAprob = !req.session.usuario || !rolesActualizac_ids.includes(req.session.usuario.rol_id);
+		const statusRegistro_id = soloStatusAprob ? [aprobado_id] : [creado_id, aprobado_id];
+
 		// Tema
 		let temasSeccion = temasSecciones.filter((n) => n.seccion_id == seccionActual.id);
 		if (seccionActual.url == LP_urlSeccion) {
 			// Averigua si hay novedades
 			const hayNovedades = await baseDatos
 				.obtienePorCondicion("encabezados", {tema_id: landingPage_id}, "contenidos")
-				.then((n) => !!n.contenidos.length);
+				.then((n) => n.contenidos.length && n.contenidos.some((n) => statusRegistro_id.includes(n.statusRegistro_id)));
 
 			// Acciones si no hay novedades
 			if (!hayNovedades) {
@@ -51,13 +55,8 @@ export default {
 		const tema_id = temaActual.id;
 		const tipoDeTema = comp.tipoDeTema(tema_id);
 
-		// Condición - si el usuario no tiene el permiso de edición, no se le permite ver los contenidos que tengan status 'creado'
-		const condicion = {tema_id: temaActual.id};
-		const soloStatusAprob = !req.session.usuario || !rolesActualizac_ids.includes(req.session.usuario.rol_id);
-		const statusRegistro_id = soloStatusAprob ? aprobado_id : [creado_id, aprobado_id];
-		condicion.statusRegistro_id = statusRegistro_id;
-
 		// Obtiene el encabezado y contenido
+		const condicion = {tema_id: temaActual.id, statusRegistro_id};
 		const {encabezados, encabezado, esExpers} = await procesos.obtieneEncabezados({tema_id, encab_id, condicion});
 		const contenidos = encabezado && (await procesos.contenidos({encabezado, statusRegistro_id}));
 
@@ -94,10 +93,9 @@ export default {
 		const pestanaActual = pestanasTema.find((n) => n.url == urlPestana);
 
 		// Condición - si el usuario no tiene el permiso de edición, no se le permite ver los contenidos que tengan status 'creado'
-		const condicion = {pestana_id: pestanaActual.id};
 		const soloStatusAprob = !req.session.usuario || !rolesActualizac_ids.includes(req.session.usuario.rol_id);
 		const statusRegistro_id = soloStatusAprob ? aprobado_id : [creado_id, aprobado_id];
-		condicion.statusRegistro_id = statusRegistro_id;
+		const condicion = {pestana_id: pestanaActual.id, statusRegistro_id};
 
 		// Obtiene el encabezado y contenido
 		const encab_id = req.query.id;
