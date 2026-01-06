@@ -1,6 +1,6 @@
 "use strict";
 
-// Start-up - última carpeta git subida: 4.03
+// Start-up - última carpeta git subida: 4.04
 console.clear();
 globalThis.horarioStartUp = Date.now();
 

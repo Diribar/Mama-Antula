@@ -24,7 +24,7 @@ header #busquedaRapida #formatoBr {
 		/* Variantes */
 		.colorClaro {background: snow;}
 		.colorOscuro {background: var(--celesteClaro);}
-		.ruta, #sinResultados {font-style: italic; cursor: not-allowed;}
+		.ruta, #sinResultados {font-style: italic; cursor: not-allowed; background-color: var(--amarilloClaro);}
 		.resaltar {background-color: var(--grisOscuro) !important; color: snow;}
 		#sinResultados {text-align: center;}
 	}
