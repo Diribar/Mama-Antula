@@ -100,7 +100,7 @@ export default {
 	// Contactanos
 	comentarios: {
 		revisores: ({remitenteNombre, remitenteMail, institucion, mensaje}) =>
-			"Este es un mensaje enviado desde el formulario de contacto de Mama Antula:<br><br>" +
+			"Este es un mensaje enviado desde el formulario de <em>Contactanos</em>:<br><br>" +
 			("Nombre: <b>" + remitenteNombre + "</b><br>") +
 			(institucion ? "Institución: " + institucion + "<br>" : "") +
 			("<b>Mensaje:</b> " + mensaje.replace(/\n/g, "<br>") + "<br>") +
