@@ -7,11 +7,11 @@ export default {
 		// Variables
 		const {nombre: remitenteNombre, email: remitenteMail, institucion, mensaje} = req.body;
 		const nombre = "Familia Mama Antula";
-		let asunto, comentario, mailEnviado;
+		const asunto = "Mensaje de una visita";
+		let comentario, mailEnviado;
 
 		// Envía el mail a los miembros de la Familia Mama Antula
 		const emailsRevisores = await comp.emailsRevisores();
-		asunto = "Mensaje enviado desde el formulario de contacto";
 		comentario = procesos.comentarios.revisores({remitenteNombre, remitenteMail, institucion, mensaje});
 		for (const email of emailsRevisores)
 			mailEnviado = (await comp.enviaMail({nombre, email, asunto, comentario})) || mailEnviado;
@@ -19,7 +19,6 @@ export default {
 		// Envía copia al remitente
 		if (mailEnviado) {
 			const email = remitenteMail;
-			asunto = "Mensaje enviado desde el formulario de contacto";
 			comentario = procesos.comentarios.remitente({remitenteNombre, mensaje});
 			await comp.enviaMail({nombre, email, asunto, comentario});
 		}
