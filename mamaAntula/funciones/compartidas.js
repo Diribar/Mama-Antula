@@ -48,8 +48,8 @@ export default {
 			return dato.length < corto
 				? "El contenido debe ser más largo"
 				: dato.length > largo
-				? "El contenido debe ser más corto"
-				: "";
+					? "El contenido debe ser más corto"
+					: "";
 		},
 		imagen: (datos) => {
 			// Variables
@@ -61,12 +61,12 @@ export default {
 			const respuesta = !ext // Valida la extensión
 				? "El archivo debe tener alguna extensión"
 				: !extValidas.includes(ext) || !extValidas.some((n) => tipo.endsWith(n))
-				? "Usaste un archivo con la extensión " + ext + ". Las extensiones válidas son " + extValidas.join(", ")
-				: !tipo.startsWith("image/")
-				? "El archivo debe ser de tipo imagen"
-				: tamano && tamano > tamMaxArch // Valida el tamaño
-				? "El archivo tiene " + Math.ceil((tamano / Mb1) * 100) / 100 + " MB. Necesitamos que no supere 1 MB"
-				: "";
+					? "Usaste un archivo con la extensión " + ext + ". Las extensiones válidas son " + extValidas.join(", ")
+					: !tipo.startsWith("image/")
+						? "El archivo debe ser de tipo imagen"
+						: tamano && tamano > tamMaxArch // Valida el tamaño
+							? "El archivo tiene " + Math.ceil((tamano / Mb1) * 100) / 100 + " MB. Necesitamos que no supere 1 MB"
+							: "";
 
 			// Fin
 			return respuesta;
@@ -77,8 +77,8 @@ export default {
 			const errorMail = !email
 				? "Necesitamos que escribas un correo electrónico"
 				: !formato.test(email)
-				? "Necesitamos que escribas un formato de correo válido"
-				: "";
+					? "Necesitamos que escribas un formato de correo válido"
+					: "";
 
 			// Variable error
 			const errores = {email: errorMail};
@@ -197,17 +197,20 @@ export default {
 					.obtieneTodosPorCondicion("encabezados", condicion, [...includesEncabs.cartas, ...includesAdics])
 					.then((n) => n.sort((a, b) => (a.fechaEvento < b.fechaEvento ? -1 : 1)))
 			: esExpers
-			? await baseDatos
-					.obtieneTodosPorCondicion("encabezados", condicion, [...includesEncabs.expers, ...includesAdics])
-					.then((n) => n.sort((a, b) => (a.lugarExper.nombre < b.lugarExper.nombre ? -1 : 1)))
-					.then((n) => n.sort((a, b) => (b.fechaEvento < a.fechaEvento ? -1 : 1)))
-			: esLugaresDevoc
-			? await baseDatos
-					.obtieneTodosPorCondicion("encabezados", condicion, [...includesEncabs.lugaresDevoc, ...includesAdics])
-					.then((n) => n.sort((a, b) => (a.titulo < b.titulo ? -1 : 1)))
-					.then((n) => n.sort((a, b) => (a.indiceDevoc.nombre < b.indiceDevoc.nombre ? -1 : 1)))
-					.then((n) => n.sort((a, b) => a.indiceDevoc.orden - b.indiceDevoc.orden))
-			: await baseDatos.obtieneTodosPorCondicion("encabezados", condicion, includesAdics);
+				? await baseDatos
+						.obtieneTodosPorCondicion("encabezados", condicion, [...includesEncabs.expers, ...includesAdics])
+						.then((n) => n.sort((a, b) => (a.lugarExper.nombre < b.lugarExper.nombre ? -1 : 1)))
+						.then((n) => n.sort((a, b) => (b.fechaEvento < a.fechaEvento ? -1 : 1)))
+				: esLugaresDevoc
+					? await baseDatos
+							.obtieneTodosPorCondicion("encabezados", condicion, [
+								...includesEncabs.lugaresDevoc,
+								...includesAdics,
+							])
+							.then((n) => n.sort((a, b) => (a.titulo < b.titulo ? -1 : 1)))
+							.then((n) => n.sort((a, b) => (a.indiceDevoc.nombre < b.indiceDevoc.nombre ? -1 : 1)))
+							.then((n) => n.sort((a, b) => a.indiceDevoc.orden - b.indiceDevoc.orden))
+					: await baseDatos.obtieneTodosPorCondicion("encabezados", condicion, includesAdics);
 
 		// Fin
 		return {encabezados, esExpers, esConIndice};
@@ -220,10 +223,10 @@ export default {
 		return esCarta
 			? titulosElabs.cartas(encabezados)
 			: esExpers
-			? titulosElabs.expers(encabezados)
-			: esLugaresDevoc
-			? titulosElabs.lugaresDevoc(encabezados)
-			: encabezados;
+				? titulosElabs.expers(encabezados)
+				: esLugaresDevoc
+					? titulosElabs.lugaresDevoc(encabezados)
+					: encabezados;
 	},
 	tituloElab: function (encabezado) {
 		// Variables
@@ -233,10 +236,10 @@ export default {
 		return esCarta
 			? titulosElabs.cartas([encabezado])[0] // cartas
 			: esExpers
-			? titulosElabs.expers([encabezado])[0]
-			: esLugaresDevoc
-			? titulosElabs.lugaresDevoc([encabezado])[0]
-			: encabezado;
+				? titulosElabs.expers([encabezado])[0]
+				: esLugaresDevoc
+					? titulosElabs.lugaresDevoc([encabezado])[0]
+					: encabezado;
 	},
 	agregaTemaPestana: (encabezado) => {
 		// Variables
@@ -365,17 +368,17 @@ const titulosElabs = {
 				encab.id == encabCartaIntro_id // para 'Introducción'
 					? encab.titulo
 					: "Carta " +
-					  encab.numero +
-					  " - De" +
-					  (encab.nombreDesde.nombre.startsWith("P.") ? "l " : " ") +
-					  encab.nombreDesde.nombre +
-					  " para " +
-					  (encab.nombreHacia.nombre.startsWith("P.") ? "el " : "") +
-					  encab.nombreHacia.nombre +
-					  " - " +
-					  encab.lugarCarta.nombre +
-					  " - " +
-					  diaMesAnoUTC(encab.fechaEvento);
+						encab.numero +
+						" - De" +
+						(encab.nombreDesde.nombre.startsWith("P.") ? "l " : " ") +
+						encab.nombreDesde.nombre +
+						" para " +
+						(encab.nombreHacia.nombre.startsWith("P.") ? "el " : "") +
+						encab.nombreHacia.nombre +
+						" - " +
+						encab.lugarCarta.nombre +
+						" - " +
+						diaMesAnoUTC(encab.fechaEvento);
 
 		// Fin
 		return encabs;
