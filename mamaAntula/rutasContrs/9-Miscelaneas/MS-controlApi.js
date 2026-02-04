@@ -10,7 +10,7 @@ export default {
 		const asunto = "Mensaje de una visita";
 		let comentario, mailEnviado;
 
-		// Envía el mail a los miembros de la Familia Mama Antula
+		// Envía el mail a los miembros de la Familia Mama Antula y averigua si alguno fue enviado
 		const emailsRevisores = await comp.emailsRevisores();
 		comentario = procesos.comentarios.revisores({remitenteNombre, remitenteMail, institucion, mensaje});
 		for (const email of emailsRevisores)

@@ -10,7 +10,7 @@ export default {
 		// Rutinas programadas - compartidas diarias: 0:00hs
 		// cron.schedule("0 0 * * 1", () => this.rutinasSemanales.consolidado(), {timezone: "Etc/Greenwich"}); // Rutinas semanales (a las 0:00hs)
 		cron.schedule("0 0 * * *", () => this.rutinasDiarias.consolidado(), {timezone: "Etc/Greenwich"}); // Rutinas diarias (a las 0:00hs)
-		// this.rutinasDiarias.puleTablas();
+		// this.rutinasDiarias.consolidado();
 
 		// Fin
 		return;
@@ -155,13 +155,10 @@ export default {
 			const nombre = "Familia Mama Antula";
 			const asunto = "Contenido pendiente de revisión";
 			const comentario =
-				"Este es un mail automático para informarte que en el sitio web de la Familia Mama Antula, hay contenido pendiente de revisión.<br><br>" +
-				"Por favor, ingresá al <a href='" +
+				"Hay contenido pendiente de revisión.<br>" +
+				"Podés ingresar al <a href='" +
 				urlHost +
-				"/revisa-articulos'>panel de revisión</a> para gestionarlo.<br><br>" +
-				"Saludos cordiales,<br>" +
-				"La Familia Mama Antula.";
-
+				"/revisa-articulos'>panel de revisión</a> para gestionarlo.<br><br>";
 			// Envía el mail a los revisores
 			const emailsRevisores = await comp.emailsRevisores();
 			for (const email of emailsRevisores) await comp.enviaMail({nombre, email, asunto, comentario});
