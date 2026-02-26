@@ -276,7 +276,7 @@ export default {
 	},
 	rutaInvalida: async (req, res) => {
 		// Acciones si es una visita y no se omitieron los middlews transversales
-		const {cliente_id} = req.session.cliente;
+		const {cliente_id} = req.session.cliente || {};
 		if (cliente_id.startsWith("V") && !comp.omitirMiddlewsTransv(req)) {
 			// Crea la condición
 			const originalUrl = req.originalUrl.split("?")[0].slice(0, 200); // para analizar el url
