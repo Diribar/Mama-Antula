@@ -101,16 +101,15 @@ export default {
 	comentarios: {
 		revisores: ({remitenteNombre, remitenteMail, institucion, mensaje}) =>
 			"Este es un mensaje enviado desde el formulario de <em>Contactanos</em>:<br><br>" +
-			("Nombre: <b>" + remitenteNombre + "</b><br>") +
+			("Nombre: <b>" + remitenteNombre + "</b> (" + remitenteMail + ")<br>") +
 			(institucion ? "Institución: " + institucion + "<br>" : "") +
-			("<b>Mensaje:</b> " + mensaje.replace(/\n/g, "<br>") + "<br>") +
-			("Mail: " + remitenteMail),
+			("<br><em>" + mensaje.replace(/\n/g, "<br>") + "</em>"),
 		remitente: ({remitenteNombre, mensaje}) =>
 			"Hola " +
 			remitenteNombre +
-			",<br><br>" +
-			"Gracias por comunicarte con nosotros. Te confirmamos que tu mensaje fue enviado al equipo.<br><br>" +
-			("Tu mensaje fue:<br><em>" + mensaje.replace(/\n/g, "<br>") + "</em><br><br>") +
+			", gracias por comunicarte con nosotros. Te confirmamos que tu mensaje fue enviado al equipo.<br><br>" +
+			"Tu mensaje fue:<br>" +
+			("<em>" + mensaje.replace(/\n/g, "<br>") + "</em><br><br>") +
 			"Saludos cordiales,<br>" +
 			"La Familia Mama Antula.",
 	},

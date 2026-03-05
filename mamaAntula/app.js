@@ -1,6 +1,6 @@
 "use strict";
 
-// Start-up - última carpeta git subida: 4.08
+// Start-up - última carpeta git subida: 4.10
 console.clear();
 globalThis.horarioStartUp = Date.now();
 
@@ -39,7 +39,7 @@ const entDesarr = !entProd && !entPrueba;
 globalThis.urlHost = ((entProd || entPrueba) && "https://mamaantula.com") || "https://mamaantula:3008";
 
 // Servidor
-const puerto = entProd ? 4216 : entPrueba ? "?" : 3008;
+const puerto = !entDesarr ? 4216 : 3008;
 const leyenda = "\nMama Antula - Servidor funcionando...";
 if (entDesarr) {
 	// Variables
@@ -89,7 +89,7 @@ const MySQLStore = connectMySQL(session);
 const connection = mysql.createConnection(credencsSitio.session[entornoBd]);
 const sessionStore = new MySQLStore(
 	{expiration: unDia / 1000, clearExpired: true, checkExpirationInterval: unaHora / 1000, useUnixTimestamp: true}, // useUnixTimestamp: true es importante para segundos
-	connection
+	connection,
 ); // la sesión se borra automáticamente un día después de la última novedad del usuario
 app.use(
 	session({
@@ -100,7 +100,7 @@ app.use(
 		store: sessionStore,
 		rolling: true, // reinicia la vida útil con cada novedad en la session
 		cookie: {maxAge: unDia}, // la sesión expira automáticamente un día después de la última novedad del usuario
-	})
+	}),
 );
 sessionStore.clearExpiredSessions(); // Elimina sesiones antiguas
 

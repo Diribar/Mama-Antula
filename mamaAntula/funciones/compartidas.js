@@ -276,8 +276,8 @@ export default {
 	},
 	rutaInvalida: async (req, res) => {
 		// Acciones si es una visita y no se omitieron los middlews transversales
-		const {cliente_id} = req.session.cliente;
-		if (cliente_id.startsWith("V") && !comp.omitirMiddlewsTransv(req)) {
+		const {cliente_id} = req.session.cliente || {};
+		if (cliente_id && cliente_id.startsWith("V") && !comp.omitirMiddlewsTransv(req)) {
 			// Crea la condición
 			const originalUrl = req.originalUrl.split("?")[0].slice(0, 200); // para analizar el url
 			const fechaUltNaveg = comp.fechaHora.anoMesDia(new Date());
@@ -309,16 +309,17 @@ export default {
 	},
 	emailsRevisores: () =>
 		baseDatos.obtieneTodosPorCondicion("usuarios", {rol_id: rolesRevision_ids}).then((n) => n.map((m) => m.email)),
-	enviaMail: async ({nombre, email, asunto, comentario}) => {
+	enviaMail: async ({nombre, email: to, asunto: subject, comentario: html}) => {
 		// Variables
 		const {host, puerto: port, mailEnvios: user, contrEnvios: pass, seguro: secure} = credencsSitio.mail;
 		const datosTransporte = {host, port, auth: {user, pass}, secure};
 		const transporte = nodemailer.createTransport(datosTransporte);
 		const datos = {
 			from: nombre + " <" + user + ">",
-			to: email,
-			subject: asunto,
-			html: comentario,
+			// to: "diegoiribarren2015@gmail.com",
+			to,
+			subject,
+			html,
 		};
 		let mailEnviado = false;
 
