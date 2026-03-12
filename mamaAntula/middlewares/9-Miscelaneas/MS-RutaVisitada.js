@@ -5,6 +5,9 @@ export default async (req, res, next) => {
 	const originalUrl = req.originalUrl.slice(0, 100); // para analizar el url
 	const {cliente_id} = req.session.cliente || {};
 
+	// Sin cliente en session
+	if (!req.session.cliente) console.log("Sin cliente en session");
+
 	// Actualiza la tabla navegacs - hace falta el 'await' para que pueda ser eliminada si corresponde
 	if (cliente_id) await baseDatos.agregaRegistroIdCorrel("navegacs", {cliente_id, originalUrl});
 
