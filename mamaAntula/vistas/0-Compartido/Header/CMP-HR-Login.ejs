@@ -13,15 +13,14 @@
 
 
 	<!--Iconos-->
-	<div id="iconos">
-		<i id="confirmaLogin" class="<%= iconos.faSolid %> <%= iconos.check %> scaleHover" title="Login"></i>
+	<button id="confirmaLogin" class="scaleHover" type="button">Login</button>
+	<div id="videos" class="flexRowAlign">
+		<a href="/videos" class="flexRowAlign scaleHover">
+			<i class="fa-solid fa-circle-question" title="Ayuda"></i>
+		</a>
 		<a href="/usuarios<%= rutasUsuario.altaOlvido %>">
-			<i id="altaOlvido" class="<%= iconos.faSolid %> <%= iconos.altaUser %> scaleHover" title="Registrarte / Olvido de contraseña"></i>
+			<i id="altaOlvido" class="<%= iconos.faSolid %> fa-key scaleHover" title="Registrarte / Olvido de contraseña"></i>
 		</a>
 	</div>
-	<a id="videos" href="/videos" class="flexRowAlign">
-		<i class="fa-solid fa-circle-question"></i>
-		<span id="ayuda">Ayuda</span>
-	</a>
 </form>
 
