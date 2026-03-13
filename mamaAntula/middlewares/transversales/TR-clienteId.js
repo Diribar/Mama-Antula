@@ -89,7 +89,7 @@ export default async (req, res, next) => {
 	if (cliente.fechaUltNaveg < fechaUltNaveg) {
 		// Actualiza el cliente
 		cliente.fechaUltNaveg = fechaUltNaveg;
-		const diasNaveg = ++cliente.diasNaveg;
+		const diasNaveg = ++cliente.diasNaveg; // le suma también al cliente
 
 		// Actualiza el usuario
 		baseDatos.actualizaPorId(tabla, cliente.id, {fechaUltNaveg, diasNaveg});
