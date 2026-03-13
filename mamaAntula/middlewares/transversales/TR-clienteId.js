@@ -76,7 +76,7 @@ export default async (req, res, next) => {
 		cliente_id = "V" + String(cliente.id).padStart(10, "0");
 		res.cookie("cliente_id", cliente_id, {maxAge: unAno, path: "/"});
 
-		// Actualiza el 'cliente_id' en la BD y la variable
+		// Actualiza el 'cliente_id' en la BD y en la variable
 		await baseDatos.actualizaPorId("visitas", cliente.id, {cliente_id}); // es crítico el 'await'
 		cliente = await baseDatos.obtienePorId("visitas", cliente.id).then((n) => obtieneCamposNecesarios(n));
 	}
@@ -89,7 +89,7 @@ export default async (req, res, next) => {
 	if (cliente.fechaUltNaveg < fechaUltNaveg) {
 		// Actualiza el cliente
 		cliente.fechaUltNaveg = fechaUltNaveg;
-		const diasNaveg = ++cliente.diasNaveg;
+		const diasNaveg = ++cliente.diasNaveg; // le suma también al cliente
 
 		// Actualiza el usuario
 		baseDatos.actualizaPorId(tabla, cliente.id, {fechaUltNaveg, diasNaveg});

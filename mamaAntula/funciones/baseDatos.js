@@ -55,7 +55,8 @@ export default {
 		}
 
 		// Fin
-		return nuevoRegistro.toJSON();
+		nuevoRegistro = nuevoRegistro.toJSON();
+		return nuevoRegistro;
 	},
 	agregaActualizaPorCondicion: async (entidad, condicion, datos) => {
 		// Averigua si existe un registro con esa condición
