@@ -37,21 +37,23 @@ export default {
 		let nuevoRegistro;
 
 		// Guarda el registro usando el primer 'id' disponible
-		let contador = 1;
-		for (const regId of regsId) {
+		let contador = 0;
+		while (true) {
+			contador++;
 			if (
-				regId != contador && // id sin registro creado
-				!(await bd[entidad].findByPk(contador).then((n) => !!n)) // se asegura de que no se haya creado durante la rutina
-			) {
+				regsId.includes(contador) || // ya existe un registro con el id del contador
+				(await bd[entidad].findByPk(contador)) // ya se creó un registro con el id del contador
+			)
+				continue;
+
+			// Intenta crear el registro
+			try {
 				nuevoRegistro = await bd[entidad].create({id: contador, ...datos}); // lo crea
 				break;
-			} else contador++;
-		}
-
-		// Si no se guardó, lo guarda
-		if (!nuevoRegistro) {
-			datos.id = contador;
-			nuevoRegistro = await bd[entidad].create(datos); // crea
+			} catch (error) {
+				console.log(55, entidad, contador, datos);
+				console.error("Error al crear registro:", error);
+			}
 		}
 
 		// Fin
