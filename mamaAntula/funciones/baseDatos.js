@@ -39,7 +39,7 @@ export default {
 
 		// Guarda el registro usando el primer 'id' disponible
 		let contador = 0;
-		while (true) {
+		while (contador < (regsId.at(-1) || 0) + 100) {
 			// Variables
 			contador++;
 
@@ -57,7 +57,7 @@ export default {
 		}
 
 		// Fin
-		nuevoRegistro = nuevoRegistro.toJSON();
+		nuevoRegistro = nuevoRegistro ? nuevoRegistro.toJSON() : {};
 		return nuevoRegistro;
 	},
 	agregaActualizaPorCondicion: async (entidad, condicion, datos) => {
