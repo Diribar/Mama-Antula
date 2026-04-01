@@ -51,7 +51,7 @@ export default {
 				nuevoRegistro = await bd[entidad].create({id: contador, ...datos}); // lo crea
 				break;
 			} catch (error) {
-				console.log(55, entidad, contador, datos);
+				console.log(54, entidad, contador, datos);
 				console.error("Error al crear registro:", error);
 			}
 		}
