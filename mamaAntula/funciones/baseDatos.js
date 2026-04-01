@@ -34,17 +34,17 @@ export default {
 			.findAll()
 			.then((n) => n.map((m) => m.toJSON()))
 			.then((n) => n.map((m) => m.id));
+		const regsSet = new Set(regsId);
 		let nuevoRegistro;
 
 		// Guarda el registro usando el primer 'id' disponible
 		let contador = 0;
 		while (true) {
+			// Variables
 			contador++;
-			if (
-				regsId.includes(contador) || // ya existe un registro con el id del contador
-				(await bd[entidad].findByPk(contador)) // ya se creó un registro con el id del contador
-			)
-				continue;
+
+			// Si ya existe un registro con el id del contador, saltea la rutina
+			if (regsSet.has(contador)) continue;
 
 			// Intenta crear el registro
 			try {
