@@ -1,5 +1,6 @@
 {
 	"name": "mamaantula",
+	"description": "Portal web de la Familia de Mama Antula",
 	"version": "1.00",
 	"main": "app.js",
 	"type": "module",
@@ -9,7 +10,6 @@
 	"keywords": [],
 	"author": "Diego Iribarren",
 	"license": "ISC",
-	"description": "Portal web de la Familia de Mama Antula",
 	"dependencies": {
 		"@fortawesome/fontawesome-free": "^7.1.0",
 		"async": "^3.2.6",
