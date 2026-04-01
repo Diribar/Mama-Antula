@@ -267,9 +267,13 @@ export default {
 		if (originalUrl.includes("/api/")) return true;
 		if (originalUrl.includes(".")) return true;
 
-		// Se desconoce la dirección
+		// Si se desconoce la dirección
 		const urlSecciones = seccionesLectura.map((n) => "/" + n.url);
-		if (!urlSecciones.some((n) => originalUrl.startsWith(n)) && originalUrl != "/") return true; // es una url desconocida
+		if (
+			urlSecciones.every((n) => !originalUrl.startsWith(n)) && // ninguna sección conocida es el comienzo del url
+			originalUrl != "/" // el url no es home
+		)
+			return true;
 
 		// Se desconoce el origen
 		if (!headers["user-agent"]) return true;
