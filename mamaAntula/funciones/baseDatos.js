@@ -27,7 +27,7 @@ export default {
 			.then((n) => (n.length ? n[0] : null)),
 
 	// ABM
-	agregaRegistro: (entidad, datos) => bd[entidad].create(datos).then((n) => n.toJSON()),
+	agregaRegistro: (entidad, datos) => bd[entidad].create(datos).then((n) => n && n.toJSON()),
 	agregaRegistroIdCorrel: async function (entidad, datos) {
 		// Variables
 		const regsId = await this.obtieneTodos(entidad).then((n) => n.map((m) => m.id));
@@ -55,7 +55,6 @@ export default {
 		}
 
 		// Fin
-		nuevoRegistro = nuevoRegistro ? nuevoRegistro.toJSON() : {};
 		return nuevoRegistro;
 	},
 	agregaActualizaPorCondicion: async (entidad, condicion, datos) => {
