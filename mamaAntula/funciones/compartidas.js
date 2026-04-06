@@ -268,9 +268,11 @@ export default {
 		if (originalUrl.includes(".")) return true;
 
 		// Si se desconoce la dirección
-		const urlSecciones = seccionesLectura.map((n) => "/" + n.url);
+		const urlsSecciones = seccionesLectura.map((n) => "/" + n.url);
+		const urlsIconosAgrupados = iconosAgrupados.filter((n) => n.codigo && n.link).map((n) => n.link);
+		const urlsAceptados = [...urlsSecciones, ...urlsIconosAgrupados];
 		if (
-			urlSecciones.every((n) => !originalUrl.startsWith(n)) && // ninguna sección conocida es el comienzo del url
+			urlsAceptados.every((n) => !originalUrl.startsWith(n)) && // el comienzo del url es desconocido
 			originalUrl != "/" // el url no es home
 		)
 			return true;
