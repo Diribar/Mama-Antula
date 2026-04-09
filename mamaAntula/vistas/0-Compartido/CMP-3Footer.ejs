@@ -35,7 +35,7 @@
 
 <!-- Redes -->
 <div class="iconos">
-	<% for (const icono of iconosAgrups.filter(n => !n.codigo)) { %>
+	<% for (const icono of iconosAgrups.filter(n => n.grupo == "redes")) { %>
 		<a href="//<%= icono.link %>" target="_blank" title="<%= icono.nombre %>" rel="noopener noreferrer">
 			<i class="fa-brands <%= icono.clase %> scaleHover"></i>
 		</a>
