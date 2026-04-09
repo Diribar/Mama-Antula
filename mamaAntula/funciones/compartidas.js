@@ -269,7 +269,7 @@ export default {
 
 		// Si se desconoce la dirección, interrumpe la función
 		const urlsSecciones = seccionesLectura.map((n) => "/" + n.url);
-		const urlsIconosAgrups = iconosAgrups.filter((n) => n.codigo && n.link).map((n) => "/" + n.link);
+		const urlsIconosAgrups = iconosAgrups.filter((n) => n.codigo && n.link).map((n) => "/" + n.link); // grupos 'edicion' y 'capacitac'
 		const urlsAceptados = [...urlsSecciones, ...urlsIconosAgrups];
 		if (urlsAceptados.every((n) => !originalUrl.startsWith(n)) && originalUrl != "/") return true;
 
