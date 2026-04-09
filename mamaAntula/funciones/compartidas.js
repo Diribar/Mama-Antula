@@ -1,6 +1,6 @@
 "use strict";
 
-// Definir variables
+// Variables
 import nodemailer from "nodemailer";
 
 // Exportar
@@ -260,16 +260,23 @@ export default {
 		return baseDatos.obtienePorCondicion("usuarios", {email}, include);
 	},
 	omitirMiddlewsTransv: (req) => {
+		// Variables
+		const {originalUrl, headers} = req;
+
 		// Si es un url irrelevante
-		if (req.originalUrl.includes("/api/")) return true;
-		if (req.originalUrl.includes(".")) return true;
+		if (originalUrl.includes("/api/")) return true;
+		if (originalUrl.includes(".")) return true;
+
+		// Se desconoce la dirección
+		const urlSecciones = seccionesLectura.map((n) => "/" + n.url);
+		if (!urlSecciones.some((n) => originalUrl.startsWith(n)) && originalUrl != "/") return true; // es una url desconocida
 
 		// Se desconoce el origen
-		if (!req.headers["user-agent"]) return true;
+		if (!headers["user-agent"]) return true;
 
 		// Es una aplicación conocida que no es de navegación, pero que muestra datos del url visitado
 		const requestsTriviales = ["WhatsApp", "Postman", "TelegramBot", "TwitterBot", "Zabbix"];
-		if (requestsTriviales.some((n) => req.headers["user-agent"].startsWith(n))) return true;
+		if (requestsTriviales.some((n) => headers["user-agent"].startsWith(n))) return true;
 
 		// Fin
 		return false;

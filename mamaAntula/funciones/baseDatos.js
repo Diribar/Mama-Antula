@@ -34,28 +34,30 @@ export default {
 			.findAll()
 			.then((n) => n.map((m) => m.toJSON()))
 			.then((n) => n.map((m) => m.id));
+		const regsSet = new Set(regsId);
 		let nuevoRegistro;
 
 		// Guarda el registro usando el primer 'id' disponible
-		let contador = 1;
-		for (const regId of regsId) {
-			if (
-				regId != contador && // id sin registro creado
-				!(await bd[entidad].findByPk(contador).then((n) => !!n)) // se asegura de que no se haya creado durante la rutina
-			) {
+		let contador = 0;
+		while (contador < (regsId.at(-1) || 0) + 100) {
+			// Variables
+			contador++;
+
+			// Si ya existe un registro con el id del contador, saltea la rutina
+			if (regsSet.has(contador)) continue;
+
+			// Intenta crear el registro
+			try {
 				nuevoRegistro = await bd[entidad].create({id: contador, ...datos}); // lo crea
 				break;
-			} else contador++;
-		}
-
-		// Si no se guardó, lo guarda
-		if (!nuevoRegistro) {
-			datos.id = contador;
-			nuevoRegistro = await bd[entidad].create(datos); // crea
+			} catch (error) {
+				console.log(54, entidad, contador, datos);
+				console.error("Error al crear registro:", error);
+			}
 		}
 
 		// Fin
-		nuevoRegistro = nuevoRegistro.toJSON();
+		nuevoRegistro = nuevoRegistro ? nuevoRegistro.toJSON() : {};
 		return nuevoRegistro;
 	},
 	agregaActualizaPorCondicion: async (entidad, condicion, datos) => {
