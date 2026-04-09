@@ -6,7 +6,7 @@ export default {
 	revisar: async (req, res) => {
 		// Variables
 		const codigoVista = "revisar";
-		const tituloPagina = iconosAgrupados.find((n) => n.codigo == temaVista)?.nombre;
+		const tituloPagina = iconosAgrups.find((n) => n.codigo == temaVista)?.nombre;
 		const {usuario} = req.session;
 		let encabezado, cambioStatusEncab, edicion, cambioStatusCont;
 

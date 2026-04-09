@@ -26,7 +26,7 @@ export default {
 	cambioRol: async (req, res) => {
 		// Variables
 		const codigoVista = "cambioRol";
-		const tituloPagina = iconosAgrupados.find((n) => n.codigo == codigoVista).nombre;
+		const tituloPagina = iconosAgrups.find((n) => n.codigo == codigoVista).nombre;
 		const imagenes = procesos.obtieneImagenesAlAzar();
 
 		// Usuarios

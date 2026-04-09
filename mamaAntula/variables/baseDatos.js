@@ -28,7 +28,7 @@ export default {
 
 			// Otros
 			lugaresExpers: baseDatos.obtieneTodosConOrden("lugaresExpers", "nombre"),
-			iconosAgrupados: baseDatos.obtieneTodosConOrden("iconosAgrupados", "orden").then((n) => n.filter((m) => m.activo)),
+			iconosAgrups: baseDatos.obtieneTodosPorCondicion("iconosAgrups", {activo: true}),
 			statusRegistros: baseDatos.obtieneTodos("statusRegistros"),
 			novsDelSitio: baseDatos.obtieneTodosConOrden("novsDelSitio", "fecha"),
 		};

@@ -267,15 +267,13 @@ export default {
 		if (originalUrl.includes("/api/")) return true;
 		if (originalUrl.includes(".")) return true;
 
-		// Si se desconoce la dirección
+		// Variables
 		const urlsSecciones = seccionesLectura.map((n) => "/" + n.url);
-		const urlsIconosAgrupados = iconosAgrupados.filter((n) => n.codigo && n.link).map((n) => n.link);
+		const urlsIconosAgrupados = iconosAgrups.filter((n) => n.codigo && n.link).map((n) => "/" + n.link);
 		const urlsAceptados = [...urlsSecciones, ...urlsIconosAgrupados];
-		if (
-			urlsAceptados.every((n) => !originalUrl.startsWith(n)) && // el comienzo del url es desconocido
-			originalUrl != "/" // el url no es home
-		)
-			return true;
+
+		// Si se desconoce la dirección, interrumpe la función
+		if (urlsAceptados.every((n) => !originalUrl.startsWith(n)) && originalUrl != "/") return true;
 
 		// Se desconoce el origen
 		if (!headers["user-agent"]) return true;

@@ -25,7 +25,7 @@
 <!-- Otros -->
 <% if (locals.usuario && usuario.rol.actualizac) { %>
 	<div id="rolesVip" class="iconos">
-		<% for (const icono of iconosAgrupados.filter(n => n.codigo)) { %>
+		<% for (const icono of iconosAgrups.filter(n => n.grupo == "edicion")) { %>
 			<% const muestraLectura = icono.codigo == "lectura" && ["actualizaArtics", "revisaArtics"].includes(locals.temaVista) %>
 			<% const muestraEdicion = icono.codigo == "actualizaArtics" && usuario.rol.actualizac && locals.temaVista != "actualizaArtics" %>
 			<% const muestraRevision = icono.codigo == "revisaArtics" && usuario.rol.revision && locals.temaVista != "revisaArtics" %>
@@ -45,7 +45,7 @@
 
 <!-- Redes -->
 <div class="iconos">
-	<% for (const icono of iconosAgrupados.filter(n => !n.codigo)) { %>
+	<% for (const icono of iconosAgrups.filter(n => !n.codigo)) { %>
 		<a href="<%= icono.link %>" target="_blank" title="<%= icono.nombre %>" rel="noopener noreferrer">
 			<i class="fa-brands <%= icono.clase %> scaleHover"></i>
 		</a>
