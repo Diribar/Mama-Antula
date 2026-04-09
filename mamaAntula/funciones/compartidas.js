@@ -267,12 +267,10 @@ export default {
 		if (originalUrl.includes("/api/")) return true;
 		if (originalUrl.includes(".")) return true;
 
-		// Variables
+		// Si se desconoce la dirección, interrumpe la función
 		const urlsSecciones = seccionesLectura.map((n) => "/" + n.url);
 		const urlsIconosAgrupados = iconosAgrups.filter((n) => n.codigo && n.link).map((n) => "/" + n.link);
 		const urlsAceptados = [...urlsSecciones, ...urlsIconosAgrupados];
-
-		// Si se desconoce la dirección, interrumpe la función
 		if (urlsAceptados.every((n) => !originalUrl.startsWith(n)) && originalUrl != "/") return true;
 
 		// Se desconoce el origen
