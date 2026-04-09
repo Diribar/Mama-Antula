@@ -27,18 +27,16 @@ export default {
 			.then((n) => (n.length ? n[0] : null)),
 
 	// ABM
-	agregaRegistro: (entidad, datos) => bd[entidad].create(datos).then((n) => n.toJSON()),
-	agregaRegistroIdCorrel: async (entidad, datos) => {
+	agregaRegistro: (entidad, datos) => bd[entidad].create(datos).then((n) => n && n.toJSON()),
+	agregaRegistroIdCorrel: async function (entidad, datos) {
 		// Variables
-		const regsId = await bd[entidad]
-			.findAll()
-			.then((n) => n.map((m) => m.toJSON()))
-			.then((n) => n.map((m) => m.id));
+		const regsId = await this.obtieneTodos(entidad).then((n) => n.map((m) => m.id));
 		const regsSet = new Set(regsId);
 		let nuevoRegistro;
 
 		// Guarda el registro usando el primer 'id' disponible
 		let contador = 0;
+		// El contador recorre hasta 100 más que el último registro, por si se hubieran creado registros desde la lectura
 		while (contador < (regsId.at(-1) || 0) + 100) {
 			// Variables
 			contador++;
@@ -48,7 +46,7 @@ export default {
 
 			// Intenta crear el registro
 			try {
-				nuevoRegistro = await bd[entidad].create({id: contador, ...datos}); // lo crea
+				nuevoRegistro = await this.agregaRegistro(entidad, {id: contador, ...datos}); // lo crea
 				break;
 			} catch (error) {
 				console.log(54, entidad, contador, datos);
@@ -57,7 +55,6 @@ export default {
 		}
 
 		// Fin
-		nuevoRegistro = nuevoRegistro ? nuevoRegistro.toJSON() : {};
 		return nuevoRegistro;
 	},
 	agregaActualizaPorCondicion: async (entidad, condicion, datos) => {

@@ -3,36 +3,26 @@
 </div>
 
 <div class="iconos">
-	<!-- Contactanos -->
-	<a href="/contactanos" tabindex="-1">
-		<i class="fa-solid fa-envelope" title="Contactanos"></i>
-	</a>
-
-	<!-- Videos -->
-	<a href="/videos" title="Videos de capacitación">
-		<i class="fa-solid fa-video"></i>
-	</a>
-
-	<% if (locals.usuario && usuario.rol.actualizac) { %>
-		<!-- Biblioteca -->
-		<a href="/biblioteca" title="Biblioteca" class="ocultar768">
-			<i class="fa-solid fa-book-medical"></i>
-		</a>
+	<% for (const icono of iconosAgrups.filter(n => n.grupo == "capacitac")) { %>
+		<% if (icono.codigo != "biblioteca" || locals.usuario && usuario.rol.actualizac) { %>
+			<a href="/<%= icono.link %>" tabindex="-1" <% if (icono.codigo == "biblioteca") {%>class="ocultar768"<% } %>>
+				<i class="fa-solid <%= icono.clase %>" title="<%= icono.nombre %>" ></i>
+			</a>
+		<% } %>
 	<% } %>
-
 </div>
 
-<!-- Otros -->
 <% if (locals.usuario && usuario.rol.actualizac) { %>
+	<!-- Edición -->
 	<div id="rolesVip" class="iconos">
-		<% for (const icono of iconosAgrupados.filter(n => n.codigo)) { %>
+		<% for (const icono of iconosAgrups.filter(n => n.grupo == "edicion")) { %>
 			<% const muestraLectura = icono.codigo == "lectura" && ["actualizaArtics", "revisaArtics"].includes(locals.temaVista) %>
 			<% const muestraEdicion = icono.codigo == "actualizaArtics" && usuario.rol.actualizac && locals.temaVista != "actualizaArtics" %>
 			<% const muestraRevision = icono.codigo == "revisaArtics" && usuario.rol.revision && locals.temaVista != "revisaArtics" %>
 			<% const muestraCambioRol = icono.codigo == "cambioRol" && usuario.rol.cambioRol && locals.codigoVista != "cambioRol" %>
 			<% if (muestraLectura || muestraEdicion || muestraRevision || muestraCambioRol) { %>
 				<a
-					href="<%= icono.link || locals.anchorLectura || '' %>"
+					href="/<%= icono.link || locals.anchorLectura || '' %>"
 					id="<%= icono.codigo %>" title="<%= icono.nombre %>"
 					<% if (muestraEdicion) { %> class="ocultar768"<% } %>
 				>
@@ -45,8 +35,8 @@
 
 <!-- Redes -->
 <div class="iconos">
-	<% for (const icono of iconosAgrupados.filter(n => !n.codigo)) { %>
-		<a href="<%= icono.link %>" target="_blank" title="<%= icono.nombre %>" rel="noopener noreferrer">
+	<% for (const icono of iconosAgrups.filter(n => n.grupo == "redes")) { %>
+		<a href="//<%= icono.link %>" target="_blank" title="<%= icono.nombre %>" rel="noopener noreferrer">
 			<i class="fa-brands <%= icono.clase %> scaleHover"></i>
 		</a>
 	<% } %>

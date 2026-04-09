@@ -4,7 +4,7 @@ const temaVista = "actualizaArtics";
 export default {
 	actualizar: async (req, res) => {
 		// Variables
-		const tituloPagina = iconosAgrupados.find((n) => n.codigo == temaVista)?.nombre;
+		const tituloPagina = iconosAgrups.find((n) => n.codigo == temaVista)?.nombre;
 
 		// Fin
 		return res.render("CMP-0Estructura", {
